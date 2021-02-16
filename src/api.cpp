@@ -1,9 +1,5 @@
 #include "api.h"
 
-#ifdef ESP32_LIB_MODULE_MQTT
-#include "modules/mqtt/mqtt.h"
-#endif
-
 #include "SPIFFS.h"
 #include "bindings/hal_common.h"
 #include "bindings/errors.h"
@@ -11,16 +7,9 @@
 #include "event_log.h"
 #include "task_scheduler.h"
 
-#ifdef ESP32_LIB_MODULE_MQTT
-extern Mqtt mqtt;
-#endif
-
-extern TaskScheduler task_scheduler;
-extern AsyncWebServer server;
-extern AsyncEventSource events;
-
 extern TF_HalContext hal;
 
+extern TaskScheduler task_scheduler;
 extern EventLog logger;
 
 void API::setup()
@@ -30,32 +19,11 @@ void API::setup()
 
 void API::addCommand(String path, Config *config, std::initializer_list<String> keys_to_censor_in_debug_report, std::function<void(void)> callback)
 {
-    #ifdef ESP32_LIB_MODULE_MQTT
-        mqtt.subscribe(path, config->json_size(), [config, path, callback](String payload){
-            String error = config->update_from_string(payload);
-            if(error == "")
-                task_scheduler.scheduleOnce((String("notify command update for ") + path).c_str(), [callback](){callback();}, 0);
-            else
-                logger.printfln("%s", error.c_str());
-        });
-    #endif
-
-    if(use_http) {
-        AsyncCallbackJsonWebHandler *handler = new AsyncCallbackJsonWebHandler(String("/") + path, [config, path, callback](AsyncWebServerRequest *request, JsonVariant &json){
-            String message = config->update_from_json(json);
-
-            task_scheduler.scheduleOnce((String("notify command update for ") + path).c_str(), [callback](){callback();}, 0);
-
-            if (message == "") {
-                request->send(200, "text/html", "");
-            } else {
-                request->send(400, "text/html", message);
-            }
-        });
-        server.addHandler(handler);
-    }
-
     commands.push_back({path, config, callback, keys_to_censor_in_debug_report});
+
+    for (auto* backend: this->backends) {
+        backend->addCommand(commands[commands.size() - 1]);
+    }
 }
 
 void API::addState(String path, Config *config, std::initializer_list<String> keys_to_censor, uint32_t interval_ms)
@@ -66,25 +34,20 @@ void API::addState(String path, Config *config, std::initializer_list<String> ke
     task_scheduler.scheduleWithFixedDelay((String("state ") + path).c_str(), [this, path, config, keys]() {
         if(!config->was_updated())
             return;
+
         config->set_update_handled();
 
         String payload = config->to_string_except(keys);
-        #ifdef ESP32_LIB_MODULE_MQTT
-            mqtt.publish(path, payload);
-        #endif
-        if(use_sse)
-            events.send(payload.c_str(), path.c_str(), millis());
+
+        for (auto* backend: this->backends) {
+            backend->pushStateUpdate(payload, path);
+        }
     }, interval_ms, interval_ms);
 
-    if(use_http) {
-        server.on((String("/") + path).c_str(), HTTP_GET, [config, keys](AsyncWebServerRequest *request) {
-            auto *response = request->beginResponseStream("application/json; charset=utf-8");
-            config->write_to_stream_except(*response, keys);
-            request->send(response);
-        });
-    }
-
     states.push_back({path, config, keys});
+    for (auto* backend: this->backends) {
+        backend->addState(states[states.size() - 1]);
+    }
 }
 
 void API::addPersistentConfig(String path, Config *config, std::initializer_list<String> keys_to_censor, uint32_t interval_ms)
@@ -116,36 +79,9 @@ void API::addTemporaryConfig(String path, Config *config, std::initializer_list<
     addCommand(path + String("_update"), config, callback);
 }
 */
-void API::onEventConnect(AsyncEventSourceClient *client)
-{
-    for(auto &reg : states) {
-        client->send(reg.config->to_string_except(reg.keys_to_censor).c_str(), reg.path.c_str(), millis(), 1000);
-    }
-}
 
-void API::onMqttConnect()
-{
-    #ifdef ESP32_LIB_MODULE_MQTT
-    // Do the publishing in the "main thread". Otherwise this would be a race condition with the publishing in addState.
-    task_scheduler.scheduleOnce("onMqttConnect", [this](){
-        for(auto &reg : commands) {
-            mqtt.subscribe(reg.path, reg.config->json_size(), [reg](String payload){
-                String error = reg.config->update_from_string(payload);
-                if(error == "")
-                    task_scheduler.scheduleOnce((String("notify command update for ") + reg.path).c_str(), [reg](){reg.callback();}, 0);
-                else
-                    logger.printfln("%s", error.c_str());
-            });
-        }
-        for(auto &reg : states) {
-            mqtt.publish(reg.path, reg.config->to_string_except(reg.keys_to_censor));
-        }
-    }, 0);
-    #endif
-}
-
-void API::registerDebugUrl() {
-    server.on("/debug_report", HTTP_GET, [this](AsyncWebServerRequest *request) {
+void API::registerDebugUrl(AsyncWebServer *server) {
+    server->on("/debug_report", HTTP_GET, [this](AsyncWebServerRequest *request) {
 
         String result = "{\"uptime\": ";
         result += String(millis());
@@ -198,4 +134,9 @@ void API::registerDebugUrl() {
         result += "}";
         request->send(200, "application/json; charset=utf-8", result);
     });
+}
+
+void API::registerBackend(IAPIBackend *backend)
+{
+    backends.push_back(backend);
 }

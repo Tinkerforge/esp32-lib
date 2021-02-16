@@ -24,9 +24,17 @@ struct CommandRegistration {
 };
 
 
+class IAPIBackend {
+public:
+    virtual void addCommand(CommandRegistration reg) = 0;
+    virtual void addState(StateRegistration reg) = 0;
+    virtual void pushStateUpdate(String payload, String path) = 0;
+};
+
+
 class API {
 public:
-    API(bool use_mqtt, bool use_sse, bool use_http) : use_mqtt(use_mqtt), use_sse(use_sse), use_http(use_http) {}
+    API() {}
 
     void setup();
 
@@ -35,16 +43,12 @@ public:
     void addPersistentConfig(String path, Config *config, std::initializer_list<String> keys_to_censor, uint32_t interval_ms);
     //void addTemporaryConfig(String path, Config *config, std::initializer_list<String> keys_to_censor, uint32_t interval_ms, std::function<void(void)> callback);
 
-    void onEventConnect(AsyncEventSourceClient *client);
-    void onMqttConnect();
+    void registerDebugUrl(AsyncWebServer *server);
 
-    void registerDebugUrl();
-
-private:
-    bool use_mqtt;
-    bool use_sse;
-    bool use_http;
+    void registerBackend(IAPIBackend *backend);
 
     std::vector<StateRegistration> states;
     std::vector<CommandRegistration> commands;
+
+    std::vector<IAPIBackend *> backends;
 };
