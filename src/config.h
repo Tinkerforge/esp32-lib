@@ -19,23 +19,23 @@ struct Config {
     };
 
     struct ConfFloat {
-        double value;
-        double min;
-        double max;
+        float value;
+        float min;
+        float max;
         String(*validator)(const ConfFloat &);
     };
 
     struct ConfInt {
-        int64_t value;
-        int64_t min;
-        int64_t max;
+        int32_t value;
+        int32_t min;
+        int32_t max;
         String(*validator)(const ConfInt &);
     };
 
     struct ConfUint {
-        uint64_t value;
-        uint64_t min;
-        uint64_t max;
+        uint32_t value;
+        uint32_t min;
+        uint32_t max;
         String(*validator)(const ConfUint &);
     };
 
@@ -97,9 +97,9 @@ struct Config {
                           return String(String("String of maximum length ") + s.maxChars + " was expected, but got " + s.value.length());
                     });
 
-    static Config Float(double d,
-                        double min = std::numeric_limits<double>::lowest(),
-                        double max = std::numeric_limits<double>::max(),
+    static Config Float(float d,
+                        float min = std::numeric_limits<float>::lowest(),
+                        float max = std::numeric_limits<float>::max(),
                         String(*validator)(const ConfFloat &) = [](const ConfFloat &f) {
                             if(f.value < f.min)
                                 return String(String("Float value ") + f.value + " was less than the allowed minimum of " + f.min);
@@ -108,9 +108,9 @@ struct Config {
                             return String("");
                         });
 
-    static Config Int(int64_t i,
-                      int64_t min = std::numeric_limits<int64_t>::lowest(),
-                      int64_t max = std::numeric_limits<int64_t>::max(),
+    static Config Int(int32_t i,
+                      int32_t min = std::numeric_limits<int32_t>::lowest(),
+                      int32_t max = std::numeric_limits<int32_t>::max(),
                       String(*validator)(const ConfInt &) = [](const ConfInt &f) {
                         if(f.value < f.min)
                             //return String(String("Integer value ") + f.value + " was less than the allowed minimum of " + f.min);
@@ -121,9 +121,9 @@ struct Config {
                         return String("");
                       });
 
-    static Config Uint(uint64_t u,
-                       uint64_t min = std::numeric_limits<uint64_t>::lowest(),
-                       uint64_t max = std::numeric_limits<uint64_t>::max(),
+    static Config Uint(uint32_t u,
+                       uint32_t min = std::numeric_limits<uint32_t>::lowest(),
+                       uint32_t max = std::numeric_limits<uint32_t>::max(),
                        String(*validator)(const ConfUint &) = [](const ConfUint &f) {
                             if(f.value < f.min)
                                 //return String(String("Unsigned integer value ") + f.value + " was less than the allowed minimum of " + f.min);
@@ -165,7 +165,7 @@ struct Config {
 
     static Config Uint32(uint32_t u);
 
-    static Config Uint64(uint64_t u);
+    static Config Uint64(uint32_t u);
 
     static Config Int8(int8_t i);
 
@@ -173,7 +173,7 @@ struct Config {
 
     static Config Int32(int32_t i);
 
-    static Config Int64(int64_t i);
+    static Config Int64(int32_t i);
 
     Config *get(String s);
 
@@ -242,11 +242,11 @@ struct Config {
 
     const char *asCStr();
 
-    const double &asFloat();
+    const float &asFloat();
 
-    const uint64_t &asUint();
+    const uint32_t &asUint();
 
-    const int64_t &asInt();
+    const int32_t &asInt();
 
     const bool &asBool();
 
@@ -273,16 +273,16 @@ struct Config {
         return update_value<String, ConfString>(value);
     }
 
-    bool updateInt(int64_t value) {
-        return update_value<int64_t, ConfInt>(value);
+    bool updateInt(int32_t value) {
+        return update_value<int32_t, ConfInt>(value);
     }
 
-    bool updateUint(uint64_t value) {
-        return update_value<uint64_t, ConfUint>(value);
+    bool updateUint(uint32_t value) {
+        return update_value<uint32_t, ConfUint>(value);
     }
 
-    bool updateFloat(double value) {
-        return update_value<double, ConfFloat>(value);
+    bool updateFloat(float value) {
+        return update_value<float, ConfFloat>(value);
     }
 
     bool updateBool(bool value) {
@@ -313,17 +313,17 @@ struct Config {
         return toWrite;
     }
 
-    size_t fillFloatArray(double *arr, size_t elements);
+    size_t fillFloatArray(float *arr, size_t elements);
 
     size_t fillUint8Array(uint8_t *arr, size_t elements);
     size_t fillUint16Array(uint16_t *arr, size_t elements);
     size_t fillUint32Array(uint32_t *arr, size_t elements);
-    size_t fillUint64Array(uint64_t *arr, size_t elements);
+    size_t fillUint64Array(uint32_t *arr, size_t elements);
 
     size_t fillInt8Array(int8_t *arr, size_t elements);
     size_t fillInt16Array(int16_t *arr, size_t elements);
     size_t fillInt32Array(int32_t *arr, size_t elements);
-    size_t fillInt64Array(int64_t *arr, size_t elements);
+    size_t fillInt64Array(int32_t *arr, size_t elements);
 /*
     template<typename T, typename ConfigT>
     void fromArray(T *arr, size_t elements) {

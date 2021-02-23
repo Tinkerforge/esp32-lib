@@ -2,9 +2,9 @@
 
 struct printer {
   void operator()(const Config::ConfString &x) const { Serial.println("string"); }
-  void operator()(const Config::ConfFloat &x) const { Serial.println("double"); }
-  void operator()(const Config::ConfInt &x) const { Serial.println("int64_t"); }
-  void operator()(const Config::ConfUint &x) const { Serial.println("uint64_t"); }
+  void operator()(const Config::ConfFloat &x) const { Serial.println("float"); }
+  void operator()(const Config::ConfInt &x) const { Serial.println("int32_t"); }
+  void operator()(const Config::ConfUint &x) const { Serial.println("uint32_t"); }
   void operator()(const Config::ConfBool &x) const { Serial.println("bool"); }
   void operator()(std::nullptr_t x) const { Serial.println("std::nullptr_t"); }
   void operator()(const Config::ConfArray &x) const {
@@ -168,34 +168,34 @@ struct from_json {
         if(json_node.isNull())
             return x.validator(x);
 
-        if(!json_node.is<double>())
+        if(!json_node.is<float>())
             return "JSON node was not a float.";
 
         // We don't allow setting float config values from an integer
         // to make sure, no additional rounding occurres.
         // To set a float config value to an integer value, for example 123.0 has to be used.
-        if(json_node.is<uint64_t>() || json_node.is<int64_t>())
+        if(json_node.is<uint32_t>() || json_node.is<int32_t>())
             return "JSON node was an integer. Please use f.e. 123.0 to set a float node to an integer value.";
 
-        x.value = json_node.as<double>();
+        x.value = json_node.as<float>();
         return x.validator(x);
     }
     String operator()(Config::ConfInt &x) {
         if(json_node.isNull())
             return x.validator(x);
 
-        if(!json_node.is<int64_t>())
+        if(!json_node.is<int32_t>())
             return "JSON node was not a signed integer.";
-        x.value = json_node.as<int64_t>();
+        x.value = json_node.as<int32_t>();
         return x.validator(x);
     }
     String operator()(Config::ConfUint &x) {
         if(json_node.isNull())
             return x.validator(x);
 
-        if(!json_node.is<uint64_t>())
+        if(!json_node.is<uint32_t>())
             return "JSON node was not an unsigned integer.";
-        x.value = json_node.as<uint64_t>();
+        x.value = json_node.as<uint32_t>();
         return x.validator(x);
     }
     String operator()(Config::ConfBool &x) {
@@ -315,23 +315,23 @@ Config Config::Str(String s,
     return Config{ConfString{s, maxChars == 0 ? s.length() : maxChars, validator}, true};
 }
 
-Config Config::Float(double d,
-                     double min,
-                     double max,
+Config Config::Float(float d,
+                     float min,
+                     float max,
                      String(*validator)(const ConfFloat &)) {
     return Config{ConfFloat{d, min, max, validator}, true};
 }
 
-Config Config::Int(int64_t i,
-                      int64_t min,
-                      int64_t max,
+Config Config::Int(int32_t i,
+                      int32_t min,
+                      int32_t max,
                       String(*validator)(const ConfInt &)) {
     return Config{ConfInt{i, min, max, validator}, true};
 }
 
-Config Config::Uint(uint64_t u,
-                       uint64_t min,
-                       uint64_t max,
+Config Config::Uint(uint32_t u,
+                       uint32_t min,
+                       uint32_t max,
                        String(*validator)(const ConfUint &)) {
     return Config{ConfUint{u, min, max, validator}, true};
 }
@@ -369,8 +369,8 @@ Config Config::Uint32(uint32_t u) {
         return Config::Uint(u, std::numeric_limits<uint32_t>::lowest(), std::numeric_limits<uint32_t>::max());
     }
 
-Config Config::Uint64(uint64_t u) {
-        return Config::Uint(u, std::numeric_limits<uint64_t>::lowest(), std::numeric_limits<uint64_t>::max());
+Config Config::Uint64(uint32_t u) {
+        return Config::Uint(u, std::numeric_limits<uint32_t>::lowest(), std::numeric_limits<uint32_t>::max());
     }
 
 Config Config::Int8(int8_t i) {
@@ -385,8 +385,8 @@ Config Config::Int32(int32_t i) {
     return Config::Int(i, std::numeric_limits<int32_t>::lowest(), std::numeric_limits<int32_t>::max());
 }
 
-Config Config::Int64(int64_t i) {
-    return Config::Int(i, std::numeric_limits<int64_t>::lowest(), std::numeric_limits<int64_t>::max());
+Config Config::Int64(int32_t i) {
+    return Config::Int(i, std::numeric_limits<int32_t>::lowest(), std::numeric_limits<int32_t>::max());
 }
 
 Config *Config::get(String s) {
@@ -424,16 +424,16 @@ const String &Config::asString() {
     return *as<String, Config::ConfString>();
 }
 
-const double &Config::asFloat() {
-    return *as<double, Config::ConfFloat>();
+const float &Config::asFloat() {
+    return *as<float, Config::ConfFloat>();
 }
 
-const uint64_t &Config::asUint() {
-    return *as<uint64_t, Config::ConfUint>();
+const uint32_t &Config::asUint() {
+    return *as<uint32_t, Config::ConfUint>();
 }
 
-const int64_t &Config::asInt() {
-    return *as<int64_t, Config::ConfInt>();
+const int32_t &Config::asInt() {
+    return *as<int32_t, Config::ConfInt>();
 }
 
 const bool &Config::asBool() {
@@ -445,8 +445,8 @@ std::vector<Config>& Config::asArray()
     return *as<std::vector<Config>, Config::ConfArray>();
 }
 
-size_t Config::fillFloatArray(double *arr, size_t elements) {
-    return fillArray<double, Config::ConfFloat>(arr, elements);
+size_t Config::fillFloatArray(float *arr, size_t elements) {
+    return fillArray<float, Config::ConfFloat>(arr, elements);
 }
 
 
@@ -475,12 +475,12 @@ size_t Config::fillInt32Array(int32_t *arr, size_t elements) {
     return fillArray<int32_t, Config::ConfInt>(arr, elements);
 }
 
-size_t Config::fillUint64Array(uint64_t *arr, size_t elements) {
-    return fillArray<uint64_t, Config::ConfUint>(arr, elements);
+size_t Config::fillUint64Array(uint32_t *arr, size_t elements) {
+    return fillArray<uint32_t, Config::ConfUint>(arr, elements);
 }
 
-size_t Config::fillInt64Array(int64_t *arr, size_t elements) {
-    return fillArray<int64_t, Config::ConfInt>(arr, elements);
+size_t Config::fillInt64Array(int32_t *arr, size_t elements) {
+    return fillArray<int32_t, Config::ConfInt>(arr, elements);
 }
 
 size_t Config::json_size() {
