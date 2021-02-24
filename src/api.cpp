@@ -140,3 +140,42 @@ void API::registerBackend(IAPIBackend *backend)
 {
     backends.push_back(backend);
 }
+
+bool API::attemptReconnect(const char *caller) {
+    if(reconnect_in_progress)
+        return false;
+
+    //logger.printfln("%s setting flag.", caller);
+    reconnect_in_progress = true;
+    last_attempt = millis();
+    if(last_attempt == 0)
+        last_attempt == 1;
+
+    return true;
+}
+
+void API::loop()
+{
+    if (last_attempt == 0)
+        return;
+    if (!deadline_elapsed(last_attempt + 30000))
+        return;
+
+    reconnectDone("api loop fallback");
+}
+
+void API::reconnectDone(const char *caller)
+{
+    //logger.printfln("%s clearing flag.", caller);
+    reconnect_in_progress = false;
+    last_attempt = 0;
+}
+
+void API::wifiAvailable()
+{
+    task_scheduler.scheduleOnce("wifi_available", [this](){
+        for (auto* backend: this->backends) {
+            backend->wifiAvailable();
+        }
+    }, 1000);
+}

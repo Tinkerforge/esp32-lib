@@ -29,6 +29,7 @@ public:
     virtual void addCommand(CommandRegistration reg) = 0;
     virtual void addState(StateRegistration reg) = 0;
     virtual void pushStateUpdate(String payload, String path) = 0;
+    virtual void wifiAvailable() = 0;
 };
 
 
@@ -37,6 +38,7 @@ public:
     API() {}
 
     void setup();
+    void loop();
 
     void addCommand(String path, Config *config, std::initializer_list<String> keys_to_censor_in_debug_report, std::function<void(void)> callback);
     void addState(String path, Config *config, std::initializer_list<String> keys_to_censor, uint32_t interval_ms);
@@ -46,6 +48,12 @@ public:
     void registerDebugUrl(AsyncWebServer *server);
 
     void registerBackend(IAPIBackend *backend);
+
+    bool reconnect_in_progress;
+    uint32_t last_attempt = 0;
+    bool attemptReconnect(const char*);
+    void reconnectDone(const char*);
+    void wifiAvailable();
 
     std::vector<StateRegistration> states;
     std::vector<CommandRegistration> commands;
