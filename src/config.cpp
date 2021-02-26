@@ -388,10 +388,6 @@ Config Config::Uint32(uint32_t u) {
         return Config::Uint(u, std::numeric_limits<uint32_t>::lowest(), std::numeric_limits<uint32_t>::max());
     }
 
-Config Config::Uint64(uint32_t u) {
-        return Config::Uint(u, std::numeric_limits<uint32_t>::lowest(), std::numeric_limits<uint32_t>::max());
-    }
-
 Config Config::Int8(int8_t i) {
         return Config::Int(i, std::numeric_limits<int8_t>::lowest(), std::numeric_limits<int8_t>::max());
     }
@@ -401,10 +397,6 @@ Config Config::Int16(int16_t i) {
     }
 
 Config Config::Int32(int32_t i) {
-    return Config::Int(i, std::numeric_limits<int32_t>::lowest(), std::numeric_limits<int32_t>::max());
-}
-
-Config Config::Int64(int32_t i) {
     return Config::Int(i, std::numeric_limits<int32_t>::lowest(), std::numeric_limits<int32_t>::max());
 }
 

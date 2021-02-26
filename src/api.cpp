@@ -168,7 +168,7 @@ bool API::attemptReconnect(const char *caller) {
     reconnect_in_progress = true;
     last_attempt = millis();
     if(last_attempt == 0)
-        last_attempt == 1;
+        last_attempt = 1;
 
     return true;
 }

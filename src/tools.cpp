@@ -160,7 +160,7 @@ int check(int rc,const char *msg) {
     return rc;
 }
 
-bool mount_or_format_spiffs() {    
+bool mount_or_format_spiffs() {
     esp_vfs_spiffs_conf_t conf = {
       .base_path = "/spiffs",
       .partition_label = NULL,
@@ -196,6 +196,6 @@ String read_or_write_config_version(String &firmware_version) {
         file.printf("{\"spiffs\": \"%s\"}", firmware_version.c_str());
         file.close();
     }
-    
+
     return spiffs_version;
 }
