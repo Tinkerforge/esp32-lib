@@ -59,6 +59,10 @@ public:
     void setup();
     void loop();
 
+    String callCommand(String path, Config::ConfUpdate payload);
+
+    const Config *getState(String path);
+
     void addCommand(String path, Config *config, std::initializer_list<String> keys_to_censor_in_debug_report, std::function<void(void)> callback);
     void addState(String path, Config *config, std::initializer_list<String> keys_to_censor, uint32_t interval_ms);
     void addPersistentConfig(String path, Config *config, std::initializer_list<String> keys_to_censor, uint32_t interval_ms);

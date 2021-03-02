@@ -183,6 +183,31 @@ void API::loop()
     reconnectDone("api loop fallback");
 }
 
+String API::callCommand(String path, Config::ConfUpdate payload)
+{
+    for (CommandRegistration &reg : commands) {
+        if (reg.path != path)
+            continue;
+
+        String error = reg.config->update(&payload);
+        if (error == "")
+            task_scheduler.scheduleOnce((String("notify command update for ") + reg.path).c_str(), [reg](){reg.callback();}, 0);
+        return error;
+    }
+    return String("Unknown command ") + path;
+}
+
+const Config* API::getState(String path)
+{
+    for (auto &reg: states) {
+        if(reg.path != path)
+            continue;
+
+        return reg.config;
+    }
+    return nullptr;
+}
+
 void API::reconnectDone(const char *caller)
 {
     //logger.printfln("%s clearing flag.", caller);

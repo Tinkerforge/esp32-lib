@@ -77,6 +77,33 @@ struct Config {
         String(*validator)(const ConfObject &);
     };
 
+    struct ConfUpdateArray;
+    struct ConfUpdateObject;
+
+    typedef strict_variant::variant<
+        std::nullptr_t, // DON'T MOVE THIS!
+        String,
+        float,
+        uint32_t,
+        int32_t,
+        bool,
+        ConfUpdateArray,
+        ConfUpdateObject
+    > ConfUpdate;
+    // This is necessary as we can't use get to distinguish between
+    // a get<std::nullptr_t>() that returned nullptr because the variant
+    // had another type and the same call that returned nullptr because
+    // the variant has the std::nullptr_type and thus contains a nullptr.
+    static bool containsNull(ConfUpdate *update) { return update->which() == 0;}
+
+    struct ConfUpdateArray {
+        std::vector<ConfUpdate> elements;
+    };
+
+    struct ConfUpdateObject {
+        std::vector<std::pair<String, ConfUpdate>> elements;
+    };
+
     typedef strict_variant::variant<
         ConfString,
         ConfFloat,
@@ -382,6 +409,8 @@ struct Config {
     String update_from_string(String s);
 
     String update_from_json(JsonVariant root);
+
+    String update(ConfUpdate *val);
 
     void save_to_file(File file);
 

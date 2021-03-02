@@ -272,6 +272,125 @@ struct from_json {
     JsonVariant json_node;
 };
 
+
+struct from_update {
+    String operator()(Config::ConfString &x) {
+        if(Config::containsNull(update))
+            return x.validator(x);
+
+        if(update->get<String>() == nullptr)
+            return "ConfUpdate node was not a string.";
+        x.value = *(update->get<String>());
+        return x.validator(x);
+    }
+    String operator()(Config::ConfFloat &x) {
+        if(Config::containsNull(update))
+            return x.validator(x);
+
+        if(update->get<float>() == nullptr)
+            return "ConfUpdate node was not a float.";
+
+        // We don't allow setting float config values from an integer
+        // to make sure, no additional rounding occurres.
+        // To set a float config value to an integer value, for example 123.0 has to be used.
+        if(update->get<uint32_t>() != nullptr || update->get<int32_t>() != nullptr)
+            return "ConfUpdate node was an integer. Please use f.e. 123.0 to set a float node to an integer value.";
+
+        x.value = *(update->get<float>());
+        return x.validator(x);
+    }
+    String operator()(Config::ConfInt &x) {
+        if(Config::containsNull(update))
+            return x.validator(x);
+
+        if(update->get<int32_t>() == nullptr)
+            return "ConfUpdate node was not a signed integer.";
+        x.value = *(update->get<int32_t>());
+        return x.validator(x);
+    }
+    String operator()(Config::ConfUint &x) {
+        if(Config::containsNull(update))
+            return x.validator(x);
+
+        uint32_t new_val = 0;
+        if(update->get<uint32_t>() == nullptr) {
+            if(update->get<int32_t>() == nullptr || update->get<int32_t>() < 0)
+                return "ConfUpdate node was not an unsigned integer.";
+
+            new_val = (uint32_t) *(update->get<int32_t>());
+        } else {
+            new_val = *(update->get<uint32_t>());
+        }
+        x.value = new_val;
+        return x.validator(x);
+    }
+    String operator()(Config::ConfBool &x) {
+        if(Config::containsNull(update))
+            return x.validator(x);
+
+        if(update->get<bool>() == nullptr)
+            return "ConfUpdate node was not a boolean.";
+        x.value = *(update->get<bool>());
+        return x.validator(x);
+    }
+    String operator()(std::nullptr_t x) {
+        return Config::containsNull(update) ? "" : "JSON null node was not null";
+    }
+    String operator()(Config::ConfArray &x) {
+        if(Config::containsNull(update))
+            return x.validator(x);
+
+        if(update->get<Config::ConfUpdateArray>() == nullptr)
+            return "ConfUpdate node was not an array.";
+
+        Config::ConfUpdateArray *arr = update->get<Config::ConfUpdateArray>();
+
+        x.value.clear();
+        for(size_t i = 0; i < arr->elements.size(); ++i) {
+            x.value.push_back(x.prototype[0]);
+            String inner_error = strict_variant::apply_visitor(from_update{&arr->elements[i]}, x.value[i].value);
+            if(inner_error != "")
+                return String("[") + i + "]" + inner_error;
+        }
+
+        return x.validator(x);
+    }
+    String operator()(Config::ConfObject &x) {
+        if(Config::containsNull(update))
+            return x.validator(x);
+
+        if(update->get<Config::ConfUpdateObject>() == nullptr) {
+            Serial.println(update->which());
+            return "ConfUpdate node was not an object.";
+        }
+
+        Config::ConfUpdateObject *obj = update->get<Config::ConfUpdateObject>();
+
+        if(obj->elements.size() != x.value.size())
+            return String("ConfUpdate object had ") + obj->elements.size() + " entries instead of the expected " + x.value.size();
+
+        for(size_t i = 0; i < x.value.size(); ++i) {
+            size_t obj_idx = 0xFFFFFFFF;
+            for(size_t j = 0; j < x.value.size(); ++j) {
+                if(obj->elements[j].first != x.value[i].first)
+                    continue;
+                obj_idx = j;
+                break;
+            }
+            if(obj_idx == 0xFFFFFFFF)
+                return String("Key ") + x.value[i].first + String("not found in ConfUpdate object");
+
+            String inner_error = strict_variant::apply_visitor(from_update{&obj->elements[obj_idx].second}, x.value[i].second.value);
+            if(inner_error != "")
+                return String("[\"") + x.value[i].first + "\"]" + inner_error;
+        }
+
+        return x.validator(x);
+    }
+
+    Config::ConfUpdate *update;
+};
+
 struct is_updated {
     bool operator()(const Config::ConfString &x) {
         return false;
@@ -533,6 +652,16 @@ String Config::update_from_string(String s) {
 String Config::update_from_json(JsonVariant root) {
     ConfVariant copy = value;
     String err = strict_variant::apply_visitor(from_json{root}, copy);
+    if (err == "")
+        value = copy;
+
+    return err;
+}
+
+String Config::update(ConfUpdate *val)
+{
+    ConfVariant copy = value;
+    String err = strict_variant::apply_visitor(from_update{val}, copy);
     if (err == "")
         value = copy;
 
