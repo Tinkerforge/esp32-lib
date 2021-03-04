@@ -622,7 +622,7 @@ String Config::update_from_file(File file) {
     DynamicJsonDocument doc(json_size());
     DeserializationError error = deserializeJson(doc, file);
     if (error)
-        logger.printfln("Failed to read file, using default configuration");
+        return String("Failed to read file: ") + String(error.c_str());
 
     String err = strict_variant::apply_visitor(from_json{doc.as<JsonVariant>()}, copy);
 
@@ -638,8 +638,9 @@ String Config::update_from_string(String s) {
     DynamicJsonDocument doc(json_size());
     DeserializationError error = deserializeJson(doc, s);
 
-    if (error)
-        logger.printfln("Failed to deserialize string, using default configuration: %s", error.c_str());
+    if (error) {
+        return String("Failed to deserialize string: ") + String(error.c_str());
+    }
 
     String err = strict_variant::apply_visitor(from_json{doc.as<JsonVariant>()}, copy);
 
