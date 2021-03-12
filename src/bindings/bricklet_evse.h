@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-02-08.      *
+ * This file was automatically generated on 2021-03-08.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -349,6 +349,21 @@ typedef struct TF_EVSE {
 /**
  * \ingroup BrickletEVSE
  */
+#define TF_EVSE_CHARGE_RELEASE_AUTOMATIC 0
+
+/**
+ * \ingroup BrickletEVSE
+ */
+#define TF_EVSE_CHARGE_RELEASE_MANUAL 1
+
+/**
+ * \ingroup BrickletEVSE
+ */
+#define TF_EVSE_CHARGE_RELEASE_DEACTIVATED 2
+
+/**
+ * \ingroup BrickletEVSE
+ */
 #define TF_EVSE_BOOTLOADER_MODE_BOOTLOADER 0
 
 /**
@@ -517,7 +532,7 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_evse_callback_tick(TF_EVSE *evse, uint32_t timeo
  *
  * TODO
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_evse_get_state(TF_EVSE *evse, uint8_t *ret_iec61851_state, uint8_t *ret_vehicle_state, uint8_t *ret_contactor_state, uint8_t *ret_contactor_error, uint16_t *ret_allowed_charging_current, uint8_t *ret_error_state, uint8_t *ret_lock_state, uint32_t *ret_time_since_state_change, uint32_t *ret_uptime);
+TF_ATTRIBUTE_NONNULL(1) int tf_evse_get_state(TF_EVSE *evse, uint8_t *ret_iec61851_state, uint8_t *ret_vehicle_state, uint8_t *ret_contactor_state, uint8_t *ret_contactor_error, uint8_t *ret_charge_release, uint16_t *ret_allowed_charging_current, uint8_t *ret_error_state, uint8_t *ret_lock_state, uint32_t *ret_time_since_state_change, uint32_t *ret_uptime);
 
 /**
  * \ingroup BrickletEVSE
