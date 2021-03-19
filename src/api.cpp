@@ -36,9 +36,9 @@ void API::setup()
 
 }
 
-void API::addCommand(String path, Config *config, std::initializer_list<String> keys_to_censor_in_debug_report, std::function<void(void)> callback)
+void API::addCommand(String path, Config *config, std::initializer_list<String> keys_to_censor_in_debug_report, std::function<void(void)> callback, bool is_action)
 {
-    commands.push_back({path, config, callback, keys_to_censor_in_debug_report});
+    commands.push_back({path, config, callback, keys_to_censor_in_debug_report, is_action});
 
     for (auto* backend: this->backends) {
         backend->addCommand(commands[commands.size() - 1]);
@@ -89,7 +89,7 @@ void API::addPersistentConfig(String path, Config *config, std::initializer_list
             SPIFFS.remove(cfg_path);
 
         SPIFFS.rename(tmp_path, cfg_path);
-    });
+    }, false);
 }
 /*
 void API::addTemporaryConfig(String path, Config *config, std::initializer_list<String> keys_to_censor, uint32_t interval_ms, std::function<void(void)> callback)
