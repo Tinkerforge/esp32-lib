@@ -68,11 +68,9 @@ void EventLog::drop(size_t count)
     char c;
     for(int i = 0; i < count; ++i)
         event_buf.pop(&c);
-    Serial.println(event_buf.used());
 
     while(event_buf.used() > 0 && c != '\n')
         event_buf.pop(&c);
-    Serial.println(event_buf.used());
 }
 
 void EventLog::register_urls()
