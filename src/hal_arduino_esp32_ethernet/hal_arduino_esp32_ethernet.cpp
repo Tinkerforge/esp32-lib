@@ -6,12 +6,38 @@
  * Commons Zero (CC0 1.0) License for more details.
  */
 
-#include "hal_arduino_esp32.h"
+#include "hal_arduino_esp32_ethernet.h"
 #include "SPI.h"
 #include <Arduino.h>
 
 #include "../bindings/config.h"
 #include "../bindings/errors.h"
+
+static int A = 33;
+static int B = 32;
+static int C = 4;
+
+void select_demux(uint8_t port_id) {
+    // As we always alternate between select_demux and deselect_demux, we can assume, that all three pins are high.
+    // clearing the pins we want to set to 0 is sufficient.
+
+    //invert to use the W1TC (write 1 to clear) register
+    uint8_t inv = ~port_id;
+    REG_WRITE(GPIO_OUT_W1TC_REG, (inv & 0x04) << 2);
+    REG_WRITE(GPIO_OUT1_W1TC_REG, ((inv & 0x01) << 1) | ((inv & 0x02) >> 1));
+
+    /*digitalWrite(A, ((port_id & 0x01) == 0x01) ? HIGH : LOW);
+    digitalWrite(B, ((port_id & 0x02) == 0x02) ? HIGH : LOW);
+    digitalWrite(C, ((port_id & 0x04) == 0x04) ? HIGH : LOW);*/
+}
+
+void deselect_demux() {
+    REG_WRITE(GPIO_OUT_W1TS_REG, 1 << 4);
+    REG_WRITE(GPIO_OUT1_W1TS_REG, (1 << 0) | (1 << 1));
+    /*digitalWrite(A, HIGH);
+    digitalWrite(B, HIGH);
+    digitalWrite(C, HIGH);*/
+}
 
 int tf_hal_create(TF_HalContext *hal, TF_Port *ports, uint8_t port_count) {
     int rc = tf_hal_common_create(hal);
@@ -22,80 +48,38 @@ int tf_hal_create(TF_HalContext *hal, TF_Port *ports, uint8_t port_count) {
     hal->ports = ports;
     hal->port_count = port_count;
 
-    bool uses_hspi = false;
-    bool uses_vspi = false;
-
-    for(int i = 0; i < port_count; ++i) {
-        uses_hspi |= hal->ports[i].spi == HSPI;
-        uses_vspi |= hal->ports[i].spi == VSPI;
-    }
-
     hal->spi_settings = SPISettings(1400000, SPI_MSBFIRST, SPI_MODE3);
 
-    if (uses_hspi) {
-        hal->hspi = SPIClass(HSPI);
-        hal->hspi.begin();
-    }
-    if (uses_vspi) {
-        hal->vspi = SPIClass(VSPI);
-        hal->vspi.begin();
-    }
+    hal->hspi = SPIClass(HSPI);
+    hal->hspi.begin();
 
-    for(int i = 0; i < port_count; ++i) {
-        pinMode(hal->ports[i].chip_select_pin, OUTPUT);
-        digitalWrite(hal->ports[i].chip_select_pin, HIGH);
-    }
+    pinMode(A, OUTPUT);
+    pinMode(B, OUTPUT);
+    pinMode(C, OUTPUT);
+    deselect_demux();
 
     return tf_hal_common_prepare(hal, port_count, 50000);
 }
 
 int tf_hal_destroy(TF_HalContext *hal){
-    bool uses_hspi = false;
-    bool uses_vspi = false;
-
-    for(int i = 0; i < hal->port_count; ++i) {
-        uses_hspi |= hal->ports[i].spi == HSPI;
-        uses_vspi |= hal->ports[i].spi == VSPI;
-    }
-    if (uses_hspi)
-        hal->hspi.end();
-    if (uses_vspi)
-        hal->vspi.end();
+    hal->hspi.end();
     return TF_E_OK;
 }
 
-static SPIClass *get_spi(TF_HalContext *hal, uint8_t port_id) {
-    SPIClass *spi = NULL;
-
-    if (hal->ports[port_id].spi == HSPI)
-        spi = &hal->hspi;
-    else if (hal->ports[port_id].spi == VSPI)
-        spi = &hal->vspi;
-    return spi;
-}
-
 int tf_hal_chip_select(TF_HalContext *hal, uint8_t port_id, bool enable){
-    SPIClass *spi = get_spi(hal, port_id);
-    if (spi == NULL)
-        return TF_E_DEVICE_NOT_FOUND;
-
     if (enable) {
-        spi->beginTransaction(hal->spi_settings);
-        digitalWrite(hal->ports[port_id].chip_select_pin, LOW);
+        hal->hspi.beginTransaction(hal->spi_settings);
+        select_demux(port_id);
     } else {
-        digitalWrite(hal->ports[port_id].chip_select_pin, HIGH);
-        spi->endTransaction();
+        deselect_demux();
+        hal->hspi.endTransaction();
     }
     return TF_E_OK;
 }
 
 int tf_hal_transceive(TF_HalContext *hal, uint8_t port_id, const uint8_t *write_buffer, uint8_t *read_buffer, uint32_t length){
-    SPIClass *spi = get_spi(hal, port_id);
-    if (spi == NULL)
-        return TF_E_DEVICE_NOT_FOUND;
-
     memcpy(read_buffer, write_buffer, length);
-    spi->transfer(read_buffer, length);
+    hal->hspi.transfer(read_buffer, length);
     return TF_E_OK;
 }
 

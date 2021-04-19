@@ -17,8 +17,6 @@
 #include <SPI.h>
 
 typedef struct TF_Port {
-    uint8_t chip_select_pin;
-    uint8_t spi;
     char port_name;
 
     TF_PortCommon port_common;
@@ -27,7 +25,6 @@ typedef struct TF_Port {
 typedef struct TF_HalContext {
     SPISettings spi_settings;
     SPIClass hspi;
-    SPIClass vspi;
     TF_Port *ports;
     uint8_t port_count;
     TF_HalCommon hal_common;
