@@ -47,3 +47,5 @@ int check(int rc,const char *msg);
 bool mount_or_format_spiffs();
 
 String read_or_write_config_version(String &firmware_version);
+
+int ensure_matching_firmware(TF_HalContext *hal, const char *uid, const char* name, const char *purpose, uint8_t *expected_firmware_version, const uint8_t *firmware, size_t firmware_len, EventLog *logger);

@@ -28,6 +28,7 @@
 
 #include <soc/efuse_reg.h>
 #include "bindings/base58.h"
+#include "bindings/bricklet_unknown.h"
 #include "event_log.h"
 
 extern EventLog logger;
@@ -198,4 +199,182 @@ String read_or_write_config_version(String &firmware_version) {
     }
 
     return spiffs_version;
+}
+
+
+static bool wait_for_bootloader_mode(TF_Unknown *bricklet, int target_mode) {
+    uint8_t mode = 255;
+    for(int i = 0; i < 10; ++i) {
+        if (tf_unknown_get_bootloader_mode(bricklet, &mode) != TF_E_OK) {
+            continue;
+        }
+        if (mode == target_mode) {
+            break;
+        }
+        delay(250);
+    }
+
+    return mode == target_mode;
+}
+
+static bool flash_plugin(TF_Unknown *bricklet, const uint8_t *firmware, size_t firmware_len, int regular_plugin_upto, EventLog *logger) {
+    logger->printfln("    Setting bootloader mode to bootloader.");
+    tf_unknown_set_bootloader_mode(bricklet, 0, nullptr);
+    logger->printfln("    Waiting for bootloader...");
+    if(!wait_for_bootloader_mode(bricklet, 0)) {
+        logger->printfln("    Timed out, flashing failed");
+        return false;
+    }
+    logger->printfln("    Device is in bootloader, flashing...");
+
+    int num_packets = firmware_len / 64;
+
+    int last_packet = 0;
+    bool write_footer = false;
+    if (regular_plugin_upto >= firmware_len - 64 * 4) {
+        last_packet = num_packets;
+    } else {
+        last_packet = ((regular_plugin_upto / 256) + 1) * 4;
+        write_footer = true;
+    }
+
+    for(int position = 0; position < last_packet; ++position) {
+        int start = position * 64;
+        if(tf_unknown_set_write_firmware_pointer(bricklet, start) != TF_E_OK) {
+            if(tf_unknown_set_write_firmware_pointer(bricklet, start) != TF_E_OK) {
+                logger->printfln("    Failed to set firmware pointer to %d", start);
+                return false;
+            }
+        }
+
+        if(tf_unknown_write_firmware(bricklet, const_cast<uint8_t *>(firmware + start), nullptr) != TF_E_OK) {
+            if(tf_unknown_write_firmware(bricklet, const_cast<uint8_t *>(firmware + start), nullptr) != TF_E_OK) {
+                logger->printfln("    Failed to write firmware at %d", start);
+                return false;
+            }
+        }
+    }
+
+    if (write_footer) {
+        for(int position = num_packets - 4; position < num_packets; ++position) {
+            int start = position * 64;
+            if(tf_unknown_set_write_firmware_pointer(bricklet, start) != TF_E_OK) {
+                if(tf_unknown_set_write_firmware_pointer(bricklet, start) != TF_E_OK) {
+                    logger->printfln("    (Footer) Failed to set firmware pointer to %d", start);
+                    return false;
+                }
+            }
+
+            if(tf_unknown_write_firmware(bricklet, const_cast<uint8_t *>(firmware + start), nullptr) != TF_E_OK) {
+                if(tf_unknown_write_firmware(bricklet, const_cast<uint8_t *>(firmware + start), nullptr) != TF_E_OK) {
+                    logger->printfln("    (Footer) Failed to write firmware at %d", start);
+                    return false;
+                }
+            }
+        }
+    }
+    logger->printfln("    Device flashed successfully.");
+    return true;
+}
+
+static bool flash_firmware(TF_Unknown *bricklet, const uint8_t *firmware, size_t firmware_len, EventLog *logger) {
+    int regular_plugin_upto = -1;
+    for(int i = firmware_len - 13; i >= 4; --i) {
+        if (firmware[i] == 0x12
+         && firmware[i - 1] == 0x34
+         && firmware[i - 2] == 0x56
+         && firmware[i - 3] == 0x78) {
+             regular_plugin_upto = i;
+             break;
+         }
+    }
+
+    if (regular_plugin_upto == -1) {
+        logger->printfln("    Firmware end marker not found. Is this a valid firmware?");
+        return false;
+    }
+
+    if(!flash_plugin(bricklet, firmware, firmware_len, regular_plugin_upto, logger)) {
+        return false;
+    }
+
+    logger->printfln("    Setting bootloader mode to firmware.");
+    uint8_t ret_status = 0;
+    tf_unknown_set_bootloader_mode(bricklet, 1, &ret_status);
+    if (ret_status != 0 && ret_status != 2) {
+        logger->printfln("    Failed to set bootloader mode to firmware. status %d.", ret_status);
+        if (ret_status != 5) {
+            return false;
+        }
+        logger->printfln("    Status is 5, retrying.");
+        if(!flash_plugin(bricklet, firmware, firmware_len, regular_plugin_upto, logger)) {
+            return false;
+        }
+
+        ret_status = 0;
+        logger->printfln("    Setting bootloader mode to firmware.");
+        tf_unknown_set_bootloader_mode(bricklet, 1, &ret_status);
+        if (ret_status != 0 && ret_status != 2) {
+            logger->printfln("    (Second attempt) Failed to set bootloader mode to firmware. status %d.", ret_status);
+            return false;
+        }
+    }
+    logger->printfln("    Waiting for firmware...");
+    if(!wait_for_bootloader_mode(bricklet, 1)) {
+        logger->printfln("    Timed out, flashing failed");
+        return false;
+    }
+    logger->printfln("    Firmware flashed successfully");
+    return true;
+}
+
+int ensure_matching_firmware(TF_HalContext *hal, const char *uid, const char* name, const char *purpose, uint8_t *expected_firmware_version, const uint8_t *firmware, size_t firmware_len, EventLog *logger) {
+    TF_Unknown bricklet;
+
+    uint32_t numeric_uid;
+    int rc = tf_base58_decode(uid, &numeric_uid);
+    if (rc != TF_E_OK) {
+        return rc;
+    }
+
+    uint8_t port_id;
+    int inventory_index;
+    rc = tf_hal_get_port_id(hal, numeric_uid, &port_id, &inventory_index);
+    if (rc < 0) {
+        return rc;
+    }
+
+    auto result = tf_unknown_create(&bricklet, uid, hal, port_id, inventory_index);
+    if(result != TF_E_OK) {
+        logger->printfln("%s init failed (rc %d). Disabling %s support.", name, result, purpose);
+        return -1;
+    }
+
+    uint8_t firmware_version[3] = {0};
+
+    result = tf_unknown_get_identity(&bricklet, nullptr, nullptr, nullptr, nullptr, firmware_version, nullptr);
+    if(result != TF_E_OK) {
+        logger->printfln("%s get identity failed (rc %d). Disabling %s support.", name, result, purpose);
+        return -1;
+    }
+
+    bool flash_required = false;
+    for(int i = 0; i < 3; ++i) {
+        // Intentionally use != here: we also want to downgrade the bricklet firmware if the ESP firmware embeds an older one.
+        // This makes sure, that the interfaces fit.
+        flash_required |= firmware_version[i] != expected_firmware_version[i];
+    }
+
+    if (flash_required) {
+        logger->printfln("%s firmware is %d.%d.%d not the expected %d.%d.%d. Flashing firmware...",
+                      name,
+                      firmware_version[0], firmware_version[1], firmware_version[2],
+                      expected_firmware_version[0], expected_firmware_version[1], expected_firmware_version[2]);
+        if(!flash_firmware(&bricklet, firmware, firmware_len, logger)) {
+            logger->printfln("%s flashing failed. Disabling %s support.", name, purpose);
+            return -1;
+        }
+    }
+    tf_unknown_destroy(&bricklet);
+    return 0;
 }
