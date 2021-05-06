@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-03-08.      *
+ * This file was automatically generated on 2021-05-06.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -39,7 +39,7 @@ typedef struct TF_EVSE {
 #ifdef TF_IMPLEMENT_CALLBACKS
 
 #endif
-    uint8_t response_expected[1];
+    uint8_t response_expected[2];
 } TF_EVSE;
 
 /**
@@ -91,6 +91,21 @@ typedef struct TF_EVSE {
  * \ingroup BrickletEVSE
  */
 #define TF_EVSE_FUNCTION_GET_CHARGING_AUTOSTART 10
+
+/**
+ * \ingroup BrickletEVSE
+ */
+#define TF_EVSE_FUNCTION_GET_MANAGED 11
+
+/**
+ * \ingroup BrickletEVSE
+ */
+#define TF_EVSE_FUNCTION_SET_MANAGED 12
+
+/**
+ * \ingroup BrickletEVSE
+ */
+#define TF_EVSE_FUNCTION_SET_MANAGED_CURRENT 13
 
 /**
  * \ingroup BrickletEVSE
@@ -364,6 +379,11 @@ typedef struct TF_EVSE {
 /**
  * \ingroup BrickletEVSE
  */
+#define TF_EVSE_CHARGE_RELEASE_MANAGED 3
+
+/**
+ * \ingroup BrickletEVSE
+ */
 #define TF_EVSE_BOOTLOADER_MODE_BOOTLOADER 0
 
 /**
@@ -531,6 +551,8 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_evse_callback_tick(TF_EVSE *evse, uint32_t timeo
  * \ingroup BrickletEVSE
  *
  * TODO
+ * 
+ * .. versionadded:: 2.0.5$nbsp;(Plugin)
  */
 TF_ATTRIBUTE_NONNULL(1) int tf_evse_get_state(TF_EVSE *evse, uint8_t *ret_iec61851_state, uint8_t *ret_vehicle_state, uint8_t *ret_contactor_state, uint8_t *ret_contactor_error, uint8_t *ret_charge_release, uint16_t *ret_allowed_charging_current, uint8_t *ret_error_state, uint8_t *ret_lock_state, uint32_t *ret_time_since_state_change, uint32_t *ret_uptime);
 
@@ -563,8 +585,10 @@ TF_ATTRIBUTE_NONNULL(1) int tf_evse_set_max_charging_current(TF_EVSE *evse, uint
  * * Max Current Outgoing Cable -> set with resistor between PP/PE (if fixed cable is used)
  * 
  * TODO
+ * 
+ * .. versionadded:: 2.0.6$nbsp;(Plugin)
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_evse_get_max_charging_current(TF_EVSE *evse, uint16_t *ret_max_current_configured, uint16_t *ret_max_current_incoming_cable, uint16_t *ret_max_current_outgoing_cable);
+TF_ATTRIBUTE_NONNULL(1) int tf_evse_get_max_charging_current(TF_EVSE *evse, uint16_t *ret_max_current_configured, uint16_t *ret_max_current_incoming_cable, uint16_t *ret_max_current_outgoing_cable, uint16_t *ret_max_current_managed);
 
 /**
  * \ingroup BrickletEVSE
@@ -600,6 +624,33 @@ TF_ATTRIBUTE_NONNULL(1) int tf_evse_set_charging_autostart(TF_EVSE *evse, bool a
  * TODO
  */
 TF_ATTRIBUTE_NONNULL(1) int tf_evse_get_charging_autostart(TF_EVSE *evse, bool *ret_autostart);
+
+/**
+ * \ingroup BrickletEVSE
+ *
+ * TODO
+ * 
+ * .. versionadded:: 2.0.6$nbsp;(Plugin)
+ */
+TF_ATTRIBUTE_NONNULL(1) int tf_evse_get_managed(TF_EVSE *evse, bool *ret_managed);
+
+/**
+ * \ingroup BrickletEVSE
+ *
+ * TODO
+ * 
+ * .. versionadded:: 2.0.6$nbsp;(Plugin)
+ */
+TF_ATTRIBUTE_NONNULL(1) int tf_evse_set_managed(TF_EVSE *evse, bool managed, uint32_t password);
+
+/**
+ * \ingroup BrickletEVSE
+ *
+ * TODO
+ * 
+ * .. versionadded:: 2.0.6$nbsp;(Plugin)
+ */
+TF_ATTRIBUTE_NONNULL(1) int tf_evse_set_managed_current(TF_EVSE *evse, uint16_t current);
 
 /**
  * \ingroup BrickletEVSE
