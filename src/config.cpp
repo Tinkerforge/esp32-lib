@@ -149,15 +149,7 @@ struct json_length_visitor {
         return 10; //TODO: is this still necessary?
     }
     size_t operator()(Config::ConfArray &x) {
-        size_t sum = 0;
-        for(size_t i = 0; i < x.value.size(); ++i) {
-            size_t item_size = strict_variant::apply_visitor(json_length_visitor{}, x.value[i].value);
-            // If the item size is 0 it is not an array or object.
-            // It will fit into the variant size added below.
-            if (item_size > 0)
-                sum += item_size;
-        }
-        return sum + JSON_ARRAY_SIZE(x.value.size());
+        return strict_variant::apply_visitor(json_length_visitor{}, x.prototype[0].value) * x.maxElements + JSON_ARRAY_SIZE(x.maxElements);
     }
     size_t operator()(Config::ConfObject &x) {
         size_t sum = 0;
