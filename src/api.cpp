@@ -99,6 +99,21 @@ void API::addTemporaryConfig(String path, Config *config, std::initializer_list<
 }
 */
 
+bool API::restorePersistentConfig(String path, Config *config)
+{
+    path.replace('/', '_');
+    String filename = String("/") + path + String(".json");
+    if(!SPIFFS.exists(filename))
+        return false;
+
+    File file = SPIFFS.open(filename);
+    String error = config->update_from_file(file);
+    file.close();
+    if(error != "")
+        logger.printfln("Failed to restore persistant config %s: %s", path.c_str(), error.c_str());
+    return error == "";
+}
+
 void API::registerDebugUrl(AsyncWebServer *server) {
     server->on("/debug_report", HTTP_GET, [this](AsyncWebServerRequest *request) {
 

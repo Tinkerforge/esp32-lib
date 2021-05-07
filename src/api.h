@@ -69,6 +69,8 @@ public:
     void addPersistentConfig(String path, Config *config, std::initializer_list<String> keys_to_censor, uint32_t interval_ms);
     //void addTemporaryConfig(String path, Config *config, std::initializer_list<String> keys_to_censor, uint32_t interval_ms, std::function<void(void)> callback);
 
+    bool restorePersistentConfig(String path, Config *config);
+
     void registerDebugUrl(AsyncWebServer *server);
 
     void registerBackend(IAPIBackend *backend);
