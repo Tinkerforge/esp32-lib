@@ -185,9 +185,9 @@ struct Config {
 
     static Config Array(std::initializer_list<Config> arr,
                         Config prototype,
-                        size_t minElements = 0,
-                        size_t maxElements = 0,
-                        int variantType = -1,
+                        size_t minElements,
+                        size_t maxElements,
+                        int variantType,
                         String(*validator)(const ConfArray &) = [](const ConfArray &arr){
                             if(arr.maxElements > 0 && arr.value.size() > arr.maxElements)
                                 return String(String("Array had ") + arr.value.size() + " entries, but only " + arr.maxElements + " are allowed.");
