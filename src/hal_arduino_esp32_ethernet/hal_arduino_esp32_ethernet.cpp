@@ -13,9 +13,12 @@
 #include "../bindings/config.h"
 #include "../bindings/errors.h"
 
-static int A = 33;
-static int B = 32;
-static int C = 4;
+static const int CS_PIN_0 = 12;
+static const int CS_PIN_1 = 13;
+static const int CS_PIN_2 = 14;
+static const int CLK_PIN = 32;
+static const int MOSI_PIN = 33;
+static const int MISO_PIN = 35;
 
 void select_demux(uint8_t port_id) {
     // As we always alternate between select_demux and deselect_demux, we can assume, that all three pins are high.
@@ -23,20 +26,11 @@ void select_demux(uint8_t port_id) {
 
     //invert to use the W1TC (write 1 to clear) register
     uint8_t inv = ~port_id;
-    REG_WRITE(GPIO_OUT_W1TC_REG, (inv & 0x04) << 2);
-    REG_WRITE(GPIO_OUT1_W1TC_REG, ((inv & 0x01) << 1) | ((inv & 0x02) >> 1));
-
-    /*digitalWrite(A, ((port_id & 0x01) == 0x01) ? HIGH : LOW);
-    digitalWrite(B, ((port_id & 0x02) == 0x02) ? HIGH : LOW);
-    digitalWrite(C, ((port_id & 0x04) == 0x04) ? HIGH : LOW);*/
+    REG_WRITE(GPIO_OUT_W1TC_REG, (inv & 0x07) << CS_PIN_0);
 }
 
 void deselect_demux() {
-    REG_WRITE(GPIO_OUT_W1TS_REG, 1 << 4);
-    REG_WRITE(GPIO_OUT1_W1TS_REG, (1 << 0) | (1 << 1));
-    /*digitalWrite(A, HIGH);
-    digitalWrite(B, HIGH);
-    digitalWrite(C, HIGH);*/
+    REG_WRITE(GPIO_OUT_W1TS_REG, 0x07 << CS_PIN_0);
 }
 
 int tf_hal_create(TF_HalContext *hal, TF_Port *ports, uint8_t port_count) {
@@ -51,11 +45,11 @@ int tf_hal_create(TF_HalContext *hal, TF_Port *ports, uint8_t port_count) {
     hal->spi_settings = SPISettings(1400000, SPI_MSBFIRST, SPI_MODE3);
 
     hal->hspi = SPIClass(HSPI);
-    hal->hspi.begin();
+    hal->hspi.begin(CLK_PIN, MISO_PIN, MOSI_PIN);
 
-    pinMode(A, OUTPUT);
-    pinMode(B, OUTPUT);
-    pinMode(C, OUTPUT);
+    pinMode(CS_PIN_0, OUTPUT);
+    pinMode(CS_PIN_1, OUTPUT);
+    pinMode(CS_PIN_2, OUTPUT);
     deselect_demux();
 
     return tf_hal_common_prepare(hal, port_count, 50000);
