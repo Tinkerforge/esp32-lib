@@ -643,6 +643,17 @@ void AsyncHttpClient::onData(AsyncClient* client, const uint8_t* data, size_t le
                     }
                 }
                 m_rspPart = RESPONSE_PART_BODY;
+
+                // If a response contains no payload, trigger the response callback here.
+                // The loop will end after this iteration.
+                if (m_contentLength == 0 && len == index && !isError) {
+                    notifyResponse();
+
+                    m_rspPart = RESPONSE_PART_STATUS_LINE;
+                    m_rsp.clear();
+                    m_contentLength = 0U;
+                    m_contentIndex = 0U;
+                }
             }
             break;
 
