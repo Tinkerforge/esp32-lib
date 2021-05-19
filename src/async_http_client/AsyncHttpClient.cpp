@@ -93,6 +93,7 @@ AsyncHttpClient::AsyncHttpClient() :
     m_urlEncodedPars(),
     m_payload(nullptr),
     m_payloadSize(0U),
+    m_singleShotDone(false),
     m_rspPart(RESPONSE_PART_STATUS_LINE),
     m_rsp(),
     m_rspLine(),
@@ -147,6 +148,9 @@ bool AsyncHttpClient::begin(const String& url)
 {
     bool    status  = true;
     int     index   = url.indexOf(':');
+
+    if (m_singleShotDone)
+        return false;
 
     /* If a response is pending, abort. */
     if (true == m_isReqOpen)
@@ -379,6 +383,9 @@ bool AsyncHttpClient::GET()
 {
     bool status = false;
 
+    if (m_singleShotDone)
+        return false;
+
     if (false == m_isReqOpen)
     {
         m_method        = "GET";
@@ -404,6 +411,9 @@ bool AsyncHttpClient::POST(const uint8_t* payload, size_t size)
 {
     bool status = false;
 
+    if (m_singleShotDone)
+        return false;
+
     if (false == m_isReqOpen)
     {
         m_method        = "POST";
@@ -428,6 +438,9 @@ bool AsyncHttpClient::POST(const uint8_t* payload, size_t size)
 bool AsyncHttpClient::POST(const String& payload)
 {
     bool status = false;
+
+    if (m_singleShotDone)
+        return false;
 
     if (false == m_isReqOpen)
     {
@@ -463,6 +476,9 @@ bool AsyncHttpClient::PUT(const uint8_t* payload, size_t size)
 {
     bool status = false;
 
+    if (m_singleShotDone)
+        return false;
+
     if (false == m_isReqOpen)
     {
         m_method        = "PUT";
@@ -487,6 +503,9 @@ bool AsyncHttpClient::PUT(const uint8_t* payload, size_t size)
 bool AsyncHttpClient::PUT(const String& payload)
 {
     bool status = false;
+
+    if (m_singleShotDone)
+        return false;
 
     if (false == m_isReqOpen)
     {
@@ -769,6 +788,7 @@ bool AsyncHttpClient::sendRequest()
     if (false == m_isKeepAlive)
     {
         request += "close";
+        m_singleShotDone = true;
     }
     else
     {
@@ -859,6 +879,8 @@ void AsyncHttpClient::clear()
     m_chunkIndex = 0U;
     m_chunkBodyPart = CHUNK_SIZE;
 
+    m_singleShotDone = false;
+
     return;
 }
 
@@ -911,6 +933,7 @@ bool AsyncHttpClient::handleRspHeader()
         /* Server closes the connection after the response? */
         if (0 <= value.indexOf("close"))
         {
+            m_singleShotDone = true;
             /* Client want a permanent connection? */
             if (true == m_isKeepAlive)
             {
