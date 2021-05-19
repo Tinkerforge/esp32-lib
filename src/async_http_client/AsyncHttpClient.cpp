@@ -459,6 +459,65 @@ bool AsyncHttpClient::POST(const String& payload)
     return status;
 }
 
+bool AsyncHttpClient::PUT(const uint8_t* payload, size_t size)
+{
+    bool status = false;
+
+    if (false == m_isReqOpen)
+    {
+        m_method        = "PUT";
+        m_payload       = payload;
+        m_payloadSize   = size;
+
+        if (false == isConnected())
+        {
+            status = connect();
+            m_isReqOpen = status;
+        }
+        else
+        {
+            status = sendRequest();
+            m_isReqOpen = false;
+        }
+    }
+
+    return status;
+}
+
+bool AsyncHttpClient::PUT(const String& payload)
+{
+    bool status = false;
+
+    if (false == m_isReqOpen)
+    {
+        m_method = "PUT";
+
+        if (true == payload.isEmpty())
+        {
+            m_payload       = nullptr;
+            m_payloadSize   = 0U;
+        }
+        else
+        {
+            m_payload       = reinterpret_cast<const uint8_t*>(payload.c_str());
+            m_payloadSize   = payload.length();
+        }
+
+        if (false == isConnected())
+        {
+            status = connect();
+            m_isReqOpen = status;
+        }
+        else
+        {
+            status = sendRequest();
+            m_isReqOpen = false;
+        }
+    }
+
+    return status;
+}
+
 /******************************************************************************
  * Protected Methods
  *****************************************************************************/

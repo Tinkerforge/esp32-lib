@@ -229,6 +229,25 @@ public:
      */
     bool POST(const String& payload);
 
+    /**
+     * Send PUT request to host.
+     *
+     * @param[in] payload   Payload, which must be kept alive until response is available!
+     * @param[in] size      Payload size in byte
+     *
+     * @return If request is successful sent, it will return true otherwise false.
+     */
+    bool PUT(const uint8_t* payload = nullptr, size_t size = 0U);
+
+    /**
+     * Send PUT request to host.
+     *
+     * @param[in] payload   Payload, which must be kept alive until response is available!
+     *
+     * @return If request is successful sent, it will return true otherwise false.
+     */
+    bool PUT(const String& payload);
+
 private:
 
     /**
