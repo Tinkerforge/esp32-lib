@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-05-06.      *
+ * This file was automatically generated on 2021-05-25.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -106,6 +106,16 @@ typedef struct TF_EVSE {
  * \ingroup BrickletEVSE
  */
 #define TF_EVSE_FUNCTION_SET_MANAGED_CURRENT 13
+
+/**
+ * \ingroup BrickletEVSE
+ */
+#define TF_EVSE_FUNCTION_GET_USER_CALIBRATION 14
+
+/**
+ * \ingroup BrickletEVSE
+ */
+#define TF_EVSE_FUNCTION_SET_USER_CALIBRATION 15
 
 /**
  * \ingroup BrickletEVSE
@@ -651,6 +661,20 @@ TF_ATTRIBUTE_NONNULL(1) int tf_evse_set_managed(TF_EVSE *evse, bool managed, uin
  * .. versionadded:: 2.0.6$nbsp;(Plugin)
  */
 TF_ATTRIBUTE_NONNULL(1) int tf_evse_set_managed_current(TF_EVSE *evse, uint16_t current);
+
+/**
+ * \ingroup BrickletEVSE
+ *
+ * TODO
+ */
+TF_ATTRIBUTE_NONNULL(1) int tf_evse_get_user_calibration(TF_EVSE *evse, bool *ret_user_calibration_active, int16_t *ret_voltage_diff, int16_t *ret_voltage_mul, int16_t *ret_voltage_div, int16_t *ret_resistance_2700, int16_t ret_resistance_880[14]);
+
+/**
+ * \ingroup BrickletEVSE
+ *
+ * TODO
+ */
+TF_ATTRIBUTE_NONNULL(1) int tf_evse_set_user_calibration(TF_EVSE *evse, uint32_t password, bool user_calibration_active, int16_t voltage_diff, int16_t voltage_mul, int16_t voltage_div, int16_t resistance_2700, int16_t resistance_880[14]);
 
 /**
  * \ingroup BrickletEVSE
