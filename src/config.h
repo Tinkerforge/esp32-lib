@@ -159,11 +159,9 @@ struct Config {
                       int32_t max = std::numeric_limits<int32_t>::max(),
                       String(*validator)(const ConfInt &) = [](const ConfInt &f) {
                         if(f.value < f.min)
-                            //return String(String("Integer value ") + f.value + " was less than the allowed minimum of " + f.min);
-                            return String("Integer value was less than the allowed minimum");
+                            return String(String("Integer value ") + f.value + " was less than the allowed minimum of " + f.min);
                         if(f.value > f.max)
-                            //return String(String("Integer value ") + f.value + " was more than the allowed maximum of " + f.max);
-                            return String("Integer value was more than the allowed maximum");
+                            return String(String("Integer value ") + f.value + " was more than the allowed maximum of " + f.max);
                         return String("");
                       });
 
@@ -172,11 +170,9 @@ struct Config {
                        uint32_t max = std::numeric_limits<uint32_t>::max(),
                        String(*validator)(const ConfUint &) = [](const ConfUint &f) {
                             if(f.value < f.min)
-                                //return String(String("Unsigned integer value ") + f.value + " was less than the allowed minimum of " + f.min);
-                                return String("Unsigned integer value was less than the allowed minimum");
+                                return String(String("Unsigned integer value ") + f.value + " was less than the allowed minimum of " + f.min);
                             if(f.value > f.max)
-                                //return String(String("Unsigned integer value ") + f.value + " was more than the allowed maximum of " + f.max);
-                                return String("Unsigned integer value was more than the allowed maximum");
+                                return String(String("Unsigned integer value ") + f.value + " was more than the allowed maximum of " + f.max);
                             return String("");
                         });
 
