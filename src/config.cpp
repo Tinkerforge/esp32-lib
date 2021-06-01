@@ -105,7 +105,7 @@ struct to_json {
                 arr.add(0);
             }
 
-            strict_variant::apply_visitor(to_json{arr[i]}, x.value[i].value);
+            strict_variant::apply_visitor(to_json{arr[i], keys_to_censor}, x.value[i].value);
         }
     }
     void operator()(Config::ConfObject &x) {
@@ -122,11 +122,16 @@ struct to_json {
                 obj.getOrAddMember(key);
             }
 
-            strict_variant::apply_visitor(to_json{obj[key]}, child.value);
+            strict_variant::apply_visitor(to_json{obj[key], keys_to_censor}, child.value);
         }
+
+        for(const String &key : keys_to_censor)
+            if (obj.containsKey(key))
+                obj[key] = nullptr;
     }
 
     JsonVariant insertHere;
+    const std::vector<String> &keys_to_censor;
 };
 
 struct json_length_visitor {
@@ -673,7 +678,7 @@ void Config::save_to_file(File file)
     } else {
         var = doc.as<JsonVariant>();
     }
-    strict_variant::apply_visitor(to_json{var}, value);
+    strict_variant::apply_visitor(to_json{var, {}}, value);
 
     serializeJson(doc, file);
 }
@@ -690,7 +695,7 @@ void Config::write_to_stream(Print &output)
     } else {
         var = doc.as<JsonVariant>();
     }
-    strict_variant::apply_visitor(to_json{var}, value);
+    strict_variant::apply_visitor(to_json{var, {}}, value);
     serializeJson(doc, output);
 }
 
@@ -709,10 +714,7 @@ String Config::to_string_except(std::initializer_list<String> keys_to_censor) {
     } else {
         var = doc.as<JsonVariant>();
     }
-    strict_variant::apply_visitor(to_json{var}, value);
-
-    for(const String &key : keys_to_censor)
-        doc[key] = nullptr;
+    strict_variant::apply_visitor(to_json{var, keys_to_censor}, value);
 
     String result;
     serializeJson(doc, result);
@@ -730,9 +732,8 @@ String Config::to_string_except(const std::vector<String> &keys_to_censor) {
     } else {
         var = doc.as<JsonVariant>();
     }
-    strict_variant::apply_visitor(to_json{var}, value);
-    for(const String &key : keys_to_censor)
-        doc[key] = nullptr;
+    strict_variant::apply_visitor(to_json{var, keys_to_censor}, value);
+
     String result;
     serializeJson(doc, result);
     return result;
@@ -750,10 +751,7 @@ void Config::write_to_stream_except(Print &output, std::initializer_list<String>
     } else {
         var = doc.as<JsonVariant>();
     }
-    strict_variant::apply_visitor(to_json{var}, value);
-
-    for(const String &key : keys_to_censor)
-        doc[key] = nullptr;
+    strict_variant::apply_visitor(to_json{var, keys_to_censor}, value);
 
     serializeJson(doc, output);
 }
@@ -770,10 +768,7 @@ void Config::write_to_stream_except(Print &output, const std::vector<String> &ke
     } else {
         var = doc.as<JsonVariant>();
     }
-    strict_variant::apply_visitor(to_json{var}, value);
-
-    for(const String &key : keys_to_censor)
-        doc[key] = nullptr;
+    strict_variant::apply_visitor(to_json{var, keys_to_censor}, value);
 
     serializeJson(doc, output);
 }
