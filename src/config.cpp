@@ -523,14 +523,7 @@ Config *Config::get(String s) {
         return nullptr;
     }
 
-    std::vector<std::pair<String, Config>> &children = strict_variant::get<Config::ConfObject>(&value)->value;
-    for(size_t i = 0; i < children.size(); ++i) {
-        if(children[i].first == s)
-            return &children[i].second;
-    }
-    logger.printfln("Config key %s not found!", s.c_str());
-    delay(100);
-    return nullptr;
+    return strict_variant::get<Config::ConfObject>(&value)->get(s);
 }
 
 Config *Config::get(size_t i) {
@@ -540,11 +533,7 @@ Config *Config::get(size_t i) {
         return nullptr;
     }
 
-    std::vector<Config> &children = strict_variant::get<Config::ConfArray>(&value)->value;
-    if(i >= children.size()) {
-        logger.printfln("Config index %u out of range!", i);
-    }
-    return &children[i];
+    return strict_variant::get<Config::ConfArray>(&value)->get(i);
 }
 
 const String &Config::asString() {
@@ -784,4 +773,25 @@ bool Config::was_updated() {
 void Config::set_update_handled() {
     updated = false;
     strict_variant::apply_visitor(set_updated_false{}, value);
+}
+
+Config* Config::ConfObject::get(String s) {
+    for(size_t i = 0; i < this->value.size(); ++i) {
+        if(this->value[i].first == s)
+            return &this->value[i].second;
+    }
+
+    logger.printfln("Config key %s not found!", s.c_str());
+    delay(100);
+    return nullptr;
+}
+
+Config* Config::ConfArray::get(size_t i)
+{
+    if(i >= this->value.size()) {
+        logger.printfln("Config index %u out of range!", i);
+        delay(100);
+        return nullptr;
+    }
+    return &this->value[i];
 }

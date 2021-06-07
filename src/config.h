@@ -70,11 +70,15 @@ struct Config {
         size_t maxElements;
         int variantType;
         String(*validator)(ConfArray &);
+
+        Config *get(size_t i);
     };
 
     struct ConfObject {
         std::vector<std::pair<String, Config>> value;
         String(*validator)(ConfObject &);
+
+        Config *get(String s);
     };
 
     struct ConfUpdateArray;
