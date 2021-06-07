@@ -34,33 +34,33 @@ struct Config {
     struct ConfString {
         String value;
         size_t maxChars;
-        String(*validator)(const ConfString &);
+        String(*validator)(ConfString &);
     };
 
     struct ConfFloat {
         float value;
         float min;
         float max;
-        String(*validator)(const ConfFloat &);
+        String(*validator)(ConfFloat &);
     };
 
     struct ConfInt {
         int32_t value;
         int32_t min;
         int32_t max;
-        String(*validator)(const ConfInt &);
+        String(*validator)(ConfInt &);
     };
 
     struct ConfUint {
         uint32_t value;
         uint32_t min;
         uint32_t max;
-        String(*validator)(const ConfUint &);
+        String(*validator)(ConfUint &);
     };
 
     struct ConfBool {
         bool value;
-        String(*validator)(const ConfBool &);
+        String(*validator)(ConfBool &);
     };
 
     struct ConfArray {
@@ -69,12 +69,12 @@ struct Config {
         size_t minElements;
         size_t maxElements;
         int variantType;
-        String(*validator)(const ConfArray &);
+        String(*validator)(ConfArray &);
     };
 
     struct ConfObject {
         std::vector<std::pair<String, Config>> value;
-        String(*validator)(const ConfObject &);
+        String(*validator)(ConfObject &);
     };
 
     struct ConfUpdateArray;
@@ -136,7 +136,7 @@ struct Config {
 
     static Config Str(String s,
                       size_t maxChars = 0,
-                      String(*validator)(const ConfString &) = [](const ConfString &s){
+                      String(*validator)(ConfString &) = [](ConfString &s){
                           if(s.maxChars == 0 || s.value.length() <= s.maxChars)
                             return String("");
 
@@ -146,7 +146,7 @@ struct Config {
     static Config Float(float d,
                         float min = std::numeric_limits<float>::lowest(),
                         float max = std::numeric_limits<float>::max(),
-                        String(*validator)(const ConfFloat &) = [](const ConfFloat &f) {
+                        String(*validator)(ConfFloat &) = [](ConfFloat &f) {
                             if(f.value < f.min)
                                 return String(String("Float value ") + f.value + " was less than the allowed minimum of " + f.min);
                             if(f.value > f.max)
@@ -157,7 +157,7 @@ struct Config {
     static Config Int(int32_t i,
                       int32_t min = std::numeric_limits<int32_t>::lowest(),
                       int32_t max = std::numeric_limits<int32_t>::max(),
-                      String(*validator)(const ConfInt &) = [](const ConfInt &f) {
+                      String(*validator)(ConfInt &) = [](ConfInt &f) {
                         if(f.value < f.min)
                             return String(String("Integer value ") + f.value + " was less than the allowed minimum of " + f.min);
                         if(f.value > f.max)
@@ -168,7 +168,7 @@ struct Config {
     static Config Uint(uint32_t u,
                        uint32_t min = std::numeric_limits<uint32_t>::lowest(),
                        uint32_t max = std::numeric_limits<uint32_t>::max(),
-                       String(*validator)(const ConfUint &) = [](const ConfUint &f) {
+                       String(*validator)(ConfUint &) = [](ConfUint &f) {
                             if(f.value < f.min)
                                 return String(String("Unsigned integer value ") + f.value + " was less than the allowed minimum of " + f.min);
                             if(f.value > f.max)
@@ -177,14 +177,14 @@ struct Config {
                         });
 
     static Config Bool(bool b,
-                       String(*validator)(const ConfBool &) = [](const ConfBool &){return String("");});
+                       String(*validator)(ConfBool &) = [](ConfBool &){return String("");});
 
     static Config Array(std::initializer_list<Config> arr,
                         Config prototype,
                         size_t minElements,
                         size_t maxElements,
                         int variantType,
-                        String(*validator)(const ConfArray &) = [](const ConfArray &arr){
+                        String(*validator)(ConfArray &) = [](ConfArray &arr){
                             if(arr.maxElements > 0 && arr.value.size() > arr.maxElements)
                                 return String(String("Array had ") + arr.value.size() + " entries, but only " + arr.maxElements + " are allowed.");
                             if(arr.minElements > 0 && arr.value.size() < arr.minElements)
@@ -198,7 +198,7 @@ struct Config {
                             return String("");
                         });
     static Config Object(std::initializer_list<std::pair<String, Config>> obj,
-                         String(*validator)(const ConfObject &) = [](const ConfObject &){return String("");});
+                         String(*validator)(ConfObject &) = [](ConfObject &){return String("");});
     static Config Null();
 
     static Config Uint8(uint8_t u);

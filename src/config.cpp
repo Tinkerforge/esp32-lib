@@ -37,18 +37,18 @@ struct printer {
 };
 
 struct recursive_validator {
-    bool operator()(const Config::ConfString &x) const { return x.validator(x); }
-    bool operator()(const Config::ConfFloat &x) const { return x.validator(x); }
-    bool operator()(const Config::ConfInt &x) const { return x.validator(x); }
-    bool operator()(const Config::ConfUint &x) const { return x.validator(x); }
-    bool operator()(const Config::ConfBool &x) const { return x.validator(x); }
-    bool operator()(std::nullptr_t x) const { return true; }
-    bool operator()(const Config::ConfArray &x) const {
+    bool operator()(Config::ConfString &x) { return x.validator(x); }
+    bool operator()(Config::ConfFloat &x) { return x.validator(x); }
+    bool operator()(Config::ConfInt &x) { return x.validator(x); }
+    bool operator()(Config::ConfUint &x) { return x.validator(x); }
+    bool operator()(Config::ConfBool &x) { return x.validator(x); }
+    bool operator()(std::nullptr_t x) { return true; }
+    bool operator()(Config::ConfArray &x) {
         // Intentionally do the recursive validation first.
         // This ensures, that the array's validator may assume, that its
         // entries itself are valid. Then only dependencies between (valid) entries
         // have to be validated.
-        for(const Config &elem : x.value)
+        for(Config &elem : x.value)
             if(!strict_variant::apply_visitor(recursive_validator{}, elem.value))
                 return false;
 
@@ -57,12 +57,12 @@ struct recursive_validator {
 
         return true;
     }
-    bool operator()(const Config::ConfObject &x) const {
+    bool operator()(Config::ConfObject &x) {
         // Intentionally do the recursive validation first.
         // This ensures, that the object's validator may assume, that its
         // entries itself are valid. Then only dependencies between (valid) entries
         // have to be validated.
-        for(const std::pair<String, Config> &elem : x.value)
+        for(std::pair<String, Config> &elem : x.value)
             if(!strict_variant::apply_visitor(recursive_validator{}, elem.second.value))
                 return false;
 
@@ -446,33 +446,33 @@ struct set_updated_false {
 
 Config Config::Str(String s,
                    size_t maxChars,
-                   String(*validator)(const ConfString &)) {
+                   String(*validator)(ConfString &)) {
     return Config{ConfString{s, maxChars == 0 ? s.length() : maxChars, validator}, true};
 }
 
 Config Config::Float(float d,
                      float min,
                      float max,
-                     String(*validator)(const ConfFloat &)) {
+                     String(*validator)(ConfFloat &)) {
     return Config{ConfFloat{d, min, max, validator}, true};
 }
 
 Config Config::Int(int32_t i,
                       int32_t min,
                       int32_t max,
-                      String(*validator)(const ConfInt &)) {
+                      String(*validator)(ConfInt &)) {
     return Config{ConfInt{i, min, max, validator}, true};
 }
 
 Config Config::Uint(uint32_t u,
                        uint32_t min,
                        uint32_t max,
-                       String(*validator)(const ConfUint &)) {
+                       String(*validator)(ConfUint &)) {
     return Config{ConfUint{u, min, max, validator}, true};
 }
 
 Config Config::Bool(bool b,
-                       String(*validator)(const ConfBool &)) {
+                       String(*validator)(ConfBool &)) {
     return Config{ConfBool{b, validator}, true};
 }
 
@@ -481,12 +481,12 @@ Config Config::Array(std::initializer_list<Config> arr,
                         size_t minElements,
                         size_t maxElements,
                         int variantType,
-                        String(*validator)(const ConfArray &)) {
+                        String(*validator)(ConfArray &)) {
     return Config{ConfArray{arr, {prototype}, minElements, maxElements, variantType, validator}, true};
 }
 
 Config Config::Object(std::initializer_list<std::pair<String, Config>> obj,
-                         String(*validator)(const ConfObject &)) {
+                         String(*validator)(ConfObject &)) {
     return Config{ConfObject{obj, validator}, true};
 }
 
