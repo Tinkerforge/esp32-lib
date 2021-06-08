@@ -34,6 +34,7 @@
 
 bool deadline_elapsed(uint32_t deadline_ms);
 bool find_uid_by_did(TF_HalContext *hal, uint16_t device_id, char uid[7]);
+bool find_uid_by_did_at_port(TF_HalContext *hal, uint16_t device_id, char port, char uid[7]);
 
 
 bool send_event_allowed(AsyncEventSource *events);
