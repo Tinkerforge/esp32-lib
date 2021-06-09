@@ -202,7 +202,7 @@ String read_or_write_config_version(String &firmware_version) {
         deserializeJson(doc, file);
         file.close();
 
-        spiffs_version = doc["spiffs"].as<char*>();
+        spiffs_version = doc["spiffs"].as<const char*>();
     } else {
         File file = SPIFFS.open("/spiffs.json", "w");
         file.printf("{\"spiffs\": \"%s\"}", firmware_version.c_str());
