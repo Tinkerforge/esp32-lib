@@ -24,6 +24,7 @@
 #include <vector>
 #include <queue>
 #include <functional>
+#include <mutex>
 
 #include <time.h>
 #include <iostream>
@@ -54,8 +55,10 @@ public:
 
     bool initialized = false;
 
-    void scheduleOnce(const char *task_name, std::function<void(void)> &&fn, uint32_t delay) ;
+    void scheduleOnce(const char *task_name, std::function<void(void)> &&fn, uint32_t delay);
     void scheduleWithFixedDelay(const char *task_name, std::function<void(void)> &&fn, uint32_t first_delay, uint32_t delay);
+
 private:
+    std::mutex task_mutex;
     std::priority_queue<Task, std::vector<Task>, decltype(&compare)> tasks;
 };

@@ -54,24 +54,34 @@ void TaskScheduler::register_urls()
 }
 
 void TaskScheduler::loop() {
-    current_scheduler_state = "checking for empty queue";
-    if(tasks.empty()) {
-        return;
-    }
-    current_scheduler_state = "top";
-    auto &task_ref = tasks.top();
-    current_scheduler_task = task_ref.task_name;
-    if(!deadline_elapsed(task_ref.next_deadline_ms)) {
-        current_scheduler_state = "not elapsed";
-        return;
-    }
-    current_scheduler_state = "copying task";
+    this->task_mutex.lock();
+        current_scheduler_state = "checking for empty queue";
+        if(tasks.empty()) {
+            this->task_mutex.unlock();
+            return;
+        }
+        current_scheduler_state = "top";
+        auto &task_ref = tasks.top();
+        current_scheduler_task = task_ref.task_name;
+        if(!deadline_elapsed(task_ref.next_deadline_ms)) {
+            this->task_mutex.unlock();
+            current_scheduler_state = "not elapsed";
+            return;
+        }
+        current_scheduler_state = "copying task";
 
-    Task task = task_ref;
-    tasks.pop();
+        Task task = task_ref;
+        tasks.pop();
+    this->task_mutex.unlock();
+
     current_scheduler_state = "running task";
 
-    task.fn();
+    if (!task.fn) {
+        logger.printfln("Invalid task");
+        delay(100);
+        logger.printfln("task name is: %s!", task.task_name);
+    } else
+        task.fn();
 
     current_scheduler_state = "done running task";
 
@@ -82,17 +92,22 @@ void TaskScheduler::loop() {
     current_scheduler_state = "pushing task";
 
     task.next_deadline_ms = millis() + task.delay_ms;
-    tasks.push(std::move(task));
+    {
+        std::lock_guard<std::mutex> l{this->task_mutex};
+        tasks.push(std::move(task));
+    }
 
     current_scheduler_state = "end loop";
 }
 
 
 void TaskScheduler::scheduleOnce(const char *taskName, std::function<void(void)> &&fn, uint32_t delay){
+    std::lock_guard<std::mutex> l{this->task_mutex};
     tasks.emplace(taskName, fn, delay, 0, true);
 }
 
 void TaskScheduler::scheduleWithFixedDelay(const char *taskName, std::function<void(void)> &&fn, uint32_t first_delay, uint32_t delay) {
+    std::lock_guard<std::mutex> l{this->task_mutex};
     tasks.emplace(taskName, fn, first_delay, delay, false);
 }
 
