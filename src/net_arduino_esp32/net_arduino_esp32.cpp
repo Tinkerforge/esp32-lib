@@ -361,6 +361,17 @@ int tf_net_create(TF_NetContext *net, const char* listen_addr, uint16_t port, co
     return 0;
 }
 
+int tf_net_destroy(TF_NetContext *net) {
+    if (net->server_fd >= 0)
+        close(net->server_fd);
+
+    for(int i = 0; i < net->clients_used; ++i) {
+        TF_NetClient *client = &net->clients[i];
+        remove_client(net, i);
+    }
+    return 0;
+}
+
 int tf_net_tick(TF_NetContext *net) {
     flush_send_buffers(net);
     read_packets(net);

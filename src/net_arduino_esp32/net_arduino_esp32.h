@@ -42,5 +42,6 @@ typedef struct TF_NetContext {
 } TF_NetContext;
 
 int tf_net_create(TF_NetContext *net, const char* listen_addr, uint16_t port, const char* auth_secret);
+int tf_net_destroy(TF_NetContext *net);
 
 #endif
