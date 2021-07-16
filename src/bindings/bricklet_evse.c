@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-05-25.      *
+ * This file was automatically generated on 2021-07-16.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -277,13 +277,13 @@ int tf_evse_get_hardware_configuration(TF_EVSE *evse, uint8_t *ret_jumper_config
     return tf_tfp_get_error(error_code);
 }
 
-int tf_evse_get_low_level_state(TF_EVSE *evse, bool *ret_low_level_mode_enabled, uint8_t *ret_led_state, uint16_t *ret_cp_pwm_duty_cycle, uint16_t ret_adc_values[2], int16_t ret_voltages[3], uint32_t ret_resistances[2], bool ret_gpio[5]) {
+int tf_evse_get_low_level_state(TF_EVSE *evse, bool *ret_low_level_mode_enabled, uint8_t *ret_led_state, uint16_t *ret_cp_pwm_duty_cycle, uint16_t ret_adc_values[2], int16_t ret_voltages[3], uint32_t ret_resistances[2], bool ret_gpio[5], uint8_t *ret_hardware_version) {
     if(tf_hal_get_common(evse->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
     bool response_expected = true;
-    tf_tfp_prepare_send(evse->tfp, TF_EVSE_FUNCTION_GET_LOW_LEVEL_STATE, 0, 23, response_expected);
+    tf_tfp_prepare_send(evse->tfp, TF_EVSE_FUNCTION_GET_LOW_LEVEL_STATE, 0, 24, response_expected);
 
     size_t i;
     uint32_t deadline = tf_hal_current_time_us(evse->tfp->hal) + tf_hal_get_common(evse->tfp->hal)->timeout;
@@ -306,6 +306,7 @@ int tf_evse_get_low_level_state(TF_EVSE *evse, bool *ret_low_level_mode_enabled,
         if (ret_voltages != NULL) { for (i = 0; i < 3; ++i) ret_voltages[i] = tf_packetbuffer_read_int16_t(&evse->tfp->spitfp->recv_buf);} else { tf_packetbuffer_remove(&evse->tfp->spitfp->recv_buf, 6); }
         if (ret_resistances != NULL) { for (i = 0; i < 2; ++i) ret_resistances[i] = tf_packetbuffer_read_uint32_t(&evse->tfp->spitfp->recv_buf);} else { tf_packetbuffer_remove(&evse->tfp->spitfp->recv_buf, 8); }
         if (ret_gpio != NULL) { tf_packetbuffer_read_bool_array(&evse->tfp->spitfp->recv_buf, ret_gpio, 5);} else { tf_packetbuffer_remove(&evse->tfp->spitfp->recv_buf, 1); }
+        if (ret_hardware_version != NULL) { *ret_hardware_version = tf_packetbuffer_read_uint8_t(&evse->tfp->spitfp->recv_buf); } else { tf_packetbuffer_remove(&evse->tfp->spitfp->recv_buf, 1); }
         tf_tfp_packet_processed(evse->tfp);
     }
 
