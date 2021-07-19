@@ -154,10 +154,12 @@ bool client_not_alive_cb(wss_keep_alive_t h, int fd)
 }
 
 static void work(void *arg) {
-    std::lock_guard<std::mutex> lock{work_queue_mutex};
     while(!work_queue.empty()) {
         ws_work_item wi = work_queue.front();
-        work_queue.pop_front();
+        {
+            std::lock_guard<std::mutex> lock{work_queue_mutex};
+            work_queue.pop_front();
+        }
 
         httpd_ws_frame_t ws_pkt;
         memset(&ws_pkt, 0, sizeof(httpd_ws_frame_t));
@@ -177,10 +179,12 @@ static void work(void *arg) {
 
 bool check_client_alive_cb(wss_keep_alive_t h, int fd)
 {
-    std::lock_guard<std::mutex> lock{work_queue_mutex};
     httpd_handle_t hd = (httpd_handle_t)wss_keep_alive_get_user_ctx(h);
-    work_queue.emplace_back(hd, fd, nullptr, 0, nullptr);
 
+    {
+        std::lock_guard<std::mutex> lock{work_queue_mutex};
+        work_queue.emplace_back(hd, fd, nullptr, 0, nullptr);
+    }
     return httpd_queue_work(hd, work, nullptr) == ESP_OK;
 }
 
@@ -197,11 +201,13 @@ void WebSockets::sendToClient(const char *payload, size_t payload_len, int sock)
 
     *payload_ref_counter = 1;
 
-    // TODO: locking here means, that we assume, the sock fd is valid up to now.
-    // This holds true if sendToClient is only called from the onClientConnect callback,
-    // i.e. from the same thread.
-    std::lock_guard<std::mutex> lock{work_queue_mutex};
-    work_queue.emplace_back(httpd, sock, payload_copy, payload_len, payload_ref_counter);
+    {
+        // TODO: locking here means, that we assume, the sock fd is valid up to now.
+        // This holds true if sendToClient is only called from the onClientConnect callback,
+        // i.e. from the same thread.
+        std::lock_guard<std::mutex> lock{work_queue_mutex};
+        work_queue.emplace_back(httpd, sock, payload_copy, payload_len, payload_ref_counter);
+    }
 
     if (httpd_queue_work(httpd, work, nullptr) != ESP_OK) {
         logger.printfln("httpd_queue_work failed!");
@@ -213,7 +219,6 @@ void WebSockets::sendToAll(const char *payload, size_t payload_len) {
     size_t clients = 7;
     int    client_fds[7];
 
-    std::lock_guard<std::mutex> lock{work_queue_mutex};
     auto result = httpd_get_client_list(httpd, &clients, client_fds);
     if (result != ESP_OK) {
         logger.printfln("httpd_get_client_list failed! %d", result);
@@ -251,6 +256,7 @@ void WebSockets::sendToAll(const char *payload, size_t payload_len) {
     char *payload_copy = (char*)malloc(payload_len * sizeof(char));
     memcpy(payload_copy, payload, payload_len);
 
+    std::lock_guard<std::mutex> lock{work_queue_mutex};
     for (size_t i=0; i < clients; ++i) {
         int sock = client_fds[i];
         if (httpd_ws_get_fd_info(httpd, sock) != HTTPD_WS_CLIENT_WEBSOCKET) {
