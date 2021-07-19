@@ -70,7 +70,6 @@ esp_err_t wss_open_fd(wss_keep_alive_t hd, int sockfd)
 void wss_close_fd(wss_keep_alive_t hd, int sockfd)
 {
     logger.printfln("Client disconnected %d", sockfd);
-    //wss_keep_alive_remove_client(hd, sockfd);
     removeFd(hd, sockfd);
 }
 
@@ -144,22 +143,7 @@ static esp_err_t ws_handler(httpd_req_t *req)
     free(buf);
     return ESP_OK;
 }
-/*
-static void send_ping(void *arg)
-{
-    struct async_resp_arg *resp_arg = (struct async_resp_arg *)arg;
-    httpd_handle_t hd = resp_arg->hd;
-    int fd = resp_arg->fd;
-    httpd_ws_frame_t ws_pkt;
-    memset(&ws_pkt, 0, sizeof(httpd_ws_frame_t));
-    ws_pkt.payload = NULL;
-    ws_pkt.len = 0;
-    ws_pkt.type = HTTPD_WS_TYPE_PING;
 
-    httpd_ws_send_frame_async(hd, fd, &ws_pkt);
-    free(resp_arg);
-}
-*/
 bool client_not_alive_cb(wss_keep_alive_t h, int fd)
 {
     logger.printfln("Client not alive, closing fd %d", fd);
@@ -199,34 +183,6 @@ bool check_client_alive_cb(wss_keep_alive_t h, int fd)
 
     return httpd_queue_work(hd, work, nullptr) == ESP_OK;
 }
-/*
-static void send_payload(void *arg)
-{
-    struct async_resp_payload_arg *resp_arg = (struct async_resp_payload_arg *)arg;
-
-    httpd_handle_t hd = resp_arg->hd;
-    int fd = resp_arg->fd;
-    //printf("ws fd: %d\n", resp_arg->fd);
-
-    httpd_ws_frame_t ws_pkt;
-    memset(&ws_pkt, 0, sizeof(httpd_ws_frame_t));
-
-    ws_pkt.payload = (uint8_t*)resp_arg->payload;
-    ws_pkt.len = resp_arg->payload_len;
-    ws_pkt.type = HTTPD_WS_TYPE_TEXT;
-
-    httpd_ws_send_frame_async(hd, fd, &ws_pkt);
-
-    if (*resp_arg->payload_ref_counter > 0) {
-        --(*resp_arg->payload_ref_counter);
-    }
-    if (*resp_arg->payload_ref_counter == 0) {
-        free(resp_arg->payload);
-        free(resp_arg->payload_ref_counter);
-    }
-    free(resp_arg);
-}
-*/
 
 void WebSocketsClient::send(const char* payload, size_t payload_len)
 {
@@ -335,12 +291,6 @@ void WebSockets::start(const char *uri)
 
     //server.onConnect([this](int fd) {removeFd(this->keep_alive, fd);});
     //server.onDisconnect([this](int fd) {removeFd(this->keep_alive, fd);});
-/*
-    task_scheduler.scheduleWithFixedDelay("send_ws_messages", [httpd](){
-        // Send async message to all connected clients that use websocket protocol every 10 seconds
-
-    }, 10000, 10000);
-*/
 }
 
 void WebSockets::onConnect(std::function<void(WebSocketsClient)> fn)
