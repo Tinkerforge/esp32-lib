@@ -536,23 +536,43 @@ Config *Config::get(size_t i) {
     return strict_variant::get<Config::ConfArray>(&value)->get(i);
 }
 
-const String &Config::asString() {
+const Config *Config::get(String s) const {
+    if (!this->is<Config::ConfObject>()) {
+        logger.printfln("Config key %s not in this node: is not an object!", s.c_str());
+        delay(100);
+        return nullptr;
+    }
+
+    return strict_variant::get<Config::ConfObject>(&value)->get(s);
+}
+
+const Config *Config::get(size_t i) const {
+    if (!this->is<Config::ConfArray>()){
+        logger.printfln("Config index %u not in this node: is not an array!", i);
+        delay(100);
+        return nullptr;
+    }
+
+    return strict_variant::get<Config::ConfArray>(&value)->get(i);
+}
+
+const String &Config::asString() const {
     return *as<String, Config::ConfString>();
 }
 
-const float &Config::asFloat() {
+const float &Config::asFloat() const {
     return *as<float, Config::ConfFloat>();
 }
 
-const uint32_t &Config::asUint() {
+const uint32_t &Config::asUint() const {
     return *as<uint32_t, Config::ConfUint>();
 }
 
-const int32_t &Config::asInt() {
+const int32_t &Config::asInt() const {
     return *as<int32_t, Config::ConfInt>();
 }
 
-const bool &Config::asBool() {
+const bool &Config::asBool() const {
     return *as<bool, Config::ConfBool>();
 }
 
@@ -788,6 +808,27 @@ Config* Config::ConfObject::get(String s) {
 
 Config* Config::ConfArray::get(size_t i)
 {
+    if(i >= this->value.size()) {
+        logger.printfln("Config index %u out of range!", i);
+        delay(100);
+        return nullptr;
+    }
+    return &this->value[i];
+}
+
+
+const Config* Config::ConfObject::get(String s) const {
+    for(size_t i = 0; i < this->value.size(); ++i) {
+        if(this->value[i].first == s)
+            return &this->value[i].second;
+    }
+
+    logger.printfln("Config key %s not found!", s.c_str());
+    delay(100);
+    return nullptr;
+}
+
+const Config* Config::ConfArray::get(size_t i) const {
     if(i >= this->value.size()) {
         logger.printfln("Config index %u out of range!", i);
         delay(100);

@@ -74,6 +74,7 @@ struct Config {
         String(*validator)(ConfArray &);
 
         Config *get(size_t i);
+        const Config *get(size_t i) const;
     };
 
     struct ConfObject {
@@ -81,6 +82,7 @@ struct Config {
         String(*validator)(ConfObject &);
 
         Config *get(String s);
+        const Config *get(String s) const;
     };
 
     struct ConfUpdateArray;
@@ -227,6 +229,10 @@ struct Config {
 
     Config *get(size_t i);
 
+    const Config *get(String s) const;
+
+    const Config *get(size_t i) const;
+
     bool isValid();
 
     template<typename T, typename ConfigT>
@@ -286,17 +292,27 @@ struct Config {
         return &strict_variant::get<ConfigT>(&value)->value;
     }
 
-    const String &asString();
+    template<typename T, typename ConfigT>
+    const T *as() const {
+        if (!this->is<ConfigT>()) {
+            logger.printfln("Config has wrong type.");
+            delay(100);
+            return nullptr;
+        }
+        return &strict_variant::get<ConfigT>(&value)->value;
+    }
 
-    const char *asCStr();
+    const String &asString() const;
 
-    const float &asFloat();
+    const char *asCStr() const;
 
-    const uint32_t &asUint();
+    const float &asFloat() const;
 
-    const int32_t &asInt();
+    const uint32_t &asUint() const;
 
-    const bool &asBool();
+    const int32_t &asInt() const;
+
+    const bool &asBool() const;
 
     std::vector<Config> &asArray();
 
