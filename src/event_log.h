@@ -20,12 +20,14 @@
 #pragma once
 
 #include <stdarg.h>
+#include <mutex>
 
 #include <Arduino.h>
 
 #include "ESPAsyncWebServer.h"
 
 #include "ringbuffer.h"
+#include "malloc_tools.h"
 
 #include "bindings/macros.h"
 
@@ -33,7 +35,10 @@ extern AsyncWebServer server;
 
 class EventLog {
 public:
-    TF_Ringbuffer<char, 10000> event_buf;
+    std::mutex event_buf_mutex;
+    TF_Ringbuffer<char, 10000, uint32_t, malloc_32bit_addressed, heap_caps_free> event_buf;
+
+    void write(const char *buf, size_t len);
 
     void printfln(const char *fmt, ...) __attribute__((__format__(__printf__, 2, 3)));
 

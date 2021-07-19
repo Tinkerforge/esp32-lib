@@ -19,31 +19,22 @@
 
 #include "event_log.h"
 
-void EventLog::printfln(const char *fmt, ...)
+
+
+void EventLog::write(const char *buf, size_t len)
 {
-    char buf[128];
-    memset(buf, 0, sizeof(buf)/sizeof(buf[0]));
-
-    va_list args;
-    va_start (args, fmt);
-    auto written = vsnprintf(buf, sizeof(buf)/sizeof(buf[0]), fmt, args);
-    va_end (args);
-
+    std::lock_guard<std::mutex> lock{event_buf_mutex};
     String t = String(millis());
-    size_t to_write = 12 + written + 1; // 12 for the longest timestamp (-2^31) and a space; 1 for the \n
+    size_t to_write = 12 + len + 1; // 12 for the longest timestamp (-2^31) and a space; 1 for the \n
 
     Serial.print(t);
     for(int i = 0; i < 12 - t.length(); ++i)
         Serial.print(' ');
     Serial.print(buf);
 
-    if (buf[written - 1] != '\n') {
+    if (buf[len - 1] != '\n') {
         Serial.println("");
     }
-
-    // Don't write the event buffer if it is currently read.
-    if (sending_response)
-        return;
 
     if (event_buf.free() < to_write) {
         drop(to_write - event_buf.free());
@@ -55,16 +46,33 @@ void EventLog::printfln(const char *fmt, ...)
     for(int i = 0; i < 12 - t.length(); ++i)
         event_buf.push(' ');
 
-    for(int i = 0; i < written; ++i) {
+    for(int i = 0; i < len; ++i) {
         event_buf.push(buf[i]);
     }
-    if (buf[written - 1] != '\n') {
+    if (buf[len - 1] != '\n') {
         event_buf.push('\n');
     }
 }
 
+void EventLog::printfln(const char *fmt, ...)
+{
+    char buf[128];
+    memset(buf, 0, sizeof(buf)/sizeof(buf[0]));
+
+    va_list args;
+    va_start (args, fmt);
+    auto written = vsnprintf(buf, sizeof(buf)/sizeof(buf[0]), fmt, args);
+    va_end (args);
+
+    if (written >= sizeof(buf) / sizeof(buf[0])) {
+        write("Next log message was truncated. Bump EventLog::printfln buffer size!", 69);
+    }
+
+    write(buf, written);
+}
+
 void EventLog::drop(size_t count)
- {
+{
     char c;
     for(int i = 0; i < count; ++i)
         event_buf.pop(&c);

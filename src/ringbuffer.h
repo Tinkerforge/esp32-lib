@@ -22,11 +22,24 @@
 #include <stdbool.h>
 #include <stdint.h>
 #include <stddef.h>
+#include <type_traits>
 
-template <typename T, size_t SIZE>
+template <typename T, size_t SIZE, typename AlignedT, void*(*malloc_fn)(size_t), void(*free_fn)(void*)>
 class TF_Ringbuffer {
+    static_assert(sizeof(AlignedT) % sizeof(T) == 0, "TF_Ringbuffer: Aligned type size must be divisible by target type size");
+    static_assert((sizeof(T) & (sizeof(T) - 1)) == 0, "TF_Ringbuffer: Target type must have a size that is a power of two");
+    static_assert((sizeof(AlignedT) & (sizeof(AlignedT) - 1)) == 0, "TF_Ringbuffer: Aligned type must have a size that is a power of two");
+    static_assert(std::is_unsigned<AlignedT>::value, "TF_Ringbuffer: Aligned type must be unsigned");
+
 public:
-    TF_Ringbuffer() : start(0), end(0), buffer{0} {}
+    TF_Ringbuffer() : start(0), end(0) {
+        auto buf_size = sizeof(T) * SIZE;
+        if (buf_size % sizeof(AlignedT) != 0) {
+            // Allocate up to one AlignedT more, as we need to store at least one T in it.
+            buf_size += sizeof(AlignedT) - (buf_size % sizeof(AlignedT));
+        }
+        buffer = (AlignedT*) malloc_fn(buf_size);
+    }
 
     void clear() {
         start = 0;
@@ -43,23 +56,54 @@ public:
         }
 
         return end - start;
-    };
+    }
 
     size_t free() {
         return size() - used();
     }
 
+    void write_aligned(size_t idx, T val) {
+        if (sizeof(T) == sizeof(AlignedT)) {
+            buffer[idx] = val;
+            return;
+        }
+
+        size_t items_per_slot = sizeof(AlignedT) / sizeof(T);
+        size_t buffer_idx = idx / items_per_slot;
+        size_t buffer_offset = idx % items_per_slot;
+
+        AlignedT bits = (AlignedT(1) << (sizeof(T) * 8)) - 1;
+        AlignedT write_mask = bits << (buffer_offset * 8 * sizeof(T));
+        AlignedT keep_mask = ~write_mask;
+
+        buffer[buffer_idx] = (buffer[buffer_idx] & keep_mask) | (((AlignedT) val) << (buffer_offset * 8 * sizeof(T)));
+    }
+
+    T read_aligned(size_t idx) {
+        if (sizeof(T) == sizeof(AlignedT)) {
+            return buffer[idx];
+        }
+
+        size_t items_per_slot = sizeof(AlignedT) / sizeof(T);
+        size_t buffer_idx = idx / items_per_slot;
+        size_t buffer_offset = idx % items_per_slot;
+
+        AlignedT bits = (AlignedT(1) << (sizeof(T) * 8)) - 1;
+
+        return (buffer[buffer_idx] >> (buffer_offset * 8 * sizeof(T))) & bits;
+    }
+
     void push(T val) {
-        buffer[end] = val;
+        write_aligned(end, val);
         end++;
-        if(end >= sizeof(buffer) / sizeof(buffer[0])) {
+        if(end >= SIZE) {
             end = 0;
         }
 
         // This is true if we've just overwritten the oldest item
         if(end == start) {
             ++start;
-            if(start >= sizeof(buffer) / sizeof(buffer[0])) {
+            if(start >= SIZE) {
                 start = 0;
             }
         }
@@ -71,9 +115,9 @@ public:
             return false;
         }
 
-        *val = buffer[start];
+        *val = read_aligned(start);
         start++;
-        if(start >= sizeof(buffer) / sizeof(buffer[0])) {
+        if(start >= SIZE) {
             start = 0;
         }
 
@@ -85,7 +129,7 @@ public:
             return false;
         }
 
-        *val = buffer[start];
+        *val = read_aligned(start);
         return true;
     }
 
@@ -94,11 +138,8 @@ public:
             return false;
         }
 
-        if (start + offset >= sizeof(buffer) / sizeof(buffer[0])) {
-            *val = buffer[start + offset - sizeof(buffer) / sizeof(buffer[0])];
-        } else {
-            *val = buffer[start + offset];
-        }
+        size_t idx = start + offset >= SIZE ? start + offset - SIZE : start + offset;
+        *val = read_aligned(idx);
 
         return true;
     }
@@ -107,5 +148,5 @@ public:
 	size_t start;
     //index of first invalid element
 	size_t end;
-	T buffer[SIZE];
+	AlignedT *buffer;
 };
