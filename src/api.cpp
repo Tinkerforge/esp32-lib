@@ -33,7 +33,25 @@ extern EventLog logger;
 
 void API::setup()
 {
+    task_scheduler.scheduleWithFixedDelay("API state update", [this](){
+        for (auto &reg: states) {
+            if (!deadline_elapsed(reg.last_update + reg.interval))
+                continue;
 
+            reg.last_update = millis();
+
+            if(!reg.config->was_updated())
+                continue;
+
+            reg.config->set_update_handled();
+
+            String payload = reg.config->to_string_except(reg.keys_to_censor);
+
+            for (auto* backend: this->backends) {
+                backend->pushStateUpdate(payload, reg.path);
+            }
+        }
+    }, 1000, 1000);
 }
 
 void API::addCommand(String path, Config *config, std::initializer_list<String> keys_to_censor_in_debug_report, std::function<void(void)> callback, bool is_action)
@@ -47,23 +65,7 @@ void API::addCommand(String path, Config *config, std::initializer_list<String> 
 
 void API::addState(String path, Config *config, std::initializer_list<String> keys_to_censor, uint32_t interval_ms)
 {
-    // copy into vector, initializer list is temporary, but we want to capture the content
-    std::vector<String> keys{keys_to_censor};
-
-    task_scheduler.scheduleWithFixedDelay((String("state ") + path).c_str(), [this, path, config, keys]() {
-        if(!config->was_updated())
-            return;
-
-        config->set_update_handled();
-
-        String payload = config->to_string_except(keys);
-
-        for (auto* backend: this->backends) {
-            backend->pushStateUpdate(payload, path);
-        }
-    }, interval_ms, interval_ms);
-
-    states.push_back({path, config, keys});
+    states.push_back({path, config, keys_to_censor, interval_ms, millis()});
     for (auto* backend: this->backends) {
         backend->addState(states[states.size() - 1]);
     }

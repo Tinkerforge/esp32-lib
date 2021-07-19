@@ -33,6 +33,8 @@ struct StateRegistration {
     String path;
     Config *config;
     std::vector<String> keys_to_censor;
+    uint32_t interval;
+    uint32_t last_update;
 };
 
 struct CommandRegistration {
