@@ -19,7 +19,9 @@
 
 #include "event_log.h"
 
+#include "web_server.h"
 
+extern WebServer server;
 
 void EventLog::write(const char *buf, size_t len)
 {
@@ -81,26 +83,26 @@ void EventLog::drop(size_t count)
         event_buf.pop(&c);
 }
 
+#define CHUNK_SIZE 1024
+char chunk_buf[CHUNK_SIZE] = {0};
+
 void EventLog::register_urls()
 {
-    server.on("/event_log", HTTP_GET, [this](AsyncWebServerRequest *request) {
-        auto *response = request->beginChunkedResponse("text/plain", [this](uint8_t *buffer, size_t maxLen, size_t index) -> size_t {
-            auto CHUNK_SIZE = 1024;
-            //Write up to "maxLen" bytes into "buffer" and return the amount written.
-            //index equals the amount of bytes that have been already sent
-            //You will be asked for more data until 0 is returned
-            //Keep in mind that you can not delay or yield waiting for more data!
-            size_t to_write = MIN(MIN(CHUNK_SIZE, maxLen), event_buf.used() - index);
+    server.on("/event_log", HTTP_GET, [this](WebServerRequest request) {
+        std::lock_guard<std::mutex> lock{event_buf_mutex};
+        auto used = event_buf.used();
 
-            sending_response = to_write != 0;
+        request.beginChunkedResponse(200, "text/plain");
+
+        for(int index = 0; index < used; index += CHUNK_SIZE) {
+            size_t to_write = MIN(CHUNK_SIZE, used - index);
 
             for(int i = 0; i < to_write; ++i) {
-                event_buf.peek_offset((char *)(buffer + i), index + i);
+                event_buf.peek_offset((char *)(chunk_buf + i), index + i);
             }
-            return to_write;
-        });
+            request.sendChunk(chunk_buf, to_write);
+        }
 
-        response->setCode(200);
-        request->send(response);
+        request.endChunkedResponse();
     });
 }

@@ -116,8 +116,8 @@ bool API::restorePersistentConfig(String path, Config *config)
     return error == "";
 }
 
-void API::registerDebugUrl(AsyncWebServer *server) {
-    server->on("/debug_report", HTTP_GET, [this](AsyncWebServerRequest *request) {
+void API::registerDebugUrl(WebServer *server) {
+    server->on("/debug_report", HTTP_GET, [this](WebServerRequest request) {
 
         String result = "{\"uptime\": ";
         result += String(millis());
@@ -168,7 +168,7 @@ void API::registerDebugUrl(AsyncWebServer *server) {
             result += reg.config->to_string_except(reg.keys_to_censor_in_debug_report);
         }
         result += "}";
-        request->send(200, "application/json; charset=utf-8", result);
+        request.send(200, "application/json; charset=utf-8", result.c_str());
     });
 }
 

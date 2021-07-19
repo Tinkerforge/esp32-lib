@@ -72,11 +72,6 @@ bool find_uid_by_did_at_port(TF_HalContext *hal, uint16_t device_id, char port, 
     return false;
 }
 
-bool send_event_allowed(AsyncEventSource *events) {
-    // TODO: patch the library to get how many packets are waiting in the fullest client queue
-    return events->count() > 0 && events->avgPacketsWaiting() < 8;
-}
-
 String update_config(Config &cfg, String config_name, JsonVariant &json) {
     String error = cfg.update_from_json(json);
 

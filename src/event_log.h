@@ -24,14 +24,10 @@
 
 #include <Arduino.h>
 
-#include "ESPAsyncWebServer.h"
-
 #include "ringbuffer.h"
 #include "malloc_tools.h"
 
 #include "bindings/macros.h"
-
-extern AsyncWebServer server;
 
 class EventLog {
 public:

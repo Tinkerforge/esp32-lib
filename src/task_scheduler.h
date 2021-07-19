@@ -32,7 +32,6 @@
 #include "tools.h"
 
 #include "ArduinoJson.h"
-#include "AsyncJson.h"
 
 struct Task {
     const char *task_name;

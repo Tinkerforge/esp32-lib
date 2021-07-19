@@ -25,9 +25,8 @@
 #include <initializer_list>
 #include <vector>
 
-#include "ESPAsyncWebServer.h"
-
 #include "config.h"
+#include "web_server.h"
 
 struct StateRegistration {
     String path;
@@ -73,7 +72,7 @@ public:
 
     bool restorePersistentConfig(String path, Config *config);
 
-    void registerDebugUrl(AsyncWebServer *server);
+    void registerDebugUrl(WebServer *server);
 
     void registerBackend(IAPIBackend *backend);
 

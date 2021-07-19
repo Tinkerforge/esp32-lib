@@ -19,7 +19,9 @@
 
 #include "task_scheduler.h"
 
-extern AsyncWebServer server;
+#include "web_server.h"
+
+extern WebServer server;
 
 Task::Task(const char *task_name, std::function<void(void)> fn, uint32_t first_run_delay_ms, uint32_t delay_ms, bool once) :
           task_name(task_name),
@@ -44,12 +46,12 @@ const char *current_scheduler_task = "init";
 
 void TaskScheduler::register_urls()
 {
-    server.on("/scheduler/state", HTTP_GET, [](AsyncWebServerRequest *request) {
-        request->send(200, "text/html", String(current_scheduler_state));
+    server.on("/scheduler/state", HTTP_GET, [](WebServerRequest request) {
+        request.send(200, "text/html", String(current_scheduler_state).c_str());
     });
 
-    server.on("/scheduler/task", HTTP_GET, [](AsyncWebServerRequest *request) {
-        request->send(200, "text/html", String(current_scheduler_task));
+    server.on("/scheduler/task", HTTP_GET, [](WebServerRequest request) {
+        request.send(200, "text/html", String(current_scheduler_task).c_str());
     });
 }
 
