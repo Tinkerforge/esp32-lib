@@ -30,30 +30,30 @@ struct ws_work_item {
                  int *payload_ref_counter) :
                     hd(hd), fd(fd), payload(payload), payload_len(payload_len), payload_ref_counter(payload_ref_counter)
     {}
+
+    void clear() {
+        if (this->payload_ref_counter == nullptr)
+            return;
+
+        if (*this->payload_ref_counter > 0) {
+            --(*this->payload_ref_counter);
+        }
+        if (*this->payload_ref_counter == 0) {
+            free(this->payload);
+            free(this->payload_ref_counter);
+        }
+    }
 };
 
 std::mutex work_queue_mutex;
 std::deque<ws_work_item> work_queue;
-
-void clear_work_item(ws_work_item *wi) {
-    if (!wi)
-        return;
-
-    if (*wi->payload_ref_counter > 0) {
-        --(*wi->payload_ref_counter);
-    }
-    if (*wi->payload_ref_counter == 0) {
-        free(wi->payload);
-        free(wi->payload_ref_counter);
-    }
-}
 
 static void removeFd(wss_keep_alive_t h, int fd){
     wss_keep_alive_remove_client(h, fd);
     std::lock_guard<std::mutex> lock{work_queue_mutex};
     for (auto it = work_queue.begin(); it != work_queue.end(); ) {
         if (it->fd == fd) {
-            clear_work_item(&(*it));
+            it->clear();
             it = work_queue.erase(it);
         } else {
             ++it;
@@ -186,10 +186,8 @@ static void work(void *arg) {
         if(result != ESP_OK) {
             printf("failed to send frame: %d\n", result);
         }
-        if (wi.payload_len == 0) {
-            return;
-        }
-        clear_work_item(&wi);
+
+        wi.clear();
     }
 }
 
