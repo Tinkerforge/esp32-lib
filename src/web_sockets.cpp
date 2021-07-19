@@ -50,15 +50,6 @@ std::deque<ws_work_item> work_queue;
 
 static void removeFd(wss_keep_alive_t h, int fd){
     wss_keep_alive_remove_client(h, fd);
-    std::lock_guard<std::mutex> lock{work_queue_mutex};
-    for (auto it = work_queue.begin(); it != work_queue.end(); ) {
-        if (it->fd == fd) {
-            it->clear();
-            it = work_queue.erase(it);
-        } else {
-            ++it;
-        }
-    }
 }
 
 esp_err_t wss_open_fd(wss_keep_alive_t hd, int sockfd)
@@ -149,7 +140,6 @@ bool client_not_alive_cb(wss_keep_alive_t h, int fd)
     logger.printfln("Client not alive, closing fd %d", fd);
     httpd_sess_trigger_close(wss_keep_alive_get_user_ctx(h), fd);
     wss_close_fd(h, fd);
-    removeFd(h, fd);
     return true;
 }
 
@@ -159,6 +149,10 @@ static void work(void *arg) {
         {
             std::lock_guard<std::mutex> lock{work_queue_mutex};
             work_queue.pop_front();
+        }
+        if(httpd_ws_get_fd_info(wi.hd, wi.fd) != HTTPD_WS_CLIENT_WEBSOCKET) {
+            wi.clear();
+            continue;
         }
 
         httpd_ws_frame_t ws_pkt;
