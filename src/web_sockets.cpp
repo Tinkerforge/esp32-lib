@@ -54,20 +54,20 @@ static void removeFd(wss_keep_alive_t h, int fd){
 
 esp_err_t wss_open_fd(wss_keep_alive_t hd, int sockfd)
 {
-    logger.printfln("New client connected %d", sockfd);
+    //logger.printfln("New client connected %d", sockfd);
     return wss_keep_alive_add_client(hd, sockfd);
 }
 
 void wss_close_fd(wss_keep_alive_t hd, int sockfd)
 {
-    logger.printfln("Client disconnected %d", sockfd);
+    //logger.printfln("Client disconnected %d", sockfd);
     removeFd(hd, sockfd);
 }
 
 static esp_err_t ws_handler(httpd_req_t *req)
 {
     if (req->method == HTTP_GET) {
-        logger.printfln("Handshake done, the new connection was opened");
+        //logger.printfln("Handshake done, the new connection was opened");
 
         int sock = httpd_req_to_sockfd(req);
         WebSockets *ws = (WebSockets*)req->user_ctx;
@@ -137,7 +137,7 @@ static esp_err_t ws_handler(httpd_req_t *req)
 
 bool client_not_alive_cb(wss_keep_alive_t h, int fd)
 {
-    logger.printfln("Client not alive, closing fd %d", fd);
+    //logger.printfln("Client not alive, closing fd %d", fd);
     httpd_sess_trigger_close(wss_keep_alive_get_user_ctx(h), fd);
     wss_close_fd(h, fd);
     return true;
