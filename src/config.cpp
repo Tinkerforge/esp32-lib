@@ -634,7 +634,10 @@ String Config::update_from_file(File file) {
 
     if (err == "") {
         value = copy;
+        this->updated = true;
     }
+
+
 
     return err;
 }
@@ -650,8 +653,10 @@ String Config::update_from_string(String s) {
 
     String err = strict_variant::apply_visitor(from_json{doc.as<JsonVariant>()}, copy);
 
-    if (err == "")
+    if (err == "") {
         value = copy;
+        this->updated = true;
+    }
 
     return err;
 }
@@ -659,8 +664,10 @@ String Config::update_from_string(String s) {
 String Config::update_from_json(JsonVariant root) {
     ConfVariant copy = value;
     String err = strict_variant::apply_visitor(from_json{root}, copy);
-    if (err == "")
+    if (err == "") {
         value = copy;
+        this->updated = true;
+    }
 
     return err;
 }
@@ -669,8 +676,10 @@ String Config::update(ConfUpdate *val)
 {
     ConfVariant copy = value;
     String err = strict_variant::apply_visitor(from_update{val}, copy);
-    if (err == "")
+    if (err == "") {
         value = copy;
+        this->updated = true;
+    }
 
     return err;
 }
