@@ -67,7 +67,7 @@ public:
 
     void addCommand(String path, Config *config, std::initializer_list<String> keys_to_censor_in_debug_report, std::function<void(void)> callback, bool is_action);
     void addState(String path, Config *config, std::initializer_list<String> keys_to_censor, uint32_t interval_ms);
-    void addPersistentConfig(String path, Config *config, std::initializer_list<String> keys_to_censor, uint32_t interval_ms);
+    bool addPersistentConfig(String path, Config *config, std::initializer_list<String> keys_to_censor, uint32_t interval_ms);
     //void addTemporaryConfig(String path, Config *config, std::initializer_list<String> keys_to_censor, uint32_t interval_ms, std::function<void(void)> callback);
 
     bool restorePersistentConfig(String path, Config *config);

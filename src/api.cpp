@@ -71,14 +71,24 @@ void API::addState(String path, Config *config, std::initializer_list<String> ke
     }
 }
 
-void API::addPersistentConfig(String path, Config *config, std::initializer_list<String> keys_to_censor, uint32_t interval_ms)
+bool API::addPersistentConfig(String path, Config *config, std::initializer_list<String> keys_to_censor, uint32_t interval_ms)
 {
+    if (path.length() > 29) {
+        logger.printfln("The maximum allowed config path length is 29 bytes. Got %u bytes instead.", path.length());
+        return false;
+    }
+
+    if (path[0] == '.') {
+        logger.printfln("A config path may not start with a '.' as it is used to mark temporary files.");
+        return false;
+    }
+
     addState(path, config, keys_to_censor, interval_ms);
     addCommand(path + String("_update"), config, keys_to_censor, [path, config](){
         String path_copy = path;
         path_copy.replace('/', '_');
-        String tmp_path = String("/") + path_copy + ".json.tmp";
-        String cfg_path = String("/") + path_copy + ".json";
+        String cfg_path = String("/") + path_copy;
+        String tmp_path = String("/.") + path_copy; //max len is 31 - len("/.") = 29
 
         if (SPIFFS.exists(tmp_path))
             SPIFFS.remove(tmp_path);
@@ -92,6 +102,8 @@ void API::addPersistentConfig(String path, Config *config, std::initializer_list
 
         SPIFFS.rename(tmp_path, cfg_path);
     }, false);
+
+    return true;
 }
 /*
 void API::addTemporaryConfig(String path, Config *config, std::initializer_list<String> keys_to_censor, uint32_t interval_ms, std::function<void(void)> callback)
@@ -104,15 +116,28 @@ void API::addTemporaryConfig(String path, Config *config, std::initializer_list<
 bool API::restorePersistentConfig(String path, Config *config)
 {
     path.replace('/', '_');
-    String filename = String("/") + path + String(".json");
-    if(!SPIFFS.exists(filename))
-        return false;
+    String filename = String("/") + path;
+
+    if(!SPIFFS.exists(filename)) {
+        // We have to migrate from the old naming schema here
+        // /xyz.json.tmp is now /.xyz
+        // /xyz.json is now /xyz
+
+        if(SPIFFS.exists(filename + ".json.tmp"))
+            SPIFFS.remove(filename + ".json.tmp");
+
+        if(!SPIFFS.exists(filename + ".json"))
+            return false;
+
+        logger.printfln("Migrating config file %s to %s.", (filename + ".json").c_str(), filename.c_str());
+        SPIFFS.rename(filename + ".json", filename);
+    }
 
     File file = SPIFFS.open(filename);
     String error = config->update_from_file(file);
     file.close();
     if(error != "")
-        logger.printfln("Failed to restore persistant config %s: %s", path.c_str(), error.c_str());
+        logger.printfln("Failed to restore persistent config %s: %s", path.c_str(), error.c_str());
     return error == "";
 }
 
