@@ -3,6 +3,7 @@
 #include "esp_log.h"
 
 #include "task_scheduler.h"
+#include "digest_auth.h"
 
 #include <memory>
 
@@ -48,8 +49,7 @@ bool authenticate(WebServerRequest req, const char * username, const char * pass
     }
 
     auth = auth.substring(7);
-    //return checkDigestAuthentication(auth.c_str(), req.methodString(), username, password, "esp32-lib", false, nullptr, nullptr, nullptr);
-    return true;
+    return checkDigestAuthentication(auth.c_str(), req.methodString(), username, password, "esp32-lib", false, nullptr, nullptr, nullptr);
 }
 
 WebServerHandler* WebServer::on(const char *uri, httpd_method_t method, wshCallback callback)
@@ -291,11 +291,18 @@ void WebServerRequest::addResponseHeader(const char *field, const char *value)
 }
 
 void WebServerRequest::requestAuthentication() {
-    /*String payload = "Digest ";
+    String payload = "Digest ";
     payload.concat(requestDigestAuthentication("esp32-lib"));
-    addResponseHeader("WWW-Authenticate", payload.c_str());*/
+    addResponseHeader("WWW-Authenticate", payload.c_str());
     send(401);
 }
+
+class CustomString : public String {
+public:
+    void setLength(int len) {
+        setLen(len);
+    }
+};
 
 String WebServerRequest::header(const char *header_name)
 {
@@ -303,13 +310,14 @@ String WebServerRequest::header(const char *header_name)
     if (buf_len == 1)
         return String("");
 
-    String result;
+    CustomString result;
     result.reserve(buf_len);
     char *buf = result.begin();
     /* Copy null terminated value string into buffer */
     if (httpd_req_get_hdr_value_str(req, header_name, buf, buf_len) != ESP_OK) {
         return String("");
     }
+    result.setLength(buf_len);
     return result;
 }
 
