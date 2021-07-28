@@ -5,6 +5,8 @@
 #include "task_scheduler.h"
 #include "web_server.h"
 
+#include "esp_httpd_priv.h"
+
 #include <mutex>
 #include <deque>
 
@@ -67,14 +69,39 @@ void wss_close_fd(wss_keep_alive_t hd, int sockfd)
 static esp_err_t ws_handler(httpd_req_t *req)
 {
     if (req->method == HTTP_GET) {
-        //logger.printfln("Handshake done, the new connection was opened");
+        auto request = WebServerRequest{req};
+        if (server.username != "" && server.password != "" && !authenticate(request, server.username.c_str(), server.password.c_str())) {
+            if (server.on_not_authorized) {
+                server.on_not_authorized(request);
+                return ESP_OK;
+            }
+            request.requestAuthentication();
+            return ESP_OK;
+        }
 
-        int sock = httpd_req_to_sockfd(req);
-        WebSockets *ws = (WebSockets*)req->user_ctx;
-        wss_open_fd(ws->keep_alive, sock);
+        struct httpd_req_aux   *aux = (struct httpd_req_aux *) req->aux;
+        if (aux->ws_handshake_detect) {
+            logger.printfln("Responding WS handshake to sock %d", aux->sd->fd);
+            struct httpd_data *hd = (struct httpd_data *) server.httpd;
+            esp_err_t ret = httpd_ws_respond_server_handshake(&hd->hd_req, nullptr);
+            if (ret != ESP_OK) {
+                return ret;
+            }
 
-        if (ws->on_client_connect_fn) {
-            ws->on_client_connect_fn(WebSocketsClient{sock, ws});
+            aux->sd->ws_handshake_done = true;
+            aux->sd->ws_handler = ws_handler;
+            aux->sd->ws_control_frames = true;
+            aux->sd->ws_user_ctx = req->user_ctx;
+
+            logger.printfln("Handshake done, the new connection was opened");
+
+            int sock = httpd_req_to_sockfd(req);
+            WebSockets *ws = (WebSockets*)req->user_ctx;
+            wss_open_fd(ws->keep_alive, sock);
+
+            if (ws->on_client_connect_fn) {
+                ws->on_client_connect_fn(WebSocketsClient{sock, ws});
+            }
         }
         return ESP_OK;
     }
@@ -282,7 +309,7 @@ void WebSockets::start(const char *uri)
             .method     = HTTP_GET,
             .handler    = ws_handler,
             .user_ctx   = this,
-            .is_websocket = true,
+            .is_websocket = false,
             .handle_ws_control_frames = true
     };
 
