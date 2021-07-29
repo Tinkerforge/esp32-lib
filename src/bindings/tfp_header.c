@@ -11,7 +11,7 @@ void parse_header(TF_TfpHeader *header) {
     header->options = header->seq_num & 0x07;
     header->seq_num >>= 4;
 
-    header->error_code = header->flags & 0xC0 >> 6;
+    header->error_code = header->flags >> 6;
     header->flags &= 0x3F;
 }
 
