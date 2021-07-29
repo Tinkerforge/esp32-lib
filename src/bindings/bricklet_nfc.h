@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-02-08.      *
+ * This file was automatically generated on 2021-07-28.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -181,6 +181,11 @@ typedef struct TF_NFC {
 /**
  * \ingroup BrickletNFC
  */
+#define TF_NFC_FUNCTION_SIMPLE_GET_TAG_ID_LOW_LEVEL 29
+
+/**
+ * \ingroup BrickletNFC
+ */
 #define TF_NFC_FUNCTION_GET_SPITFP_ERROR_COUNT 234
 
 /**
@@ -276,6 +281,11 @@ typedef struct TF_NFC {
  * \ingroup BrickletNFC
  */
 #define TF_NFC_MODE_READER 3
+
+/**
+ * \ingroup BrickletNFC
+ */
+#define TF_NFC_MODE_SIMPLE 4
 
 /**
  * \ingroup BrickletNFC
@@ -1214,6 +1224,13 @@ TF_ATTRIBUTE_NONNULL(1) int tf_nfc_get_maximum_timeout(TF_NFC *nfc, uint16_t *re
 /**
  * \ingroup BrickletNFC
  *
+ * .. versionadded:: 2.0.6$nbsp;(Plugin)
+ */
+TF_ATTRIBUTE_NONNULL(1) int tf_nfc_simple_get_tag_id_low_level(TF_NFC *nfc, uint8_t index, uint8_t *ret_tag_type, uint8_t *ret_tag_id_length, uint8_t ret_tag_id_data[10], uint32_t *ret_last_seen);
+
+/**
+ * \ingroup BrickletNFC
+ *
  * Returns the error count for the communication between Brick and Bricklet.
  * 
  * The errors are divided into
@@ -1475,6 +1492,13 @@ TF_ATTRIBUTE_NONNULL(1) int tf_nfc_p2p_write_ndef(TF_NFC *nfc, uint8_t *ndef, ui
  * read transfer and the P2P state changed to *P2PTransferNDEFReady*.
  */
 TF_ATTRIBUTE_NONNULL(1) int tf_nfc_p2p_read_ndef(TF_NFC *nfc, uint8_t *ret_ndef, uint16_t *ret_ndef_length);
+
+/**
+ * \ingroup BrickletNFC
+ *
+ * .. versionadded:: 2.0.6$nbsp;(Plugin)
+ */
+TF_ATTRIBUTE_NONNULL(1) int tf_nfc_simple_get_tag_id(TF_NFC *nfc, uint8_t index, uint8_t *ret_tag_type, uint8_t *ret_tag_id, uint8_t *ret_tag_id_length, uint32_t *ret_last_seen);
 
 #ifdef __cplusplus
 }

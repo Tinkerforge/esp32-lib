@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-07-16.      *
+ * This file was automatically generated on 2021-07-28.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -116,6 +116,16 @@ typedef struct TF_EVSE {
  * \ingroup BrickletEVSE
  */
 #define TF_EVSE_FUNCTION_SET_USER_CALIBRATION 15
+
+/**
+ * \ingroup BrickletEVSE
+ */
+#define TF_EVSE_FUNCTION_GET_DATA_STORAGE 16
+
+/**
+ * \ingroup BrickletEVSE
+ */
+#define TF_EVSE_FUNCTION_SET_DATA_STORAGE 17
 
 /**
  * \ingroup BrickletEVSE
@@ -675,6 +685,20 @@ TF_ATTRIBUTE_NONNULL(1) int tf_evse_get_user_calibration(TF_EVSE *evse, bool *re
  * TODO
  */
 TF_ATTRIBUTE_NONNULL(1) int tf_evse_set_user_calibration(TF_EVSE *evse, uint32_t password, bool user_calibration_active, int16_t voltage_diff, int16_t voltage_mul, int16_t voltage_div, int16_t resistance_2700, int16_t resistance_880[14]);
+
+/**
+ * \ingroup BrickletEVSE
+ *
+ * TODO
+ */
+TF_ATTRIBUTE_NONNULL(1) int tf_evse_get_data_storage(TF_EVSE *evse, uint8_t page, uint8_t ret_data[63]);
+
+/**
+ * \ingroup BrickletEVSE
+ *
+ * TODO
+ */
+TF_ATTRIBUTE_NONNULL(1) int tf_evse_set_data_storage(TF_EVSE *evse, uint8_t page, uint8_t data[63]);
 
 /**
  * \ingroup BrickletEVSE

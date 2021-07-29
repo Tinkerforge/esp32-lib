@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-02-08.      *
+ * This file was automatically generated on 2021-07-28.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -1159,6 +1159,46 @@ int tf_nfc_get_maximum_timeout(TF_NFC *nfc, uint16_t *ret_timeout) {
     return tf_tfp_get_error(error_code);
 }
 
+int tf_nfc_simple_get_tag_id_low_level(TF_NFC *nfc, uint8_t index, uint8_t *ret_tag_type, uint8_t *ret_tag_id_length, uint8_t ret_tag_id_data[10], uint32_t *ret_last_seen) {
+    if(tf_hal_get_common(nfc->tfp->hal)->locked) {
+        return TF_E_LOCKED;
+    }
+
+    bool response_expected = true;
+    tf_tfp_prepare_send(nfc->tfp, TF_NFC_FUNCTION_SIMPLE_GET_TAG_ID_LOW_LEVEL, 1, 16, response_expected);
+
+    size_t i;
+    uint8_t *buf = tf_tfp_get_payload_buffer(nfc->tfp);
+
+    buf[0] = (uint8_t)index;
+
+    uint32_t deadline = tf_hal_current_time_us(nfc->tfp->hal) + tf_hal_get_common(nfc->tfp->hal)->timeout;
+
+    uint8_t error_code = 0;
+    int result = tf_tfp_transmit_packet(nfc->tfp, response_expected, deadline, &error_code);
+    if(result < 0)
+        return result;
+
+    if (result & TF_TICK_TIMEOUT) {
+        //return -result;
+        return TF_E_TIMEOUT;
+    }
+
+    if (result & TF_TICK_PACKET_RECEIVED && error_code == 0) {
+        if (ret_tag_type != NULL) { *ret_tag_type = tf_packetbuffer_read_uint8_t(&nfc->tfp->spitfp->recv_buf); } else { tf_packetbuffer_remove(&nfc->tfp->spitfp->recv_buf, 1); }
+        if (ret_tag_id_length != NULL) { *ret_tag_id_length = tf_packetbuffer_read_uint8_t(&nfc->tfp->spitfp->recv_buf); } else { tf_packetbuffer_remove(&nfc->tfp->spitfp->recv_buf, 1); }
+        if (ret_tag_id_data != NULL) { for (i = 0; i < 10; ++i) ret_tag_id_data[i] = tf_packetbuffer_read_uint8_t(&nfc->tfp->spitfp->recv_buf);} else { tf_packetbuffer_remove(&nfc->tfp->spitfp->recv_buf, 10); }
+        if (ret_last_seen != NULL) { *ret_last_seen = tf_packetbuffer_read_uint32_t(&nfc->tfp->spitfp->recv_buf); } else { tf_packetbuffer_remove(&nfc->tfp->spitfp->recv_buf, 4); }
+        tf_tfp_packet_processed(nfc->tfp);
+    }
+
+    result = tf_tfp_finish_send(nfc->tfp, result, deadline);
+    if(result < 0)
+        return result;
+
+    return tf_tfp_get_error(error_code);
+}
+
 int tf_nfc_get_spitfp_error_count(TF_NFC *nfc, uint32_t *ret_error_count_ack_checksum, uint32_t *ret_error_count_message_checksum, uint32_t *ret_error_count_frame, uint32_t *ret_error_count_overflow) {
     if(tf_hal_get_common(nfc->tfp->hal)->locked) {
         return TF_E_LOCKED;
@@ -1934,6 +1974,27 @@ int tf_nfc_p2p_read_ndef(TF_NFC *nfc, uint8_t *ret_ndef, uint16_t *ret_ndef_leng
 
         ret = TF_E_STREAM_OUT_OF_SYNC;
     }
+
+    return ret;
+}
+
+int tf_nfc_simple_get_tag_id(TF_NFC *nfc, uint8_t index, uint8_t *ret_tag_type, uint8_t *ret_tag_id, uint8_t *ret_tag_id_length, uint32_t *ret_last_seen) {
+    int ret = TF_E_OK;
+    uint8_t tag_id_length = 0;
+    uint8_t tag_id_data[10];
+
+    *ret_tag_id_length = 0;
+
+    ret = tf_nfc_simple_get_tag_id_low_level(nfc, index, ret_tag_type, &tag_id_length, tag_id_data, ret_last_seen);
+
+    if (ret != TF_E_OK) {
+        return ret;
+    }
+
+    memcpy(ret_tag_id, tag_id_data, sizeof(uint8_t) * tag_id_length);
+    memset(&tag_id_data[tag_id_length], 0, sizeof(uint8_t) * (10 - tag_id_length));
+
+    *ret_tag_id_length = tag_id_length;
 
     return ret;
 }
