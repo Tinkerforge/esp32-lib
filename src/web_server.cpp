@@ -208,7 +208,9 @@ const char *httpStatusCodeToString(int code) {
         case 415: return "415 Unsupported Media Type";          //[RFC7231, Section 6.5.13][RFC7694, Section 3]
         case 416: return "416 Range Not Satisfiable";           //[RFC7233, Section 4.4]
         case 417: return "417 Expectation Failed";              //[RFC7231, Section 6.5.14]
-        //418-420,Unassigned,
+        // Technically unasigned, but what if someone wants to build a smart tea kettle?
+        case 418: return "418 I'm a teapot";                    //[RFC2324, Section 2.3.2][RFC7168, Section 2.3.3]
+        //419-420,Unassigned,
         case 421: return "421 Misdirected Request";             //[RFC7540, Section 9.1.2]
         case 422: return "422 Unprocessable Entity";            //[RFC4918]
         case 423: return "423 Locked";                          //[RFC4918]
