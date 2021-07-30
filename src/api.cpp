@@ -105,6 +105,25 @@ bool API::addPersistentConfig(String path, Config *config, std::initializer_list
 
     return true;
 }
+
+void API::blockCommand(String path, String reason)
+{
+    for(auto &reg: commands) {
+        if (reg.path != path)
+            continue;
+        reg.blockedReason = reason;
+    }
+}
+
+String API::getCommandBlockedReason(String path)
+{
+    for(auto &reg: commands) {
+        if (reg.path != path)
+            continue;
+        return reg.blockedReason;
+    }
+}
+
 /*
 void API::addTemporaryConfig(String path, Config *config, std::initializer_list<String> keys_to_censor, uint32_t interval_ms, std::function<void(void)> callback)
 {

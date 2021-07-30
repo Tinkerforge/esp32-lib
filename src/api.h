@@ -42,6 +42,7 @@ struct CommandRegistration {
     std::function<void(void)> callback;
     std::vector<String> keys_to_censor_in_debug_report;
     bool is_action;
+    String blockedReason;
 };
 
 
@@ -69,6 +70,9 @@ public:
     void addState(String path, Config *config, std::initializer_list<String> keys_to_censor, uint32_t interval_ms);
     bool addPersistentConfig(String path, Config *config, std::initializer_list<String> keys_to_censor, uint32_t interval_ms);
     //void addTemporaryConfig(String path, Config *config, std::initializer_list<String> keys_to_censor, uint32_t interval_ms, std::function<void(void)> callback);
+
+    void blockCommand(String path, String reason);
+    String getCommandBlockedReason(String path);
 
     bool restorePersistentConfig(String path, Config *config);
 
