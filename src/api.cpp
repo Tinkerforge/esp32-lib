@@ -122,6 +122,7 @@ String API::getCommandBlockedReason(String path)
             continue;
         return reg.blockedReason;
     }
+    return "";
 }
 
 /*
