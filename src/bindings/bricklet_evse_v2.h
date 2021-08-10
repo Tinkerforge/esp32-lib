@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-07-28.      *
+ * This file was automatically generated on 2021-08-04.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -364,6 +364,11 @@ typedef struct TF_EVSEV2 {
 /**
  * \ingroup BrickletEVSEV2
  */
+#define TF_EVSE_V2_ERROR_STATE_DC_FAULT 6
+
+/**
+ * \ingroup BrickletEVSEV2
+ */
 #define TF_EVSE_V2_JUMPER_CONFIGURATION_6A 0
 
 /**
@@ -434,22 +439,37 @@ typedef struct TF_EVSEV2 {
 /**
  * \ingroup BrickletEVSEV2
  */
-#define TF_EVSE_V2_DC_FAULT_CURRENT_STATE_6_MA 1
+#define TF_EVSE_V2_DC_FAULT_CURRENT_STATE_6_MA_ERROR 1
 
 /**
  * \ingroup BrickletEVSEV2
  */
-#define TF_EVSE_V2_DC_FAULT_CURRENT_STATE_SYSTEM 2
+#define TF_EVSE_V2_DC_FAULT_CURRENT_STATE_SYSTEM_ERROR 2
 
 /**
  * \ingroup BrickletEVSEV2
  */
-#define TF_EVSE_V2_DC_FAULT_CURRENT_STATE_UNKNOWN 3
+#define TF_EVSE_V2_DC_FAULT_CURRENT_STATE_UNKNOWN_ERROR 3
 
 /**
  * \ingroup BrickletEVSEV2
  */
-#define TF_EVSE_V2_DC_FAULT_CURRENT_STATE_CALIBRATION 4
+#define TF_EVSE_V2_DC_FAULT_CURRENT_STATE_CALIBRATION_ERROR 4
+
+/**
+ * \ingroup BrickletEVSEV2
+ */
+#define TF_EVSE_V2_ENABLE_INPUT_DEACTIVATED 0
+
+/**
+ * \ingroup BrickletEVSEV2
+ */
+#define TF_EVSE_V2_ENABLE_INPUT_ACTIVE_OPEN 1
+
+/**
+ * \ingroup BrickletEVSEV2
+ */
+#define TF_EVSE_V2_ENABLE_INPUT_ACTIVE_CLOSE 2
 
 /**
  * \ingroup BrickletEVSEV2
@@ -689,7 +709,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_evse_v2_get_charging_autostart(TF_EVSEV2 *evse_v2
  *
  * TODO
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_evse_v2_get_energy_meter_values(TF_EVSEV2 *evse_v2, uint32_t *ret_power, uint32_t *ret_energy_relative, uint32_t *ret_energy_absolute);
+TF_ATTRIBUTE_NONNULL(1) int tf_evse_v2_get_energy_meter_values(TF_EVSEV2 *evse_v2, float *ret_power, float *ret_energy_relative, float *ret_energy_absolute, bool ret_phases_active[3]);
 
 /**
  * \ingroup BrickletEVSEV2
@@ -731,14 +751,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_evse_v2_reset_dc_fault_current(TF_EVSEV2 *evse_v2
  *
  * TODO
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_evse_v2_set_gpio_configuration(TF_EVSEV2 *evse_v2, uint8_t input_configuration, uint8_t output_configuration);
+TF_ATTRIBUTE_NONNULL(1) int tf_evse_v2_set_gpio_configuration(TF_EVSEV2 *evse_v2, uint8_t enable_input_configuration, uint8_t input_configuration, uint8_t output_configuration);
 
 /**
  * \ingroup BrickletEVSEV2
  *
  * TODO
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_evse_v2_get_gpio_configuration(TF_EVSEV2 *evse_v2, uint8_t *ret_input_configuration, uint8_t *ret_output_configuration);
+TF_ATTRIBUTE_NONNULL(1) int tf_evse_v2_get_gpio_configuration(TF_EVSEV2 *evse_v2, uint8_t *ret_enable_input_configuration, uint8_t *ret_input_configuration, uint8_t *ret_output_configuration);
 
 /**
  * \ingroup BrickletEVSEV2
