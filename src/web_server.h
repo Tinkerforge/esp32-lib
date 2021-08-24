@@ -106,6 +106,7 @@ public:
 
     httpd_handle_t httpd;
     std::forward_list<WebServerHandler> handlers;
+    int handler_count = 0;
     wshCallback on_not_authorized;
 
     String username;

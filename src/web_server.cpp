@@ -9,6 +9,8 @@
 
 extern TaskScheduler task_scheduler;
 
+#define MAX_URI_HANDLERS 128
+
 void WebServer::start() {
     if (this->httpd != nullptr) {
         return;
@@ -17,7 +19,7 @@ void WebServer::start() {
     httpd_config_t config = HTTPD_DEFAULT_CONFIG();
     config.lru_purge_enable = true;
     config.stack_size = 8192;
-    config.max_uri_handlers = 64;
+    config.max_uri_handlers = MAX_URI_HANDLERS;
     config.global_user_ctx = this;
     /*config.task_priority = tskIDLE_PRIORITY+7;
     config.core_id = 1;*/
@@ -54,7 +56,13 @@ bool authenticate(WebServerRequest req, const char * username, const char * pass
 
 WebServerHandler* WebServer::on(const char *uri, httpd_method_t method, wshCallback callback)
 {
+    if (handler_count >= MAX_URI_HANDLERS) {
+        logger.printfln("Can't add WebServer handler for %s: %d handlers already registered. Please increase MAX_URI_HANDLERS.", uri, handler_count);
+        return nullptr;
+    }
+
     handlers.emplace_front(uri, method, callback, wshUploadCallback());
+    ++handler_count;
     WebServerHandler *result = &handlers.front();
 
     UserCtx *user_ctx = (UserCtx *)malloc(sizeof(UserCtx));
@@ -90,7 +98,13 @@ static uint8_t scratch_buf[SCRATCH_BUFSIZE] = {0};
 
 WebServerHandler* WebServer::on(const char *uri, httpd_method_t method, wshCallback callback, wshUploadCallback uploadCallback)
 {
+    if (handler_count >= MAX_URI_HANDLERS) {
+        logger.printfln("Can't add WebServer handler for %s: %d handlers already registered. Please increase MAX_URI_HANDLERS.", uri, handler_count);
+        return nullptr;
+    }
+
     handlers.emplace_front(uri, method, callback, uploadCallback);
+    ++handler_count;
     WebServerHandler *result = &handlers.front();
 
     UserCtx *user_ctx = (UserCtx *)malloc(sizeof(UserCtx));
