@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-08-04.      *
+ * This file was automatically generated on 2021-08-18.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -151,6 +151,26 @@ typedef struct TF_EVSEV2 {
  * \ingroup BrickletEVSEV2
  */
 #define TF_EVSE_V2_FUNCTION_SET_DATA_STORAGE 22
+
+/**
+ * \ingroup BrickletEVSEV2
+ */
+#define TF_EVSE_V2_FUNCTION_GET_INDICATOR_LED 23
+
+/**
+ * \ingroup BrickletEVSEV2
+ */
+#define TF_EVSE_V2_FUNCTION_SET_INDICATOR_LED 24
+
+/**
+ * \ingroup BrickletEVSEV2
+ */
+#define TF_EVSE_V2_FUNCTION_SET_BUTTON_CONFIGURATION 25
+
+/**
+ * \ingroup BrickletEVSEV2
+ */
+#define TF_EVSE_V2_FUNCTION_GET_BUTTON_CONFIGURATION 26
 
 /**
  * \ingroup BrickletEVSEV2
@@ -349,7 +369,7 @@ typedef struct TF_EVSEV2 {
 /**
  * \ingroup BrickletEVSEV2
  */
-#define TF_EVSE_V2_ERROR_STATE_CALIBRATION 3
+#define TF_EVSE_V2_ERROR_STATE_DC_FAULT 3
 
 /**
  * \ingroup BrickletEVSEV2
@@ -360,11 +380,6 @@ typedef struct TF_EVSEV2 {
  * \ingroup BrickletEVSEV2
  */
 #define TF_EVSE_V2_ERROR_STATE_COMMUNICATION 5
-
-/**
- * \ingroup BrickletEVSEV2
- */
-#define TF_EVSE_V2_ERROR_STATE_DC_FAULT 6
 
 /**
  * \ingroup BrickletEVSEV2
@@ -470,6 +485,26 @@ typedef struct TF_EVSEV2 {
  * \ingroup BrickletEVSEV2
  */
 #define TF_EVSE_V2_ENABLE_INPUT_ACTIVE_CLOSE 2
+
+/**
+ * \ingroup BrickletEVSEV2
+ */
+#define TF_EVSE_V2_BUTTON_CONFIGURATION_DEACTIVATED 0
+
+/**
+ * \ingroup BrickletEVSEV2
+ */
+#define TF_EVSE_V2_BUTTON_CONFIGURATION_START_CHARGING 1
+
+/**
+ * \ingroup BrickletEVSEV2
+ */
+#define TF_EVSE_V2_BUTTON_CONFIGURATION_STOP_CHARGING 2
+
+/**
+ * \ingroup BrickletEVSEV2
+ */
+#define TF_EVSE_V2_BUTTON_CONFIGURATION_START_AND_STOP_CHARGING 3
 
 /**
  * \ingroup BrickletEVSEV2
@@ -656,7 +691,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_evse_v2_get_hardware_configuration(TF_EVSEV2 *evs
  *
  * TODO
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_evse_v2_get_low_level_state(TF_EVSEV2 *evse_v2, uint8_t *ret_led_state, uint16_t *ret_cp_pwm_duty_cycle, uint16_t ret_adc_values[5], int16_t ret_voltages[5], uint32_t ret_resistances[2], bool ret_gpio[24]);
+TF_ATTRIBUTE_NONNULL(1) int tf_evse_v2_get_low_level_state(TF_EVSEV2 *evse_v2, uint8_t *ret_led_state, uint16_t *ret_cp_pwm_duty_cycle, uint16_t ret_adc_values[7], int16_t ret_voltages[7], uint32_t ret_resistances[2], bool ret_gpio[24]);
 
 /**
  * \ingroup BrickletEVSEV2
@@ -794,6 +829,34 @@ TF_ATTRIBUTE_NONNULL(1) int tf_evse_v2_get_data_storage(TF_EVSEV2 *evse_v2, uint
  * TODO
  */
 TF_ATTRIBUTE_NONNULL(1) int tf_evse_v2_set_data_storage(TF_EVSEV2 *evse_v2, uint8_t page, uint8_t data[63]);
+
+/**
+ * \ingroup BrickletEVSEV2
+ *
+ * TODO
+ */
+TF_ATTRIBUTE_NONNULL(1) int tf_evse_v2_get_indicator_led(TF_EVSEV2 *evse_v2, int16_t *ret_indication, uint16_t *ret_duration);
+
+/**
+ * \ingroup BrickletEVSEV2
+ *
+ * TODO
+ */
+TF_ATTRIBUTE_NONNULL(1) int tf_evse_v2_set_indicator_led(TF_EVSEV2 *evse_v2, int16_t indication, uint16_t duration, uint8_t *ret_status);
+
+/**
+ * \ingroup BrickletEVSEV2
+ *
+ * TODO
+ */
+TF_ATTRIBUTE_NONNULL(1) int tf_evse_v2_set_button_configuration(TF_EVSEV2 *evse_v2, uint8_t button_configuration);
+
+/**
+ * \ingroup BrickletEVSEV2
+ *
+ * TODO
+ */
+TF_ATTRIBUTE_NONNULL(1) int tf_evse_v2_get_button_configuration(TF_EVSEV2 *evse_v2, uint8_t *ret_button_configuration);
 
 /**
  * \ingroup BrickletEVSEV2

@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-08-04.      *
+ * This file was automatically generated on 2021-08-18.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -104,21 +104,25 @@ int tf_evse_v2_get_response_expected(TF_EVSEV2 *evse_v2, uint8_t function_id, bo
             if(ret_response_expected != NULL)
                 *ret_response_expected = (evse_v2->response_expected[1] & (1 << 1)) != 0;
             break;
-        case TF_EVSE_V2_FUNCTION_SET_WRITE_FIRMWARE_POINTER:
+        case TF_EVSE_V2_FUNCTION_SET_BUTTON_CONFIGURATION:
             if(ret_response_expected != NULL)
                 *ret_response_expected = (evse_v2->response_expected[1] & (1 << 2)) != 0;
             break;
-        case TF_EVSE_V2_FUNCTION_SET_STATUS_LED_CONFIG:
+        case TF_EVSE_V2_FUNCTION_SET_WRITE_FIRMWARE_POINTER:
             if(ret_response_expected != NULL)
                 *ret_response_expected = (evse_v2->response_expected[1] & (1 << 3)) != 0;
             break;
-        case TF_EVSE_V2_FUNCTION_RESET:
+        case TF_EVSE_V2_FUNCTION_SET_STATUS_LED_CONFIG:
             if(ret_response_expected != NULL)
                 *ret_response_expected = (evse_v2->response_expected[1] & (1 << 4)) != 0;
             break;
-        case TF_EVSE_V2_FUNCTION_WRITE_UID:
+        case TF_EVSE_V2_FUNCTION_RESET:
             if(ret_response_expected != NULL)
                 *ret_response_expected = (evse_v2->response_expected[1] & (1 << 5)) != 0;
+            break;
+        case TF_EVSE_V2_FUNCTION_WRITE_UID:
+            if(ret_response_expected != NULL)
+                *ret_response_expected = (evse_v2->response_expected[1] & (1 << 6)) != 0;
             break;
         default:
             return TF_E_INVALID_PARAMETER;
@@ -198,32 +202,39 @@ int tf_evse_v2_set_response_expected(TF_EVSEV2 *evse_v2, uint8_t function_id, bo
                 evse_v2->response_expected[1] &= ~(1 << 1);
             }
             break;
-        case TF_EVSE_V2_FUNCTION_SET_WRITE_FIRMWARE_POINTER:
+        case TF_EVSE_V2_FUNCTION_SET_BUTTON_CONFIGURATION:
             if (response_expected) {
                 evse_v2->response_expected[1] |= (1 << 2);
             } else {
                 evse_v2->response_expected[1] &= ~(1 << 2);
             }
             break;
-        case TF_EVSE_V2_FUNCTION_SET_STATUS_LED_CONFIG:
+        case TF_EVSE_V2_FUNCTION_SET_WRITE_FIRMWARE_POINTER:
             if (response_expected) {
                 evse_v2->response_expected[1] |= (1 << 3);
             } else {
                 evse_v2->response_expected[1] &= ~(1 << 3);
             }
             break;
-        case TF_EVSE_V2_FUNCTION_RESET:
+        case TF_EVSE_V2_FUNCTION_SET_STATUS_LED_CONFIG:
             if (response_expected) {
                 evse_v2->response_expected[1] |= (1 << 4);
             } else {
                 evse_v2->response_expected[1] &= ~(1 << 4);
             }
             break;
-        case TF_EVSE_V2_FUNCTION_WRITE_UID:
+        case TF_EVSE_V2_FUNCTION_RESET:
             if (response_expected) {
                 evse_v2->response_expected[1] |= (1 << 5);
             } else {
                 evse_v2->response_expected[1] &= ~(1 << 5);
+            }
+            break;
+        case TF_EVSE_V2_FUNCTION_WRITE_UID:
+            if (response_expected) {
+                evse_v2->response_expected[1] |= (1 << 6);
+            } else {
+                evse_v2->response_expected[1] &= ~(1 << 6);
             }
             break;
         default:
@@ -310,13 +321,13 @@ int tf_evse_v2_get_hardware_configuration(TF_EVSEV2 *evse_v2, uint8_t *ret_jumpe
     return tf_tfp_get_error(error_code);
 }
 
-int tf_evse_v2_get_low_level_state(TF_EVSEV2 *evse_v2, uint8_t *ret_led_state, uint16_t *ret_cp_pwm_duty_cycle, uint16_t ret_adc_values[5], int16_t ret_voltages[5], uint32_t ret_resistances[2], bool ret_gpio[24]) {
+int tf_evse_v2_get_low_level_state(TF_EVSEV2 *evse_v2, uint8_t *ret_led_state, uint16_t *ret_cp_pwm_duty_cycle, uint16_t ret_adc_values[7], int16_t ret_voltages[7], uint32_t ret_resistances[2], bool ret_gpio[24]) {
     if(tf_hal_get_common(evse_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
     bool response_expected = true;
-    tf_tfp_prepare_send(evse_v2->tfp, TF_EVSE_V2_FUNCTION_GET_LOW_LEVEL_STATE, 0, 34, response_expected);
+    tf_tfp_prepare_send(evse_v2->tfp, TF_EVSE_V2_FUNCTION_GET_LOW_LEVEL_STATE, 0, 42, response_expected);
 
     size_t i;
     uint32_t deadline = tf_hal_current_time_us(evse_v2->tfp->hal) + tf_hal_get_common(evse_v2->tfp->hal)->timeout;
@@ -334,8 +345,8 @@ int tf_evse_v2_get_low_level_state(TF_EVSEV2 *evse_v2, uint8_t *ret_led_state, u
     if (result & TF_TICK_PACKET_RECEIVED && error_code == 0) {
         if (ret_led_state != NULL) { *ret_led_state = tf_packetbuffer_read_uint8_t(&evse_v2->tfp->spitfp->recv_buf); } else { tf_packetbuffer_remove(&evse_v2->tfp->spitfp->recv_buf, 1); }
         if (ret_cp_pwm_duty_cycle != NULL) { *ret_cp_pwm_duty_cycle = tf_packetbuffer_read_uint16_t(&evse_v2->tfp->spitfp->recv_buf); } else { tf_packetbuffer_remove(&evse_v2->tfp->spitfp->recv_buf, 2); }
-        if (ret_adc_values != NULL) { for (i = 0; i < 5; ++i) ret_adc_values[i] = tf_packetbuffer_read_uint16_t(&evse_v2->tfp->spitfp->recv_buf);} else { tf_packetbuffer_remove(&evse_v2->tfp->spitfp->recv_buf, 10); }
-        if (ret_voltages != NULL) { for (i = 0; i < 5; ++i) ret_voltages[i] = tf_packetbuffer_read_int16_t(&evse_v2->tfp->spitfp->recv_buf);} else { tf_packetbuffer_remove(&evse_v2->tfp->spitfp->recv_buf, 10); }
+        if (ret_adc_values != NULL) { for (i = 0; i < 7; ++i) ret_adc_values[i] = tf_packetbuffer_read_uint16_t(&evse_v2->tfp->spitfp->recv_buf);} else { tf_packetbuffer_remove(&evse_v2->tfp->spitfp->recv_buf, 14); }
+        if (ret_voltages != NULL) { for (i = 0; i < 7; ++i) ret_voltages[i] = tf_packetbuffer_read_int16_t(&evse_v2->tfp->spitfp->recv_buf);} else { tf_packetbuffer_remove(&evse_v2->tfp->spitfp->recv_buf, 14); }
         if (ret_resistances != NULL) { for (i = 0; i < 2; ++i) ret_resistances[i] = tf_packetbuffer_read_uint32_t(&evse_v2->tfp->spitfp->recv_buf);} else { tf_packetbuffer_remove(&evse_v2->tfp->spitfp->recv_buf, 8); }
         if (ret_gpio != NULL) { tf_packetbuffer_read_bool_array(&evse_v2->tfp->spitfp->recv_buf, ret_gpio, 24);} else { tf_packetbuffer_remove(&evse_v2->tfp->spitfp->recv_buf, 3); }
         tf_tfp_packet_processed(evse_v2->tfp);
@@ -956,6 +967,140 @@ int tf_evse_v2_set_data_storage(TF_EVSEV2 *evse_v2, uint8_t page, uint8_t data[6
     if (result & TF_TICK_TIMEOUT) {
         //return -result;
         return TF_E_TIMEOUT;
+    }
+
+    result = tf_tfp_finish_send(evse_v2->tfp, result, deadline);
+    if(result < 0)
+        return result;
+
+    return tf_tfp_get_error(error_code);
+}
+
+int tf_evse_v2_get_indicator_led(TF_EVSEV2 *evse_v2, int16_t *ret_indication, uint16_t *ret_duration) {
+    if(tf_hal_get_common(evse_v2->tfp->hal)->locked) {
+        return TF_E_LOCKED;
+    }
+
+    bool response_expected = true;
+    tf_tfp_prepare_send(evse_v2->tfp, TF_EVSE_V2_FUNCTION_GET_INDICATOR_LED, 0, 4, response_expected);
+
+    uint32_t deadline = tf_hal_current_time_us(evse_v2->tfp->hal) + tf_hal_get_common(evse_v2->tfp->hal)->timeout;
+
+    uint8_t error_code = 0;
+    int result = tf_tfp_transmit_packet(evse_v2->tfp, response_expected, deadline, &error_code);
+    if(result < 0)
+        return result;
+
+    if (result & TF_TICK_TIMEOUT) {
+        //return -result;
+        return TF_E_TIMEOUT;
+    }
+
+    if (result & TF_TICK_PACKET_RECEIVED && error_code == 0) {
+        if (ret_indication != NULL) { *ret_indication = tf_packetbuffer_read_int16_t(&evse_v2->tfp->spitfp->recv_buf); } else { tf_packetbuffer_remove(&evse_v2->tfp->spitfp->recv_buf, 2); }
+        if (ret_duration != NULL) { *ret_duration = tf_packetbuffer_read_uint16_t(&evse_v2->tfp->spitfp->recv_buf); } else { tf_packetbuffer_remove(&evse_v2->tfp->spitfp->recv_buf, 2); }
+        tf_tfp_packet_processed(evse_v2->tfp);
+    }
+
+    result = tf_tfp_finish_send(evse_v2->tfp, result, deadline);
+    if(result < 0)
+        return result;
+
+    return tf_tfp_get_error(error_code);
+}
+
+int tf_evse_v2_set_indicator_led(TF_EVSEV2 *evse_v2, int16_t indication, uint16_t duration, uint8_t *ret_status) {
+    if(tf_hal_get_common(evse_v2->tfp->hal)->locked) {
+        return TF_E_LOCKED;
+    }
+
+    bool response_expected = true;
+    tf_tfp_prepare_send(evse_v2->tfp, TF_EVSE_V2_FUNCTION_SET_INDICATOR_LED, 4, 1, response_expected);
+
+    uint8_t *buf = tf_tfp_get_payload_buffer(evse_v2->tfp);
+
+    indication = tf_leconvert_int16_to(indication); memcpy(buf + 0, &indication, 2);
+    duration = tf_leconvert_uint16_to(duration); memcpy(buf + 2, &duration, 2);
+
+    uint32_t deadline = tf_hal_current_time_us(evse_v2->tfp->hal) + tf_hal_get_common(evse_v2->tfp->hal)->timeout;
+
+    uint8_t error_code = 0;
+    int result = tf_tfp_transmit_packet(evse_v2->tfp, response_expected, deadline, &error_code);
+    if(result < 0)
+        return result;
+
+    if (result & TF_TICK_TIMEOUT) {
+        //return -result;
+        return TF_E_TIMEOUT;
+    }
+
+    if (result & TF_TICK_PACKET_RECEIVED && error_code == 0) {
+        if (ret_status != NULL) { *ret_status = tf_packetbuffer_read_uint8_t(&evse_v2->tfp->spitfp->recv_buf); } else { tf_packetbuffer_remove(&evse_v2->tfp->spitfp->recv_buf, 1); }
+        tf_tfp_packet_processed(evse_v2->tfp);
+    }
+
+    result = tf_tfp_finish_send(evse_v2->tfp, result, deadline);
+    if(result < 0)
+        return result;
+
+    return tf_tfp_get_error(error_code);
+}
+
+int tf_evse_v2_set_button_configuration(TF_EVSEV2 *evse_v2, uint8_t button_configuration) {
+    if(tf_hal_get_common(evse_v2->tfp->hal)->locked) {
+        return TF_E_LOCKED;
+    }
+
+    bool response_expected = true;
+    tf_evse_v2_get_response_expected(evse_v2, TF_EVSE_V2_FUNCTION_SET_BUTTON_CONFIGURATION, &response_expected);
+    tf_tfp_prepare_send(evse_v2->tfp, TF_EVSE_V2_FUNCTION_SET_BUTTON_CONFIGURATION, 1, 0, response_expected);
+
+    uint8_t *buf = tf_tfp_get_payload_buffer(evse_v2->tfp);
+
+    buf[0] = (uint8_t)button_configuration;
+
+    uint32_t deadline = tf_hal_current_time_us(evse_v2->tfp->hal) + tf_hal_get_common(evse_v2->tfp->hal)->timeout;
+
+    uint8_t error_code = 0;
+    int result = tf_tfp_transmit_packet(evse_v2->tfp, response_expected, deadline, &error_code);
+    if(result < 0)
+        return result;
+
+    if (result & TF_TICK_TIMEOUT) {
+        //return -result;
+        return TF_E_TIMEOUT;
+    }
+
+    result = tf_tfp_finish_send(evse_v2->tfp, result, deadline);
+    if(result < 0)
+        return result;
+
+    return tf_tfp_get_error(error_code);
+}
+
+int tf_evse_v2_get_button_configuration(TF_EVSEV2 *evse_v2, uint8_t *ret_button_configuration) {
+    if(tf_hal_get_common(evse_v2->tfp->hal)->locked) {
+        return TF_E_LOCKED;
+    }
+
+    bool response_expected = true;
+    tf_tfp_prepare_send(evse_v2->tfp, TF_EVSE_V2_FUNCTION_GET_BUTTON_CONFIGURATION, 0, 1, response_expected);
+
+    uint32_t deadline = tf_hal_current_time_us(evse_v2->tfp->hal) + tf_hal_get_common(evse_v2->tfp->hal)->timeout;
+
+    uint8_t error_code = 0;
+    int result = tf_tfp_transmit_packet(evse_v2->tfp, response_expected, deadline, &error_code);
+    if(result < 0)
+        return result;
+
+    if (result & TF_TICK_TIMEOUT) {
+        //return -result;
+        return TF_E_TIMEOUT;
+    }
+
+    if (result & TF_TICK_PACKET_RECEIVED && error_code == 0) {
+        if (ret_button_configuration != NULL) { *ret_button_configuration = tf_packetbuffer_read_uint8_t(&evse_v2->tfp->spitfp->recv_buf); } else { tf_packetbuffer_remove(&evse_v2->tfp->spitfp->recv_buf, 1); }
+        tf_tfp_packet_processed(evse_v2->tfp);
     }
 
     result = tf_tfp_finish_send(evse_v2->tfp, result, deadline);
