@@ -72,6 +72,7 @@ public:
     //void addTemporaryConfig(String path, Config *config, std::initializer_list<String> keys_to_censor, uint32_t interval_ms, std::function<void(void)> callback);
 
     void blockCommand(String path, String reason);
+    void unblockCommand(String path);
     String getCommandBlockedReason(String path);
 
     bool restorePersistentConfig(String path, Config *config);

@@ -115,6 +115,11 @@ void API::blockCommand(String path, String reason)
     }
 }
 
+void API::unblockCommand(String path)
+{
+    blockCommand(path, "");
+}
+
 String API::getCommandBlockedReason(String path)
 {
     for(auto &reg: commands) {
