@@ -272,9 +272,23 @@ struct Config {
         return true;
     }
 
-    ssize_t count() {
+    bool removeLast() {
         if (!this->is<Config::ConfArray>()){
             logger.printfln("Tried to add to a node that is not an array!");
+            delay(100);
+            return false;
+        }
+        std::vector<Config> &children = strict_variant::get<Config::ConfArray>(&value)->value;
+        if (children.size() == 0)
+            return false;
+
+        children.pop_back();
+        return true;
+    }
+
+    ssize_t count() {
+        if (!this->is<Config::ConfArray>()){
+            logger.printfln("Tried to get count of a node that is not an array!");
             delay(100);
             return -1;
         }
