@@ -1,6 +1,7 @@
 #include "web_server.h"
 
 #include "esp_log.h"
+#include "esp_httpd_priv.h"
 
 #include "task_scheduler.h"
 #include "digest_auth.h"
@@ -148,7 +149,6 @@ WebServerHandler* WebServer::on(const char *uri, httpd_method_t method, wshCallb
                     httpd_resp_send_err(req, HTTPD_500_INTERNAL_SERVER_ERROR, "Failed to receive file");
                     return ESP_FAIL;
                 }
-
                 remaining -= received;
                 if(!ctx->handler->uploadCallback(request, "not implemented", index, scratch_buf, received, remaining == 0)) {
                     return ESP_FAIL;
@@ -272,7 +272,40 @@ void WebServerRequest::send(uint16_t code, const char *content_type, const char 
         return;
     }
 
+    struct httpd_req_aux *ra = (struct httpd_req_aux *)req->aux;
+    int nodelay = 1;
+    if (code >= 400) {
+        // Copied over from esp-idf/components/esp_http_server/src/httpd_txrx.c
+        // We want to set TCP_NODELAY but keep our (complete) set of HTTP status codes.
+
+        /* Use TCP_NODELAY option to force socket to send data in buffer
+         * This ensures that the error message is sent before the socket
+         * is closed */
+        if (setsockopt(ra->sd->fd, IPPROTO_TCP, TCP_NODELAY, &nodelay, sizeof(nodelay)) < 0) {
+            /* If failed to turn on TCP_NODELAY, throw warning and continue */
+            logger.printfln("error calling setsockopt : %d", errno);
+            nodelay = 0;
+        }
+    }
+
     result = httpd_resp_send(req, content, content_len);
+
+    if (code >= 400) {
+        // Copied over from esp-idf/components/esp_http_server/src/httpd_txrx.c
+        // We want to set TCP_NODELAY but keep our (complete) set of HTTP status codes.
+
+        /* If TCP_NODELAY was set successfully above, time to disable it */
+        if (nodelay == 1) {
+            nodelay = 0;
+            if (setsockopt(ra->sd->fd, IPPROTO_TCP, TCP_NODELAY, &nodelay, sizeof(nodelay)) < 0) {
+                /* If failed to turn off TCP_NODELAY, throw error and
+                * return failure to signal for socket closure */
+                logger.printfln("error calling setsockopt : %d", errno);
+                result = ESP_ERR_INVALID_STATE;
+            }
+        }
+    }
+
     if (result != ESP_OK) {
         printf("Failed to send response: %d\n", result);
         return;
