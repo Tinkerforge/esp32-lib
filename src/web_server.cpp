@@ -144,11 +144,6 @@ WebServerHandler* WebServer::on(const char *uri, httpd_method_t method, wshCallb
                     return ESP_FAIL;
                 }
 
-                if (received <= 0) {
-                    printf("File reception failed!\n");
-                    httpd_resp_send_err(req, HTTPD_500_INTERNAL_SERVER_ERROR, "Failed to receive file");
-                    return ESP_FAIL;
-                }
                 remaining -= received;
                 if(!ctx->handler->uploadCallback(request, "not implemented", index, scratch_buf, received, remaining == 0)) {
                     return ESP_FAIL;
