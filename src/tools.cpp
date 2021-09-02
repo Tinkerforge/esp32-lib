@@ -334,7 +334,7 @@ static bool flash_firmware(TF_Unknown *bricklet, const uint8_t *firmware, size_t
     return true;
 }
 
-int ensure_matching_firmware(TF_HalContext *hal, const char *uid, const char* name, const char *purpose, uint8_t *expected_firmware_version, const uint8_t *firmware, size_t firmware_len, EventLog *logger) {
+int ensure_matching_firmware(TF_HalContext *hal, const char *uid, const char* name, const char *purpose, uint8_t *expected_firmware_version, const uint8_t *firmware, size_t firmware_len, EventLog *logger, bool force) {
     TF_Unknown bricklet;
 
     uint32_t numeric_uid;
@@ -364,7 +364,7 @@ int ensure_matching_firmware(TF_HalContext *hal, const char *uid, const char* na
         return -1;
     }
 
-    bool flash_required = false;
+    bool flash_required = force;
     for(int i = 0; i < 3; ++i) {
         // Intentionally use != here: we also want to downgrade the bricklet firmware if the ESP firmware embeds an older one.
         // This makes sure, that the interfaces fit.
