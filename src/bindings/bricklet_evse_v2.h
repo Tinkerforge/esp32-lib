@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-08-18.      *
+ * This file was automatically generated on 2021-09-10.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -474,17 +474,27 @@ typedef struct TF_EVSEV2 {
 /**
  * \ingroup BrickletEVSEV2
  */
-#define TF_EVSE_V2_ENABLE_INPUT_DEACTIVATED 0
+#define TF_EVSE_V2_SHUTDOWN_INPUT_IGNORED 0
 
 /**
  * \ingroup BrickletEVSEV2
  */
-#define TF_EVSE_V2_ENABLE_INPUT_ACTIVE_OPEN 1
+#define TF_EVSE_V2_SHUTDOWN_INPUT_SHUTDOWN_ON_OPEN 1
 
 /**
  * \ingroup BrickletEVSEV2
  */
-#define TF_EVSE_V2_ENABLE_INPUT_ACTIVE_CLOSE 2
+#define TF_EVSE_V2_SHUTDOWN_INPUT_SHUTDOWN_ON_CLOSE 2
+
+/**
+ * \ingroup BrickletEVSEV2
+ */
+#define TF_EVSE_V2_OUTPUT_LOW 0
+
+/**
+ * \ingroup BrickletEVSEV2
+ */
+#define TF_EVSE_V2_OUTPUT_HIGH 1
 
 /**
  * \ingroup BrickletEVSEV2
@@ -744,7 +754,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_evse_v2_get_charging_autostart(TF_EVSEV2 *evse_v2
  *
  * TODO
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_evse_v2_get_energy_meter_values(TF_EVSEV2 *evse_v2, float *ret_power, float *ret_energy_relative, float *ret_energy_absolute, bool ret_phases_active[3]);
+TF_ATTRIBUTE_NONNULL(1) int tf_evse_v2_get_energy_meter_values(TF_EVSEV2 *evse_v2, float *ret_power, float *ret_energy_relative, float *ret_energy_absolute, bool ret_phases_active[3], bool ret_phases_connected[3]);
 
 /**
  * \ingroup BrickletEVSEV2
@@ -786,14 +796,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_evse_v2_reset_dc_fault_current(TF_EVSEV2 *evse_v2
  *
  * TODO
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_evse_v2_set_gpio_configuration(TF_EVSEV2 *evse_v2, uint8_t enable_input_configuration, uint8_t input_configuration, uint8_t output_configuration);
+TF_ATTRIBUTE_NONNULL(1) int tf_evse_v2_set_gpio_configuration(TF_EVSEV2 *evse_v2, uint8_t shutdown_input_configuration, uint8_t input_configuration, uint8_t output_configuration);
 
 /**
  * \ingroup BrickletEVSEV2
  *
  * TODO
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_evse_v2_get_gpio_configuration(TF_EVSEV2 *evse_v2, uint8_t *ret_enable_input_configuration, uint8_t *ret_input_configuration, uint8_t *ret_output_configuration);
+TF_ATTRIBUTE_NONNULL(1) int tf_evse_v2_get_gpio_configuration(TF_EVSEV2 *evse_v2, uint8_t *ret_shutdown_input_configuration, uint8_t *ret_input_configuration, uint8_t *ret_output_configuration);
 
 /**
  * \ingroup BrickletEVSEV2

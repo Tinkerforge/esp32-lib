@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-08-18.      *
+ * This file was automatically generated on 2021-09-10.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -546,13 +546,13 @@ int tf_evse_v2_get_charging_autostart(TF_EVSEV2 *evse_v2, bool *ret_autostart) {
     return tf_tfp_get_error(error_code);
 }
 
-int tf_evse_v2_get_energy_meter_values(TF_EVSEV2 *evse_v2, float *ret_power, float *ret_energy_relative, float *ret_energy_absolute, bool ret_phases_active[3]) {
+int tf_evse_v2_get_energy_meter_values(TF_EVSEV2 *evse_v2, float *ret_power, float *ret_energy_relative, float *ret_energy_absolute, bool ret_phases_active[3], bool ret_phases_connected[3]) {
     if(tf_hal_get_common(evse_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
     bool response_expected = true;
-    tf_tfp_prepare_send(evse_v2->tfp, TF_EVSE_V2_FUNCTION_GET_ENERGY_METER_VALUES, 0, 13, response_expected);
+    tf_tfp_prepare_send(evse_v2->tfp, TF_EVSE_V2_FUNCTION_GET_ENERGY_METER_VALUES, 0, 14, response_expected);
 
     uint32_t deadline = tf_hal_current_time_us(evse_v2->tfp->hal) + tf_hal_get_common(evse_v2->tfp->hal)->timeout;
 
@@ -571,6 +571,7 @@ int tf_evse_v2_get_energy_meter_values(TF_EVSEV2 *evse_v2, float *ret_power, flo
         if (ret_energy_relative != NULL) { *ret_energy_relative = tf_packetbuffer_read_float(&evse_v2->tfp->spitfp->recv_buf); } else { tf_packetbuffer_remove(&evse_v2->tfp->spitfp->recv_buf, 4); }
         if (ret_energy_absolute != NULL) { *ret_energy_absolute = tf_packetbuffer_read_float(&evse_v2->tfp->spitfp->recv_buf); } else { tf_packetbuffer_remove(&evse_v2->tfp->spitfp->recv_buf, 4); }
         if (ret_phases_active != NULL) { tf_packetbuffer_read_bool_array(&evse_v2->tfp->spitfp->recv_buf, ret_phases_active, 3);} else { tf_packetbuffer_remove(&evse_v2->tfp->spitfp->recv_buf, 1); }
+        if (ret_phases_connected != NULL) { tf_packetbuffer_read_bool_array(&evse_v2->tfp->spitfp->recv_buf, ret_phases_connected, 3);} else { tf_packetbuffer_remove(&evse_v2->tfp->spitfp->recv_buf, 1); }
         tf_tfp_packet_processed(evse_v2->tfp);
     }
 
@@ -741,7 +742,7 @@ int tf_evse_v2_reset_dc_fault_current(TF_EVSEV2 *evse_v2, uint32_t password) {
     return tf_tfp_get_error(error_code);
 }
 
-int tf_evse_v2_set_gpio_configuration(TF_EVSEV2 *evse_v2, uint8_t enable_input_configuration, uint8_t input_configuration, uint8_t output_configuration) {
+int tf_evse_v2_set_gpio_configuration(TF_EVSEV2 *evse_v2, uint8_t shutdown_input_configuration, uint8_t input_configuration, uint8_t output_configuration) {
     if(tf_hal_get_common(evse_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -752,7 +753,7 @@ int tf_evse_v2_set_gpio_configuration(TF_EVSEV2 *evse_v2, uint8_t enable_input_c
 
     uint8_t *buf = tf_tfp_get_payload_buffer(evse_v2->tfp);
 
-    buf[0] = (uint8_t)enable_input_configuration;
+    buf[0] = (uint8_t)shutdown_input_configuration;
     buf[1] = (uint8_t)input_configuration;
     buf[2] = (uint8_t)output_configuration;
 
@@ -775,7 +776,7 @@ int tf_evse_v2_set_gpio_configuration(TF_EVSEV2 *evse_v2, uint8_t enable_input_c
     return tf_tfp_get_error(error_code);
 }
 
-int tf_evse_v2_get_gpio_configuration(TF_EVSEV2 *evse_v2, uint8_t *ret_enable_input_configuration, uint8_t *ret_input_configuration, uint8_t *ret_output_configuration) {
+int tf_evse_v2_get_gpio_configuration(TF_EVSEV2 *evse_v2, uint8_t *ret_shutdown_input_configuration, uint8_t *ret_input_configuration, uint8_t *ret_output_configuration) {
     if(tf_hal_get_common(evse_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -796,7 +797,7 @@ int tf_evse_v2_get_gpio_configuration(TF_EVSEV2 *evse_v2, uint8_t *ret_enable_in
     }
 
     if (result & TF_TICK_PACKET_RECEIVED && error_code == 0) {
-        if (ret_enable_input_configuration != NULL) { *ret_enable_input_configuration = tf_packetbuffer_read_uint8_t(&evse_v2->tfp->spitfp->recv_buf); } else { tf_packetbuffer_remove(&evse_v2->tfp->spitfp->recv_buf, 1); }
+        if (ret_shutdown_input_configuration != NULL) { *ret_shutdown_input_configuration = tf_packetbuffer_read_uint8_t(&evse_v2->tfp->spitfp->recv_buf); } else { tf_packetbuffer_remove(&evse_v2->tfp->spitfp->recv_buf, 1); }
         if (ret_input_configuration != NULL) { *ret_input_configuration = tf_packetbuffer_read_uint8_t(&evse_v2->tfp->spitfp->recv_buf); } else { tf_packetbuffer_remove(&evse_v2->tfp->spitfp->recv_buf, 1); }
         if (ret_output_configuration != NULL) { *ret_output_configuration = tf_packetbuffer_read_uint8_t(&evse_v2->tfp->spitfp->recv_buf); } else { tf_packetbuffer_remove(&evse_v2->tfp->spitfp->recv_buf, 1); }
         tf_tfp_packet_processed(evse_v2->tfp);
@@ -1516,7 +1517,7 @@ int tf_evse_v2_get_identity(TF_EVSEV2 *evse_v2, char ret_uid[8], char ret_connec
 
 int tf_evse_v2_get_energy_meter_detailed_values(TF_EVSEV2 *evse_v2, float *ret_values, uint16_t *ret_values_length) {
     int ret = TF_E_OK;
-    uint16_t values_length = 84;
+    uint16_t values_length = 85;
     uint16_t values_chunk_offset = 0;
     float values_chunk_data[15];
     bool values_out_of_sync;
