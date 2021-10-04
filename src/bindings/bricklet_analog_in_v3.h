@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-02-08.      *
+ * This file was automatically generated on 2021-10-04.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -391,7 +391,7 @@ TF_ATTRIBUTE_NONNULL_ALL void tf_analog_in_v3_set_response_expected_all(TF_Analo
  * 
  * The parameter is the same as {@link tf_analog_in_v3_get_voltage}.
  */
-TF_ATTRIBUTE_NONNULL(1) void tf_analog_in_v3_register_voltage_callback(TF_AnalogInV3 *analog_in_v3, TF_AnalogInV3VoltageHandler handler, void *user_data);
+TF_ATTRIBUTE_NONNULL(1) int tf_analog_in_v3_register_voltage_callback(TF_AnalogInV3 *analog_in_v3, TF_AnalogInV3VoltageHandler handler, void *user_data);
 #endif
 #ifdef TF_IMPLEMENT_CALLBACKS
 /**

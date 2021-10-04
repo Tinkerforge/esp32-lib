@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-02-08.      *
+ * This file was automatically generated on 2021-10-04.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -524,7 +524,7 @@ TF_ATTRIBUTE_NONNULL_ALL void tf_gps_v2_set_response_expected_all(TF_GPSV2 *gps_
  * long run this will be very precise. For example a count of
  * 3600 pulses will take exactly 1 hour.
  */
-TF_ATTRIBUTE_NONNULL(1) void tf_gps_v2_register_pulse_per_second_callback(TF_GPSV2 *gps_v2, TF_GPSV2PulsePerSecondHandler handler, void *user_data);
+TF_ATTRIBUTE_NONNULL(1) int tf_gps_v2_register_pulse_per_second_callback(TF_GPSV2 *gps_v2, TF_GPSV2PulsePerSecondHandler handler, void *user_data);
 
 
 /**
@@ -543,7 +543,7 @@ TF_ATTRIBUTE_NONNULL(1) void tf_gps_v2_register_pulse_per_second_callback(TF_GPS
  * since the last triggering and if there is currently a fix as indicated by
  * {@link tf_gps_v2_get_status}.
  */
-TF_ATTRIBUTE_NONNULL(1) void tf_gps_v2_register_coordinates_callback(TF_GPSV2 *gps_v2, TF_GPSV2CoordinatesHandler handler, void *user_data);
+TF_ATTRIBUTE_NONNULL(1) int tf_gps_v2_register_coordinates_callback(TF_GPSV2 *gps_v2, TF_GPSV2CoordinatesHandler handler, void *user_data);
 
 
 /**
@@ -561,7 +561,7 @@ TF_ATTRIBUTE_NONNULL(1) void tf_gps_v2_register_coordinates_callback(TF_GPSV2 *g
  * The {@link tf_gps_v2_register_status_callback} callback is only triggered if the status changed since the
  * last triggering.
  */
-TF_ATTRIBUTE_NONNULL(1) void tf_gps_v2_register_status_callback(TF_GPSV2 *gps_v2, TF_GPSV2StatusHandler handler, void *user_data);
+TF_ATTRIBUTE_NONNULL(1) int tf_gps_v2_register_status_callback(TF_GPSV2 *gps_v2, TF_GPSV2StatusHandler handler, void *user_data);
 
 
 /**
@@ -580,7 +580,7 @@ TF_ATTRIBUTE_NONNULL(1) void tf_gps_v2_register_status_callback(TF_GPSV2 *gps_v2
  * last triggering and if there is currently a fix as indicated by
  * {@link tf_gps_v2_get_status}.
  */
-TF_ATTRIBUTE_NONNULL(1) void tf_gps_v2_register_altitude_callback(TF_GPSV2 *gps_v2, TF_GPSV2AltitudeHandler handler, void *user_data);
+TF_ATTRIBUTE_NONNULL(1) int tf_gps_v2_register_altitude_callback(TF_GPSV2 *gps_v2, TF_GPSV2AltitudeHandler handler, void *user_data);
 
 
 /**
@@ -599,7 +599,7 @@ TF_ATTRIBUTE_NONNULL(1) void tf_gps_v2_register_altitude_callback(TF_GPSV2 *gps_
  * last triggering and if there is currently a fix as indicated by
  * {@link tf_gps_v2_get_status}.
  */
-TF_ATTRIBUTE_NONNULL(1) void tf_gps_v2_register_motion_callback(TF_GPSV2 *gps_v2, TF_GPSV2MotionHandler handler, void *user_data);
+TF_ATTRIBUTE_NONNULL(1) int tf_gps_v2_register_motion_callback(TF_GPSV2 *gps_v2, TF_GPSV2MotionHandler handler, void *user_data);
 
 
 /**
@@ -617,7 +617,7 @@ TF_ATTRIBUTE_NONNULL(1) void tf_gps_v2_register_motion_callback(TF_GPSV2 *gps_v2
  * The {@link tf_gps_v2_register_date_time_callback} callback is only triggered if the date or time changed
  * since the last triggering.
  */
-TF_ATTRIBUTE_NONNULL(1) void tf_gps_v2_register_date_time_callback(TF_GPSV2 *gps_v2, TF_GPSV2DateTimeHandler handler, void *user_data);
+TF_ATTRIBUTE_NONNULL(1) int tf_gps_v2_register_date_time_callback(TF_GPSV2 *gps_v2, TF_GPSV2DateTimeHandler handler, void *user_data);
 #endif
 #ifdef TF_IMPLEMENT_CALLBACKS
 /**

@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-02-08.      *
+ * This file was automatically generated on 2021-10-04.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -322,7 +322,7 @@ TF_ATTRIBUTE_NONNULL_ALL void tf_motion_detector_v2_set_response_expected_all(TF
  * 
  * This callback is called after a motion was detected.
  */
-TF_ATTRIBUTE_NONNULL(1) void tf_motion_detector_v2_register_motion_detected_callback(TF_MotionDetectorV2 *motion_detector_v2, TF_MotionDetectorV2MotionDetectedHandler handler, void *user_data);
+TF_ATTRIBUTE_NONNULL(1) int tf_motion_detector_v2_register_motion_detected_callback(TF_MotionDetectorV2 *motion_detector_v2, TF_MotionDetectorV2MotionDetectedHandler handler, void *user_data);
 
 
 /**
@@ -337,7 +337,7 @@ TF_ATTRIBUTE_NONNULL(1) void tf_motion_detector_v2_register_motion_detected_call
  * callback is called, a new motion can be detected again after approximately 2
  * seconds.
  */
-TF_ATTRIBUTE_NONNULL(1) void tf_motion_detector_v2_register_detection_cycle_ended_callback(TF_MotionDetectorV2 *motion_detector_v2, TF_MotionDetectorV2DetectionCycleEndedHandler handler, void *user_data);
+TF_ATTRIBUTE_NONNULL(1) int tf_motion_detector_v2_register_detection_cycle_ended_callback(TF_MotionDetectorV2 *motion_detector_v2, TF_MotionDetectorV2DetectionCycleEndedHandler handler, void *user_data);
 #endif
 #ifdef TF_IMPLEMENT_CALLBACKS
 /**
@@ -355,9 +355,6 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_motion_detector_v2_callback_tick(TF_MotionDetect
  *
  * Returns 1 if a motion was detected. It returns 1 approx. for 1.8 seconds
  * until the sensor checks for a new movement.
- * 
- * There is also a blue LED on the Bricklet that is on as long as the Bricklet is
- * in the "motion detected" state.
  */
 TF_ATTRIBUTE_NONNULL(1) int tf_motion_detector_v2_get_motion_detected(TF_MotionDetectorV2 *motion_detector_v2, uint8_t *ret_motion);
 

@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-02-08.      *
+ * This file was automatically generated on 2021-10-04.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -415,7 +415,7 @@ TF_ATTRIBUTE_NONNULL_ALL void tf_laser_range_finder_v2_set_response_expected_all
  * 
  * The parameter is the same as {@link tf_laser_range_finder_v2_get_distance}.
  */
-TF_ATTRIBUTE_NONNULL(1) void tf_laser_range_finder_v2_register_distance_callback(TF_LaserRangeFinderV2 *laser_range_finder_v2, TF_LaserRangeFinderV2DistanceHandler handler, void *user_data);
+TF_ATTRIBUTE_NONNULL(1) int tf_laser_range_finder_v2_register_distance_callback(TF_LaserRangeFinderV2 *laser_range_finder_v2, TF_LaserRangeFinderV2DistanceHandler handler, void *user_data);
 
 
 /**
@@ -431,7 +431,7 @@ TF_ATTRIBUTE_NONNULL(1) void tf_laser_range_finder_v2_register_distance_callback
  * 
  * The parameter is the same as {@link tf_laser_range_finder_v2_get_velocity}.
  */
-TF_ATTRIBUTE_NONNULL(1) void tf_laser_range_finder_v2_register_velocity_callback(TF_LaserRangeFinderV2 *laser_range_finder_v2, TF_LaserRangeFinderV2VelocityHandler handler, void *user_data);
+TF_ATTRIBUTE_NONNULL(1) int tf_laser_range_finder_v2_register_velocity_callback(TF_LaserRangeFinderV2 *laser_range_finder_v2, TF_LaserRangeFinderV2VelocityHandler handler, void *user_data);
 #endif
 #ifdef TF_IMPLEMENT_CALLBACKS
 /**

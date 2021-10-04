@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-02-08.      *
+ * This file was automatically generated on 2021-10-04.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -691,7 +691,7 @@ TF_ATTRIBUTE_NONNULL_ALL void tf_lcd_128x64_set_response_expected_all(TF_LCD128x
  * {@link tf_lcd_128x64_set_touch_position_callback_configuration}. The parameters are the
  * same as for {@link tf_lcd_128x64_get_touch_position}.
  */
-TF_ATTRIBUTE_NONNULL(1) void tf_lcd_128x64_register_touch_position_callback(TF_LCD128x64 *lcd_128x64, TF_LCD128x64TouchPositionHandler handler, void *user_data);
+TF_ATTRIBUTE_NONNULL(1) int tf_lcd_128x64_register_touch_position_callback(TF_LCD128x64 *lcd_128x64, TF_LCD128x64TouchPositionHandler handler, void *user_data);
 
 
 /**
@@ -706,7 +706,7 @@ TF_ATTRIBUTE_NONNULL(1) void tf_lcd_128x64_register_touch_position_callback(TF_L
  * {@link tf_lcd_128x64_set_touch_gesture_callback_configuration}. The parameters are the
  * same as for {@link tf_lcd_128x64_get_touch_gesture}.
  */
-TF_ATTRIBUTE_NONNULL(1) void tf_lcd_128x64_register_touch_gesture_callback(TF_LCD128x64 *lcd_128x64, TF_LCD128x64TouchGestureHandler handler, void *user_data);
+TF_ATTRIBUTE_NONNULL(1) int tf_lcd_128x64_register_touch_gesture_callback(TF_LCD128x64 *lcd_128x64, TF_LCD128x64TouchGestureHandler handler, void *user_data);
 
 
 /**
@@ -723,7 +723,7 @@ TF_ATTRIBUTE_NONNULL(1) void tf_lcd_128x64_register_touch_gesture_callback(TF_LC
  * 
  * .. versionadded:: 2.0.2$nbsp;(Plugin)
  */
-TF_ATTRIBUTE_NONNULL(1) void tf_lcd_128x64_register_gui_button_pressed_callback(TF_LCD128x64 *lcd_128x64, TF_LCD128x64GUIButtonPressedHandler handler, void *user_data);
+TF_ATTRIBUTE_NONNULL(1) int tf_lcd_128x64_register_gui_button_pressed_callback(TF_LCD128x64 *lcd_128x64, TF_LCD128x64GUIButtonPressedHandler handler, void *user_data);
 
 
 /**
@@ -740,7 +740,7 @@ TF_ATTRIBUTE_NONNULL(1) void tf_lcd_128x64_register_gui_button_pressed_callback(
  * 
  * .. versionadded:: 2.0.2$nbsp;(Plugin)
  */
-TF_ATTRIBUTE_NONNULL(1) void tf_lcd_128x64_register_gui_slider_value_callback(TF_LCD128x64 *lcd_128x64, TF_LCD128x64GUISliderValueHandler handler, void *user_data);
+TF_ATTRIBUTE_NONNULL(1) int tf_lcd_128x64_register_gui_slider_value_callback(TF_LCD128x64 *lcd_128x64, TF_LCD128x64GUISliderValueHandler handler, void *user_data);
 
 
 /**
@@ -757,7 +757,7 @@ TF_ATTRIBUTE_NONNULL(1) void tf_lcd_128x64_register_gui_slider_value_callback(TF
  * 
  * .. versionadded:: 2.0.2$nbsp;(Plugin)
  */
-TF_ATTRIBUTE_NONNULL(1) void tf_lcd_128x64_register_gui_tab_selected_callback(TF_LCD128x64 *lcd_128x64, TF_LCD128x64GUITabSelectedHandler handler, void *user_data);
+TF_ATTRIBUTE_NONNULL(1) int tf_lcd_128x64_register_gui_tab_selected_callback(TF_LCD128x64 *lcd_128x64, TF_LCD128x64GUITabSelectedHandler handler, void *user_data);
 #endif
 #ifdef TF_IMPLEMENT_CALLBACKS
 /**

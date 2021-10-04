@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-02-08.      *
+ * This file was automatically generated on 2021-10-04.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -341,7 +341,7 @@ TF_ATTRIBUTE_NONNULL_ALL void tf_temperature_v2_set_response_expected_all(TF_Tem
  * 
  * The parameter is the same as {@link tf_temperature_v2_get_temperature}.
  */
-TF_ATTRIBUTE_NONNULL(1) void tf_temperature_v2_register_temperature_callback(TF_TemperatureV2 *temperature_v2, TF_TemperatureV2TemperatureHandler handler, void *user_data);
+TF_ATTRIBUTE_NONNULL(1) int tf_temperature_v2_register_temperature_callback(TF_TemperatureV2 *temperature_v2, TF_TemperatureV2TemperatureHandler handler, void *user_data);
 #endif
 #ifdef TF_IMPLEMENT_CALLBACKS
 /**

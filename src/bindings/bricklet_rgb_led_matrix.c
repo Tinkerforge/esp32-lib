@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-02-08.      *
+ * This file was automatically generated on 2021-10-04.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -53,6 +53,9 @@ static bool tf_rgb_led_matrix_callback_handler(void *dev, uint8_t fid, TF_Packet
 }
 #endif
 int tf_rgb_led_matrix_create(TF_RGBLEDMatrix *rgb_led_matrix, const char *uid, TF_HalContext *hal) {
+    if (rgb_led_matrix == NULL || uid == NULL || hal == NULL)
+        return TF_E_NULL;
+
     memset(rgb_led_matrix, 0, sizeof(TF_RGBLEDMatrix));
 
     uint32_t numeric_uid;
@@ -82,12 +85,18 @@ int tf_rgb_led_matrix_create(TF_RGBLEDMatrix *rgb_led_matrix, const char *uid, T
 }
 
 int tf_rgb_led_matrix_destroy(TF_RGBLEDMatrix *rgb_led_matrix) {
+    if (rgb_led_matrix == NULL)
+        return TF_E_NULL;
+
     int result = tf_tfp_destroy(rgb_led_matrix->tfp);
     rgb_led_matrix->tfp = NULL;
     return result;
 }
 
 int tf_rgb_led_matrix_get_response_expected(TF_RGBLEDMatrix *rgb_led_matrix, uint8_t function_id, bool *ret_response_expected) {
+    if (rgb_led_matrix == NULL)
+        return TF_E_NULL;
+
     switch(function_id) {
         case TF_RGB_LED_MATRIX_FUNCTION_SET_RED:
             if(ret_response_expected != NULL)
@@ -207,6 +216,9 @@ void tf_rgb_led_matrix_set_response_expected_all(TF_RGBLEDMatrix *rgb_led_matrix
 }
 
 int tf_rgb_led_matrix_set_red(TF_RGBLEDMatrix *rgb_led_matrix, uint8_t red[64]) {
+    if (rgb_led_matrix == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(rgb_led_matrix->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -239,6 +251,9 @@ int tf_rgb_led_matrix_set_red(TF_RGBLEDMatrix *rgb_led_matrix, uint8_t red[64]) 
 }
 
 int tf_rgb_led_matrix_get_red(TF_RGBLEDMatrix *rgb_led_matrix, uint8_t ret_red[64]) {
+    if (rgb_led_matrix == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(rgb_led_matrix->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -272,6 +287,9 @@ int tf_rgb_led_matrix_get_red(TF_RGBLEDMatrix *rgb_led_matrix, uint8_t ret_red[6
 }
 
 int tf_rgb_led_matrix_set_green(TF_RGBLEDMatrix *rgb_led_matrix, uint8_t green[64]) {
+    if (rgb_led_matrix == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(rgb_led_matrix->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -304,6 +322,9 @@ int tf_rgb_led_matrix_set_green(TF_RGBLEDMatrix *rgb_led_matrix, uint8_t green[6
 }
 
 int tf_rgb_led_matrix_get_green(TF_RGBLEDMatrix *rgb_led_matrix, uint8_t ret_green[64]) {
+    if (rgb_led_matrix == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(rgb_led_matrix->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -337,6 +358,9 @@ int tf_rgb_led_matrix_get_green(TF_RGBLEDMatrix *rgb_led_matrix, uint8_t ret_gre
 }
 
 int tf_rgb_led_matrix_set_blue(TF_RGBLEDMatrix *rgb_led_matrix, uint8_t blue[64]) {
+    if (rgb_led_matrix == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(rgb_led_matrix->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -369,6 +393,9 @@ int tf_rgb_led_matrix_set_blue(TF_RGBLEDMatrix *rgb_led_matrix, uint8_t blue[64]
 }
 
 int tf_rgb_led_matrix_get_blue(TF_RGBLEDMatrix *rgb_led_matrix, uint8_t ret_blue[64]) {
+    if (rgb_led_matrix == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(rgb_led_matrix->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -402,6 +429,9 @@ int tf_rgb_led_matrix_get_blue(TF_RGBLEDMatrix *rgb_led_matrix, uint8_t ret_blue
 }
 
 int tf_rgb_led_matrix_set_frame_duration(TF_RGBLEDMatrix *rgb_led_matrix, uint16_t frame_duration) {
+    if (rgb_led_matrix == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(rgb_led_matrix->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -434,6 +464,9 @@ int tf_rgb_led_matrix_set_frame_duration(TF_RGBLEDMatrix *rgb_led_matrix, uint16
 }
 
 int tf_rgb_led_matrix_get_frame_duration(TF_RGBLEDMatrix *rgb_led_matrix, uint16_t *ret_frame_duration) {
+    if (rgb_led_matrix == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(rgb_led_matrix->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -466,6 +499,9 @@ int tf_rgb_led_matrix_get_frame_duration(TF_RGBLEDMatrix *rgb_led_matrix, uint16
 }
 
 int tf_rgb_led_matrix_draw_frame(TF_RGBLEDMatrix *rgb_led_matrix) {
+    if (rgb_led_matrix == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(rgb_led_matrix->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -494,6 +530,9 @@ int tf_rgb_led_matrix_draw_frame(TF_RGBLEDMatrix *rgb_led_matrix) {
 }
 
 int tf_rgb_led_matrix_get_supply_voltage(TF_RGBLEDMatrix *rgb_led_matrix, uint16_t *ret_voltage) {
+    if (rgb_led_matrix == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(rgb_led_matrix->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -526,6 +565,9 @@ int tf_rgb_led_matrix_get_supply_voltage(TF_RGBLEDMatrix *rgb_led_matrix, uint16
 }
 
 int tf_rgb_led_matrix_get_spitfp_error_count(TF_RGBLEDMatrix *rgb_led_matrix, uint32_t *ret_error_count_ack_checksum, uint32_t *ret_error_count_message_checksum, uint32_t *ret_error_count_frame, uint32_t *ret_error_count_overflow) {
+    if (rgb_led_matrix == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(rgb_led_matrix->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -561,6 +603,9 @@ int tf_rgb_led_matrix_get_spitfp_error_count(TF_RGBLEDMatrix *rgb_led_matrix, ui
 }
 
 int tf_rgb_led_matrix_set_bootloader_mode(TF_RGBLEDMatrix *rgb_led_matrix, uint8_t mode, uint8_t *ret_status) {
+    if (rgb_led_matrix == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(rgb_led_matrix->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -597,6 +642,9 @@ int tf_rgb_led_matrix_set_bootloader_mode(TF_RGBLEDMatrix *rgb_led_matrix, uint8
 }
 
 int tf_rgb_led_matrix_get_bootloader_mode(TF_RGBLEDMatrix *rgb_led_matrix, uint8_t *ret_mode) {
+    if (rgb_led_matrix == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(rgb_led_matrix->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -629,6 +677,9 @@ int tf_rgb_led_matrix_get_bootloader_mode(TF_RGBLEDMatrix *rgb_led_matrix, uint8
 }
 
 int tf_rgb_led_matrix_set_write_firmware_pointer(TF_RGBLEDMatrix *rgb_led_matrix, uint32_t pointer) {
+    if (rgb_led_matrix == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(rgb_led_matrix->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -661,6 +712,9 @@ int tf_rgb_led_matrix_set_write_firmware_pointer(TF_RGBLEDMatrix *rgb_led_matrix
 }
 
 int tf_rgb_led_matrix_write_firmware(TF_RGBLEDMatrix *rgb_led_matrix, uint8_t data[64], uint8_t *ret_status) {
+    if (rgb_led_matrix == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(rgb_led_matrix->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -697,6 +751,9 @@ int tf_rgb_led_matrix_write_firmware(TF_RGBLEDMatrix *rgb_led_matrix, uint8_t da
 }
 
 int tf_rgb_led_matrix_set_status_led_config(TF_RGBLEDMatrix *rgb_led_matrix, uint8_t config) {
+    if (rgb_led_matrix == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(rgb_led_matrix->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -729,6 +786,9 @@ int tf_rgb_led_matrix_set_status_led_config(TF_RGBLEDMatrix *rgb_led_matrix, uin
 }
 
 int tf_rgb_led_matrix_get_status_led_config(TF_RGBLEDMatrix *rgb_led_matrix, uint8_t *ret_config) {
+    if (rgb_led_matrix == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(rgb_led_matrix->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -761,6 +821,9 @@ int tf_rgb_led_matrix_get_status_led_config(TF_RGBLEDMatrix *rgb_led_matrix, uin
 }
 
 int tf_rgb_led_matrix_get_chip_temperature(TF_RGBLEDMatrix *rgb_led_matrix, int16_t *ret_temperature) {
+    if (rgb_led_matrix == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(rgb_led_matrix->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -793,6 +856,9 @@ int tf_rgb_led_matrix_get_chip_temperature(TF_RGBLEDMatrix *rgb_led_matrix, int1
 }
 
 int tf_rgb_led_matrix_reset(TF_RGBLEDMatrix *rgb_led_matrix) {
+    if (rgb_led_matrix == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(rgb_led_matrix->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -821,6 +887,9 @@ int tf_rgb_led_matrix_reset(TF_RGBLEDMatrix *rgb_led_matrix) {
 }
 
 int tf_rgb_led_matrix_write_uid(TF_RGBLEDMatrix *rgb_led_matrix, uint32_t uid) {
+    if (rgb_led_matrix == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(rgb_led_matrix->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -853,6 +922,9 @@ int tf_rgb_led_matrix_write_uid(TF_RGBLEDMatrix *rgb_led_matrix, uint32_t uid) {
 }
 
 int tf_rgb_led_matrix_read_uid(TF_RGBLEDMatrix *rgb_led_matrix, uint32_t *ret_uid) {
+    if (rgb_led_matrix == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(rgb_led_matrix->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -885,6 +957,9 @@ int tf_rgb_led_matrix_read_uid(TF_RGBLEDMatrix *rgb_led_matrix, uint32_t *ret_ui
 }
 
 int tf_rgb_led_matrix_get_identity(TF_RGBLEDMatrix *rgb_led_matrix, char ret_uid[8], char ret_connected_uid[8], char *ret_position, uint8_t ret_hardware_version[3], uint8_t ret_firmware_version[3], uint16_t *ret_device_identifier) {
+    if (rgb_led_matrix == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(rgb_led_matrix->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -929,7 +1004,10 @@ int tf_rgb_led_matrix_get_identity(TF_RGBLEDMatrix *rgb_led_matrix, char ret_uid
     return tf_tfp_get_error(error_code);
 }
 #ifdef TF_IMPLEMENT_CALLBACKS
-void tf_rgb_led_matrix_register_frame_started_callback(TF_RGBLEDMatrix *rgb_led_matrix, TF_RGBLEDMatrixFrameStartedHandler handler, void *user_data) {
+int tf_rgb_led_matrix_register_frame_started_callback(TF_RGBLEDMatrix *rgb_led_matrix, TF_RGBLEDMatrixFrameStartedHandler handler, void *user_data) {
+    if (rgb_led_matrix == NULL)
+        return TF_E_NULL;
+
     if (handler == NULL) {
         rgb_led_matrix->tfp->needs_callback_tick = false;
         
@@ -938,9 +1016,13 @@ void tf_rgb_led_matrix_register_frame_started_callback(TF_RGBLEDMatrix *rgb_led_
     }
     rgb_led_matrix->frame_started_handler = handler;
     rgb_led_matrix->frame_started_user_data = user_data;
+    return TF_E_OK;
 }
 #endif
 int tf_rgb_led_matrix_callback_tick(TF_RGBLEDMatrix *rgb_led_matrix, uint32_t timeout_us) {
+    if (rgb_led_matrix == NULL)
+        return TF_E_NULL;
+
     return tf_tfp_callback_tick(rgb_led_matrix->tfp, tf_hal_current_time_us(rgb_led_matrix->tfp->hal) + timeout_us);
 }
 

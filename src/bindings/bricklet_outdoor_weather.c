@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-02-08.      *
+ * This file was automatically generated on 2021-10-04.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -76,6 +76,9 @@ static bool tf_outdoor_weather_callback_handler(void *dev, uint8_t fid, TF_Packe
 }
 #endif
 int tf_outdoor_weather_create(TF_OutdoorWeather *outdoor_weather, const char *uid, TF_HalContext *hal) {
+    if (outdoor_weather == NULL || uid == NULL || hal == NULL)
+        return TF_E_NULL;
+
     memset(outdoor_weather, 0, sizeof(TF_OutdoorWeather));
 
     uint32_t numeric_uid;
@@ -104,12 +107,18 @@ int tf_outdoor_weather_create(TF_OutdoorWeather *outdoor_weather, const char *ui
 }
 
 int tf_outdoor_weather_destroy(TF_OutdoorWeather *outdoor_weather) {
+    if (outdoor_weather == NULL)
+        return TF_E_NULL;
+
     int result = tf_tfp_destroy(outdoor_weather->tfp);
     outdoor_weather->tfp = NULL;
     return result;
 }
 
 int tf_outdoor_weather_get_response_expected(TF_OutdoorWeather *outdoor_weather, uint8_t function_id, bool *ret_response_expected) {
+    if (outdoor_weather == NULL)
+        return TF_E_NULL;
+
     switch(function_id) {
         case TF_OUTDOOR_WEATHER_FUNCTION_SET_STATION_CALLBACK_CONFIGURATION:
             if(ret_response_expected != NULL)
@@ -196,6 +205,9 @@ void tf_outdoor_weather_set_response_expected_all(TF_OutdoorWeather *outdoor_wea
 }
 
 int tf_outdoor_weather_get_station_identifiers_low_level(TF_OutdoorWeather *outdoor_weather, uint16_t *ret_identifiers_length, uint16_t *ret_identifiers_chunk_offset, uint8_t ret_identifiers_chunk_data[60]) {
+    if (outdoor_weather == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(outdoor_weather->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -231,6 +243,9 @@ int tf_outdoor_weather_get_station_identifiers_low_level(TF_OutdoorWeather *outd
 }
 
 int tf_outdoor_weather_get_sensor_identifiers_low_level(TF_OutdoorWeather *outdoor_weather, uint16_t *ret_identifiers_length, uint16_t *ret_identifiers_chunk_offset, uint8_t ret_identifiers_chunk_data[60]) {
+    if (outdoor_weather == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(outdoor_weather->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -266,6 +281,9 @@ int tf_outdoor_weather_get_sensor_identifiers_low_level(TF_OutdoorWeather *outdo
 }
 
 int tf_outdoor_weather_get_station_data(TF_OutdoorWeather *outdoor_weather, uint8_t identifier, int16_t *ret_temperature, uint8_t *ret_humidity, uint32_t *ret_wind_speed, uint32_t *ret_gust_speed, uint32_t *ret_rain, uint8_t *ret_wind_direction, bool *ret_battery_low, uint16_t *ret_last_change) {
+    if (outdoor_weather == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(outdoor_weather->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -309,6 +327,9 @@ int tf_outdoor_weather_get_station_data(TF_OutdoorWeather *outdoor_weather, uint
 }
 
 int tf_outdoor_weather_get_sensor_data(TF_OutdoorWeather *outdoor_weather, uint8_t identifier, int16_t *ret_temperature, uint8_t *ret_humidity, uint16_t *ret_last_change) {
+    if (outdoor_weather == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(outdoor_weather->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -347,6 +368,9 @@ int tf_outdoor_weather_get_sensor_data(TF_OutdoorWeather *outdoor_weather, uint8
 }
 
 int tf_outdoor_weather_set_station_callback_configuration(TF_OutdoorWeather *outdoor_weather, bool enable_callback) {
+    if (outdoor_weather == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(outdoor_weather->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -379,6 +403,9 @@ int tf_outdoor_weather_set_station_callback_configuration(TF_OutdoorWeather *out
 }
 
 int tf_outdoor_weather_get_station_callback_configuration(TF_OutdoorWeather *outdoor_weather, bool *ret_enable_callback) {
+    if (outdoor_weather == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(outdoor_weather->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -411,6 +438,9 @@ int tf_outdoor_weather_get_station_callback_configuration(TF_OutdoorWeather *out
 }
 
 int tf_outdoor_weather_set_sensor_callback_configuration(TF_OutdoorWeather *outdoor_weather, bool enable_callback) {
+    if (outdoor_weather == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(outdoor_weather->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -443,6 +473,9 @@ int tf_outdoor_weather_set_sensor_callback_configuration(TF_OutdoorWeather *outd
 }
 
 int tf_outdoor_weather_get_sensor_callback_configuration(TF_OutdoorWeather *outdoor_weather, bool *ret_enable_callback) {
+    if (outdoor_weather == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(outdoor_weather->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -475,6 +508,9 @@ int tf_outdoor_weather_get_sensor_callback_configuration(TF_OutdoorWeather *outd
 }
 
 int tf_outdoor_weather_get_spitfp_error_count(TF_OutdoorWeather *outdoor_weather, uint32_t *ret_error_count_ack_checksum, uint32_t *ret_error_count_message_checksum, uint32_t *ret_error_count_frame, uint32_t *ret_error_count_overflow) {
+    if (outdoor_weather == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(outdoor_weather->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -510,6 +546,9 @@ int tf_outdoor_weather_get_spitfp_error_count(TF_OutdoorWeather *outdoor_weather
 }
 
 int tf_outdoor_weather_set_bootloader_mode(TF_OutdoorWeather *outdoor_weather, uint8_t mode, uint8_t *ret_status) {
+    if (outdoor_weather == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(outdoor_weather->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -546,6 +585,9 @@ int tf_outdoor_weather_set_bootloader_mode(TF_OutdoorWeather *outdoor_weather, u
 }
 
 int tf_outdoor_weather_get_bootloader_mode(TF_OutdoorWeather *outdoor_weather, uint8_t *ret_mode) {
+    if (outdoor_weather == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(outdoor_weather->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -578,6 +620,9 @@ int tf_outdoor_weather_get_bootloader_mode(TF_OutdoorWeather *outdoor_weather, u
 }
 
 int tf_outdoor_weather_set_write_firmware_pointer(TF_OutdoorWeather *outdoor_weather, uint32_t pointer) {
+    if (outdoor_weather == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(outdoor_weather->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -610,6 +655,9 @@ int tf_outdoor_weather_set_write_firmware_pointer(TF_OutdoorWeather *outdoor_wea
 }
 
 int tf_outdoor_weather_write_firmware(TF_OutdoorWeather *outdoor_weather, uint8_t data[64], uint8_t *ret_status) {
+    if (outdoor_weather == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(outdoor_weather->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -646,6 +694,9 @@ int tf_outdoor_weather_write_firmware(TF_OutdoorWeather *outdoor_weather, uint8_
 }
 
 int tf_outdoor_weather_set_status_led_config(TF_OutdoorWeather *outdoor_weather, uint8_t config) {
+    if (outdoor_weather == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(outdoor_weather->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -678,6 +729,9 @@ int tf_outdoor_weather_set_status_led_config(TF_OutdoorWeather *outdoor_weather,
 }
 
 int tf_outdoor_weather_get_status_led_config(TF_OutdoorWeather *outdoor_weather, uint8_t *ret_config) {
+    if (outdoor_weather == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(outdoor_weather->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -710,6 +764,9 @@ int tf_outdoor_weather_get_status_led_config(TF_OutdoorWeather *outdoor_weather,
 }
 
 int tf_outdoor_weather_get_chip_temperature(TF_OutdoorWeather *outdoor_weather, int16_t *ret_temperature) {
+    if (outdoor_weather == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(outdoor_weather->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -742,6 +799,9 @@ int tf_outdoor_weather_get_chip_temperature(TF_OutdoorWeather *outdoor_weather, 
 }
 
 int tf_outdoor_weather_reset(TF_OutdoorWeather *outdoor_weather) {
+    if (outdoor_weather == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(outdoor_weather->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -770,6 +830,9 @@ int tf_outdoor_weather_reset(TF_OutdoorWeather *outdoor_weather) {
 }
 
 int tf_outdoor_weather_write_uid(TF_OutdoorWeather *outdoor_weather, uint32_t uid) {
+    if (outdoor_weather == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(outdoor_weather->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -802,6 +865,9 @@ int tf_outdoor_weather_write_uid(TF_OutdoorWeather *outdoor_weather, uint32_t ui
 }
 
 int tf_outdoor_weather_read_uid(TF_OutdoorWeather *outdoor_weather, uint32_t *ret_uid) {
+    if (outdoor_weather == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(outdoor_weather->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -834,6 +900,9 @@ int tf_outdoor_weather_read_uid(TF_OutdoorWeather *outdoor_weather, uint32_t *re
 }
 
 int tf_outdoor_weather_get_identity(TF_OutdoorWeather *outdoor_weather, char ret_uid[8], char ret_connected_uid[8], char *ret_position, uint8_t ret_hardware_version[3], uint8_t ret_firmware_version[3], uint16_t *ret_device_identifier) {
+    if (outdoor_weather == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(outdoor_weather->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -879,6 +948,9 @@ int tf_outdoor_weather_get_identity(TF_OutdoorWeather *outdoor_weather, char ret
 }
 
 int tf_outdoor_weather_get_station_identifiers(TF_OutdoorWeather *outdoor_weather, uint8_t *ret_identifiers, uint16_t *ret_identifiers_length) {
+    if (outdoor_weather == NULL)
+        return TF_E_NULL;
+
     int ret = TF_E_OK;
     uint16_t identifiers_length = 0;
     uint16_t identifiers_chunk_offset = 0;
@@ -949,6 +1021,9 @@ int tf_outdoor_weather_get_station_identifiers(TF_OutdoorWeather *outdoor_weathe
 }
 
 int tf_outdoor_weather_get_sensor_identifiers(TF_OutdoorWeather *outdoor_weather, uint8_t *ret_identifiers, uint16_t *ret_identifiers_length) {
+    if (outdoor_weather == NULL)
+        return TF_E_NULL;
+
     int ret = TF_E_OK;
     uint16_t identifiers_length = 0;
     uint16_t identifiers_chunk_offset = 0;
@@ -1018,7 +1093,10 @@ int tf_outdoor_weather_get_sensor_identifiers(TF_OutdoorWeather *outdoor_weather
     return ret;
 }
 #ifdef TF_IMPLEMENT_CALLBACKS
-void tf_outdoor_weather_register_station_data_callback(TF_OutdoorWeather *outdoor_weather, TF_OutdoorWeatherStationDataHandler handler, void *user_data) {
+int tf_outdoor_weather_register_station_data_callback(TF_OutdoorWeather *outdoor_weather, TF_OutdoorWeatherStationDataHandler handler, void *user_data) {
+    if (outdoor_weather == NULL)
+        return TF_E_NULL;
+
     if (handler == NULL) {
         outdoor_weather->tfp->needs_callback_tick = false;
         outdoor_weather->tfp->needs_callback_tick |= outdoor_weather->sensor_data_handler != NULL;
@@ -1027,10 +1105,14 @@ void tf_outdoor_weather_register_station_data_callback(TF_OutdoorWeather *outdoo
     }
     outdoor_weather->station_data_handler = handler;
     outdoor_weather->station_data_user_data = user_data;
+    return TF_E_OK;
 }
 
 
-void tf_outdoor_weather_register_sensor_data_callback(TF_OutdoorWeather *outdoor_weather, TF_OutdoorWeatherSensorDataHandler handler, void *user_data) {
+int tf_outdoor_weather_register_sensor_data_callback(TF_OutdoorWeather *outdoor_weather, TF_OutdoorWeatherSensorDataHandler handler, void *user_data) {
+    if (outdoor_weather == NULL)
+        return TF_E_NULL;
+
     if (handler == NULL) {
         outdoor_weather->tfp->needs_callback_tick = false;
         outdoor_weather->tfp->needs_callback_tick |= outdoor_weather->station_data_handler != NULL;
@@ -1039,9 +1121,13 @@ void tf_outdoor_weather_register_sensor_data_callback(TF_OutdoorWeather *outdoor
     }
     outdoor_weather->sensor_data_handler = handler;
     outdoor_weather->sensor_data_user_data = user_data;
+    return TF_E_OK;
 }
 #endif
 int tf_outdoor_weather_callback_tick(TF_OutdoorWeather *outdoor_weather, uint32_t timeout_us) {
+    if (outdoor_weather == NULL)
+        return TF_E_NULL;
+
     return tf_tfp_callback_tick(outdoor_weather->tfp, tf_hal_current_time_us(outdoor_weather->tfp->hal) + timeout_us);
 }
 

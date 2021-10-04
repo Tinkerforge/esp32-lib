@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-02-08.      *
+ * This file was automatically generated on 2021-10-04.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -67,6 +67,9 @@ static bool tf_xmc1400_breakout_callback_handler(void *dev, uint8_t fid, TF_Pack
 }
 #endif
 int tf_xmc1400_breakout_create(TF_XMC1400Breakout *xmc1400_breakout, const char *uid, TF_HalContext *hal) {
+    if (xmc1400_breakout == NULL || uid == NULL || hal == NULL)
+        return TF_E_NULL;
+
     memset(xmc1400_breakout, 0, sizeof(TF_XMC1400Breakout));
 
     uint32_t numeric_uid;
@@ -95,12 +98,18 @@ int tf_xmc1400_breakout_create(TF_XMC1400Breakout *xmc1400_breakout, const char 
 }
 
 int tf_xmc1400_breakout_destroy(TF_XMC1400Breakout *xmc1400_breakout) {
+    if (xmc1400_breakout == NULL)
+        return TF_E_NULL;
+
     int result = tf_tfp_destroy(xmc1400_breakout->tfp);
     xmc1400_breakout->tfp = NULL;
     return result;
 }
 
 int tf_xmc1400_breakout_get_response_expected(TF_XMC1400Breakout *xmc1400_breakout, uint8_t function_id, bool *ret_response_expected) {
+    if (xmc1400_breakout == NULL)
+        return TF_E_NULL;
+
     switch(function_id) {
         case TF_XMC1400_BREAKOUT_FUNCTION_SET_GPIO_CONFIG:
             if(ret_response_expected != NULL)
@@ -209,6 +218,9 @@ void tf_xmc1400_breakout_set_response_expected_all(TF_XMC1400Breakout *xmc1400_b
 }
 
 int tf_xmc1400_breakout_set_gpio_config(TF_XMC1400Breakout *xmc1400_breakout, uint8_t port, uint8_t pin, uint8_t mode, uint8_t input_hysteresis, bool output_level) {
+    if (xmc1400_breakout == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(xmc1400_breakout->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -245,6 +257,9 @@ int tf_xmc1400_breakout_set_gpio_config(TF_XMC1400Breakout *xmc1400_breakout, ui
 }
 
 int tf_xmc1400_breakout_get_gpio_input(TF_XMC1400Breakout *xmc1400_breakout, uint8_t port, uint8_t pin, bool *ret_value) {
+    if (xmc1400_breakout == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(xmc1400_breakout->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -282,6 +297,9 @@ int tf_xmc1400_breakout_get_gpio_input(TF_XMC1400Breakout *xmc1400_breakout, uin
 }
 
 int tf_xmc1400_breakout_set_adc_channel_config(TF_XMC1400Breakout *xmc1400_breakout, uint8_t channel, bool enable) {
+    if (xmc1400_breakout == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(xmc1400_breakout->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -315,6 +333,9 @@ int tf_xmc1400_breakout_set_adc_channel_config(TF_XMC1400Breakout *xmc1400_break
 }
 
 int tf_xmc1400_breakout_get_adc_channel_config(TF_XMC1400Breakout *xmc1400_breakout, uint8_t channel, bool *ret_enable) {
+    if (xmc1400_breakout == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(xmc1400_breakout->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -351,6 +372,9 @@ int tf_xmc1400_breakout_get_adc_channel_config(TF_XMC1400Breakout *xmc1400_break
 }
 
 int tf_xmc1400_breakout_get_adc_channel_value(TF_XMC1400Breakout *xmc1400_breakout, uint8_t channel, uint16_t *ret_value) {
+    if (xmc1400_breakout == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(xmc1400_breakout->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -387,6 +411,9 @@ int tf_xmc1400_breakout_get_adc_channel_value(TF_XMC1400Breakout *xmc1400_breako
 }
 
 int tf_xmc1400_breakout_get_adc_values(TF_XMC1400Breakout *xmc1400_breakout, uint16_t ret_values[8]) {
+    if (xmc1400_breakout == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(xmc1400_breakout->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -420,6 +447,9 @@ int tf_xmc1400_breakout_get_adc_values(TF_XMC1400Breakout *xmc1400_breakout, uin
 }
 
 int tf_xmc1400_breakout_set_adc_values_callback_configuration(TF_XMC1400Breakout *xmc1400_breakout, uint32_t period, bool value_has_to_change) {
+    if (xmc1400_breakout == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(xmc1400_breakout->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -453,6 +483,9 @@ int tf_xmc1400_breakout_set_adc_values_callback_configuration(TF_XMC1400Breakout
 }
 
 int tf_xmc1400_breakout_get_adc_values_callback_configuration(TF_XMC1400Breakout *xmc1400_breakout, uint32_t *ret_period, bool *ret_value_has_to_change) {
+    if (xmc1400_breakout == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(xmc1400_breakout->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -486,6 +519,9 @@ int tf_xmc1400_breakout_get_adc_values_callback_configuration(TF_XMC1400Breakout
 }
 
 int tf_xmc1400_breakout_get_count(TF_XMC1400Breakout *xmc1400_breakout, uint32_t *ret_count) {
+    if (xmc1400_breakout == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(xmc1400_breakout->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -518,6 +554,9 @@ int tf_xmc1400_breakout_get_count(TF_XMC1400Breakout *xmc1400_breakout, uint32_t
 }
 
 int tf_xmc1400_breakout_set_count_callback_configuration(TF_XMC1400Breakout *xmc1400_breakout, uint32_t period, bool value_has_to_change, char option, uint32_t min, uint32_t max) {
+    if (xmc1400_breakout == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(xmc1400_breakout->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -554,6 +593,9 @@ int tf_xmc1400_breakout_set_count_callback_configuration(TF_XMC1400Breakout *xmc
 }
 
 int tf_xmc1400_breakout_get_count_callback_configuration(TF_XMC1400Breakout *xmc1400_breakout, uint32_t *ret_period, bool *ret_value_has_to_change, char *ret_option, uint32_t *ret_min, uint32_t *ret_max) {
+    if (xmc1400_breakout == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(xmc1400_breakout->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -590,6 +632,9 @@ int tf_xmc1400_breakout_get_count_callback_configuration(TF_XMC1400Breakout *xmc
 }
 
 int tf_xmc1400_breakout_get_spitfp_error_count(TF_XMC1400Breakout *xmc1400_breakout, uint32_t *ret_error_count_ack_checksum, uint32_t *ret_error_count_message_checksum, uint32_t *ret_error_count_frame, uint32_t *ret_error_count_overflow) {
+    if (xmc1400_breakout == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(xmc1400_breakout->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -625,6 +670,9 @@ int tf_xmc1400_breakout_get_spitfp_error_count(TF_XMC1400Breakout *xmc1400_break
 }
 
 int tf_xmc1400_breakout_set_bootloader_mode(TF_XMC1400Breakout *xmc1400_breakout, uint8_t mode, uint8_t *ret_status) {
+    if (xmc1400_breakout == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(xmc1400_breakout->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -661,6 +709,9 @@ int tf_xmc1400_breakout_set_bootloader_mode(TF_XMC1400Breakout *xmc1400_breakout
 }
 
 int tf_xmc1400_breakout_get_bootloader_mode(TF_XMC1400Breakout *xmc1400_breakout, uint8_t *ret_mode) {
+    if (xmc1400_breakout == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(xmc1400_breakout->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -693,6 +744,9 @@ int tf_xmc1400_breakout_get_bootloader_mode(TF_XMC1400Breakout *xmc1400_breakout
 }
 
 int tf_xmc1400_breakout_set_write_firmware_pointer(TF_XMC1400Breakout *xmc1400_breakout, uint32_t pointer) {
+    if (xmc1400_breakout == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(xmc1400_breakout->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -725,6 +779,9 @@ int tf_xmc1400_breakout_set_write_firmware_pointer(TF_XMC1400Breakout *xmc1400_b
 }
 
 int tf_xmc1400_breakout_write_firmware(TF_XMC1400Breakout *xmc1400_breakout, uint8_t data[64], uint8_t *ret_status) {
+    if (xmc1400_breakout == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(xmc1400_breakout->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -761,6 +818,9 @@ int tf_xmc1400_breakout_write_firmware(TF_XMC1400Breakout *xmc1400_breakout, uin
 }
 
 int tf_xmc1400_breakout_set_status_led_config(TF_XMC1400Breakout *xmc1400_breakout, uint8_t config) {
+    if (xmc1400_breakout == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(xmc1400_breakout->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -793,6 +853,9 @@ int tf_xmc1400_breakout_set_status_led_config(TF_XMC1400Breakout *xmc1400_breako
 }
 
 int tf_xmc1400_breakout_get_status_led_config(TF_XMC1400Breakout *xmc1400_breakout, uint8_t *ret_config) {
+    if (xmc1400_breakout == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(xmc1400_breakout->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -825,6 +888,9 @@ int tf_xmc1400_breakout_get_status_led_config(TF_XMC1400Breakout *xmc1400_breako
 }
 
 int tf_xmc1400_breakout_get_chip_temperature(TF_XMC1400Breakout *xmc1400_breakout, int16_t *ret_temperature) {
+    if (xmc1400_breakout == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(xmc1400_breakout->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -857,6 +923,9 @@ int tf_xmc1400_breakout_get_chip_temperature(TF_XMC1400Breakout *xmc1400_breakou
 }
 
 int tf_xmc1400_breakout_reset(TF_XMC1400Breakout *xmc1400_breakout) {
+    if (xmc1400_breakout == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(xmc1400_breakout->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -885,6 +954,9 @@ int tf_xmc1400_breakout_reset(TF_XMC1400Breakout *xmc1400_breakout) {
 }
 
 int tf_xmc1400_breakout_write_uid(TF_XMC1400Breakout *xmc1400_breakout, uint32_t uid) {
+    if (xmc1400_breakout == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(xmc1400_breakout->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -917,6 +989,9 @@ int tf_xmc1400_breakout_write_uid(TF_XMC1400Breakout *xmc1400_breakout, uint32_t
 }
 
 int tf_xmc1400_breakout_read_uid(TF_XMC1400Breakout *xmc1400_breakout, uint32_t *ret_uid) {
+    if (xmc1400_breakout == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(xmc1400_breakout->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -949,6 +1024,9 @@ int tf_xmc1400_breakout_read_uid(TF_XMC1400Breakout *xmc1400_breakout, uint32_t 
 }
 
 int tf_xmc1400_breakout_get_identity(TF_XMC1400Breakout *xmc1400_breakout, char ret_uid[8], char ret_connected_uid[8], char *ret_position, uint8_t ret_hardware_version[3], uint8_t ret_firmware_version[3], uint16_t *ret_device_identifier) {
+    if (xmc1400_breakout == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(xmc1400_breakout->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -993,7 +1071,10 @@ int tf_xmc1400_breakout_get_identity(TF_XMC1400Breakout *xmc1400_breakout, char 
     return tf_tfp_get_error(error_code);
 }
 #ifdef TF_IMPLEMENT_CALLBACKS
-void tf_xmc1400_breakout_register_adc_values_callback(TF_XMC1400Breakout *xmc1400_breakout, TF_XMC1400BreakoutADCValuesHandler handler, void *user_data) {
+int tf_xmc1400_breakout_register_adc_values_callback(TF_XMC1400Breakout *xmc1400_breakout, TF_XMC1400BreakoutADCValuesHandler handler, void *user_data) {
+    if (xmc1400_breakout == NULL)
+        return TF_E_NULL;
+
     if (handler == NULL) {
         xmc1400_breakout->tfp->needs_callback_tick = false;
         xmc1400_breakout->tfp->needs_callback_tick |= xmc1400_breakout->count_handler != NULL;
@@ -1002,10 +1083,14 @@ void tf_xmc1400_breakout_register_adc_values_callback(TF_XMC1400Breakout *xmc140
     }
     xmc1400_breakout->adc_values_handler = handler;
     xmc1400_breakout->adc_values_user_data = user_data;
+    return TF_E_OK;
 }
 
 
-void tf_xmc1400_breakout_register_count_callback(TF_XMC1400Breakout *xmc1400_breakout, TF_XMC1400BreakoutCountHandler handler, void *user_data) {
+int tf_xmc1400_breakout_register_count_callback(TF_XMC1400Breakout *xmc1400_breakout, TF_XMC1400BreakoutCountHandler handler, void *user_data) {
+    if (xmc1400_breakout == NULL)
+        return TF_E_NULL;
+
     if (handler == NULL) {
         xmc1400_breakout->tfp->needs_callback_tick = false;
         xmc1400_breakout->tfp->needs_callback_tick |= xmc1400_breakout->adc_values_handler != NULL;
@@ -1014,9 +1099,13 @@ void tf_xmc1400_breakout_register_count_callback(TF_XMC1400Breakout *xmc1400_bre
     }
     xmc1400_breakout->count_handler = handler;
     xmc1400_breakout->count_user_data = user_data;
+    return TF_E_OK;
 }
 #endif
 int tf_xmc1400_breakout_callback_tick(TF_XMC1400Breakout *xmc1400_breakout, uint32_t timeout_us) {
+    if (xmc1400_breakout == NULL)
+        return TF_E_NULL;
+
     return tf_tfp_callback_tick(xmc1400_breakout->tfp, tf_hal_current_time_us(xmc1400_breakout->tfp->hal) + timeout_us);
 }
 

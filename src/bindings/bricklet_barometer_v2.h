@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-02-08.      *
+ * This file was automatically generated on 2021-10-04.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -454,7 +454,7 @@ TF_ATTRIBUTE_NONNULL_ALL void tf_barometer_v2_set_response_expected_all(TF_Barom
  * 
  * The parameter is the same as {@link tf_barometer_v2_get_air_pressure}.
  */
-TF_ATTRIBUTE_NONNULL(1) void tf_barometer_v2_register_air_pressure_callback(TF_BarometerV2 *barometer_v2, TF_BarometerV2AirPressureHandler handler, void *user_data);
+TF_ATTRIBUTE_NONNULL(1) int tf_barometer_v2_register_air_pressure_callback(TF_BarometerV2 *barometer_v2, TF_BarometerV2AirPressureHandler handler, void *user_data);
 
 
 /**
@@ -470,7 +470,7 @@ TF_ATTRIBUTE_NONNULL(1) void tf_barometer_v2_register_air_pressure_callback(TF_B
  * 
  * The parameter is the same as {@link tf_barometer_v2_get_altitude}.
  */
-TF_ATTRIBUTE_NONNULL(1) void tf_barometer_v2_register_altitude_callback(TF_BarometerV2 *barometer_v2, TF_BarometerV2AltitudeHandler handler, void *user_data);
+TF_ATTRIBUTE_NONNULL(1) int tf_barometer_v2_register_altitude_callback(TF_BarometerV2 *barometer_v2, TF_BarometerV2AltitudeHandler handler, void *user_data);
 
 
 /**
@@ -486,7 +486,7 @@ TF_ATTRIBUTE_NONNULL(1) void tf_barometer_v2_register_altitude_callback(TF_Barom
  * 
  * The parameter is the same as {@link tf_barometer_v2_get_temperature}.
  */
-TF_ATTRIBUTE_NONNULL(1) void tf_barometer_v2_register_temperature_callback(TF_BarometerV2 *barometer_v2, TF_BarometerV2TemperatureHandler handler, void *user_data);
+TF_ATTRIBUTE_NONNULL(1) int tf_barometer_v2_register_temperature_callback(TF_BarometerV2 *barometer_v2, TF_BarometerV2TemperatureHandler handler, void *user_data);
 #endif
 #ifdef TF_IMPLEMENT_CALLBACKS
 /**

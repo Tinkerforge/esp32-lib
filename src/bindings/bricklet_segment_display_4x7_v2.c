@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-02-08.      *
+ * This file was automatically generated on 2021-10-04.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -53,6 +53,9 @@ static bool tf_segment_display_4x7_v2_callback_handler(void *dev, uint8_t fid, T
 }
 #endif
 int tf_segment_display_4x7_v2_create(TF_SegmentDisplay4x7V2 *segment_display_4x7_v2, const char *uid, TF_HalContext *hal) {
+    if (segment_display_4x7_v2 == NULL || uid == NULL || hal == NULL)
+        return TF_E_NULL;
+
     memset(segment_display_4x7_v2, 0, sizeof(TF_SegmentDisplay4x7V2));
 
     uint32_t numeric_uid;
@@ -82,12 +85,18 @@ int tf_segment_display_4x7_v2_create(TF_SegmentDisplay4x7V2 *segment_display_4x7
 }
 
 int tf_segment_display_4x7_v2_destroy(TF_SegmentDisplay4x7V2 *segment_display_4x7_v2) {
+    if (segment_display_4x7_v2 == NULL)
+        return TF_E_NULL;
+
     int result = tf_tfp_destroy(segment_display_4x7_v2->tfp);
     segment_display_4x7_v2->tfp = NULL;
     return result;
 }
 
 int tf_segment_display_4x7_v2_get_response_expected(TF_SegmentDisplay4x7V2 *segment_display_4x7_v2, uint8_t function_id, bool *ret_response_expected) {
+    if (segment_display_4x7_v2 == NULL)
+        return TF_E_NULL;
+
     switch(function_id) {
         case TF_SEGMENT_DISPLAY_4X7_V2_FUNCTION_SET_SEGMENTS:
             if(ret_response_expected != NULL)
@@ -207,6 +216,9 @@ void tf_segment_display_4x7_v2_set_response_expected_all(TF_SegmentDisplay4x7V2 
 }
 
 int tf_segment_display_4x7_v2_set_segments(TF_SegmentDisplay4x7V2 *segment_display_4x7_v2, bool digit0[8], bool digit1[8], bool digit2[8], bool digit3[8], bool colon[2], bool tick) {
+    if (segment_display_4x7_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(segment_display_4x7_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -245,6 +257,9 @@ int tf_segment_display_4x7_v2_set_segments(TF_SegmentDisplay4x7V2 *segment_displ
 }
 
 int tf_segment_display_4x7_v2_get_segments(TF_SegmentDisplay4x7V2 *segment_display_4x7_v2, bool ret_digit0[8], bool ret_digit1[8], bool ret_digit2[8], bool ret_digit3[8], bool ret_colon[2], bool *ret_tick) {
+    if (segment_display_4x7_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(segment_display_4x7_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -282,6 +297,9 @@ int tf_segment_display_4x7_v2_get_segments(TF_SegmentDisplay4x7V2 *segment_displ
 }
 
 int tf_segment_display_4x7_v2_set_brightness(TF_SegmentDisplay4x7V2 *segment_display_4x7_v2, uint8_t brightness) {
+    if (segment_display_4x7_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(segment_display_4x7_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -314,6 +332,9 @@ int tf_segment_display_4x7_v2_set_brightness(TF_SegmentDisplay4x7V2 *segment_dis
 }
 
 int tf_segment_display_4x7_v2_get_brightness(TF_SegmentDisplay4x7V2 *segment_display_4x7_v2, uint8_t *ret_brightness) {
+    if (segment_display_4x7_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(segment_display_4x7_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -346,6 +367,9 @@ int tf_segment_display_4x7_v2_get_brightness(TF_SegmentDisplay4x7V2 *segment_dis
 }
 
 int tf_segment_display_4x7_v2_set_numeric_value(TF_SegmentDisplay4x7V2 *segment_display_4x7_v2, int8_t value[4]) {
+    if (segment_display_4x7_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(segment_display_4x7_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -378,6 +402,9 @@ int tf_segment_display_4x7_v2_set_numeric_value(TF_SegmentDisplay4x7V2 *segment_
 }
 
 int tf_segment_display_4x7_v2_set_selected_segment(TF_SegmentDisplay4x7V2 *segment_display_4x7_v2, uint8_t segment, bool value) {
+    if (segment_display_4x7_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(segment_display_4x7_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -411,6 +438,9 @@ int tf_segment_display_4x7_v2_set_selected_segment(TF_SegmentDisplay4x7V2 *segme
 }
 
 int tf_segment_display_4x7_v2_get_selected_segment(TF_SegmentDisplay4x7V2 *segment_display_4x7_v2, uint8_t segment, bool *ret_value) {
+    if (segment_display_4x7_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(segment_display_4x7_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -447,6 +477,9 @@ int tf_segment_display_4x7_v2_get_selected_segment(TF_SegmentDisplay4x7V2 *segme
 }
 
 int tf_segment_display_4x7_v2_start_counter(TF_SegmentDisplay4x7V2 *segment_display_4x7_v2, int16_t value_from, int16_t value_to, int16_t increment, uint32_t length) {
+    if (segment_display_4x7_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(segment_display_4x7_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -482,6 +515,9 @@ int tf_segment_display_4x7_v2_start_counter(TF_SegmentDisplay4x7V2 *segment_disp
 }
 
 int tf_segment_display_4x7_v2_get_counter_value(TF_SegmentDisplay4x7V2 *segment_display_4x7_v2, uint16_t *ret_value) {
+    if (segment_display_4x7_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(segment_display_4x7_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -514,6 +550,9 @@ int tf_segment_display_4x7_v2_get_counter_value(TF_SegmentDisplay4x7V2 *segment_
 }
 
 int tf_segment_display_4x7_v2_get_spitfp_error_count(TF_SegmentDisplay4x7V2 *segment_display_4x7_v2, uint32_t *ret_error_count_ack_checksum, uint32_t *ret_error_count_message_checksum, uint32_t *ret_error_count_frame, uint32_t *ret_error_count_overflow) {
+    if (segment_display_4x7_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(segment_display_4x7_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -549,6 +588,9 @@ int tf_segment_display_4x7_v2_get_spitfp_error_count(TF_SegmentDisplay4x7V2 *seg
 }
 
 int tf_segment_display_4x7_v2_set_bootloader_mode(TF_SegmentDisplay4x7V2 *segment_display_4x7_v2, uint8_t mode, uint8_t *ret_status) {
+    if (segment_display_4x7_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(segment_display_4x7_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -585,6 +627,9 @@ int tf_segment_display_4x7_v2_set_bootloader_mode(TF_SegmentDisplay4x7V2 *segmen
 }
 
 int tf_segment_display_4x7_v2_get_bootloader_mode(TF_SegmentDisplay4x7V2 *segment_display_4x7_v2, uint8_t *ret_mode) {
+    if (segment_display_4x7_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(segment_display_4x7_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -617,6 +662,9 @@ int tf_segment_display_4x7_v2_get_bootloader_mode(TF_SegmentDisplay4x7V2 *segmen
 }
 
 int tf_segment_display_4x7_v2_set_write_firmware_pointer(TF_SegmentDisplay4x7V2 *segment_display_4x7_v2, uint32_t pointer) {
+    if (segment_display_4x7_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(segment_display_4x7_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -649,6 +697,9 @@ int tf_segment_display_4x7_v2_set_write_firmware_pointer(TF_SegmentDisplay4x7V2 
 }
 
 int tf_segment_display_4x7_v2_write_firmware(TF_SegmentDisplay4x7V2 *segment_display_4x7_v2, uint8_t data[64], uint8_t *ret_status) {
+    if (segment_display_4x7_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(segment_display_4x7_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -685,6 +736,9 @@ int tf_segment_display_4x7_v2_write_firmware(TF_SegmentDisplay4x7V2 *segment_dis
 }
 
 int tf_segment_display_4x7_v2_set_status_led_config(TF_SegmentDisplay4x7V2 *segment_display_4x7_v2, uint8_t config) {
+    if (segment_display_4x7_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(segment_display_4x7_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -717,6 +771,9 @@ int tf_segment_display_4x7_v2_set_status_led_config(TF_SegmentDisplay4x7V2 *segm
 }
 
 int tf_segment_display_4x7_v2_get_status_led_config(TF_SegmentDisplay4x7V2 *segment_display_4x7_v2, uint8_t *ret_config) {
+    if (segment_display_4x7_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(segment_display_4x7_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -749,6 +806,9 @@ int tf_segment_display_4x7_v2_get_status_led_config(TF_SegmentDisplay4x7V2 *segm
 }
 
 int tf_segment_display_4x7_v2_get_chip_temperature(TF_SegmentDisplay4x7V2 *segment_display_4x7_v2, int16_t *ret_temperature) {
+    if (segment_display_4x7_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(segment_display_4x7_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -781,6 +841,9 @@ int tf_segment_display_4x7_v2_get_chip_temperature(TF_SegmentDisplay4x7V2 *segme
 }
 
 int tf_segment_display_4x7_v2_reset(TF_SegmentDisplay4x7V2 *segment_display_4x7_v2) {
+    if (segment_display_4x7_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(segment_display_4x7_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -809,6 +872,9 @@ int tf_segment_display_4x7_v2_reset(TF_SegmentDisplay4x7V2 *segment_display_4x7_
 }
 
 int tf_segment_display_4x7_v2_write_uid(TF_SegmentDisplay4x7V2 *segment_display_4x7_v2, uint32_t uid) {
+    if (segment_display_4x7_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(segment_display_4x7_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -841,6 +907,9 @@ int tf_segment_display_4x7_v2_write_uid(TF_SegmentDisplay4x7V2 *segment_display_
 }
 
 int tf_segment_display_4x7_v2_read_uid(TF_SegmentDisplay4x7V2 *segment_display_4x7_v2, uint32_t *ret_uid) {
+    if (segment_display_4x7_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(segment_display_4x7_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -873,6 +942,9 @@ int tf_segment_display_4x7_v2_read_uid(TF_SegmentDisplay4x7V2 *segment_display_4
 }
 
 int tf_segment_display_4x7_v2_get_identity(TF_SegmentDisplay4x7V2 *segment_display_4x7_v2, char ret_uid[8], char ret_connected_uid[8], char *ret_position, uint8_t ret_hardware_version[3], uint8_t ret_firmware_version[3], uint16_t *ret_device_identifier) {
+    if (segment_display_4x7_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(segment_display_4x7_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -917,7 +989,10 @@ int tf_segment_display_4x7_v2_get_identity(TF_SegmentDisplay4x7V2 *segment_displ
     return tf_tfp_get_error(error_code);
 }
 #ifdef TF_IMPLEMENT_CALLBACKS
-void tf_segment_display_4x7_v2_register_counter_finished_callback(TF_SegmentDisplay4x7V2 *segment_display_4x7_v2, TF_SegmentDisplay4x7V2CounterFinishedHandler handler, void *user_data) {
+int tf_segment_display_4x7_v2_register_counter_finished_callback(TF_SegmentDisplay4x7V2 *segment_display_4x7_v2, TF_SegmentDisplay4x7V2CounterFinishedHandler handler, void *user_data) {
+    if (segment_display_4x7_v2 == NULL)
+        return TF_E_NULL;
+
     if (handler == NULL) {
         segment_display_4x7_v2->tfp->needs_callback_tick = false;
         
@@ -926,9 +1001,13 @@ void tf_segment_display_4x7_v2_register_counter_finished_callback(TF_SegmentDisp
     }
     segment_display_4x7_v2->counter_finished_handler = handler;
     segment_display_4x7_v2->counter_finished_user_data = user_data;
+    return TF_E_OK;
 }
 #endif
 int tf_segment_display_4x7_v2_callback_tick(TF_SegmentDisplay4x7V2 *segment_display_4x7_v2, uint32_t timeout_us) {
+    if (segment_display_4x7_v2 == NULL)
+        return TF_E_NULL;
+
     return tf_tfp_callback_tick(segment_display_4x7_v2->tfp, tf_hal_current_time_us(segment_display_4x7_v2->tfp->hal) + timeout_us);
 }
 

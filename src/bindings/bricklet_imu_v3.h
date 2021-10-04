@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-02-08.      *
+ * This file was automatically generated on 2021-10-04.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -697,7 +697,7 @@ TF_ATTRIBUTE_NONNULL_ALL void tf_imu_v3_set_response_expected_all(TF_IMUV3 *imu_
  * {@link tf_imu_v3_set_acceleration_callback_configuration}. The parameters are the acceleration
  * for the x, y and z axis.
  */
-TF_ATTRIBUTE_NONNULL(1) void tf_imu_v3_register_acceleration_callback(TF_IMUV3 *imu_v3, TF_IMUV3AccelerationHandler handler, void *user_data);
+TF_ATTRIBUTE_NONNULL(1) int tf_imu_v3_register_acceleration_callback(TF_IMUV3 *imu_v3, TF_IMUV3AccelerationHandler handler, void *user_data);
 
 
 /**
@@ -712,7 +712,7 @@ TF_ATTRIBUTE_NONNULL(1) void tf_imu_v3_register_acceleration_callback(TF_IMUV3 *
  * {@link tf_imu_v3_set_magnetic_field_callback_configuration}. The parameters are the magnetic
  * field for the x, y and z axis.
  */
-TF_ATTRIBUTE_NONNULL(1) void tf_imu_v3_register_magnetic_field_callback(TF_IMUV3 *imu_v3, TF_IMUV3MagneticFieldHandler handler, void *user_data);
+TF_ATTRIBUTE_NONNULL(1) int tf_imu_v3_register_magnetic_field_callback(TF_IMUV3 *imu_v3, TF_IMUV3MagneticFieldHandler handler, void *user_data);
 
 
 /**
@@ -727,7 +727,7 @@ TF_ATTRIBUTE_NONNULL(1) void tf_imu_v3_register_magnetic_field_callback(TF_IMUV3
  * {@link tf_imu_v3_set_angular_velocity_callback_configuration}. The parameters are the angular
  * velocity for the x, y and z axis.
  */
-TF_ATTRIBUTE_NONNULL(1) void tf_imu_v3_register_angular_velocity_callback(TF_IMUV3 *imu_v3, TF_IMUV3AngularVelocityHandler handler, void *user_data);
+TF_ATTRIBUTE_NONNULL(1) int tf_imu_v3_register_angular_velocity_callback(TF_IMUV3 *imu_v3, TF_IMUV3AngularVelocityHandler handler, void *user_data);
 
 
 /**
@@ -741,7 +741,7 @@ TF_ATTRIBUTE_NONNULL(1) void tf_imu_v3_register_angular_velocity_callback(TF_IMU
  * This callback is triggered periodically with the period that is set by
  * {@link tf_imu_v3_set_temperature_callback_configuration}. The parameter is the temperature.
  */
-TF_ATTRIBUTE_NONNULL(1) void tf_imu_v3_register_temperature_callback(TF_IMUV3 *imu_v3, TF_IMUV3TemperatureHandler handler, void *user_data);
+TF_ATTRIBUTE_NONNULL(1) int tf_imu_v3_register_temperature_callback(TF_IMUV3 *imu_v3, TF_IMUV3TemperatureHandler handler, void *user_data);
 
 
 /**
@@ -756,7 +756,7 @@ TF_ATTRIBUTE_NONNULL(1) void tf_imu_v3_register_temperature_callback(TF_IMUV3 *i
  * {@link tf_imu_v3_set_linear_acceleration_callback_configuration}. The parameters are the
  * linear acceleration for the x, y and z axis.
  */
-TF_ATTRIBUTE_NONNULL(1) void tf_imu_v3_register_linear_acceleration_callback(TF_IMUV3 *imu_v3, TF_IMUV3LinearAccelerationHandler handler, void *user_data);
+TF_ATTRIBUTE_NONNULL(1) int tf_imu_v3_register_linear_acceleration_callback(TF_IMUV3 *imu_v3, TF_IMUV3LinearAccelerationHandler handler, void *user_data);
 
 
 /**
@@ -771,7 +771,7 @@ TF_ATTRIBUTE_NONNULL(1) void tf_imu_v3_register_linear_acceleration_callback(TF_
  * {@link tf_imu_v3_set_gravity_vector_callback_configuration}. The parameters gravity vector
  * for the x, y and z axis.
  */
-TF_ATTRIBUTE_NONNULL(1) void tf_imu_v3_register_gravity_vector_callback(TF_IMUV3 *imu_v3, TF_IMUV3GravityVectorHandler handler, void *user_data);
+TF_ATTRIBUTE_NONNULL(1) int tf_imu_v3_register_gravity_vector_callback(TF_IMUV3 *imu_v3, TF_IMUV3GravityVectorHandler handler, void *user_data);
 
 
 /**
@@ -787,7 +787,7 @@ TF_ATTRIBUTE_NONNULL(1) void tf_imu_v3_register_gravity_vector_callback(TF_IMUV3
  * (heading (yaw), roll, pitch) of the IMU Brick in Euler angles. See
  * {@link tf_imu_v3_get_orientation} for details.
  */
-TF_ATTRIBUTE_NONNULL(1) void tf_imu_v3_register_orientation_callback(TF_IMUV3 *imu_v3, TF_IMUV3OrientationHandler handler, void *user_data);
+TF_ATTRIBUTE_NONNULL(1) int tf_imu_v3_register_orientation_callback(TF_IMUV3 *imu_v3, TF_IMUV3OrientationHandler handler, void *user_data);
 
 
 /**
@@ -803,7 +803,7 @@ TF_ATTRIBUTE_NONNULL(1) void tf_imu_v3_register_orientation_callback(TF_IMUV3 *i
  * (w, x, y, z) of the IMU Brick in quaternions. See {@link tf_imu_v3_get_quaternion}
  * for details.
  */
-TF_ATTRIBUTE_NONNULL(1) void tf_imu_v3_register_quaternion_callback(TF_IMUV3 *imu_v3, TF_IMUV3QuaternionHandler handler, void *user_data);
+TF_ATTRIBUTE_NONNULL(1) int tf_imu_v3_register_quaternion_callback(TF_IMUV3 *imu_v3, TF_IMUV3QuaternionHandler handler, void *user_data);
 
 
 /**
@@ -818,7 +818,7 @@ TF_ATTRIBUTE_NONNULL(1) void tf_imu_v3_register_quaternion_callback(TF_IMUV3 *im
  * {@link tf_imu_v3_set_all_data_callback_configuration}. The parameters are as for
  * {@link tf_imu_v3_get_all_data}.
  */
-TF_ATTRIBUTE_NONNULL(1) void tf_imu_v3_register_all_data_callback(TF_IMUV3 *imu_v3, TF_IMUV3AllDataHandler handler, void *user_data);
+TF_ATTRIBUTE_NONNULL(1) int tf_imu_v3_register_all_data_callback(TF_IMUV3 *imu_v3, TF_IMUV3AllDataHandler handler, void *user_data);
 #endif
 #ifdef TF_IMPLEMENT_CALLBACKS
 /**

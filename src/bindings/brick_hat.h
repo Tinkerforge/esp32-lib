@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-02-08.      *
+ * This file was automatically generated on 2021-10-04.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -83,6 +83,16 @@ typedef struct TF_HAT {
 /**
  * \ingroup BrickHAT
  */
+#define TF_HAT_FUNCTION_SET_RTC_DRIVER 9
+
+/**
+ * \ingroup BrickHAT
+ */
+#define TF_HAT_FUNCTION_GET_RTC_DRIVER 10
+
+/**
+ * \ingroup BrickHAT
+ */
 #define TF_HAT_FUNCTION_GET_SPITFP_ERROR_COUNT 234
 
 /**
@@ -148,6 +158,16 @@ typedef struct TF_HAT {
 #define TF_HAT_CALLBACK_VOLTAGES 8
 
 #endif
+
+/**
+ * \ingroup BrickHAT
+ */
+#define TF_HAT_RTC_DRIVER_PCF8523 0
+
+/**
+ * \ingroup BrickHAT
+ */
+#define TF_HAT_RTC_DRIVER_DS1338 1
 
 /**
  * \ingroup BrickHAT
@@ -318,7 +338,7 @@ TF_ATTRIBUTE_NONNULL_ALL void tf_hat_set_response_expected_all(TF_HAT *hat, bool
  * 
  * .. versionadded:: 2.0.1$nbsp;(Firmware)
  */
-TF_ATTRIBUTE_NONNULL(1) void tf_hat_register_voltages_callback(TF_HAT *hat, TF_HATVoltagesHandler handler, void *user_data);
+TF_ATTRIBUTE_NONNULL(1) int tf_hat_register_voltages_callback(TF_HAT *hat, TF_HATVoltagesHandler handler, void *user_data);
 #endif
 #ifdef TF_IMPLEMENT_CALLBACKS
 /**
@@ -426,6 +446,30 @@ TF_ATTRIBUTE_NONNULL(1) int tf_hat_set_voltages_callback_configuration(TF_HAT *h
  * .. versionadded:: 2.0.1$nbsp;(Firmware)
  */
 TF_ATTRIBUTE_NONNULL(1) int tf_hat_get_voltages_callback_configuration(TF_HAT *hat, uint32_t *ret_period, bool *ret_value_has_to_change);
+
+/**
+ * \ingroup BrickHAT
+ *
+ * Configures the RTC driver that is given to the Raspberry Pi to be used.
+ * Currently there are two different RTCs used:
+ * 
+ * * Hardware version <= 1.5: PCF8523
+ * * Hardware version 1.6: DS1338
+ * 
+ * The correct driver will be set during factory flashing by Tinkerforge.
+ * 
+ * .. versionadded:: 2.0.3$nbsp;(Firmware)
+ */
+TF_ATTRIBUTE_NONNULL(1) int tf_hat_set_rtc_driver(TF_HAT *hat, uint8_t rtc_driver);
+
+/**
+ * \ingroup BrickHAT
+ *
+ * Returns the RTC driver as set by {@link tf_hat_set_rtc_driver}.
+ * 
+ * .. versionadded:: 2.0.3$nbsp;(Firmware)
+ */
+TF_ATTRIBUTE_NONNULL(1) int tf_hat_get_rtc_driver(TF_HAT *hat, uint8_t *ret_rtc_driver);
 
 /**
  * \ingroup BrickHAT

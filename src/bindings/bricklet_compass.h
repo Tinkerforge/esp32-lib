@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-02-08.      *
+ * This file was automatically generated on 2021-10-04.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -385,7 +385,7 @@ TF_ATTRIBUTE_NONNULL_ALL void tf_compass_set_response_expected_all(TF_Compass *c
  * 
  * The parameter is the same as {@link tf_compass_get_heading}.
  */
-TF_ATTRIBUTE_NONNULL(1) void tf_compass_register_heading_callback(TF_Compass *compass, TF_CompassHeadingHandler handler, void *user_data);
+TF_ATTRIBUTE_NONNULL(1) int tf_compass_register_heading_callback(TF_Compass *compass, TF_CompassHeadingHandler handler, void *user_data);
 
 
 /**
@@ -401,7 +401,7 @@ TF_ATTRIBUTE_NONNULL(1) void tf_compass_register_heading_callback(TF_Compass *co
  * 
  * The parameters are the same as {@link tf_compass_get_magnetic_flux_density}.
  */
-TF_ATTRIBUTE_NONNULL(1) void tf_compass_register_magnetic_flux_density_callback(TF_Compass *compass, TF_CompassMagneticFluxDensityHandler handler, void *user_data);
+TF_ATTRIBUTE_NONNULL(1) int tf_compass_register_magnetic_flux_density_callback(TF_Compass *compass, TF_CompassMagneticFluxDensityHandler handler, void *user_data);
 #endif
 #ifdef TF_IMPLEMENT_CALLBACKS
 /**

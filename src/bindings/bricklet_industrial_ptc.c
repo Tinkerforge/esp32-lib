@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-02-08.      *
+ * This file was automatically generated on 2021-10-04.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -81,6 +81,9 @@ static bool tf_industrial_ptc_callback_handler(void *dev, uint8_t fid, TF_Packet
 }
 #endif
 int tf_industrial_ptc_create(TF_IndustrialPTC *industrial_ptc, const char *uid, TF_HalContext *hal) {
+    if (industrial_ptc == NULL || uid == NULL || hal == NULL)
+        return TF_E_NULL;
+
     memset(industrial_ptc, 0, sizeof(TF_IndustrialPTC));
 
     uint32_t numeric_uid;
@@ -110,12 +113,18 @@ int tf_industrial_ptc_create(TF_IndustrialPTC *industrial_ptc, const char *uid, 
 }
 
 int tf_industrial_ptc_destroy(TF_IndustrialPTC *industrial_ptc) {
+    if (industrial_ptc == NULL)
+        return TF_E_NULL;
+
     int result = tf_tfp_destroy(industrial_ptc->tfp);
     industrial_ptc->tfp = NULL;
     return result;
 }
 
 int tf_industrial_ptc_get_response_expected(TF_IndustrialPTC *industrial_ptc, uint8_t function_id, bool *ret_response_expected) {
+    if (industrial_ptc == NULL)
+        return TF_E_NULL;
+
     switch(function_id) {
         case TF_INDUSTRIAL_PTC_FUNCTION_SET_TEMPERATURE_CALLBACK_CONFIGURATION:
             if(ret_response_expected != NULL)
@@ -246,6 +255,9 @@ void tf_industrial_ptc_set_response_expected_all(TF_IndustrialPTC *industrial_pt
 }
 
 int tf_industrial_ptc_get_temperature(TF_IndustrialPTC *industrial_ptc, int32_t *ret_temperature) {
+    if (industrial_ptc == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(industrial_ptc->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -278,6 +290,9 @@ int tf_industrial_ptc_get_temperature(TF_IndustrialPTC *industrial_ptc, int32_t 
 }
 
 int tf_industrial_ptc_set_temperature_callback_configuration(TF_IndustrialPTC *industrial_ptc, uint32_t period, bool value_has_to_change, char option, int32_t min, int32_t max) {
+    if (industrial_ptc == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(industrial_ptc->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -314,6 +329,9 @@ int tf_industrial_ptc_set_temperature_callback_configuration(TF_IndustrialPTC *i
 }
 
 int tf_industrial_ptc_get_temperature_callback_configuration(TF_IndustrialPTC *industrial_ptc, uint32_t *ret_period, bool *ret_value_has_to_change, char *ret_option, int32_t *ret_min, int32_t *ret_max) {
+    if (industrial_ptc == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(industrial_ptc->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -350,6 +368,9 @@ int tf_industrial_ptc_get_temperature_callback_configuration(TF_IndustrialPTC *i
 }
 
 int tf_industrial_ptc_get_resistance(TF_IndustrialPTC *industrial_ptc, int32_t *ret_resistance) {
+    if (industrial_ptc == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(industrial_ptc->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -382,6 +403,9 @@ int tf_industrial_ptc_get_resistance(TF_IndustrialPTC *industrial_ptc, int32_t *
 }
 
 int tf_industrial_ptc_set_resistance_callback_configuration(TF_IndustrialPTC *industrial_ptc, uint32_t period, bool value_has_to_change, char option, int32_t min, int32_t max) {
+    if (industrial_ptc == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(industrial_ptc->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -418,6 +442,9 @@ int tf_industrial_ptc_set_resistance_callback_configuration(TF_IndustrialPTC *in
 }
 
 int tf_industrial_ptc_get_resistance_callback_configuration(TF_IndustrialPTC *industrial_ptc, uint32_t *ret_period, bool *ret_value_has_to_change, char *ret_option, int32_t *ret_min, int32_t *ret_max) {
+    if (industrial_ptc == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(industrial_ptc->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -454,6 +481,9 @@ int tf_industrial_ptc_get_resistance_callback_configuration(TF_IndustrialPTC *in
 }
 
 int tf_industrial_ptc_set_noise_rejection_filter(TF_IndustrialPTC *industrial_ptc, uint8_t filter) {
+    if (industrial_ptc == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(industrial_ptc->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -486,6 +516,9 @@ int tf_industrial_ptc_set_noise_rejection_filter(TF_IndustrialPTC *industrial_pt
 }
 
 int tf_industrial_ptc_get_noise_rejection_filter(TF_IndustrialPTC *industrial_ptc, uint8_t *ret_filter) {
+    if (industrial_ptc == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(industrial_ptc->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -518,6 +551,9 @@ int tf_industrial_ptc_get_noise_rejection_filter(TF_IndustrialPTC *industrial_pt
 }
 
 int tf_industrial_ptc_is_sensor_connected(TF_IndustrialPTC *industrial_ptc, bool *ret_connected) {
+    if (industrial_ptc == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(industrial_ptc->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -550,6 +586,9 @@ int tf_industrial_ptc_is_sensor_connected(TF_IndustrialPTC *industrial_ptc, bool
 }
 
 int tf_industrial_ptc_set_wire_mode(TF_IndustrialPTC *industrial_ptc, uint8_t mode) {
+    if (industrial_ptc == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(industrial_ptc->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -582,6 +621,9 @@ int tf_industrial_ptc_set_wire_mode(TF_IndustrialPTC *industrial_ptc, uint8_t mo
 }
 
 int tf_industrial_ptc_get_wire_mode(TF_IndustrialPTC *industrial_ptc, uint8_t *ret_mode) {
+    if (industrial_ptc == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(industrial_ptc->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -614,6 +656,9 @@ int tf_industrial_ptc_get_wire_mode(TF_IndustrialPTC *industrial_ptc, uint8_t *r
 }
 
 int tf_industrial_ptc_set_moving_average_configuration(TF_IndustrialPTC *industrial_ptc, uint16_t moving_average_length_resistance, uint16_t moving_average_length_temperature) {
+    if (industrial_ptc == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(industrial_ptc->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -647,6 +692,9 @@ int tf_industrial_ptc_set_moving_average_configuration(TF_IndustrialPTC *industr
 }
 
 int tf_industrial_ptc_get_moving_average_configuration(TF_IndustrialPTC *industrial_ptc, uint16_t *ret_moving_average_length_resistance, uint16_t *ret_moving_average_length_temperature) {
+    if (industrial_ptc == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(industrial_ptc->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -680,6 +728,9 @@ int tf_industrial_ptc_get_moving_average_configuration(TF_IndustrialPTC *industr
 }
 
 int tf_industrial_ptc_set_sensor_connected_callback_configuration(TF_IndustrialPTC *industrial_ptc, bool enabled) {
+    if (industrial_ptc == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(industrial_ptc->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -712,6 +763,9 @@ int tf_industrial_ptc_set_sensor_connected_callback_configuration(TF_IndustrialP
 }
 
 int tf_industrial_ptc_get_sensor_connected_callback_configuration(TF_IndustrialPTC *industrial_ptc, bool *ret_enabled) {
+    if (industrial_ptc == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(industrial_ptc->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -744,6 +798,9 @@ int tf_industrial_ptc_get_sensor_connected_callback_configuration(TF_IndustrialP
 }
 
 int tf_industrial_ptc_get_spitfp_error_count(TF_IndustrialPTC *industrial_ptc, uint32_t *ret_error_count_ack_checksum, uint32_t *ret_error_count_message_checksum, uint32_t *ret_error_count_frame, uint32_t *ret_error_count_overflow) {
+    if (industrial_ptc == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(industrial_ptc->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -779,6 +836,9 @@ int tf_industrial_ptc_get_spitfp_error_count(TF_IndustrialPTC *industrial_ptc, u
 }
 
 int tf_industrial_ptc_set_bootloader_mode(TF_IndustrialPTC *industrial_ptc, uint8_t mode, uint8_t *ret_status) {
+    if (industrial_ptc == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(industrial_ptc->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -815,6 +875,9 @@ int tf_industrial_ptc_set_bootloader_mode(TF_IndustrialPTC *industrial_ptc, uint
 }
 
 int tf_industrial_ptc_get_bootloader_mode(TF_IndustrialPTC *industrial_ptc, uint8_t *ret_mode) {
+    if (industrial_ptc == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(industrial_ptc->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -847,6 +910,9 @@ int tf_industrial_ptc_get_bootloader_mode(TF_IndustrialPTC *industrial_ptc, uint
 }
 
 int tf_industrial_ptc_set_write_firmware_pointer(TF_IndustrialPTC *industrial_ptc, uint32_t pointer) {
+    if (industrial_ptc == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(industrial_ptc->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -879,6 +945,9 @@ int tf_industrial_ptc_set_write_firmware_pointer(TF_IndustrialPTC *industrial_pt
 }
 
 int tf_industrial_ptc_write_firmware(TF_IndustrialPTC *industrial_ptc, uint8_t data[64], uint8_t *ret_status) {
+    if (industrial_ptc == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(industrial_ptc->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -915,6 +984,9 @@ int tf_industrial_ptc_write_firmware(TF_IndustrialPTC *industrial_ptc, uint8_t d
 }
 
 int tf_industrial_ptc_set_status_led_config(TF_IndustrialPTC *industrial_ptc, uint8_t config) {
+    if (industrial_ptc == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(industrial_ptc->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -947,6 +1019,9 @@ int tf_industrial_ptc_set_status_led_config(TF_IndustrialPTC *industrial_ptc, ui
 }
 
 int tf_industrial_ptc_get_status_led_config(TF_IndustrialPTC *industrial_ptc, uint8_t *ret_config) {
+    if (industrial_ptc == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(industrial_ptc->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -979,6 +1054,9 @@ int tf_industrial_ptc_get_status_led_config(TF_IndustrialPTC *industrial_ptc, ui
 }
 
 int tf_industrial_ptc_get_chip_temperature(TF_IndustrialPTC *industrial_ptc, int16_t *ret_temperature) {
+    if (industrial_ptc == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(industrial_ptc->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1011,6 +1089,9 @@ int tf_industrial_ptc_get_chip_temperature(TF_IndustrialPTC *industrial_ptc, int
 }
 
 int tf_industrial_ptc_reset(TF_IndustrialPTC *industrial_ptc) {
+    if (industrial_ptc == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(industrial_ptc->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1039,6 +1120,9 @@ int tf_industrial_ptc_reset(TF_IndustrialPTC *industrial_ptc) {
 }
 
 int tf_industrial_ptc_write_uid(TF_IndustrialPTC *industrial_ptc, uint32_t uid) {
+    if (industrial_ptc == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(industrial_ptc->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1071,6 +1155,9 @@ int tf_industrial_ptc_write_uid(TF_IndustrialPTC *industrial_ptc, uint32_t uid) 
 }
 
 int tf_industrial_ptc_read_uid(TF_IndustrialPTC *industrial_ptc, uint32_t *ret_uid) {
+    if (industrial_ptc == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(industrial_ptc->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1103,6 +1190,9 @@ int tf_industrial_ptc_read_uid(TF_IndustrialPTC *industrial_ptc, uint32_t *ret_u
 }
 
 int tf_industrial_ptc_get_identity(TF_IndustrialPTC *industrial_ptc, char ret_uid[8], char ret_connected_uid[8], char *ret_position, uint8_t ret_hardware_version[3], uint8_t ret_firmware_version[3], uint16_t *ret_device_identifier) {
+    if (industrial_ptc == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(industrial_ptc->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1147,7 +1237,10 @@ int tf_industrial_ptc_get_identity(TF_IndustrialPTC *industrial_ptc, char ret_ui
     return tf_tfp_get_error(error_code);
 }
 #ifdef TF_IMPLEMENT_CALLBACKS
-void tf_industrial_ptc_register_temperature_callback(TF_IndustrialPTC *industrial_ptc, TF_IndustrialPTCTemperatureHandler handler, void *user_data) {
+int tf_industrial_ptc_register_temperature_callback(TF_IndustrialPTC *industrial_ptc, TF_IndustrialPTCTemperatureHandler handler, void *user_data) {
+    if (industrial_ptc == NULL)
+        return TF_E_NULL;
+
     if (handler == NULL) {
         industrial_ptc->tfp->needs_callback_tick = false;
         industrial_ptc->tfp->needs_callback_tick |= industrial_ptc->resistance_handler != NULL;
@@ -1157,10 +1250,14 @@ void tf_industrial_ptc_register_temperature_callback(TF_IndustrialPTC *industria
     }
     industrial_ptc->temperature_handler = handler;
     industrial_ptc->temperature_user_data = user_data;
+    return TF_E_OK;
 }
 
 
-void tf_industrial_ptc_register_resistance_callback(TF_IndustrialPTC *industrial_ptc, TF_IndustrialPTCResistanceHandler handler, void *user_data) {
+int tf_industrial_ptc_register_resistance_callback(TF_IndustrialPTC *industrial_ptc, TF_IndustrialPTCResistanceHandler handler, void *user_data) {
+    if (industrial_ptc == NULL)
+        return TF_E_NULL;
+
     if (handler == NULL) {
         industrial_ptc->tfp->needs_callback_tick = false;
         industrial_ptc->tfp->needs_callback_tick |= industrial_ptc->temperature_handler != NULL;
@@ -1170,10 +1267,14 @@ void tf_industrial_ptc_register_resistance_callback(TF_IndustrialPTC *industrial
     }
     industrial_ptc->resistance_handler = handler;
     industrial_ptc->resistance_user_data = user_data;
+    return TF_E_OK;
 }
 
 
-void tf_industrial_ptc_register_sensor_connected_callback(TF_IndustrialPTC *industrial_ptc, TF_IndustrialPTCSensorConnectedHandler handler, void *user_data) {
+int tf_industrial_ptc_register_sensor_connected_callback(TF_IndustrialPTC *industrial_ptc, TF_IndustrialPTCSensorConnectedHandler handler, void *user_data) {
+    if (industrial_ptc == NULL)
+        return TF_E_NULL;
+
     if (handler == NULL) {
         industrial_ptc->tfp->needs_callback_tick = false;
         industrial_ptc->tfp->needs_callback_tick |= industrial_ptc->temperature_handler != NULL;
@@ -1183,9 +1284,13 @@ void tf_industrial_ptc_register_sensor_connected_callback(TF_IndustrialPTC *indu
     }
     industrial_ptc->sensor_connected_handler = handler;
     industrial_ptc->sensor_connected_user_data = user_data;
+    return TF_E_OK;
 }
 #endif
 int tf_industrial_ptc_callback_tick(TF_IndustrialPTC *industrial_ptc, uint32_t timeout_us) {
+    if (industrial_ptc == NULL)
+        return TF_E_NULL;
+
     return tf_tfp_callback_tick(industrial_ptc->tfp, tf_hal_current_time_us(industrial_ptc->tfp->hal) + timeout_us);
 }
 

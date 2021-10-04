@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-02-08.      *
+ * This file was automatically generated on 2021-10-04.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -59,6 +59,9 @@ static bool tf_unknown_callback_handler(void *dev, uint8_t fid, TF_Packetbuffer 
 }
 #endif
 int tf_unknown_create(TF_Unknown *unknown, const char *uid, TF_HalContext *hal, uint8_t port_id, int inventory_index) {
+    if (unknown == NULL || uid == NULL || hal == NULL)
+        return TF_E_NULL;
+
     memset(unknown, 0, sizeof(TF_Unknown));
 
     uint32_t numeric_uid;
@@ -85,12 +88,18 @@ int tf_unknown_create(TF_Unknown *unknown, const char *uid, TF_HalContext *hal, 
 }
 
 int tf_unknown_destroy(TF_Unknown *unknown) {
+    if (unknown == NULL)
+        return TF_E_NULL;
+
     int result = tf_tfp_destroy(unknown->tfp);
     unknown->tfp = NULL;
     return result;
 }
 
 int tf_unknown_get_response_expected(TF_Unknown *unknown, uint8_t function_id, bool *ret_response_expected) {
+    if (unknown == NULL)
+        return TF_E_NULL;
+
     switch(function_id) {
         case TF_UNKNOWN_FUNCTION_SET_WRITE_FIRMWARE_POINTER:
             if(ret_response_expected != NULL)
@@ -177,6 +186,9 @@ void tf_unknown_set_response_expected_all(TF_Unknown *unknown, bool response_exp
 }
 
 int tf_unknown_get_spitfp_error_count(TF_Unknown *unknown, uint32_t *ret_error_count_ack_checksum, uint32_t *ret_error_count_message_checksum, uint32_t *ret_error_count_frame, uint32_t *ret_error_count_overflow) {
+    if (unknown == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(unknown->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -212,6 +224,9 @@ int tf_unknown_get_spitfp_error_count(TF_Unknown *unknown, uint32_t *ret_error_c
 }
 
 int tf_unknown_set_bootloader_mode(TF_Unknown *unknown, uint8_t mode, uint8_t *ret_status) {
+    if (unknown == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(unknown->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -248,6 +263,9 @@ int tf_unknown_set_bootloader_mode(TF_Unknown *unknown, uint8_t mode, uint8_t *r
 }
 
 int tf_unknown_get_bootloader_mode(TF_Unknown *unknown, uint8_t *ret_mode) {
+    if (unknown == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(unknown->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -280,6 +298,9 @@ int tf_unknown_get_bootloader_mode(TF_Unknown *unknown, uint8_t *ret_mode) {
 }
 
 int tf_unknown_set_write_firmware_pointer(TF_Unknown *unknown, uint32_t pointer) {
+    if (unknown == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(unknown->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -312,6 +333,9 @@ int tf_unknown_set_write_firmware_pointer(TF_Unknown *unknown, uint32_t pointer)
 }
 
 int tf_unknown_write_firmware(TF_Unknown *unknown, uint8_t data[64], uint8_t *ret_status) {
+    if (unknown == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(unknown->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -348,6 +372,9 @@ int tf_unknown_write_firmware(TF_Unknown *unknown, uint8_t data[64], uint8_t *re
 }
 
 int tf_unknown_set_status_led_config(TF_Unknown *unknown, uint8_t config) {
+    if (unknown == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(unknown->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -380,6 +407,9 @@ int tf_unknown_set_status_led_config(TF_Unknown *unknown, uint8_t config) {
 }
 
 int tf_unknown_get_status_led_config(TF_Unknown *unknown, uint8_t *ret_config) {
+    if (unknown == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(unknown->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -412,6 +442,9 @@ int tf_unknown_get_status_led_config(TF_Unknown *unknown, uint8_t *ret_config) {
 }
 
 int tf_unknown_get_chip_temperature(TF_Unknown *unknown, int16_t *ret_temperature) {
+    if (unknown == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(unknown->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -444,6 +477,9 @@ int tf_unknown_get_chip_temperature(TF_Unknown *unknown, int16_t *ret_temperatur
 }
 
 int tf_unknown_reset(TF_Unknown *unknown) {
+    if (unknown == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(unknown->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -472,6 +508,9 @@ int tf_unknown_reset(TF_Unknown *unknown) {
 }
 
 int tf_unknown_write_uid(TF_Unknown *unknown, uint32_t uid) {
+    if (unknown == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(unknown->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -504,6 +543,9 @@ int tf_unknown_write_uid(TF_Unknown *unknown, uint32_t uid) {
 }
 
 int tf_unknown_read_uid(TF_Unknown *unknown, uint32_t *ret_uid) {
+    if (unknown == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(unknown->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -536,6 +578,9 @@ int tf_unknown_read_uid(TF_Unknown *unknown, uint32_t *ret_uid) {
 }
 
 int tf_unknown_comcu_enumerate(TF_Unknown *unknown) {
+    if (unknown == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(unknown->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -564,6 +609,9 @@ int tf_unknown_comcu_enumerate(TF_Unknown *unknown) {
 }
 
 int tf_unknown_enumerate(TF_Unknown *unknown) {
+    if (unknown == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(unknown->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -592,6 +640,9 @@ int tf_unknown_enumerate(TF_Unknown *unknown) {
 }
 
 int tf_unknown_get_identity(TF_Unknown *unknown, char ret_uid[8], char ret_connected_uid[8], char *ret_position, uint8_t ret_hardware_version[3], uint8_t ret_firmware_version[3], uint16_t *ret_device_identifier) {
+    if (unknown == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(unknown->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -636,7 +687,10 @@ int tf_unknown_get_identity(TF_Unknown *unknown, char ret_uid[8], char ret_conne
     return tf_tfp_get_error(error_code);
 }
 #ifdef TF_IMPLEMENT_CALLBACKS
-void tf_unknown_register_enumerate_callback(TF_Unknown *unknown, TF_UnknownEnumerateHandler handler, void *user_data) {
+int tf_unknown_register_enumerate_callback(TF_Unknown *unknown, TF_UnknownEnumerateHandler handler, void *user_data) {
+    if (unknown == NULL)
+        return TF_E_NULL;
+
     if (handler == NULL) {
         unknown->tfp->needs_callback_tick = false;
         
@@ -645,9 +699,13 @@ void tf_unknown_register_enumerate_callback(TF_Unknown *unknown, TF_UnknownEnume
     }
     unknown->enumerate_handler = handler;
     unknown->enumerate_user_data = user_data;
+    return TF_E_OK;
 }
 #endif
 int tf_unknown_callback_tick(TF_Unknown *unknown, uint32_t timeout_us) {
+    if (unknown == NULL)
+        return TF_E_NULL;
+
     return tf_tfp_callback_tick(unknown->tfp, tf_hal_current_time_us(unknown->tfp->hal) + timeout_us);
 }
 

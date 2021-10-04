@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-02-08.      *
+ * This file was automatically generated on 2021-10-04.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -326,7 +326,7 @@ TF_ATTRIBUTE_NONNULL_ALL void tf_energy_monitor_set_response_expected_all(TF_Ene
  * 
  * The parameters are the same as {@link tf_energy_monitor_get_energy_data}.
  */
-TF_ATTRIBUTE_NONNULL(1) void tf_energy_monitor_register_energy_data_callback(TF_EnergyMonitor *energy_monitor, TF_EnergyMonitorEnergyDataHandler handler, void *user_data);
+TF_ATTRIBUTE_NONNULL(1) int tf_energy_monitor_register_energy_data_callback(TF_EnergyMonitor *energy_monitor, TF_EnergyMonitorEnergyDataHandler handler, void *user_data);
 #endif
 #ifdef TF_IMPLEMENT_CALLBACKS
 /**

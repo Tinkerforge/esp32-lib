@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-02-08.      *
+ * This file was automatically generated on 2021-10-04.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -472,7 +472,7 @@ TF_ATTRIBUTE_NONNULL_ALL void tf_air_quality_set_response_expected_all(TF_AirQua
  * 
  * The parameters are the same as {@link tf_air_quality_get_all_values}.
  */
-TF_ATTRIBUTE_NONNULL(1) void tf_air_quality_register_all_values_callback(TF_AirQuality *air_quality, TF_AirQualityAllValuesHandler handler, void *user_data);
+TF_ATTRIBUTE_NONNULL(1) int tf_air_quality_register_all_values_callback(TF_AirQuality *air_quality, TF_AirQualityAllValuesHandler handler, void *user_data);
 
 
 /**
@@ -488,7 +488,7 @@ TF_ATTRIBUTE_NONNULL(1) void tf_air_quality_register_all_values_callback(TF_AirQ
  * 
  * The parameters are the same as {@link tf_air_quality_get_iaq_index}.
  */
-TF_ATTRIBUTE_NONNULL(1) void tf_air_quality_register_iaq_index_callback(TF_AirQuality *air_quality, TF_AirQualityIAQIndexHandler handler, void *user_data);
+TF_ATTRIBUTE_NONNULL(1) int tf_air_quality_register_iaq_index_callback(TF_AirQuality *air_quality, TF_AirQualityIAQIndexHandler handler, void *user_data);
 
 
 /**
@@ -504,7 +504,7 @@ TF_ATTRIBUTE_NONNULL(1) void tf_air_quality_register_iaq_index_callback(TF_AirQu
  * 
  * The parameter is the same as {@link tf_air_quality_get_temperature}.
  */
-TF_ATTRIBUTE_NONNULL(1) void tf_air_quality_register_temperature_callback(TF_AirQuality *air_quality, TF_AirQualityTemperatureHandler handler, void *user_data);
+TF_ATTRIBUTE_NONNULL(1) int tf_air_quality_register_temperature_callback(TF_AirQuality *air_quality, TF_AirQualityTemperatureHandler handler, void *user_data);
 
 
 /**
@@ -520,7 +520,7 @@ TF_ATTRIBUTE_NONNULL(1) void tf_air_quality_register_temperature_callback(TF_Air
  * 
  * The parameter is the same as {@link tf_air_quality_get_humidity}.
  */
-TF_ATTRIBUTE_NONNULL(1) void tf_air_quality_register_humidity_callback(TF_AirQuality *air_quality, TF_AirQualityHumidityHandler handler, void *user_data);
+TF_ATTRIBUTE_NONNULL(1) int tf_air_quality_register_humidity_callback(TF_AirQuality *air_quality, TF_AirQualityHumidityHandler handler, void *user_data);
 
 
 /**
@@ -536,7 +536,7 @@ TF_ATTRIBUTE_NONNULL(1) void tf_air_quality_register_humidity_callback(TF_AirQua
  * 
  * The parameter is the same as {@link tf_air_quality_get_air_pressure}.
  */
-TF_ATTRIBUTE_NONNULL(1) void tf_air_quality_register_air_pressure_callback(TF_AirQuality *air_quality, TF_AirQualityAirPressureHandler handler, void *user_data);
+TF_ATTRIBUTE_NONNULL(1) int tf_air_quality_register_air_pressure_callback(TF_AirQuality *air_quality, TF_AirQualityAirPressureHandler handler, void *user_data);
 #endif
 #ifdef TF_IMPLEMENT_CALLBACKS
 /**

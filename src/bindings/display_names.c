@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-02-08.      *
+ * This file was automatically generated on 2021-10-04.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -25,6 +25,7 @@ const char *tf_get_device_display_name(uint16_t device_id) {
         case 2147: return "CO2 Bricklet 2.0";
         case 2128: return "Color Bricklet 2.0";
         case 2153: return "Compass Bricklet";
+        case 2165: return "DC Bricklet 2.0";
         case 2125: return "Distance IR Bricklet 2.0";
         case  299: return "Distance US Bricklet 2.0";
         case  285: return "DMX Bricklet";
@@ -43,6 +44,7 @@ const char *tf_get_device_display_name(uint16_t device_id) {
         case 2162: return "Industrial Dual AC Relay Bricklet";
         case 2121: return "Industrial Dual Analog In Bricklet 2.0";
         case  284: return "Industrial Dual Relay Bricklet";
+        case 2164: return "Industrial PTC Bricklet";
         case 2102: return "Industrial Quad Relay Bricklet 2.0";
         case 2114: return "IO-16 Bricklet 2.0";
         case 2111: return "IO-4 Bricklet 2.0";
@@ -75,6 +77,7 @@ const char *tf_get_device_display_name(uint16_t device_id) {
         case  277: return "RS485 Bricklet";
         case 2137: return "Segment Display 4x7 Bricklet 2.0";
         case 2157: return "Servo Bricklet 2.0";
+        case 2166: return "Silent Stepper Bricklet 2.0";
         case  296: return "Solid State Relay Bricklet 2.0";
         case  290: return "Sound Pressure Level Bricklet";
         case  291: return "Temperature IR Bricklet 2.0";

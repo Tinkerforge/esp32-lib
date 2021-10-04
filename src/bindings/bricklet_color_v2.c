@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-02-08.      *
+ * This file was automatically generated on 2021-10-04.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -84,6 +84,9 @@ static bool tf_color_v2_callback_handler(void *dev, uint8_t fid, TF_Packetbuffer
 }
 #endif
 int tf_color_v2_create(TF_ColorV2 *color_v2, const char *uid, TF_HalContext *hal) {
+    if (color_v2 == NULL || uid == NULL || hal == NULL)
+        return TF_E_NULL;
+
     memset(color_v2, 0, sizeof(TF_ColorV2));
 
     uint32_t numeric_uid;
@@ -113,12 +116,18 @@ int tf_color_v2_create(TF_ColorV2 *color_v2, const char *uid, TF_HalContext *hal
 }
 
 int tf_color_v2_destroy(TF_ColorV2 *color_v2) {
+    if (color_v2 == NULL)
+        return TF_E_NULL;
+
     int result = tf_tfp_destroy(color_v2->tfp);
     color_v2->tfp = NULL;
     return result;
 }
 
 int tf_color_v2_get_response_expected(TF_ColorV2 *color_v2, uint8_t function_id, bool *ret_response_expected) {
+    if (color_v2 == NULL)
+        return TF_E_NULL;
+
     switch(function_id) {
         case TF_COLOR_V2_FUNCTION_SET_COLOR_CALLBACK_CONFIGURATION:
             if(ret_response_expected != NULL)
@@ -238,6 +247,9 @@ void tf_color_v2_set_response_expected_all(TF_ColorV2 *color_v2, bool response_e
 }
 
 int tf_color_v2_get_color(TF_ColorV2 *color_v2, uint16_t *ret_r, uint16_t *ret_g, uint16_t *ret_b, uint16_t *ret_c) {
+    if (color_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(color_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -273,6 +285,9 @@ int tf_color_v2_get_color(TF_ColorV2 *color_v2, uint16_t *ret_r, uint16_t *ret_g
 }
 
 int tf_color_v2_set_color_callback_configuration(TF_ColorV2 *color_v2, uint32_t period, bool value_has_to_change) {
+    if (color_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(color_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -306,6 +321,9 @@ int tf_color_v2_set_color_callback_configuration(TF_ColorV2 *color_v2, uint32_t 
 }
 
 int tf_color_v2_get_color_callback_configuration(TF_ColorV2 *color_v2, uint32_t *ret_period, bool *ret_value_has_to_change) {
+    if (color_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(color_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -339,6 +357,9 @@ int tf_color_v2_get_color_callback_configuration(TF_ColorV2 *color_v2, uint32_t 
 }
 
 int tf_color_v2_get_illuminance(TF_ColorV2 *color_v2, uint32_t *ret_illuminance) {
+    if (color_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(color_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -371,6 +392,9 @@ int tf_color_v2_get_illuminance(TF_ColorV2 *color_v2, uint32_t *ret_illuminance)
 }
 
 int tf_color_v2_set_illuminance_callback_configuration(TF_ColorV2 *color_v2, uint32_t period, bool value_has_to_change, char option, uint32_t min, uint32_t max) {
+    if (color_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(color_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -407,6 +431,9 @@ int tf_color_v2_set_illuminance_callback_configuration(TF_ColorV2 *color_v2, uin
 }
 
 int tf_color_v2_get_illuminance_callback_configuration(TF_ColorV2 *color_v2, uint32_t *ret_period, bool *ret_value_has_to_change, char *ret_option, uint32_t *ret_min, uint32_t *ret_max) {
+    if (color_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(color_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -443,6 +470,9 @@ int tf_color_v2_get_illuminance_callback_configuration(TF_ColorV2 *color_v2, uin
 }
 
 int tf_color_v2_get_color_temperature(TF_ColorV2 *color_v2, uint16_t *ret_color_temperature) {
+    if (color_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(color_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -475,6 +505,9 @@ int tf_color_v2_get_color_temperature(TF_ColorV2 *color_v2, uint16_t *ret_color_
 }
 
 int tf_color_v2_set_color_temperature_callback_configuration(TF_ColorV2 *color_v2, uint32_t period, bool value_has_to_change, char option, uint16_t min, uint16_t max) {
+    if (color_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(color_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -511,6 +544,9 @@ int tf_color_v2_set_color_temperature_callback_configuration(TF_ColorV2 *color_v
 }
 
 int tf_color_v2_get_color_temperature_callback_configuration(TF_ColorV2 *color_v2, uint32_t *ret_period, bool *ret_value_has_to_change, char *ret_option, uint16_t *ret_min, uint16_t *ret_max) {
+    if (color_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(color_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -547,6 +583,9 @@ int tf_color_v2_get_color_temperature_callback_configuration(TF_ColorV2 *color_v
 }
 
 int tf_color_v2_set_light(TF_ColorV2 *color_v2, bool enable) {
+    if (color_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(color_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -579,6 +618,9 @@ int tf_color_v2_set_light(TF_ColorV2 *color_v2, bool enable) {
 }
 
 int tf_color_v2_get_light(TF_ColorV2 *color_v2, bool *ret_enable) {
+    if (color_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(color_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -611,6 +653,9 @@ int tf_color_v2_get_light(TF_ColorV2 *color_v2, bool *ret_enable) {
 }
 
 int tf_color_v2_set_configuration(TF_ColorV2 *color_v2, uint8_t gain, uint8_t integration_time) {
+    if (color_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(color_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -644,6 +689,9 @@ int tf_color_v2_set_configuration(TF_ColorV2 *color_v2, uint8_t gain, uint8_t in
 }
 
 int tf_color_v2_get_configuration(TF_ColorV2 *color_v2, uint8_t *ret_gain, uint8_t *ret_integration_time) {
+    if (color_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(color_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -677,6 +725,9 @@ int tf_color_v2_get_configuration(TF_ColorV2 *color_v2, uint8_t *ret_gain, uint8
 }
 
 int tf_color_v2_get_spitfp_error_count(TF_ColorV2 *color_v2, uint32_t *ret_error_count_ack_checksum, uint32_t *ret_error_count_message_checksum, uint32_t *ret_error_count_frame, uint32_t *ret_error_count_overflow) {
+    if (color_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(color_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -712,6 +763,9 @@ int tf_color_v2_get_spitfp_error_count(TF_ColorV2 *color_v2, uint32_t *ret_error
 }
 
 int tf_color_v2_set_bootloader_mode(TF_ColorV2 *color_v2, uint8_t mode, uint8_t *ret_status) {
+    if (color_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(color_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -748,6 +802,9 @@ int tf_color_v2_set_bootloader_mode(TF_ColorV2 *color_v2, uint8_t mode, uint8_t 
 }
 
 int tf_color_v2_get_bootloader_mode(TF_ColorV2 *color_v2, uint8_t *ret_mode) {
+    if (color_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(color_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -780,6 +837,9 @@ int tf_color_v2_get_bootloader_mode(TF_ColorV2 *color_v2, uint8_t *ret_mode) {
 }
 
 int tf_color_v2_set_write_firmware_pointer(TF_ColorV2 *color_v2, uint32_t pointer) {
+    if (color_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(color_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -812,6 +872,9 @@ int tf_color_v2_set_write_firmware_pointer(TF_ColorV2 *color_v2, uint32_t pointe
 }
 
 int tf_color_v2_write_firmware(TF_ColorV2 *color_v2, uint8_t data[64], uint8_t *ret_status) {
+    if (color_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(color_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -848,6 +911,9 @@ int tf_color_v2_write_firmware(TF_ColorV2 *color_v2, uint8_t data[64], uint8_t *
 }
 
 int tf_color_v2_set_status_led_config(TF_ColorV2 *color_v2, uint8_t config) {
+    if (color_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(color_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -880,6 +946,9 @@ int tf_color_v2_set_status_led_config(TF_ColorV2 *color_v2, uint8_t config) {
 }
 
 int tf_color_v2_get_status_led_config(TF_ColorV2 *color_v2, uint8_t *ret_config) {
+    if (color_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(color_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -912,6 +981,9 @@ int tf_color_v2_get_status_led_config(TF_ColorV2 *color_v2, uint8_t *ret_config)
 }
 
 int tf_color_v2_get_chip_temperature(TF_ColorV2 *color_v2, int16_t *ret_temperature) {
+    if (color_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(color_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -944,6 +1016,9 @@ int tf_color_v2_get_chip_temperature(TF_ColorV2 *color_v2, int16_t *ret_temperat
 }
 
 int tf_color_v2_reset(TF_ColorV2 *color_v2) {
+    if (color_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(color_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -972,6 +1047,9 @@ int tf_color_v2_reset(TF_ColorV2 *color_v2) {
 }
 
 int tf_color_v2_write_uid(TF_ColorV2 *color_v2, uint32_t uid) {
+    if (color_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(color_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1004,6 +1082,9 @@ int tf_color_v2_write_uid(TF_ColorV2 *color_v2, uint32_t uid) {
 }
 
 int tf_color_v2_read_uid(TF_ColorV2 *color_v2, uint32_t *ret_uid) {
+    if (color_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(color_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1036,6 +1117,9 @@ int tf_color_v2_read_uid(TF_ColorV2 *color_v2, uint32_t *ret_uid) {
 }
 
 int tf_color_v2_get_identity(TF_ColorV2 *color_v2, char ret_uid[8], char ret_connected_uid[8], char *ret_position, uint8_t ret_hardware_version[3], uint8_t ret_firmware_version[3], uint16_t *ret_device_identifier) {
+    if (color_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(color_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1080,7 +1164,10 @@ int tf_color_v2_get_identity(TF_ColorV2 *color_v2, char ret_uid[8], char ret_con
     return tf_tfp_get_error(error_code);
 }
 #ifdef TF_IMPLEMENT_CALLBACKS
-void tf_color_v2_register_color_callback(TF_ColorV2 *color_v2, TF_ColorV2ColorHandler handler, void *user_data) {
+int tf_color_v2_register_color_callback(TF_ColorV2 *color_v2, TF_ColorV2ColorHandler handler, void *user_data) {
+    if (color_v2 == NULL)
+        return TF_E_NULL;
+
     if (handler == NULL) {
         color_v2->tfp->needs_callback_tick = false;
         color_v2->tfp->needs_callback_tick |= color_v2->illuminance_handler != NULL;
@@ -1090,10 +1177,14 @@ void tf_color_v2_register_color_callback(TF_ColorV2 *color_v2, TF_ColorV2ColorHa
     }
     color_v2->color_handler = handler;
     color_v2->color_user_data = user_data;
+    return TF_E_OK;
 }
 
 
-void tf_color_v2_register_illuminance_callback(TF_ColorV2 *color_v2, TF_ColorV2IlluminanceHandler handler, void *user_data) {
+int tf_color_v2_register_illuminance_callback(TF_ColorV2 *color_v2, TF_ColorV2IlluminanceHandler handler, void *user_data) {
+    if (color_v2 == NULL)
+        return TF_E_NULL;
+
     if (handler == NULL) {
         color_v2->tfp->needs_callback_tick = false;
         color_v2->tfp->needs_callback_tick |= color_v2->color_handler != NULL;
@@ -1103,10 +1194,14 @@ void tf_color_v2_register_illuminance_callback(TF_ColorV2 *color_v2, TF_ColorV2I
     }
     color_v2->illuminance_handler = handler;
     color_v2->illuminance_user_data = user_data;
+    return TF_E_OK;
 }
 
 
-void tf_color_v2_register_color_temperature_callback(TF_ColorV2 *color_v2, TF_ColorV2ColorTemperatureHandler handler, void *user_data) {
+int tf_color_v2_register_color_temperature_callback(TF_ColorV2 *color_v2, TF_ColorV2ColorTemperatureHandler handler, void *user_data) {
+    if (color_v2 == NULL)
+        return TF_E_NULL;
+
     if (handler == NULL) {
         color_v2->tfp->needs_callback_tick = false;
         color_v2->tfp->needs_callback_tick |= color_v2->color_handler != NULL;
@@ -1116,9 +1211,13 @@ void tf_color_v2_register_color_temperature_callback(TF_ColorV2 *color_v2, TF_Co
     }
     color_v2->color_temperature_handler = handler;
     color_v2->color_temperature_user_data = user_data;
+    return TF_E_OK;
 }
 #endif
 int tf_color_v2_callback_tick(TF_ColorV2 *color_v2, uint32_t timeout_us) {
+    if (color_v2 == NULL)
+        return TF_E_NULL;
+
     return tf_tfp_callback_tick(color_v2->tfp, tf_hal_current_time_us(color_v2->tfp->hal) + timeout_us);
 }
 

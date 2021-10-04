@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-02-08.      *
+ * This file was automatically generated on 2021-10-04.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -69,6 +69,9 @@ static bool tf_thermal_imaging_callback_handler(void *dev, uint8_t fid, TF_Packe
 }
 #endif
 int tf_thermal_imaging_create(TF_ThermalImaging *thermal_imaging, const char *uid, TF_HalContext *hal) {
+    if (thermal_imaging == NULL || uid == NULL || hal == NULL)
+        return TF_E_NULL;
+
     memset(thermal_imaging, 0, sizeof(TF_ThermalImaging));
 
     uint32_t numeric_uid;
@@ -98,12 +101,18 @@ int tf_thermal_imaging_create(TF_ThermalImaging *thermal_imaging, const char *ui
 }
 
 int tf_thermal_imaging_destroy(TF_ThermalImaging *thermal_imaging) {
+    if (thermal_imaging == NULL)
+        return TF_E_NULL;
+
     int result = tf_tfp_destroy(thermal_imaging->tfp);
     thermal_imaging->tfp = NULL;
     return result;
 }
 
 int tf_thermal_imaging_get_response_expected(TF_ThermalImaging *thermal_imaging, uint8_t function_id, bool *ret_response_expected) {
+    if (thermal_imaging == NULL)
+        return TF_E_NULL;
+
     switch(function_id) {
         case TF_THERMAL_IMAGING_FUNCTION_SET_RESOLUTION:
             if(ret_response_expected != NULL)
@@ -223,6 +232,9 @@ void tf_thermal_imaging_set_response_expected_all(TF_ThermalImaging *thermal_ima
 }
 
 int tf_thermal_imaging_get_high_contrast_image_low_level(TF_ThermalImaging *thermal_imaging, uint16_t *ret_image_chunk_offset, uint8_t ret_image_chunk_data[62]) {
+    if (thermal_imaging == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(thermal_imaging->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -257,6 +269,9 @@ int tf_thermal_imaging_get_high_contrast_image_low_level(TF_ThermalImaging *ther
 }
 
 int tf_thermal_imaging_get_temperature_image_low_level(TF_ThermalImaging *thermal_imaging, uint16_t *ret_image_chunk_offset, uint16_t ret_image_chunk_data[31]) {
+    if (thermal_imaging == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(thermal_imaging->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -291,6 +306,9 @@ int tf_thermal_imaging_get_temperature_image_low_level(TF_ThermalImaging *therma
 }
 
 int tf_thermal_imaging_get_statistics(TF_ThermalImaging *thermal_imaging, uint16_t ret_spotmeter_statistics[4], uint16_t ret_temperatures[4], uint8_t *ret_resolution, uint8_t *ret_ffc_status, bool ret_temperature_warning[2]) {
+    if (thermal_imaging == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(thermal_imaging->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -328,6 +346,9 @@ int tf_thermal_imaging_get_statistics(TF_ThermalImaging *thermal_imaging, uint16
 }
 
 int tf_thermal_imaging_set_resolution(TF_ThermalImaging *thermal_imaging, uint8_t resolution) {
+    if (thermal_imaging == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(thermal_imaging->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -360,6 +381,9 @@ int tf_thermal_imaging_set_resolution(TF_ThermalImaging *thermal_imaging, uint8_
 }
 
 int tf_thermal_imaging_get_resolution(TF_ThermalImaging *thermal_imaging, uint8_t *ret_resolution) {
+    if (thermal_imaging == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(thermal_imaging->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -392,6 +416,9 @@ int tf_thermal_imaging_get_resolution(TF_ThermalImaging *thermal_imaging, uint8_
 }
 
 int tf_thermal_imaging_set_spotmeter_config(TF_ThermalImaging *thermal_imaging, uint8_t region_of_interest[4]) {
+    if (thermal_imaging == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(thermal_imaging->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -424,6 +451,9 @@ int tf_thermal_imaging_set_spotmeter_config(TF_ThermalImaging *thermal_imaging, 
 }
 
 int tf_thermal_imaging_get_spotmeter_config(TF_ThermalImaging *thermal_imaging, uint8_t ret_region_of_interest[4]) {
+    if (thermal_imaging == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(thermal_imaging->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -457,6 +487,9 @@ int tf_thermal_imaging_get_spotmeter_config(TF_ThermalImaging *thermal_imaging, 
 }
 
 int tf_thermal_imaging_set_high_contrast_config(TF_ThermalImaging *thermal_imaging, uint8_t region_of_interest[4], uint16_t dampening_factor, uint16_t clip_limit[2], uint16_t empty_counts) {
+    if (thermal_imaging == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(thermal_imaging->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -493,6 +526,9 @@ int tf_thermal_imaging_set_high_contrast_config(TF_ThermalImaging *thermal_imagi
 }
 
 int tf_thermal_imaging_get_high_contrast_config(TF_ThermalImaging *thermal_imaging, uint8_t ret_region_of_interest[4], uint16_t *ret_dampening_factor, uint16_t ret_clip_limit[2], uint16_t *ret_empty_counts) {
+    if (thermal_imaging == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(thermal_imaging->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -529,6 +565,9 @@ int tf_thermal_imaging_get_high_contrast_config(TF_ThermalImaging *thermal_imagi
 }
 
 int tf_thermal_imaging_set_image_transfer_config(TF_ThermalImaging *thermal_imaging, uint8_t config) {
+    if (thermal_imaging == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(thermal_imaging->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -561,6 +600,9 @@ int tf_thermal_imaging_set_image_transfer_config(TF_ThermalImaging *thermal_imag
 }
 
 int tf_thermal_imaging_get_image_transfer_config(TF_ThermalImaging *thermal_imaging, uint8_t *ret_config) {
+    if (thermal_imaging == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(thermal_imaging->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -593,6 +635,9 @@ int tf_thermal_imaging_get_image_transfer_config(TF_ThermalImaging *thermal_imag
 }
 
 int tf_thermal_imaging_set_flux_linear_parameters(TF_ThermalImaging *thermal_imaging, uint16_t scene_emissivity, uint16_t temperature_background, uint16_t tau_window, uint16_t temperatur_window, uint16_t tau_atmosphere, uint16_t temperature_atmosphere, uint16_t reflection_window, uint16_t temperature_reflection) {
+    if (thermal_imaging == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(thermal_imaging->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -632,6 +677,9 @@ int tf_thermal_imaging_set_flux_linear_parameters(TF_ThermalImaging *thermal_ima
 }
 
 int tf_thermal_imaging_get_flux_linear_parameters(TF_ThermalImaging *thermal_imaging, uint16_t *ret_scene_emissivity, uint16_t *ret_temperature_background, uint16_t *ret_tau_window, uint16_t *ret_temperatur_window, uint16_t *ret_tau_atmosphere, uint16_t *ret_temperature_atmosphere, uint16_t *ret_reflection_window, uint16_t *ret_temperature_reflection) {
+    if (thermal_imaging == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(thermal_imaging->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -671,6 +719,9 @@ int tf_thermal_imaging_get_flux_linear_parameters(TF_ThermalImaging *thermal_ima
 }
 
 int tf_thermal_imaging_get_spitfp_error_count(TF_ThermalImaging *thermal_imaging, uint32_t *ret_error_count_ack_checksum, uint32_t *ret_error_count_message_checksum, uint32_t *ret_error_count_frame, uint32_t *ret_error_count_overflow) {
+    if (thermal_imaging == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(thermal_imaging->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -706,6 +757,9 @@ int tf_thermal_imaging_get_spitfp_error_count(TF_ThermalImaging *thermal_imaging
 }
 
 int tf_thermal_imaging_set_bootloader_mode(TF_ThermalImaging *thermal_imaging, uint8_t mode, uint8_t *ret_status) {
+    if (thermal_imaging == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(thermal_imaging->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -742,6 +796,9 @@ int tf_thermal_imaging_set_bootloader_mode(TF_ThermalImaging *thermal_imaging, u
 }
 
 int tf_thermal_imaging_get_bootloader_mode(TF_ThermalImaging *thermal_imaging, uint8_t *ret_mode) {
+    if (thermal_imaging == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(thermal_imaging->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -774,6 +831,9 @@ int tf_thermal_imaging_get_bootloader_mode(TF_ThermalImaging *thermal_imaging, u
 }
 
 int tf_thermal_imaging_set_write_firmware_pointer(TF_ThermalImaging *thermal_imaging, uint32_t pointer) {
+    if (thermal_imaging == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(thermal_imaging->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -806,6 +866,9 @@ int tf_thermal_imaging_set_write_firmware_pointer(TF_ThermalImaging *thermal_ima
 }
 
 int tf_thermal_imaging_write_firmware(TF_ThermalImaging *thermal_imaging, uint8_t data[64], uint8_t *ret_status) {
+    if (thermal_imaging == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(thermal_imaging->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -842,6 +905,9 @@ int tf_thermal_imaging_write_firmware(TF_ThermalImaging *thermal_imaging, uint8_
 }
 
 int tf_thermal_imaging_set_status_led_config(TF_ThermalImaging *thermal_imaging, uint8_t config) {
+    if (thermal_imaging == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(thermal_imaging->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -874,6 +940,9 @@ int tf_thermal_imaging_set_status_led_config(TF_ThermalImaging *thermal_imaging,
 }
 
 int tf_thermal_imaging_get_status_led_config(TF_ThermalImaging *thermal_imaging, uint8_t *ret_config) {
+    if (thermal_imaging == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(thermal_imaging->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -906,6 +975,9 @@ int tf_thermal_imaging_get_status_led_config(TF_ThermalImaging *thermal_imaging,
 }
 
 int tf_thermal_imaging_get_chip_temperature(TF_ThermalImaging *thermal_imaging, int16_t *ret_temperature) {
+    if (thermal_imaging == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(thermal_imaging->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -938,6 +1010,9 @@ int tf_thermal_imaging_get_chip_temperature(TF_ThermalImaging *thermal_imaging, 
 }
 
 int tf_thermal_imaging_reset(TF_ThermalImaging *thermal_imaging) {
+    if (thermal_imaging == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(thermal_imaging->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -966,6 +1041,9 @@ int tf_thermal_imaging_reset(TF_ThermalImaging *thermal_imaging) {
 }
 
 int tf_thermal_imaging_write_uid(TF_ThermalImaging *thermal_imaging, uint32_t uid) {
+    if (thermal_imaging == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(thermal_imaging->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -998,6 +1076,9 @@ int tf_thermal_imaging_write_uid(TF_ThermalImaging *thermal_imaging, uint32_t ui
 }
 
 int tf_thermal_imaging_read_uid(TF_ThermalImaging *thermal_imaging, uint32_t *ret_uid) {
+    if (thermal_imaging == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(thermal_imaging->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1030,6 +1111,9 @@ int tf_thermal_imaging_read_uid(TF_ThermalImaging *thermal_imaging, uint32_t *re
 }
 
 int tf_thermal_imaging_get_identity(TF_ThermalImaging *thermal_imaging, char ret_uid[8], char ret_connected_uid[8], char *ret_position, uint8_t ret_hardware_version[3], uint8_t ret_firmware_version[3], uint16_t *ret_device_identifier) {
+    if (thermal_imaging == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(thermal_imaging->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1075,6 +1159,9 @@ int tf_thermal_imaging_get_identity(TF_ThermalImaging *thermal_imaging, char ret
 }
 
 int tf_thermal_imaging_get_high_contrast_image(TF_ThermalImaging *thermal_imaging, uint8_t *ret_image, uint16_t *ret_image_length) {
+    if (thermal_imaging == NULL)
+        return TF_E_NULL;
+
     int ret = TF_E_OK;
     uint16_t image_length = 4800;
     uint16_t image_chunk_offset = 0;
@@ -1149,6 +1236,9 @@ int tf_thermal_imaging_get_high_contrast_image(TF_ThermalImaging *thermal_imagin
 }
 
 int tf_thermal_imaging_get_temperature_image(TF_ThermalImaging *thermal_imaging, uint16_t *ret_image, uint16_t *ret_image_length) {
+    if (thermal_imaging == NULL)
+        return TF_E_NULL;
+
     int ret = TF_E_OK;
     uint16_t image_length = 4800;
     uint16_t image_chunk_offset = 0;
@@ -1222,7 +1312,10 @@ int tf_thermal_imaging_get_temperature_image(TF_ThermalImaging *thermal_imaging,
     return ret;
 }
 #ifdef TF_IMPLEMENT_CALLBACKS
-void tf_thermal_imaging_register_high_contrast_image_low_level_callback(TF_ThermalImaging *thermal_imaging, TF_ThermalImagingHighContrastImageLowLevelHandler handler, void *user_data) {
+int tf_thermal_imaging_register_high_contrast_image_low_level_callback(TF_ThermalImaging *thermal_imaging, TF_ThermalImagingHighContrastImageLowLevelHandler handler, void *user_data) {
+    if (thermal_imaging == NULL)
+        return TF_E_NULL;
+
     if (handler == NULL) {
         thermal_imaging->tfp->needs_callback_tick = false;
         thermal_imaging->tfp->needs_callback_tick |= thermal_imaging->temperature_image_low_level_handler != NULL;
@@ -1231,10 +1324,14 @@ void tf_thermal_imaging_register_high_contrast_image_low_level_callback(TF_Therm
     }
     thermal_imaging->high_contrast_image_low_level_handler = handler;
     thermal_imaging->high_contrast_image_low_level_user_data = user_data;
+    return TF_E_OK;
 }
 
 
-void tf_thermal_imaging_register_temperature_image_low_level_callback(TF_ThermalImaging *thermal_imaging, TF_ThermalImagingTemperatureImageLowLevelHandler handler, void *user_data) {
+int tf_thermal_imaging_register_temperature_image_low_level_callback(TF_ThermalImaging *thermal_imaging, TF_ThermalImagingTemperatureImageLowLevelHandler handler, void *user_data) {
+    if (thermal_imaging == NULL)
+        return TF_E_NULL;
+
     if (handler == NULL) {
         thermal_imaging->tfp->needs_callback_tick = false;
         thermal_imaging->tfp->needs_callback_tick |= thermal_imaging->high_contrast_image_low_level_handler != NULL;
@@ -1243,9 +1340,13 @@ void tf_thermal_imaging_register_temperature_image_low_level_callback(TF_Thermal
     }
     thermal_imaging->temperature_image_low_level_handler = handler;
     thermal_imaging->temperature_image_low_level_user_data = user_data;
+    return TF_E_OK;
 }
 #endif
 int tf_thermal_imaging_callback_tick(TF_ThermalImaging *thermal_imaging, uint32_t timeout_us) {
+    if (thermal_imaging == NULL)
+        return TF_E_NULL;
+
     return tf_tfp_callback_tick(thermal_imaging->tfp, tf_hal_current_time_us(thermal_imaging->tfp->hal) + timeout_us);
 }
 

@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-02-08.      *
+ * This file was automatically generated on 2021-10-04.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -56,6 +56,9 @@ static bool tf_isolator_callback_handler(void *dev, uint8_t fid, TF_Packetbuffer
 }
 #endif
 int tf_isolator_create(TF_Isolator *isolator, const char *uid, TF_HalContext *hal) {
+    if (isolator == NULL || uid == NULL || hal == NULL)
+        return TF_E_NULL;
+
     memset(isolator, 0, sizeof(TF_Isolator));
 
     uint32_t numeric_uid;
@@ -84,12 +87,18 @@ int tf_isolator_create(TF_Isolator *isolator, const char *uid, TF_HalContext *ha
 }
 
 int tf_isolator_destroy(TF_Isolator *isolator) {
+    if (isolator == NULL)
+        return TF_E_NULL;
+
     int result = tf_tfp_destroy(isolator->tfp);
     isolator->tfp = NULL;
     return result;
 }
 
 int tf_isolator_get_response_expected(TF_Isolator *isolator, uint8_t function_id, bool *ret_response_expected) {
+    if (isolator == NULL)
+        return TF_E_NULL;
+
     switch(function_id) {
         case TF_ISOLATOR_FUNCTION_SET_SPITFP_BAUDRATE_CONFIG:
             if(ret_response_expected != NULL)
@@ -187,6 +196,9 @@ void tf_isolator_set_response_expected_all(TF_Isolator *isolator, bool response_
 }
 
 int tf_isolator_get_statistics(TF_Isolator *isolator, uint32_t *ret_messages_from_brick, uint32_t *ret_messages_from_bricklet, uint16_t *ret_connected_bricklet_device_identifier, char ret_connected_bricklet_uid[8]) {
+    if (isolator == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(isolator->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -222,6 +234,9 @@ int tf_isolator_get_statistics(TF_Isolator *isolator, uint32_t *ret_messages_fro
 }
 
 int tf_isolator_set_spitfp_baudrate_config(TF_Isolator *isolator, bool enable_dynamic_baudrate, uint32_t minimum_dynamic_baudrate) {
+    if (isolator == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(isolator->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -255,6 +270,9 @@ int tf_isolator_set_spitfp_baudrate_config(TF_Isolator *isolator, bool enable_dy
 }
 
 int tf_isolator_get_spitfp_baudrate_config(TF_Isolator *isolator, bool *ret_enable_dynamic_baudrate, uint32_t *ret_minimum_dynamic_baudrate) {
+    if (isolator == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(isolator->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -288,6 +306,9 @@ int tf_isolator_get_spitfp_baudrate_config(TF_Isolator *isolator, bool *ret_enab
 }
 
 int tf_isolator_set_spitfp_baudrate(TF_Isolator *isolator, uint32_t baudrate) {
+    if (isolator == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(isolator->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -320,6 +341,9 @@ int tf_isolator_set_spitfp_baudrate(TF_Isolator *isolator, uint32_t baudrate) {
 }
 
 int tf_isolator_get_spitfp_baudrate(TF_Isolator *isolator, uint32_t *ret_baudrate) {
+    if (isolator == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(isolator->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -352,6 +376,9 @@ int tf_isolator_get_spitfp_baudrate(TF_Isolator *isolator, uint32_t *ret_baudrat
 }
 
 int tf_isolator_get_isolator_spitfp_error_count(TF_Isolator *isolator, uint32_t *ret_error_count_ack_checksum, uint32_t *ret_error_count_message_checksum, uint32_t *ret_error_count_frame, uint32_t *ret_error_count_overflow) {
+    if (isolator == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(isolator->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -387,6 +414,9 @@ int tf_isolator_get_isolator_spitfp_error_count(TF_Isolator *isolator, uint32_t 
 }
 
 int tf_isolator_set_statistics_callback_configuration(TF_Isolator *isolator, uint32_t period, bool value_has_to_change) {
+    if (isolator == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(isolator->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -420,6 +450,9 @@ int tf_isolator_set_statistics_callback_configuration(TF_Isolator *isolator, uin
 }
 
 int tf_isolator_get_statistics_callback_configuration(TF_Isolator *isolator, uint32_t *ret_period, bool *ret_value_has_to_change) {
+    if (isolator == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(isolator->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -453,6 +486,9 @@ int tf_isolator_get_statistics_callback_configuration(TF_Isolator *isolator, uin
 }
 
 int tf_isolator_get_spitfp_error_count(TF_Isolator *isolator, uint32_t *ret_error_count_ack_checksum, uint32_t *ret_error_count_message_checksum, uint32_t *ret_error_count_frame, uint32_t *ret_error_count_overflow) {
+    if (isolator == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(isolator->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -488,6 +524,9 @@ int tf_isolator_get_spitfp_error_count(TF_Isolator *isolator, uint32_t *ret_erro
 }
 
 int tf_isolator_set_bootloader_mode(TF_Isolator *isolator, uint8_t mode, uint8_t *ret_status) {
+    if (isolator == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(isolator->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -524,6 +563,9 @@ int tf_isolator_set_bootloader_mode(TF_Isolator *isolator, uint8_t mode, uint8_t
 }
 
 int tf_isolator_get_bootloader_mode(TF_Isolator *isolator, uint8_t *ret_mode) {
+    if (isolator == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(isolator->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -556,6 +598,9 @@ int tf_isolator_get_bootloader_mode(TF_Isolator *isolator, uint8_t *ret_mode) {
 }
 
 int tf_isolator_set_write_firmware_pointer(TF_Isolator *isolator, uint32_t pointer) {
+    if (isolator == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(isolator->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -588,6 +633,9 @@ int tf_isolator_set_write_firmware_pointer(TF_Isolator *isolator, uint32_t point
 }
 
 int tf_isolator_write_firmware(TF_Isolator *isolator, uint8_t data[64], uint8_t *ret_status) {
+    if (isolator == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(isolator->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -624,6 +672,9 @@ int tf_isolator_write_firmware(TF_Isolator *isolator, uint8_t data[64], uint8_t 
 }
 
 int tf_isolator_set_status_led_config(TF_Isolator *isolator, uint8_t config) {
+    if (isolator == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(isolator->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -656,6 +707,9 @@ int tf_isolator_set_status_led_config(TF_Isolator *isolator, uint8_t config) {
 }
 
 int tf_isolator_get_status_led_config(TF_Isolator *isolator, uint8_t *ret_config) {
+    if (isolator == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(isolator->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -688,6 +742,9 @@ int tf_isolator_get_status_led_config(TF_Isolator *isolator, uint8_t *ret_config
 }
 
 int tf_isolator_get_chip_temperature(TF_Isolator *isolator, int16_t *ret_temperature) {
+    if (isolator == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(isolator->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -720,6 +777,9 @@ int tf_isolator_get_chip_temperature(TF_Isolator *isolator, int16_t *ret_tempera
 }
 
 int tf_isolator_reset(TF_Isolator *isolator) {
+    if (isolator == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(isolator->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -748,6 +808,9 @@ int tf_isolator_reset(TF_Isolator *isolator) {
 }
 
 int tf_isolator_write_uid(TF_Isolator *isolator, uint32_t uid) {
+    if (isolator == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(isolator->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -780,6 +843,9 @@ int tf_isolator_write_uid(TF_Isolator *isolator, uint32_t uid) {
 }
 
 int tf_isolator_read_uid(TF_Isolator *isolator, uint32_t *ret_uid) {
+    if (isolator == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(isolator->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -812,6 +878,9 @@ int tf_isolator_read_uid(TF_Isolator *isolator, uint32_t *ret_uid) {
 }
 
 int tf_isolator_get_identity(TF_Isolator *isolator, char ret_uid[8], char ret_connected_uid[8], char *ret_position, uint8_t ret_hardware_version[3], uint8_t ret_firmware_version[3], uint16_t *ret_device_identifier) {
+    if (isolator == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(isolator->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -856,7 +925,10 @@ int tf_isolator_get_identity(TF_Isolator *isolator, char ret_uid[8], char ret_co
     return tf_tfp_get_error(error_code);
 }
 #ifdef TF_IMPLEMENT_CALLBACKS
-void tf_isolator_register_statistics_callback(TF_Isolator *isolator, TF_IsolatorStatisticsHandler handler, void *user_data) {
+int tf_isolator_register_statistics_callback(TF_Isolator *isolator, TF_IsolatorStatisticsHandler handler, void *user_data) {
+    if (isolator == NULL)
+        return TF_E_NULL;
+
     if (handler == NULL) {
         isolator->tfp->needs_callback_tick = false;
         
@@ -865,9 +937,13 @@ void tf_isolator_register_statistics_callback(TF_Isolator *isolator, TF_Isolator
     }
     isolator->statistics_handler = handler;
     isolator->statistics_user_data = user_data;
+    return TF_E_OK;
 }
 #endif
 int tf_isolator_callback_tick(TF_Isolator *isolator, uint32_t timeout_us) {
+    if (isolator == NULL)
+        return TF_E_NULL;
+
     return tf_tfp_callback_tick(isolator->tfp, tf_hal_current_time_us(isolator->tfp->hal) + timeout_us);
 }
 

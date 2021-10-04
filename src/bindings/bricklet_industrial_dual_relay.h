@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-02-08.      *
+ * This file was automatically generated on 2021-10-04.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -305,7 +305,7 @@ TF_ATTRIBUTE_NONNULL_ALL void tf_industrial_dual_relay_set_response_expected_all
  * parameters contain the relay and the current state of the relay
  * (the state after the monoflop).
  */
-TF_ATTRIBUTE_NONNULL(1) void tf_industrial_dual_relay_register_monoflop_done_callback(TF_IndustrialDualRelay *industrial_dual_relay, TF_IndustrialDualRelayMonoflopDoneHandler handler, void *user_data);
+TF_ATTRIBUTE_NONNULL(1) int tf_industrial_dual_relay_register_monoflop_done_callback(TF_IndustrialDualRelay *industrial_dual_relay, TF_IndustrialDualRelayMonoflopDoneHandler handler, void *user_data);
 #endif
 #ifdef TF_IMPLEMENT_CALLBACKS
 /**

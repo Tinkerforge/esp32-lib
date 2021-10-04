@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-02-08.      *
+ * This file was automatically generated on 2021-10-04.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -28,6 +28,9 @@ static bool tf_one_wire_callback_handler(void *dev, uint8_t fid, TF_Packetbuffer
     return false;
 }
 int tf_one_wire_create(TF_OneWire *one_wire, const char *uid, TF_HalContext *hal) {
+    if (one_wire == NULL || uid == NULL || hal == NULL)
+        return TF_E_NULL;
+
     memset(one_wire, 0, sizeof(TF_OneWire));
 
     uint32_t numeric_uid;
@@ -56,12 +59,18 @@ int tf_one_wire_create(TF_OneWire *one_wire, const char *uid, TF_HalContext *hal
 }
 
 int tf_one_wire_destroy(TF_OneWire *one_wire) {
+    if (one_wire == NULL)
+        return TF_E_NULL;
+
     int result = tf_tfp_destroy(one_wire->tfp);
     one_wire->tfp = NULL;
     return result;
 }
 
 int tf_one_wire_get_response_expected(TF_OneWire *one_wire, uint8_t function_id, bool *ret_response_expected) {
+    if (one_wire == NULL)
+        return TF_E_NULL;
+
     switch(function_id) {
         case TF_ONE_WIRE_FUNCTION_SET_COMMUNICATION_LED_CONFIG:
             if(ret_response_expected != NULL)
@@ -137,6 +146,9 @@ void tf_one_wire_set_response_expected_all(TF_OneWire *one_wire, bool response_e
 }
 
 int tf_one_wire_search_bus_low_level(TF_OneWire *one_wire, uint16_t *ret_identifier_length, uint16_t *ret_identifier_chunk_offset, uint64_t ret_identifier_chunk_data[7], uint8_t *ret_status) {
+    if (one_wire == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(one_wire->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -173,6 +185,9 @@ int tf_one_wire_search_bus_low_level(TF_OneWire *one_wire, uint16_t *ret_identif
 }
 
 int tf_one_wire_reset_bus(TF_OneWire *one_wire, uint8_t *ret_status) {
+    if (one_wire == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(one_wire->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -205,6 +220,9 @@ int tf_one_wire_reset_bus(TF_OneWire *one_wire, uint8_t *ret_status) {
 }
 
 int tf_one_wire_write(TF_OneWire *one_wire, uint8_t data, uint8_t *ret_status) {
+    if (one_wire == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(one_wire->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -241,6 +259,9 @@ int tf_one_wire_write(TF_OneWire *one_wire, uint8_t data, uint8_t *ret_status) {
 }
 
 int tf_one_wire_read(TF_OneWire *one_wire, uint8_t *ret_data, uint8_t *ret_status) {
+    if (one_wire == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(one_wire->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -274,6 +295,9 @@ int tf_one_wire_read(TF_OneWire *one_wire, uint8_t *ret_data, uint8_t *ret_statu
 }
 
 int tf_one_wire_write_command(TF_OneWire *one_wire, uint64_t identifier, uint8_t command, uint8_t *ret_status) {
+    if (one_wire == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(one_wire->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -311,6 +335,9 @@ int tf_one_wire_write_command(TF_OneWire *one_wire, uint64_t identifier, uint8_t
 }
 
 int tf_one_wire_set_communication_led_config(TF_OneWire *one_wire, uint8_t config) {
+    if (one_wire == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(one_wire->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -343,6 +370,9 @@ int tf_one_wire_set_communication_led_config(TF_OneWire *one_wire, uint8_t confi
 }
 
 int tf_one_wire_get_communication_led_config(TF_OneWire *one_wire, uint8_t *ret_config) {
+    if (one_wire == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(one_wire->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -375,6 +405,9 @@ int tf_one_wire_get_communication_led_config(TF_OneWire *one_wire, uint8_t *ret_
 }
 
 int tf_one_wire_get_spitfp_error_count(TF_OneWire *one_wire, uint32_t *ret_error_count_ack_checksum, uint32_t *ret_error_count_message_checksum, uint32_t *ret_error_count_frame, uint32_t *ret_error_count_overflow) {
+    if (one_wire == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(one_wire->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -410,6 +443,9 @@ int tf_one_wire_get_spitfp_error_count(TF_OneWire *one_wire, uint32_t *ret_error
 }
 
 int tf_one_wire_set_bootloader_mode(TF_OneWire *one_wire, uint8_t mode, uint8_t *ret_status) {
+    if (one_wire == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(one_wire->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -446,6 +482,9 @@ int tf_one_wire_set_bootloader_mode(TF_OneWire *one_wire, uint8_t mode, uint8_t 
 }
 
 int tf_one_wire_get_bootloader_mode(TF_OneWire *one_wire, uint8_t *ret_mode) {
+    if (one_wire == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(one_wire->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -478,6 +517,9 @@ int tf_one_wire_get_bootloader_mode(TF_OneWire *one_wire, uint8_t *ret_mode) {
 }
 
 int tf_one_wire_set_write_firmware_pointer(TF_OneWire *one_wire, uint32_t pointer) {
+    if (one_wire == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(one_wire->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -510,6 +552,9 @@ int tf_one_wire_set_write_firmware_pointer(TF_OneWire *one_wire, uint32_t pointe
 }
 
 int tf_one_wire_write_firmware(TF_OneWire *one_wire, uint8_t data[64], uint8_t *ret_status) {
+    if (one_wire == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(one_wire->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -546,6 +591,9 @@ int tf_one_wire_write_firmware(TF_OneWire *one_wire, uint8_t data[64], uint8_t *
 }
 
 int tf_one_wire_set_status_led_config(TF_OneWire *one_wire, uint8_t config) {
+    if (one_wire == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(one_wire->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -578,6 +626,9 @@ int tf_one_wire_set_status_led_config(TF_OneWire *one_wire, uint8_t config) {
 }
 
 int tf_one_wire_get_status_led_config(TF_OneWire *one_wire, uint8_t *ret_config) {
+    if (one_wire == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(one_wire->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -610,6 +661,9 @@ int tf_one_wire_get_status_led_config(TF_OneWire *one_wire, uint8_t *ret_config)
 }
 
 int tf_one_wire_get_chip_temperature(TF_OneWire *one_wire, int16_t *ret_temperature) {
+    if (one_wire == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(one_wire->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -642,6 +696,9 @@ int tf_one_wire_get_chip_temperature(TF_OneWire *one_wire, int16_t *ret_temperat
 }
 
 int tf_one_wire_reset(TF_OneWire *one_wire) {
+    if (one_wire == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(one_wire->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -670,6 +727,9 @@ int tf_one_wire_reset(TF_OneWire *one_wire) {
 }
 
 int tf_one_wire_write_uid(TF_OneWire *one_wire, uint32_t uid) {
+    if (one_wire == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(one_wire->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -702,6 +762,9 @@ int tf_one_wire_write_uid(TF_OneWire *one_wire, uint32_t uid) {
 }
 
 int tf_one_wire_read_uid(TF_OneWire *one_wire, uint32_t *ret_uid) {
+    if (one_wire == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(one_wire->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -734,6 +797,9 @@ int tf_one_wire_read_uid(TF_OneWire *one_wire, uint32_t *ret_uid) {
 }
 
 int tf_one_wire_get_identity(TF_OneWire *one_wire, char ret_uid[8], char ret_connected_uid[8], char *ret_position, uint8_t ret_hardware_version[3], uint8_t ret_firmware_version[3], uint16_t *ret_device_identifier) {
+    if (one_wire == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(one_wire->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -779,6 +845,9 @@ int tf_one_wire_get_identity(TF_OneWire *one_wire, char ret_uid[8], char ret_con
 }
 
 int tf_one_wire_search_bus(TF_OneWire *one_wire, uint64_t *ret_identifier, uint16_t *ret_identifier_length, uint8_t *ret_status) {
+    if (one_wire == NULL)
+        return TF_E_NULL;
+
     int ret = TF_E_OK;
     uint16_t identifier_length = 0;
     uint16_t identifier_chunk_offset = 0;
@@ -850,6 +919,9 @@ int tf_one_wire_search_bus(TF_OneWire *one_wire, uint64_t *ret_identifier, uint1
 
 
 int tf_one_wire_callback_tick(TF_OneWire *one_wire, uint32_t timeout_us) {
+    if (one_wire == NULL)
+        return TF_E_NULL;
+
     return tf_tfp_callback_tick(one_wire->tfp, tf_hal_current_time_us(one_wire->tfp->hal) + timeout_us);
 }
 

@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-02-08.      *
+ * This file was automatically generated on 2021-10-04.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -67,6 +67,9 @@ static bool tf_hall_effect_v2_callback_handler(void *dev, uint8_t fid, TF_Packet
 }
 #endif
 int tf_hall_effect_v2_create(TF_HallEffectV2 *hall_effect_v2, const char *uid, TF_HalContext *hal) {
+    if (hall_effect_v2 == NULL || uid == NULL || hal == NULL)
+        return TF_E_NULL;
+
     memset(hall_effect_v2, 0, sizeof(TF_HallEffectV2));
 
     uint32_t numeric_uid;
@@ -95,12 +98,18 @@ int tf_hall_effect_v2_create(TF_HallEffectV2 *hall_effect_v2, const char *uid, T
 }
 
 int tf_hall_effect_v2_destroy(TF_HallEffectV2 *hall_effect_v2) {
+    if (hall_effect_v2 == NULL)
+        return TF_E_NULL;
+
     int result = tf_tfp_destroy(hall_effect_v2->tfp);
     hall_effect_v2->tfp = NULL;
     return result;
 }
 
 int tf_hall_effect_v2_get_response_expected(TF_HallEffectV2 *hall_effect_v2, uint8_t function_id, bool *ret_response_expected) {
+    if (hall_effect_v2 == NULL)
+        return TF_E_NULL;
+
     switch(function_id) {
         case TF_HALL_EFFECT_V2_FUNCTION_SET_MAGNETIC_FLUX_DENSITY_CALLBACK_CONFIGURATION:
             if(ret_response_expected != NULL)
@@ -198,6 +207,9 @@ void tf_hall_effect_v2_set_response_expected_all(TF_HallEffectV2 *hall_effect_v2
 }
 
 int tf_hall_effect_v2_get_magnetic_flux_density(TF_HallEffectV2 *hall_effect_v2, int16_t *ret_magnetic_flux_density) {
+    if (hall_effect_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(hall_effect_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -230,6 +242,9 @@ int tf_hall_effect_v2_get_magnetic_flux_density(TF_HallEffectV2 *hall_effect_v2,
 }
 
 int tf_hall_effect_v2_set_magnetic_flux_density_callback_configuration(TF_HallEffectV2 *hall_effect_v2, uint32_t period, bool value_has_to_change, char option, int16_t min, int16_t max) {
+    if (hall_effect_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(hall_effect_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -266,6 +281,9 @@ int tf_hall_effect_v2_set_magnetic_flux_density_callback_configuration(TF_HallEf
 }
 
 int tf_hall_effect_v2_get_magnetic_flux_density_callback_configuration(TF_HallEffectV2 *hall_effect_v2, uint32_t *ret_period, bool *ret_value_has_to_change, char *ret_option, int16_t *ret_min, int16_t *ret_max) {
+    if (hall_effect_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(hall_effect_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -302,6 +320,9 @@ int tf_hall_effect_v2_get_magnetic_flux_density_callback_configuration(TF_HallEf
 }
 
 int tf_hall_effect_v2_get_counter(TF_HallEffectV2 *hall_effect_v2, bool reset_counter, uint32_t *ret_count) {
+    if (hall_effect_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(hall_effect_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -338,6 +359,9 @@ int tf_hall_effect_v2_get_counter(TF_HallEffectV2 *hall_effect_v2, bool reset_co
 }
 
 int tf_hall_effect_v2_set_counter_config(TF_HallEffectV2 *hall_effect_v2, int16_t high_threshold, int16_t low_threshold, uint32_t debounce) {
+    if (hall_effect_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(hall_effect_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -372,6 +396,9 @@ int tf_hall_effect_v2_set_counter_config(TF_HallEffectV2 *hall_effect_v2, int16_
 }
 
 int tf_hall_effect_v2_get_counter_config(TF_HallEffectV2 *hall_effect_v2, int16_t *ret_high_threshold, int16_t *ret_low_threshold, uint32_t *ret_debounce) {
+    if (hall_effect_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(hall_effect_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -406,6 +433,9 @@ int tf_hall_effect_v2_get_counter_config(TF_HallEffectV2 *hall_effect_v2, int16_
 }
 
 int tf_hall_effect_v2_set_counter_callback_configuration(TF_HallEffectV2 *hall_effect_v2, uint32_t period, bool value_has_to_change) {
+    if (hall_effect_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(hall_effect_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -439,6 +469,9 @@ int tf_hall_effect_v2_set_counter_callback_configuration(TF_HallEffectV2 *hall_e
 }
 
 int tf_hall_effect_v2_get_counter_callback_configuration(TF_HallEffectV2 *hall_effect_v2, uint32_t *ret_period, bool *ret_value_has_to_change) {
+    if (hall_effect_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(hall_effect_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -472,6 +505,9 @@ int tf_hall_effect_v2_get_counter_callback_configuration(TF_HallEffectV2 *hall_e
 }
 
 int tf_hall_effect_v2_get_spitfp_error_count(TF_HallEffectV2 *hall_effect_v2, uint32_t *ret_error_count_ack_checksum, uint32_t *ret_error_count_message_checksum, uint32_t *ret_error_count_frame, uint32_t *ret_error_count_overflow) {
+    if (hall_effect_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(hall_effect_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -507,6 +543,9 @@ int tf_hall_effect_v2_get_spitfp_error_count(TF_HallEffectV2 *hall_effect_v2, ui
 }
 
 int tf_hall_effect_v2_set_bootloader_mode(TF_HallEffectV2 *hall_effect_v2, uint8_t mode, uint8_t *ret_status) {
+    if (hall_effect_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(hall_effect_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -543,6 +582,9 @@ int tf_hall_effect_v2_set_bootloader_mode(TF_HallEffectV2 *hall_effect_v2, uint8
 }
 
 int tf_hall_effect_v2_get_bootloader_mode(TF_HallEffectV2 *hall_effect_v2, uint8_t *ret_mode) {
+    if (hall_effect_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(hall_effect_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -575,6 +617,9 @@ int tf_hall_effect_v2_get_bootloader_mode(TF_HallEffectV2 *hall_effect_v2, uint8
 }
 
 int tf_hall_effect_v2_set_write_firmware_pointer(TF_HallEffectV2 *hall_effect_v2, uint32_t pointer) {
+    if (hall_effect_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(hall_effect_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -607,6 +652,9 @@ int tf_hall_effect_v2_set_write_firmware_pointer(TF_HallEffectV2 *hall_effect_v2
 }
 
 int tf_hall_effect_v2_write_firmware(TF_HallEffectV2 *hall_effect_v2, uint8_t data[64], uint8_t *ret_status) {
+    if (hall_effect_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(hall_effect_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -643,6 +691,9 @@ int tf_hall_effect_v2_write_firmware(TF_HallEffectV2 *hall_effect_v2, uint8_t da
 }
 
 int tf_hall_effect_v2_set_status_led_config(TF_HallEffectV2 *hall_effect_v2, uint8_t config) {
+    if (hall_effect_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(hall_effect_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -675,6 +726,9 @@ int tf_hall_effect_v2_set_status_led_config(TF_HallEffectV2 *hall_effect_v2, uin
 }
 
 int tf_hall_effect_v2_get_status_led_config(TF_HallEffectV2 *hall_effect_v2, uint8_t *ret_config) {
+    if (hall_effect_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(hall_effect_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -707,6 +761,9 @@ int tf_hall_effect_v2_get_status_led_config(TF_HallEffectV2 *hall_effect_v2, uin
 }
 
 int tf_hall_effect_v2_get_chip_temperature(TF_HallEffectV2 *hall_effect_v2, int16_t *ret_temperature) {
+    if (hall_effect_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(hall_effect_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -739,6 +796,9 @@ int tf_hall_effect_v2_get_chip_temperature(TF_HallEffectV2 *hall_effect_v2, int1
 }
 
 int tf_hall_effect_v2_reset(TF_HallEffectV2 *hall_effect_v2) {
+    if (hall_effect_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(hall_effect_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -767,6 +827,9 @@ int tf_hall_effect_v2_reset(TF_HallEffectV2 *hall_effect_v2) {
 }
 
 int tf_hall_effect_v2_write_uid(TF_HallEffectV2 *hall_effect_v2, uint32_t uid) {
+    if (hall_effect_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(hall_effect_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -799,6 +862,9 @@ int tf_hall_effect_v2_write_uid(TF_HallEffectV2 *hall_effect_v2, uint32_t uid) {
 }
 
 int tf_hall_effect_v2_read_uid(TF_HallEffectV2 *hall_effect_v2, uint32_t *ret_uid) {
+    if (hall_effect_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(hall_effect_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -831,6 +897,9 @@ int tf_hall_effect_v2_read_uid(TF_HallEffectV2 *hall_effect_v2, uint32_t *ret_ui
 }
 
 int tf_hall_effect_v2_get_identity(TF_HallEffectV2 *hall_effect_v2, char ret_uid[8], char ret_connected_uid[8], char *ret_position, uint8_t ret_hardware_version[3], uint8_t ret_firmware_version[3], uint16_t *ret_device_identifier) {
+    if (hall_effect_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(hall_effect_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -875,7 +944,10 @@ int tf_hall_effect_v2_get_identity(TF_HallEffectV2 *hall_effect_v2, char ret_uid
     return tf_tfp_get_error(error_code);
 }
 #ifdef TF_IMPLEMENT_CALLBACKS
-void tf_hall_effect_v2_register_magnetic_flux_density_callback(TF_HallEffectV2 *hall_effect_v2, TF_HallEffectV2MagneticFluxDensityHandler handler, void *user_data) {
+int tf_hall_effect_v2_register_magnetic_flux_density_callback(TF_HallEffectV2 *hall_effect_v2, TF_HallEffectV2MagneticFluxDensityHandler handler, void *user_data) {
+    if (hall_effect_v2 == NULL)
+        return TF_E_NULL;
+
     if (handler == NULL) {
         hall_effect_v2->tfp->needs_callback_tick = false;
         hall_effect_v2->tfp->needs_callback_tick |= hall_effect_v2->counter_handler != NULL;
@@ -884,10 +956,14 @@ void tf_hall_effect_v2_register_magnetic_flux_density_callback(TF_HallEffectV2 *
     }
     hall_effect_v2->magnetic_flux_density_handler = handler;
     hall_effect_v2->magnetic_flux_density_user_data = user_data;
+    return TF_E_OK;
 }
 
 
-void tf_hall_effect_v2_register_counter_callback(TF_HallEffectV2 *hall_effect_v2, TF_HallEffectV2CounterHandler handler, void *user_data) {
+int tf_hall_effect_v2_register_counter_callback(TF_HallEffectV2 *hall_effect_v2, TF_HallEffectV2CounterHandler handler, void *user_data) {
+    if (hall_effect_v2 == NULL)
+        return TF_E_NULL;
+
     if (handler == NULL) {
         hall_effect_v2->tfp->needs_callback_tick = false;
         hall_effect_v2->tfp->needs_callback_tick |= hall_effect_v2->magnetic_flux_density_handler != NULL;
@@ -896,9 +972,13 @@ void tf_hall_effect_v2_register_counter_callback(TF_HallEffectV2 *hall_effect_v2
     }
     hall_effect_v2->counter_handler = handler;
     hall_effect_v2->counter_user_data = user_data;
+    return TF_E_OK;
 }
 #endif
 int tf_hall_effect_v2_callback_tick(TF_HallEffectV2 *hall_effect_v2, uint32_t timeout_us) {
+    if (hall_effect_v2 == NULL)
+        return TF_E_NULL;
+
     return tf_tfp_callback_tick(hall_effect_v2->tfp, tf_hal_current_time_us(hall_effect_v2->tfp->hal) + timeout_us);
 }
 

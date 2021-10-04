@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-02-08.      *
+ * This file was automatically generated on 2021-10-04.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -53,6 +53,9 @@ static bool tf_rgb_led_button_callback_handler(void *dev, uint8_t fid, TF_Packet
 }
 #endif
 int tf_rgb_led_button_create(TF_RGBLEDButton *rgb_led_button, const char *uid, TF_HalContext *hal) {
+    if (rgb_led_button == NULL || uid == NULL || hal == NULL)
+        return TF_E_NULL;
+
     memset(rgb_led_button, 0, sizeof(TF_RGBLEDButton));
 
     uint32_t numeric_uid;
@@ -81,12 +84,18 @@ int tf_rgb_led_button_create(TF_RGBLEDButton *rgb_led_button, const char *uid, T
 }
 
 int tf_rgb_led_button_destroy(TF_RGBLEDButton *rgb_led_button) {
+    if (rgb_led_button == NULL)
+        return TF_E_NULL;
+
     int result = tf_tfp_destroy(rgb_led_button->tfp);
     rgb_led_button->tfp = NULL;
     return result;
 }
 
 int tf_rgb_led_button_get_response_expected(TF_RGBLEDButton *rgb_led_button, uint8_t function_id, bool *ret_response_expected) {
+    if (rgb_led_button == NULL)
+        return TF_E_NULL;
+
     switch(function_id) {
         case TF_RGB_LED_BUTTON_FUNCTION_SET_COLOR:
             if(ret_response_expected != NULL)
@@ -173,6 +182,9 @@ void tf_rgb_led_button_set_response_expected_all(TF_RGBLEDButton *rgb_led_button
 }
 
 int tf_rgb_led_button_set_color(TF_RGBLEDButton *rgb_led_button, uint8_t red, uint8_t green, uint8_t blue) {
+    if (rgb_led_button == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(rgb_led_button->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -207,6 +219,9 @@ int tf_rgb_led_button_set_color(TF_RGBLEDButton *rgb_led_button, uint8_t red, ui
 }
 
 int tf_rgb_led_button_get_color(TF_RGBLEDButton *rgb_led_button, uint8_t *ret_red, uint8_t *ret_green, uint8_t *ret_blue) {
+    if (rgb_led_button == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(rgb_led_button->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -241,6 +256,9 @@ int tf_rgb_led_button_get_color(TF_RGBLEDButton *rgb_led_button, uint8_t *ret_re
 }
 
 int tf_rgb_led_button_get_button_state(TF_RGBLEDButton *rgb_led_button, uint8_t *ret_state) {
+    if (rgb_led_button == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(rgb_led_button->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -273,6 +291,9 @@ int tf_rgb_led_button_get_button_state(TF_RGBLEDButton *rgb_led_button, uint8_t 
 }
 
 int tf_rgb_led_button_set_color_calibration(TF_RGBLEDButton *rgb_led_button, uint8_t red, uint8_t green, uint8_t blue) {
+    if (rgb_led_button == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(rgb_led_button->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -307,6 +328,9 @@ int tf_rgb_led_button_set_color_calibration(TF_RGBLEDButton *rgb_led_button, uin
 }
 
 int tf_rgb_led_button_get_color_calibration(TF_RGBLEDButton *rgb_led_button, uint8_t *ret_red, uint8_t *ret_green, uint8_t *ret_blue) {
+    if (rgb_led_button == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(rgb_led_button->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -341,6 +365,9 @@ int tf_rgb_led_button_get_color_calibration(TF_RGBLEDButton *rgb_led_button, uin
 }
 
 int tf_rgb_led_button_get_spitfp_error_count(TF_RGBLEDButton *rgb_led_button, uint32_t *ret_error_count_ack_checksum, uint32_t *ret_error_count_message_checksum, uint32_t *ret_error_count_frame, uint32_t *ret_error_count_overflow) {
+    if (rgb_led_button == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(rgb_led_button->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -376,6 +403,9 @@ int tf_rgb_led_button_get_spitfp_error_count(TF_RGBLEDButton *rgb_led_button, ui
 }
 
 int tf_rgb_led_button_set_bootloader_mode(TF_RGBLEDButton *rgb_led_button, uint8_t mode, uint8_t *ret_status) {
+    if (rgb_led_button == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(rgb_led_button->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -412,6 +442,9 @@ int tf_rgb_led_button_set_bootloader_mode(TF_RGBLEDButton *rgb_led_button, uint8
 }
 
 int tf_rgb_led_button_get_bootloader_mode(TF_RGBLEDButton *rgb_led_button, uint8_t *ret_mode) {
+    if (rgb_led_button == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(rgb_led_button->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -444,6 +477,9 @@ int tf_rgb_led_button_get_bootloader_mode(TF_RGBLEDButton *rgb_led_button, uint8
 }
 
 int tf_rgb_led_button_set_write_firmware_pointer(TF_RGBLEDButton *rgb_led_button, uint32_t pointer) {
+    if (rgb_led_button == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(rgb_led_button->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -476,6 +512,9 @@ int tf_rgb_led_button_set_write_firmware_pointer(TF_RGBLEDButton *rgb_led_button
 }
 
 int tf_rgb_led_button_write_firmware(TF_RGBLEDButton *rgb_led_button, uint8_t data[64], uint8_t *ret_status) {
+    if (rgb_led_button == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(rgb_led_button->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -512,6 +551,9 @@ int tf_rgb_led_button_write_firmware(TF_RGBLEDButton *rgb_led_button, uint8_t da
 }
 
 int tf_rgb_led_button_set_status_led_config(TF_RGBLEDButton *rgb_led_button, uint8_t config) {
+    if (rgb_led_button == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(rgb_led_button->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -544,6 +586,9 @@ int tf_rgb_led_button_set_status_led_config(TF_RGBLEDButton *rgb_led_button, uin
 }
 
 int tf_rgb_led_button_get_status_led_config(TF_RGBLEDButton *rgb_led_button, uint8_t *ret_config) {
+    if (rgb_led_button == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(rgb_led_button->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -576,6 +621,9 @@ int tf_rgb_led_button_get_status_led_config(TF_RGBLEDButton *rgb_led_button, uin
 }
 
 int tf_rgb_led_button_get_chip_temperature(TF_RGBLEDButton *rgb_led_button, int16_t *ret_temperature) {
+    if (rgb_led_button == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(rgb_led_button->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -608,6 +656,9 @@ int tf_rgb_led_button_get_chip_temperature(TF_RGBLEDButton *rgb_led_button, int1
 }
 
 int tf_rgb_led_button_reset(TF_RGBLEDButton *rgb_led_button) {
+    if (rgb_led_button == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(rgb_led_button->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -636,6 +687,9 @@ int tf_rgb_led_button_reset(TF_RGBLEDButton *rgb_led_button) {
 }
 
 int tf_rgb_led_button_write_uid(TF_RGBLEDButton *rgb_led_button, uint32_t uid) {
+    if (rgb_led_button == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(rgb_led_button->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -668,6 +722,9 @@ int tf_rgb_led_button_write_uid(TF_RGBLEDButton *rgb_led_button, uint32_t uid) {
 }
 
 int tf_rgb_led_button_read_uid(TF_RGBLEDButton *rgb_led_button, uint32_t *ret_uid) {
+    if (rgb_led_button == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(rgb_led_button->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -700,6 +757,9 @@ int tf_rgb_led_button_read_uid(TF_RGBLEDButton *rgb_led_button, uint32_t *ret_ui
 }
 
 int tf_rgb_led_button_get_identity(TF_RGBLEDButton *rgb_led_button, char ret_uid[8], char ret_connected_uid[8], char *ret_position, uint8_t ret_hardware_version[3], uint8_t ret_firmware_version[3], uint16_t *ret_device_identifier) {
+    if (rgb_led_button == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(rgb_led_button->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -744,7 +804,10 @@ int tf_rgb_led_button_get_identity(TF_RGBLEDButton *rgb_led_button, char ret_uid
     return tf_tfp_get_error(error_code);
 }
 #ifdef TF_IMPLEMENT_CALLBACKS
-void tf_rgb_led_button_register_button_state_changed_callback(TF_RGBLEDButton *rgb_led_button, TF_RGBLEDButtonButtonStateChangedHandler handler, void *user_data) {
+int tf_rgb_led_button_register_button_state_changed_callback(TF_RGBLEDButton *rgb_led_button, TF_RGBLEDButtonButtonStateChangedHandler handler, void *user_data) {
+    if (rgb_led_button == NULL)
+        return TF_E_NULL;
+
     if (handler == NULL) {
         rgb_led_button->tfp->needs_callback_tick = false;
         
@@ -753,9 +816,13 @@ void tf_rgb_led_button_register_button_state_changed_callback(TF_RGBLEDButton *r
     }
     rgb_led_button->button_state_changed_handler = handler;
     rgb_led_button->button_state_changed_user_data = user_data;
+    return TF_E_OK;
 }
 #endif
 int tf_rgb_led_button_callback_tick(TF_RGBLEDButton *rgb_led_button, uint32_t timeout_us) {
+    if (rgb_led_button == NULL)
+        return TF_E_NULL;
+
     return tf_tfp_callback_tick(rgb_led_button->tfp, tf_hal_current_time_us(rgb_led_button->tfp->hal) + timeout_us);
 }
 

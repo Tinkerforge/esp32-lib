@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-02-08.      *
+ * This file was automatically generated on 2021-10-04.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -424,7 +424,7 @@ TF_ATTRIBUTE_NONNULL_ALL void tf_ptc_v2_set_response_expected_all(TF_PTCV2 *ptc_
  * 
  * The parameter is the same as {@link tf_ptc_v2_get_temperature}.
  */
-TF_ATTRIBUTE_NONNULL(1) void tf_ptc_v2_register_temperature_callback(TF_PTCV2 *ptc_v2, TF_PTCV2TemperatureHandler handler, void *user_data);
+TF_ATTRIBUTE_NONNULL(1) int tf_ptc_v2_register_temperature_callback(TF_PTCV2 *ptc_v2, TF_PTCV2TemperatureHandler handler, void *user_data);
 
 
 /**
@@ -440,7 +440,7 @@ TF_ATTRIBUTE_NONNULL(1) void tf_ptc_v2_register_temperature_callback(TF_PTCV2 *p
  * 
  * The parameter is the same as {@link tf_ptc_v2_get_resistance}.
  */
-TF_ATTRIBUTE_NONNULL(1) void tf_ptc_v2_register_resistance_callback(TF_PTCV2 *ptc_v2, TF_PTCV2ResistanceHandler handler, void *user_data);
+TF_ATTRIBUTE_NONNULL(1) int tf_ptc_v2_register_resistance_callback(TF_PTCV2 *ptc_v2, TF_PTCV2ResistanceHandler handler, void *user_data);
 
 
 /**
@@ -456,7 +456,7 @@ TF_ATTRIBUTE_NONNULL(1) void tf_ptc_v2_register_resistance_callback(TF_PTCV2 *pt
  * 
  * The parameter is the same as {@link tf_ptc_v2_is_sensor_connected}.
  */
-TF_ATTRIBUTE_NONNULL(1) void tf_ptc_v2_register_sensor_connected_callback(TF_PTCV2 *ptc_v2, TF_PTCV2SensorConnectedHandler handler, void *user_data);
+TF_ATTRIBUTE_NONNULL(1) int tf_ptc_v2_register_sensor_connected_callback(TF_PTCV2 *ptc_v2, TF_PTCV2SensorConnectedHandler handler, void *user_data);
 #endif
 #ifdef TF_IMPLEMENT_CALLBACKS
 /**

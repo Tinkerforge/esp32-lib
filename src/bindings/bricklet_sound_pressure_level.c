@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-02-08.      *
+ * This file was automatically generated on 2021-10-04.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -69,6 +69,9 @@ static bool tf_sound_pressure_level_callback_handler(void *dev, uint8_t fid, TF_
 }
 #endif
 int tf_sound_pressure_level_create(TF_SoundPressureLevel *sound_pressure_level, const char *uid, TF_HalContext *hal) {
+    if (sound_pressure_level == NULL || uid == NULL || hal == NULL)
+        return TF_E_NULL;
+
     memset(sound_pressure_level, 0, sizeof(TF_SoundPressureLevel));
 
     uint32_t numeric_uid;
@@ -97,12 +100,18 @@ int tf_sound_pressure_level_create(TF_SoundPressureLevel *sound_pressure_level, 
 }
 
 int tf_sound_pressure_level_destroy(TF_SoundPressureLevel *sound_pressure_level) {
+    if (sound_pressure_level == NULL)
+        return TF_E_NULL;
+
     int result = tf_tfp_destroy(sound_pressure_level->tfp);
     sound_pressure_level->tfp = NULL;
     return result;
 }
 
 int tf_sound_pressure_level_get_response_expected(TF_SoundPressureLevel *sound_pressure_level, uint8_t function_id, bool *ret_response_expected) {
+    if (sound_pressure_level == NULL)
+        return TF_E_NULL;
+
     switch(function_id) {
         case TF_SOUND_PRESSURE_LEVEL_FUNCTION_SET_DECIBEL_CALLBACK_CONFIGURATION:
             if(ret_response_expected != NULL)
@@ -200,6 +209,9 @@ void tf_sound_pressure_level_set_response_expected_all(TF_SoundPressureLevel *so
 }
 
 int tf_sound_pressure_level_get_decibel(TF_SoundPressureLevel *sound_pressure_level, uint16_t *ret_decibel) {
+    if (sound_pressure_level == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(sound_pressure_level->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -232,6 +244,9 @@ int tf_sound_pressure_level_get_decibel(TF_SoundPressureLevel *sound_pressure_le
 }
 
 int tf_sound_pressure_level_set_decibel_callback_configuration(TF_SoundPressureLevel *sound_pressure_level, uint32_t period, bool value_has_to_change, char option, uint16_t min, uint16_t max) {
+    if (sound_pressure_level == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(sound_pressure_level->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -268,6 +283,9 @@ int tf_sound_pressure_level_set_decibel_callback_configuration(TF_SoundPressureL
 }
 
 int tf_sound_pressure_level_get_decibel_callback_configuration(TF_SoundPressureLevel *sound_pressure_level, uint32_t *ret_period, bool *ret_value_has_to_change, char *ret_option, uint16_t *ret_min, uint16_t *ret_max) {
+    if (sound_pressure_level == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(sound_pressure_level->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -304,6 +322,9 @@ int tf_sound_pressure_level_get_decibel_callback_configuration(TF_SoundPressureL
 }
 
 int tf_sound_pressure_level_get_spectrum_low_level(TF_SoundPressureLevel *sound_pressure_level, uint16_t *ret_spectrum_length, uint16_t *ret_spectrum_chunk_offset, uint16_t ret_spectrum_chunk_data[30]) {
+    if (sound_pressure_level == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(sound_pressure_level->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -339,6 +360,9 @@ int tf_sound_pressure_level_get_spectrum_low_level(TF_SoundPressureLevel *sound_
 }
 
 int tf_sound_pressure_level_set_spectrum_callback_configuration(TF_SoundPressureLevel *sound_pressure_level, uint32_t period) {
+    if (sound_pressure_level == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(sound_pressure_level->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -371,6 +395,9 @@ int tf_sound_pressure_level_set_spectrum_callback_configuration(TF_SoundPressure
 }
 
 int tf_sound_pressure_level_get_spectrum_callback_configuration(TF_SoundPressureLevel *sound_pressure_level, uint32_t *ret_period) {
+    if (sound_pressure_level == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(sound_pressure_level->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -403,6 +430,9 @@ int tf_sound_pressure_level_get_spectrum_callback_configuration(TF_SoundPressure
 }
 
 int tf_sound_pressure_level_set_configuration(TF_SoundPressureLevel *sound_pressure_level, uint8_t fft_size, uint8_t weighting) {
+    if (sound_pressure_level == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(sound_pressure_level->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -436,6 +466,9 @@ int tf_sound_pressure_level_set_configuration(TF_SoundPressureLevel *sound_press
 }
 
 int tf_sound_pressure_level_get_configuration(TF_SoundPressureLevel *sound_pressure_level, uint8_t *ret_fft_size, uint8_t *ret_weighting) {
+    if (sound_pressure_level == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(sound_pressure_level->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -469,6 +502,9 @@ int tf_sound_pressure_level_get_configuration(TF_SoundPressureLevel *sound_press
 }
 
 int tf_sound_pressure_level_get_spitfp_error_count(TF_SoundPressureLevel *sound_pressure_level, uint32_t *ret_error_count_ack_checksum, uint32_t *ret_error_count_message_checksum, uint32_t *ret_error_count_frame, uint32_t *ret_error_count_overflow) {
+    if (sound_pressure_level == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(sound_pressure_level->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -504,6 +540,9 @@ int tf_sound_pressure_level_get_spitfp_error_count(TF_SoundPressureLevel *sound_
 }
 
 int tf_sound_pressure_level_set_bootloader_mode(TF_SoundPressureLevel *sound_pressure_level, uint8_t mode, uint8_t *ret_status) {
+    if (sound_pressure_level == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(sound_pressure_level->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -540,6 +579,9 @@ int tf_sound_pressure_level_set_bootloader_mode(TF_SoundPressureLevel *sound_pre
 }
 
 int tf_sound_pressure_level_get_bootloader_mode(TF_SoundPressureLevel *sound_pressure_level, uint8_t *ret_mode) {
+    if (sound_pressure_level == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(sound_pressure_level->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -572,6 +614,9 @@ int tf_sound_pressure_level_get_bootloader_mode(TF_SoundPressureLevel *sound_pre
 }
 
 int tf_sound_pressure_level_set_write_firmware_pointer(TF_SoundPressureLevel *sound_pressure_level, uint32_t pointer) {
+    if (sound_pressure_level == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(sound_pressure_level->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -604,6 +649,9 @@ int tf_sound_pressure_level_set_write_firmware_pointer(TF_SoundPressureLevel *so
 }
 
 int tf_sound_pressure_level_write_firmware(TF_SoundPressureLevel *sound_pressure_level, uint8_t data[64], uint8_t *ret_status) {
+    if (sound_pressure_level == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(sound_pressure_level->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -640,6 +688,9 @@ int tf_sound_pressure_level_write_firmware(TF_SoundPressureLevel *sound_pressure
 }
 
 int tf_sound_pressure_level_set_status_led_config(TF_SoundPressureLevel *sound_pressure_level, uint8_t config) {
+    if (sound_pressure_level == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(sound_pressure_level->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -672,6 +723,9 @@ int tf_sound_pressure_level_set_status_led_config(TF_SoundPressureLevel *sound_p
 }
 
 int tf_sound_pressure_level_get_status_led_config(TF_SoundPressureLevel *sound_pressure_level, uint8_t *ret_config) {
+    if (sound_pressure_level == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(sound_pressure_level->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -704,6 +758,9 @@ int tf_sound_pressure_level_get_status_led_config(TF_SoundPressureLevel *sound_p
 }
 
 int tf_sound_pressure_level_get_chip_temperature(TF_SoundPressureLevel *sound_pressure_level, int16_t *ret_temperature) {
+    if (sound_pressure_level == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(sound_pressure_level->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -736,6 +793,9 @@ int tf_sound_pressure_level_get_chip_temperature(TF_SoundPressureLevel *sound_pr
 }
 
 int tf_sound_pressure_level_reset(TF_SoundPressureLevel *sound_pressure_level) {
+    if (sound_pressure_level == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(sound_pressure_level->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -764,6 +824,9 @@ int tf_sound_pressure_level_reset(TF_SoundPressureLevel *sound_pressure_level) {
 }
 
 int tf_sound_pressure_level_write_uid(TF_SoundPressureLevel *sound_pressure_level, uint32_t uid) {
+    if (sound_pressure_level == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(sound_pressure_level->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -796,6 +859,9 @@ int tf_sound_pressure_level_write_uid(TF_SoundPressureLevel *sound_pressure_leve
 }
 
 int tf_sound_pressure_level_read_uid(TF_SoundPressureLevel *sound_pressure_level, uint32_t *ret_uid) {
+    if (sound_pressure_level == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(sound_pressure_level->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -828,6 +894,9 @@ int tf_sound_pressure_level_read_uid(TF_SoundPressureLevel *sound_pressure_level
 }
 
 int tf_sound_pressure_level_get_identity(TF_SoundPressureLevel *sound_pressure_level, char ret_uid[8], char ret_connected_uid[8], char *ret_position, uint8_t ret_hardware_version[3], uint8_t ret_firmware_version[3], uint16_t *ret_device_identifier) {
+    if (sound_pressure_level == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(sound_pressure_level->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -873,6 +942,9 @@ int tf_sound_pressure_level_get_identity(TF_SoundPressureLevel *sound_pressure_l
 }
 
 int tf_sound_pressure_level_get_spectrum(TF_SoundPressureLevel *sound_pressure_level, uint16_t *ret_spectrum, uint16_t *ret_spectrum_length) {
+    if (sound_pressure_level == NULL)
+        return TF_E_NULL;
+
     int ret = TF_E_OK;
     uint16_t spectrum_length = 0;
     uint16_t spectrum_chunk_offset = 0;
@@ -942,7 +1014,10 @@ int tf_sound_pressure_level_get_spectrum(TF_SoundPressureLevel *sound_pressure_l
     return ret;
 }
 #ifdef TF_IMPLEMENT_CALLBACKS
-void tf_sound_pressure_level_register_decibel_callback(TF_SoundPressureLevel *sound_pressure_level, TF_SoundPressureLevelDecibelHandler handler, void *user_data) {
+int tf_sound_pressure_level_register_decibel_callback(TF_SoundPressureLevel *sound_pressure_level, TF_SoundPressureLevelDecibelHandler handler, void *user_data) {
+    if (sound_pressure_level == NULL)
+        return TF_E_NULL;
+
     if (handler == NULL) {
         sound_pressure_level->tfp->needs_callback_tick = false;
         sound_pressure_level->tfp->needs_callback_tick |= sound_pressure_level->spectrum_low_level_handler != NULL;
@@ -951,10 +1026,14 @@ void tf_sound_pressure_level_register_decibel_callback(TF_SoundPressureLevel *so
     }
     sound_pressure_level->decibel_handler = handler;
     sound_pressure_level->decibel_user_data = user_data;
+    return TF_E_OK;
 }
 
 
-void tf_sound_pressure_level_register_spectrum_low_level_callback(TF_SoundPressureLevel *sound_pressure_level, TF_SoundPressureLevelSpectrumLowLevelHandler handler, void *user_data) {
+int tf_sound_pressure_level_register_spectrum_low_level_callback(TF_SoundPressureLevel *sound_pressure_level, TF_SoundPressureLevelSpectrumLowLevelHandler handler, void *user_data) {
+    if (sound_pressure_level == NULL)
+        return TF_E_NULL;
+
     if (handler == NULL) {
         sound_pressure_level->tfp->needs_callback_tick = false;
         sound_pressure_level->tfp->needs_callback_tick |= sound_pressure_level->decibel_handler != NULL;
@@ -963,9 +1042,13 @@ void tf_sound_pressure_level_register_spectrum_low_level_callback(TF_SoundPressu
     }
     sound_pressure_level->spectrum_low_level_handler = handler;
     sound_pressure_level->spectrum_low_level_user_data = user_data;
+    return TF_E_OK;
 }
 #endif
 int tf_sound_pressure_level_callback_tick(TF_SoundPressureLevel *sound_pressure_level, uint32_t timeout_us) {
+    if (sound_pressure_level == NULL)
+        return TF_E_NULL;
+
     return tf_tfp_callback_tick(sound_pressure_level->tfp, tf_hal_current_time_us(sound_pressure_level->tfp->hal) + timeout_us);
 }
 

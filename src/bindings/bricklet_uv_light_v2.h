@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-02-08.      *
+ * This file was automatically generated on 2021-10-04.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -404,7 +404,7 @@ TF_ATTRIBUTE_NONNULL_ALL void tf_uv_light_v2_set_response_expected_all(TF_UVLigh
  * 
  * The parameter is the same as {@link tf_uv_light_v2_get_uva}.
  */
-TF_ATTRIBUTE_NONNULL(1) void tf_uv_light_v2_register_uva_callback(TF_UVLightV2 *uv_light_v2, TF_UVLightV2UVAHandler handler, void *user_data);
+TF_ATTRIBUTE_NONNULL(1) int tf_uv_light_v2_register_uva_callback(TF_UVLightV2 *uv_light_v2, TF_UVLightV2UVAHandler handler, void *user_data);
 
 
 /**
@@ -420,7 +420,7 @@ TF_ATTRIBUTE_NONNULL(1) void tf_uv_light_v2_register_uva_callback(TF_UVLightV2 *
  * 
  * The parameter is the same as {@link tf_uv_light_v2_get_uvb}.
  */
-TF_ATTRIBUTE_NONNULL(1) void tf_uv_light_v2_register_uvb_callback(TF_UVLightV2 *uv_light_v2, TF_UVLightV2UVBHandler handler, void *user_data);
+TF_ATTRIBUTE_NONNULL(1) int tf_uv_light_v2_register_uvb_callback(TF_UVLightV2 *uv_light_v2, TF_UVLightV2UVBHandler handler, void *user_data);
 
 
 /**
@@ -436,7 +436,7 @@ TF_ATTRIBUTE_NONNULL(1) void tf_uv_light_v2_register_uvb_callback(TF_UVLightV2 *
  * 
  * The parameter is the same as {@link tf_uv_light_v2_get_uvi}.
  */
-TF_ATTRIBUTE_NONNULL(1) void tf_uv_light_v2_register_uvi_callback(TF_UVLightV2 *uv_light_v2, TF_UVLightV2UVIHandler handler, void *user_data);
+TF_ATTRIBUTE_NONNULL(1) int tf_uv_light_v2_register_uvi_callback(TF_UVLightV2 *uv_light_v2, TF_UVLightV2UVIHandler handler, void *user_data);
 #endif
 #ifdef TF_IMPLEMENT_CALLBACKS
 /**

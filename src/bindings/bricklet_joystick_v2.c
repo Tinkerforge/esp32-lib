@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-02-08.      *
+ * This file was automatically generated on 2021-10-04.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -68,6 +68,9 @@ static bool tf_joystick_v2_callback_handler(void *dev, uint8_t fid, TF_Packetbuf
 }
 #endif
 int tf_joystick_v2_create(TF_JoystickV2 *joystick_v2, const char *uid, TF_HalContext *hal) {
+    if (joystick_v2 == NULL || uid == NULL || hal == NULL)
+        return TF_E_NULL;
+
     memset(joystick_v2, 0, sizeof(TF_JoystickV2));
 
     uint32_t numeric_uid;
@@ -96,12 +99,18 @@ int tf_joystick_v2_create(TF_JoystickV2 *joystick_v2, const char *uid, TF_HalCon
 }
 
 int tf_joystick_v2_destroy(TF_JoystickV2 *joystick_v2) {
+    if (joystick_v2 == NULL)
+        return TF_E_NULL;
+
     int result = tf_tfp_destroy(joystick_v2->tfp);
     joystick_v2->tfp = NULL;
     return result;
 }
 
 int tf_joystick_v2_get_response_expected(TF_JoystickV2 *joystick_v2, uint8_t function_id, bool *ret_response_expected) {
+    if (joystick_v2 == NULL)
+        return TF_E_NULL;
+
     switch(function_id) {
         case TF_JOYSTICK_V2_FUNCTION_CALIBRATE:
             if(ret_response_expected != NULL)
@@ -199,6 +208,9 @@ void tf_joystick_v2_set_response_expected_all(TF_JoystickV2 *joystick_v2, bool r
 }
 
 int tf_joystick_v2_get_position(TF_JoystickV2 *joystick_v2, int16_t *ret_x, int16_t *ret_y) {
+    if (joystick_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(joystick_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -232,6 +244,9 @@ int tf_joystick_v2_get_position(TF_JoystickV2 *joystick_v2, int16_t *ret_x, int1
 }
 
 int tf_joystick_v2_is_pressed(TF_JoystickV2 *joystick_v2, bool *ret_pressed) {
+    if (joystick_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(joystick_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -264,6 +279,9 @@ int tf_joystick_v2_is_pressed(TF_JoystickV2 *joystick_v2, bool *ret_pressed) {
 }
 
 int tf_joystick_v2_calibrate(TF_JoystickV2 *joystick_v2) {
+    if (joystick_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(joystick_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -292,6 +310,9 @@ int tf_joystick_v2_calibrate(TF_JoystickV2 *joystick_v2) {
 }
 
 int tf_joystick_v2_set_position_callback_configuration(TF_JoystickV2 *joystick_v2, uint32_t period, bool value_has_to_change) {
+    if (joystick_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(joystick_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -325,6 +346,9 @@ int tf_joystick_v2_set_position_callback_configuration(TF_JoystickV2 *joystick_v
 }
 
 int tf_joystick_v2_get_position_callback_configuration(TF_JoystickV2 *joystick_v2, uint32_t *ret_period, bool *ret_value_has_to_change) {
+    if (joystick_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(joystick_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -358,6 +382,9 @@ int tf_joystick_v2_get_position_callback_configuration(TF_JoystickV2 *joystick_v
 }
 
 int tf_joystick_v2_set_pressed_callback_configuration(TF_JoystickV2 *joystick_v2, uint32_t period, bool value_has_to_change) {
+    if (joystick_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(joystick_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -391,6 +418,9 @@ int tf_joystick_v2_set_pressed_callback_configuration(TF_JoystickV2 *joystick_v2
 }
 
 int tf_joystick_v2_get_pressed_callback_configuration(TF_JoystickV2 *joystick_v2, uint32_t *ret_period, bool *ret_value_has_to_change) {
+    if (joystick_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(joystick_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -424,6 +454,9 @@ int tf_joystick_v2_get_pressed_callback_configuration(TF_JoystickV2 *joystick_v2
 }
 
 int tf_joystick_v2_get_spitfp_error_count(TF_JoystickV2 *joystick_v2, uint32_t *ret_error_count_ack_checksum, uint32_t *ret_error_count_message_checksum, uint32_t *ret_error_count_frame, uint32_t *ret_error_count_overflow) {
+    if (joystick_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(joystick_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -459,6 +492,9 @@ int tf_joystick_v2_get_spitfp_error_count(TF_JoystickV2 *joystick_v2, uint32_t *
 }
 
 int tf_joystick_v2_set_bootloader_mode(TF_JoystickV2 *joystick_v2, uint8_t mode, uint8_t *ret_status) {
+    if (joystick_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(joystick_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -495,6 +531,9 @@ int tf_joystick_v2_set_bootloader_mode(TF_JoystickV2 *joystick_v2, uint8_t mode,
 }
 
 int tf_joystick_v2_get_bootloader_mode(TF_JoystickV2 *joystick_v2, uint8_t *ret_mode) {
+    if (joystick_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(joystick_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -527,6 +566,9 @@ int tf_joystick_v2_get_bootloader_mode(TF_JoystickV2 *joystick_v2, uint8_t *ret_
 }
 
 int tf_joystick_v2_set_write_firmware_pointer(TF_JoystickV2 *joystick_v2, uint32_t pointer) {
+    if (joystick_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(joystick_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -559,6 +601,9 @@ int tf_joystick_v2_set_write_firmware_pointer(TF_JoystickV2 *joystick_v2, uint32
 }
 
 int tf_joystick_v2_write_firmware(TF_JoystickV2 *joystick_v2, uint8_t data[64], uint8_t *ret_status) {
+    if (joystick_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(joystick_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -595,6 +640,9 @@ int tf_joystick_v2_write_firmware(TF_JoystickV2 *joystick_v2, uint8_t data[64], 
 }
 
 int tf_joystick_v2_set_status_led_config(TF_JoystickV2 *joystick_v2, uint8_t config) {
+    if (joystick_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(joystick_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -627,6 +675,9 @@ int tf_joystick_v2_set_status_led_config(TF_JoystickV2 *joystick_v2, uint8_t con
 }
 
 int tf_joystick_v2_get_status_led_config(TF_JoystickV2 *joystick_v2, uint8_t *ret_config) {
+    if (joystick_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(joystick_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -659,6 +710,9 @@ int tf_joystick_v2_get_status_led_config(TF_JoystickV2 *joystick_v2, uint8_t *re
 }
 
 int tf_joystick_v2_get_chip_temperature(TF_JoystickV2 *joystick_v2, int16_t *ret_temperature) {
+    if (joystick_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(joystick_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -691,6 +745,9 @@ int tf_joystick_v2_get_chip_temperature(TF_JoystickV2 *joystick_v2, int16_t *ret
 }
 
 int tf_joystick_v2_reset(TF_JoystickV2 *joystick_v2) {
+    if (joystick_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(joystick_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -719,6 +776,9 @@ int tf_joystick_v2_reset(TF_JoystickV2 *joystick_v2) {
 }
 
 int tf_joystick_v2_write_uid(TF_JoystickV2 *joystick_v2, uint32_t uid) {
+    if (joystick_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(joystick_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -751,6 +811,9 @@ int tf_joystick_v2_write_uid(TF_JoystickV2 *joystick_v2, uint32_t uid) {
 }
 
 int tf_joystick_v2_read_uid(TF_JoystickV2 *joystick_v2, uint32_t *ret_uid) {
+    if (joystick_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(joystick_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -783,6 +846,9 @@ int tf_joystick_v2_read_uid(TF_JoystickV2 *joystick_v2, uint32_t *ret_uid) {
 }
 
 int tf_joystick_v2_get_identity(TF_JoystickV2 *joystick_v2, char ret_uid[8], char ret_connected_uid[8], char *ret_position, uint8_t ret_hardware_version[3], uint8_t ret_firmware_version[3], uint16_t *ret_device_identifier) {
+    if (joystick_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(joystick_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -827,7 +893,10 @@ int tf_joystick_v2_get_identity(TF_JoystickV2 *joystick_v2, char ret_uid[8], cha
     return tf_tfp_get_error(error_code);
 }
 #ifdef TF_IMPLEMENT_CALLBACKS
-void tf_joystick_v2_register_position_callback(TF_JoystickV2 *joystick_v2, TF_JoystickV2PositionHandler handler, void *user_data) {
+int tf_joystick_v2_register_position_callback(TF_JoystickV2 *joystick_v2, TF_JoystickV2PositionHandler handler, void *user_data) {
+    if (joystick_v2 == NULL)
+        return TF_E_NULL;
+
     if (handler == NULL) {
         joystick_v2->tfp->needs_callback_tick = false;
         joystick_v2->tfp->needs_callback_tick |= joystick_v2->pressed_handler != NULL;
@@ -836,10 +905,14 @@ void tf_joystick_v2_register_position_callback(TF_JoystickV2 *joystick_v2, TF_Jo
     }
     joystick_v2->position_handler = handler;
     joystick_v2->position_user_data = user_data;
+    return TF_E_OK;
 }
 
 
-void tf_joystick_v2_register_pressed_callback(TF_JoystickV2 *joystick_v2, TF_JoystickV2PressedHandler handler, void *user_data) {
+int tf_joystick_v2_register_pressed_callback(TF_JoystickV2 *joystick_v2, TF_JoystickV2PressedHandler handler, void *user_data) {
+    if (joystick_v2 == NULL)
+        return TF_E_NULL;
+
     if (handler == NULL) {
         joystick_v2->tfp->needs_callback_tick = false;
         joystick_v2->tfp->needs_callback_tick |= joystick_v2->position_handler != NULL;
@@ -848,9 +921,13 @@ void tf_joystick_v2_register_pressed_callback(TF_JoystickV2 *joystick_v2, TF_Joy
     }
     joystick_v2->pressed_handler = handler;
     joystick_v2->pressed_user_data = user_data;
+    return TF_E_OK;
 }
 #endif
 int tf_joystick_v2_callback_tick(TF_JoystickV2 *joystick_v2, uint32_t timeout_us) {
+    if (joystick_v2 == NULL)
+        return TF_E_NULL;
+
     return tf_tfp_callback_tick(joystick_v2->tfp, tf_hal_current_time_us(joystick_v2->tfp->hal) + timeout_us);
 }
 

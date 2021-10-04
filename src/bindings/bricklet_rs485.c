@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-02-08.      *
+ * This file was automatically generated on 2021-10-04.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -348,6 +348,9 @@ static bool tf_rs485_callback_handler(void *dev, uint8_t fid, TF_Packetbuffer *p
 }
 #endif
 int tf_rs485_create(TF_RS485 *rs485, const char *uid, TF_HalContext *hal) {
+    if (rs485 == NULL || uid == NULL || hal == NULL)
+        return TF_E_NULL;
+
     memset(rs485, 0, sizeof(TF_RS485));
 
     uint32_t numeric_uid;
@@ -378,12 +381,18 @@ int tf_rs485_create(TF_RS485 *rs485, const char *uid, TF_HalContext *hal) {
 }
 
 int tf_rs485_destroy(TF_RS485 *rs485) {
+    if (rs485 == NULL)
+        return TF_E_NULL;
+
     int result = tf_tfp_destroy(rs485->tfp);
     rs485->tfp = NULL;
     return result;
 }
 
 int tf_rs485_get_response_expected(TF_RS485 *rs485, uint8_t function_id, bool *ret_response_expected) {
+    if (rs485 == NULL)
+        return TF_E_NULL;
+
     switch(function_id) {
         case TF_RS485_FUNCTION_ENABLE_READ_CALLBACK:
             if(ret_response_expected != NULL)
@@ -668,6 +677,9 @@ void tf_rs485_set_response_expected_all(TF_RS485 *rs485, bool response_expected)
 }
 
 int tf_rs485_write_low_level(TF_RS485 *rs485, uint16_t message_length, uint16_t message_chunk_offset, char message_chunk_data[60], uint8_t *ret_message_chunk_written) {
+    if (rs485 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(rs485->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -706,6 +718,9 @@ int tf_rs485_write_low_level(TF_RS485 *rs485, uint16_t message_length, uint16_t 
 }
 
 int tf_rs485_read_low_level(TF_RS485 *rs485, uint16_t length, uint16_t *ret_message_length, uint16_t *ret_message_chunk_offset, char ret_message_chunk_data[60]) {
+    if (rs485 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(rs485->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -745,6 +760,9 @@ int tf_rs485_read_low_level(TF_RS485 *rs485, uint16_t length, uint16_t *ret_mess
 }
 
 int tf_rs485_enable_read_callback(TF_RS485 *rs485) {
+    if (rs485 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(rs485->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -773,6 +791,9 @@ int tf_rs485_enable_read_callback(TF_RS485 *rs485) {
 }
 
 int tf_rs485_disable_read_callback(TF_RS485 *rs485) {
+    if (rs485 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(rs485->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -801,6 +822,9 @@ int tf_rs485_disable_read_callback(TF_RS485 *rs485) {
 }
 
 int tf_rs485_is_read_callback_enabled(TF_RS485 *rs485, bool *ret_enabled) {
+    if (rs485 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(rs485->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -833,6 +857,9 @@ int tf_rs485_is_read_callback_enabled(TF_RS485 *rs485, bool *ret_enabled) {
 }
 
 int tf_rs485_set_rs485_configuration(TF_RS485 *rs485, uint32_t baudrate, uint8_t parity, uint8_t stopbits, uint8_t wordlength, uint8_t duplex) {
+    if (rs485 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(rs485->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -869,6 +896,9 @@ int tf_rs485_set_rs485_configuration(TF_RS485 *rs485, uint32_t baudrate, uint8_t
 }
 
 int tf_rs485_get_rs485_configuration(TF_RS485 *rs485, uint32_t *ret_baudrate, uint8_t *ret_parity, uint8_t *ret_stopbits, uint8_t *ret_wordlength, uint8_t *ret_duplex) {
+    if (rs485 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(rs485->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -905,6 +935,9 @@ int tf_rs485_get_rs485_configuration(TF_RS485 *rs485, uint32_t *ret_baudrate, ui
 }
 
 int tf_rs485_set_modbus_configuration(TF_RS485 *rs485, uint8_t slave_address, uint32_t master_request_timeout) {
+    if (rs485 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(rs485->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -938,6 +971,9 @@ int tf_rs485_set_modbus_configuration(TF_RS485 *rs485, uint8_t slave_address, ui
 }
 
 int tf_rs485_get_modbus_configuration(TF_RS485 *rs485, uint8_t *ret_slave_address, uint32_t *ret_master_request_timeout) {
+    if (rs485 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(rs485->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -971,6 +1007,9 @@ int tf_rs485_get_modbus_configuration(TF_RS485 *rs485, uint8_t *ret_slave_addres
 }
 
 int tf_rs485_set_mode(TF_RS485 *rs485, uint8_t mode) {
+    if (rs485 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(rs485->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1003,6 +1042,9 @@ int tf_rs485_set_mode(TF_RS485 *rs485, uint8_t mode) {
 }
 
 int tf_rs485_get_mode(TF_RS485 *rs485, uint8_t *ret_mode) {
+    if (rs485 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(rs485->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1035,6 +1077,9 @@ int tf_rs485_get_mode(TF_RS485 *rs485, uint8_t *ret_mode) {
 }
 
 int tf_rs485_set_communication_led_config(TF_RS485 *rs485, uint8_t config) {
+    if (rs485 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(rs485->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1067,6 +1112,9 @@ int tf_rs485_set_communication_led_config(TF_RS485 *rs485, uint8_t config) {
 }
 
 int tf_rs485_get_communication_led_config(TF_RS485 *rs485, uint8_t *ret_config) {
+    if (rs485 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(rs485->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1099,6 +1147,9 @@ int tf_rs485_get_communication_led_config(TF_RS485 *rs485, uint8_t *ret_config) 
 }
 
 int tf_rs485_set_error_led_config(TF_RS485 *rs485, uint8_t config) {
+    if (rs485 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(rs485->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1131,6 +1182,9 @@ int tf_rs485_set_error_led_config(TF_RS485 *rs485, uint8_t config) {
 }
 
 int tf_rs485_get_error_led_config(TF_RS485 *rs485, uint8_t *ret_config) {
+    if (rs485 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(rs485->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1163,6 +1217,9 @@ int tf_rs485_get_error_led_config(TF_RS485 *rs485, uint8_t *ret_config) {
 }
 
 int tf_rs485_set_buffer_config(TF_RS485 *rs485, uint16_t send_buffer_size, uint16_t receive_buffer_size) {
+    if (rs485 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(rs485->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1196,6 +1253,9 @@ int tf_rs485_set_buffer_config(TF_RS485 *rs485, uint16_t send_buffer_size, uint1
 }
 
 int tf_rs485_get_buffer_config(TF_RS485 *rs485, uint16_t *ret_send_buffer_size, uint16_t *ret_receive_buffer_size) {
+    if (rs485 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(rs485->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1229,6 +1289,9 @@ int tf_rs485_get_buffer_config(TF_RS485 *rs485, uint16_t *ret_send_buffer_size, 
 }
 
 int tf_rs485_get_buffer_status(TF_RS485 *rs485, uint16_t *ret_send_buffer_used, uint16_t *ret_receive_buffer_used) {
+    if (rs485 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(rs485->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1262,6 +1325,9 @@ int tf_rs485_get_buffer_status(TF_RS485 *rs485, uint16_t *ret_send_buffer_used, 
 }
 
 int tf_rs485_enable_error_count_callback(TF_RS485 *rs485) {
+    if (rs485 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(rs485->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1290,6 +1356,9 @@ int tf_rs485_enable_error_count_callback(TF_RS485 *rs485) {
 }
 
 int tf_rs485_disable_error_count_callback(TF_RS485 *rs485) {
+    if (rs485 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(rs485->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1318,6 +1387,9 @@ int tf_rs485_disable_error_count_callback(TF_RS485 *rs485) {
 }
 
 int tf_rs485_is_error_count_callback_enabled(TF_RS485 *rs485, bool *ret_enabled) {
+    if (rs485 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(rs485->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1350,6 +1422,9 @@ int tf_rs485_is_error_count_callback_enabled(TF_RS485 *rs485, bool *ret_enabled)
 }
 
 int tf_rs485_get_error_count(TF_RS485 *rs485, uint32_t *ret_overrun_error_count, uint32_t *ret_parity_error_count) {
+    if (rs485 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(rs485->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1383,6 +1458,9 @@ int tf_rs485_get_error_count(TF_RS485 *rs485, uint32_t *ret_overrun_error_count,
 }
 
 int tf_rs485_get_modbus_common_error_count(TF_RS485 *rs485, uint32_t *ret_timeout_error_count, uint32_t *ret_checksum_error_count, uint32_t *ret_frame_too_big_error_count, uint32_t *ret_illegal_function_error_count, uint32_t *ret_illegal_data_address_error_count, uint32_t *ret_illegal_data_value_error_count, uint32_t *ret_slave_device_failure_error_count) {
+    if (rs485 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(rs485->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1421,6 +1499,9 @@ int tf_rs485_get_modbus_common_error_count(TF_RS485 *rs485, uint32_t *ret_timeou
 }
 
 int tf_rs485_modbus_slave_report_exception(TF_RS485 *rs485, uint8_t request_id, int8_t exception_code) {
+    if (rs485 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(rs485->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1454,6 +1535,9 @@ int tf_rs485_modbus_slave_report_exception(TF_RS485 *rs485, uint8_t request_id, 
 }
 
 int tf_rs485_modbus_slave_answer_read_coils_request_low_level(TF_RS485 *rs485, uint8_t request_id, uint16_t coils_length, uint16_t coils_chunk_offset, bool coils_chunk_data[472]) {
+    if (rs485 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(rs485->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1490,6 +1574,9 @@ int tf_rs485_modbus_slave_answer_read_coils_request_low_level(TF_RS485 *rs485, u
 }
 
 int tf_rs485_modbus_master_read_coils(TF_RS485 *rs485, uint8_t slave_address, uint32_t starting_address, uint16_t count, uint8_t *ret_request_id) {
+    if (rs485 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(rs485->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1528,6 +1615,9 @@ int tf_rs485_modbus_master_read_coils(TF_RS485 *rs485, uint8_t slave_address, ui
 }
 
 int tf_rs485_modbus_slave_answer_read_holding_registers_request_low_level(TF_RS485 *rs485, uint8_t request_id, uint16_t holding_registers_length, uint16_t holding_registers_chunk_offset, uint16_t holding_registers_chunk_data[29]) {
+    if (rs485 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(rs485->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1564,6 +1654,9 @@ int tf_rs485_modbus_slave_answer_read_holding_registers_request_low_level(TF_RS4
 }
 
 int tf_rs485_modbus_master_read_holding_registers(TF_RS485 *rs485, uint8_t slave_address, uint32_t starting_address, uint16_t count, uint8_t *ret_request_id) {
+    if (rs485 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(rs485->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1602,6 +1695,9 @@ int tf_rs485_modbus_master_read_holding_registers(TF_RS485 *rs485, uint8_t slave
 }
 
 int tf_rs485_modbus_slave_answer_write_single_coil_request(TF_RS485 *rs485, uint8_t request_id) {
+    if (rs485 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(rs485->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1634,6 +1730,9 @@ int tf_rs485_modbus_slave_answer_write_single_coil_request(TF_RS485 *rs485, uint
 }
 
 int tf_rs485_modbus_master_write_single_coil(TF_RS485 *rs485, uint8_t slave_address, uint32_t coil_address, bool coil_value, uint8_t *ret_request_id) {
+    if (rs485 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(rs485->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1672,6 +1771,9 @@ int tf_rs485_modbus_master_write_single_coil(TF_RS485 *rs485, uint8_t slave_addr
 }
 
 int tf_rs485_modbus_slave_answer_write_single_register_request(TF_RS485 *rs485, uint8_t request_id) {
+    if (rs485 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(rs485->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1704,6 +1806,9 @@ int tf_rs485_modbus_slave_answer_write_single_register_request(TF_RS485 *rs485, 
 }
 
 int tf_rs485_modbus_master_write_single_register(TF_RS485 *rs485, uint8_t slave_address, uint32_t register_address, uint16_t register_value, uint8_t *ret_request_id) {
+    if (rs485 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(rs485->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1742,6 +1847,9 @@ int tf_rs485_modbus_master_write_single_register(TF_RS485 *rs485, uint8_t slave_
 }
 
 int tf_rs485_modbus_slave_answer_write_multiple_coils_request(TF_RS485 *rs485, uint8_t request_id) {
+    if (rs485 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(rs485->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1774,6 +1882,9 @@ int tf_rs485_modbus_slave_answer_write_multiple_coils_request(TF_RS485 *rs485, u
 }
 
 int tf_rs485_modbus_master_write_multiple_coils_low_level(TF_RS485 *rs485, uint8_t slave_address, uint32_t starting_address, uint16_t coils_length, uint16_t coils_chunk_offset, bool coils_chunk_data[440], uint8_t *ret_request_id) {
+    if (rs485 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(rs485->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1815,6 +1926,9 @@ int tf_rs485_modbus_master_write_multiple_coils_low_level(TF_RS485 *rs485, uint8
 }
 
 int tf_rs485_modbus_slave_answer_write_multiple_registers_request(TF_RS485 *rs485, uint8_t request_id) {
+    if (rs485 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(rs485->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1847,6 +1961,9 @@ int tf_rs485_modbus_slave_answer_write_multiple_registers_request(TF_RS485 *rs48
 }
 
 int tf_rs485_modbus_master_write_multiple_registers_low_level(TF_RS485 *rs485, uint8_t slave_address, uint32_t starting_address, uint16_t registers_length, uint16_t registers_chunk_offset, uint16_t registers_chunk_data[27], uint8_t *ret_request_id) {
+    if (rs485 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(rs485->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1888,6 +2005,9 @@ int tf_rs485_modbus_master_write_multiple_registers_low_level(TF_RS485 *rs485, u
 }
 
 int tf_rs485_modbus_slave_answer_read_discrete_inputs_request_low_level(TF_RS485 *rs485, uint8_t request_id, uint16_t discrete_inputs_length, uint16_t discrete_inputs_chunk_offset, bool discrete_inputs_chunk_data[472]) {
+    if (rs485 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(rs485->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1924,6 +2044,9 @@ int tf_rs485_modbus_slave_answer_read_discrete_inputs_request_low_level(TF_RS485
 }
 
 int tf_rs485_modbus_master_read_discrete_inputs(TF_RS485 *rs485, uint8_t slave_address, uint32_t starting_address, uint16_t count, uint8_t *ret_request_id) {
+    if (rs485 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(rs485->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1962,6 +2085,9 @@ int tf_rs485_modbus_master_read_discrete_inputs(TF_RS485 *rs485, uint8_t slave_a
 }
 
 int tf_rs485_modbus_slave_answer_read_input_registers_request_low_level(TF_RS485 *rs485, uint8_t request_id, uint16_t input_registers_length, uint16_t input_registers_chunk_offset, uint16_t input_registers_chunk_data[29]) {
+    if (rs485 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(rs485->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1998,6 +2124,9 @@ int tf_rs485_modbus_slave_answer_read_input_registers_request_low_level(TF_RS485
 }
 
 int tf_rs485_modbus_master_read_input_registers(TF_RS485 *rs485, uint8_t slave_address, uint32_t starting_address, uint16_t count, uint8_t *ret_request_id) {
+    if (rs485 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(rs485->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -2036,6 +2165,9 @@ int tf_rs485_modbus_master_read_input_registers(TF_RS485 *rs485, uint8_t slave_a
 }
 
 int tf_rs485_set_frame_readable_callback_configuration(TF_RS485 *rs485, uint16_t frame_size) {
+    if (rs485 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(rs485->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -2068,6 +2200,9 @@ int tf_rs485_set_frame_readable_callback_configuration(TF_RS485 *rs485, uint16_t
 }
 
 int tf_rs485_get_frame_readable_callback_configuration(TF_RS485 *rs485, uint16_t *ret_frame_size) {
+    if (rs485 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(rs485->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -2100,6 +2235,9 @@ int tf_rs485_get_frame_readable_callback_configuration(TF_RS485 *rs485, uint16_t
 }
 
 int tf_rs485_get_spitfp_error_count(TF_RS485 *rs485, uint32_t *ret_error_count_ack_checksum, uint32_t *ret_error_count_message_checksum, uint32_t *ret_error_count_frame, uint32_t *ret_error_count_overflow) {
+    if (rs485 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(rs485->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -2135,6 +2273,9 @@ int tf_rs485_get_spitfp_error_count(TF_RS485 *rs485, uint32_t *ret_error_count_a
 }
 
 int tf_rs485_set_bootloader_mode(TF_RS485 *rs485, uint8_t mode, uint8_t *ret_status) {
+    if (rs485 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(rs485->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -2171,6 +2312,9 @@ int tf_rs485_set_bootloader_mode(TF_RS485 *rs485, uint8_t mode, uint8_t *ret_sta
 }
 
 int tf_rs485_get_bootloader_mode(TF_RS485 *rs485, uint8_t *ret_mode) {
+    if (rs485 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(rs485->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -2203,6 +2347,9 @@ int tf_rs485_get_bootloader_mode(TF_RS485 *rs485, uint8_t *ret_mode) {
 }
 
 int tf_rs485_set_write_firmware_pointer(TF_RS485 *rs485, uint32_t pointer) {
+    if (rs485 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(rs485->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -2235,6 +2382,9 @@ int tf_rs485_set_write_firmware_pointer(TF_RS485 *rs485, uint32_t pointer) {
 }
 
 int tf_rs485_write_firmware(TF_RS485 *rs485, uint8_t data[64], uint8_t *ret_status) {
+    if (rs485 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(rs485->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -2271,6 +2421,9 @@ int tf_rs485_write_firmware(TF_RS485 *rs485, uint8_t data[64], uint8_t *ret_stat
 }
 
 int tf_rs485_set_status_led_config(TF_RS485 *rs485, uint8_t config) {
+    if (rs485 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(rs485->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -2303,6 +2456,9 @@ int tf_rs485_set_status_led_config(TF_RS485 *rs485, uint8_t config) {
 }
 
 int tf_rs485_get_status_led_config(TF_RS485 *rs485, uint8_t *ret_config) {
+    if (rs485 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(rs485->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -2335,6 +2491,9 @@ int tf_rs485_get_status_led_config(TF_RS485 *rs485, uint8_t *ret_config) {
 }
 
 int tf_rs485_get_chip_temperature(TF_RS485 *rs485, int16_t *ret_temperature) {
+    if (rs485 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(rs485->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -2367,6 +2526,9 @@ int tf_rs485_get_chip_temperature(TF_RS485 *rs485, int16_t *ret_temperature) {
 }
 
 int tf_rs485_reset(TF_RS485 *rs485) {
+    if (rs485 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(rs485->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -2395,6 +2557,9 @@ int tf_rs485_reset(TF_RS485 *rs485) {
 }
 
 int tf_rs485_write_uid(TF_RS485 *rs485, uint32_t uid) {
+    if (rs485 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(rs485->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -2427,6 +2592,9 @@ int tf_rs485_write_uid(TF_RS485 *rs485, uint32_t uid) {
 }
 
 int tf_rs485_read_uid(TF_RS485 *rs485, uint32_t *ret_uid) {
+    if (rs485 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(rs485->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -2459,6 +2627,9 @@ int tf_rs485_read_uid(TF_RS485 *rs485, uint32_t *ret_uid) {
 }
 
 int tf_rs485_get_identity(TF_RS485 *rs485, char ret_uid[8], char ret_connected_uid[8], char *ret_position, uint8_t ret_hardware_version[3], uint8_t ret_firmware_version[3], uint16_t *ret_device_identifier) {
+    if (rs485 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(rs485->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -2504,6 +2675,9 @@ int tf_rs485_get_identity(TF_RS485 *rs485, char ret_uid[8], char ret_connected_u
 }
 
 int tf_rs485_write(TF_RS485 *rs485, const char *message, uint16_t message_length, uint16_t *ret_message_written) {
+    if (rs485 == NULL)
+        return TF_E_NULL;
+
     int ret = TF_E_OK;
     uint16_t message_chunk_offset = 0;
     char message_chunk_data[60];
@@ -2557,6 +2731,9 @@ int tf_rs485_write(TF_RS485 *rs485, const char *message, uint16_t message_length
 }
 
 int tf_rs485_read(TF_RS485 *rs485, uint16_t length, char *ret_message, uint16_t *ret_message_length) {
+    if (rs485 == NULL)
+        return TF_E_NULL;
+
     int ret = TF_E_OK;
     uint16_t message_length = 0;
     uint16_t message_chunk_offset = 0;
@@ -2627,6 +2804,9 @@ int tf_rs485_read(TF_RS485 *rs485, uint16_t length, char *ret_message, uint16_t 
 }
 
 int tf_rs485_modbus_slave_answer_read_coils_request(TF_RS485 *rs485, uint8_t request_id, bool *coils, uint16_t coils_length) {
+    if (rs485 == NULL)
+        return TF_E_NULL;
+
     int ret = TF_E_OK;
     uint16_t coils_chunk_offset = 0;
     bool coils_chunk_data[472];
@@ -2663,6 +2843,9 @@ int tf_rs485_modbus_slave_answer_read_coils_request(TF_RS485 *rs485, uint8_t req
 }
 
 int tf_rs485_modbus_slave_answer_read_holding_registers_request(TF_RS485 *rs485, uint8_t request_id, uint16_t *holding_registers, uint16_t holding_registers_length) {
+    if (rs485 == NULL)
+        return TF_E_NULL;
+
     int ret = TF_E_OK;
     uint16_t holding_registers_chunk_offset = 0;
     uint16_t holding_registers_chunk_data[29];
@@ -2699,6 +2882,9 @@ int tf_rs485_modbus_slave_answer_read_holding_registers_request(TF_RS485 *rs485,
 }
 
 int tf_rs485_modbus_master_write_multiple_coils(TF_RS485 *rs485, uint8_t slave_address, uint32_t starting_address, bool *coils, uint16_t coils_length, uint8_t *ret_request_id) {
+    if (rs485 == NULL)
+        return TF_E_NULL;
+
     int ret = TF_E_OK;
     uint16_t coils_chunk_offset = 0;
     bool coils_chunk_data[440];
@@ -2735,6 +2921,9 @@ int tf_rs485_modbus_master_write_multiple_coils(TF_RS485 *rs485, uint8_t slave_a
 }
 
 int tf_rs485_modbus_master_write_multiple_registers(TF_RS485 *rs485, uint8_t slave_address, uint32_t starting_address, uint16_t *registers, uint16_t registers_length, uint8_t *ret_request_id) {
+    if (rs485 == NULL)
+        return TF_E_NULL;
+
     int ret = TF_E_OK;
     uint16_t registers_chunk_offset = 0;
     uint16_t registers_chunk_data[27];
@@ -2771,6 +2960,9 @@ int tf_rs485_modbus_master_write_multiple_registers(TF_RS485 *rs485, uint8_t sla
 }
 
 int tf_rs485_modbus_slave_answer_read_discrete_inputs_request(TF_RS485 *rs485, uint8_t request_id, bool *discrete_inputs, uint16_t discrete_inputs_length) {
+    if (rs485 == NULL)
+        return TF_E_NULL;
+
     int ret = TF_E_OK;
     uint16_t discrete_inputs_chunk_offset = 0;
     bool discrete_inputs_chunk_data[472];
@@ -2807,6 +2999,9 @@ int tf_rs485_modbus_slave_answer_read_discrete_inputs_request(TF_RS485 *rs485, u
 }
 
 int tf_rs485_modbus_slave_answer_read_input_registers_request(TF_RS485 *rs485, uint8_t request_id, uint16_t *input_registers, uint16_t input_registers_length) {
+    if (rs485 == NULL)
+        return TF_E_NULL;
+
     int ret = TF_E_OK;
     uint16_t input_registers_chunk_offset = 0;
     uint16_t input_registers_chunk_data[29];
@@ -2842,7 +3037,10 @@ int tf_rs485_modbus_slave_answer_read_input_registers_request(TF_RS485 *rs485, u
     return ret;
 }
 #ifdef TF_IMPLEMENT_CALLBACKS
-void tf_rs485_register_read_low_level_callback(TF_RS485 *rs485, TF_RS485ReadLowLevelHandler handler, void *user_data) {
+int tf_rs485_register_read_low_level_callback(TF_RS485 *rs485, TF_RS485ReadLowLevelHandler handler, void *user_data) {
+    if (rs485 == NULL)
+        return TF_E_NULL;
+
     if (handler == NULL) {
         rs485->tfp->needs_callback_tick = false;
         rs485->tfp->needs_callback_tick |= rs485->error_count_handler != NULL;
@@ -2868,10 +3066,14 @@ void tf_rs485_register_read_low_level_callback(TF_RS485 *rs485, TF_RS485ReadLowL
     }
     rs485->read_low_level_handler = handler;
     rs485->read_low_level_user_data = user_data;
+    return TF_E_OK;
 }
 
 
-void tf_rs485_register_error_count_callback(TF_RS485 *rs485, TF_RS485ErrorCountHandler handler, void *user_data) {
+int tf_rs485_register_error_count_callback(TF_RS485 *rs485, TF_RS485ErrorCountHandler handler, void *user_data) {
+    if (rs485 == NULL)
+        return TF_E_NULL;
+
     if (handler == NULL) {
         rs485->tfp->needs_callback_tick = false;
         rs485->tfp->needs_callback_tick |= rs485->read_low_level_handler != NULL;
@@ -2897,10 +3099,14 @@ void tf_rs485_register_error_count_callback(TF_RS485 *rs485, TF_RS485ErrorCountH
     }
     rs485->error_count_handler = handler;
     rs485->error_count_user_data = user_data;
+    return TF_E_OK;
 }
 
 
-void tf_rs485_register_modbus_slave_read_coils_request_callback(TF_RS485 *rs485, TF_RS485ModbusSlaveReadCoilsRequestHandler handler, void *user_data) {
+int tf_rs485_register_modbus_slave_read_coils_request_callback(TF_RS485 *rs485, TF_RS485ModbusSlaveReadCoilsRequestHandler handler, void *user_data) {
+    if (rs485 == NULL)
+        return TF_E_NULL;
+
     if (handler == NULL) {
         rs485->tfp->needs_callback_tick = false;
         rs485->tfp->needs_callback_tick |= rs485->read_low_level_handler != NULL;
@@ -2926,10 +3132,14 @@ void tf_rs485_register_modbus_slave_read_coils_request_callback(TF_RS485 *rs485,
     }
     rs485->modbus_slave_read_coils_request_handler = handler;
     rs485->modbus_slave_read_coils_request_user_data = user_data;
+    return TF_E_OK;
 }
 
 
-void tf_rs485_register_modbus_master_read_coils_response_low_level_callback(TF_RS485 *rs485, TF_RS485ModbusMasterReadCoilsResponseLowLevelHandler handler, void *user_data) {
+int tf_rs485_register_modbus_master_read_coils_response_low_level_callback(TF_RS485 *rs485, TF_RS485ModbusMasterReadCoilsResponseLowLevelHandler handler, void *user_data) {
+    if (rs485 == NULL)
+        return TF_E_NULL;
+
     if (handler == NULL) {
         rs485->tfp->needs_callback_tick = false;
         rs485->tfp->needs_callback_tick |= rs485->read_low_level_handler != NULL;
@@ -2955,10 +3165,14 @@ void tf_rs485_register_modbus_master_read_coils_response_low_level_callback(TF_R
     }
     rs485->modbus_master_read_coils_response_low_level_handler = handler;
     rs485->modbus_master_read_coils_response_low_level_user_data = user_data;
+    return TF_E_OK;
 }
 
 
-void tf_rs485_register_modbus_slave_read_holding_registers_request_callback(TF_RS485 *rs485, TF_RS485ModbusSlaveReadHoldingRegistersRequestHandler handler, void *user_data) {
+int tf_rs485_register_modbus_slave_read_holding_registers_request_callback(TF_RS485 *rs485, TF_RS485ModbusSlaveReadHoldingRegistersRequestHandler handler, void *user_data) {
+    if (rs485 == NULL)
+        return TF_E_NULL;
+
     if (handler == NULL) {
         rs485->tfp->needs_callback_tick = false;
         rs485->tfp->needs_callback_tick |= rs485->read_low_level_handler != NULL;
@@ -2984,10 +3198,14 @@ void tf_rs485_register_modbus_slave_read_holding_registers_request_callback(TF_R
     }
     rs485->modbus_slave_read_holding_registers_request_handler = handler;
     rs485->modbus_slave_read_holding_registers_request_user_data = user_data;
+    return TF_E_OK;
 }
 
 
-void tf_rs485_register_modbus_master_read_holding_registers_response_low_level_callback(TF_RS485 *rs485, TF_RS485ModbusMasterReadHoldingRegistersResponseLowLevelHandler handler, void *user_data) {
+int tf_rs485_register_modbus_master_read_holding_registers_response_low_level_callback(TF_RS485 *rs485, TF_RS485ModbusMasterReadHoldingRegistersResponseLowLevelHandler handler, void *user_data) {
+    if (rs485 == NULL)
+        return TF_E_NULL;
+
     if (handler == NULL) {
         rs485->tfp->needs_callback_tick = false;
         rs485->tfp->needs_callback_tick |= rs485->read_low_level_handler != NULL;
@@ -3013,10 +3231,14 @@ void tf_rs485_register_modbus_master_read_holding_registers_response_low_level_c
     }
     rs485->modbus_master_read_holding_registers_response_low_level_handler = handler;
     rs485->modbus_master_read_holding_registers_response_low_level_user_data = user_data;
+    return TF_E_OK;
 }
 
 
-void tf_rs485_register_modbus_slave_write_single_coil_request_callback(TF_RS485 *rs485, TF_RS485ModbusSlaveWriteSingleCoilRequestHandler handler, void *user_data) {
+int tf_rs485_register_modbus_slave_write_single_coil_request_callback(TF_RS485 *rs485, TF_RS485ModbusSlaveWriteSingleCoilRequestHandler handler, void *user_data) {
+    if (rs485 == NULL)
+        return TF_E_NULL;
+
     if (handler == NULL) {
         rs485->tfp->needs_callback_tick = false;
         rs485->tfp->needs_callback_tick |= rs485->read_low_level_handler != NULL;
@@ -3042,10 +3264,14 @@ void tf_rs485_register_modbus_slave_write_single_coil_request_callback(TF_RS485 
     }
     rs485->modbus_slave_write_single_coil_request_handler = handler;
     rs485->modbus_slave_write_single_coil_request_user_data = user_data;
+    return TF_E_OK;
 }
 
 
-void tf_rs485_register_modbus_master_write_single_coil_response_callback(TF_RS485 *rs485, TF_RS485ModbusMasterWriteSingleCoilResponseHandler handler, void *user_data) {
+int tf_rs485_register_modbus_master_write_single_coil_response_callback(TF_RS485 *rs485, TF_RS485ModbusMasterWriteSingleCoilResponseHandler handler, void *user_data) {
+    if (rs485 == NULL)
+        return TF_E_NULL;
+
     if (handler == NULL) {
         rs485->tfp->needs_callback_tick = false;
         rs485->tfp->needs_callback_tick |= rs485->read_low_level_handler != NULL;
@@ -3071,10 +3297,14 @@ void tf_rs485_register_modbus_master_write_single_coil_response_callback(TF_RS48
     }
     rs485->modbus_master_write_single_coil_response_handler = handler;
     rs485->modbus_master_write_single_coil_response_user_data = user_data;
+    return TF_E_OK;
 }
 
 
-void tf_rs485_register_modbus_slave_write_single_register_request_callback(TF_RS485 *rs485, TF_RS485ModbusSlaveWriteSingleRegisterRequestHandler handler, void *user_data) {
+int tf_rs485_register_modbus_slave_write_single_register_request_callback(TF_RS485 *rs485, TF_RS485ModbusSlaveWriteSingleRegisterRequestHandler handler, void *user_data) {
+    if (rs485 == NULL)
+        return TF_E_NULL;
+
     if (handler == NULL) {
         rs485->tfp->needs_callback_tick = false;
         rs485->tfp->needs_callback_tick |= rs485->read_low_level_handler != NULL;
@@ -3100,10 +3330,14 @@ void tf_rs485_register_modbus_slave_write_single_register_request_callback(TF_RS
     }
     rs485->modbus_slave_write_single_register_request_handler = handler;
     rs485->modbus_slave_write_single_register_request_user_data = user_data;
+    return TF_E_OK;
 }
 
 
-void tf_rs485_register_modbus_master_write_single_register_response_callback(TF_RS485 *rs485, TF_RS485ModbusMasterWriteSingleRegisterResponseHandler handler, void *user_data) {
+int tf_rs485_register_modbus_master_write_single_register_response_callback(TF_RS485 *rs485, TF_RS485ModbusMasterWriteSingleRegisterResponseHandler handler, void *user_data) {
+    if (rs485 == NULL)
+        return TF_E_NULL;
+
     if (handler == NULL) {
         rs485->tfp->needs_callback_tick = false;
         rs485->tfp->needs_callback_tick |= rs485->read_low_level_handler != NULL;
@@ -3129,10 +3363,14 @@ void tf_rs485_register_modbus_master_write_single_register_response_callback(TF_
     }
     rs485->modbus_master_write_single_register_response_handler = handler;
     rs485->modbus_master_write_single_register_response_user_data = user_data;
+    return TF_E_OK;
 }
 
 
-void tf_rs485_register_modbus_slave_write_multiple_coils_request_low_level_callback(TF_RS485 *rs485, TF_RS485ModbusSlaveWriteMultipleCoilsRequestLowLevelHandler handler, void *user_data) {
+int tf_rs485_register_modbus_slave_write_multiple_coils_request_low_level_callback(TF_RS485 *rs485, TF_RS485ModbusSlaveWriteMultipleCoilsRequestLowLevelHandler handler, void *user_data) {
+    if (rs485 == NULL)
+        return TF_E_NULL;
+
     if (handler == NULL) {
         rs485->tfp->needs_callback_tick = false;
         rs485->tfp->needs_callback_tick |= rs485->read_low_level_handler != NULL;
@@ -3158,10 +3396,14 @@ void tf_rs485_register_modbus_slave_write_multiple_coils_request_low_level_callb
     }
     rs485->modbus_slave_write_multiple_coils_request_low_level_handler = handler;
     rs485->modbus_slave_write_multiple_coils_request_low_level_user_data = user_data;
+    return TF_E_OK;
 }
 
 
-void tf_rs485_register_modbus_master_write_multiple_coils_response_callback(TF_RS485 *rs485, TF_RS485ModbusMasterWriteMultipleCoilsResponseHandler handler, void *user_data) {
+int tf_rs485_register_modbus_master_write_multiple_coils_response_callback(TF_RS485 *rs485, TF_RS485ModbusMasterWriteMultipleCoilsResponseHandler handler, void *user_data) {
+    if (rs485 == NULL)
+        return TF_E_NULL;
+
     if (handler == NULL) {
         rs485->tfp->needs_callback_tick = false;
         rs485->tfp->needs_callback_tick |= rs485->read_low_level_handler != NULL;
@@ -3187,10 +3429,14 @@ void tf_rs485_register_modbus_master_write_multiple_coils_response_callback(TF_R
     }
     rs485->modbus_master_write_multiple_coils_response_handler = handler;
     rs485->modbus_master_write_multiple_coils_response_user_data = user_data;
+    return TF_E_OK;
 }
 
 
-void tf_rs485_register_modbus_slave_write_multiple_registers_request_low_level_callback(TF_RS485 *rs485, TF_RS485ModbusSlaveWriteMultipleRegistersRequestLowLevelHandler handler, void *user_data) {
+int tf_rs485_register_modbus_slave_write_multiple_registers_request_low_level_callback(TF_RS485 *rs485, TF_RS485ModbusSlaveWriteMultipleRegistersRequestLowLevelHandler handler, void *user_data) {
+    if (rs485 == NULL)
+        return TF_E_NULL;
+
     if (handler == NULL) {
         rs485->tfp->needs_callback_tick = false;
         rs485->tfp->needs_callback_tick |= rs485->read_low_level_handler != NULL;
@@ -3216,10 +3462,14 @@ void tf_rs485_register_modbus_slave_write_multiple_registers_request_low_level_c
     }
     rs485->modbus_slave_write_multiple_registers_request_low_level_handler = handler;
     rs485->modbus_slave_write_multiple_registers_request_low_level_user_data = user_data;
+    return TF_E_OK;
 }
 
 
-void tf_rs485_register_modbus_master_write_multiple_registers_response_callback(TF_RS485 *rs485, TF_RS485ModbusMasterWriteMultipleRegistersResponseHandler handler, void *user_data) {
+int tf_rs485_register_modbus_master_write_multiple_registers_response_callback(TF_RS485 *rs485, TF_RS485ModbusMasterWriteMultipleRegistersResponseHandler handler, void *user_data) {
+    if (rs485 == NULL)
+        return TF_E_NULL;
+
     if (handler == NULL) {
         rs485->tfp->needs_callback_tick = false;
         rs485->tfp->needs_callback_tick |= rs485->read_low_level_handler != NULL;
@@ -3245,10 +3495,14 @@ void tf_rs485_register_modbus_master_write_multiple_registers_response_callback(
     }
     rs485->modbus_master_write_multiple_registers_response_handler = handler;
     rs485->modbus_master_write_multiple_registers_response_user_data = user_data;
+    return TF_E_OK;
 }
 
 
-void tf_rs485_register_modbus_slave_read_discrete_inputs_request_callback(TF_RS485 *rs485, TF_RS485ModbusSlaveReadDiscreteInputsRequestHandler handler, void *user_data) {
+int tf_rs485_register_modbus_slave_read_discrete_inputs_request_callback(TF_RS485 *rs485, TF_RS485ModbusSlaveReadDiscreteInputsRequestHandler handler, void *user_data) {
+    if (rs485 == NULL)
+        return TF_E_NULL;
+
     if (handler == NULL) {
         rs485->tfp->needs_callback_tick = false;
         rs485->tfp->needs_callback_tick |= rs485->read_low_level_handler != NULL;
@@ -3274,10 +3528,14 @@ void tf_rs485_register_modbus_slave_read_discrete_inputs_request_callback(TF_RS4
     }
     rs485->modbus_slave_read_discrete_inputs_request_handler = handler;
     rs485->modbus_slave_read_discrete_inputs_request_user_data = user_data;
+    return TF_E_OK;
 }
 
 
-void tf_rs485_register_modbus_master_read_discrete_inputs_response_low_level_callback(TF_RS485 *rs485, TF_RS485ModbusMasterReadDiscreteInputsResponseLowLevelHandler handler, void *user_data) {
+int tf_rs485_register_modbus_master_read_discrete_inputs_response_low_level_callback(TF_RS485 *rs485, TF_RS485ModbusMasterReadDiscreteInputsResponseLowLevelHandler handler, void *user_data) {
+    if (rs485 == NULL)
+        return TF_E_NULL;
+
     if (handler == NULL) {
         rs485->tfp->needs_callback_tick = false;
         rs485->tfp->needs_callback_tick |= rs485->read_low_level_handler != NULL;
@@ -3303,10 +3561,14 @@ void tf_rs485_register_modbus_master_read_discrete_inputs_response_low_level_cal
     }
     rs485->modbus_master_read_discrete_inputs_response_low_level_handler = handler;
     rs485->modbus_master_read_discrete_inputs_response_low_level_user_data = user_data;
+    return TF_E_OK;
 }
 
 
-void tf_rs485_register_modbus_slave_read_input_registers_request_callback(TF_RS485 *rs485, TF_RS485ModbusSlaveReadInputRegistersRequestHandler handler, void *user_data) {
+int tf_rs485_register_modbus_slave_read_input_registers_request_callback(TF_RS485 *rs485, TF_RS485ModbusSlaveReadInputRegistersRequestHandler handler, void *user_data) {
+    if (rs485 == NULL)
+        return TF_E_NULL;
+
     if (handler == NULL) {
         rs485->tfp->needs_callback_tick = false;
         rs485->tfp->needs_callback_tick |= rs485->read_low_level_handler != NULL;
@@ -3332,10 +3594,14 @@ void tf_rs485_register_modbus_slave_read_input_registers_request_callback(TF_RS4
     }
     rs485->modbus_slave_read_input_registers_request_handler = handler;
     rs485->modbus_slave_read_input_registers_request_user_data = user_data;
+    return TF_E_OK;
 }
 
 
-void tf_rs485_register_modbus_master_read_input_registers_response_low_level_callback(TF_RS485 *rs485, TF_RS485ModbusMasterReadInputRegistersResponseLowLevelHandler handler, void *user_data) {
+int tf_rs485_register_modbus_master_read_input_registers_response_low_level_callback(TF_RS485 *rs485, TF_RS485ModbusMasterReadInputRegistersResponseLowLevelHandler handler, void *user_data) {
+    if (rs485 == NULL)
+        return TF_E_NULL;
+
     if (handler == NULL) {
         rs485->tfp->needs_callback_tick = false;
         rs485->tfp->needs_callback_tick |= rs485->read_low_level_handler != NULL;
@@ -3361,10 +3627,14 @@ void tf_rs485_register_modbus_master_read_input_registers_response_low_level_cal
     }
     rs485->modbus_master_read_input_registers_response_low_level_handler = handler;
     rs485->modbus_master_read_input_registers_response_low_level_user_data = user_data;
+    return TF_E_OK;
 }
 
 
-void tf_rs485_register_frame_readable_callback(TF_RS485 *rs485, TF_RS485FrameReadableHandler handler, void *user_data) {
+int tf_rs485_register_frame_readable_callback(TF_RS485 *rs485, TF_RS485FrameReadableHandler handler, void *user_data) {
+    if (rs485 == NULL)
+        return TF_E_NULL;
+
     if (handler == NULL) {
         rs485->tfp->needs_callback_tick = false;
         rs485->tfp->needs_callback_tick |= rs485->read_low_level_handler != NULL;
@@ -3390,9 +3660,13 @@ void tf_rs485_register_frame_readable_callback(TF_RS485 *rs485, TF_RS485FrameRea
     }
     rs485->frame_readable_handler = handler;
     rs485->frame_readable_user_data = user_data;
+    return TF_E_OK;
 }
 #endif
 int tf_rs485_callback_tick(TF_RS485 *rs485, uint32_t timeout_us) {
+    if (rs485 == NULL)
+        return TF_E_NULL;
+
     return tf_tfp_callback_tick(rs485->tfp, tf_hal_current_time_us(rs485->tfp->hal) + timeout_us);
 }
 

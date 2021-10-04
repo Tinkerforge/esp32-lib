@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-02-08.      *
+ * This file was automatically generated on 2021-10-04.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -83,6 +83,9 @@ static bool tf_accelerometer_v2_callback_handler(void *dev, uint8_t fid, TF_Pack
 }
 #endif
 int tf_accelerometer_v2_create(TF_AccelerometerV2 *accelerometer_v2, const char *uid, TF_HalContext *hal) {
+    if (accelerometer_v2 == NULL || uid == NULL || hal == NULL)
+        return TF_E_NULL;
+
     memset(accelerometer_v2, 0, sizeof(TF_AccelerometerV2));
 
     uint32_t numeric_uid;
@@ -112,12 +115,18 @@ int tf_accelerometer_v2_create(TF_AccelerometerV2 *accelerometer_v2, const char 
 }
 
 int tf_accelerometer_v2_destroy(TF_AccelerometerV2 *accelerometer_v2) {
+    if (accelerometer_v2 == NULL)
+        return TF_E_NULL;
+
     int result = tf_tfp_destroy(accelerometer_v2->tfp);
     accelerometer_v2->tfp = NULL;
     return result;
 }
 
 int tf_accelerometer_v2_get_response_expected(TF_AccelerometerV2 *accelerometer_v2, uint8_t function_id, bool *ret_response_expected) {
+    if (accelerometer_v2 == NULL)
+        return TF_E_NULL;
+
     switch(function_id) {
         case TF_ACCELEROMETER_V2_FUNCTION_SET_CONFIGURATION:
             if(ret_response_expected != NULL)
@@ -237,6 +246,9 @@ void tf_accelerometer_v2_set_response_expected_all(TF_AccelerometerV2 *accelerom
 }
 
 int tf_accelerometer_v2_get_acceleration(TF_AccelerometerV2 *accelerometer_v2, int32_t *ret_x, int32_t *ret_y, int32_t *ret_z) {
+    if (accelerometer_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(accelerometer_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -271,6 +283,9 @@ int tf_accelerometer_v2_get_acceleration(TF_AccelerometerV2 *accelerometer_v2, i
 }
 
 int tf_accelerometer_v2_set_configuration(TF_AccelerometerV2 *accelerometer_v2, uint8_t data_rate, uint8_t full_scale) {
+    if (accelerometer_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(accelerometer_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -304,6 +319,9 @@ int tf_accelerometer_v2_set_configuration(TF_AccelerometerV2 *accelerometer_v2, 
 }
 
 int tf_accelerometer_v2_get_configuration(TF_AccelerometerV2 *accelerometer_v2, uint8_t *ret_data_rate, uint8_t *ret_full_scale) {
+    if (accelerometer_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(accelerometer_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -337,6 +355,9 @@ int tf_accelerometer_v2_get_configuration(TF_AccelerometerV2 *accelerometer_v2, 
 }
 
 int tf_accelerometer_v2_set_acceleration_callback_configuration(TF_AccelerometerV2 *accelerometer_v2, uint32_t period, bool value_has_to_change) {
+    if (accelerometer_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(accelerometer_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -370,6 +391,9 @@ int tf_accelerometer_v2_set_acceleration_callback_configuration(TF_Accelerometer
 }
 
 int tf_accelerometer_v2_get_acceleration_callback_configuration(TF_AccelerometerV2 *accelerometer_v2, uint32_t *ret_period, bool *ret_value_has_to_change) {
+    if (accelerometer_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(accelerometer_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -403,6 +427,9 @@ int tf_accelerometer_v2_get_acceleration_callback_configuration(TF_Accelerometer
 }
 
 int tf_accelerometer_v2_set_info_led_config(TF_AccelerometerV2 *accelerometer_v2, uint8_t config) {
+    if (accelerometer_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(accelerometer_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -435,6 +462,9 @@ int tf_accelerometer_v2_set_info_led_config(TF_AccelerometerV2 *accelerometer_v2
 }
 
 int tf_accelerometer_v2_get_info_led_config(TF_AccelerometerV2 *accelerometer_v2, uint8_t *ret_config) {
+    if (accelerometer_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(accelerometer_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -467,6 +497,9 @@ int tf_accelerometer_v2_get_info_led_config(TF_AccelerometerV2 *accelerometer_v2
 }
 
 int tf_accelerometer_v2_set_continuous_acceleration_configuration(TF_AccelerometerV2 *accelerometer_v2, bool enable_x, bool enable_y, bool enable_z, uint8_t resolution) {
+    if (accelerometer_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(accelerometer_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -502,6 +535,9 @@ int tf_accelerometer_v2_set_continuous_acceleration_configuration(TF_Acceleromet
 }
 
 int tf_accelerometer_v2_get_continuous_acceleration_configuration(TF_AccelerometerV2 *accelerometer_v2, bool *ret_enable_x, bool *ret_enable_y, bool *ret_enable_z, uint8_t *ret_resolution) {
+    if (accelerometer_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(accelerometer_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -537,6 +573,9 @@ int tf_accelerometer_v2_get_continuous_acceleration_configuration(TF_Acceleromet
 }
 
 int tf_accelerometer_v2_set_filter_configuration(TF_AccelerometerV2 *accelerometer_v2, uint8_t iir_bypass, uint8_t low_pass_filter) {
+    if (accelerometer_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(accelerometer_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -570,6 +609,9 @@ int tf_accelerometer_v2_set_filter_configuration(TF_AccelerometerV2 *acceleromet
 }
 
 int tf_accelerometer_v2_get_filter_configuration(TF_AccelerometerV2 *accelerometer_v2, uint8_t *ret_iir_bypass, uint8_t *ret_low_pass_filter) {
+    if (accelerometer_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(accelerometer_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -603,6 +645,9 @@ int tf_accelerometer_v2_get_filter_configuration(TF_AccelerometerV2 *acceleromet
 }
 
 int tf_accelerometer_v2_get_spitfp_error_count(TF_AccelerometerV2 *accelerometer_v2, uint32_t *ret_error_count_ack_checksum, uint32_t *ret_error_count_message_checksum, uint32_t *ret_error_count_frame, uint32_t *ret_error_count_overflow) {
+    if (accelerometer_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(accelerometer_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -638,6 +683,9 @@ int tf_accelerometer_v2_get_spitfp_error_count(TF_AccelerometerV2 *accelerometer
 }
 
 int tf_accelerometer_v2_set_bootloader_mode(TF_AccelerometerV2 *accelerometer_v2, uint8_t mode, uint8_t *ret_status) {
+    if (accelerometer_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(accelerometer_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -674,6 +722,9 @@ int tf_accelerometer_v2_set_bootloader_mode(TF_AccelerometerV2 *accelerometer_v2
 }
 
 int tf_accelerometer_v2_get_bootloader_mode(TF_AccelerometerV2 *accelerometer_v2, uint8_t *ret_mode) {
+    if (accelerometer_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(accelerometer_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -706,6 +757,9 @@ int tf_accelerometer_v2_get_bootloader_mode(TF_AccelerometerV2 *accelerometer_v2
 }
 
 int tf_accelerometer_v2_set_write_firmware_pointer(TF_AccelerometerV2 *accelerometer_v2, uint32_t pointer) {
+    if (accelerometer_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(accelerometer_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -738,6 +792,9 @@ int tf_accelerometer_v2_set_write_firmware_pointer(TF_AccelerometerV2 *accelerom
 }
 
 int tf_accelerometer_v2_write_firmware(TF_AccelerometerV2 *accelerometer_v2, uint8_t data[64], uint8_t *ret_status) {
+    if (accelerometer_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(accelerometer_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -774,6 +831,9 @@ int tf_accelerometer_v2_write_firmware(TF_AccelerometerV2 *accelerometer_v2, uin
 }
 
 int tf_accelerometer_v2_set_status_led_config(TF_AccelerometerV2 *accelerometer_v2, uint8_t config) {
+    if (accelerometer_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(accelerometer_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -806,6 +866,9 @@ int tf_accelerometer_v2_set_status_led_config(TF_AccelerometerV2 *accelerometer_
 }
 
 int tf_accelerometer_v2_get_status_led_config(TF_AccelerometerV2 *accelerometer_v2, uint8_t *ret_config) {
+    if (accelerometer_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(accelerometer_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -838,6 +901,9 @@ int tf_accelerometer_v2_get_status_led_config(TF_AccelerometerV2 *accelerometer_
 }
 
 int tf_accelerometer_v2_get_chip_temperature(TF_AccelerometerV2 *accelerometer_v2, int16_t *ret_temperature) {
+    if (accelerometer_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(accelerometer_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -870,6 +936,9 @@ int tf_accelerometer_v2_get_chip_temperature(TF_AccelerometerV2 *accelerometer_v
 }
 
 int tf_accelerometer_v2_reset(TF_AccelerometerV2 *accelerometer_v2) {
+    if (accelerometer_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(accelerometer_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -898,6 +967,9 @@ int tf_accelerometer_v2_reset(TF_AccelerometerV2 *accelerometer_v2) {
 }
 
 int tf_accelerometer_v2_write_uid(TF_AccelerometerV2 *accelerometer_v2, uint32_t uid) {
+    if (accelerometer_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(accelerometer_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -930,6 +1002,9 @@ int tf_accelerometer_v2_write_uid(TF_AccelerometerV2 *accelerometer_v2, uint32_t
 }
 
 int tf_accelerometer_v2_read_uid(TF_AccelerometerV2 *accelerometer_v2, uint32_t *ret_uid) {
+    if (accelerometer_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(accelerometer_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -962,6 +1037,9 @@ int tf_accelerometer_v2_read_uid(TF_AccelerometerV2 *accelerometer_v2, uint32_t 
 }
 
 int tf_accelerometer_v2_get_identity(TF_AccelerometerV2 *accelerometer_v2, char ret_uid[8], char ret_connected_uid[8], char *ret_position, uint8_t ret_hardware_version[3], uint8_t ret_firmware_version[3], uint16_t *ret_device_identifier) {
+    if (accelerometer_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(accelerometer_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1006,7 +1084,10 @@ int tf_accelerometer_v2_get_identity(TF_AccelerometerV2 *accelerometer_v2, char 
     return tf_tfp_get_error(error_code);
 }
 #ifdef TF_IMPLEMENT_CALLBACKS
-void tf_accelerometer_v2_register_acceleration_callback(TF_AccelerometerV2 *accelerometer_v2, TF_AccelerometerV2AccelerationHandler handler, void *user_data) {
+int tf_accelerometer_v2_register_acceleration_callback(TF_AccelerometerV2 *accelerometer_v2, TF_AccelerometerV2AccelerationHandler handler, void *user_data) {
+    if (accelerometer_v2 == NULL)
+        return TF_E_NULL;
+
     if (handler == NULL) {
         accelerometer_v2->tfp->needs_callback_tick = false;
         accelerometer_v2->tfp->needs_callback_tick |= accelerometer_v2->continuous_acceleration_16_bit_handler != NULL;
@@ -1016,10 +1097,14 @@ void tf_accelerometer_v2_register_acceleration_callback(TF_AccelerometerV2 *acce
     }
     accelerometer_v2->acceleration_handler = handler;
     accelerometer_v2->acceleration_user_data = user_data;
+    return TF_E_OK;
 }
 
 
-void tf_accelerometer_v2_register_continuous_acceleration_16_bit_callback(TF_AccelerometerV2 *accelerometer_v2, TF_AccelerometerV2ContinuousAcceleration16BitHandler handler, void *user_data) {
+int tf_accelerometer_v2_register_continuous_acceleration_16_bit_callback(TF_AccelerometerV2 *accelerometer_v2, TF_AccelerometerV2ContinuousAcceleration16BitHandler handler, void *user_data) {
+    if (accelerometer_v2 == NULL)
+        return TF_E_NULL;
+
     if (handler == NULL) {
         accelerometer_v2->tfp->needs_callback_tick = false;
         accelerometer_v2->tfp->needs_callback_tick |= accelerometer_v2->acceleration_handler != NULL;
@@ -1029,10 +1114,14 @@ void tf_accelerometer_v2_register_continuous_acceleration_16_bit_callback(TF_Acc
     }
     accelerometer_v2->continuous_acceleration_16_bit_handler = handler;
     accelerometer_v2->continuous_acceleration_16_bit_user_data = user_data;
+    return TF_E_OK;
 }
 
 
-void tf_accelerometer_v2_register_continuous_acceleration_8_bit_callback(TF_AccelerometerV2 *accelerometer_v2, TF_AccelerometerV2ContinuousAcceleration8BitHandler handler, void *user_data) {
+int tf_accelerometer_v2_register_continuous_acceleration_8_bit_callback(TF_AccelerometerV2 *accelerometer_v2, TF_AccelerometerV2ContinuousAcceleration8BitHandler handler, void *user_data) {
+    if (accelerometer_v2 == NULL)
+        return TF_E_NULL;
+
     if (handler == NULL) {
         accelerometer_v2->tfp->needs_callback_tick = false;
         accelerometer_v2->tfp->needs_callback_tick |= accelerometer_v2->acceleration_handler != NULL;
@@ -1042,9 +1131,13 @@ void tf_accelerometer_v2_register_continuous_acceleration_8_bit_callback(TF_Acce
     }
     accelerometer_v2->continuous_acceleration_8_bit_handler = handler;
     accelerometer_v2->continuous_acceleration_8_bit_user_data = user_data;
+    return TF_E_OK;
 }
 #endif
 int tf_accelerometer_v2_callback_tick(TF_AccelerometerV2 *accelerometer_v2, uint32_t timeout_us) {
+    if (accelerometer_v2 == NULL)
+        return TF_E_NULL;
+
     return tf_tfp_callback_tick(accelerometer_v2->tfp, tf_hal_current_time_us(accelerometer_v2->tfp->hal) + timeout_us);
 }
 

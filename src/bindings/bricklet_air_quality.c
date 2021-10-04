@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-02-08.      *
+ * This file was automatically generated on 2021-10-04.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -114,6 +114,9 @@ static bool tf_air_quality_callback_handler(void *dev, uint8_t fid, TF_Packetbuf
 }
 #endif
 int tf_air_quality_create(TF_AirQuality *air_quality, const char *uid, TF_HalContext *hal) {
+    if (air_quality == NULL || uid == NULL || hal == NULL)
+        return TF_E_NULL;
+
     memset(air_quality, 0, sizeof(TF_AirQuality));
 
     uint32_t numeric_uid;
@@ -143,12 +146,18 @@ int tf_air_quality_create(TF_AirQuality *air_quality, const char *uid, TF_HalCon
 }
 
 int tf_air_quality_destroy(TF_AirQuality *air_quality) {
+    if (air_quality == NULL)
+        return TF_E_NULL;
+
     int result = tf_tfp_destroy(air_quality->tfp);
     air_quality->tfp = NULL;
     return result;
 }
 
 int tf_air_quality_get_response_expected(TF_AirQuality *air_quality, uint8_t function_id, bool *ret_response_expected) {
+    if (air_quality == NULL)
+        return TF_E_NULL;
+
     switch(function_id) {
         case TF_AIR_QUALITY_FUNCTION_SET_TEMPERATURE_OFFSET:
             if(ret_response_expected != NULL)
@@ -301,6 +310,9 @@ void tf_air_quality_set_response_expected_all(TF_AirQuality *air_quality, bool r
 }
 
 int tf_air_quality_get_all_values(TF_AirQuality *air_quality, int32_t *ret_iaq_index, uint8_t *ret_iaq_index_accuracy, int32_t *ret_temperature, int32_t *ret_humidity, int32_t *ret_air_pressure) {
+    if (air_quality == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(air_quality->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -337,6 +349,9 @@ int tf_air_quality_get_all_values(TF_AirQuality *air_quality, int32_t *ret_iaq_i
 }
 
 int tf_air_quality_set_temperature_offset(TF_AirQuality *air_quality, int32_t offset) {
+    if (air_quality == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(air_quality->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -369,6 +384,9 @@ int tf_air_quality_set_temperature_offset(TF_AirQuality *air_quality, int32_t of
 }
 
 int tf_air_quality_get_temperature_offset(TF_AirQuality *air_quality, int32_t *ret_offset) {
+    if (air_quality == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(air_quality->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -401,6 +419,9 @@ int tf_air_quality_get_temperature_offset(TF_AirQuality *air_quality, int32_t *r
 }
 
 int tf_air_quality_set_all_values_callback_configuration(TF_AirQuality *air_quality, uint32_t period, bool value_has_to_change) {
+    if (air_quality == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(air_quality->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -434,6 +455,9 @@ int tf_air_quality_set_all_values_callback_configuration(TF_AirQuality *air_qual
 }
 
 int tf_air_quality_get_all_values_callback_configuration(TF_AirQuality *air_quality, uint32_t *ret_period, bool *ret_value_has_to_change) {
+    if (air_quality == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(air_quality->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -467,6 +491,9 @@ int tf_air_quality_get_all_values_callback_configuration(TF_AirQuality *air_qual
 }
 
 int tf_air_quality_get_iaq_index(TF_AirQuality *air_quality, int32_t *ret_iaq_index, uint8_t *ret_iaq_index_accuracy) {
+    if (air_quality == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(air_quality->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -500,6 +527,9 @@ int tf_air_quality_get_iaq_index(TF_AirQuality *air_quality, int32_t *ret_iaq_in
 }
 
 int tf_air_quality_set_iaq_index_callback_configuration(TF_AirQuality *air_quality, uint32_t period, bool value_has_to_change) {
+    if (air_quality == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(air_quality->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -533,6 +563,9 @@ int tf_air_quality_set_iaq_index_callback_configuration(TF_AirQuality *air_quali
 }
 
 int tf_air_quality_get_iaq_index_callback_configuration(TF_AirQuality *air_quality, uint32_t *ret_period, bool *ret_value_has_to_change) {
+    if (air_quality == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(air_quality->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -566,6 +599,9 @@ int tf_air_quality_get_iaq_index_callback_configuration(TF_AirQuality *air_quali
 }
 
 int tf_air_quality_get_temperature(TF_AirQuality *air_quality, int32_t *ret_temperature) {
+    if (air_quality == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(air_quality->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -598,6 +634,9 @@ int tf_air_quality_get_temperature(TF_AirQuality *air_quality, int32_t *ret_temp
 }
 
 int tf_air_quality_set_temperature_callback_configuration(TF_AirQuality *air_quality, uint32_t period, bool value_has_to_change, char option, int32_t min, int32_t max) {
+    if (air_quality == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(air_quality->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -634,6 +673,9 @@ int tf_air_quality_set_temperature_callback_configuration(TF_AirQuality *air_qua
 }
 
 int tf_air_quality_get_temperature_callback_configuration(TF_AirQuality *air_quality, uint32_t *ret_period, bool *ret_value_has_to_change, char *ret_option, int32_t *ret_min, int32_t *ret_max) {
+    if (air_quality == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(air_quality->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -670,6 +712,9 @@ int tf_air_quality_get_temperature_callback_configuration(TF_AirQuality *air_qua
 }
 
 int tf_air_quality_get_humidity(TF_AirQuality *air_quality, int32_t *ret_humidity) {
+    if (air_quality == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(air_quality->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -702,6 +747,9 @@ int tf_air_quality_get_humidity(TF_AirQuality *air_quality, int32_t *ret_humidit
 }
 
 int tf_air_quality_set_humidity_callback_configuration(TF_AirQuality *air_quality, uint32_t period, bool value_has_to_change, char option, int32_t min, int32_t max) {
+    if (air_quality == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(air_quality->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -738,6 +786,9 @@ int tf_air_quality_set_humidity_callback_configuration(TF_AirQuality *air_qualit
 }
 
 int tf_air_quality_get_humidity_callback_configuration(TF_AirQuality *air_quality, uint32_t *ret_period, bool *ret_value_has_to_change, char *ret_option, int32_t *ret_min, int32_t *ret_max) {
+    if (air_quality == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(air_quality->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -774,6 +825,9 @@ int tf_air_quality_get_humidity_callback_configuration(TF_AirQuality *air_qualit
 }
 
 int tf_air_quality_get_air_pressure(TF_AirQuality *air_quality, int32_t *ret_air_pressure) {
+    if (air_quality == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(air_quality->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -806,6 +860,9 @@ int tf_air_quality_get_air_pressure(TF_AirQuality *air_quality, int32_t *ret_air
 }
 
 int tf_air_quality_set_air_pressure_callback_configuration(TF_AirQuality *air_quality, uint32_t period, bool value_has_to_change, char option, int32_t min, int32_t max) {
+    if (air_quality == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(air_quality->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -842,6 +899,9 @@ int tf_air_quality_set_air_pressure_callback_configuration(TF_AirQuality *air_qu
 }
 
 int tf_air_quality_get_air_pressure_callback_configuration(TF_AirQuality *air_quality, uint32_t *ret_period, bool *ret_value_has_to_change, char *ret_option, int32_t *ret_min, int32_t *ret_max) {
+    if (air_quality == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(air_quality->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -878,6 +938,9 @@ int tf_air_quality_get_air_pressure_callback_configuration(TF_AirQuality *air_qu
 }
 
 int tf_air_quality_remove_calibration(TF_AirQuality *air_quality) {
+    if (air_quality == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(air_quality->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -906,6 +969,9 @@ int tf_air_quality_remove_calibration(TF_AirQuality *air_quality) {
 }
 
 int tf_air_quality_set_background_calibration_duration(TF_AirQuality *air_quality, uint8_t duration) {
+    if (air_quality == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(air_quality->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -938,6 +1004,9 @@ int tf_air_quality_set_background_calibration_duration(TF_AirQuality *air_qualit
 }
 
 int tf_air_quality_get_background_calibration_duration(TF_AirQuality *air_quality, uint8_t *ret_duration) {
+    if (air_quality == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(air_quality->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -970,6 +1039,9 @@ int tf_air_quality_get_background_calibration_duration(TF_AirQuality *air_qualit
 }
 
 int tf_air_quality_get_spitfp_error_count(TF_AirQuality *air_quality, uint32_t *ret_error_count_ack_checksum, uint32_t *ret_error_count_message_checksum, uint32_t *ret_error_count_frame, uint32_t *ret_error_count_overflow) {
+    if (air_quality == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(air_quality->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1005,6 +1077,9 @@ int tf_air_quality_get_spitfp_error_count(TF_AirQuality *air_quality, uint32_t *
 }
 
 int tf_air_quality_set_bootloader_mode(TF_AirQuality *air_quality, uint8_t mode, uint8_t *ret_status) {
+    if (air_quality == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(air_quality->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1041,6 +1116,9 @@ int tf_air_quality_set_bootloader_mode(TF_AirQuality *air_quality, uint8_t mode,
 }
 
 int tf_air_quality_get_bootloader_mode(TF_AirQuality *air_quality, uint8_t *ret_mode) {
+    if (air_quality == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(air_quality->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1073,6 +1151,9 @@ int tf_air_quality_get_bootloader_mode(TF_AirQuality *air_quality, uint8_t *ret_
 }
 
 int tf_air_quality_set_write_firmware_pointer(TF_AirQuality *air_quality, uint32_t pointer) {
+    if (air_quality == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(air_quality->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1105,6 +1186,9 @@ int tf_air_quality_set_write_firmware_pointer(TF_AirQuality *air_quality, uint32
 }
 
 int tf_air_quality_write_firmware(TF_AirQuality *air_quality, uint8_t data[64], uint8_t *ret_status) {
+    if (air_quality == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(air_quality->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1141,6 +1225,9 @@ int tf_air_quality_write_firmware(TF_AirQuality *air_quality, uint8_t data[64], 
 }
 
 int tf_air_quality_set_status_led_config(TF_AirQuality *air_quality, uint8_t config) {
+    if (air_quality == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(air_quality->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1173,6 +1260,9 @@ int tf_air_quality_set_status_led_config(TF_AirQuality *air_quality, uint8_t con
 }
 
 int tf_air_quality_get_status_led_config(TF_AirQuality *air_quality, uint8_t *ret_config) {
+    if (air_quality == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(air_quality->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1205,6 +1295,9 @@ int tf_air_quality_get_status_led_config(TF_AirQuality *air_quality, uint8_t *re
 }
 
 int tf_air_quality_get_chip_temperature(TF_AirQuality *air_quality, int16_t *ret_temperature) {
+    if (air_quality == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(air_quality->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1237,6 +1330,9 @@ int tf_air_quality_get_chip_temperature(TF_AirQuality *air_quality, int16_t *ret
 }
 
 int tf_air_quality_reset(TF_AirQuality *air_quality) {
+    if (air_quality == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(air_quality->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1265,6 +1361,9 @@ int tf_air_quality_reset(TF_AirQuality *air_quality) {
 }
 
 int tf_air_quality_write_uid(TF_AirQuality *air_quality, uint32_t uid) {
+    if (air_quality == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(air_quality->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1297,6 +1396,9 @@ int tf_air_quality_write_uid(TF_AirQuality *air_quality, uint32_t uid) {
 }
 
 int tf_air_quality_read_uid(TF_AirQuality *air_quality, uint32_t *ret_uid) {
+    if (air_quality == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(air_quality->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1329,6 +1431,9 @@ int tf_air_quality_read_uid(TF_AirQuality *air_quality, uint32_t *ret_uid) {
 }
 
 int tf_air_quality_get_identity(TF_AirQuality *air_quality, char ret_uid[8], char ret_connected_uid[8], char *ret_position, uint8_t ret_hardware_version[3], uint8_t ret_firmware_version[3], uint16_t *ret_device_identifier) {
+    if (air_quality == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(air_quality->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1373,7 +1478,10 @@ int tf_air_quality_get_identity(TF_AirQuality *air_quality, char ret_uid[8], cha
     return tf_tfp_get_error(error_code);
 }
 #ifdef TF_IMPLEMENT_CALLBACKS
-void tf_air_quality_register_all_values_callback(TF_AirQuality *air_quality, TF_AirQualityAllValuesHandler handler, void *user_data) {
+int tf_air_quality_register_all_values_callback(TF_AirQuality *air_quality, TF_AirQualityAllValuesHandler handler, void *user_data) {
+    if (air_quality == NULL)
+        return TF_E_NULL;
+
     if (handler == NULL) {
         air_quality->tfp->needs_callback_tick = false;
         air_quality->tfp->needs_callback_tick |= air_quality->iaq_index_handler != NULL;
@@ -1385,10 +1493,14 @@ void tf_air_quality_register_all_values_callback(TF_AirQuality *air_quality, TF_
     }
     air_quality->all_values_handler = handler;
     air_quality->all_values_user_data = user_data;
+    return TF_E_OK;
 }
 
 
-void tf_air_quality_register_iaq_index_callback(TF_AirQuality *air_quality, TF_AirQualityIAQIndexHandler handler, void *user_data) {
+int tf_air_quality_register_iaq_index_callback(TF_AirQuality *air_quality, TF_AirQualityIAQIndexHandler handler, void *user_data) {
+    if (air_quality == NULL)
+        return TF_E_NULL;
+
     if (handler == NULL) {
         air_quality->tfp->needs_callback_tick = false;
         air_quality->tfp->needs_callback_tick |= air_quality->all_values_handler != NULL;
@@ -1400,10 +1512,14 @@ void tf_air_quality_register_iaq_index_callback(TF_AirQuality *air_quality, TF_A
     }
     air_quality->iaq_index_handler = handler;
     air_quality->iaq_index_user_data = user_data;
+    return TF_E_OK;
 }
 
 
-void tf_air_quality_register_temperature_callback(TF_AirQuality *air_quality, TF_AirQualityTemperatureHandler handler, void *user_data) {
+int tf_air_quality_register_temperature_callback(TF_AirQuality *air_quality, TF_AirQualityTemperatureHandler handler, void *user_data) {
+    if (air_quality == NULL)
+        return TF_E_NULL;
+
     if (handler == NULL) {
         air_quality->tfp->needs_callback_tick = false;
         air_quality->tfp->needs_callback_tick |= air_quality->all_values_handler != NULL;
@@ -1415,10 +1531,14 @@ void tf_air_quality_register_temperature_callback(TF_AirQuality *air_quality, TF
     }
     air_quality->temperature_handler = handler;
     air_quality->temperature_user_data = user_data;
+    return TF_E_OK;
 }
 
 
-void tf_air_quality_register_humidity_callback(TF_AirQuality *air_quality, TF_AirQualityHumidityHandler handler, void *user_data) {
+int tf_air_quality_register_humidity_callback(TF_AirQuality *air_quality, TF_AirQualityHumidityHandler handler, void *user_data) {
+    if (air_quality == NULL)
+        return TF_E_NULL;
+
     if (handler == NULL) {
         air_quality->tfp->needs_callback_tick = false;
         air_quality->tfp->needs_callback_tick |= air_quality->all_values_handler != NULL;
@@ -1430,10 +1550,14 @@ void tf_air_quality_register_humidity_callback(TF_AirQuality *air_quality, TF_Ai
     }
     air_quality->humidity_handler = handler;
     air_quality->humidity_user_data = user_data;
+    return TF_E_OK;
 }
 
 
-void tf_air_quality_register_air_pressure_callback(TF_AirQuality *air_quality, TF_AirQualityAirPressureHandler handler, void *user_data) {
+int tf_air_quality_register_air_pressure_callback(TF_AirQuality *air_quality, TF_AirQualityAirPressureHandler handler, void *user_data) {
+    if (air_quality == NULL)
+        return TF_E_NULL;
+
     if (handler == NULL) {
         air_quality->tfp->needs_callback_tick = false;
         air_quality->tfp->needs_callback_tick |= air_quality->all_values_handler != NULL;
@@ -1445,9 +1569,13 @@ void tf_air_quality_register_air_pressure_callback(TF_AirQuality *air_quality, T
     }
     air_quality->air_pressure_handler = handler;
     air_quality->air_pressure_user_data = user_data;
+    return TF_E_OK;
 }
 #endif
 int tf_air_quality_callback_tick(TF_AirQuality *air_quality, uint32_t timeout_us) {
+    if (air_quality == NULL)
+        return TF_E_NULL;
+
     return tf_tfp_callback_tick(air_quality->tfp, tf_hal_current_time_us(air_quality->tfp->hal) + timeout_us);
 }
 

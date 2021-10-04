@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-02-08.      *
+ * This file was automatically generated on 2021-10-04.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -324,7 +324,7 @@ TF_ATTRIBUTE_NONNULL_ALL void tf_segment_display_4x7_v2_set_response_expected_al
  * This callback is triggered when the counter (see {@link tf_segment_display_4x7_v2_start_counter}) is
  * finished.
  */
-TF_ATTRIBUTE_NONNULL(1) void tf_segment_display_4x7_v2_register_counter_finished_callback(TF_SegmentDisplay4x7V2 *segment_display_4x7_v2, TF_SegmentDisplay4x7V2CounterFinishedHandler handler, void *user_data);
+TF_ATTRIBUTE_NONNULL(1) int tf_segment_display_4x7_v2_register_counter_finished_callback(TF_SegmentDisplay4x7V2 *segment_display_4x7_v2, TF_SegmentDisplay4x7V2CounterFinishedHandler handler, void *user_data);
 #endif
 #ifdef TF_IMPLEMENT_CALLBACKS
 /**

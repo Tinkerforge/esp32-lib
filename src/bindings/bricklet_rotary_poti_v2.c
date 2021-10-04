@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-02-08.      *
+ * This file was automatically generated on 2021-10-04.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -53,6 +53,9 @@ static bool tf_rotary_poti_v2_callback_handler(void *dev, uint8_t fid, TF_Packet
 }
 #endif
 int tf_rotary_poti_v2_create(TF_RotaryPotiV2 *rotary_poti_v2, const char *uid, TF_HalContext *hal) {
+    if (rotary_poti_v2 == NULL || uid == NULL || hal == NULL)
+        return TF_E_NULL;
+
     memset(rotary_poti_v2, 0, sizeof(TF_RotaryPotiV2));
 
     uint32_t numeric_uid;
@@ -81,12 +84,18 @@ int tf_rotary_poti_v2_create(TF_RotaryPotiV2 *rotary_poti_v2, const char *uid, T
 }
 
 int tf_rotary_poti_v2_destroy(TF_RotaryPotiV2 *rotary_poti_v2) {
+    if (rotary_poti_v2 == NULL)
+        return TF_E_NULL;
+
     int result = tf_tfp_destroy(rotary_poti_v2->tfp);
     rotary_poti_v2->tfp = NULL;
     return result;
 }
 
 int tf_rotary_poti_v2_get_response_expected(TF_RotaryPotiV2 *rotary_poti_v2, uint8_t function_id, bool *ret_response_expected) {
+    if (rotary_poti_v2 == NULL)
+        return TF_E_NULL;
+
     switch(function_id) {
         case TF_ROTARY_POTI_V2_FUNCTION_SET_POSITION_CALLBACK_CONFIGURATION:
             if(ret_response_expected != NULL)
@@ -162,6 +171,9 @@ void tf_rotary_poti_v2_set_response_expected_all(TF_RotaryPotiV2 *rotary_poti_v2
 }
 
 int tf_rotary_poti_v2_get_position(TF_RotaryPotiV2 *rotary_poti_v2, int16_t *ret_position) {
+    if (rotary_poti_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(rotary_poti_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -194,6 +206,9 @@ int tf_rotary_poti_v2_get_position(TF_RotaryPotiV2 *rotary_poti_v2, int16_t *ret
 }
 
 int tf_rotary_poti_v2_set_position_callback_configuration(TF_RotaryPotiV2 *rotary_poti_v2, uint32_t period, bool value_has_to_change, char option, int16_t min, int16_t max) {
+    if (rotary_poti_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(rotary_poti_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -230,6 +245,9 @@ int tf_rotary_poti_v2_set_position_callback_configuration(TF_RotaryPotiV2 *rotar
 }
 
 int tf_rotary_poti_v2_get_position_callback_configuration(TF_RotaryPotiV2 *rotary_poti_v2, uint32_t *ret_period, bool *ret_value_has_to_change, char *ret_option, int16_t *ret_min, int16_t *ret_max) {
+    if (rotary_poti_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(rotary_poti_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -266,6 +284,9 @@ int tf_rotary_poti_v2_get_position_callback_configuration(TF_RotaryPotiV2 *rotar
 }
 
 int tf_rotary_poti_v2_get_spitfp_error_count(TF_RotaryPotiV2 *rotary_poti_v2, uint32_t *ret_error_count_ack_checksum, uint32_t *ret_error_count_message_checksum, uint32_t *ret_error_count_frame, uint32_t *ret_error_count_overflow) {
+    if (rotary_poti_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(rotary_poti_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -301,6 +322,9 @@ int tf_rotary_poti_v2_get_spitfp_error_count(TF_RotaryPotiV2 *rotary_poti_v2, ui
 }
 
 int tf_rotary_poti_v2_set_bootloader_mode(TF_RotaryPotiV2 *rotary_poti_v2, uint8_t mode, uint8_t *ret_status) {
+    if (rotary_poti_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(rotary_poti_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -337,6 +361,9 @@ int tf_rotary_poti_v2_set_bootloader_mode(TF_RotaryPotiV2 *rotary_poti_v2, uint8
 }
 
 int tf_rotary_poti_v2_get_bootloader_mode(TF_RotaryPotiV2 *rotary_poti_v2, uint8_t *ret_mode) {
+    if (rotary_poti_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(rotary_poti_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -369,6 +396,9 @@ int tf_rotary_poti_v2_get_bootloader_mode(TF_RotaryPotiV2 *rotary_poti_v2, uint8
 }
 
 int tf_rotary_poti_v2_set_write_firmware_pointer(TF_RotaryPotiV2 *rotary_poti_v2, uint32_t pointer) {
+    if (rotary_poti_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(rotary_poti_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -401,6 +431,9 @@ int tf_rotary_poti_v2_set_write_firmware_pointer(TF_RotaryPotiV2 *rotary_poti_v2
 }
 
 int tf_rotary_poti_v2_write_firmware(TF_RotaryPotiV2 *rotary_poti_v2, uint8_t data[64], uint8_t *ret_status) {
+    if (rotary_poti_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(rotary_poti_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -437,6 +470,9 @@ int tf_rotary_poti_v2_write_firmware(TF_RotaryPotiV2 *rotary_poti_v2, uint8_t da
 }
 
 int tf_rotary_poti_v2_set_status_led_config(TF_RotaryPotiV2 *rotary_poti_v2, uint8_t config) {
+    if (rotary_poti_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(rotary_poti_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -469,6 +505,9 @@ int tf_rotary_poti_v2_set_status_led_config(TF_RotaryPotiV2 *rotary_poti_v2, uin
 }
 
 int tf_rotary_poti_v2_get_status_led_config(TF_RotaryPotiV2 *rotary_poti_v2, uint8_t *ret_config) {
+    if (rotary_poti_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(rotary_poti_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -501,6 +540,9 @@ int tf_rotary_poti_v2_get_status_led_config(TF_RotaryPotiV2 *rotary_poti_v2, uin
 }
 
 int tf_rotary_poti_v2_get_chip_temperature(TF_RotaryPotiV2 *rotary_poti_v2, int16_t *ret_temperature) {
+    if (rotary_poti_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(rotary_poti_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -533,6 +575,9 @@ int tf_rotary_poti_v2_get_chip_temperature(TF_RotaryPotiV2 *rotary_poti_v2, int1
 }
 
 int tf_rotary_poti_v2_reset(TF_RotaryPotiV2 *rotary_poti_v2) {
+    if (rotary_poti_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(rotary_poti_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -561,6 +606,9 @@ int tf_rotary_poti_v2_reset(TF_RotaryPotiV2 *rotary_poti_v2) {
 }
 
 int tf_rotary_poti_v2_write_uid(TF_RotaryPotiV2 *rotary_poti_v2, uint32_t uid) {
+    if (rotary_poti_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(rotary_poti_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -593,6 +641,9 @@ int tf_rotary_poti_v2_write_uid(TF_RotaryPotiV2 *rotary_poti_v2, uint32_t uid) {
 }
 
 int tf_rotary_poti_v2_read_uid(TF_RotaryPotiV2 *rotary_poti_v2, uint32_t *ret_uid) {
+    if (rotary_poti_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(rotary_poti_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -625,6 +676,9 @@ int tf_rotary_poti_v2_read_uid(TF_RotaryPotiV2 *rotary_poti_v2, uint32_t *ret_ui
 }
 
 int tf_rotary_poti_v2_get_identity(TF_RotaryPotiV2 *rotary_poti_v2, char ret_uid[8], char ret_connected_uid[8], char *ret_position, uint8_t ret_hardware_version[3], uint8_t ret_firmware_version[3], uint16_t *ret_device_identifier) {
+    if (rotary_poti_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(rotary_poti_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -669,7 +723,10 @@ int tf_rotary_poti_v2_get_identity(TF_RotaryPotiV2 *rotary_poti_v2, char ret_uid
     return tf_tfp_get_error(error_code);
 }
 #ifdef TF_IMPLEMENT_CALLBACKS
-void tf_rotary_poti_v2_register_position_callback(TF_RotaryPotiV2 *rotary_poti_v2, TF_RotaryPotiV2PositionHandler handler, void *user_data) {
+int tf_rotary_poti_v2_register_position_callback(TF_RotaryPotiV2 *rotary_poti_v2, TF_RotaryPotiV2PositionHandler handler, void *user_data) {
+    if (rotary_poti_v2 == NULL)
+        return TF_E_NULL;
+
     if (handler == NULL) {
         rotary_poti_v2->tfp->needs_callback_tick = false;
         
@@ -678,9 +735,13 @@ void tf_rotary_poti_v2_register_position_callback(TF_RotaryPotiV2 *rotary_poti_v
     }
     rotary_poti_v2->position_handler = handler;
     rotary_poti_v2->position_user_data = user_data;
+    return TF_E_OK;
 }
 #endif
 int tf_rotary_poti_v2_callback_tick(TF_RotaryPotiV2 *rotary_poti_v2, uint32_t timeout_us) {
+    if (rotary_poti_v2 == NULL)
+        return TF_E_NULL;
+
     return tf_tfp_callback_tick(rotary_poti_v2->tfp, tf_hal_current_time_us(rotary_poti_v2->tfp->hal) + timeout_us);
 }
 

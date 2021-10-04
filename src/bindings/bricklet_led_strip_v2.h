@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-02-08.      *
+ * This file was automatically generated on 2021-10-04.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -524,7 +524,7 @@ TF_ATTRIBUTE_NONNULL_ALL void tf_led_strip_v2_set_response_expected_all(TF_LEDSt
  * 
  * For an explanation of the general approach see {@link tf_led_strip_v2_set_led_values}.
  */
-TF_ATTRIBUTE_NONNULL(1) void tf_led_strip_v2_register_frame_started_callback(TF_LEDStripV2 *led_strip_v2, TF_LEDStripV2FrameStartedHandler handler, void *user_data);
+TF_ATTRIBUTE_NONNULL(1) int tf_led_strip_v2_register_frame_started_callback(TF_LEDStripV2 *led_strip_v2, TF_LEDStripV2FrameStartedHandler handler, void *user_data);
 #endif
 #ifdef TF_IMPLEMENT_CALLBACKS
 /**

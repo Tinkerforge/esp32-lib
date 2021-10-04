@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-02-08.      *
+ * This file was automatically generated on 2021-10-04.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -53,6 +53,9 @@ static bool tf_hat_zero_callback_handler(void *dev, uint8_t fid, TF_Packetbuffer
 }
 #endif
 int tf_hat_zero_create(TF_HATZero *hat_zero, const char *uid, TF_HalContext *hal) {
+    if (hat_zero == NULL || uid == NULL || hal == NULL)
+        return TF_E_NULL;
+
     memset(hat_zero, 0, sizeof(TF_HATZero));
 
     uint32_t numeric_uid;
@@ -81,12 +84,18 @@ int tf_hat_zero_create(TF_HATZero *hat_zero, const char *uid, TF_HalContext *hal
 }
 
 int tf_hat_zero_destroy(TF_HATZero *hat_zero) {
+    if (hat_zero == NULL)
+        return TF_E_NULL;
+
     int result = tf_tfp_destroy(hat_zero->tfp);
     hat_zero->tfp = NULL;
     return result;
 }
 
 int tf_hat_zero_get_response_expected(TF_HATZero *hat_zero, uint8_t function_id, bool *ret_response_expected) {
+    if (hat_zero == NULL)
+        return TF_E_NULL;
+
     switch(function_id) {
         case TF_HAT_ZERO_FUNCTION_SET_USB_VOLTAGE_CALLBACK_CONFIGURATION:
             if(ret_response_expected != NULL)
@@ -162,6 +171,9 @@ void tf_hat_zero_set_response_expected_all(TF_HATZero *hat_zero, bool response_e
 }
 
 int tf_hat_zero_get_usb_voltage(TF_HATZero *hat_zero, uint16_t *ret_voltage) {
+    if (hat_zero == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(hat_zero->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -194,6 +206,9 @@ int tf_hat_zero_get_usb_voltage(TF_HATZero *hat_zero, uint16_t *ret_voltage) {
 }
 
 int tf_hat_zero_set_usb_voltage_callback_configuration(TF_HATZero *hat_zero, uint32_t period, bool value_has_to_change, char option, uint16_t min, uint16_t max) {
+    if (hat_zero == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(hat_zero->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -230,6 +245,9 @@ int tf_hat_zero_set_usb_voltage_callback_configuration(TF_HATZero *hat_zero, uin
 }
 
 int tf_hat_zero_get_usb_voltage_callback_configuration(TF_HATZero *hat_zero, uint32_t *ret_period, bool *ret_value_has_to_change, char *ret_option, uint16_t *ret_min, uint16_t *ret_max) {
+    if (hat_zero == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(hat_zero->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -266,6 +284,9 @@ int tf_hat_zero_get_usb_voltage_callback_configuration(TF_HATZero *hat_zero, uin
 }
 
 int tf_hat_zero_get_spitfp_error_count(TF_HATZero *hat_zero, uint32_t *ret_error_count_ack_checksum, uint32_t *ret_error_count_message_checksum, uint32_t *ret_error_count_frame, uint32_t *ret_error_count_overflow) {
+    if (hat_zero == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(hat_zero->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -301,6 +322,9 @@ int tf_hat_zero_get_spitfp_error_count(TF_HATZero *hat_zero, uint32_t *ret_error
 }
 
 int tf_hat_zero_set_bootloader_mode(TF_HATZero *hat_zero, uint8_t mode, uint8_t *ret_status) {
+    if (hat_zero == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(hat_zero->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -337,6 +361,9 @@ int tf_hat_zero_set_bootloader_mode(TF_HATZero *hat_zero, uint8_t mode, uint8_t 
 }
 
 int tf_hat_zero_get_bootloader_mode(TF_HATZero *hat_zero, uint8_t *ret_mode) {
+    if (hat_zero == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(hat_zero->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -369,6 +396,9 @@ int tf_hat_zero_get_bootloader_mode(TF_HATZero *hat_zero, uint8_t *ret_mode) {
 }
 
 int tf_hat_zero_set_write_firmware_pointer(TF_HATZero *hat_zero, uint32_t pointer) {
+    if (hat_zero == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(hat_zero->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -401,6 +431,9 @@ int tf_hat_zero_set_write_firmware_pointer(TF_HATZero *hat_zero, uint32_t pointe
 }
 
 int tf_hat_zero_write_firmware(TF_HATZero *hat_zero, uint8_t data[64], uint8_t *ret_status) {
+    if (hat_zero == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(hat_zero->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -437,6 +470,9 @@ int tf_hat_zero_write_firmware(TF_HATZero *hat_zero, uint8_t data[64], uint8_t *
 }
 
 int tf_hat_zero_set_status_led_config(TF_HATZero *hat_zero, uint8_t config) {
+    if (hat_zero == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(hat_zero->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -469,6 +505,9 @@ int tf_hat_zero_set_status_led_config(TF_HATZero *hat_zero, uint8_t config) {
 }
 
 int tf_hat_zero_get_status_led_config(TF_HATZero *hat_zero, uint8_t *ret_config) {
+    if (hat_zero == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(hat_zero->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -501,6 +540,9 @@ int tf_hat_zero_get_status_led_config(TF_HATZero *hat_zero, uint8_t *ret_config)
 }
 
 int tf_hat_zero_get_chip_temperature(TF_HATZero *hat_zero, int16_t *ret_temperature) {
+    if (hat_zero == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(hat_zero->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -533,6 +575,9 @@ int tf_hat_zero_get_chip_temperature(TF_HATZero *hat_zero, int16_t *ret_temperat
 }
 
 int tf_hat_zero_reset(TF_HATZero *hat_zero) {
+    if (hat_zero == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(hat_zero->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -561,6 +606,9 @@ int tf_hat_zero_reset(TF_HATZero *hat_zero) {
 }
 
 int tf_hat_zero_write_uid(TF_HATZero *hat_zero, uint32_t uid) {
+    if (hat_zero == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(hat_zero->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -593,6 +641,9 @@ int tf_hat_zero_write_uid(TF_HATZero *hat_zero, uint32_t uid) {
 }
 
 int tf_hat_zero_read_uid(TF_HATZero *hat_zero, uint32_t *ret_uid) {
+    if (hat_zero == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(hat_zero->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -625,6 +676,9 @@ int tf_hat_zero_read_uid(TF_HATZero *hat_zero, uint32_t *ret_uid) {
 }
 
 int tf_hat_zero_get_identity(TF_HATZero *hat_zero, char ret_uid[8], char ret_connected_uid[8], char *ret_position, uint8_t ret_hardware_version[3], uint8_t ret_firmware_version[3], uint16_t *ret_device_identifier) {
+    if (hat_zero == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(hat_zero->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -669,7 +723,10 @@ int tf_hat_zero_get_identity(TF_HATZero *hat_zero, char ret_uid[8], char ret_con
     return tf_tfp_get_error(error_code);
 }
 #ifdef TF_IMPLEMENT_CALLBACKS
-void tf_hat_zero_register_usb_voltage_callback(TF_HATZero *hat_zero, TF_HATZeroUSBVoltageHandler handler, void *user_data) {
+int tf_hat_zero_register_usb_voltage_callback(TF_HATZero *hat_zero, TF_HATZeroUSBVoltageHandler handler, void *user_data) {
+    if (hat_zero == NULL)
+        return TF_E_NULL;
+
     if (handler == NULL) {
         hat_zero->tfp->needs_callback_tick = false;
         
@@ -678,9 +735,13 @@ void tf_hat_zero_register_usb_voltage_callback(TF_HATZero *hat_zero, TF_HATZeroU
     }
     hat_zero->usb_voltage_handler = handler;
     hat_zero->usb_voltage_user_data = user_data;
+    return TF_E_OK;
 }
 #endif
 int tf_hat_zero_callback_tick(TF_HATZero *hat_zero, uint32_t timeout_us) {
+    if (hat_zero == NULL)
+        return TF_E_NULL;
+
     return tf_tfp_callback_tick(hat_zero->tfp, tf_hal_current_time_us(hat_zero->tfp->hal) + timeout_us);
 }
 

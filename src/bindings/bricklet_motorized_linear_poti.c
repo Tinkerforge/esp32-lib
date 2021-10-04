@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-02-08.      *
+ * This file was automatically generated on 2021-10-04.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -67,6 +67,9 @@ static bool tf_motorized_linear_poti_callback_handler(void *dev, uint8_t fid, TF
 }
 #endif
 int tf_motorized_linear_poti_create(TF_MotorizedLinearPoti *motorized_linear_poti, const char *uid, TF_HalContext *hal) {
+    if (motorized_linear_poti == NULL || uid == NULL || hal == NULL)
+        return TF_E_NULL;
+
     memset(motorized_linear_poti, 0, sizeof(TF_MotorizedLinearPoti));
 
     uint32_t numeric_uid;
@@ -95,12 +98,18 @@ int tf_motorized_linear_poti_create(TF_MotorizedLinearPoti *motorized_linear_pot
 }
 
 int tf_motorized_linear_poti_destroy(TF_MotorizedLinearPoti *motorized_linear_poti) {
+    if (motorized_linear_poti == NULL)
+        return TF_E_NULL;
+
     int result = tf_tfp_destroy(motorized_linear_poti->tfp);
     motorized_linear_poti->tfp = NULL;
     return result;
 }
 
 int tf_motorized_linear_poti_get_response_expected(TF_MotorizedLinearPoti *motorized_linear_poti, uint8_t function_id, bool *ret_response_expected) {
+    if (motorized_linear_poti == NULL)
+        return TF_E_NULL;
+
     switch(function_id) {
         case TF_MOTORIZED_LINEAR_POTI_FUNCTION_SET_POSITION_CALLBACK_CONFIGURATION:
             if(ret_response_expected != NULL)
@@ -209,6 +218,9 @@ void tf_motorized_linear_poti_set_response_expected_all(TF_MotorizedLinearPoti *
 }
 
 int tf_motorized_linear_poti_get_position(TF_MotorizedLinearPoti *motorized_linear_poti, uint16_t *ret_position) {
+    if (motorized_linear_poti == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(motorized_linear_poti->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -241,6 +253,9 @@ int tf_motorized_linear_poti_get_position(TF_MotorizedLinearPoti *motorized_line
 }
 
 int tf_motorized_linear_poti_set_position_callback_configuration(TF_MotorizedLinearPoti *motorized_linear_poti, uint32_t period, bool value_has_to_change, char option, uint16_t min, uint16_t max) {
+    if (motorized_linear_poti == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(motorized_linear_poti->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -277,6 +292,9 @@ int tf_motorized_linear_poti_set_position_callback_configuration(TF_MotorizedLin
 }
 
 int tf_motorized_linear_poti_get_position_callback_configuration(TF_MotorizedLinearPoti *motorized_linear_poti, uint32_t *ret_period, bool *ret_value_has_to_change, char *ret_option, uint16_t *ret_min, uint16_t *ret_max) {
+    if (motorized_linear_poti == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(motorized_linear_poti->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -313,6 +331,9 @@ int tf_motorized_linear_poti_get_position_callback_configuration(TF_MotorizedLin
 }
 
 int tf_motorized_linear_poti_set_motor_position(TF_MotorizedLinearPoti *motorized_linear_poti, uint16_t position, uint8_t drive_mode, bool hold_position) {
+    if (motorized_linear_poti == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(motorized_linear_poti->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -347,6 +368,9 @@ int tf_motorized_linear_poti_set_motor_position(TF_MotorizedLinearPoti *motorize
 }
 
 int tf_motorized_linear_poti_get_motor_position(TF_MotorizedLinearPoti *motorized_linear_poti, uint16_t *ret_position, uint8_t *ret_drive_mode, bool *ret_hold_position, bool *ret_position_reached) {
+    if (motorized_linear_poti == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(motorized_linear_poti->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -382,6 +406,9 @@ int tf_motorized_linear_poti_get_motor_position(TF_MotorizedLinearPoti *motorize
 }
 
 int tf_motorized_linear_poti_calibrate(TF_MotorizedLinearPoti *motorized_linear_poti) {
+    if (motorized_linear_poti == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(motorized_linear_poti->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -410,6 +437,9 @@ int tf_motorized_linear_poti_calibrate(TF_MotorizedLinearPoti *motorized_linear_
 }
 
 int tf_motorized_linear_poti_set_position_reached_callback_configuration(TF_MotorizedLinearPoti *motorized_linear_poti, bool enabled) {
+    if (motorized_linear_poti == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(motorized_linear_poti->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -442,6 +472,9 @@ int tf_motorized_linear_poti_set_position_reached_callback_configuration(TF_Moto
 }
 
 int tf_motorized_linear_poti_get_position_reached_callback_configuration(TF_MotorizedLinearPoti *motorized_linear_poti, bool *ret_enabled) {
+    if (motorized_linear_poti == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(motorized_linear_poti->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -474,6 +507,9 @@ int tf_motorized_linear_poti_get_position_reached_callback_configuration(TF_Moto
 }
 
 int tf_motorized_linear_poti_get_spitfp_error_count(TF_MotorizedLinearPoti *motorized_linear_poti, uint32_t *ret_error_count_ack_checksum, uint32_t *ret_error_count_message_checksum, uint32_t *ret_error_count_frame, uint32_t *ret_error_count_overflow) {
+    if (motorized_linear_poti == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(motorized_linear_poti->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -509,6 +545,9 @@ int tf_motorized_linear_poti_get_spitfp_error_count(TF_MotorizedLinearPoti *moto
 }
 
 int tf_motorized_linear_poti_set_bootloader_mode(TF_MotorizedLinearPoti *motorized_linear_poti, uint8_t mode, uint8_t *ret_status) {
+    if (motorized_linear_poti == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(motorized_linear_poti->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -545,6 +584,9 @@ int tf_motorized_linear_poti_set_bootloader_mode(TF_MotorizedLinearPoti *motoriz
 }
 
 int tf_motorized_linear_poti_get_bootloader_mode(TF_MotorizedLinearPoti *motorized_linear_poti, uint8_t *ret_mode) {
+    if (motorized_linear_poti == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(motorized_linear_poti->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -577,6 +619,9 @@ int tf_motorized_linear_poti_get_bootloader_mode(TF_MotorizedLinearPoti *motoriz
 }
 
 int tf_motorized_linear_poti_set_write_firmware_pointer(TF_MotorizedLinearPoti *motorized_linear_poti, uint32_t pointer) {
+    if (motorized_linear_poti == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(motorized_linear_poti->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -609,6 +654,9 @@ int tf_motorized_linear_poti_set_write_firmware_pointer(TF_MotorizedLinearPoti *
 }
 
 int tf_motorized_linear_poti_write_firmware(TF_MotorizedLinearPoti *motorized_linear_poti, uint8_t data[64], uint8_t *ret_status) {
+    if (motorized_linear_poti == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(motorized_linear_poti->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -645,6 +693,9 @@ int tf_motorized_linear_poti_write_firmware(TF_MotorizedLinearPoti *motorized_li
 }
 
 int tf_motorized_linear_poti_set_status_led_config(TF_MotorizedLinearPoti *motorized_linear_poti, uint8_t config) {
+    if (motorized_linear_poti == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(motorized_linear_poti->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -677,6 +728,9 @@ int tf_motorized_linear_poti_set_status_led_config(TF_MotorizedLinearPoti *motor
 }
 
 int tf_motorized_linear_poti_get_status_led_config(TF_MotorizedLinearPoti *motorized_linear_poti, uint8_t *ret_config) {
+    if (motorized_linear_poti == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(motorized_linear_poti->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -709,6 +763,9 @@ int tf_motorized_linear_poti_get_status_led_config(TF_MotorizedLinearPoti *motor
 }
 
 int tf_motorized_linear_poti_get_chip_temperature(TF_MotorizedLinearPoti *motorized_linear_poti, int16_t *ret_temperature) {
+    if (motorized_linear_poti == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(motorized_linear_poti->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -741,6 +798,9 @@ int tf_motorized_linear_poti_get_chip_temperature(TF_MotorizedLinearPoti *motori
 }
 
 int tf_motorized_linear_poti_reset(TF_MotorizedLinearPoti *motorized_linear_poti) {
+    if (motorized_linear_poti == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(motorized_linear_poti->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -769,6 +829,9 @@ int tf_motorized_linear_poti_reset(TF_MotorizedLinearPoti *motorized_linear_poti
 }
 
 int tf_motorized_linear_poti_write_uid(TF_MotorizedLinearPoti *motorized_linear_poti, uint32_t uid) {
+    if (motorized_linear_poti == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(motorized_linear_poti->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -801,6 +864,9 @@ int tf_motorized_linear_poti_write_uid(TF_MotorizedLinearPoti *motorized_linear_
 }
 
 int tf_motorized_linear_poti_read_uid(TF_MotorizedLinearPoti *motorized_linear_poti, uint32_t *ret_uid) {
+    if (motorized_linear_poti == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(motorized_linear_poti->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -833,6 +899,9 @@ int tf_motorized_linear_poti_read_uid(TF_MotorizedLinearPoti *motorized_linear_p
 }
 
 int tf_motorized_linear_poti_get_identity(TF_MotorizedLinearPoti *motorized_linear_poti, char ret_uid[8], char ret_connected_uid[8], char *ret_position, uint8_t ret_hardware_version[3], uint8_t ret_firmware_version[3], uint16_t *ret_device_identifier) {
+    if (motorized_linear_poti == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(motorized_linear_poti->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -877,7 +946,10 @@ int tf_motorized_linear_poti_get_identity(TF_MotorizedLinearPoti *motorized_line
     return tf_tfp_get_error(error_code);
 }
 #ifdef TF_IMPLEMENT_CALLBACKS
-void tf_motorized_linear_poti_register_position_callback(TF_MotorizedLinearPoti *motorized_linear_poti, TF_MotorizedLinearPotiPositionHandler handler, void *user_data) {
+int tf_motorized_linear_poti_register_position_callback(TF_MotorizedLinearPoti *motorized_linear_poti, TF_MotorizedLinearPotiPositionHandler handler, void *user_data) {
+    if (motorized_linear_poti == NULL)
+        return TF_E_NULL;
+
     if (handler == NULL) {
         motorized_linear_poti->tfp->needs_callback_tick = false;
         motorized_linear_poti->tfp->needs_callback_tick |= motorized_linear_poti->position_reached_handler != NULL;
@@ -886,10 +958,14 @@ void tf_motorized_linear_poti_register_position_callback(TF_MotorizedLinearPoti 
     }
     motorized_linear_poti->position_handler = handler;
     motorized_linear_poti->position_user_data = user_data;
+    return TF_E_OK;
 }
 
 
-void tf_motorized_linear_poti_register_position_reached_callback(TF_MotorizedLinearPoti *motorized_linear_poti, TF_MotorizedLinearPotiPositionReachedHandler handler, void *user_data) {
+int tf_motorized_linear_poti_register_position_reached_callback(TF_MotorizedLinearPoti *motorized_linear_poti, TF_MotorizedLinearPotiPositionReachedHandler handler, void *user_data) {
+    if (motorized_linear_poti == NULL)
+        return TF_E_NULL;
+
     if (handler == NULL) {
         motorized_linear_poti->tfp->needs_callback_tick = false;
         motorized_linear_poti->tfp->needs_callback_tick |= motorized_linear_poti->position_handler != NULL;
@@ -898,9 +974,13 @@ void tf_motorized_linear_poti_register_position_reached_callback(TF_MotorizedLin
     }
     motorized_linear_poti->position_reached_handler = handler;
     motorized_linear_poti->position_reached_user_data = user_data;
+    return TF_E_OK;
 }
 #endif
 int tf_motorized_linear_poti_callback_tick(TF_MotorizedLinearPoti *motorized_linear_poti, uint32_t timeout_us) {
+    if (motorized_linear_poti == NULL)
+        return TF_E_NULL;
+
     return tf_tfp_callback_tick(motorized_linear_poti->tfp, tf_hal_current_time_us(motorized_linear_poti->tfp->hal) + timeout_us);
 }
 

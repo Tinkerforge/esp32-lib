@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-07-28.      *
+ * This file was automatically generated on 2021-10-04.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -747,7 +747,7 @@ TF_ATTRIBUTE_NONNULL_ALL void tf_nfc_set_response_expected_all(TF_NFC *nfc, bool
  * This callback is called if the reader state of the NFC Bricklet changes.
  * See {@link tf_nfc_reader_get_state} for more information about the possible states.
  */
-TF_ATTRIBUTE_NONNULL(1) void tf_nfc_register_reader_state_changed_callback(TF_NFC *nfc, TF_NFCReaderStateChangedHandler handler, void *user_data);
+TF_ATTRIBUTE_NONNULL(1) int tf_nfc_register_reader_state_changed_callback(TF_NFC *nfc, TF_NFCReaderStateChangedHandler handler, void *user_data);
 
 
 /**
@@ -761,7 +761,7 @@ TF_ATTRIBUTE_NONNULL(1) void tf_nfc_register_reader_state_changed_callback(TF_NF
  * This callback is called if the cardemu state of the NFC Bricklet changes.
  * See {@link tf_nfc_cardemu_get_state} for more information about the possible states.
  */
-TF_ATTRIBUTE_NONNULL(1) void tf_nfc_register_cardemu_state_changed_callback(TF_NFC *nfc, TF_NFCCardemuStateChangedHandler handler, void *user_data);
+TF_ATTRIBUTE_NONNULL(1) int tf_nfc_register_cardemu_state_changed_callback(TF_NFC *nfc, TF_NFCCardemuStateChangedHandler handler, void *user_data);
 
 
 /**
@@ -775,7 +775,7 @@ TF_ATTRIBUTE_NONNULL(1) void tf_nfc_register_cardemu_state_changed_callback(TF_N
  * This callback is called if the P2P state of the NFC Bricklet changes.
  * See {@link tf_nfc_p2p_get_state} for more information about the possible states.
  */
-TF_ATTRIBUTE_NONNULL(1) void tf_nfc_register_p2p_state_changed_callback(TF_NFC *nfc, TF_NFCP2PStateChangedHandler handler, void *user_data);
+TF_ATTRIBUTE_NONNULL(1) int tf_nfc_register_p2p_state_changed_callback(TF_NFC *nfc, TF_NFCP2PStateChangedHandler handler, void *user_data);
 #endif
 #ifdef TF_IMPLEMENT_CALLBACKS
 /**

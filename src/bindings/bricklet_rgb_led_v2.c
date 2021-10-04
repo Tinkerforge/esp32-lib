@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-02-08.      *
+ * This file was automatically generated on 2021-10-04.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -28,6 +28,9 @@ static bool tf_rgb_led_v2_callback_handler(void *dev, uint8_t fid, TF_Packetbuff
     return false;
 }
 int tf_rgb_led_v2_create(TF_RGBLEDV2 *rgb_led_v2, const char *uid, TF_HalContext *hal) {
+    if (rgb_led_v2 == NULL || uid == NULL || hal == NULL)
+        return TF_E_NULL;
+
     memset(rgb_led_v2, 0, sizeof(TF_RGBLEDV2));
 
     uint32_t numeric_uid;
@@ -56,12 +59,18 @@ int tf_rgb_led_v2_create(TF_RGBLEDV2 *rgb_led_v2, const char *uid, TF_HalContext
 }
 
 int tf_rgb_led_v2_destroy(TF_RGBLEDV2 *rgb_led_v2) {
+    if (rgb_led_v2 == NULL)
+        return TF_E_NULL;
+
     int result = tf_tfp_destroy(rgb_led_v2->tfp);
     rgb_led_v2->tfp = NULL;
     return result;
 }
 
 int tf_rgb_led_v2_get_response_expected(TF_RGBLEDV2 *rgb_led_v2, uint8_t function_id, bool *ret_response_expected) {
+    if (rgb_led_v2 == NULL)
+        return TF_E_NULL;
+
     switch(function_id) {
         case TF_RGB_LED_V2_FUNCTION_SET_RGB_VALUE:
             if(ret_response_expected != NULL)
@@ -137,6 +146,9 @@ void tf_rgb_led_v2_set_response_expected_all(TF_RGBLEDV2 *rgb_led_v2, bool respo
 }
 
 int tf_rgb_led_v2_set_rgb_value(TF_RGBLEDV2 *rgb_led_v2, uint8_t r, uint8_t g, uint8_t b) {
+    if (rgb_led_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(rgb_led_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -171,6 +183,9 @@ int tf_rgb_led_v2_set_rgb_value(TF_RGBLEDV2 *rgb_led_v2, uint8_t r, uint8_t g, u
 }
 
 int tf_rgb_led_v2_get_rgb_value(TF_RGBLEDV2 *rgb_led_v2, uint8_t *ret_r, uint8_t *ret_g, uint8_t *ret_b) {
+    if (rgb_led_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(rgb_led_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -205,6 +220,9 @@ int tf_rgb_led_v2_get_rgb_value(TF_RGBLEDV2 *rgb_led_v2, uint8_t *ret_r, uint8_t
 }
 
 int tf_rgb_led_v2_get_spitfp_error_count(TF_RGBLEDV2 *rgb_led_v2, uint32_t *ret_error_count_ack_checksum, uint32_t *ret_error_count_message_checksum, uint32_t *ret_error_count_frame, uint32_t *ret_error_count_overflow) {
+    if (rgb_led_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(rgb_led_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -240,6 +258,9 @@ int tf_rgb_led_v2_get_spitfp_error_count(TF_RGBLEDV2 *rgb_led_v2, uint32_t *ret_
 }
 
 int tf_rgb_led_v2_set_bootloader_mode(TF_RGBLEDV2 *rgb_led_v2, uint8_t mode, uint8_t *ret_status) {
+    if (rgb_led_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(rgb_led_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -276,6 +297,9 @@ int tf_rgb_led_v2_set_bootloader_mode(TF_RGBLEDV2 *rgb_led_v2, uint8_t mode, uin
 }
 
 int tf_rgb_led_v2_get_bootloader_mode(TF_RGBLEDV2 *rgb_led_v2, uint8_t *ret_mode) {
+    if (rgb_led_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(rgb_led_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -308,6 +332,9 @@ int tf_rgb_led_v2_get_bootloader_mode(TF_RGBLEDV2 *rgb_led_v2, uint8_t *ret_mode
 }
 
 int tf_rgb_led_v2_set_write_firmware_pointer(TF_RGBLEDV2 *rgb_led_v2, uint32_t pointer) {
+    if (rgb_led_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(rgb_led_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -340,6 +367,9 @@ int tf_rgb_led_v2_set_write_firmware_pointer(TF_RGBLEDV2 *rgb_led_v2, uint32_t p
 }
 
 int tf_rgb_led_v2_write_firmware(TF_RGBLEDV2 *rgb_led_v2, uint8_t data[64], uint8_t *ret_status) {
+    if (rgb_led_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(rgb_led_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -376,6 +406,9 @@ int tf_rgb_led_v2_write_firmware(TF_RGBLEDV2 *rgb_led_v2, uint8_t data[64], uint
 }
 
 int tf_rgb_led_v2_set_status_led_config(TF_RGBLEDV2 *rgb_led_v2, uint8_t config) {
+    if (rgb_led_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(rgb_led_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -408,6 +441,9 @@ int tf_rgb_led_v2_set_status_led_config(TF_RGBLEDV2 *rgb_led_v2, uint8_t config)
 }
 
 int tf_rgb_led_v2_get_status_led_config(TF_RGBLEDV2 *rgb_led_v2, uint8_t *ret_config) {
+    if (rgb_led_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(rgb_led_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -440,6 +476,9 @@ int tf_rgb_led_v2_get_status_led_config(TF_RGBLEDV2 *rgb_led_v2, uint8_t *ret_co
 }
 
 int tf_rgb_led_v2_get_chip_temperature(TF_RGBLEDV2 *rgb_led_v2, int16_t *ret_temperature) {
+    if (rgb_led_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(rgb_led_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -472,6 +511,9 @@ int tf_rgb_led_v2_get_chip_temperature(TF_RGBLEDV2 *rgb_led_v2, int16_t *ret_tem
 }
 
 int tf_rgb_led_v2_reset(TF_RGBLEDV2 *rgb_led_v2) {
+    if (rgb_led_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(rgb_led_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -500,6 +542,9 @@ int tf_rgb_led_v2_reset(TF_RGBLEDV2 *rgb_led_v2) {
 }
 
 int tf_rgb_led_v2_write_uid(TF_RGBLEDV2 *rgb_led_v2, uint32_t uid) {
+    if (rgb_led_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(rgb_led_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -532,6 +577,9 @@ int tf_rgb_led_v2_write_uid(TF_RGBLEDV2 *rgb_led_v2, uint32_t uid) {
 }
 
 int tf_rgb_led_v2_read_uid(TF_RGBLEDV2 *rgb_led_v2, uint32_t *ret_uid) {
+    if (rgb_led_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(rgb_led_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -564,6 +612,9 @@ int tf_rgb_led_v2_read_uid(TF_RGBLEDV2 *rgb_led_v2, uint32_t *ret_uid) {
 }
 
 int tf_rgb_led_v2_get_identity(TF_RGBLEDV2 *rgb_led_v2, char ret_uid[8], char ret_connected_uid[8], char *ret_position, uint8_t ret_hardware_version[3], uint8_t ret_firmware_version[3], uint16_t *ret_device_identifier) {
+    if (rgb_led_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(rgb_led_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -610,6 +661,9 @@ int tf_rgb_led_v2_get_identity(TF_RGBLEDV2 *rgb_led_v2, char ret_uid[8], char re
 
 
 int tf_rgb_led_v2_callback_tick(TF_RGBLEDV2 *rgb_led_v2, uint32_t timeout_us) {
+    if (rgb_led_v2 == NULL)
+        return TF_E_NULL;
+
     return tf_tfp_callback_tick(rgb_led_v2->tfp, tf_hal_current_time_us(rgb_led_v2->tfp->hal) + timeout_us);
 }
 

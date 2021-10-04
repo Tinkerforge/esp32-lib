@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-02-08.      *
+ * This file was automatically generated on 2021-10-04.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -56,6 +56,9 @@ static bool tf_dual_button_v2_callback_handler(void *dev, uint8_t fid, TF_Packet
 }
 #endif
 int tf_dual_button_v2_create(TF_DualButtonV2 *dual_button_v2, const char *uid, TF_HalContext *hal) {
+    if (dual_button_v2 == NULL || uid == NULL || hal == NULL)
+        return TF_E_NULL;
+
     memset(dual_button_v2, 0, sizeof(TF_DualButtonV2));
 
     uint32_t numeric_uid;
@@ -84,12 +87,18 @@ int tf_dual_button_v2_create(TF_DualButtonV2 *dual_button_v2, const char *uid, T
 }
 
 int tf_dual_button_v2_destroy(TF_DualButtonV2 *dual_button_v2) {
+    if (dual_button_v2 == NULL)
+        return TF_E_NULL;
+
     int result = tf_tfp_destroy(dual_button_v2->tfp);
     dual_button_v2->tfp = NULL;
     return result;
 }
 
 int tf_dual_button_v2_get_response_expected(TF_DualButtonV2 *dual_button_v2, uint8_t function_id, bool *ret_response_expected) {
+    if (dual_button_v2 == NULL)
+        return TF_E_NULL;
+
     switch(function_id) {
         case TF_DUAL_BUTTON_V2_FUNCTION_SET_LED_STATE:
             if(ret_response_expected != NULL)
@@ -187,6 +196,9 @@ void tf_dual_button_v2_set_response_expected_all(TF_DualButtonV2 *dual_button_v2
 }
 
 int tf_dual_button_v2_set_led_state(TF_DualButtonV2 *dual_button_v2, uint8_t led_l, uint8_t led_r) {
+    if (dual_button_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(dual_button_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -220,6 +232,9 @@ int tf_dual_button_v2_set_led_state(TF_DualButtonV2 *dual_button_v2, uint8_t led
 }
 
 int tf_dual_button_v2_get_led_state(TF_DualButtonV2 *dual_button_v2, uint8_t *ret_led_l, uint8_t *ret_led_r) {
+    if (dual_button_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(dual_button_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -253,6 +268,9 @@ int tf_dual_button_v2_get_led_state(TF_DualButtonV2 *dual_button_v2, uint8_t *re
 }
 
 int tf_dual_button_v2_get_button_state(TF_DualButtonV2 *dual_button_v2, uint8_t *ret_button_l, uint8_t *ret_button_r) {
+    if (dual_button_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(dual_button_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -286,6 +304,9 @@ int tf_dual_button_v2_get_button_state(TF_DualButtonV2 *dual_button_v2, uint8_t 
 }
 
 int tf_dual_button_v2_set_selected_led_state(TF_DualButtonV2 *dual_button_v2, uint8_t led, uint8_t state) {
+    if (dual_button_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(dual_button_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -319,6 +340,9 @@ int tf_dual_button_v2_set_selected_led_state(TF_DualButtonV2 *dual_button_v2, ui
 }
 
 int tf_dual_button_v2_set_state_changed_callback_configuration(TF_DualButtonV2 *dual_button_v2, bool enabled) {
+    if (dual_button_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(dual_button_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -351,6 +375,9 @@ int tf_dual_button_v2_set_state_changed_callback_configuration(TF_DualButtonV2 *
 }
 
 int tf_dual_button_v2_get_state_changed_callback_configuration(TF_DualButtonV2 *dual_button_v2, bool *ret_enabled) {
+    if (dual_button_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(dual_button_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -383,6 +410,9 @@ int tf_dual_button_v2_get_state_changed_callback_configuration(TF_DualButtonV2 *
 }
 
 int tf_dual_button_v2_get_spitfp_error_count(TF_DualButtonV2 *dual_button_v2, uint32_t *ret_error_count_ack_checksum, uint32_t *ret_error_count_message_checksum, uint32_t *ret_error_count_frame, uint32_t *ret_error_count_overflow) {
+    if (dual_button_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(dual_button_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -418,6 +448,9 @@ int tf_dual_button_v2_get_spitfp_error_count(TF_DualButtonV2 *dual_button_v2, ui
 }
 
 int tf_dual_button_v2_set_bootloader_mode(TF_DualButtonV2 *dual_button_v2, uint8_t mode, uint8_t *ret_status) {
+    if (dual_button_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(dual_button_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -454,6 +487,9 @@ int tf_dual_button_v2_set_bootloader_mode(TF_DualButtonV2 *dual_button_v2, uint8
 }
 
 int tf_dual_button_v2_get_bootloader_mode(TF_DualButtonV2 *dual_button_v2, uint8_t *ret_mode) {
+    if (dual_button_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(dual_button_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -486,6 +522,9 @@ int tf_dual_button_v2_get_bootloader_mode(TF_DualButtonV2 *dual_button_v2, uint8
 }
 
 int tf_dual_button_v2_set_write_firmware_pointer(TF_DualButtonV2 *dual_button_v2, uint32_t pointer) {
+    if (dual_button_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(dual_button_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -518,6 +557,9 @@ int tf_dual_button_v2_set_write_firmware_pointer(TF_DualButtonV2 *dual_button_v2
 }
 
 int tf_dual_button_v2_write_firmware(TF_DualButtonV2 *dual_button_v2, uint8_t data[64], uint8_t *ret_status) {
+    if (dual_button_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(dual_button_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -554,6 +596,9 @@ int tf_dual_button_v2_write_firmware(TF_DualButtonV2 *dual_button_v2, uint8_t da
 }
 
 int tf_dual_button_v2_set_status_led_config(TF_DualButtonV2 *dual_button_v2, uint8_t config) {
+    if (dual_button_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(dual_button_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -586,6 +631,9 @@ int tf_dual_button_v2_set_status_led_config(TF_DualButtonV2 *dual_button_v2, uin
 }
 
 int tf_dual_button_v2_get_status_led_config(TF_DualButtonV2 *dual_button_v2, uint8_t *ret_config) {
+    if (dual_button_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(dual_button_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -618,6 +666,9 @@ int tf_dual_button_v2_get_status_led_config(TF_DualButtonV2 *dual_button_v2, uin
 }
 
 int tf_dual_button_v2_get_chip_temperature(TF_DualButtonV2 *dual_button_v2, int16_t *ret_temperature) {
+    if (dual_button_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(dual_button_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -650,6 +701,9 @@ int tf_dual_button_v2_get_chip_temperature(TF_DualButtonV2 *dual_button_v2, int1
 }
 
 int tf_dual_button_v2_reset(TF_DualButtonV2 *dual_button_v2) {
+    if (dual_button_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(dual_button_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -678,6 +732,9 @@ int tf_dual_button_v2_reset(TF_DualButtonV2 *dual_button_v2) {
 }
 
 int tf_dual_button_v2_write_uid(TF_DualButtonV2 *dual_button_v2, uint32_t uid) {
+    if (dual_button_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(dual_button_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -710,6 +767,9 @@ int tf_dual_button_v2_write_uid(TF_DualButtonV2 *dual_button_v2, uint32_t uid) {
 }
 
 int tf_dual_button_v2_read_uid(TF_DualButtonV2 *dual_button_v2, uint32_t *ret_uid) {
+    if (dual_button_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(dual_button_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -742,6 +802,9 @@ int tf_dual_button_v2_read_uid(TF_DualButtonV2 *dual_button_v2, uint32_t *ret_ui
 }
 
 int tf_dual_button_v2_get_identity(TF_DualButtonV2 *dual_button_v2, char ret_uid[8], char ret_connected_uid[8], char *ret_position, uint8_t ret_hardware_version[3], uint8_t ret_firmware_version[3], uint16_t *ret_device_identifier) {
+    if (dual_button_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(dual_button_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -786,7 +849,10 @@ int tf_dual_button_v2_get_identity(TF_DualButtonV2 *dual_button_v2, char ret_uid
     return tf_tfp_get_error(error_code);
 }
 #ifdef TF_IMPLEMENT_CALLBACKS
-void tf_dual_button_v2_register_state_changed_callback(TF_DualButtonV2 *dual_button_v2, TF_DualButtonV2StateChangedHandler handler, void *user_data) {
+int tf_dual_button_v2_register_state_changed_callback(TF_DualButtonV2 *dual_button_v2, TF_DualButtonV2StateChangedHandler handler, void *user_data) {
+    if (dual_button_v2 == NULL)
+        return TF_E_NULL;
+
     if (handler == NULL) {
         dual_button_v2->tfp->needs_callback_tick = false;
         
@@ -795,9 +861,13 @@ void tf_dual_button_v2_register_state_changed_callback(TF_DualButtonV2 *dual_but
     }
     dual_button_v2->state_changed_handler = handler;
     dual_button_v2->state_changed_user_data = user_data;
+    return TF_E_OK;
 }
 #endif
 int tf_dual_button_v2_callback_tick(TF_DualButtonV2 *dual_button_v2, uint32_t timeout_us) {
+    if (dual_button_v2 == NULL)
+        return TF_E_NULL;
+
     return tf_tfp_callback_tick(dual_button_v2->tfp, tf_hal_current_time_us(dual_button_v2->tfp->hal) + timeout_us);
 }
 

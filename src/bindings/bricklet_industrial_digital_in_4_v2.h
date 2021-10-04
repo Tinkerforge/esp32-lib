@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-02-08.      *
+ * This file was automatically generated on 2021-10-04.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -397,7 +397,7 @@ TF_ATTRIBUTE_NONNULL_ALL void tf_industrial_digital_in_4_v2_set_response_expecte
  * value for the channel. The `changed` parameter is true if the value has changed
  * since the last callback.
  */
-TF_ATTRIBUTE_NONNULL(1) void tf_industrial_digital_in_4_v2_register_value_callback(TF_IndustrialDigitalIn4V2 *industrial_digital_in_4_v2, TF_IndustrialDigitalIn4V2ValueHandler handler, void *user_data);
+TF_ATTRIBUTE_NONNULL(1) int tf_industrial_digital_in_4_v2_register_value_callback(TF_IndustrialDigitalIn4V2 *industrial_digital_in_4_v2, TF_IndustrialDigitalIn4V2ValueHandler handler, void *user_data);
 
 
 /**
@@ -415,7 +415,7 @@ TF_ATTRIBUTE_NONNULL(1) void tf_industrial_digital_in_4_v2_register_value_callba
  * `changed` parameter is true if the value has changed since
  * the last callback.
  */
-TF_ATTRIBUTE_NONNULL(1) void tf_industrial_digital_in_4_v2_register_all_value_callback(TF_IndustrialDigitalIn4V2 *industrial_digital_in_4_v2, TF_IndustrialDigitalIn4V2AllValueHandler handler, void *user_data);
+TF_ATTRIBUTE_NONNULL(1) int tf_industrial_digital_in_4_v2_register_all_value_callback(TF_IndustrialDigitalIn4V2 *industrial_digital_in_4_v2, TF_IndustrialDigitalIn4V2AllValueHandler handler, void *user_data);
 #endif
 #ifdef TF_IMPLEMENT_CALLBACKS
 /**

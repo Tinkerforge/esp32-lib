@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-02-08.      *
+ * This file was automatically generated on 2021-10-04.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -460,7 +460,7 @@ TF_ATTRIBUTE_NONNULL_ALL void tf_industrial_dual_analog_in_v2_set_response_expec
  * 
  * The parameter is the same as {@link tf_industrial_dual_analog_in_v2_get_voltage}.
  */
-TF_ATTRIBUTE_NONNULL(1) void tf_industrial_dual_analog_in_v2_register_voltage_callback(TF_IndustrialDualAnalogInV2 *industrial_dual_analog_in_v2, TF_IndustrialDualAnalogInV2VoltageHandler handler, void *user_data);
+TF_ATTRIBUTE_NONNULL(1) int tf_industrial_dual_analog_in_v2_register_voltage_callback(TF_IndustrialDualAnalogInV2 *industrial_dual_analog_in_v2, TF_IndustrialDualAnalogInV2VoltageHandler handler, void *user_data);
 
 
 /**
@@ -478,7 +478,7 @@ TF_ATTRIBUTE_NONNULL(1) void tf_industrial_dual_analog_in_v2_register_voltage_ca
  * 
  * .. versionadded:: 2.0.6$nbsp;(Plugin)
  */
-TF_ATTRIBUTE_NONNULL(1) void tf_industrial_dual_analog_in_v2_register_all_voltages_callback(TF_IndustrialDualAnalogInV2 *industrial_dual_analog_in_v2, TF_IndustrialDualAnalogInV2AllVoltagesHandler handler, void *user_data);
+TF_ATTRIBUTE_NONNULL(1) int tf_industrial_dual_analog_in_v2_register_all_voltages_callback(TF_IndustrialDualAnalogInV2 *industrial_dual_analog_in_v2, TF_IndustrialDualAnalogInV2AllVoltagesHandler handler, void *user_data);
 #endif
 #ifdef TF_IMPLEMENT_CALLBACKS
 /**

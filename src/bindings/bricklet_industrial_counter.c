@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-02-08.      *
+ * This file was automatically generated on 2021-10-04.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -70,6 +70,9 @@ static bool tf_industrial_counter_callback_handler(void *dev, uint8_t fid, TF_Pa
 }
 #endif
 int tf_industrial_counter_create(TF_IndustrialCounter *industrial_counter, const char *uid, TF_HalContext *hal) {
+    if (industrial_counter == NULL || uid == NULL || hal == NULL)
+        return TF_E_NULL;
+
     memset(industrial_counter, 0, sizeof(TF_IndustrialCounter));
 
     uint32_t numeric_uid;
@@ -99,12 +102,18 @@ int tf_industrial_counter_create(TF_IndustrialCounter *industrial_counter, const
 }
 
 int tf_industrial_counter_destroy(TF_IndustrialCounter *industrial_counter) {
+    if (industrial_counter == NULL)
+        return TF_E_NULL;
+
     int result = tf_tfp_destroy(industrial_counter->tfp);
     industrial_counter->tfp = NULL;
     return result;
 }
 
 int tf_industrial_counter_get_response_expected(TF_IndustrialCounter *industrial_counter, uint8_t function_id, bool *ret_response_expected) {
+    if (industrial_counter == NULL)
+        return TF_E_NULL;
+
     switch(function_id) {
         case TF_INDUSTRIAL_COUNTER_FUNCTION_SET_COUNTER:
             if(ret_response_expected != NULL)
@@ -257,6 +266,9 @@ void tf_industrial_counter_set_response_expected_all(TF_IndustrialCounter *indus
 }
 
 int tf_industrial_counter_get_counter(TF_IndustrialCounter *industrial_counter, uint8_t channel, int64_t *ret_counter) {
+    if (industrial_counter == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(industrial_counter->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -293,6 +305,9 @@ int tf_industrial_counter_get_counter(TF_IndustrialCounter *industrial_counter, 
 }
 
 int tf_industrial_counter_get_all_counter(TF_IndustrialCounter *industrial_counter, int64_t ret_counter[4]) {
+    if (industrial_counter == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(industrial_counter->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -326,6 +341,9 @@ int tf_industrial_counter_get_all_counter(TF_IndustrialCounter *industrial_count
 }
 
 int tf_industrial_counter_set_counter(TF_IndustrialCounter *industrial_counter, uint8_t channel, int64_t counter) {
+    if (industrial_counter == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(industrial_counter->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -359,6 +377,9 @@ int tf_industrial_counter_set_counter(TF_IndustrialCounter *industrial_counter, 
 }
 
 int tf_industrial_counter_set_all_counter(TF_IndustrialCounter *industrial_counter, int64_t counter[4]) {
+    if (industrial_counter == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(industrial_counter->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -392,6 +413,9 @@ int tf_industrial_counter_set_all_counter(TF_IndustrialCounter *industrial_count
 }
 
 int tf_industrial_counter_get_signal_data(TF_IndustrialCounter *industrial_counter, uint8_t channel, uint16_t *ret_duty_cycle, uint64_t *ret_period, uint32_t *ret_frequency, bool *ret_value) {
+    if (industrial_counter == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(industrial_counter->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -431,6 +455,9 @@ int tf_industrial_counter_get_signal_data(TF_IndustrialCounter *industrial_count
 }
 
 int tf_industrial_counter_get_all_signal_data(TF_IndustrialCounter *industrial_counter, uint16_t ret_duty_cycle[4], uint64_t ret_period[4], uint32_t ret_frequency[4], bool ret_value[4]) {
+    if (industrial_counter == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(industrial_counter->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -467,6 +494,9 @@ int tf_industrial_counter_get_all_signal_data(TF_IndustrialCounter *industrial_c
 }
 
 int tf_industrial_counter_set_counter_active(TF_IndustrialCounter *industrial_counter, uint8_t channel, bool active) {
+    if (industrial_counter == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(industrial_counter->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -500,6 +530,9 @@ int tf_industrial_counter_set_counter_active(TF_IndustrialCounter *industrial_co
 }
 
 int tf_industrial_counter_set_all_counter_active(TF_IndustrialCounter *industrial_counter, bool active[4]) {
+    if (industrial_counter == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(industrial_counter->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -533,6 +566,9 @@ int tf_industrial_counter_set_all_counter_active(TF_IndustrialCounter *industria
 }
 
 int tf_industrial_counter_get_counter_active(TF_IndustrialCounter *industrial_counter, uint8_t channel, bool *ret_active) {
+    if (industrial_counter == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(industrial_counter->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -569,6 +605,9 @@ int tf_industrial_counter_get_counter_active(TF_IndustrialCounter *industrial_co
 }
 
 int tf_industrial_counter_get_all_counter_active(TF_IndustrialCounter *industrial_counter, bool ret_active[4]) {
+    if (industrial_counter == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(industrial_counter->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -601,6 +640,9 @@ int tf_industrial_counter_get_all_counter_active(TF_IndustrialCounter *industria
 }
 
 int tf_industrial_counter_set_counter_configuration(TF_IndustrialCounter *industrial_counter, uint8_t channel, uint8_t count_edge, uint8_t count_direction, uint8_t duty_cycle_prescaler, uint8_t frequency_integration_time) {
+    if (industrial_counter == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(industrial_counter->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -637,6 +679,9 @@ int tf_industrial_counter_set_counter_configuration(TF_IndustrialCounter *indust
 }
 
 int tf_industrial_counter_get_counter_configuration(TF_IndustrialCounter *industrial_counter, uint8_t channel, uint8_t *ret_count_edge, uint8_t *ret_count_direction, uint8_t *ret_duty_cycle_prescaler, uint8_t *ret_frequency_integration_time) {
+    if (industrial_counter == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(industrial_counter->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -676,6 +721,9 @@ int tf_industrial_counter_get_counter_configuration(TF_IndustrialCounter *indust
 }
 
 int tf_industrial_counter_set_all_counter_callback_configuration(TF_IndustrialCounter *industrial_counter, uint32_t period, bool value_has_to_change) {
+    if (industrial_counter == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(industrial_counter->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -709,6 +757,9 @@ int tf_industrial_counter_set_all_counter_callback_configuration(TF_IndustrialCo
 }
 
 int tf_industrial_counter_get_all_counter_callback_configuration(TF_IndustrialCounter *industrial_counter, uint32_t *ret_period, bool *ret_value_has_to_change) {
+    if (industrial_counter == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(industrial_counter->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -742,6 +793,9 @@ int tf_industrial_counter_get_all_counter_callback_configuration(TF_IndustrialCo
 }
 
 int tf_industrial_counter_set_all_signal_data_callback_configuration(TF_IndustrialCounter *industrial_counter, uint32_t period, bool value_has_to_change) {
+    if (industrial_counter == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(industrial_counter->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -775,6 +829,9 @@ int tf_industrial_counter_set_all_signal_data_callback_configuration(TF_Industri
 }
 
 int tf_industrial_counter_get_all_signal_data_callback_configuration(TF_IndustrialCounter *industrial_counter, uint32_t *ret_period, bool *ret_value_has_to_change) {
+    if (industrial_counter == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(industrial_counter->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -808,6 +865,9 @@ int tf_industrial_counter_get_all_signal_data_callback_configuration(TF_Industri
 }
 
 int tf_industrial_counter_set_channel_led_config(TF_IndustrialCounter *industrial_counter, uint8_t channel, uint8_t config) {
+    if (industrial_counter == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(industrial_counter->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -841,6 +901,9 @@ int tf_industrial_counter_set_channel_led_config(TF_IndustrialCounter *industria
 }
 
 int tf_industrial_counter_get_channel_led_config(TF_IndustrialCounter *industrial_counter, uint8_t channel, uint8_t *ret_config) {
+    if (industrial_counter == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(industrial_counter->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -877,6 +940,9 @@ int tf_industrial_counter_get_channel_led_config(TF_IndustrialCounter *industria
 }
 
 int tf_industrial_counter_get_spitfp_error_count(TF_IndustrialCounter *industrial_counter, uint32_t *ret_error_count_ack_checksum, uint32_t *ret_error_count_message_checksum, uint32_t *ret_error_count_frame, uint32_t *ret_error_count_overflow) {
+    if (industrial_counter == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(industrial_counter->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -912,6 +978,9 @@ int tf_industrial_counter_get_spitfp_error_count(TF_IndustrialCounter *industria
 }
 
 int tf_industrial_counter_set_bootloader_mode(TF_IndustrialCounter *industrial_counter, uint8_t mode, uint8_t *ret_status) {
+    if (industrial_counter == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(industrial_counter->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -948,6 +1017,9 @@ int tf_industrial_counter_set_bootloader_mode(TF_IndustrialCounter *industrial_c
 }
 
 int tf_industrial_counter_get_bootloader_mode(TF_IndustrialCounter *industrial_counter, uint8_t *ret_mode) {
+    if (industrial_counter == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(industrial_counter->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -980,6 +1052,9 @@ int tf_industrial_counter_get_bootloader_mode(TF_IndustrialCounter *industrial_c
 }
 
 int tf_industrial_counter_set_write_firmware_pointer(TF_IndustrialCounter *industrial_counter, uint32_t pointer) {
+    if (industrial_counter == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(industrial_counter->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1012,6 +1087,9 @@ int tf_industrial_counter_set_write_firmware_pointer(TF_IndustrialCounter *indus
 }
 
 int tf_industrial_counter_write_firmware(TF_IndustrialCounter *industrial_counter, uint8_t data[64], uint8_t *ret_status) {
+    if (industrial_counter == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(industrial_counter->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1048,6 +1126,9 @@ int tf_industrial_counter_write_firmware(TF_IndustrialCounter *industrial_counte
 }
 
 int tf_industrial_counter_set_status_led_config(TF_IndustrialCounter *industrial_counter, uint8_t config) {
+    if (industrial_counter == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(industrial_counter->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1080,6 +1161,9 @@ int tf_industrial_counter_set_status_led_config(TF_IndustrialCounter *industrial
 }
 
 int tf_industrial_counter_get_status_led_config(TF_IndustrialCounter *industrial_counter, uint8_t *ret_config) {
+    if (industrial_counter == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(industrial_counter->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1112,6 +1196,9 @@ int tf_industrial_counter_get_status_led_config(TF_IndustrialCounter *industrial
 }
 
 int tf_industrial_counter_get_chip_temperature(TF_IndustrialCounter *industrial_counter, int16_t *ret_temperature) {
+    if (industrial_counter == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(industrial_counter->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1144,6 +1231,9 @@ int tf_industrial_counter_get_chip_temperature(TF_IndustrialCounter *industrial_
 }
 
 int tf_industrial_counter_reset(TF_IndustrialCounter *industrial_counter) {
+    if (industrial_counter == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(industrial_counter->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1172,6 +1262,9 @@ int tf_industrial_counter_reset(TF_IndustrialCounter *industrial_counter) {
 }
 
 int tf_industrial_counter_write_uid(TF_IndustrialCounter *industrial_counter, uint32_t uid) {
+    if (industrial_counter == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(industrial_counter->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1204,6 +1297,9 @@ int tf_industrial_counter_write_uid(TF_IndustrialCounter *industrial_counter, ui
 }
 
 int tf_industrial_counter_read_uid(TF_IndustrialCounter *industrial_counter, uint32_t *ret_uid) {
+    if (industrial_counter == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(industrial_counter->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1236,6 +1332,9 @@ int tf_industrial_counter_read_uid(TF_IndustrialCounter *industrial_counter, uin
 }
 
 int tf_industrial_counter_get_identity(TF_IndustrialCounter *industrial_counter, char ret_uid[8], char ret_connected_uid[8], char *ret_position, uint8_t ret_hardware_version[3], uint8_t ret_firmware_version[3], uint16_t *ret_device_identifier) {
+    if (industrial_counter == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(industrial_counter->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1280,7 +1379,10 @@ int tf_industrial_counter_get_identity(TF_IndustrialCounter *industrial_counter,
     return tf_tfp_get_error(error_code);
 }
 #ifdef TF_IMPLEMENT_CALLBACKS
-void tf_industrial_counter_register_all_counter_callback(TF_IndustrialCounter *industrial_counter, TF_IndustrialCounterAllCounterHandler handler, void *user_data) {
+int tf_industrial_counter_register_all_counter_callback(TF_IndustrialCounter *industrial_counter, TF_IndustrialCounterAllCounterHandler handler, void *user_data) {
+    if (industrial_counter == NULL)
+        return TF_E_NULL;
+
     if (handler == NULL) {
         industrial_counter->tfp->needs_callback_tick = false;
         industrial_counter->tfp->needs_callback_tick |= industrial_counter->all_signal_data_handler != NULL;
@@ -1289,10 +1391,14 @@ void tf_industrial_counter_register_all_counter_callback(TF_IndustrialCounter *i
     }
     industrial_counter->all_counter_handler = handler;
     industrial_counter->all_counter_user_data = user_data;
+    return TF_E_OK;
 }
 
 
-void tf_industrial_counter_register_all_signal_data_callback(TF_IndustrialCounter *industrial_counter, TF_IndustrialCounterAllSignalDataHandler handler, void *user_data) {
+int tf_industrial_counter_register_all_signal_data_callback(TF_IndustrialCounter *industrial_counter, TF_IndustrialCounterAllSignalDataHandler handler, void *user_data) {
+    if (industrial_counter == NULL)
+        return TF_E_NULL;
+
     if (handler == NULL) {
         industrial_counter->tfp->needs_callback_tick = false;
         industrial_counter->tfp->needs_callback_tick |= industrial_counter->all_counter_handler != NULL;
@@ -1301,9 +1407,13 @@ void tf_industrial_counter_register_all_signal_data_callback(TF_IndustrialCounte
     }
     industrial_counter->all_signal_data_handler = handler;
     industrial_counter->all_signal_data_user_data = user_data;
+    return TF_E_OK;
 }
 #endif
 int tf_industrial_counter_callback_tick(TF_IndustrialCounter *industrial_counter, uint32_t timeout_us) {
+    if (industrial_counter == NULL)
+        return TF_E_NULL;
+
     return tf_tfp_callback_tick(industrial_counter->tfp, tf_hal_current_time_us(industrial_counter->tfp->hal) + timeout_us);
 }
 

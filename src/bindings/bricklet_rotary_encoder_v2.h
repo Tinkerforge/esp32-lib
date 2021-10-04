@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-02-08.      *
+ * This file was automatically generated on 2021-10-04.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -344,7 +344,7 @@ TF_ATTRIBUTE_NONNULL_ALL void tf_rotary_encoder_v2_set_response_expected_all(TF_
  * 
  * The parameter is the same as {@link tf_rotary_encoder_v2_get_count}.
  */
-TF_ATTRIBUTE_NONNULL(1) void tf_rotary_encoder_v2_register_count_callback(TF_RotaryEncoderV2 *rotary_encoder_v2, TF_RotaryEncoderV2CountHandler handler, void *user_data);
+TF_ATTRIBUTE_NONNULL(1) int tf_rotary_encoder_v2_register_count_callback(TF_RotaryEncoderV2 *rotary_encoder_v2, TF_RotaryEncoderV2CountHandler handler, void *user_data);
 
 
 /**
@@ -357,7 +357,7 @@ TF_ATTRIBUTE_NONNULL(1) void tf_rotary_encoder_v2_register_count_callback(TF_Rot
  * 
  * This callback is triggered when the button is pressed.
  */
-TF_ATTRIBUTE_NONNULL(1) void tf_rotary_encoder_v2_register_pressed_callback(TF_RotaryEncoderV2 *rotary_encoder_v2, TF_RotaryEncoderV2PressedHandler handler, void *user_data);
+TF_ATTRIBUTE_NONNULL(1) int tf_rotary_encoder_v2_register_pressed_callback(TF_RotaryEncoderV2 *rotary_encoder_v2, TF_RotaryEncoderV2PressedHandler handler, void *user_data);
 
 
 /**
@@ -370,7 +370,7 @@ TF_ATTRIBUTE_NONNULL(1) void tf_rotary_encoder_v2_register_pressed_callback(TF_R
  * 
  * This callback is triggered when the button is released.
  */
-TF_ATTRIBUTE_NONNULL(1) void tf_rotary_encoder_v2_register_released_callback(TF_RotaryEncoderV2 *rotary_encoder_v2, TF_RotaryEncoderV2ReleasedHandler handler, void *user_data);
+TF_ATTRIBUTE_NONNULL(1) int tf_rotary_encoder_v2_register_released_callback(TF_RotaryEncoderV2 *rotary_encoder_v2, TF_RotaryEncoderV2ReleasedHandler handler, void *user_data);
 #endif
 #ifdef TF_IMPLEMENT_CALLBACKS
 /**

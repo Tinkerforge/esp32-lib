@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-02-08.      *
+ * This file was automatically generated on 2021-10-04.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -69,6 +69,20 @@ static bool tf_performance_dc_callback_handler(void *dev, uint8_t fid, TF_Packet
             common->locked = false;
             break;
         }
+
+        case TF_PERFORMANCE_DC_CALLBACK_GPIO_STATE: {
+            TF_PerformanceDCGPIOStateHandler fn = performance_dc->gpio_state_handler;
+            void *user_data = performance_dc->gpio_state_user_data;
+            if (fn == NULL)
+                return false;
+
+            bool gpio_state[2]; tf_packetbuffer_read_bool_array(payload, gpio_state, 2);
+            TF_HalCommon *common = tf_hal_get_common(performance_dc->tfp->hal);
+            common->locked = true;
+            fn(performance_dc, gpio_state, user_data);
+            common->locked = false;
+            break;
+        }
         default:
             return false;
     }
@@ -81,6 +95,9 @@ static bool tf_performance_dc_callback_handler(void *dev, uint8_t fid, TF_Packet
 }
 #endif
 int tf_performance_dc_create(TF_PerformanceDC *performance_dc, const char *uid, TF_HalContext *hal) {
+    if (performance_dc == NULL || uid == NULL || hal == NULL)
+        return TF_E_NULL;
+
     memset(performance_dc, 0, sizeof(TF_PerformanceDC));
 
     uint32_t numeric_uid;
@@ -111,12 +128,18 @@ int tf_performance_dc_create(TF_PerformanceDC *performance_dc, const char *uid, 
 }
 
 int tf_performance_dc_destroy(TF_PerformanceDC *performance_dc) {
+    if (performance_dc == NULL)
+        return TF_E_NULL;
+
     int result = tf_tfp_destroy(performance_dc->tfp);
     performance_dc->tfp = NULL;
     return result;
 }
 
 int tf_performance_dc_get_response_expected(TF_PerformanceDC *performance_dc, uint8_t function_id, bool *ret_response_expected) {
+    if (performance_dc == NULL)
+        return TF_E_NULL;
+
     switch(function_id) {
         case TF_PERFORMANCE_DC_FUNCTION_SET_ENABLED:
             if(ret_response_expected != NULL)
@@ -357,6 +380,9 @@ void tf_performance_dc_set_response_expected_all(TF_PerformanceDC *performance_d
 }
 
 int tf_performance_dc_set_enabled(TF_PerformanceDC *performance_dc, bool enabled) {
+    if (performance_dc == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(performance_dc->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -389,6 +415,9 @@ int tf_performance_dc_set_enabled(TF_PerformanceDC *performance_dc, bool enabled
 }
 
 int tf_performance_dc_get_enabled(TF_PerformanceDC *performance_dc, bool *ret_enabled) {
+    if (performance_dc == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(performance_dc->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -421,6 +450,9 @@ int tf_performance_dc_get_enabled(TF_PerformanceDC *performance_dc, bool *ret_en
 }
 
 int tf_performance_dc_set_velocity(TF_PerformanceDC *performance_dc, int16_t velocity) {
+    if (performance_dc == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(performance_dc->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -453,6 +485,9 @@ int tf_performance_dc_set_velocity(TF_PerformanceDC *performance_dc, int16_t vel
 }
 
 int tf_performance_dc_get_velocity(TF_PerformanceDC *performance_dc, int16_t *ret_velocity) {
+    if (performance_dc == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(performance_dc->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -485,6 +520,9 @@ int tf_performance_dc_get_velocity(TF_PerformanceDC *performance_dc, int16_t *re
 }
 
 int tf_performance_dc_get_current_velocity(TF_PerformanceDC *performance_dc, int16_t *ret_velocity) {
+    if (performance_dc == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(performance_dc->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -517,6 +555,9 @@ int tf_performance_dc_get_current_velocity(TF_PerformanceDC *performance_dc, int
 }
 
 int tf_performance_dc_set_motion(TF_PerformanceDC *performance_dc, uint16_t acceleration, uint16_t deceleration) {
+    if (performance_dc == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(performance_dc->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -550,6 +591,9 @@ int tf_performance_dc_set_motion(TF_PerformanceDC *performance_dc, uint16_t acce
 }
 
 int tf_performance_dc_get_motion(TF_PerformanceDC *performance_dc, uint16_t *ret_acceleration, uint16_t *ret_deceleration) {
+    if (performance_dc == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(performance_dc->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -583,6 +627,9 @@ int tf_performance_dc_get_motion(TF_PerformanceDC *performance_dc, uint16_t *ret
 }
 
 int tf_performance_dc_full_brake(TF_PerformanceDC *performance_dc) {
+    if (performance_dc == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(performance_dc->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -611,6 +658,9 @@ int tf_performance_dc_full_brake(TF_PerformanceDC *performance_dc) {
 }
 
 int tf_performance_dc_set_drive_mode(TF_PerformanceDC *performance_dc, uint8_t mode) {
+    if (performance_dc == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(performance_dc->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -643,6 +693,9 @@ int tf_performance_dc_set_drive_mode(TF_PerformanceDC *performance_dc, uint8_t m
 }
 
 int tf_performance_dc_get_drive_mode(TF_PerformanceDC *performance_dc, uint8_t *ret_mode) {
+    if (performance_dc == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(performance_dc->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -675,6 +728,9 @@ int tf_performance_dc_get_drive_mode(TF_PerformanceDC *performance_dc, uint8_t *
 }
 
 int tf_performance_dc_set_pwm_frequency(TF_PerformanceDC *performance_dc, uint16_t frequency) {
+    if (performance_dc == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(performance_dc->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -707,6 +763,9 @@ int tf_performance_dc_set_pwm_frequency(TF_PerformanceDC *performance_dc, uint16
 }
 
 int tf_performance_dc_get_pwm_frequency(TF_PerformanceDC *performance_dc, uint16_t *ret_frequency) {
+    if (performance_dc == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(performance_dc->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -739,6 +798,9 @@ int tf_performance_dc_get_pwm_frequency(TF_PerformanceDC *performance_dc, uint16
 }
 
 int tf_performance_dc_get_power_statistics(TF_PerformanceDC *performance_dc, uint16_t *ret_voltage, uint16_t *ret_current, int16_t *ret_temperature) {
+    if (performance_dc == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(performance_dc->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -773,6 +835,9 @@ int tf_performance_dc_get_power_statistics(TF_PerformanceDC *performance_dc, uin
 }
 
 int tf_performance_dc_set_thermal_shutdown(TF_PerformanceDC *performance_dc, uint8_t temperature) {
+    if (performance_dc == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(performance_dc->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -805,6 +870,9 @@ int tf_performance_dc_set_thermal_shutdown(TF_PerformanceDC *performance_dc, uin
 }
 
 int tf_performance_dc_get_thermal_shutdown(TF_PerformanceDC *performance_dc, uint8_t *ret_temperature) {
+    if (performance_dc == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(performance_dc->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -837,6 +905,9 @@ int tf_performance_dc_get_thermal_shutdown(TF_PerformanceDC *performance_dc, uin
 }
 
 int tf_performance_dc_set_gpio_configuration(TF_PerformanceDC *performance_dc, uint8_t channel, uint16_t debounce, uint16_t stop_deceleration) {
+    if (performance_dc == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(performance_dc->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -871,6 +942,9 @@ int tf_performance_dc_set_gpio_configuration(TF_PerformanceDC *performance_dc, u
 }
 
 int tf_performance_dc_get_gpio_configuration(TF_PerformanceDC *performance_dc, uint8_t channel, uint16_t *ret_debounce, uint16_t *ret_stop_deceleration) {
+    if (performance_dc == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(performance_dc->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -908,6 +982,9 @@ int tf_performance_dc_get_gpio_configuration(TF_PerformanceDC *performance_dc, u
 }
 
 int tf_performance_dc_set_gpio_action(TF_PerformanceDC *performance_dc, uint8_t channel, uint32_t action) {
+    if (performance_dc == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(performance_dc->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -941,6 +1018,9 @@ int tf_performance_dc_set_gpio_action(TF_PerformanceDC *performance_dc, uint8_t 
 }
 
 int tf_performance_dc_get_gpio_action(TF_PerformanceDC *performance_dc, uint8_t channel, uint32_t *ret_action) {
+    if (performance_dc == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(performance_dc->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -977,6 +1057,9 @@ int tf_performance_dc_get_gpio_action(TF_PerformanceDC *performance_dc, uint8_t 
 }
 
 int tf_performance_dc_get_gpio_state(TF_PerformanceDC *performance_dc, bool ret_gpio_state[2]) {
+    if (performance_dc == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(performance_dc->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1009,6 +1092,9 @@ int tf_performance_dc_get_gpio_state(TF_PerformanceDC *performance_dc, bool ret_
 }
 
 int tf_performance_dc_set_error_led_config(TF_PerformanceDC *performance_dc, uint8_t config) {
+    if (performance_dc == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(performance_dc->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1041,6 +1127,9 @@ int tf_performance_dc_set_error_led_config(TF_PerformanceDC *performance_dc, uin
 }
 
 int tf_performance_dc_get_error_led_config(TF_PerformanceDC *performance_dc, uint8_t *ret_config) {
+    if (performance_dc == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(performance_dc->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1073,6 +1162,9 @@ int tf_performance_dc_get_error_led_config(TF_PerformanceDC *performance_dc, uin
 }
 
 int tf_performance_dc_set_cw_led_config(TF_PerformanceDC *performance_dc, uint8_t config) {
+    if (performance_dc == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(performance_dc->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1105,6 +1197,9 @@ int tf_performance_dc_set_cw_led_config(TF_PerformanceDC *performance_dc, uint8_
 }
 
 int tf_performance_dc_get_cw_led_config(TF_PerformanceDC *performance_dc, uint8_t *ret_config) {
+    if (performance_dc == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(performance_dc->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1137,6 +1232,9 @@ int tf_performance_dc_get_cw_led_config(TF_PerformanceDC *performance_dc, uint8_
 }
 
 int tf_performance_dc_set_ccw_led_config(TF_PerformanceDC *performance_dc, uint8_t config) {
+    if (performance_dc == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(performance_dc->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1169,6 +1267,9 @@ int tf_performance_dc_set_ccw_led_config(TF_PerformanceDC *performance_dc, uint8
 }
 
 int tf_performance_dc_get_ccw_led_config(TF_PerformanceDC *performance_dc, uint8_t *ret_config) {
+    if (performance_dc == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(performance_dc->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1201,6 +1302,9 @@ int tf_performance_dc_get_ccw_led_config(TF_PerformanceDC *performance_dc, uint8
 }
 
 int tf_performance_dc_set_gpio_led_config(TF_PerformanceDC *performance_dc, uint8_t channel, uint8_t config) {
+    if (performance_dc == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(performance_dc->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1234,6 +1338,9 @@ int tf_performance_dc_set_gpio_led_config(TF_PerformanceDC *performance_dc, uint
 }
 
 int tf_performance_dc_get_gpio_led_config(TF_PerformanceDC *performance_dc, uint8_t channel, uint8_t *ret_config) {
+    if (performance_dc == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(performance_dc->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1270,6 +1377,9 @@ int tf_performance_dc_get_gpio_led_config(TF_PerformanceDC *performance_dc, uint
 }
 
 int tf_performance_dc_set_emergency_shutdown_callback_configuration(TF_PerformanceDC *performance_dc, bool enabled) {
+    if (performance_dc == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(performance_dc->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1302,6 +1412,9 @@ int tf_performance_dc_set_emergency_shutdown_callback_configuration(TF_Performan
 }
 
 int tf_performance_dc_get_emergency_shutdown_callback_configuration(TF_PerformanceDC *performance_dc, bool *ret_enabled) {
+    if (performance_dc == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(performance_dc->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1334,6 +1447,9 @@ int tf_performance_dc_get_emergency_shutdown_callback_configuration(TF_Performan
 }
 
 int tf_performance_dc_set_velocity_reached_callback_configuration(TF_PerformanceDC *performance_dc, bool enabled) {
+    if (performance_dc == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(performance_dc->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1366,6 +1482,9 @@ int tf_performance_dc_set_velocity_reached_callback_configuration(TF_Performance
 }
 
 int tf_performance_dc_get_velocity_reached_callback_configuration(TF_PerformanceDC *performance_dc, bool *ret_enabled) {
+    if (performance_dc == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(performance_dc->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1398,6 +1517,9 @@ int tf_performance_dc_get_velocity_reached_callback_configuration(TF_Performance
 }
 
 int tf_performance_dc_set_current_velocity_callback_configuration(TF_PerformanceDC *performance_dc, uint32_t period, bool value_has_to_change) {
+    if (performance_dc == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(performance_dc->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1431,6 +1553,9 @@ int tf_performance_dc_set_current_velocity_callback_configuration(TF_Performance
 }
 
 int tf_performance_dc_get_current_velocity_callback_configuration(TF_PerformanceDC *performance_dc, uint32_t *ret_period, bool *ret_value_has_to_change) {
+    if (performance_dc == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(performance_dc->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1464,6 +1589,9 @@ int tf_performance_dc_get_current_velocity_callback_configuration(TF_Performance
 }
 
 int tf_performance_dc_get_spitfp_error_count(TF_PerformanceDC *performance_dc, uint32_t *ret_error_count_ack_checksum, uint32_t *ret_error_count_message_checksum, uint32_t *ret_error_count_frame, uint32_t *ret_error_count_overflow) {
+    if (performance_dc == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(performance_dc->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1499,6 +1627,9 @@ int tf_performance_dc_get_spitfp_error_count(TF_PerformanceDC *performance_dc, u
 }
 
 int tf_performance_dc_set_bootloader_mode(TF_PerformanceDC *performance_dc, uint8_t mode, uint8_t *ret_status) {
+    if (performance_dc == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(performance_dc->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1535,6 +1666,9 @@ int tf_performance_dc_set_bootloader_mode(TF_PerformanceDC *performance_dc, uint
 }
 
 int tf_performance_dc_get_bootloader_mode(TF_PerformanceDC *performance_dc, uint8_t *ret_mode) {
+    if (performance_dc == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(performance_dc->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1567,6 +1701,9 @@ int tf_performance_dc_get_bootloader_mode(TF_PerformanceDC *performance_dc, uint
 }
 
 int tf_performance_dc_set_write_firmware_pointer(TF_PerformanceDC *performance_dc, uint32_t pointer) {
+    if (performance_dc == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(performance_dc->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1599,6 +1736,9 @@ int tf_performance_dc_set_write_firmware_pointer(TF_PerformanceDC *performance_d
 }
 
 int tf_performance_dc_write_firmware(TF_PerformanceDC *performance_dc, uint8_t data[64], uint8_t *ret_status) {
+    if (performance_dc == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(performance_dc->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1635,6 +1775,9 @@ int tf_performance_dc_write_firmware(TF_PerformanceDC *performance_dc, uint8_t d
 }
 
 int tf_performance_dc_set_status_led_config(TF_PerformanceDC *performance_dc, uint8_t config) {
+    if (performance_dc == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(performance_dc->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1667,6 +1810,9 @@ int tf_performance_dc_set_status_led_config(TF_PerformanceDC *performance_dc, ui
 }
 
 int tf_performance_dc_get_status_led_config(TF_PerformanceDC *performance_dc, uint8_t *ret_config) {
+    if (performance_dc == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(performance_dc->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1699,6 +1845,9 @@ int tf_performance_dc_get_status_led_config(TF_PerformanceDC *performance_dc, ui
 }
 
 int tf_performance_dc_get_chip_temperature(TF_PerformanceDC *performance_dc, int16_t *ret_temperature) {
+    if (performance_dc == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(performance_dc->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1731,6 +1880,9 @@ int tf_performance_dc_get_chip_temperature(TF_PerformanceDC *performance_dc, int
 }
 
 int tf_performance_dc_reset(TF_PerformanceDC *performance_dc) {
+    if (performance_dc == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(performance_dc->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1759,6 +1911,9 @@ int tf_performance_dc_reset(TF_PerformanceDC *performance_dc) {
 }
 
 int tf_performance_dc_write_uid(TF_PerformanceDC *performance_dc, uint32_t uid) {
+    if (performance_dc == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(performance_dc->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1791,6 +1946,9 @@ int tf_performance_dc_write_uid(TF_PerformanceDC *performance_dc, uint32_t uid) 
 }
 
 int tf_performance_dc_read_uid(TF_PerformanceDC *performance_dc, uint32_t *ret_uid) {
+    if (performance_dc == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(performance_dc->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1823,6 +1981,9 @@ int tf_performance_dc_read_uid(TF_PerformanceDC *performance_dc, uint32_t *ret_u
 }
 
 int tf_performance_dc_get_identity(TF_PerformanceDC *performance_dc, char ret_uid[8], char ret_connected_uid[8], char *ret_position, uint8_t ret_hardware_version[3], uint8_t ret_firmware_version[3], uint16_t *ret_device_identifier) {
+    if (performance_dc == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(performance_dc->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1867,45 +2028,81 @@ int tf_performance_dc_get_identity(TF_PerformanceDC *performance_dc, char ret_ui
     return tf_tfp_get_error(error_code);
 }
 #ifdef TF_IMPLEMENT_CALLBACKS
-void tf_performance_dc_register_emergency_shutdown_callback(TF_PerformanceDC *performance_dc, TF_PerformanceDCEmergencyShutdownHandler handler, void *user_data) {
+int tf_performance_dc_register_emergency_shutdown_callback(TF_PerformanceDC *performance_dc, TF_PerformanceDCEmergencyShutdownHandler handler, void *user_data) {
+    if (performance_dc == NULL)
+        return TF_E_NULL;
+
     if (handler == NULL) {
         performance_dc->tfp->needs_callback_tick = false;
         performance_dc->tfp->needs_callback_tick |= performance_dc->velocity_reached_handler != NULL;
         performance_dc->tfp->needs_callback_tick |= performance_dc->current_velocity_handler != NULL;
+        performance_dc->tfp->needs_callback_tick |= performance_dc->gpio_state_handler != NULL;
     } else {
         performance_dc->tfp->needs_callback_tick = true;
     }
     performance_dc->emergency_shutdown_handler = handler;
     performance_dc->emergency_shutdown_user_data = user_data;
+    return TF_E_OK;
 }
 
 
-void tf_performance_dc_register_velocity_reached_callback(TF_PerformanceDC *performance_dc, TF_PerformanceDCVelocityReachedHandler handler, void *user_data) {
+int tf_performance_dc_register_velocity_reached_callback(TF_PerformanceDC *performance_dc, TF_PerformanceDCVelocityReachedHandler handler, void *user_data) {
+    if (performance_dc == NULL)
+        return TF_E_NULL;
+
     if (handler == NULL) {
         performance_dc->tfp->needs_callback_tick = false;
         performance_dc->tfp->needs_callback_tick |= performance_dc->emergency_shutdown_handler != NULL;
         performance_dc->tfp->needs_callback_tick |= performance_dc->current_velocity_handler != NULL;
+        performance_dc->tfp->needs_callback_tick |= performance_dc->gpio_state_handler != NULL;
     } else {
         performance_dc->tfp->needs_callback_tick = true;
     }
     performance_dc->velocity_reached_handler = handler;
     performance_dc->velocity_reached_user_data = user_data;
+    return TF_E_OK;
 }
 
 
-void tf_performance_dc_register_current_velocity_callback(TF_PerformanceDC *performance_dc, TF_PerformanceDCCurrentVelocityHandler handler, void *user_data) {
+int tf_performance_dc_register_current_velocity_callback(TF_PerformanceDC *performance_dc, TF_PerformanceDCCurrentVelocityHandler handler, void *user_data) {
+    if (performance_dc == NULL)
+        return TF_E_NULL;
+
     if (handler == NULL) {
         performance_dc->tfp->needs_callback_tick = false;
         performance_dc->tfp->needs_callback_tick |= performance_dc->emergency_shutdown_handler != NULL;
         performance_dc->tfp->needs_callback_tick |= performance_dc->velocity_reached_handler != NULL;
+        performance_dc->tfp->needs_callback_tick |= performance_dc->gpio_state_handler != NULL;
     } else {
         performance_dc->tfp->needs_callback_tick = true;
     }
     performance_dc->current_velocity_handler = handler;
     performance_dc->current_velocity_user_data = user_data;
+    return TF_E_OK;
+}
+
+
+int tf_performance_dc_register_gpio_state_callback(TF_PerformanceDC *performance_dc, TF_PerformanceDCGPIOStateHandler handler, void *user_data) {
+    if (performance_dc == NULL)
+        return TF_E_NULL;
+
+    if (handler == NULL) {
+        performance_dc->tfp->needs_callback_tick = false;
+        performance_dc->tfp->needs_callback_tick |= performance_dc->emergency_shutdown_handler != NULL;
+        performance_dc->tfp->needs_callback_tick |= performance_dc->velocity_reached_handler != NULL;
+        performance_dc->tfp->needs_callback_tick |= performance_dc->current_velocity_handler != NULL;
+    } else {
+        performance_dc->tfp->needs_callback_tick = true;
+    }
+    performance_dc->gpio_state_handler = handler;
+    performance_dc->gpio_state_user_data = user_data;
+    return TF_E_OK;
 }
 #endif
 int tf_performance_dc_callback_tick(TF_PerformanceDC *performance_dc, uint32_t timeout_us) {
+    if (performance_dc == NULL)
+        return TF_E_NULL;
+
     return tf_tfp_callback_tick(performance_dc->tfp, tf_hal_current_time_us(performance_dc->tfp->hal) + timeout_us);
 }
 

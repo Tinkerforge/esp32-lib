@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-02-08.      *
+ * This file was automatically generated on 2021-10-04.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -54,6 +54,9 @@ static bool tf_hat_callback_handler(void *dev, uint8_t fid, TF_Packetbuffer *pay
 }
 #endif
 int tf_hat_create(TF_HAT *hat, const char *uid, TF_HalContext *hal) {
+    if (hat == NULL || uid == NULL || hal == NULL)
+        return TF_E_NULL;
+
     memset(hat, 0, sizeof(TF_HAT));
 
     uint32_t numeric_uid;
@@ -82,12 +85,18 @@ int tf_hat_create(TF_HAT *hat, const char *uid, TF_HalContext *hal) {
 }
 
 int tf_hat_destroy(TF_HAT *hat) {
+    if (hat == NULL)
+        return TF_E_NULL;
+
     int result = tf_tfp_destroy(hat->tfp);
     hat->tfp = NULL;
     return result;
 }
 
 int tf_hat_get_response_expected(TF_HAT *hat, uint8_t function_id, bool *ret_response_expected) {
+    if (hat == NULL)
+        return TF_E_NULL;
+
     switch(function_id) {
         case TF_HAT_FUNCTION_SET_SLEEP_MODE:
             if(ret_response_expected != NULL)
@@ -101,21 +110,25 @@ int tf_hat_get_response_expected(TF_HAT *hat, uint8_t function_id, bool *ret_res
             if(ret_response_expected != NULL)
                 *ret_response_expected = (hat->response_expected[0] & (1 << 2)) != 0;
             break;
-        case TF_HAT_FUNCTION_SET_WRITE_FIRMWARE_POINTER:
+        case TF_HAT_FUNCTION_SET_RTC_DRIVER:
             if(ret_response_expected != NULL)
                 *ret_response_expected = (hat->response_expected[0] & (1 << 3)) != 0;
             break;
-        case TF_HAT_FUNCTION_SET_STATUS_LED_CONFIG:
+        case TF_HAT_FUNCTION_SET_WRITE_FIRMWARE_POINTER:
             if(ret_response_expected != NULL)
                 *ret_response_expected = (hat->response_expected[0] & (1 << 4)) != 0;
             break;
-        case TF_HAT_FUNCTION_RESET:
+        case TF_HAT_FUNCTION_SET_STATUS_LED_CONFIG:
             if(ret_response_expected != NULL)
                 *ret_response_expected = (hat->response_expected[0] & (1 << 5)) != 0;
             break;
-        case TF_HAT_FUNCTION_WRITE_UID:
+        case TF_HAT_FUNCTION_RESET:
             if(ret_response_expected != NULL)
                 *ret_response_expected = (hat->response_expected[0] & (1 << 6)) != 0;
+            break;
+        case TF_HAT_FUNCTION_WRITE_UID:
+            if(ret_response_expected != NULL)
+                *ret_response_expected = (hat->response_expected[0] & (1 << 7)) != 0;
             break;
         default:
             return TF_E_INVALID_PARAMETER;
@@ -146,32 +159,39 @@ int tf_hat_set_response_expected(TF_HAT *hat, uint8_t function_id, bool response
                 hat->response_expected[0] &= ~(1 << 2);
             }
             break;
-        case TF_HAT_FUNCTION_SET_WRITE_FIRMWARE_POINTER:
+        case TF_HAT_FUNCTION_SET_RTC_DRIVER:
             if (response_expected) {
                 hat->response_expected[0] |= (1 << 3);
             } else {
                 hat->response_expected[0] &= ~(1 << 3);
             }
             break;
-        case TF_HAT_FUNCTION_SET_STATUS_LED_CONFIG:
+        case TF_HAT_FUNCTION_SET_WRITE_FIRMWARE_POINTER:
             if (response_expected) {
                 hat->response_expected[0] |= (1 << 4);
             } else {
                 hat->response_expected[0] &= ~(1 << 4);
             }
             break;
-        case TF_HAT_FUNCTION_RESET:
+        case TF_HAT_FUNCTION_SET_STATUS_LED_CONFIG:
             if (response_expected) {
                 hat->response_expected[0] |= (1 << 5);
             } else {
                 hat->response_expected[0] &= ~(1 << 5);
             }
             break;
-        case TF_HAT_FUNCTION_WRITE_UID:
+        case TF_HAT_FUNCTION_RESET:
             if (response_expected) {
                 hat->response_expected[0] |= (1 << 6);
             } else {
                 hat->response_expected[0] &= ~(1 << 6);
+            }
+            break;
+        case TF_HAT_FUNCTION_WRITE_UID:
+            if (response_expected) {
+                hat->response_expected[0] |= (1 << 7);
+            } else {
+                hat->response_expected[0] &= ~(1 << 7);
             }
             break;
         default:
@@ -185,6 +205,9 @@ void tf_hat_set_response_expected_all(TF_HAT *hat, bool response_expected) {
 }
 
 int tf_hat_set_sleep_mode(TF_HAT *hat, uint32_t power_off_delay, uint32_t power_off_duration, bool raspberry_pi_off, bool bricklets_off, bool enable_sleep_indicator) {
+    if (hat == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(hat->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -221,6 +244,9 @@ int tf_hat_set_sleep_mode(TF_HAT *hat, uint32_t power_off_delay, uint32_t power_
 }
 
 int tf_hat_get_sleep_mode(TF_HAT *hat, uint32_t *ret_power_off_delay, uint32_t *ret_power_off_duration, bool *ret_raspberry_pi_off, bool *ret_bricklets_off, bool *ret_enable_sleep_indicator) {
+    if (hat == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(hat->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -257,6 +283,9 @@ int tf_hat_get_sleep_mode(TF_HAT *hat, uint32_t *ret_power_off_delay, uint32_t *
 }
 
 int tf_hat_set_bricklet_power(TF_HAT *hat, bool bricklet_power) {
+    if (hat == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(hat->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -289,6 +318,9 @@ int tf_hat_set_bricklet_power(TF_HAT *hat, bool bricklet_power) {
 }
 
 int tf_hat_get_bricklet_power(TF_HAT *hat, bool *ret_bricklet_power) {
+    if (hat == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(hat->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -321,6 +353,9 @@ int tf_hat_get_bricklet_power(TF_HAT *hat, bool *ret_bricklet_power) {
 }
 
 int tf_hat_get_voltages(TF_HAT *hat, uint16_t *ret_voltage_usb, uint16_t *ret_voltage_dc) {
+    if (hat == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(hat->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -354,6 +389,9 @@ int tf_hat_get_voltages(TF_HAT *hat, uint16_t *ret_voltage_usb, uint16_t *ret_vo
 }
 
 int tf_hat_set_voltages_callback_configuration(TF_HAT *hat, uint32_t period, bool value_has_to_change) {
+    if (hat == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(hat->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -387,6 +425,9 @@ int tf_hat_set_voltages_callback_configuration(TF_HAT *hat, uint32_t period, boo
 }
 
 int tf_hat_get_voltages_callback_configuration(TF_HAT *hat, uint32_t *ret_period, bool *ret_value_has_to_change) {
+    if (hat == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(hat->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -419,7 +460,80 @@ int tf_hat_get_voltages_callback_configuration(TF_HAT *hat, uint32_t *ret_period
     return tf_tfp_get_error(error_code);
 }
 
+int tf_hat_set_rtc_driver(TF_HAT *hat, uint8_t rtc_driver) {
+    if (hat == NULL)
+        return TF_E_NULL;
+
+    if(tf_hal_get_common(hat->tfp->hal)->locked) {
+        return TF_E_LOCKED;
+    }
+
+    bool response_expected = true;
+    tf_hat_get_response_expected(hat, TF_HAT_FUNCTION_SET_RTC_DRIVER, &response_expected);
+    tf_tfp_prepare_send(hat->tfp, TF_HAT_FUNCTION_SET_RTC_DRIVER, 1, 0, response_expected);
+
+    uint8_t *buf = tf_tfp_get_payload_buffer(hat->tfp);
+
+    buf[0] = (uint8_t)rtc_driver;
+
+    uint32_t deadline = tf_hal_current_time_us(hat->tfp->hal) + tf_hal_get_common(hat->tfp->hal)->timeout;
+
+    uint8_t error_code = 0;
+    int result = tf_tfp_transmit_packet(hat->tfp, response_expected, deadline, &error_code);
+    if(result < 0)
+        return result;
+
+    if (result & TF_TICK_TIMEOUT) {
+        //return -result;
+        return TF_E_TIMEOUT;
+    }
+
+    result = tf_tfp_finish_send(hat->tfp, result, deadline);
+    if(result < 0)
+        return result;
+
+    return tf_tfp_get_error(error_code);
+}
+
+int tf_hat_get_rtc_driver(TF_HAT *hat, uint8_t *ret_rtc_driver) {
+    if (hat == NULL)
+        return TF_E_NULL;
+
+    if(tf_hal_get_common(hat->tfp->hal)->locked) {
+        return TF_E_LOCKED;
+    }
+
+    bool response_expected = true;
+    tf_tfp_prepare_send(hat->tfp, TF_HAT_FUNCTION_GET_RTC_DRIVER, 0, 1, response_expected);
+
+    uint32_t deadline = tf_hal_current_time_us(hat->tfp->hal) + tf_hal_get_common(hat->tfp->hal)->timeout;
+
+    uint8_t error_code = 0;
+    int result = tf_tfp_transmit_packet(hat->tfp, response_expected, deadline, &error_code);
+    if(result < 0)
+        return result;
+
+    if (result & TF_TICK_TIMEOUT) {
+        //return -result;
+        return TF_E_TIMEOUT;
+    }
+
+    if (result & TF_TICK_PACKET_RECEIVED && error_code == 0) {
+        if (ret_rtc_driver != NULL) { *ret_rtc_driver = tf_packetbuffer_read_uint8_t(&hat->tfp->spitfp->recv_buf); } else { tf_packetbuffer_remove(&hat->tfp->spitfp->recv_buf, 1); }
+        tf_tfp_packet_processed(hat->tfp);
+    }
+
+    result = tf_tfp_finish_send(hat->tfp, result, deadline);
+    if(result < 0)
+        return result;
+
+    return tf_tfp_get_error(error_code);
+}
+
 int tf_hat_get_spitfp_error_count(TF_HAT *hat, uint32_t *ret_error_count_ack_checksum, uint32_t *ret_error_count_message_checksum, uint32_t *ret_error_count_frame, uint32_t *ret_error_count_overflow) {
+    if (hat == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(hat->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -455,6 +569,9 @@ int tf_hat_get_spitfp_error_count(TF_HAT *hat, uint32_t *ret_error_count_ack_che
 }
 
 int tf_hat_set_bootloader_mode(TF_HAT *hat, uint8_t mode, uint8_t *ret_status) {
+    if (hat == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(hat->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -491,6 +608,9 @@ int tf_hat_set_bootloader_mode(TF_HAT *hat, uint8_t mode, uint8_t *ret_status) {
 }
 
 int tf_hat_get_bootloader_mode(TF_HAT *hat, uint8_t *ret_mode) {
+    if (hat == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(hat->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -523,6 +643,9 @@ int tf_hat_get_bootloader_mode(TF_HAT *hat, uint8_t *ret_mode) {
 }
 
 int tf_hat_set_write_firmware_pointer(TF_HAT *hat, uint32_t pointer) {
+    if (hat == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(hat->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -555,6 +678,9 @@ int tf_hat_set_write_firmware_pointer(TF_HAT *hat, uint32_t pointer) {
 }
 
 int tf_hat_write_firmware(TF_HAT *hat, uint8_t data[64], uint8_t *ret_status) {
+    if (hat == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(hat->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -591,6 +717,9 @@ int tf_hat_write_firmware(TF_HAT *hat, uint8_t data[64], uint8_t *ret_status) {
 }
 
 int tf_hat_set_status_led_config(TF_HAT *hat, uint8_t config) {
+    if (hat == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(hat->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -623,6 +752,9 @@ int tf_hat_set_status_led_config(TF_HAT *hat, uint8_t config) {
 }
 
 int tf_hat_get_status_led_config(TF_HAT *hat, uint8_t *ret_config) {
+    if (hat == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(hat->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -655,6 +787,9 @@ int tf_hat_get_status_led_config(TF_HAT *hat, uint8_t *ret_config) {
 }
 
 int tf_hat_get_chip_temperature(TF_HAT *hat, int16_t *ret_temperature) {
+    if (hat == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(hat->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -687,6 +822,9 @@ int tf_hat_get_chip_temperature(TF_HAT *hat, int16_t *ret_temperature) {
 }
 
 int tf_hat_reset(TF_HAT *hat) {
+    if (hat == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(hat->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -715,6 +853,9 @@ int tf_hat_reset(TF_HAT *hat) {
 }
 
 int tf_hat_write_uid(TF_HAT *hat, uint32_t uid) {
+    if (hat == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(hat->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -747,6 +888,9 @@ int tf_hat_write_uid(TF_HAT *hat, uint32_t uid) {
 }
 
 int tf_hat_read_uid(TF_HAT *hat, uint32_t *ret_uid) {
+    if (hat == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(hat->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -779,6 +923,9 @@ int tf_hat_read_uid(TF_HAT *hat, uint32_t *ret_uid) {
 }
 
 int tf_hat_get_identity(TF_HAT *hat, char ret_uid[8], char ret_connected_uid[8], char *ret_position, uint8_t ret_hardware_version[3], uint8_t ret_firmware_version[3], uint16_t *ret_device_identifier) {
+    if (hat == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(hat->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -823,7 +970,10 @@ int tf_hat_get_identity(TF_HAT *hat, char ret_uid[8], char ret_connected_uid[8],
     return tf_tfp_get_error(error_code);
 }
 #ifdef TF_IMPLEMENT_CALLBACKS
-void tf_hat_register_voltages_callback(TF_HAT *hat, TF_HATVoltagesHandler handler, void *user_data) {
+int tf_hat_register_voltages_callback(TF_HAT *hat, TF_HATVoltagesHandler handler, void *user_data) {
+    if (hat == NULL)
+        return TF_E_NULL;
+
     if (handler == NULL) {
         hat->tfp->needs_callback_tick = false;
         
@@ -832,9 +982,13 @@ void tf_hat_register_voltages_callback(TF_HAT *hat, TF_HATVoltagesHandler handle
     }
     hat->voltages_handler = handler;
     hat->voltages_user_data = user_data;
+    return TF_E_OK;
 }
 #endif
 int tf_hat_callback_tick(TF_HAT *hat, uint32_t timeout_us) {
+    if (hat == NULL)
+        return TF_E_NULL;
+
     return tf_tfp_callback_tick(hat->tfp, tf_hal_current_time_us(hat->tfp->hal) + timeout_us);
 }
 

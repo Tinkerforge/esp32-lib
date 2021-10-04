@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-02-08.      *
+ * This file was automatically generated on 2021-10-04.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -28,6 +28,9 @@ static bool tf_analog_out_v3_callback_handler(void *dev, uint8_t fid, TF_Packetb
     return false;
 }
 int tf_analog_out_v3_create(TF_AnalogOutV3 *analog_out_v3, const char *uid, TF_HalContext *hal) {
+    if (analog_out_v3 == NULL || uid == NULL || hal == NULL)
+        return TF_E_NULL;
+
     memset(analog_out_v3, 0, sizeof(TF_AnalogOutV3));
 
     uint32_t numeric_uid;
@@ -56,12 +59,18 @@ int tf_analog_out_v3_create(TF_AnalogOutV3 *analog_out_v3, const char *uid, TF_H
 }
 
 int tf_analog_out_v3_destroy(TF_AnalogOutV3 *analog_out_v3) {
+    if (analog_out_v3 == NULL)
+        return TF_E_NULL;
+
     int result = tf_tfp_destroy(analog_out_v3->tfp);
     analog_out_v3->tfp = NULL;
     return result;
 }
 
 int tf_analog_out_v3_get_response_expected(TF_AnalogOutV3 *analog_out_v3, uint8_t function_id, bool *ret_response_expected) {
+    if (analog_out_v3 == NULL)
+        return TF_E_NULL;
+
     switch(function_id) {
         case TF_ANALOG_OUT_V3_FUNCTION_SET_OUTPUT_VOLTAGE:
             if(ret_response_expected != NULL)
@@ -137,6 +146,9 @@ void tf_analog_out_v3_set_response_expected_all(TF_AnalogOutV3 *analog_out_v3, b
 }
 
 int tf_analog_out_v3_set_output_voltage(TF_AnalogOutV3 *analog_out_v3, uint16_t voltage) {
+    if (analog_out_v3 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(analog_out_v3->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -169,6 +181,9 @@ int tf_analog_out_v3_set_output_voltage(TF_AnalogOutV3 *analog_out_v3, uint16_t 
 }
 
 int tf_analog_out_v3_get_output_voltage(TF_AnalogOutV3 *analog_out_v3, uint16_t *ret_voltage) {
+    if (analog_out_v3 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(analog_out_v3->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -201,6 +216,9 @@ int tf_analog_out_v3_get_output_voltage(TF_AnalogOutV3 *analog_out_v3, uint16_t 
 }
 
 int tf_analog_out_v3_get_input_voltage(TF_AnalogOutV3 *analog_out_v3, uint16_t *ret_voltage) {
+    if (analog_out_v3 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(analog_out_v3->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -233,6 +251,9 @@ int tf_analog_out_v3_get_input_voltage(TF_AnalogOutV3 *analog_out_v3, uint16_t *
 }
 
 int tf_analog_out_v3_get_spitfp_error_count(TF_AnalogOutV3 *analog_out_v3, uint32_t *ret_error_count_ack_checksum, uint32_t *ret_error_count_message_checksum, uint32_t *ret_error_count_frame, uint32_t *ret_error_count_overflow) {
+    if (analog_out_v3 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(analog_out_v3->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -268,6 +289,9 @@ int tf_analog_out_v3_get_spitfp_error_count(TF_AnalogOutV3 *analog_out_v3, uint3
 }
 
 int tf_analog_out_v3_set_bootloader_mode(TF_AnalogOutV3 *analog_out_v3, uint8_t mode, uint8_t *ret_status) {
+    if (analog_out_v3 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(analog_out_v3->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -304,6 +328,9 @@ int tf_analog_out_v3_set_bootloader_mode(TF_AnalogOutV3 *analog_out_v3, uint8_t 
 }
 
 int tf_analog_out_v3_get_bootloader_mode(TF_AnalogOutV3 *analog_out_v3, uint8_t *ret_mode) {
+    if (analog_out_v3 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(analog_out_v3->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -336,6 +363,9 @@ int tf_analog_out_v3_get_bootloader_mode(TF_AnalogOutV3 *analog_out_v3, uint8_t 
 }
 
 int tf_analog_out_v3_set_write_firmware_pointer(TF_AnalogOutV3 *analog_out_v3, uint32_t pointer) {
+    if (analog_out_v3 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(analog_out_v3->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -368,6 +398,9 @@ int tf_analog_out_v3_set_write_firmware_pointer(TF_AnalogOutV3 *analog_out_v3, u
 }
 
 int tf_analog_out_v3_write_firmware(TF_AnalogOutV3 *analog_out_v3, uint8_t data[64], uint8_t *ret_status) {
+    if (analog_out_v3 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(analog_out_v3->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -404,6 +437,9 @@ int tf_analog_out_v3_write_firmware(TF_AnalogOutV3 *analog_out_v3, uint8_t data[
 }
 
 int tf_analog_out_v3_set_status_led_config(TF_AnalogOutV3 *analog_out_v3, uint8_t config) {
+    if (analog_out_v3 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(analog_out_v3->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -436,6 +472,9 @@ int tf_analog_out_v3_set_status_led_config(TF_AnalogOutV3 *analog_out_v3, uint8_
 }
 
 int tf_analog_out_v3_get_status_led_config(TF_AnalogOutV3 *analog_out_v3, uint8_t *ret_config) {
+    if (analog_out_v3 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(analog_out_v3->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -468,6 +507,9 @@ int tf_analog_out_v3_get_status_led_config(TF_AnalogOutV3 *analog_out_v3, uint8_
 }
 
 int tf_analog_out_v3_get_chip_temperature(TF_AnalogOutV3 *analog_out_v3, int16_t *ret_temperature) {
+    if (analog_out_v3 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(analog_out_v3->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -500,6 +542,9 @@ int tf_analog_out_v3_get_chip_temperature(TF_AnalogOutV3 *analog_out_v3, int16_t
 }
 
 int tf_analog_out_v3_reset(TF_AnalogOutV3 *analog_out_v3) {
+    if (analog_out_v3 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(analog_out_v3->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -528,6 +573,9 @@ int tf_analog_out_v3_reset(TF_AnalogOutV3 *analog_out_v3) {
 }
 
 int tf_analog_out_v3_write_uid(TF_AnalogOutV3 *analog_out_v3, uint32_t uid) {
+    if (analog_out_v3 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(analog_out_v3->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -560,6 +608,9 @@ int tf_analog_out_v3_write_uid(TF_AnalogOutV3 *analog_out_v3, uint32_t uid) {
 }
 
 int tf_analog_out_v3_read_uid(TF_AnalogOutV3 *analog_out_v3, uint32_t *ret_uid) {
+    if (analog_out_v3 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(analog_out_v3->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -592,6 +643,9 @@ int tf_analog_out_v3_read_uid(TF_AnalogOutV3 *analog_out_v3, uint32_t *ret_uid) 
 }
 
 int tf_analog_out_v3_get_identity(TF_AnalogOutV3 *analog_out_v3, char ret_uid[8], char ret_connected_uid[8], char *ret_position, uint8_t ret_hardware_version[3], uint8_t ret_firmware_version[3], uint16_t *ret_device_identifier) {
+    if (analog_out_v3 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(analog_out_v3->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -638,6 +692,9 @@ int tf_analog_out_v3_get_identity(TF_AnalogOutV3 *analog_out_v3, char ret_uid[8]
 
 
 int tf_analog_out_v3_callback_tick(TF_AnalogOutV3 *analog_out_v3, uint32_t timeout_us) {
+    if (analog_out_v3 == NULL)
+        return TF_E_NULL;
+
     return tf_tfp_callback_tick(analog_out_v3->tfp, tf_hal_current_time_us(analog_out_v3->tfp->hal) + timeout_us);
 }
 

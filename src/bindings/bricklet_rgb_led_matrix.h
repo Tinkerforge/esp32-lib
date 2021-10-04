@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-02-08.      *
+ * This file was automatically generated on 2021-10-04.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -330,7 +330,7 @@ TF_ATTRIBUTE_NONNULL_ALL void tf_rgb_led_matrix_set_response_expected_all(TF_RGB
  * The LED values are double buffered, so you can send the LED values
  * for the next frame directly after this callback is triggered.
  */
-TF_ATTRIBUTE_NONNULL(1) void tf_rgb_led_matrix_register_frame_started_callback(TF_RGBLEDMatrix *rgb_led_matrix, TF_RGBLEDMatrixFrameStartedHandler handler, void *user_data);
+TF_ATTRIBUTE_NONNULL(1) int tf_rgb_led_matrix_register_frame_started_callback(TF_RGBLEDMatrix *rgb_led_matrix, TF_RGBLEDMatrixFrameStartedHandler handler, void *user_data);
 #endif
 #ifdef TF_IMPLEMENT_CALLBACKS
 /**

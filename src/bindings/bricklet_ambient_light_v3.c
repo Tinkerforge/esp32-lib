@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-02-08.      *
+ * This file was automatically generated on 2021-10-04.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -53,6 +53,9 @@ static bool tf_ambient_light_v3_callback_handler(void *dev, uint8_t fid, TF_Pack
 }
 #endif
 int tf_ambient_light_v3_create(TF_AmbientLightV3 *ambient_light_v3, const char *uid, TF_HalContext *hal) {
+    if (ambient_light_v3 == NULL || uid == NULL || hal == NULL)
+        return TF_E_NULL;
+
     memset(ambient_light_v3, 0, sizeof(TF_AmbientLightV3));
 
     uint32_t numeric_uid;
@@ -81,12 +84,18 @@ int tf_ambient_light_v3_create(TF_AmbientLightV3 *ambient_light_v3, const char *
 }
 
 int tf_ambient_light_v3_destroy(TF_AmbientLightV3 *ambient_light_v3) {
+    if (ambient_light_v3 == NULL)
+        return TF_E_NULL;
+
     int result = tf_tfp_destroy(ambient_light_v3->tfp);
     ambient_light_v3->tfp = NULL;
     return result;
 }
 
 int tf_ambient_light_v3_get_response_expected(TF_AmbientLightV3 *ambient_light_v3, uint8_t function_id, bool *ret_response_expected) {
+    if (ambient_light_v3 == NULL)
+        return TF_E_NULL;
+
     switch(function_id) {
         case TF_AMBIENT_LIGHT_V3_FUNCTION_SET_ILLUMINANCE_CALLBACK_CONFIGURATION:
             if(ret_response_expected != NULL)
@@ -173,6 +182,9 @@ void tf_ambient_light_v3_set_response_expected_all(TF_AmbientLightV3 *ambient_li
 }
 
 int tf_ambient_light_v3_get_illuminance(TF_AmbientLightV3 *ambient_light_v3, uint32_t *ret_illuminance) {
+    if (ambient_light_v3 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(ambient_light_v3->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -205,6 +217,9 @@ int tf_ambient_light_v3_get_illuminance(TF_AmbientLightV3 *ambient_light_v3, uin
 }
 
 int tf_ambient_light_v3_set_illuminance_callback_configuration(TF_AmbientLightV3 *ambient_light_v3, uint32_t period, bool value_has_to_change, char option, uint32_t min, uint32_t max) {
+    if (ambient_light_v3 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(ambient_light_v3->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -241,6 +256,9 @@ int tf_ambient_light_v3_set_illuminance_callback_configuration(TF_AmbientLightV3
 }
 
 int tf_ambient_light_v3_get_illuminance_callback_configuration(TF_AmbientLightV3 *ambient_light_v3, uint32_t *ret_period, bool *ret_value_has_to_change, char *ret_option, uint32_t *ret_min, uint32_t *ret_max) {
+    if (ambient_light_v3 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(ambient_light_v3->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -277,6 +295,9 @@ int tf_ambient_light_v3_get_illuminance_callback_configuration(TF_AmbientLightV3
 }
 
 int tf_ambient_light_v3_set_configuration(TF_AmbientLightV3 *ambient_light_v3, uint8_t illuminance_range, uint8_t integration_time) {
+    if (ambient_light_v3 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(ambient_light_v3->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -310,6 +331,9 @@ int tf_ambient_light_v3_set_configuration(TF_AmbientLightV3 *ambient_light_v3, u
 }
 
 int tf_ambient_light_v3_get_configuration(TF_AmbientLightV3 *ambient_light_v3, uint8_t *ret_illuminance_range, uint8_t *ret_integration_time) {
+    if (ambient_light_v3 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(ambient_light_v3->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -343,6 +367,9 @@ int tf_ambient_light_v3_get_configuration(TF_AmbientLightV3 *ambient_light_v3, u
 }
 
 int tf_ambient_light_v3_get_spitfp_error_count(TF_AmbientLightV3 *ambient_light_v3, uint32_t *ret_error_count_ack_checksum, uint32_t *ret_error_count_message_checksum, uint32_t *ret_error_count_frame, uint32_t *ret_error_count_overflow) {
+    if (ambient_light_v3 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(ambient_light_v3->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -378,6 +405,9 @@ int tf_ambient_light_v3_get_spitfp_error_count(TF_AmbientLightV3 *ambient_light_
 }
 
 int tf_ambient_light_v3_set_bootloader_mode(TF_AmbientLightV3 *ambient_light_v3, uint8_t mode, uint8_t *ret_status) {
+    if (ambient_light_v3 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(ambient_light_v3->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -414,6 +444,9 @@ int tf_ambient_light_v3_set_bootloader_mode(TF_AmbientLightV3 *ambient_light_v3,
 }
 
 int tf_ambient_light_v3_get_bootloader_mode(TF_AmbientLightV3 *ambient_light_v3, uint8_t *ret_mode) {
+    if (ambient_light_v3 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(ambient_light_v3->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -446,6 +479,9 @@ int tf_ambient_light_v3_get_bootloader_mode(TF_AmbientLightV3 *ambient_light_v3,
 }
 
 int tf_ambient_light_v3_set_write_firmware_pointer(TF_AmbientLightV3 *ambient_light_v3, uint32_t pointer) {
+    if (ambient_light_v3 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(ambient_light_v3->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -478,6 +514,9 @@ int tf_ambient_light_v3_set_write_firmware_pointer(TF_AmbientLightV3 *ambient_li
 }
 
 int tf_ambient_light_v3_write_firmware(TF_AmbientLightV3 *ambient_light_v3, uint8_t data[64], uint8_t *ret_status) {
+    if (ambient_light_v3 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(ambient_light_v3->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -514,6 +553,9 @@ int tf_ambient_light_v3_write_firmware(TF_AmbientLightV3 *ambient_light_v3, uint
 }
 
 int tf_ambient_light_v3_set_status_led_config(TF_AmbientLightV3 *ambient_light_v3, uint8_t config) {
+    if (ambient_light_v3 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(ambient_light_v3->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -546,6 +588,9 @@ int tf_ambient_light_v3_set_status_led_config(TF_AmbientLightV3 *ambient_light_v
 }
 
 int tf_ambient_light_v3_get_status_led_config(TF_AmbientLightV3 *ambient_light_v3, uint8_t *ret_config) {
+    if (ambient_light_v3 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(ambient_light_v3->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -578,6 +623,9 @@ int tf_ambient_light_v3_get_status_led_config(TF_AmbientLightV3 *ambient_light_v
 }
 
 int tf_ambient_light_v3_get_chip_temperature(TF_AmbientLightV3 *ambient_light_v3, int16_t *ret_temperature) {
+    if (ambient_light_v3 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(ambient_light_v3->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -610,6 +658,9 @@ int tf_ambient_light_v3_get_chip_temperature(TF_AmbientLightV3 *ambient_light_v3
 }
 
 int tf_ambient_light_v3_reset(TF_AmbientLightV3 *ambient_light_v3) {
+    if (ambient_light_v3 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(ambient_light_v3->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -638,6 +689,9 @@ int tf_ambient_light_v3_reset(TF_AmbientLightV3 *ambient_light_v3) {
 }
 
 int tf_ambient_light_v3_write_uid(TF_AmbientLightV3 *ambient_light_v3, uint32_t uid) {
+    if (ambient_light_v3 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(ambient_light_v3->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -670,6 +724,9 @@ int tf_ambient_light_v3_write_uid(TF_AmbientLightV3 *ambient_light_v3, uint32_t 
 }
 
 int tf_ambient_light_v3_read_uid(TF_AmbientLightV3 *ambient_light_v3, uint32_t *ret_uid) {
+    if (ambient_light_v3 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(ambient_light_v3->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -702,6 +759,9 @@ int tf_ambient_light_v3_read_uid(TF_AmbientLightV3 *ambient_light_v3, uint32_t *
 }
 
 int tf_ambient_light_v3_get_identity(TF_AmbientLightV3 *ambient_light_v3, char ret_uid[8], char ret_connected_uid[8], char *ret_position, uint8_t ret_hardware_version[3], uint8_t ret_firmware_version[3], uint16_t *ret_device_identifier) {
+    if (ambient_light_v3 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(ambient_light_v3->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -746,7 +806,10 @@ int tf_ambient_light_v3_get_identity(TF_AmbientLightV3 *ambient_light_v3, char r
     return tf_tfp_get_error(error_code);
 }
 #ifdef TF_IMPLEMENT_CALLBACKS
-void tf_ambient_light_v3_register_illuminance_callback(TF_AmbientLightV3 *ambient_light_v3, TF_AmbientLightV3IlluminanceHandler handler, void *user_data) {
+int tf_ambient_light_v3_register_illuminance_callback(TF_AmbientLightV3 *ambient_light_v3, TF_AmbientLightV3IlluminanceHandler handler, void *user_data) {
+    if (ambient_light_v3 == NULL)
+        return TF_E_NULL;
+
     if (handler == NULL) {
         ambient_light_v3->tfp->needs_callback_tick = false;
         
@@ -755,9 +818,13 @@ void tf_ambient_light_v3_register_illuminance_callback(TF_AmbientLightV3 *ambien
     }
     ambient_light_v3->illuminance_handler = handler;
     ambient_light_v3->illuminance_user_data = user_data;
+    return TF_E_OK;
 }
 #endif
 int tf_ambient_light_v3_callback_tick(TF_AmbientLightV3 *ambient_light_v3, uint32_t timeout_us) {
+    if (ambient_light_v3 == NULL)
+        return TF_E_NULL;
+
     return tf_tfp_callback_tick(ambient_light_v3->tfp, tf_hal_current_time_us(ambient_light_v3->tfp->hal) + timeout_us);
 }
 

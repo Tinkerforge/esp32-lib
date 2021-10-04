@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-02-08.      *
+ * This file was automatically generated on 2021-10-04.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -424,7 +424,7 @@ TF_ATTRIBUTE_NONNULL_ALL void tf_industrial_ptc_set_response_expected_all(TF_Ind
  * 
  * The parameter is the same as {@link tf_industrial_ptc_get_temperature}.
  */
-TF_ATTRIBUTE_NONNULL(1) void tf_industrial_ptc_register_temperature_callback(TF_IndustrialPTC *industrial_ptc, TF_IndustrialPTCTemperatureHandler handler, void *user_data);
+TF_ATTRIBUTE_NONNULL(1) int tf_industrial_ptc_register_temperature_callback(TF_IndustrialPTC *industrial_ptc, TF_IndustrialPTCTemperatureHandler handler, void *user_data);
 
 
 /**
@@ -440,7 +440,7 @@ TF_ATTRIBUTE_NONNULL(1) void tf_industrial_ptc_register_temperature_callback(TF_
  * 
  * The parameter is the same as {@link tf_industrial_ptc_get_resistance}.
  */
-TF_ATTRIBUTE_NONNULL(1) void tf_industrial_ptc_register_resistance_callback(TF_IndustrialPTC *industrial_ptc, TF_IndustrialPTCResistanceHandler handler, void *user_data);
+TF_ATTRIBUTE_NONNULL(1) int tf_industrial_ptc_register_resistance_callback(TF_IndustrialPTC *industrial_ptc, TF_IndustrialPTCResistanceHandler handler, void *user_data);
 
 
 /**
@@ -456,7 +456,7 @@ TF_ATTRIBUTE_NONNULL(1) void tf_industrial_ptc_register_resistance_callback(TF_I
  * 
  * The parameter is the same as {@link tf_industrial_ptc_is_sensor_connected}.
  */
-TF_ATTRIBUTE_NONNULL(1) void tf_industrial_ptc_register_sensor_connected_callback(TF_IndustrialPTC *industrial_ptc, TF_IndustrialPTCSensorConnectedHandler handler, void *user_data);
+TF_ATTRIBUTE_NONNULL(1) int tf_industrial_ptc_register_sensor_connected_callback(TF_IndustrialPTC *industrial_ptc, TF_IndustrialPTCSensorConnectedHandler handler, void *user_data);
 #endif
 #ifdef TF_IMPLEMENT_CALLBACKS
 /**

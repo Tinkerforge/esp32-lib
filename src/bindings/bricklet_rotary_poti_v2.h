@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-02-08.      *
+ * This file was automatically generated on 2021-10-04.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -321,7 +321,7 @@ TF_ATTRIBUTE_NONNULL_ALL void tf_rotary_poti_v2_set_response_expected_all(TF_Rot
  * 
  * The parameter is the same as {@link tf_rotary_poti_v2_get_position}.
  */
-TF_ATTRIBUTE_NONNULL(1) void tf_rotary_poti_v2_register_position_callback(TF_RotaryPotiV2 *rotary_poti_v2, TF_RotaryPotiV2PositionHandler handler, void *user_data);
+TF_ATTRIBUTE_NONNULL(1) int tf_rotary_poti_v2_register_position_callback(TF_RotaryPotiV2 *rotary_poti_v2, TF_RotaryPotiV2PositionHandler handler, void *user_data);
 #endif
 #ifdef TF_IMPLEMENT_CALLBACKS
 /**

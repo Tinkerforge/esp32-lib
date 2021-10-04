@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-02-08.      *
+ * This file was automatically generated on 2021-10-04.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -436,7 +436,7 @@ TF_ATTRIBUTE_NONNULL_ALL void tf_color_v2_set_response_expected_all(TF_ColorV2 *
  * The {@link tf_color_v2_register_color_callback} callback is only triggered if the color has changed since the
  * last triggering.
  */
-TF_ATTRIBUTE_NONNULL(1) void tf_color_v2_register_color_callback(TF_ColorV2 *color_v2, TF_ColorV2ColorHandler handler, void *user_data);
+TF_ATTRIBUTE_NONNULL(1) int tf_color_v2_register_color_callback(TF_ColorV2 *color_v2, TF_ColorV2ColorHandler handler, void *user_data);
 
 
 /**
@@ -452,7 +452,7 @@ TF_ATTRIBUTE_NONNULL(1) void tf_color_v2_register_color_callback(TF_ColorV2 *col
  * 
  * The parameter is the same as {@link tf_color_v2_get_illuminance}.
  */
-TF_ATTRIBUTE_NONNULL(1) void tf_color_v2_register_illuminance_callback(TF_ColorV2 *color_v2, TF_ColorV2IlluminanceHandler handler, void *user_data);
+TF_ATTRIBUTE_NONNULL(1) int tf_color_v2_register_illuminance_callback(TF_ColorV2 *color_v2, TF_ColorV2IlluminanceHandler handler, void *user_data);
 
 
 /**
@@ -468,7 +468,7 @@ TF_ATTRIBUTE_NONNULL(1) void tf_color_v2_register_illuminance_callback(TF_ColorV
  * 
  * The parameter is the same as {@link tf_color_v2_get_color_temperature}.
  */
-TF_ATTRIBUTE_NONNULL(1) void tf_color_v2_register_color_temperature_callback(TF_ColorV2 *color_v2, TF_ColorV2ColorTemperatureHandler handler, void *user_data);
+TF_ATTRIBUTE_NONNULL(1) int tf_color_v2_register_color_temperature_callback(TF_ColorV2 *color_v2, TF_ColorV2ColorTemperatureHandler handler, void *user_data);
 #endif
 #ifdef TF_IMPLEMENT_CALLBACKS
 /**

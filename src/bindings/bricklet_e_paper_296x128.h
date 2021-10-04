@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-02-08.      *
+ * This file was automatically generated on 2021-10-04.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -114,6 +114,16 @@ typedef struct TF_EPaper296x128 {
  * \ingroup BrickletEPaper296x128
  */
 #define TF_E_PAPER_296X128_FUNCTION_GET_DISPLAY_TYPE 15
+
+/**
+ * \ingroup BrickletEPaper296x128
+ */
+#define TF_E_PAPER_296X128_FUNCTION_SET_DISPLAY_DRIVER 16
+
+/**
+ * \ingroup BrickletEPaper296x128
+ */
+#define TF_E_PAPER_296X128_FUNCTION_GET_DISPLAY_DRIVER 17
 
 /**
  * \ingroup BrickletEPaper296x128
@@ -307,6 +317,16 @@ typedef struct TF_EPaper296x128 {
 /**
  * \ingroup BrickletEPaper296x128
  */
+#define TF_E_PAPER_296X128_DISPLAY_DRIVER_SSD1675A 0
+
+/**
+ * \ingroup BrickletEPaper296x128
+ */
+#define TF_E_PAPER_296X128_DISPLAY_DRIVER_SSD1680 1
+
+/**
+ * \ingroup BrickletEPaper296x128
+ */
 #define TF_E_PAPER_296X128_BOOTLOADER_MODE_BOOTLOADER 0
 
 /**
@@ -469,7 +489,7 @@ TF_ATTRIBUTE_NONNULL_ALL void tf_e_paper_296x128_set_response_expected_all(TF_EP
  * Callback for the current draw status. Will be called every time the
  * draw status changes (see {@link tf_e_paper_296x128_get_draw_status}).
  */
-TF_ATTRIBUTE_NONNULL(1) void tf_e_paper_296x128_register_draw_status_callback(TF_EPaper296x128 *e_paper_296x128, TF_EPaper296x128DrawStatusHandler handler, void *user_data);
+TF_ATTRIBUTE_NONNULL(1) int tf_e_paper_296x128_register_draw_status_callback(TF_EPaper296x128 *e_paper_296x128, TF_EPaper296x128DrawStatusHandler handler, void *user_data);
 #endif
 #ifdef TF_IMPLEMENT_CALLBACKS
 /**
@@ -684,6 +704,27 @@ TF_ATTRIBUTE_NONNULL(1) int tf_e_paper_296x128_set_display_type(TF_EPaper296x128
  * black/white/red or black/white/gray.
  */
 TF_ATTRIBUTE_NONNULL(1) int tf_e_paper_296x128_get_display_type(TF_EPaper296x128 *e_paper_296x128, uint8_t *ret_display_type);
+
+/**
+ * \ingroup BrickletEPaper296x128
+ *
+ * Sets the type of display driver. The Bricklet can currently support
+ * SSD1675A and SSD1680. This will be factory set
+ * during the flashing and testing phase. The value is saved in
+ * non-volatile memory and will stay after a power cycle.
+ * 
+ * .. versionadded:: 2.0.3$nbsp;(Plugin)
+ */
+TF_ATTRIBUTE_NONNULL(1) int tf_e_paper_296x128_set_display_driver(TF_EPaper296x128 *e_paper_296x128, uint8_t display_driver);
+
+/**
+ * \ingroup BrickletEPaper296x128
+ *
+ * Returns the e-paper display driver.
+ * 
+ * .. versionadded:: 2.0.3$nbsp;(Plugin)
+ */
+TF_ATTRIBUTE_NONNULL(1) int tf_e_paper_296x128_get_display_driver(TF_EPaper296x128 *e_paper_296x128, uint8_t *ret_display_driver);
 
 /**
  * \ingroup BrickletEPaper296x128

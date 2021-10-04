@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-02-08.      *
+ * This file was automatically generated on 2021-10-04.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -379,7 +379,7 @@ TF_ATTRIBUTE_NONNULL_ALL void tf_real_time_clock_v2_set_response_expected_all(TF
  * {@link tf_real_time_clock_v2_set_date_time_callback_configuration}. The parameters are the
  * same as for {@link tf_real_time_clock_v2_get_date_time}.
  */
-TF_ATTRIBUTE_NONNULL(1) void tf_real_time_clock_v2_register_date_time_callback(TF_RealTimeClockV2 *real_time_clock_v2, TF_RealTimeClockV2DateTimeHandler handler, void *user_data);
+TF_ATTRIBUTE_NONNULL(1) int tf_real_time_clock_v2_register_date_time_callback(TF_RealTimeClockV2 *real_time_clock_v2, TF_RealTimeClockV2DateTimeHandler handler, void *user_data);
 
 
 /**
@@ -394,7 +394,7 @@ TF_ATTRIBUTE_NONNULL(1) void tf_real_time_clock_v2_register_date_time_callback(T
  * configured alarm (see {@link tf_real_time_clock_v2_set_alarm}). The parameters are the same
  * as for {@link tf_real_time_clock_v2_get_date_time}.
  */
-TF_ATTRIBUTE_NONNULL(1) void tf_real_time_clock_v2_register_alarm_callback(TF_RealTimeClockV2 *real_time_clock_v2, TF_RealTimeClockV2AlarmHandler handler, void *user_data);
+TF_ATTRIBUTE_NONNULL(1) int tf_real_time_clock_v2_register_alarm_callback(TF_RealTimeClockV2 *real_time_clock_v2, TF_RealTimeClockV2AlarmHandler handler, void *user_data);
 #endif
 #ifdef TF_IMPLEMENT_CALLBACKS
 /**

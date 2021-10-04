@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-02-08.      *
+ * This file was automatically generated on 2021-10-04.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -423,7 +423,7 @@ TF_ATTRIBUTE_NONNULL_ALL void tf_rs232_v2_set_response_expected_all(TF_RS232V2 *
  * 
  * To enable this callback, use {@link tf_rs232_v2_enable_read_callback}.
  */
-TF_ATTRIBUTE_NONNULL(1) void tf_rs232_v2_register_read_low_level_callback(TF_RS232V2 *rs232_v2, TF_RS232V2ReadLowLevelHandler handler, void *user_data);
+TF_ATTRIBUTE_NONNULL(1) int tf_rs232_v2_register_read_low_level_callback(TF_RS232V2 *rs232_v2, TF_RS232V2ReadLowLevelHandler handler, void *user_data);
 
 
 /**
@@ -437,7 +437,7 @@ TF_ATTRIBUTE_NONNULL(1) void tf_rs232_v2_register_read_low_level_callback(TF_RS2
  * This callback is called if a new error occurs. It returns
  * the current overrun and parity error count.
  */
-TF_ATTRIBUTE_NONNULL(1) void tf_rs232_v2_register_error_count_callback(TF_RS232V2 *rs232_v2, TF_RS232V2ErrorCountHandler handler, void *user_data);
+TF_ATTRIBUTE_NONNULL(1) int tf_rs232_v2_register_error_count_callback(TF_RS232V2 *rs232_v2, TF_RS232V2ErrorCountHandler handler, void *user_data);
 
 
 /**
@@ -455,7 +455,7 @@ TF_ATTRIBUTE_NONNULL(1) void tf_rs232_v2_register_error_count_callback(TF_RS232V
  * 
  * .. versionadded:: 2.0.3$nbsp;(Plugin)
  */
-TF_ATTRIBUTE_NONNULL(1) void tf_rs232_v2_register_frame_readable_callback(TF_RS232V2 *rs232_v2, TF_RS232V2FrameReadableHandler handler, void *user_data);
+TF_ATTRIBUTE_NONNULL(1) int tf_rs232_v2_register_frame_readable_callback(TF_RS232V2 *rs232_v2, TF_RS232V2FrameReadableHandler handler, void *user_data);
 #endif
 #ifdef TF_IMPLEMENT_CALLBACKS
 /**

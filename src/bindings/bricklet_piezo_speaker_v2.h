@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-02-08.      *
+ * This file was automatically generated on 2021-10-04.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -337,7 +337,7 @@ TF_ATTRIBUTE_NONNULL_ALL void tf_piezo_speaker_v2_set_response_expected_all(TF_P
  * 
  * This callback is triggered if a beep set by {@link tf_piezo_speaker_v2_set_beep} is finished
  */
-TF_ATTRIBUTE_NONNULL(1) void tf_piezo_speaker_v2_register_beep_finished_callback(TF_PiezoSpeakerV2 *piezo_speaker_v2, TF_PiezoSpeakerV2BeepFinishedHandler handler, void *user_data);
+TF_ATTRIBUTE_NONNULL(1) int tf_piezo_speaker_v2_register_beep_finished_callback(TF_PiezoSpeakerV2 *piezo_speaker_v2, TF_PiezoSpeakerV2BeepFinishedHandler handler, void *user_data);
 
 
 /**
@@ -350,7 +350,7 @@ TF_ATTRIBUTE_NONNULL(1) void tf_piezo_speaker_v2_register_beep_finished_callback
  * 
  * This callback is triggered if a alarm set by {@link tf_piezo_speaker_v2_set_alarm} is finished
  */
-TF_ATTRIBUTE_NONNULL(1) void tf_piezo_speaker_v2_register_alarm_finished_callback(TF_PiezoSpeakerV2 *piezo_speaker_v2, TF_PiezoSpeakerV2AlarmFinishedHandler handler, void *user_data);
+TF_ATTRIBUTE_NONNULL(1) int tf_piezo_speaker_v2_register_alarm_finished_callback(TF_PiezoSpeakerV2 *piezo_speaker_v2, TF_PiezoSpeakerV2AlarmFinishedHandler handler, void *user_data);
 #endif
 #ifdef TF_IMPLEMENT_CALLBACKS
 /**

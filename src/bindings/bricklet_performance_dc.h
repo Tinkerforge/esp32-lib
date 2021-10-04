@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-02-08.      *
+ * This file was automatically generated on 2021-10-04.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -30,6 +30,7 @@ struct TF_PerformanceDC;
 typedef void (*TF_PerformanceDCEmergencyShutdownHandler)(struct TF_PerformanceDC *device, void *user_data);
 typedef void (*TF_PerformanceDCVelocityReachedHandler)(struct TF_PerformanceDC *device, int16_t velocity, void *user_data);
 typedef void (*TF_PerformanceDCCurrentVelocityHandler)(struct TF_PerformanceDC *device, int16_t velocity, void *user_data);
+typedef void (*TF_PerformanceDCGPIOStateHandler)(struct TF_PerformanceDC *device, bool gpio_state[2], void *user_data);
 
 #endif
 /**
@@ -48,6 +49,9 @@ typedef struct TF_PerformanceDC {
 
     TF_PerformanceDCCurrentVelocityHandler current_velocity_handler;
     void *current_velocity_user_data;
+
+    TF_PerformanceDCGPIOStateHandler gpio_state_handler;
+    void *gpio_state_user_data;
 
 #endif
     uint8_t response_expected[3];
@@ -299,6 +303,11 @@ typedef struct TF_PerformanceDC {
  * \ingroup BrickletPerformanceDC
  */
 #define TF_PERFORMANCE_DC_CALLBACK_CURRENT_VELOCITY 37
+
+/**
+ * \ingroup BrickletPerformanceDC
+ */
+#define TF_PERFORMANCE_DC_CALLBACK_GPIO_STATE 38
 
 #endif
 
@@ -613,7 +622,7 @@ TF_ATTRIBUTE_NONNULL_ALL void tf_performance_dc_set_response_expected_all(TF_Per
  * If this callback is triggered, the driver chip gets disabled at the same time.
  * That means, {@link tf_performance_dc_set_enabled} has to be called to drive the motor again.
  */
-TF_ATTRIBUTE_NONNULL(1) void tf_performance_dc_register_emergency_shutdown_callback(TF_PerformanceDC *performance_dc, TF_PerformanceDCEmergencyShutdownHandler handler, void *user_data);
+TF_ATTRIBUTE_NONNULL(1) int tf_performance_dc_register_emergency_shutdown_callback(TF_PerformanceDC *performance_dc, TF_PerformanceDCEmergencyShutdownHandler handler, void *user_data);
 
 
 /**
@@ -635,7 +644,7 @@ TF_ATTRIBUTE_NONNULL(1) void tf_performance_dc_register_emergency_shutdown_callb
  *  maximum acceleration of the motor. Otherwise the motor will lag behind the
  *  control value and the callback will be triggered too early.
  */
-TF_ATTRIBUTE_NONNULL(1) void tf_performance_dc_register_velocity_reached_callback(TF_PerformanceDC *performance_dc, TF_PerformanceDCVelocityReachedHandler handler, void *user_data);
+TF_ATTRIBUTE_NONNULL(1) int tf_performance_dc_register_velocity_reached_callback(TF_PerformanceDC *performance_dc, TF_PerformanceDCVelocityReachedHandler handler, void *user_data);
 
 
 /**
@@ -653,7 +662,22 @@ TF_ATTRIBUTE_NONNULL(1) void tf_performance_dc_register_velocity_reached_callbac
  * The {@link tf_performance_dc_register_current_velocity_callback} callback is only triggered after the set period
  * if there is a change in the velocity.
  */
-TF_ATTRIBUTE_NONNULL(1) void tf_performance_dc_register_current_velocity_callback(TF_PerformanceDC *performance_dc, TF_PerformanceDCCurrentVelocityHandler handler, void *user_data);
+TF_ATTRIBUTE_NONNULL(1) int tf_performance_dc_register_current_velocity_callback(TF_PerformanceDC *performance_dc, TF_PerformanceDCCurrentVelocityHandler handler, void *user_data);
+
+
+/**
+ * \ingroup BrickletPerformanceDC
+ *
+ * Registers the given \c handler to the GPIO State callback. The
+ * \c user_data will be passed as the last parameter to the \c handler.
+ *
+ * Signature: \code void callback(bool gpio_state[2], void *user_data) \endcode
+ * 
+ * This callback is triggered by GPIO changes if it is activated through {@link tf_performance_dc_set_gpio_action}.
+ * 
+ * .. versionadded:: 2.0.1$nbsp;(Plugin)
+ */
+TF_ATTRIBUTE_NONNULL(1) int tf_performance_dc_register_gpio_state_callback(TF_PerformanceDC *performance_dc, TF_PerformanceDCGPIOStateHandler handler, void *user_data);
 #endif
 #ifdef TF_IMPLEMENT_CALLBACKS
 /**

@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-02-08.      *
+ * This file was automatically generated on 2021-10-04.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -28,19 +28,21 @@ static bool tf_arinc429_callback_handler(void *dev, uint8_t fid, TF_Packetbuffer
 
     switch(fid) {
 
-        case TF_ARINC429_CALLBACK_HEARTBEAT: {
-            TF_ARINC429HeartbeatHandler fn = arinc429->heartbeat_handler;
-            void *user_data = arinc429->heartbeat_user_data;
+        case TF_ARINC429_CALLBACK_HEARTBEAT_MESSAGE: {
+            TF_ARINC429HeartbeatMessageHandler fn = arinc429->heartbeat_message_handler;
+            void *user_data = arinc429->heartbeat_message_user_data;
             if (fn == NULL)
                 return false;
-            size_t i;
+
+            uint8_t channel = tf_packetbuffer_read_uint8_t(payload);
+            uint8_t status = tf_packetbuffer_read_uint8_t(payload);
             uint8_t seq_number = tf_packetbuffer_read_uint8_t(payload);
             uint16_t timestamp = tf_packetbuffer_read_uint16_t(payload);
-            uint16_t frames_processed[3]; for (i = 0; i < 3; ++i) frames_processed[i] = tf_packetbuffer_read_uint16_t(payload);
-            uint16_t frames_lost[3]; for (i = 0; i < 3; ++i) frames_lost[i] = tf_packetbuffer_read_uint16_t(payload);
+            uint16_t frames_processed = tf_packetbuffer_read_uint16_t(payload);
+            uint16_t frames_lost = tf_packetbuffer_read_uint16_t(payload);
             TF_HalCommon *common = tf_hal_get_common(arinc429->tfp->hal);
             common->locked = true;
-            fn(arinc429, seq_number, timestamp, frames_processed, frames_lost, user_data);
+            fn(arinc429, channel, status, seq_number, timestamp, frames_processed, frames_lost, user_data);
             common->locked = false;
             break;
         }
@@ -52,14 +54,14 @@ static bool tf_arinc429_callback_handler(void *dev, uint8_t fid, TF_Packetbuffer
                 return false;
 
             uint8_t channel = tf_packetbuffer_read_uint8_t(payload);
+            uint8_t status = tf_packetbuffer_read_uint8_t(payload);
             uint8_t seq_number = tf_packetbuffer_read_uint8_t(payload);
             uint16_t timestamp = tf_packetbuffer_read_uint16_t(payload);
-            uint8_t frame_status = tf_packetbuffer_read_uint8_t(payload);
             uint32_t frame = tf_packetbuffer_read_uint32_t(payload);
             uint16_t age = tf_packetbuffer_read_uint16_t(payload);
             TF_HalCommon *common = tf_hal_get_common(arinc429->tfp->hal);
             common->locked = true;
-            fn(arinc429, channel, seq_number, timestamp, frame_status, frame, age, user_data);
+            fn(arinc429, channel, status, seq_number, timestamp, frame, age, user_data);
             common->locked = false;
             break;
         }
@@ -71,12 +73,13 @@ static bool tf_arinc429_callback_handler(void *dev, uint8_t fid, TF_Packetbuffer
                 return false;
 
             uint8_t channel = tf_packetbuffer_read_uint8_t(payload);
+            uint8_t status = tf_packetbuffer_read_uint8_t(payload);
             uint8_t seq_number = tf_packetbuffer_read_uint8_t(payload);
             uint16_t timestamp = tf_packetbuffer_read_uint16_t(payload);
-            uint8_t token = tf_packetbuffer_read_uint8_t(payload);
+            uint8_t userdata = tf_packetbuffer_read_uint8_t(payload);
             TF_HalCommon *common = tf_hal_get_common(arinc429->tfp->hal);
             common->locked = true;
-            fn(arinc429, channel, seq_number, timestamp, token, user_data);
+            fn(arinc429, channel, status, seq_number, timestamp, userdata, user_data);
             common->locked = false;
             break;
         }
@@ -92,6 +95,9 @@ static bool tf_arinc429_callback_handler(void *dev, uint8_t fid, TF_Packetbuffer
 }
 #endif
 int tf_arinc429_create(TF_ARINC429 *arinc429, const char *uid, TF_HalContext *hal) {
+    if (arinc429 == NULL || uid == NULL || hal == NULL)
+        return TF_E_NULL;
+
     memset(arinc429, 0, sizeof(TF_ARINC429));
 
     uint32_t numeric_uid;
@@ -121,12 +127,18 @@ int tf_arinc429_create(TF_ARINC429 *arinc429, const char *uid, TF_HalContext *ha
 }
 
 int tf_arinc429_destroy(TF_ARINC429 *arinc429) {
+    if (arinc429 == NULL)
+        return TF_E_NULL;
+
     int result = tf_tfp_destroy(arinc429->tfp);
     arinc429->tfp = NULL;
     return result;
 }
 
 int tf_arinc429_get_response_expected(TF_ARINC429 *arinc429, uint8_t function_id, bool *ret_response_expected) {
+    if (arinc429 == NULL)
+        return TF_E_NULL;
+
     switch(function_id) {
         case TF_ARINC429_FUNCTION_SET_HEARTBEAT_CALLBACK_CONFIGURATION:
             if(ret_response_expected != NULL)
@@ -172,21 +184,25 @@ int tf_arinc429_get_response_expected(TF_ARINC429 *arinc429, uint8_t function_id
             if(ret_response_expected != NULL)
                 *ret_response_expected = (arinc429->response_expected[1] & (1 << 2)) != 0;
             break;
-        case TF_ARINC429_FUNCTION_SET_WRITE_FIRMWARE_POINTER:
+        case TF_ARINC429_FUNCTION_SET_FRAME_MODE:
             if(ret_response_expected != NULL)
                 *ret_response_expected = (arinc429->response_expected[1] & (1 << 3)) != 0;
             break;
-        case TF_ARINC429_FUNCTION_SET_STATUS_LED_CONFIG:
+        case TF_ARINC429_FUNCTION_SET_WRITE_FIRMWARE_POINTER:
             if(ret_response_expected != NULL)
                 *ret_response_expected = (arinc429->response_expected[1] & (1 << 4)) != 0;
             break;
-        case TF_ARINC429_FUNCTION_RESET:
+        case TF_ARINC429_FUNCTION_SET_STATUS_LED_CONFIG:
             if(ret_response_expected != NULL)
                 *ret_response_expected = (arinc429->response_expected[1] & (1 << 5)) != 0;
             break;
-        case TF_ARINC429_FUNCTION_WRITE_UID:
+        case TF_ARINC429_FUNCTION_RESET:
             if(ret_response_expected != NULL)
                 *ret_response_expected = (arinc429->response_expected[1] & (1 << 6)) != 0;
+            break;
+        case TF_ARINC429_FUNCTION_WRITE_UID:
+            if(ret_response_expected != NULL)
+                *ret_response_expected = (arinc429->response_expected[1] & (1 << 7)) != 0;
             break;
         default:
             return TF_E_INVALID_PARAMETER;
@@ -273,32 +289,39 @@ int tf_arinc429_set_response_expected(TF_ARINC429 *arinc429, uint8_t function_id
                 arinc429->response_expected[1] &= ~(1 << 2);
             }
             break;
-        case TF_ARINC429_FUNCTION_SET_WRITE_FIRMWARE_POINTER:
+        case TF_ARINC429_FUNCTION_SET_FRAME_MODE:
             if (response_expected) {
                 arinc429->response_expected[1] |= (1 << 3);
             } else {
                 arinc429->response_expected[1] &= ~(1 << 3);
             }
             break;
-        case TF_ARINC429_FUNCTION_SET_STATUS_LED_CONFIG:
+        case TF_ARINC429_FUNCTION_SET_WRITE_FIRMWARE_POINTER:
             if (response_expected) {
                 arinc429->response_expected[1] |= (1 << 4);
             } else {
                 arinc429->response_expected[1] &= ~(1 << 4);
             }
             break;
-        case TF_ARINC429_FUNCTION_RESET:
+        case TF_ARINC429_FUNCTION_SET_STATUS_LED_CONFIG:
             if (response_expected) {
                 arinc429->response_expected[1] |= (1 << 5);
             } else {
                 arinc429->response_expected[1] &= ~(1 << 5);
             }
             break;
-        case TF_ARINC429_FUNCTION_WRITE_UID:
+        case TF_ARINC429_FUNCTION_RESET:
             if (response_expected) {
                 arinc429->response_expected[1] |= (1 << 6);
             } else {
                 arinc429->response_expected[1] &= ~(1 << 6);
+            }
+            break;
+        case TF_ARINC429_FUNCTION_WRITE_UID:
+            if (response_expected) {
+                arinc429->response_expected[1] |= (1 << 7);
+            } else {
+                arinc429->response_expected[1] &= ~(1 << 7);
             }
             break;
         default:
@@ -312,6 +335,9 @@ void tf_arinc429_set_response_expected_all(TF_ARINC429 *arinc429, bool response_
 }
 
 int tf_arinc429_get_capabilities(TF_ARINC429 *arinc429, uint16_t *ret_tx_total_scheduler_jobs, uint16_t *ret_tx_used_scheduler_jobs, uint16_t *ret_rx_total_frame_filters, uint16_t ret_rx_used_frame_filters[2]) {
+    if (arinc429 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(arinc429->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -347,19 +373,24 @@ int tf_arinc429_get_capabilities(TF_ARINC429 *arinc429, uint16_t *ret_tx_total_s
     return tf_tfp_get_error(error_code);
 }
 
-int tf_arinc429_set_heartbeat_callback_configuration(TF_ARINC429 *arinc429, uint8_t period, bool value_has_to_change) {
+int tf_arinc429_set_heartbeat_callback_configuration(TF_ARINC429 *arinc429, uint8_t channel, bool enabled, bool value_has_to_change, uint16_t period) {
+    if (arinc429 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(arinc429->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
     bool response_expected = true;
     tf_arinc429_get_response_expected(arinc429, TF_ARINC429_FUNCTION_SET_HEARTBEAT_CALLBACK_CONFIGURATION, &response_expected);
-    tf_tfp_prepare_send(arinc429->tfp, TF_ARINC429_FUNCTION_SET_HEARTBEAT_CALLBACK_CONFIGURATION, 2, 0, response_expected);
+    tf_tfp_prepare_send(arinc429->tfp, TF_ARINC429_FUNCTION_SET_HEARTBEAT_CALLBACK_CONFIGURATION, 5, 0, response_expected);
 
     uint8_t *buf = tf_tfp_get_payload_buffer(arinc429->tfp);
 
-    buf[0] = (uint8_t)period;
-    buf[1] = value_has_to_change ? 1 : 0;
+    buf[0] = (uint8_t)channel;
+    buf[1] = enabled ? 1 : 0;
+    buf[2] = value_has_to_change ? 1 : 0;
+    period = tf_leconvert_uint16_to(period); memcpy(buf + 3, &period, 2);
 
     uint32_t deadline = tf_hal_current_time_us(arinc429->tfp->hal) + tf_hal_get_common(arinc429->tfp->hal)->timeout;
 
@@ -380,13 +411,20 @@ int tf_arinc429_set_heartbeat_callback_configuration(TF_ARINC429 *arinc429, uint
     return tf_tfp_get_error(error_code);
 }
 
-int tf_arinc429_get_heartbeat_callback_configuration(TF_ARINC429 *arinc429, uint8_t *ret_period, bool *ret_value_has_to_change) {
+int tf_arinc429_get_heartbeat_callback_configuration(TF_ARINC429 *arinc429, uint8_t channel, bool *ret_enabled, bool *ret_value_has_to_change, uint16_t *ret_period) {
+    if (arinc429 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(arinc429->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
     bool response_expected = true;
-    tf_tfp_prepare_send(arinc429->tfp, TF_ARINC429_FUNCTION_GET_HEARTBEAT_CALLBACK_CONFIGURATION, 0, 2, response_expected);
+    tf_tfp_prepare_send(arinc429->tfp, TF_ARINC429_FUNCTION_GET_HEARTBEAT_CALLBACK_CONFIGURATION, 1, 4, response_expected);
+
+    uint8_t *buf = tf_tfp_get_payload_buffer(arinc429->tfp);
+
+    buf[0] = (uint8_t)channel;
 
     uint32_t deadline = tf_hal_current_time_us(arinc429->tfp->hal) + tf_hal_get_common(arinc429->tfp->hal)->timeout;
 
@@ -401,8 +439,9 @@ int tf_arinc429_get_heartbeat_callback_configuration(TF_ARINC429 *arinc429, uint
     }
 
     if (result & TF_TICK_PACKET_RECEIVED && error_code == 0) {
-        if (ret_period != NULL) { *ret_period = tf_packetbuffer_read_uint8_t(&arinc429->tfp->spitfp->recv_buf); } else { tf_packetbuffer_remove(&arinc429->tfp->spitfp->recv_buf, 1); }
+        if (ret_enabled != NULL) { *ret_enabled = tf_packetbuffer_read_bool(&arinc429->tfp->spitfp->recv_buf); } else { tf_packetbuffer_remove(&arinc429->tfp->spitfp->recv_buf, 1); }
         if (ret_value_has_to_change != NULL) { *ret_value_has_to_change = tf_packetbuffer_read_bool(&arinc429->tfp->spitfp->recv_buf); } else { tf_packetbuffer_remove(&arinc429->tfp->spitfp->recv_buf, 1); }
+        if (ret_period != NULL) { *ret_period = tf_packetbuffer_read_uint16_t(&arinc429->tfp->spitfp->recv_buf); } else { tf_packetbuffer_remove(&arinc429->tfp->spitfp->recv_buf, 2); }
         tf_tfp_packet_processed(arinc429->tfp);
     }
 
@@ -414,6 +453,9 @@ int tf_arinc429_get_heartbeat_callback_configuration(TF_ARINC429 *arinc429, uint
 }
 
 int tf_arinc429_set_channel_configuration(TF_ARINC429 *arinc429, uint8_t channel, uint8_t parity, uint8_t speed) {
+    if (arinc429 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(arinc429->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -448,6 +490,9 @@ int tf_arinc429_set_channel_configuration(TF_ARINC429 *arinc429, uint8_t channel
 }
 
 int tf_arinc429_get_channel_configuration(TF_ARINC429 *arinc429, uint8_t channel, uint8_t *ret_parity, uint8_t *ret_speed) {
+    if (arinc429 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(arinc429->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -485,6 +530,9 @@ int tf_arinc429_get_channel_configuration(TF_ARINC429 *arinc429, uint8_t channel
 }
 
 int tf_arinc429_set_channel_mode(TF_ARINC429 *arinc429, uint8_t channel, uint8_t mode) {
+    if (arinc429 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(arinc429->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -518,6 +566,9 @@ int tf_arinc429_set_channel_mode(TF_ARINC429 *arinc429, uint8_t channel, uint8_t
 }
 
 int tf_arinc429_get_channel_mode(TF_ARINC429 *arinc429, uint8_t channel, uint8_t *ret_mode) {
+    if (arinc429 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(arinc429->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -554,6 +605,9 @@ int tf_arinc429_get_channel_mode(TF_ARINC429 *arinc429, uint8_t channel, uint8_t
 }
 
 int tf_arinc429_clear_all_rx_filters(TF_ARINC429 *arinc429, uint8_t channel) {
+    if (arinc429 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(arinc429->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -586,6 +640,9 @@ int tf_arinc429_clear_all_rx_filters(TF_ARINC429 *arinc429, uint8_t channel) {
 }
 
 int tf_arinc429_clear_rx_filter(TF_ARINC429 *arinc429, uint8_t channel, uint8_t label, uint8_t sdi, bool *ret_success) {
+    if (arinc429 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(arinc429->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -624,6 +681,9 @@ int tf_arinc429_clear_rx_filter(TF_ARINC429 *arinc429, uint8_t channel, uint8_t 
 }
 
 int tf_arinc429_set_rx_standard_filters(TF_ARINC429 *arinc429, uint8_t channel) {
+    if (arinc429 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(arinc429->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -656,6 +716,9 @@ int tf_arinc429_set_rx_standard_filters(TF_ARINC429 *arinc429, uint8_t channel) 
 }
 
 int tf_arinc429_set_rx_filter(TF_ARINC429 *arinc429, uint8_t channel, uint8_t label, uint8_t sdi, bool *ret_success) {
+    if (arinc429 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(arinc429->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -694,6 +757,9 @@ int tf_arinc429_set_rx_filter(TF_ARINC429 *arinc429, uint8_t channel, uint8_t la
 }
 
 int tf_arinc429_get_rx_filter(TF_ARINC429 *arinc429, uint8_t channel, uint8_t label, uint8_t sdi, bool *ret_configured) {
+    if (arinc429 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(arinc429->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -732,6 +798,9 @@ int tf_arinc429_get_rx_filter(TF_ARINC429 *arinc429, uint8_t channel, uint8_t la
 }
 
 int tf_arinc429_read_frame(TF_ARINC429 *arinc429, uint8_t channel, uint8_t label, uint8_t sdi, bool *ret_status, uint32_t *ret_frame, uint16_t *ret_age) {
+    if (arinc429 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(arinc429->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -772,6 +841,9 @@ int tf_arinc429_read_frame(TF_ARINC429 *arinc429, uint8_t channel, uint8_t label
 }
 
 int tf_arinc429_set_rx_callback_configuration(TF_ARINC429 *arinc429, uint8_t channel, bool enabled, bool value_has_to_change, uint16_t timeout) {
+    if (arinc429 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(arinc429->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -807,6 +879,9 @@ int tf_arinc429_set_rx_callback_configuration(TF_ARINC429 *arinc429, uint8_t cha
 }
 
 int tf_arinc429_get_rx_callback_configuration(TF_ARINC429 *arinc429, uint8_t channel, bool *ret_enabled, bool *ret_value_has_to_change, uint16_t *ret_timeout) {
+    if (arinc429 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(arinc429->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -845,6 +920,9 @@ int tf_arinc429_get_rx_callback_configuration(TF_ARINC429 *arinc429, uint8_t cha
 }
 
 int tf_arinc429_write_frame_direct(TF_ARINC429 *arinc429, uint8_t channel, uint32_t frame) {
+    if (arinc429 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(arinc429->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -878,6 +956,9 @@ int tf_arinc429_write_frame_direct(TF_ARINC429 *arinc429, uint8_t channel, uint3
 }
 
 int tf_arinc429_write_frame_scheduled(TF_ARINC429 *arinc429, uint8_t channel, uint16_t frame_index, uint32_t frame) {
+    if (arinc429 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(arinc429->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -912,6 +993,9 @@ int tf_arinc429_write_frame_scheduled(TF_ARINC429 *arinc429, uint8_t channel, ui
 }
 
 int tf_arinc429_clear_schedule_entries(TF_ARINC429 *arinc429, uint8_t channel, uint16_t job_index_first, uint16_t job_index_last) {
+    if (arinc429 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(arinc429->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -946,6 +1030,9 @@ int tf_arinc429_clear_schedule_entries(TF_ARINC429 *arinc429, uint8_t channel, u
 }
 
 int tf_arinc429_set_schedule_entry(TF_ARINC429 *arinc429, uint8_t channel, uint16_t job_index, uint8_t job, uint16_t frame_index, uint8_t dwell_time) {
+    if (arinc429 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(arinc429->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -982,6 +1069,9 @@ int tf_arinc429_set_schedule_entry(TF_ARINC429 *arinc429, uint8_t channel, uint1
 }
 
 int tf_arinc429_get_schedule_entry(TF_ARINC429 *arinc429, uint8_t channel, uint16_t job_index, uint8_t *ret_job, uint16_t *ret_frame_index, uint32_t *ret_frame, uint8_t *ret_dwell_time) {
+    if (arinc429 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(arinc429->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1022,6 +1112,9 @@ int tf_arinc429_get_schedule_entry(TF_ARINC429 *arinc429, uint8_t channel, uint1
 }
 
 int tf_arinc429_restart(TF_ARINC429 *arinc429) {
+    if (arinc429 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(arinc429->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1049,7 +1142,47 @@ int tf_arinc429_restart(TF_ARINC429 *arinc429) {
     return tf_tfp_get_error(error_code);
 }
 
+int tf_arinc429_set_frame_mode(TF_ARINC429 *arinc429, uint8_t channel, uint16_t frame_index, uint8_t mode) {
+    if (arinc429 == NULL)
+        return TF_E_NULL;
+
+    if(tf_hal_get_common(arinc429->tfp->hal)->locked) {
+        return TF_E_LOCKED;
+    }
+
+    bool response_expected = true;
+    tf_arinc429_get_response_expected(arinc429, TF_ARINC429_FUNCTION_SET_FRAME_MODE, &response_expected);
+    tf_tfp_prepare_send(arinc429->tfp, TF_ARINC429_FUNCTION_SET_FRAME_MODE, 4, 0, response_expected);
+
+    uint8_t *buf = tf_tfp_get_payload_buffer(arinc429->tfp);
+
+    buf[0] = (uint8_t)channel;
+    frame_index = tf_leconvert_uint16_to(frame_index); memcpy(buf + 1, &frame_index, 2);
+    buf[3] = (uint8_t)mode;
+
+    uint32_t deadline = tf_hal_current_time_us(arinc429->tfp->hal) + tf_hal_get_common(arinc429->tfp->hal)->timeout;
+
+    uint8_t error_code = 0;
+    int result = tf_tfp_transmit_packet(arinc429->tfp, response_expected, deadline, &error_code);
+    if(result < 0)
+        return result;
+
+    if (result & TF_TICK_TIMEOUT) {
+        //return -result;
+        return TF_E_TIMEOUT;
+    }
+
+    result = tf_tfp_finish_send(arinc429->tfp, result, deadline);
+    if(result < 0)
+        return result;
+
+    return tf_tfp_get_error(error_code);
+}
+
 int tf_arinc429_get_spitfp_error_count(TF_ARINC429 *arinc429, uint32_t *ret_error_count_ack_checksum, uint32_t *ret_error_count_message_checksum, uint32_t *ret_error_count_frame, uint32_t *ret_error_count_overflow) {
+    if (arinc429 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(arinc429->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1085,6 +1218,9 @@ int tf_arinc429_get_spitfp_error_count(TF_ARINC429 *arinc429, uint32_t *ret_erro
 }
 
 int tf_arinc429_set_bootloader_mode(TF_ARINC429 *arinc429, uint8_t mode, uint8_t *ret_status) {
+    if (arinc429 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(arinc429->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1121,6 +1257,9 @@ int tf_arinc429_set_bootloader_mode(TF_ARINC429 *arinc429, uint8_t mode, uint8_t
 }
 
 int tf_arinc429_get_bootloader_mode(TF_ARINC429 *arinc429, uint8_t *ret_mode) {
+    if (arinc429 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(arinc429->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1153,6 +1292,9 @@ int tf_arinc429_get_bootloader_mode(TF_ARINC429 *arinc429, uint8_t *ret_mode) {
 }
 
 int tf_arinc429_set_write_firmware_pointer(TF_ARINC429 *arinc429, uint32_t pointer) {
+    if (arinc429 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(arinc429->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1185,6 +1327,9 @@ int tf_arinc429_set_write_firmware_pointer(TF_ARINC429 *arinc429, uint32_t point
 }
 
 int tf_arinc429_write_firmware(TF_ARINC429 *arinc429, uint8_t data[64], uint8_t *ret_status) {
+    if (arinc429 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(arinc429->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1221,6 +1366,9 @@ int tf_arinc429_write_firmware(TF_ARINC429 *arinc429, uint8_t data[64], uint8_t 
 }
 
 int tf_arinc429_set_status_led_config(TF_ARINC429 *arinc429, uint8_t config) {
+    if (arinc429 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(arinc429->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1253,6 +1401,9 @@ int tf_arinc429_set_status_led_config(TF_ARINC429 *arinc429, uint8_t config) {
 }
 
 int tf_arinc429_get_status_led_config(TF_ARINC429 *arinc429, uint8_t *ret_config) {
+    if (arinc429 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(arinc429->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1285,6 +1436,9 @@ int tf_arinc429_get_status_led_config(TF_ARINC429 *arinc429, uint8_t *ret_config
 }
 
 int tf_arinc429_get_chip_temperature(TF_ARINC429 *arinc429, int16_t *ret_temperature) {
+    if (arinc429 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(arinc429->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1317,6 +1471,9 @@ int tf_arinc429_get_chip_temperature(TF_ARINC429 *arinc429, int16_t *ret_tempera
 }
 
 int tf_arinc429_reset(TF_ARINC429 *arinc429) {
+    if (arinc429 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(arinc429->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1345,6 +1502,9 @@ int tf_arinc429_reset(TF_ARINC429 *arinc429) {
 }
 
 int tf_arinc429_write_uid(TF_ARINC429 *arinc429, uint32_t uid) {
+    if (arinc429 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(arinc429->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1377,6 +1537,9 @@ int tf_arinc429_write_uid(TF_ARINC429 *arinc429, uint32_t uid) {
 }
 
 int tf_arinc429_read_uid(TF_ARINC429 *arinc429, uint32_t *ret_uid) {
+    if (arinc429 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(arinc429->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1409,6 +1572,9 @@ int tf_arinc429_read_uid(TF_ARINC429 *arinc429, uint32_t *ret_uid) {
 }
 
 int tf_arinc429_get_identity(TF_ARINC429 *arinc429, char ret_uid[8], char ret_connected_uid[8], char *ret_position, uint8_t ret_hardware_version[3], uint8_t ret_firmware_version[3], uint16_t *ret_device_identifier) {
+    if (arinc429 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(arinc429->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1453,7 +1619,10 @@ int tf_arinc429_get_identity(TF_ARINC429 *arinc429, char ret_uid[8], char ret_co
     return tf_tfp_get_error(error_code);
 }
 #ifdef TF_IMPLEMENT_CALLBACKS
-void tf_arinc429_register_heartbeat_callback(TF_ARINC429 *arinc429, TF_ARINC429HeartbeatHandler handler, void *user_data) {
+int tf_arinc429_register_heartbeat_message_callback(TF_ARINC429 *arinc429, TF_ARINC429HeartbeatMessageHandler handler, void *user_data) {
+    if (arinc429 == NULL)
+        return TF_E_NULL;
+
     if (handler == NULL) {
         arinc429->tfp->needs_callback_tick = false;
         arinc429->tfp->needs_callback_tick |= arinc429->frame_message_handler != NULL;
@@ -1461,37 +1630,49 @@ void tf_arinc429_register_heartbeat_callback(TF_ARINC429 *arinc429, TF_ARINC429H
     } else {
         arinc429->tfp->needs_callback_tick = true;
     }
-    arinc429->heartbeat_handler = handler;
-    arinc429->heartbeat_user_data = user_data;
+    arinc429->heartbeat_message_handler = handler;
+    arinc429->heartbeat_message_user_data = user_data;
+    return TF_E_OK;
 }
 
 
-void tf_arinc429_register_frame_message_callback(TF_ARINC429 *arinc429, TF_ARINC429FrameMessageHandler handler, void *user_data) {
+int tf_arinc429_register_frame_message_callback(TF_ARINC429 *arinc429, TF_ARINC429FrameMessageHandler handler, void *user_data) {
+    if (arinc429 == NULL)
+        return TF_E_NULL;
+
     if (handler == NULL) {
         arinc429->tfp->needs_callback_tick = false;
-        arinc429->tfp->needs_callback_tick |= arinc429->heartbeat_handler != NULL;
+        arinc429->tfp->needs_callback_tick |= arinc429->heartbeat_message_handler != NULL;
         arinc429->tfp->needs_callback_tick |= arinc429->scheduler_message_handler != NULL;
     } else {
         arinc429->tfp->needs_callback_tick = true;
     }
     arinc429->frame_message_handler = handler;
     arinc429->frame_message_user_data = user_data;
+    return TF_E_OK;
 }
 
 
-void tf_arinc429_register_scheduler_message_callback(TF_ARINC429 *arinc429, TF_ARINC429SchedulerMessageHandler handler, void *user_data) {
+int tf_arinc429_register_scheduler_message_callback(TF_ARINC429 *arinc429, TF_ARINC429SchedulerMessageHandler handler, void *user_data) {
+    if (arinc429 == NULL)
+        return TF_E_NULL;
+
     if (handler == NULL) {
         arinc429->tfp->needs_callback_tick = false;
-        arinc429->tfp->needs_callback_tick |= arinc429->heartbeat_handler != NULL;
+        arinc429->tfp->needs_callback_tick |= arinc429->heartbeat_message_handler != NULL;
         arinc429->tfp->needs_callback_tick |= arinc429->frame_message_handler != NULL;
     } else {
         arinc429->tfp->needs_callback_tick = true;
     }
     arinc429->scheduler_message_handler = handler;
     arinc429->scheduler_message_user_data = user_data;
+    return TF_E_OK;
 }
 #endif
 int tf_arinc429_callback_tick(TF_ARINC429 *arinc429, uint32_t timeout_us) {
+    if (arinc429 == NULL)
+        return TF_E_NULL;
+
     return tf_tfp_callback_tick(arinc429->tfp, tf_hal_current_time_us(arinc429->tfp->hal) + timeout_us);
 }
 

@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-02-08.      *
+ * This file was automatically generated on 2021-10-04.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -67,6 +67,9 @@ static bool tf_laser_range_finder_v2_callback_handler(void *dev, uint8_t fid, TF
 }
 #endif
 int tf_laser_range_finder_v2_create(TF_LaserRangeFinderV2 *laser_range_finder_v2, const char *uid, TF_HalContext *hal) {
+    if (laser_range_finder_v2 == NULL || uid == NULL || hal == NULL)
+        return TF_E_NULL;
+
     memset(laser_range_finder_v2, 0, sizeof(TF_LaserRangeFinderV2));
 
     uint32_t numeric_uid;
@@ -96,12 +99,18 @@ int tf_laser_range_finder_v2_create(TF_LaserRangeFinderV2 *laser_range_finder_v2
 }
 
 int tf_laser_range_finder_v2_destroy(TF_LaserRangeFinderV2 *laser_range_finder_v2) {
+    if (laser_range_finder_v2 == NULL)
+        return TF_E_NULL;
+
     int result = tf_tfp_destroy(laser_range_finder_v2->tfp);
     laser_range_finder_v2->tfp = NULL;
     return result;
 }
 
 int tf_laser_range_finder_v2_get_response_expected(TF_LaserRangeFinderV2 *laser_range_finder_v2, uint8_t function_id, bool *ret_response_expected) {
+    if (laser_range_finder_v2 == NULL)
+        return TF_E_NULL;
+
     switch(function_id) {
         case TF_LASER_RANGE_FINDER_V2_FUNCTION_SET_DISTANCE_CALLBACK_CONFIGURATION:
             if(ret_response_expected != NULL)
@@ -243,6 +252,9 @@ void tf_laser_range_finder_v2_set_response_expected_all(TF_LaserRangeFinderV2 *l
 }
 
 int tf_laser_range_finder_v2_get_distance(TF_LaserRangeFinderV2 *laser_range_finder_v2, int16_t *ret_distance) {
+    if (laser_range_finder_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(laser_range_finder_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -275,6 +287,9 @@ int tf_laser_range_finder_v2_get_distance(TF_LaserRangeFinderV2 *laser_range_fin
 }
 
 int tf_laser_range_finder_v2_set_distance_callback_configuration(TF_LaserRangeFinderV2 *laser_range_finder_v2, uint32_t period, bool value_has_to_change, char option, int16_t min, int16_t max) {
+    if (laser_range_finder_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(laser_range_finder_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -311,6 +326,9 @@ int tf_laser_range_finder_v2_set_distance_callback_configuration(TF_LaserRangeFi
 }
 
 int tf_laser_range_finder_v2_get_distance_callback_configuration(TF_LaserRangeFinderV2 *laser_range_finder_v2, uint32_t *ret_period, bool *ret_value_has_to_change, char *ret_option, int16_t *ret_min, int16_t *ret_max) {
+    if (laser_range_finder_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(laser_range_finder_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -347,6 +365,9 @@ int tf_laser_range_finder_v2_get_distance_callback_configuration(TF_LaserRangeFi
 }
 
 int tf_laser_range_finder_v2_get_velocity(TF_LaserRangeFinderV2 *laser_range_finder_v2, int16_t *ret_velocity) {
+    if (laser_range_finder_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(laser_range_finder_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -379,6 +400,9 @@ int tf_laser_range_finder_v2_get_velocity(TF_LaserRangeFinderV2 *laser_range_fin
 }
 
 int tf_laser_range_finder_v2_set_velocity_callback_configuration(TF_LaserRangeFinderV2 *laser_range_finder_v2, uint32_t period, bool value_has_to_change, char option, int16_t min, int16_t max) {
+    if (laser_range_finder_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(laser_range_finder_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -415,6 +439,9 @@ int tf_laser_range_finder_v2_set_velocity_callback_configuration(TF_LaserRangeFi
 }
 
 int tf_laser_range_finder_v2_get_velocity_callback_configuration(TF_LaserRangeFinderV2 *laser_range_finder_v2, uint32_t *ret_period, bool *ret_value_has_to_change, char *ret_option, int16_t *ret_min, int16_t *ret_max) {
+    if (laser_range_finder_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(laser_range_finder_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -451,6 +478,9 @@ int tf_laser_range_finder_v2_get_velocity_callback_configuration(TF_LaserRangeFi
 }
 
 int tf_laser_range_finder_v2_set_enable(TF_LaserRangeFinderV2 *laser_range_finder_v2, bool enable) {
+    if (laser_range_finder_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(laser_range_finder_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -483,6 +513,9 @@ int tf_laser_range_finder_v2_set_enable(TF_LaserRangeFinderV2 *laser_range_finde
 }
 
 int tf_laser_range_finder_v2_get_enable(TF_LaserRangeFinderV2 *laser_range_finder_v2, bool *ret_enable) {
+    if (laser_range_finder_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(laser_range_finder_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -515,6 +548,9 @@ int tf_laser_range_finder_v2_get_enable(TF_LaserRangeFinderV2 *laser_range_finde
 }
 
 int tf_laser_range_finder_v2_set_configuration(TF_LaserRangeFinderV2 *laser_range_finder_v2, uint8_t acquisition_count, bool enable_quick_termination, uint8_t threshold_value, uint16_t measurement_frequency) {
+    if (laser_range_finder_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(laser_range_finder_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -550,6 +586,9 @@ int tf_laser_range_finder_v2_set_configuration(TF_LaserRangeFinderV2 *laser_rang
 }
 
 int tf_laser_range_finder_v2_get_configuration(TF_LaserRangeFinderV2 *laser_range_finder_v2, uint8_t *ret_acquisition_count, bool *ret_enable_quick_termination, uint8_t *ret_threshold_value, uint16_t *ret_measurement_frequency) {
+    if (laser_range_finder_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(laser_range_finder_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -585,6 +624,9 @@ int tf_laser_range_finder_v2_get_configuration(TF_LaserRangeFinderV2 *laser_rang
 }
 
 int tf_laser_range_finder_v2_set_moving_average(TF_LaserRangeFinderV2 *laser_range_finder_v2, uint8_t distance_average_length, uint8_t velocity_average_length) {
+    if (laser_range_finder_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(laser_range_finder_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -618,6 +660,9 @@ int tf_laser_range_finder_v2_set_moving_average(TF_LaserRangeFinderV2 *laser_ran
 }
 
 int tf_laser_range_finder_v2_get_moving_average(TF_LaserRangeFinderV2 *laser_range_finder_v2, uint8_t *ret_distance_average_length, uint8_t *ret_velocity_average_length) {
+    if (laser_range_finder_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(laser_range_finder_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -651,6 +696,9 @@ int tf_laser_range_finder_v2_get_moving_average(TF_LaserRangeFinderV2 *laser_ran
 }
 
 int tf_laser_range_finder_v2_set_offset_calibration(TF_LaserRangeFinderV2 *laser_range_finder_v2, int16_t offset) {
+    if (laser_range_finder_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(laser_range_finder_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -683,6 +731,9 @@ int tf_laser_range_finder_v2_set_offset_calibration(TF_LaserRangeFinderV2 *laser
 }
 
 int tf_laser_range_finder_v2_get_offset_calibration(TF_LaserRangeFinderV2 *laser_range_finder_v2, int16_t *ret_offset) {
+    if (laser_range_finder_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(laser_range_finder_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -715,6 +766,9 @@ int tf_laser_range_finder_v2_get_offset_calibration(TF_LaserRangeFinderV2 *laser
 }
 
 int tf_laser_range_finder_v2_set_distance_led_config(TF_LaserRangeFinderV2 *laser_range_finder_v2, uint8_t config) {
+    if (laser_range_finder_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(laser_range_finder_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -747,6 +801,9 @@ int tf_laser_range_finder_v2_set_distance_led_config(TF_LaserRangeFinderV2 *lase
 }
 
 int tf_laser_range_finder_v2_get_distance_led_config(TF_LaserRangeFinderV2 *laser_range_finder_v2, uint8_t *ret_config) {
+    if (laser_range_finder_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(laser_range_finder_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -779,6 +836,9 @@ int tf_laser_range_finder_v2_get_distance_led_config(TF_LaserRangeFinderV2 *lase
 }
 
 int tf_laser_range_finder_v2_get_spitfp_error_count(TF_LaserRangeFinderV2 *laser_range_finder_v2, uint32_t *ret_error_count_ack_checksum, uint32_t *ret_error_count_message_checksum, uint32_t *ret_error_count_frame, uint32_t *ret_error_count_overflow) {
+    if (laser_range_finder_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(laser_range_finder_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -814,6 +874,9 @@ int tf_laser_range_finder_v2_get_spitfp_error_count(TF_LaserRangeFinderV2 *laser
 }
 
 int tf_laser_range_finder_v2_set_bootloader_mode(TF_LaserRangeFinderV2 *laser_range_finder_v2, uint8_t mode, uint8_t *ret_status) {
+    if (laser_range_finder_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(laser_range_finder_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -850,6 +913,9 @@ int tf_laser_range_finder_v2_set_bootloader_mode(TF_LaserRangeFinderV2 *laser_ra
 }
 
 int tf_laser_range_finder_v2_get_bootloader_mode(TF_LaserRangeFinderV2 *laser_range_finder_v2, uint8_t *ret_mode) {
+    if (laser_range_finder_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(laser_range_finder_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -882,6 +948,9 @@ int tf_laser_range_finder_v2_get_bootloader_mode(TF_LaserRangeFinderV2 *laser_ra
 }
 
 int tf_laser_range_finder_v2_set_write_firmware_pointer(TF_LaserRangeFinderV2 *laser_range_finder_v2, uint32_t pointer) {
+    if (laser_range_finder_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(laser_range_finder_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -914,6 +983,9 @@ int tf_laser_range_finder_v2_set_write_firmware_pointer(TF_LaserRangeFinderV2 *l
 }
 
 int tf_laser_range_finder_v2_write_firmware(TF_LaserRangeFinderV2 *laser_range_finder_v2, uint8_t data[64], uint8_t *ret_status) {
+    if (laser_range_finder_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(laser_range_finder_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -950,6 +1022,9 @@ int tf_laser_range_finder_v2_write_firmware(TF_LaserRangeFinderV2 *laser_range_f
 }
 
 int tf_laser_range_finder_v2_set_status_led_config(TF_LaserRangeFinderV2 *laser_range_finder_v2, uint8_t config) {
+    if (laser_range_finder_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(laser_range_finder_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -982,6 +1057,9 @@ int tf_laser_range_finder_v2_set_status_led_config(TF_LaserRangeFinderV2 *laser_
 }
 
 int tf_laser_range_finder_v2_get_status_led_config(TF_LaserRangeFinderV2 *laser_range_finder_v2, uint8_t *ret_config) {
+    if (laser_range_finder_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(laser_range_finder_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1014,6 +1092,9 @@ int tf_laser_range_finder_v2_get_status_led_config(TF_LaserRangeFinderV2 *laser_
 }
 
 int tf_laser_range_finder_v2_get_chip_temperature(TF_LaserRangeFinderV2 *laser_range_finder_v2, int16_t *ret_temperature) {
+    if (laser_range_finder_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(laser_range_finder_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1046,6 +1127,9 @@ int tf_laser_range_finder_v2_get_chip_temperature(TF_LaserRangeFinderV2 *laser_r
 }
 
 int tf_laser_range_finder_v2_reset(TF_LaserRangeFinderV2 *laser_range_finder_v2) {
+    if (laser_range_finder_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(laser_range_finder_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1074,6 +1158,9 @@ int tf_laser_range_finder_v2_reset(TF_LaserRangeFinderV2 *laser_range_finder_v2)
 }
 
 int tf_laser_range_finder_v2_write_uid(TF_LaserRangeFinderV2 *laser_range_finder_v2, uint32_t uid) {
+    if (laser_range_finder_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(laser_range_finder_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1106,6 +1193,9 @@ int tf_laser_range_finder_v2_write_uid(TF_LaserRangeFinderV2 *laser_range_finder
 }
 
 int tf_laser_range_finder_v2_read_uid(TF_LaserRangeFinderV2 *laser_range_finder_v2, uint32_t *ret_uid) {
+    if (laser_range_finder_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(laser_range_finder_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1138,6 +1228,9 @@ int tf_laser_range_finder_v2_read_uid(TF_LaserRangeFinderV2 *laser_range_finder_
 }
 
 int tf_laser_range_finder_v2_get_identity(TF_LaserRangeFinderV2 *laser_range_finder_v2, char ret_uid[8], char ret_connected_uid[8], char *ret_position, uint8_t ret_hardware_version[3], uint8_t ret_firmware_version[3], uint16_t *ret_device_identifier) {
+    if (laser_range_finder_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(laser_range_finder_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1182,7 +1275,10 @@ int tf_laser_range_finder_v2_get_identity(TF_LaserRangeFinderV2 *laser_range_fin
     return tf_tfp_get_error(error_code);
 }
 #ifdef TF_IMPLEMENT_CALLBACKS
-void tf_laser_range_finder_v2_register_distance_callback(TF_LaserRangeFinderV2 *laser_range_finder_v2, TF_LaserRangeFinderV2DistanceHandler handler, void *user_data) {
+int tf_laser_range_finder_v2_register_distance_callback(TF_LaserRangeFinderV2 *laser_range_finder_v2, TF_LaserRangeFinderV2DistanceHandler handler, void *user_data) {
+    if (laser_range_finder_v2 == NULL)
+        return TF_E_NULL;
+
     if (handler == NULL) {
         laser_range_finder_v2->tfp->needs_callback_tick = false;
         laser_range_finder_v2->tfp->needs_callback_tick |= laser_range_finder_v2->velocity_handler != NULL;
@@ -1191,10 +1287,14 @@ void tf_laser_range_finder_v2_register_distance_callback(TF_LaserRangeFinderV2 *
     }
     laser_range_finder_v2->distance_handler = handler;
     laser_range_finder_v2->distance_user_data = user_data;
+    return TF_E_OK;
 }
 
 
-void tf_laser_range_finder_v2_register_velocity_callback(TF_LaserRangeFinderV2 *laser_range_finder_v2, TF_LaserRangeFinderV2VelocityHandler handler, void *user_data) {
+int tf_laser_range_finder_v2_register_velocity_callback(TF_LaserRangeFinderV2 *laser_range_finder_v2, TF_LaserRangeFinderV2VelocityHandler handler, void *user_data) {
+    if (laser_range_finder_v2 == NULL)
+        return TF_E_NULL;
+
     if (handler == NULL) {
         laser_range_finder_v2->tfp->needs_callback_tick = false;
         laser_range_finder_v2->tfp->needs_callback_tick |= laser_range_finder_v2->distance_handler != NULL;
@@ -1203,9 +1303,13 @@ void tf_laser_range_finder_v2_register_velocity_callback(TF_LaserRangeFinderV2 *
     }
     laser_range_finder_v2->velocity_handler = handler;
     laser_range_finder_v2->velocity_user_data = user_data;
+    return TF_E_OK;
 }
 #endif
 int tf_laser_range_finder_v2_callback_tick(TF_LaserRangeFinderV2 *laser_range_finder_v2, uint32_t timeout_us) {
+    if (laser_range_finder_v2 == NULL)
+        return TF_E_NULL;
+
     return tf_tfp_callback_tick(laser_range_finder_v2->tfp, tf_hal_current_time_us(laser_range_finder_v2->tfp->hal) + timeout_us);
 }
 

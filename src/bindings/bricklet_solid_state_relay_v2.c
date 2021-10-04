@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-02-08.      *
+ * This file was automatically generated on 2021-10-04.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -53,6 +53,9 @@ static bool tf_solid_state_relay_v2_callback_handler(void *dev, uint8_t fid, TF_
 }
 #endif
 int tf_solid_state_relay_v2_create(TF_SolidStateRelayV2 *solid_state_relay_v2, const char *uid, TF_HalContext *hal) {
+    if (solid_state_relay_v2 == NULL || uid == NULL || hal == NULL)
+        return TF_E_NULL;
+
     memset(solid_state_relay_v2, 0, sizeof(TF_SolidStateRelayV2));
 
     uint32_t numeric_uid;
@@ -81,12 +84,18 @@ int tf_solid_state_relay_v2_create(TF_SolidStateRelayV2 *solid_state_relay_v2, c
 }
 
 int tf_solid_state_relay_v2_destroy(TF_SolidStateRelayV2 *solid_state_relay_v2) {
+    if (solid_state_relay_v2 == NULL)
+        return TF_E_NULL;
+
     int result = tf_tfp_destroy(solid_state_relay_v2->tfp);
     solid_state_relay_v2->tfp = NULL;
     return result;
 }
 
 int tf_solid_state_relay_v2_get_response_expected(TF_SolidStateRelayV2 *solid_state_relay_v2, uint8_t function_id, bool *ret_response_expected) {
+    if (solid_state_relay_v2 == NULL)
+        return TF_E_NULL;
+
     switch(function_id) {
         case TF_SOLID_STATE_RELAY_V2_FUNCTION_SET_STATE:
             if(ret_response_expected != NULL)
@@ -173,6 +182,9 @@ void tf_solid_state_relay_v2_set_response_expected_all(TF_SolidStateRelayV2 *sol
 }
 
 int tf_solid_state_relay_v2_set_state(TF_SolidStateRelayV2 *solid_state_relay_v2, bool state) {
+    if (solid_state_relay_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(solid_state_relay_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -205,6 +217,9 @@ int tf_solid_state_relay_v2_set_state(TF_SolidStateRelayV2 *solid_state_relay_v2
 }
 
 int tf_solid_state_relay_v2_get_state(TF_SolidStateRelayV2 *solid_state_relay_v2, bool *ret_state) {
+    if (solid_state_relay_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(solid_state_relay_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -237,6 +252,9 @@ int tf_solid_state_relay_v2_get_state(TF_SolidStateRelayV2 *solid_state_relay_v2
 }
 
 int tf_solid_state_relay_v2_set_monoflop(TF_SolidStateRelayV2 *solid_state_relay_v2, bool state, uint32_t time) {
+    if (solid_state_relay_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(solid_state_relay_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -270,6 +288,9 @@ int tf_solid_state_relay_v2_set_monoflop(TF_SolidStateRelayV2 *solid_state_relay
 }
 
 int tf_solid_state_relay_v2_get_monoflop(TF_SolidStateRelayV2 *solid_state_relay_v2, bool *ret_state, uint32_t *ret_time, uint32_t *ret_time_remaining) {
+    if (solid_state_relay_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(solid_state_relay_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -304,6 +325,9 @@ int tf_solid_state_relay_v2_get_monoflop(TF_SolidStateRelayV2 *solid_state_relay
 }
 
 int tf_solid_state_relay_v2_get_spitfp_error_count(TF_SolidStateRelayV2 *solid_state_relay_v2, uint32_t *ret_error_count_ack_checksum, uint32_t *ret_error_count_message_checksum, uint32_t *ret_error_count_frame, uint32_t *ret_error_count_overflow) {
+    if (solid_state_relay_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(solid_state_relay_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -339,6 +363,9 @@ int tf_solid_state_relay_v2_get_spitfp_error_count(TF_SolidStateRelayV2 *solid_s
 }
 
 int tf_solid_state_relay_v2_set_bootloader_mode(TF_SolidStateRelayV2 *solid_state_relay_v2, uint8_t mode, uint8_t *ret_status) {
+    if (solid_state_relay_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(solid_state_relay_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -375,6 +402,9 @@ int tf_solid_state_relay_v2_set_bootloader_mode(TF_SolidStateRelayV2 *solid_stat
 }
 
 int tf_solid_state_relay_v2_get_bootloader_mode(TF_SolidStateRelayV2 *solid_state_relay_v2, uint8_t *ret_mode) {
+    if (solid_state_relay_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(solid_state_relay_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -407,6 +437,9 @@ int tf_solid_state_relay_v2_get_bootloader_mode(TF_SolidStateRelayV2 *solid_stat
 }
 
 int tf_solid_state_relay_v2_set_write_firmware_pointer(TF_SolidStateRelayV2 *solid_state_relay_v2, uint32_t pointer) {
+    if (solid_state_relay_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(solid_state_relay_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -439,6 +472,9 @@ int tf_solid_state_relay_v2_set_write_firmware_pointer(TF_SolidStateRelayV2 *sol
 }
 
 int tf_solid_state_relay_v2_write_firmware(TF_SolidStateRelayV2 *solid_state_relay_v2, uint8_t data[64], uint8_t *ret_status) {
+    if (solid_state_relay_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(solid_state_relay_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -475,6 +511,9 @@ int tf_solid_state_relay_v2_write_firmware(TF_SolidStateRelayV2 *solid_state_rel
 }
 
 int tf_solid_state_relay_v2_set_status_led_config(TF_SolidStateRelayV2 *solid_state_relay_v2, uint8_t config) {
+    if (solid_state_relay_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(solid_state_relay_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -507,6 +546,9 @@ int tf_solid_state_relay_v2_set_status_led_config(TF_SolidStateRelayV2 *solid_st
 }
 
 int tf_solid_state_relay_v2_get_status_led_config(TF_SolidStateRelayV2 *solid_state_relay_v2, uint8_t *ret_config) {
+    if (solid_state_relay_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(solid_state_relay_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -539,6 +581,9 @@ int tf_solid_state_relay_v2_get_status_led_config(TF_SolidStateRelayV2 *solid_st
 }
 
 int tf_solid_state_relay_v2_get_chip_temperature(TF_SolidStateRelayV2 *solid_state_relay_v2, int16_t *ret_temperature) {
+    if (solid_state_relay_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(solid_state_relay_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -571,6 +616,9 @@ int tf_solid_state_relay_v2_get_chip_temperature(TF_SolidStateRelayV2 *solid_sta
 }
 
 int tf_solid_state_relay_v2_reset(TF_SolidStateRelayV2 *solid_state_relay_v2) {
+    if (solid_state_relay_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(solid_state_relay_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -599,6 +647,9 @@ int tf_solid_state_relay_v2_reset(TF_SolidStateRelayV2 *solid_state_relay_v2) {
 }
 
 int tf_solid_state_relay_v2_write_uid(TF_SolidStateRelayV2 *solid_state_relay_v2, uint32_t uid) {
+    if (solid_state_relay_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(solid_state_relay_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -631,6 +682,9 @@ int tf_solid_state_relay_v2_write_uid(TF_SolidStateRelayV2 *solid_state_relay_v2
 }
 
 int tf_solid_state_relay_v2_read_uid(TF_SolidStateRelayV2 *solid_state_relay_v2, uint32_t *ret_uid) {
+    if (solid_state_relay_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(solid_state_relay_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -663,6 +717,9 @@ int tf_solid_state_relay_v2_read_uid(TF_SolidStateRelayV2 *solid_state_relay_v2,
 }
 
 int tf_solid_state_relay_v2_get_identity(TF_SolidStateRelayV2 *solid_state_relay_v2, char ret_uid[8], char ret_connected_uid[8], char *ret_position, uint8_t ret_hardware_version[3], uint8_t ret_firmware_version[3], uint16_t *ret_device_identifier) {
+    if (solid_state_relay_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(solid_state_relay_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -707,7 +764,10 @@ int tf_solid_state_relay_v2_get_identity(TF_SolidStateRelayV2 *solid_state_relay
     return tf_tfp_get_error(error_code);
 }
 #ifdef TF_IMPLEMENT_CALLBACKS
-void tf_solid_state_relay_v2_register_monoflop_done_callback(TF_SolidStateRelayV2 *solid_state_relay_v2, TF_SolidStateRelayV2MonoflopDoneHandler handler, void *user_data) {
+int tf_solid_state_relay_v2_register_monoflop_done_callback(TF_SolidStateRelayV2 *solid_state_relay_v2, TF_SolidStateRelayV2MonoflopDoneHandler handler, void *user_data) {
+    if (solid_state_relay_v2 == NULL)
+        return TF_E_NULL;
+
     if (handler == NULL) {
         solid_state_relay_v2->tfp->needs_callback_tick = false;
         
@@ -716,9 +776,13 @@ void tf_solid_state_relay_v2_register_monoflop_done_callback(TF_SolidStateRelayV
     }
     solid_state_relay_v2->monoflop_done_handler = handler;
     solid_state_relay_v2->monoflop_done_user_data = user_data;
+    return TF_E_OK;
 }
 #endif
 int tf_solid_state_relay_v2_callback_tick(TF_SolidStateRelayV2 *solid_state_relay_v2, uint32_t timeout_us) {
+    if (solid_state_relay_v2 == NULL)
+        return TF_E_NULL;
+
     return tf_tfp_callback_tick(solid_state_relay_v2->tfp, tf_hal_current_time_us(solid_state_relay_v2->tfp->hal) + timeout_us);
 }
 

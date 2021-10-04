@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-02-08.      *
+ * This file was automatically generated on 2021-10-04.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -405,7 +405,7 @@ TF_ATTRIBUTE_NONNULL_ALL void tf_sound_pressure_level_set_response_expected_all(
  * 
  * The parameter is the same as {@link tf_sound_pressure_level_get_decibel}.
  */
-TF_ATTRIBUTE_NONNULL(1) void tf_sound_pressure_level_register_decibel_callback(TF_SoundPressureLevel *sound_pressure_level, TF_SoundPressureLevelDecibelHandler handler, void *user_data);
+TF_ATTRIBUTE_NONNULL(1) int tf_sound_pressure_level_register_decibel_callback(TF_SoundPressureLevel *sound_pressure_level, TF_SoundPressureLevelDecibelHandler handler, void *user_data);
 
 
 /**
@@ -421,7 +421,7 @@ TF_ATTRIBUTE_NONNULL(1) void tf_sound_pressure_level_register_decibel_callback(T
  * 
  * The parameter is the same as {@link tf_sound_pressure_level_get_spectrum}.
  */
-TF_ATTRIBUTE_NONNULL(1) void tf_sound_pressure_level_register_spectrum_low_level_callback(TF_SoundPressureLevel *sound_pressure_level, TF_SoundPressureLevelSpectrumLowLevelHandler handler, void *user_data);
+TF_ATTRIBUTE_NONNULL(1) int tf_sound_pressure_level_register_spectrum_low_level_callback(TF_SoundPressureLevel *sound_pressure_level, TF_SoundPressureLevelSpectrumLowLevelHandler handler, void *user_data);
 #endif
 #ifdef TF_IMPLEMENT_CALLBACKS
 /**

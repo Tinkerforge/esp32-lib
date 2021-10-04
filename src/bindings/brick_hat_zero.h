@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-02-08.      *
+ * This file was automatically generated on 2021-10-04.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -323,7 +323,7 @@ TF_ATTRIBUTE_NONNULL_ALL void tf_hat_zero_set_response_expected_all(TF_HATZero *
  * 
  * .. versionadded:: 2.0.1$nbsp;(Firmware)
  */
-TF_ATTRIBUTE_NONNULL(1) void tf_hat_zero_register_usb_voltage_callback(TF_HATZero *hat_zero, TF_HATZeroUSBVoltageHandler handler, void *user_data);
+TF_ATTRIBUTE_NONNULL(1) int tf_hat_zero_register_usb_voltage_callback(TF_HATZero *hat_zero, TF_HATZeroUSBVoltageHandler handler, void *user_data);
 #endif
 #ifdef TF_IMPLEMENT_CALLBACKS
 /**

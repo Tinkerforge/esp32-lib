@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-02-08.      *
+ * This file was automatically generated on 2021-10-04.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -430,7 +430,7 @@ TF_ATTRIBUTE_NONNULL_ALL void tf_xmc1400_breakout_set_response_expected_all(TF_X
  * 
  * The parameters are the same as {@link tf_xmc1400_breakout_get_adc_values}.
  */
-TF_ATTRIBUTE_NONNULL(1) void tf_xmc1400_breakout_register_adc_values_callback(TF_XMC1400Breakout *xmc1400_breakout, TF_XMC1400BreakoutADCValuesHandler handler, void *user_data);
+TF_ATTRIBUTE_NONNULL(1) int tf_xmc1400_breakout_register_adc_values_callback(TF_XMC1400Breakout *xmc1400_breakout, TF_XMC1400BreakoutADCValuesHandler handler, void *user_data);
 
 
 /**
@@ -446,7 +446,7 @@ TF_ATTRIBUTE_NONNULL(1) void tf_xmc1400_breakout_register_adc_values_callback(TF
  * 
  * The parameter is the same as {@link tf_xmc1400_breakout_get_count}.
  */
-TF_ATTRIBUTE_NONNULL(1) void tf_xmc1400_breakout_register_count_callback(TF_XMC1400Breakout *xmc1400_breakout, TF_XMC1400BreakoutCountHandler handler, void *user_data);
+TF_ATTRIBUTE_NONNULL(1) int tf_xmc1400_breakout_register_count_callback(TF_XMC1400Breakout *xmc1400_breakout, TF_XMC1400BreakoutCountHandler handler, void *user_data);
 #endif
 #ifdef TF_IMPLEMENT_CALLBACKS
 /**

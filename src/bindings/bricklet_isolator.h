@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-02-08.      *
+ * This file was automatically generated on 2021-10-04.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -323,7 +323,7 @@ TF_ATTRIBUTE_NONNULL_ALL void tf_isolator_set_response_expected_all(TF_Isolator 
  * 
  * .. versionadded:: 2.0.2$nbsp;(Plugin)
  */
-TF_ATTRIBUTE_NONNULL(1) void tf_isolator_register_statistics_callback(TF_Isolator *isolator, TF_IsolatorStatisticsHandler handler, void *user_data);
+TF_ATTRIBUTE_NONNULL(1) int tf_isolator_register_statistics_callback(TF_Isolator *isolator, TF_IsolatorStatisticsHandler handler, void *user_data);
 #endif
 #ifdef TF_IMPLEMENT_CALLBACKS
 /**

@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-02-08.      *
+ * This file was automatically generated on 2021-10-04.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -81,6 +81,9 @@ static bool tf_voltage_current_v2_callback_handler(void *dev, uint8_t fid, TF_Pa
 }
 #endif
 int tf_voltage_current_v2_create(TF_VoltageCurrentV2 *voltage_current_v2, const char *uid, TF_HalContext *hal) {
+    if (voltage_current_v2 == NULL || uid == NULL || hal == NULL)
+        return TF_E_NULL;
+
     memset(voltage_current_v2, 0, sizeof(TF_VoltageCurrentV2));
 
     uint32_t numeric_uid;
@@ -110,12 +113,18 @@ int tf_voltage_current_v2_create(TF_VoltageCurrentV2 *voltage_current_v2, const 
 }
 
 int tf_voltage_current_v2_destroy(TF_VoltageCurrentV2 *voltage_current_v2) {
+    if (voltage_current_v2 == NULL)
+        return TF_E_NULL;
+
     int result = tf_tfp_destroy(voltage_current_v2->tfp);
     voltage_current_v2->tfp = NULL;
     return result;
 }
 
 int tf_voltage_current_v2_get_response_expected(TF_VoltageCurrentV2 *voltage_current_v2, uint8_t function_id, bool *ret_response_expected) {
+    if (voltage_current_v2 == NULL)
+        return TF_E_NULL;
+
     switch(function_id) {
         case TF_VOLTAGE_CURRENT_V2_FUNCTION_SET_CURRENT_CALLBACK_CONFIGURATION:
             if(ret_response_expected != NULL)
@@ -235,6 +244,9 @@ void tf_voltage_current_v2_set_response_expected_all(TF_VoltageCurrentV2 *voltag
 }
 
 int tf_voltage_current_v2_get_current(TF_VoltageCurrentV2 *voltage_current_v2, int32_t *ret_current) {
+    if (voltage_current_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(voltage_current_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -267,6 +279,9 @@ int tf_voltage_current_v2_get_current(TF_VoltageCurrentV2 *voltage_current_v2, i
 }
 
 int tf_voltage_current_v2_set_current_callback_configuration(TF_VoltageCurrentV2 *voltage_current_v2, uint32_t period, bool value_has_to_change, char option, int32_t min, int32_t max) {
+    if (voltage_current_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(voltage_current_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -303,6 +318,9 @@ int tf_voltage_current_v2_set_current_callback_configuration(TF_VoltageCurrentV2
 }
 
 int tf_voltage_current_v2_get_current_callback_configuration(TF_VoltageCurrentV2 *voltage_current_v2, uint32_t *ret_period, bool *ret_value_has_to_change, char *ret_option, int32_t *ret_min, int32_t *ret_max) {
+    if (voltage_current_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(voltage_current_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -339,6 +357,9 @@ int tf_voltage_current_v2_get_current_callback_configuration(TF_VoltageCurrentV2
 }
 
 int tf_voltage_current_v2_get_voltage(TF_VoltageCurrentV2 *voltage_current_v2, int32_t *ret_voltage) {
+    if (voltage_current_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(voltage_current_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -371,6 +392,9 @@ int tf_voltage_current_v2_get_voltage(TF_VoltageCurrentV2 *voltage_current_v2, i
 }
 
 int tf_voltage_current_v2_set_voltage_callback_configuration(TF_VoltageCurrentV2 *voltage_current_v2, uint32_t period, bool value_has_to_change, char option, int32_t min, int32_t max) {
+    if (voltage_current_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(voltage_current_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -407,6 +431,9 @@ int tf_voltage_current_v2_set_voltage_callback_configuration(TF_VoltageCurrentV2
 }
 
 int tf_voltage_current_v2_get_voltage_callback_configuration(TF_VoltageCurrentV2 *voltage_current_v2, uint32_t *ret_period, bool *ret_value_has_to_change, char *ret_option, int32_t *ret_min, int32_t *ret_max) {
+    if (voltage_current_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(voltage_current_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -443,6 +470,9 @@ int tf_voltage_current_v2_get_voltage_callback_configuration(TF_VoltageCurrentV2
 }
 
 int tf_voltage_current_v2_get_power(TF_VoltageCurrentV2 *voltage_current_v2, int32_t *ret_power) {
+    if (voltage_current_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(voltage_current_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -475,6 +505,9 @@ int tf_voltage_current_v2_get_power(TF_VoltageCurrentV2 *voltage_current_v2, int
 }
 
 int tf_voltage_current_v2_set_power_callback_configuration(TF_VoltageCurrentV2 *voltage_current_v2, uint32_t period, bool value_has_to_change, char option, int32_t min, int32_t max) {
+    if (voltage_current_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(voltage_current_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -511,6 +544,9 @@ int tf_voltage_current_v2_set_power_callback_configuration(TF_VoltageCurrentV2 *
 }
 
 int tf_voltage_current_v2_get_power_callback_configuration(TF_VoltageCurrentV2 *voltage_current_v2, uint32_t *ret_period, bool *ret_value_has_to_change, char *ret_option, int32_t *ret_min, int32_t *ret_max) {
+    if (voltage_current_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(voltage_current_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -547,6 +583,9 @@ int tf_voltage_current_v2_get_power_callback_configuration(TF_VoltageCurrentV2 *
 }
 
 int tf_voltage_current_v2_set_configuration(TF_VoltageCurrentV2 *voltage_current_v2, uint8_t averaging, uint8_t voltage_conversion_time, uint8_t current_conversion_time) {
+    if (voltage_current_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(voltage_current_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -581,6 +620,9 @@ int tf_voltage_current_v2_set_configuration(TF_VoltageCurrentV2 *voltage_current
 }
 
 int tf_voltage_current_v2_get_configuration(TF_VoltageCurrentV2 *voltage_current_v2, uint8_t *ret_averaging, uint8_t *ret_voltage_conversion_time, uint8_t *ret_current_conversion_time) {
+    if (voltage_current_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(voltage_current_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -615,6 +657,9 @@ int tf_voltage_current_v2_get_configuration(TF_VoltageCurrentV2 *voltage_current
 }
 
 int tf_voltage_current_v2_set_calibration(TF_VoltageCurrentV2 *voltage_current_v2, uint16_t voltage_multiplier, uint16_t voltage_divisor, uint16_t current_multiplier, uint16_t current_divisor) {
+    if (voltage_current_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(voltage_current_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -650,6 +695,9 @@ int tf_voltage_current_v2_set_calibration(TF_VoltageCurrentV2 *voltage_current_v
 }
 
 int tf_voltage_current_v2_get_calibration(TF_VoltageCurrentV2 *voltage_current_v2, uint16_t *ret_voltage_multiplier, uint16_t *ret_voltage_divisor, uint16_t *ret_current_multiplier, uint16_t *ret_current_divisor) {
+    if (voltage_current_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(voltage_current_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -685,6 +733,9 @@ int tf_voltage_current_v2_get_calibration(TF_VoltageCurrentV2 *voltage_current_v
 }
 
 int tf_voltage_current_v2_get_spitfp_error_count(TF_VoltageCurrentV2 *voltage_current_v2, uint32_t *ret_error_count_ack_checksum, uint32_t *ret_error_count_message_checksum, uint32_t *ret_error_count_frame, uint32_t *ret_error_count_overflow) {
+    if (voltage_current_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(voltage_current_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -720,6 +771,9 @@ int tf_voltage_current_v2_get_spitfp_error_count(TF_VoltageCurrentV2 *voltage_cu
 }
 
 int tf_voltage_current_v2_set_bootloader_mode(TF_VoltageCurrentV2 *voltage_current_v2, uint8_t mode, uint8_t *ret_status) {
+    if (voltage_current_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(voltage_current_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -756,6 +810,9 @@ int tf_voltage_current_v2_set_bootloader_mode(TF_VoltageCurrentV2 *voltage_curre
 }
 
 int tf_voltage_current_v2_get_bootloader_mode(TF_VoltageCurrentV2 *voltage_current_v2, uint8_t *ret_mode) {
+    if (voltage_current_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(voltage_current_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -788,6 +845,9 @@ int tf_voltage_current_v2_get_bootloader_mode(TF_VoltageCurrentV2 *voltage_curre
 }
 
 int tf_voltage_current_v2_set_write_firmware_pointer(TF_VoltageCurrentV2 *voltage_current_v2, uint32_t pointer) {
+    if (voltage_current_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(voltage_current_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -820,6 +880,9 @@ int tf_voltage_current_v2_set_write_firmware_pointer(TF_VoltageCurrentV2 *voltag
 }
 
 int tf_voltage_current_v2_write_firmware(TF_VoltageCurrentV2 *voltage_current_v2, uint8_t data[64], uint8_t *ret_status) {
+    if (voltage_current_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(voltage_current_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -856,6 +919,9 @@ int tf_voltage_current_v2_write_firmware(TF_VoltageCurrentV2 *voltage_current_v2
 }
 
 int tf_voltage_current_v2_set_status_led_config(TF_VoltageCurrentV2 *voltage_current_v2, uint8_t config) {
+    if (voltage_current_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(voltage_current_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -888,6 +954,9 @@ int tf_voltage_current_v2_set_status_led_config(TF_VoltageCurrentV2 *voltage_cur
 }
 
 int tf_voltage_current_v2_get_status_led_config(TF_VoltageCurrentV2 *voltage_current_v2, uint8_t *ret_config) {
+    if (voltage_current_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(voltage_current_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -920,6 +989,9 @@ int tf_voltage_current_v2_get_status_led_config(TF_VoltageCurrentV2 *voltage_cur
 }
 
 int tf_voltage_current_v2_get_chip_temperature(TF_VoltageCurrentV2 *voltage_current_v2, int16_t *ret_temperature) {
+    if (voltage_current_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(voltage_current_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -952,6 +1024,9 @@ int tf_voltage_current_v2_get_chip_temperature(TF_VoltageCurrentV2 *voltage_curr
 }
 
 int tf_voltage_current_v2_reset(TF_VoltageCurrentV2 *voltage_current_v2) {
+    if (voltage_current_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(voltage_current_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -980,6 +1055,9 @@ int tf_voltage_current_v2_reset(TF_VoltageCurrentV2 *voltage_current_v2) {
 }
 
 int tf_voltage_current_v2_write_uid(TF_VoltageCurrentV2 *voltage_current_v2, uint32_t uid) {
+    if (voltage_current_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(voltage_current_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1012,6 +1090,9 @@ int tf_voltage_current_v2_write_uid(TF_VoltageCurrentV2 *voltage_current_v2, uin
 }
 
 int tf_voltage_current_v2_read_uid(TF_VoltageCurrentV2 *voltage_current_v2, uint32_t *ret_uid) {
+    if (voltage_current_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(voltage_current_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1044,6 +1125,9 @@ int tf_voltage_current_v2_read_uid(TF_VoltageCurrentV2 *voltage_current_v2, uint
 }
 
 int tf_voltage_current_v2_get_identity(TF_VoltageCurrentV2 *voltage_current_v2, char ret_uid[8], char ret_connected_uid[8], char *ret_position, uint8_t ret_hardware_version[3], uint8_t ret_firmware_version[3], uint16_t *ret_device_identifier) {
+    if (voltage_current_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(voltage_current_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1088,7 +1172,10 @@ int tf_voltage_current_v2_get_identity(TF_VoltageCurrentV2 *voltage_current_v2, 
     return tf_tfp_get_error(error_code);
 }
 #ifdef TF_IMPLEMENT_CALLBACKS
-void tf_voltage_current_v2_register_current_callback(TF_VoltageCurrentV2 *voltage_current_v2, TF_VoltageCurrentV2CurrentHandler handler, void *user_data) {
+int tf_voltage_current_v2_register_current_callback(TF_VoltageCurrentV2 *voltage_current_v2, TF_VoltageCurrentV2CurrentHandler handler, void *user_data) {
+    if (voltage_current_v2 == NULL)
+        return TF_E_NULL;
+
     if (handler == NULL) {
         voltage_current_v2->tfp->needs_callback_tick = false;
         voltage_current_v2->tfp->needs_callback_tick |= voltage_current_v2->voltage_handler != NULL;
@@ -1098,10 +1185,14 @@ void tf_voltage_current_v2_register_current_callback(TF_VoltageCurrentV2 *voltag
     }
     voltage_current_v2->current_handler = handler;
     voltage_current_v2->current_user_data = user_data;
+    return TF_E_OK;
 }
 
 
-void tf_voltage_current_v2_register_voltage_callback(TF_VoltageCurrentV2 *voltage_current_v2, TF_VoltageCurrentV2VoltageHandler handler, void *user_data) {
+int tf_voltage_current_v2_register_voltage_callback(TF_VoltageCurrentV2 *voltage_current_v2, TF_VoltageCurrentV2VoltageHandler handler, void *user_data) {
+    if (voltage_current_v2 == NULL)
+        return TF_E_NULL;
+
     if (handler == NULL) {
         voltage_current_v2->tfp->needs_callback_tick = false;
         voltage_current_v2->tfp->needs_callback_tick |= voltage_current_v2->current_handler != NULL;
@@ -1111,10 +1202,14 @@ void tf_voltage_current_v2_register_voltage_callback(TF_VoltageCurrentV2 *voltag
     }
     voltage_current_v2->voltage_handler = handler;
     voltage_current_v2->voltage_user_data = user_data;
+    return TF_E_OK;
 }
 
 
-void tf_voltage_current_v2_register_power_callback(TF_VoltageCurrentV2 *voltage_current_v2, TF_VoltageCurrentV2PowerHandler handler, void *user_data) {
+int tf_voltage_current_v2_register_power_callback(TF_VoltageCurrentV2 *voltage_current_v2, TF_VoltageCurrentV2PowerHandler handler, void *user_data) {
+    if (voltage_current_v2 == NULL)
+        return TF_E_NULL;
+
     if (handler == NULL) {
         voltage_current_v2->tfp->needs_callback_tick = false;
         voltage_current_v2->tfp->needs_callback_tick |= voltage_current_v2->current_handler != NULL;
@@ -1124,9 +1219,13 @@ void tf_voltage_current_v2_register_power_callback(TF_VoltageCurrentV2 *voltage_
     }
     voltage_current_v2->power_handler = handler;
     voltage_current_v2->power_user_data = user_data;
+    return TF_E_OK;
 }
 #endif
 int tf_voltage_current_v2_callback_tick(TF_VoltageCurrentV2 *voltage_current_v2, uint32_t timeout_us) {
+    if (voltage_current_v2 == NULL)
+        return TF_E_NULL;
+
     return tf_tfp_callback_tick(voltage_current_v2->tfp, tf_hal_current_time_us(voltage_current_v2->tfp->hal) + timeout_us);
 }
 

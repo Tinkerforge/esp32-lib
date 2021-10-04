@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-02-08.      *
+ * This file was automatically generated on 2021-10-04.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -74,6 +74,9 @@ static bool tf_particulate_matter_callback_handler(void *dev, uint8_t fid, TF_Pa
 }
 #endif
 int tf_particulate_matter_create(TF_ParticulateMatter *particulate_matter, const char *uid, TF_HalContext *hal) {
+    if (particulate_matter == NULL || uid == NULL || hal == NULL)
+        return TF_E_NULL;
+
     memset(particulate_matter, 0, sizeof(TF_ParticulateMatter));
 
     uint32_t numeric_uid;
@@ -102,12 +105,18 @@ int tf_particulate_matter_create(TF_ParticulateMatter *particulate_matter, const
 }
 
 int tf_particulate_matter_destroy(TF_ParticulateMatter *particulate_matter) {
+    if (particulate_matter == NULL)
+        return TF_E_NULL;
+
     int result = tf_tfp_destroy(particulate_matter->tfp);
     particulate_matter->tfp = NULL;
     return result;
 }
 
 int tf_particulate_matter_get_response_expected(TF_ParticulateMatter *particulate_matter, uint8_t function_id, bool *ret_response_expected) {
+    if (particulate_matter == NULL)
+        return TF_E_NULL;
+
     switch(function_id) {
         case TF_PARTICULATE_MATTER_FUNCTION_SET_ENABLE:
             if(ret_response_expected != NULL)
@@ -205,6 +214,9 @@ void tf_particulate_matter_set_response_expected_all(TF_ParticulateMatter *parti
 }
 
 int tf_particulate_matter_get_pm_concentration(TF_ParticulateMatter *particulate_matter, uint16_t *ret_pm10, uint16_t *ret_pm25, uint16_t *ret_pm100) {
+    if (particulate_matter == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(particulate_matter->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -239,6 +251,9 @@ int tf_particulate_matter_get_pm_concentration(TF_ParticulateMatter *particulate
 }
 
 int tf_particulate_matter_get_pm_count(TF_ParticulateMatter *particulate_matter, uint16_t *ret_greater03um, uint16_t *ret_greater05um, uint16_t *ret_greater10um, uint16_t *ret_greater25um, uint16_t *ret_greater50um, uint16_t *ret_greater100um) {
+    if (particulate_matter == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(particulate_matter->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -276,6 +291,9 @@ int tf_particulate_matter_get_pm_count(TF_ParticulateMatter *particulate_matter,
 }
 
 int tf_particulate_matter_set_enable(TF_ParticulateMatter *particulate_matter, bool enable) {
+    if (particulate_matter == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(particulate_matter->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -308,6 +326,9 @@ int tf_particulate_matter_set_enable(TF_ParticulateMatter *particulate_matter, b
 }
 
 int tf_particulate_matter_get_enable(TF_ParticulateMatter *particulate_matter, bool *ret_enable) {
+    if (particulate_matter == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(particulate_matter->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -340,6 +361,9 @@ int tf_particulate_matter_get_enable(TF_ParticulateMatter *particulate_matter, b
 }
 
 int tf_particulate_matter_get_sensor_info(TF_ParticulateMatter *particulate_matter, uint8_t *ret_sensor_version, uint8_t *ret_last_error_code, uint8_t *ret_framing_error_count, uint8_t *ret_checksum_error_count) {
+    if (particulate_matter == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(particulate_matter->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -375,6 +399,9 @@ int tf_particulate_matter_get_sensor_info(TF_ParticulateMatter *particulate_matt
 }
 
 int tf_particulate_matter_set_pm_concentration_callback_configuration(TF_ParticulateMatter *particulate_matter, uint32_t period, bool value_has_to_change) {
+    if (particulate_matter == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(particulate_matter->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -408,6 +435,9 @@ int tf_particulate_matter_set_pm_concentration_callback_configuration(TF_Particu
 }
 
 int tf_particulate_matter_get_pm_concentration_callback_configuration(TF_ParticulateMatter *particulate_matter, uint32_t *ret_period, bool *ret_value_has_to_change) {
+    if (particulate_matter == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(particulate_matter->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -441,6 +471,9 @@ int tf_particulate_matter_get_pm_concentration_callback_configuration(TF_Particu
 }
 
 int tf_particulate_matter_set_pm_count_callback_configuration(TF_ParticulateMatter *particulate_matter, uint32_t period, bool value_has_to_change) {
+    if (particulate_matter == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(particulate_matter->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -474,6 +507,9 @@ int tf_particulate_matter_set_pm_count_callback_configuration(TF_ParticulateMatt
 }
 
 int tf_particulate_matter_get_pm_count_callback_configuration(TF_ParticulateMatter *particulate_matter, uint32_t *ret_period, bool *ret_value_has_to_change) {
+    if (particulate_matter == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(particulate_matter->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -507,6 +543,9 @@ int tf_particulate_matter_get_pm_count_callback_configuration(TF_ParticulateMatt
 }
 
 int tf_particulate_matter_get_spitfp_error_count(TF_ParticulateMatter *particulate_matter, uint32_t *ret_error_count_ack_checksum, uint32_t *ret_error_count_message_checksum, uint32_t *ret_error_count_frame, uint32_t *ret_error_count_overflow) {
+    if (particulate_matter == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(particulate_matter->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -542,6 +581,9 @@ int tf_particulate_matter_get_spitfp_error_count(TF_ParticulateMatter *particula
 }
 
 int tf_particulate_matter_set_bootloader_mode(TF_ParticulateMatter *particulate_matter, uint8_t mode, uint8_t *ret_status) {
+    if (particulate_matter == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(particulate_matter->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -578,6 +620,9 @@ int tf_particulate_matter_set_bootloader_mode(TF_ParticulateMatter *particulate_
 }
 
 int tf_particulate_matter_get_bootloader_mode(TF_ParticulateMatter *particulate_matter, uint8_t *ret_mode) {
+    if (particulate_matter == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(particulate_matter->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -610,6 +655,9 @@ int tf_particulate_matter_get_bootloader_mode(TF_ParticulateMatter *particulate_
 }
 
 int tf_particulate_matter_set_write_firmware_pointer(TF_ParticulateMatter *particulate_matter, uint32_t pointer) {
+    if (particulate_matter == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(particulate_matter->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -642,6 +690,9 @@ int tf_particulate_matter_set_write_firmware_pointer(TF_ParticulateMatter *parti
 }
 
 int tf_particulate_matter_write_firmware(TF_ParticulateMatter *particulate_matter, uint8_t data[64], uint8_t *ret_status) {
+    if (particulate_matter == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(particulate_matter->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -678,6 +729,9 @@ int tf_particulate_matter_write_firmware(TF_ParticulateMatter *particulate_matte
 }
 
 int tf_particulate_matter_set_status_led_config(TF_ParticulateMatter *particulate_matter, uint8_t config) {
+    if (particulate_matter == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(particulate_matter->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -710,6 +764,9 @@ int tf_particulate_matter_set_status_led_config(TF_ParticulateMatter *particulat
 }
 
 int tf_particulate_matter_get_status_led_config(TF_ParticulateMatter *particulate_matter, uint8_t *ret_config) {
+    if (particulate_matter == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(particulate_matter->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -742,6 +799,9 @@ int tf_particulate_matter_get_status_led_config(TF_ParticulateMatter *particulat
 }
 
 int tf_particulate_matter_get_chip_temperature(TF_ParticulateMatter *particulate_matter, int16_t *ret_temperature) {
+    if (particulate_matter == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(particulate_matter->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -774,6 +834,9 @@ int tf_particulate_matter_get_chip_temperature(TF_ParticulateMatter *particulate
 }
 
 int tf_particulate_matter_reset(TF_ParticulateMatter *particulate_matter) {
+    if (particulate_matter == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(particulate_matter->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -802,6 +865,9 @@ int tf_particulate_matter_reset(TF_ParticulateMatter *particulate_matter) {
 }
 
 int tf_particulate_matter_write_uid(TF_ParticulateMatter *particulate_matter, uint32_t uid) {
+    if (particulate_matter == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(particulate_matter->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -834,6 +900,9 @@ int tf_particulate_matter_write_uid(TF_ParticulateMatter *particulate_matter, ui
 }
 
 int tf_particulate_matter_read_uid(TF_ParticulateMatter *particulate_matter, uint32_t *ret_uid) {
+    if (particulate_matter == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(particulate_matter->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -866,6 +935,9 @@ int tf_particulate_matter_read_uid(TF_ParticulateMatter *particulate_matter, uin
 }
 
 int tf_particulate_matter_get_identity(TF_ParticulateMatter *particulate_matter, char ret_uid[8], char ret_connected_uid[8], char *ret_position, uint8_t ret_hardware_version[3], uint8_t ret_firmware_version[3], uint16_t *ret_device_identifier) {
+    if (particulate_matter == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(particulate_matter->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -910,7 +982,10 @@ int tf_particulate_matter_get_identity(TF_ParticulateMatter *particulate_matter,
     return tf_tfp_get_error(error_code);
 }
 #ifdef TF_IMPLEMENT_CALLBACKS
-void tf_particulate_matter_register_pm_concentration_callback(TF_ParticulateMatter *particulate_matter, TF_ParticulateMatterPMConcentrationHandler handler, void *user_data) {
+int tf_particulate_matter_register_pm_concentration_callback(TF_ParticulateMatter *particulate_matter, TF_ParticulateMatterPMConcentrationHandler handler, void *user_data) {
+    if (particulate_matter == NULL)
+        return TF_E_NULL;
+
     if (handler == NULL) {
         particulate_matter->tfp->needs_callback_tick = false;
         particulate_matter->tfp->needs_callback_tick |= particulate_matter->pm_count_handler != NULL;
@@ -919,10 +994,14 @@ void tf_particulate_matter_register_pm_concentration_callback(TF_ParticulateMatt
     }
     particulate_matter->pm_concentration_handler = handler;
     particulate_matter->pm_concentration_user_data = user_data;
+    return TF_E_OK;
 }
 
 
-void tf_particulate_matter_register_pm_count_callback(TF_ParticulateMatter *particulate_matter, TF_ParticulateMatterPMCountHandler handler, void *user_data) {
+int tf_particulate_matter_register_pm_count_callback(TF_ParticulateMatter *particulate_matter, TF_ParticulateMatterPMCountHandler handler, void *user_data) {
+    if (particulate_matter == NULL)
+        return TF_E_NULL;
+
     if (handler == NULL) {
         particulate_matter->tfp->needs_callback_tick = false;
         particulate_matter->tfp->needs_callback_tick |= particulate_matter->pm_concentration_handler != NULL;
@@ -931,9 +1010,13 @@ void tf_particulate_matter_register_pm_count_callback(TF_ParticulateMatter *part
     }
     particulate_matter->pm_count_handler = handler;
     particulate_matter->pm_count_user_data = user_data;
+    return TF_E_OK;
 }
 #endif
 int tf_particulate_matter_callback_tick(TF_ParticulateMatter *particulate_matter, uint32_t timeout_us) {
+    if (particulate_matter == NULL)
+        return TF_E_NULL;
+
     return tf_tfp_callback_tick(particulate_matter->tfp, tf_hal_current_time_us(particulate_matter->tfp->hal) + timeout_us);
 }
 

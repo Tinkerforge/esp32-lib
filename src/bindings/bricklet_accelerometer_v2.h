@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-02-08.      *
+ * This file was automatically generated on 2021-10-04.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -494,7 +494,7 @@ TF_ATTRIBUTE_NONNULL_ALL void tf_accelerometer_v2_set_response_expected_all(TF_A
  * 
  * The parameters are the same as {@link tf_accelerometer_v2_get_acceleration}.
  */
-TF_ATTRIBUTE_NONNULL(1) void tf_accelerometer_v2_register_acceleration_callback(TF_AccelerometerV2 *accelerometer_v2, TF_AccelerometerV2AccelerationHandler handler, void *user_data);
+TF_ATTRIBUTE_NONNULL(1) int tf_accelerometer_v2_register_acceleration_callback(TF_AccelerometerV2 *accelerometer_v2, TF_AccelerometerV2AccelerationHandler handler, void *user_data);
 
 
 /**
@@ -530,7 +530,7 @@ TF_ATTRIBUTE_NONNULL(1) void tf_accelerometer_v2_register_acceleration_callback(
  * * x, z enabled: "x, z, ..." 15x repeated
  * * y enabled: "y, ..." 30x repeated
  */
-TF_ATTRIBUTE_NONNULL(1) void tf_accelerometer_v2_register_continuous_acceleration_16_bit_callback(TF_AccelerometerV2 *accelerometer_v2, TF_AccelerometerV2ContinuousAcceleration16BitHandler handler, void *user_data);
+TF_ATTRIBUTE_NONNULL(1) int tf_accelerometer_v2_register_continuous_acceleration_16_bit_callback(TF_AccelerometerV2 *accelerometer_v2, TF_AccelerometerV2ContinuousAcceleration16BitHandler handler, void *user_data);
 
 
 /**
@@ -566,7 +566,7 @@ TF_ATTRIBUTE_NONNULL(1) void tf_accelerometer_v2_register_continuous_acceleratio
  * * x, z enabled: "x, z, ..." 30x repeated
  * * y enabled: "y, ..." 60x repeated
  */
-TF_ATTRIBUTE_NONNULL(1) void tf_accelerometer_v2_register_continuous_acceleration_8_bit_callback(TF_AccelerometerV2 *accelerometer_v2, TF_AccelerometerV2ContinuousAcceleration8BitHandler handler, void *user_data);
+TF_ATTRIBUTE_NONNULL(1) int tf_accelerometer_v2_register_continuous_acceleration_8_bit_callback(TF_AccelerometerV2 *accelerometer_v2, TF_AccelerometerV2ContinuousAcceleration8BitHandler handler, void *user_data);
 #endif
 #ifdef TF_IMPLEMENT_CALLBACKS
 /**

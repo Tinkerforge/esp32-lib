@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-02-08.      *
+ * This file was automatically generated on 2021-10-04.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -352,7 +352,7 @@ TF_ATTRIBUTE_NONNULL_ALL void tf_multi_touch_v2_set_response_expected_all(TF_Mul
  * This callback is triggered every time the touch state changes with
  * a given period (see {@link tf_multi_touch_v2_set_touch_state_callback_configuration})
  */
-TF_ATTRIBUTE_NONNULL(1) void tf_multi_touch_v2_register_touch_state_callback(TF_MultiTouchV2 *multi_touch_v2, TF_MultiTouchV2TouchStateHandler handler, void *user_data);
+TF_ATTRIBUTE_NONNULL(1) int tf_multi_touch_v2_register_touch_state_callback(TF_MultiTouchV2 *multi_touch_v2, TF_MultiTouchV2TouchStateHandler handler, void *user_data);
 #endif
 #ifdef TF_IMPLEMENT_CALLBACKS
 /**

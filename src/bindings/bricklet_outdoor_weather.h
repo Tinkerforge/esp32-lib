@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-02-08.      *
+ * This file was automatically generated on 2021-10-04.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -418,7 +418,7 @@ TF_ATTRIBUTE_NONNULL_ALL void tf_outdoor_weather_set_response_expected_all(TF_Ou
  * Turn the callback on/off with {@link tf_outdoor_weather_set_station_callback_configuration}
  * (by default it is turned off).
  */
-TF_ATTRIBUTE_NONNULL(1) void tf_outdoor_weather_register_station_data_callback(TF_OutdoorWeather *outdoor_weather, TF_OutdoorWeatherStationDataHandler handler, void *user_data);
+TF_ATTRIBUTE_NONNULL(1) int tf_outdoor_weather_register_station_data_callback(TF_OutdoorWeather *outdoor_weather, TF_OutdoorWeatherStationDataHandler handler, void *user_data);
 
 
 /**
@@ -437,7 +437,7 @@ TF_ATTRIBUTE_NONNULL(1) void tf_outdoor_weather_register_station_data_callback(T
  * Turn the callback on/off with {@link tf_outdoor_weather_set_sensor_callback_configuration}
  * (by default it is turned off).
  */
-TF_ATTRIBUTE_NONNULL(1) void tf_outdoor_weather_register_sensor_data_callback(TF_OutdoorWeather *outdoor_weather, TF_OutdoorWeatherSensorDataHandler handler, void *user_data);
+TF_ATTRIBUTE_NONNULL(1) int tf_outdoor_weather_register_sensor_data_callback(TF_OutdoorWeather *outdoor_weather, TF_OutdoorWeatherSensorDataHandler handler, void *user_data);
 #endif
 #ifdef TF_IMPLEMENT_CALLBACKS
 /**

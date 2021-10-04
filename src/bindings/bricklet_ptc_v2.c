@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-02-08.      *
+ * This file was automatically generated on 2021-10-04.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -81,6 +81,9 @@ static bool tf_ptc_v2_callback_handler(void *dev, uint8_t fid, TF_Packetbuffer *
 }
 #endif
 int tf_ptc_v2_create(TF_PTCV2 *ptc_v2, const char *uid, TF_HalContext *hal) {
+    if (ptc_v2 == NULL || uid == NULL || hal == NULL)
+        return TF_E_NULL;
+
     memset(ptc_v2, 0, sizeof(TF_PTCV2));
 
     uint32_t numeric_uid;
@@ -110,12 +113,18 @@ int tf_ptc_v2_create(TF_PTCV2 *ptc_v2, const char *uid, TF_HalContext *hal) {
 }
 
 int tf_ptc_v2_destroy(TF_PTCV2 *ptc_v2) {
+    if (ptc_v2 == NULL)
+        return TF_E_NULL;
+
     int result = tf_tfp_destroy(ptc_v2->tfp);
     ptc_v2->tfp = NULL;
     return result;
 }
 
 int tf_ptc_v2_get_response_expected(TF_PTCV2 *ptc_v2, uint8_t function_id, bool *ret_response_expected) {
+    if (ptc_v2 == NULL)
+        return TF_E_NULL;
+
     switch(function_id) {
         case TF_PTC_V2_FUNCTION_SET_TEMPERATURE_CALLBACK_CONFIGURATION:
             if(ret_response_expected != NULL)
@@ -246,6 +255,9 @@ void tf_ptc_v2_set_response_expected_all(TF_PTCV2 *ptc_v2, bool response_expecte
 }
 
 int tf_ptc_v2_get_temperature(TF_PTCV2 *ptc_v2, int32_t *ret_temperature) {
+    if (ptc_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(ptc_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -278,6 +290,9 @@ int tf_ptc_v2_get_temperature(TF_PTCV2 *ptc_v2, int32_t *ret_temperature) {
 }
 
 int tf_ptc_v2_set_temperature_callback_configuration(TF_PTCV2 *ptc_v2, uint32_t period, bool value_has_to_change, char option, int32_t min, int32_t max) {
+    if (ptc_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(ptc_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -314,6 +329,9 @@ int tf_ptc_v2_set_temperature_callback_configuration(TF_PTCV2 *ptc_v2, uint32_t 
 }
 
 int tf_ptc_v2_get_temperature_callback_configuration(TF_PTCV2 *ptc_v2, uint32_t *ret_period, bool *ret_value_has_to_change, char *ret_option, int32_t *ret_min, int32_t *ret_max) {
+    if (ptc_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(ptc_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -350,6 +368,9 @@ int tf_ptc_v2_get_temperature_callback_configuration(TF_PTCV2 *ptc_v2, uint32_t 
 }
 
 int tf_ptc_v2_get_resistance(TF_PTCV2 *ptc_v2, int32_t *ret_resistance) {
+    if (ptc_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(ptc_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -382,6 +403,9 @@ int tf_ptc_v2_get_resistance(TF_PTCV2 *ptc_v2, int32_t *ret_resistance) {
 }
 
 int tf_ptc_v2_set_resistance_callback_configuration(TF_PTCV2 *ptc_v2, uint32_t period, bool value_has_to_change, char option, int32_t min, int32_t max) {
+    if (ptc_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(ptc_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -418,6 +442,9 @@ int tf_ptc_v2_set_resistance_callback_configuration(TF_PTCV2 *ptc_v2, uint32_t p
 }
 
 int tf_ptc_v2_get_resistance_callback_configuration(TF_PTCV2 *ptc_v2, uint32_t *ret_period, bool *ret_value_has_to_change, char *ret_option, int32_t *ret_min, int32_t *ret_max) {
+    if (ptc_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(ptc_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -454,6 +481,9 @@ int tf_ptc_v2_get_resistance_callback_configuration(TF_PTCV2 *ptc_v2, uint32_t *
 }
 
 int tf_ptc_v2_set_noise_rejection_filter(TF_PTCV2 *ptc_v2, uint8_t filter) {
+    if (ptc_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(ptc_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -486,6 +516,9 @@ int tf_ptc_v2_set_noise_rejection_filter(TF_PTCV2 *ptc_v2, uint8_t filter) {
 }
 
 int tf_ptc_v2_get_noise_rejection_filter(TF_PTCV2 *ptc_v2, uint8_t *ret_filter) {
+    if (ptc_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(ptc_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -518,6 +551,9 @@ int tf_ptc_v2_get_noise_rejection_filter(TF_PTCV2 *ptc_v2, uint8_t *ret_filter) 
 }
 
 int tf_ptc_v2_is_sensor_connected(TF_PTCV2 *ptc_v2, bool *ret_connected) {
+    if (ptc_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(ptc_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -550,6 +586,9 @@ int tf_ptc_v2_is_sensor_connected(TF_PTCV2 *ptc_v2, bool *ret_connected) {
 }
 
 int tf_ptc_v2_set_wire_mode(TF_PTCV2 *ptc_v2, uint8_t mode) {
+    if (ptc_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(ptc_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -582,6 +621,9 @@ int tf_ptc_v2_set_wire_mode(TF_PTCV2 *ptc_v2, uint8_t mode) {
 }
 
 int tf_ptc_v2_get_wire_mode(TF_PTCV2 *ptc_v2, uint8_t *ret_mode) {
+    if (ptc_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(ptc_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -614,6 +656,9 @@ int tf_ptc_v2_get_wire_mode(TF_PTCV2 *ptc_v2, uint8_t *ret_mode) {
 }
 
 int tf_ptc_v2_set_moving_average_configuration(TF_PTCV2 *ptc_v2, uint16_t moving_average_length_resistance, uint16_t moving_average_length_temperature) {
+    if (ptc_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(ptc_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -647,6 +692,9 @@ int tf_ptc_v2_set_moving_average_configuration(TF_PTCV2 *ptc_v2, uint16_t moving
 }
 
 int tf_ptc_v2_get_moving_average_configuration(TF_PTCV2 *ptc_v2, uint16_t *ret_moving_average_length_resistance, uint16_t *ret_moving_average_length_temperature) {
+    if (ptc_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(ptc_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -680,6 +728,9 @@ int tf_ptc_v2_get_moving_average_configuration(TF_PTCV2 *ptc_v2, uint16_t *ret_m
 }
 
 int tf_ptc_v2_set_sensor_connected_callback_configuration(TF_PTCV2 *ptc_v2, bool enabled) {
+    if (ptc_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(ptc_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -712,6 +763,9 @@ int tf_ptc_v2_set_sensor_connected_callback_configuration(TF_PTCV2 *ptc_v2, bool
 }
 
 int tf_ptc_v2_get_sensor_connected_callback_configuration(TF_PTCV2 *ptc_v2, bool *ret_enabled) {
+    if (ptc_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(ptc_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -744,6 +798,9 @@ int tf_ptc_v2_get_sensor_connected_callback_configuration(TF_PTCV2 *ptc_v2, bool
 }
 
 int tf_ptc_v2_get_spitfp_error_count(TF_PTCV2 *ptc_v2, uint32_t *ret_error_count_ack_checksum, uint32_t *ret_error_count_message_checksum, uint32_t *ret_error_count_frame, uint32_t *ret_error_count_overflow) {
+    if (ptc_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(ptc_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -779,6 +836,9 @@ int tf_ptc_v2_get_spitfp_error_count(TF_PTCV2 *ptc_v2, uint32_t *ret_error_count
 }
 
 int tf_ptc_v2_set_bootloader_mode(TF_PTCV2 *ptc_v2, uint8_t mode, uint8_t *ret_status) {
+    if (ptc_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(ptc_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -815,6 +875,9 @@ int tf_ptc_v2_set_bootloader_mode(TF_PTCV2 *ptc_v2, uint8_t mode, uint8_t *ret_s
 }
 
 int tf_ptc_v2_get_bootloader_mode(TF_PTCV2 *ptc_v2, uint8_t *ret_mode) {
+    if (ptc_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(ptc_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -847,6 +910,9 @@ int tf_ptc_v2_get_bootloader_mode(TF_PTCV2 *ptc_v2, uint8_t *ret_mode) {
 }
 
 int tf_ptc_v2_set_write_firmware_pointer(TF_PTCV2 *ptc_v2, uint32_t pointer) {
+    if (ptc_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(ptc_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -879,6 +945,9 @@ int tf_ptc_v2_set_write_firmware_pointer(TF_PTCV2 *ptc_v2, uint32_t pointer) {
 }
 
 int tf_ptc_v2_write_firmware(TF_PTCV2 *ptc_v2, uint8_t data[64], uint8_t *ret_status) {
+    if (ptc_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(ptc_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -915,6 +984,9 @@ int tf_ptc_v2_write_firmware(TF_PTCV2 *ptc_v2, uint8_t data[64], uint8_t *ret_st
 }
 
 int tf_ptc_v2_set_status_led_config(TF_PTCV2 *ptc_v2, uint8_t config) {
+    if (ptc_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(ptc_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -947,6 +1019,9 @@ int tf_ptc_v2_set_status_led_config(TF_PTCV2 *ptc_v2, uint8_t config) {
 }
 
 int tf_ptc_v2_get_status_led_config(TF_PTCV2 *ptc_v2, uint8_t *ret_config) {
+    if (ptc_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(ptc_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -979,6 +1054,9 @@ int tf_ptc_v2_get_status_led_config(TF_PTCV2 *ptc_v2, uint8_t *ret_config) {
 }
 
 int tf_ptc_v2_get_chip_temperature(TF_PTCV2 *ptc_v2, int16_t *ret_temperature) {
+    if (ptc_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(ptc_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1011,6 +1089,9 @@ int tf_ptc_v2_get_chip_temperature(TF_PTCV2 *ptc_v2, int16_t *ret_temperature) {
 }
 
 int tf_ptc_v2_reset(TF_PTCV2 *ptc_v2) {
+    if (ptc_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(ptc_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1039,6 +1120,9 @@ int tf_ptc_v2_reset(TF_PTCV2 *ptc_v2) {
 }
 
 int tf_ptc_v2_write_uid(TF_PTCV2 *ptc_v2, uint32_t uid) {
+    if (ptc_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(ptc_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1071,6 +1155,9 @@ int tf_ptc_v2_write_uid(TF_PTCV2 *ptc_v2, uint32_t uid) {
 }
 
 int tf_ptc_v2_read_uid(TF_PTCV2 *ptc_v2, uint32_t *ret_uid) {
+    if (ptc_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(ptc_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1103,6 +1190,9 @@ int tf_ptc_v2_read_uid(TF_PTCV2 *ptc_v2, uint32_t *ret_uid) {
 }
 
 int tf_ptc_v2_get_identity(TF_PTCV2 *ptc_v2, char ret_uid[8], char ret_connected_uid[8], char *ret_position, uint8_t ret_hardware_version[3], uint8_t ret_firmware_version[3], uint16_t *ret_device_identifier) {
+    if (ptc_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(ptc_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1147,7 +1237,10 @@ int tf_ptc_v2_get_identity(TF_PTCV2 *ptc_v2, char ret_uid[8], char ret_connected
     return tf_tfp_get_error(error_code);
 }
 #ifdef TF_IMPLEMENT_CALLBACKS
-void tf_ptc_v2_register_temperature_callback(TF_PTCV2 *ptc_v2, TF_PTCV2TemperatureHandler handler, void *user_data) {
+int tf_ptc_v2_register_temperature_callback(TF_PTCV2 *ptc_v2, TF_PTCV2TemperatureHandler handler, void *user_data) {
+    if (ptc_v2 == NULL)
+        return TF_E_NULL;
+
     if (handler == NULL) {
         ptc_v2->tfp->needs_callback_tick = false;
         ptc_v2->tfp->needs_callback_tick |= ptc_v2->resistance_handler != NULL;
@@ -1157,10 +1250,14 @@ void tf_ptc_v2_register_temperature_callback(TF_PTCV2 *ptc_v2, TF_PTCV2Temperatu
     }
     ptc_v2->temperature_handler = handler;
     ptc_v2->temperature_user_data = user_data;
+    return TF_E_OK;
 }
 
 
-void tf_ptc_v2_register_resistance_callback(TF_PTCV2 *ptc_v2, TF_PTCV2ResistanceHandler handler, void *user_data) {
+int tf_ptc_v2_register_resistance_callback(TF_PTCV2 *ptc_v2, TF_PTCV2ResistanceHandler handler, void *user_data) {
+    if (ptc_v2 == NULL)
+        return TF_E_NULL;
+
     if (handler == NULL) {
         ptc_v2->tfp->needs_callback_tick = false;
         ptc_v2->tfp->needs_callback_tick |= ptc_v2->temperature_handler != NULL;
@@ -1170,10 +1267,14 @@ void tf_ptc_v2_register_resistance_callback(TF_PTCV2 *ptc_v2, TF_PTCV2Resistance
     }
     ptc_v2->resistance_handler = handler;
     ptc_v2->resistance_user_data = user_data;
+    return TF_E_OK;
 }
 
 
-void tf_ptc_v2_register_sensor_connected_callback(TF_PTCV2 *ptc_v2, TF_PTCV2SensorConnectedHandler handler, void *user_data) {
+int tf_ptc_v2_register_sensor_connected_callback(TF_PTCV2 *ptc_v2, TF_PTCV2SensorConnectedHandler handler, void *user_data) {
+    if (ptc_v2 == NULL)
+        return TF_E_NULL;
+
     if (handler == NULL) {
         ptc_v2->tfp->needs_callback_tick = false;
         ptc_v2->tfp->needs_callback_tick |= ptc_v2->temperature_handler != NULL;
@@ -1183,9 +1284,13 @@ void tf_ptc_v2_register_sensor_connected_callback(TF_PTCV2 *ptc_v2, TF_PTCV2Sens
     }
     ptc_v2->sensor_connected_handler = handler;
     ptc_v2->sensor_connected_user_data = user_data;
+    return TF_E_OK;
 }
 #endif
 int tf_ptc_v2_callback_tick(TF_PTCV2 *ptc_v2, uint32_t timeout_us) {
+    if (ptc_v2 == NULL)
+        return TF_E_NULL;
+
     return tf_tfp_callback_tick(ptc_v2->tfp, tf_hal_current_time_us(ptc_v2->tfp->hal) + timeout_us);
 }
 

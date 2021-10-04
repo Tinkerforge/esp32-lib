@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-02-08.      *
+ * This file was automatically generated on 2021-10-04.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -419,7 +419,7 @@ TF_ATTRIBUTE_NONNULL_ALL void tf_servo_v2_set_response_expected_all(TF_ServoV2 *
  *  maximum velocity of the servo. Otherwise the servo will lag behind the
  *  control value and the callback will be triggered too early.
  */
-TF_ATTRIBUTE_NONNULL(1) void tf_servo_v2_register_position_reached_callback(TF_ServoV2 *servo_v2, TF_ServoV2PositionReachedHandler handler, void *user_data);
+TF_ATTRIBUTE_NONNULL(1) int tf_servo_v2_register_position_reached_callback(TF_ServoV2 *servo_v2, TF_ServoV2PositionReachedHandler handler, void *user_data);
 #endif
 #ifdef TF_IMPLEMENT_CALLBACKS
 /**

@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-02-08.      *
+ * This file was automatically generated on 2021-10-04.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -469,7 +469,7 @@ TF_ATTRIBUTE_NONNULL_ALL void tf_voltage_current_v2_set_response_expected_all(TF
  * 
  * The parameter is the same as {@link tf_voltage_current_v2_get_current}.
  */
-TF_ATTRIBUTE_NONNULL(1) void tf_voltage_current_v2_register_current_callback(TF_VoltageCurrentV2 *voltage_current_v2, TF_VoltageCurrentV2CurrentHandler handler, void *user_data);
+TF_ATTRIBUTE_NONNULL(1) int tf_voltage_current_v2_register_current_callback(TF_VoltageCurrentV2 *voltage_current_v2, TF_VoltageCurrentV2CurrentHandler handler, void *user_data);
 
 
 /**
@@ -485,7 +485,7 @@ TF_ATTRIBUTE_NONNULL(1) void tf_voltage_current_v2_register_current_callback(TF_
  * 
  * The parameter is the same as {@link tf_voltage_current_v2_get_voltage}.
  */
-TF_ATTRIBUTE_NONNULL(1) void tf_voltage_current_v2_register_voltage_callback(TF_VoltageCurrentV2 *voltage_current_v2, TF_VoltageCurrentV2VoltageHandler handler, void *user_data);
+TF_ATTRIBUTE_NONNULL(1) int tf_voltage_current_v2_register_voltage_callback(TF_VoltageCurrentV2 *voltage_current_v2, TF_VoltageCurrentV2VoltageHandler handler, void *user_data);
 
 
 /**
@@ -501,7 +501,7 @@ TF_ATTRIBUTE_NONNULL(1) void tf_voltage_current_v2_register_voltage_callback(TF_
  * 
  * The parameter is the same as {@link tf_voltage_current_v2_get_power}.
  */
-TF_ATTRIBUTE_NONNULL(1) void tf_voltage_current_v2_register_power_callback(TF_VoltageCurrentV2 *voltage_current_v2, TF_VoltageCurrentV2PowerHandler handler, void *user_data);
+TF_ATTRIBUTE_NONNULL(1) int tf_voltage_current_v2_register_power_callback(TF_VoltageCurrentV2 *voltage_current_v2, TF_VoltageCurrentV2PowerHandler handler, void *user_data);
 #endif
 #ifdef TF_IMPLEMENT_CALLBACKS
 /**

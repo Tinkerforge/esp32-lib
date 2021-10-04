@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-02-08.      *
+ * This file was automatically generated on 2021-10-04.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -67,6 +67,9 @@ static bool tf_motion_detector_v2_callback_handler(void *dev, uint8_t fid, TF_Pa
 }
 #endif
 int tf_motion_detector_v2_create(TF_MotionDetectorV2 *motion_detector_v2, const char *uid, TF_HalContext *hal) {
+    if (motion_detector_v2 == NULL || uid == NULL || hal == NULL)
+        return TF_E_NULL;
+
     memset(motion_detector_v2, 0, sizeof(TF_MotionDetectorV2));
 
     uint32_t numeric_uid;
@@ -95,12 +98,18 @@ int tf_motion_detector_v2_create(TF_MotionDetectorV2 *motion_detector_v2, const 
 }
 
 int tf_motion_detector_v2_destroy(TF_MotionDetectorV2 *motion_detector_v2) {
+    if (motion_detector_v2 == NULL)
+        return TF_E_NULL;
+
     int result = tf_tfp_destroy(motion_detector_v2->tfp);
     motion_detector_v2->tfp = NULL;
     return result;
 }
 
 int tf_motion_detector_v2_get_response_expected(TF_MotionDetectorV2 *motion_detector_v2, uint8_t function_id, bool *ret_response_expected) {
+    if (motion_detector_v2 == NULL)
+        return TF_E_NULL;
+
     switch(function_id) {
         case TF_MOTION_DETECTOR_V2_FUNCTION_SET_SENSITIVITY:
             if(ret_response_expected != NULL)
@@ -187,6 +196,9 @@ void tf_motion_detector_v2_set_response_expected_all(TF_MotionDetectorV2 *motion
 }
 
 int tf_motion_detector_v2_get_motion_detected(TF_MotionDetectorV2 *motion_detector_v2, uint8_t *ret_motion) {
+    if (motion_detector_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(motion_detector_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -219,6 +231,9 @@ int tf_motion_detector_v2_get_motion_detected(TF_MotionDetectorV2 *motion_detect
 }
 
 int tf_motion_detector_v2_set_sensitivity(TF_MotionDetectorV2 *motion_detector_v2, uint8_t sensitivity) {
+    if (motion_detector_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(motion_detector_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -251,6 +266,9 @@ int tf_motion_detector_v2_set_sensitivity(TF_MotionDetectorV2 *motion_detector_v
 }
 
 int tf_motion_detector_v2_get_sensitivity(TF_MotionDetectorV2 *motion_detector_v2, uint8_t *ret_sensitivity) {
+    if (motion_detector_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(motion_detector_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -283,6 +301,9 @@ int tf_motion_detector_v2_get_sensitivity(TF_MotionDetectorV2 *motion_detector_v
 }
 
 int tf_motion_detector_v2_set_indicator(TF_MotionDetectorV2 *motion_detector_v2, uint8_t top_left, uint8_t top_right, uint8_t bottom) {
+    if (motion_detector_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(motion_detector_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -317,6 +338,9 @@ int tf_motion_detector_v2_set_indicator(TF_MotionDetectorV2 *motion_detector_v2,
 }
 
 int tf_motion_detector_v2_get_indicator(TF_MotionDetectorV2 *motion_detector_v2, uint8_t *ret_top_left, uint8_t *ret_top_right, uint8_t *ret_bottom) {
+    if (motion_detector_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(motion_detector_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -351,6 +375,9 @@ int tf_motion_detector_v2_get_indicator(TF_MotionDetectorV2 *motion_detector_v2,
 }
 
 int tf_motion_detector_v2_get_spitfp_error_count(TF_MotionDetectorV2 *motion_detector_v2, uint32_t *ret_error_count_ack_checksum, uint32_t *ret_error_count_message_checksum, uint32_t *ret_error_count_frame, uint32_t *ret_error_count_overflow) {
+    if (motion_detector_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(motion_detector_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -386,6 +413,9 @@ int tf_motion_detector_v2_get_spitfp_error_count(TF_MotionDetectorV2 *motion_det
 }
 
 int tf_motion_detector_v2_set_bootloader_mode(TF_MotionDetectorV2 *motion_detector_v2, uint8_t mode, uint8_t *ret_status) {
+    if (motion_detector_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(motion_detector_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -422,6 +452,9 @@ int tf_motion_detector_v2_set_bootloader_mode(TF_MotionDetectorV2 *motion_detect
 }
 
 int tf_motion_detector_v2_get_bootloader_mode(TF_MotionDetectorV2 *motion_detector_v2, uint8_t *ret_mode) {
+    if (motion_detector_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(motion_detector_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -454,6 +487,9 @@ int tf_motion_detector_v2_get_bootloader_mode(TF_MotionDetectorV2 *motion_detect
 }
 
 int tf_motion_detector_v2_set_write_firmware_pointer(TF_MotionDetectorV2 *motion_detector_v2, uint32_t pointer) {
+    if (motion_detector_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(motion_detector_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -486,6 +522,9 @@ int tf_motion_detector_v2_set_write_firmware_pointer(TF_MotionDetectorV2 *motion
 }
 
 int tf_motion_detector_v2_write_firmware(TF_MotionDetectorV2 *motion_detector_v2, uint8_t data[64], uint8_t *ret_status) {
+    if (motion_detector_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(motion_detector_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -522,6 +561,9 @@ int tf_motion_detector_v2_write_firmware(TF_MotionDetectorV2 *motion_detector_v2
 }
 
 int tf_motion_detector_v2_set_status_led_config(TF_MotionDetectorV2 *motion_detector_v2, uint8_t config) {
+    if (motion_detector_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(motion_detector_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -554,6 +596,9 @@ int tf_motion_detector_v2_set_status_led_config(TF_MotionDetectorV2 *motion_dete
 }
 
 int tf_motion_detector_v2_get_status_led_config(TF_MotionDetectorV2 *motion_detector_v2, uint8_t *ret_config) {
+    if (motion_detector_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(motion_detector_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -586,6 +631,9 @@ int tf_motion_detector_v2_get_status_led_config(TF_MotionDetectorV2 *motion_dete
 }
 
 int tf_motion_detector_v2_get_chip_temperature(TF_MotionDetectorV2 *motion_detector_v2, int16_t *ret_temperature) {
+    if (motion_detector_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(motion_detector_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -618,6 +666,9 @@ int tf_motion_detector_v2_get_chip_temperature(TF_MotionDetectorV2 *motion_detec
 }
 
 int tf_motion_detector_v2_reset(TF_MotionDetectorV2 *motion_detector_v2) {
+    if (motion_detector_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(motion_detector_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -646,6 +697,9 @@ int tf_motion_detector_v2_reset(TF_MotionDetectorV2 *motion_detector_v2) {
 }
 
 int tf_motion_detector_v2_write_uid(TF_MotionDetectorV2 *motion_detector_v2, uint32_t uid) {
+    if (motion_detector_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(motion_detector_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -678,6 +732,9 @@ int tf_motion_detector_v2_write_uid(TF_MotionDetectorV2 *motion_detector_v2, uin
 }
 
 int tf_motion_detector_v2_read_uid(TF_MotionDetectorV2 *motion_detector_v2, uint32_t *ret_uid) {
+    if (motion_detector_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(motion_detector_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -710,6 +767,9 @@ int tf_motion_detector_v2_read_uid(TF_MotionDetectorV2 *motion_detector_v2, uint
 }
 
 int tf_motion_detector_v2_get_identity(TF_MotionDetectorV2 *motion_detector_v2, char ret_uid[8], char ret_connected_uid[8], char *ret_position, uint8_t ret_hardware_version[3], uint8_t ret_firmware_version[3], uint16_t *ret_device_identifier) {
+    if (motion_detector_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(motion_detector_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -754,7 +814,10 @@ int tf_motion_detector_v2_get_identity(TF_MotionDetectorV2 *motion_detector_v2, 
     return tf_tfp_get_error(error_code);
 }
 #ifdef TF_IMPLEMENT_CALLBACKS
-void tf_motion_detector_v2_register_motion_detected_callback(TF_MotionDetectorV2 *motion_detector_v2, TF_MotionDetectorV2MotionDetectedHandler handler, void *user_data) {
+int tf_motion_detector_v2_register_motion_detected_callback(TF_MotionDetectorV2 *motion_detector_v2, TF_MotionDetectorV2MotionDetectedHandler handler, void *user_data) {
+    if (motion_detector_v2 == NULL)
+        return TF_E_NULL;
+
     if (handler == NULL) {
         motion_detector_v2->tfp->needs_callback_tick = false;
         motion_detector_v2->tfp->needs_callback_tick |= motion_detector_v2->detection_cycle_ended_handler != NULL;
@@ -763,10 +826,14 @@ void tf_motion_detector_v2_register_motion_detected_callback(TF_MotionDetectorV2
     }
     motion_detector_v2->motion_detected_handler = handler;
     motion_detector_v2->motion_detected_user_data = user_data;
+    return TF_E_OK;
 }
 
 
-void tf_motion_detector_v2_register_detection_cycle_ended_callback(TF_MotionDetectorV2 *motion_detector_v2, TF_MotionDetectorV2DetectionCycleEndedHandler handler, void *user_data) {
+int tf_motion_detector_v2_register_detection_cycle_ended_callback(TF_MotionDetectorV2 *motion_detector_v2, TF_MotionDetectorV2DetectionCycleEndedHandler handler, void *user_data) {
+    if (motion_detector_v2 == NULL)
+        return TF_E_NULL;
+
     if (handler == NULL) {
         motion_detector_v2->tfp->needs_callback_tick = false;
         motion_detector_v2->tfp->needs_callback_tick |= motion_detector_v2->motion_detected_handler != NULL;
@@ -775,9 +842,13 @@ void tf_motion_detector_v2_register_detection_cycle_ended_callback(TF_MotionDete
     }
     motion_detector_v2->detection_cycle_ended_handler = handler;
     motion_detector_v2->detection_cycle_ended_user_data = user_data;
+    return TF_E_OK;
 }
 #endif
 int tf_motion_detector_v2_callback_tick(TF_MotionDetectorV2 *motion_detector_v2, uint32_t timeout_us) {
+    if (motion_detector_v2 == NULL)
+        return TF_E_NULL;
+
     return tf_tfp_callback_tick(motion_detector_v2->tfp, tf_hal_current_time_us(motion_detector_v2->tfp->hal) + timeout_us);
 }
 

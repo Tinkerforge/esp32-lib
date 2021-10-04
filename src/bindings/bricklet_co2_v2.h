@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-02-08.      *
+ * This file was automatically generated on 2021-10-04.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -417,7 +417,7 @@ TF_ATTRIBUTE_NONNULL_ALL void tf_co2_v2_set_response_expected_all(TF_CO2V2 *co2_
  *  The sensor is able to messure up to 120 °C. However it is only specified up to 70 °C.
  *  Exposing the Bricklet to higher temperatures might result in permanent damage.
  */
-TF_ATTRIBUTE_NONNULL(1) void tf_co2_v2_register_all_values_callback(TF_CO2V2 *co2_v2, TF_CO2V2AllValuesHandler handler, void *user_data);
+TF_ATTRIBUTE_NONNULL(1) int tf_co2_v2_register_all_values_callback(TF_CO2V2 *co2_v2, TF_CO2V2AllValuesHandler handler, void *user_data);
 
 
 /**
@@ -433,7 +433,7 @@ TF_ATTRIBUTE_NONNULL(1) void tf_co2_v2_register_all_values_callback(TF_CO2V2 *co
  * 
  * The parameter is the same as {@link tf_co2_v2_get_co2_concentration}.
  */
-TF_ATTRIBUTE_NONNULL(1) void tf_co2_v2_register_co2_concentration_callback(TF_CO2V2 *co2_v2, TF_CO2V2CO2ConcentrationHandler handler, void *user_data);
+TF_ATTRIBUTE_NONNULL(1) int tf_co2_v2_register_co2_concentration_callback(TF_CO2V2 *co2_v2, TF_CO2V2CO2ConcentrationHandler handler, void *user_data);
 
 
 /**
@@ -449,7 +449,7 @@ TF_ATTRIBUTE_NONNULL(1) void tf_co2_v2_register_co2_concentration_callback(TF_CO
  * 
  * The parameter is the same as {@link tf_co2_v2_get_temperature}.
  */
-TF_ATTRIBUTE_NONNULL(1) void tf_co2_v2_register_temperature_callback(TF_CO2V2 *co2_v2, TF_CO2V2TemperatureHandler handler, void *user_data);
+TF_ATTRIBUTE_NONNULL(1) int tf_co2_v2_register_temperature_callback(TF_CO2V2 *co2_v2, TF_CO2V2TemperatureHandler handler, void *user_data);
 
 
 /**
@@ -465,7 +465,7 @@ TF_ATTRIBUTE_NONNULL(1) void tf_co2_v2_register_temperature_callback(TF_CO2V2 *c
  * 
  * The parameter is the same as {@link tf_co2_v2_get_humidity}.
  */
-TF_ATTRIBUTE_NONNULL(1) void tf_co2_v2_register_humidity_callback(TF_CO2V2 *co2_v2, TF_CO2V2HumidityHandler handler, void *user_data);
+TF_ATTRIBUTE_NONNULL(1) int tf_co2_v2_register_humidity_callback(TF_CO2V2 *co2_v2, TF_CO2V2HumidityHandler handler, void *user_data);
 #endif
 #ifdef TF_IMPLEMENT_CALLBACKS
 /**

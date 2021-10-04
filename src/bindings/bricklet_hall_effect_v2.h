@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-02-08.      *
+ * This file was automatically generated on 2021-10-04.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -355,7 +355,7 @@ TF_ATTRIBUTE_NONNULL_ALL void tf_hall_effect_v2_set_response_expected_all(TF_Hal
  * 
  * The parameter is the same as {@link tf_hall_effect_v2_get_magnetic_flux_density}.
  */
-TF_ATTRIBUTE_NONNULL(1) void tf_hall_effect_v2_register_magnetic_flux_density_callback(TF_HallEffectV2 *hall_effect_v2, TF_HallEffectV2MagneticFluxDensityHandler handler, void *user_data);
+TF_ATTRIBUTE_NONNULL(1) int tf_hall_effect_v2_register_magnetic_flux_density_callback(TF_HallEffectV2 *hall_effect_v2, TF_HallEffectV2MagneticFluxDensityHandler handler, void *user_data);
 
 
 /**
@@ -371,7 +371,7 @@ TF_ATTRIBUTE_NONNULL(1) void tf_hall_effect_v2_register_magnetic_flux_density_ca
  * 
  * The count is the same as you would get with {@link tf_hall_effect_v2_get_counter}.
  */
-TF_ATTRIBUTE_NONNULL(1) void tf_hall_effect_v2_register_counter_callback(TF_HallEffectV2 *hall_effect_v2, TF_HallEffectV2CounterHandler handler, void *user_data);
+TF_ATTRIBUTE_NONNULL(1) int tf_hall_effect_v2_register_counter_callback(TF_HallEffectV2 *hall_effect_v2, TF_HallEffectV2CounterHandler handler, void *user_data);
 #endif
 #ifdef TF_IMPLEMENT_CALLBACKS
 /**

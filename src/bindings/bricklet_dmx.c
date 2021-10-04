@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-02-08.      *
+ * This file was automatically generated on 2021-10-04.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -99,6 +99,9 @@ static bool tf_dmx_callback_handler(void *dev, uint8_t fid, TF_Packetbuffer *pay
 }
 #endif
 int tf_dmx_create(TF_DMX *dmx, const char *uid, TF_HalContext *hal) {
+    if (dmx == NULL || uid == NULL || hal == NULL)
+        return TF_E_NULL;
+
     memset(dmx, 0, sizeof(TF_DMX));
 
     uint32_t numeric_uid;
@@ -128,12 +131,18 @@ int tf_dmx_create(TF_DMX *dmx, const char *uid, TF_HalContext *hal) {
 }
 
 int tf_dmx_destroy(TF_DMX *dmx) {
+    if (dmx == NULL)
+        return TF_E_NULL;
+
     int result = tf_tfp_destroy(dmx->tfp);
     dmx->tfp = NULL;
     return result;
 }
 
 int tf_dmx_get_response_expected(TF_DMX *dmx, uint8_t function_id, bool *ret_response_expected) {
+    if (dmx == NULL)
+        return TF_E_NULL;
+
     switch(function_id) {
         case TF_DMX_FUNCTION_SET_DMX_MODE:
             if(ret_response_expected != NULL)
@@ -264,6 +273,9 @@ void tf_dmx_set_response_expected_all(TF_DMX *dmx, bool response_expected) {
 }
 
 int tf_dmx_set_dmx_mode(TF_DMX *dmx, uint8_t dmx_mode) {
+    if (dmx == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(dmx->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -296,6 +308,9 @@ int tf_dmx_set_dmx_mode(TF_DMX *dmx, uint8_t dmx_mode) {
 }
 
 int tf_dmx_get_dmx_mode(TF_DMX *dmx, uint8_t *ret_dmx_mode) {
+    if (dmx == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(dmx->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -328,6 +343,9 @@ int tf_dmx_get_dmx_mode(TF_DMX *dmx, uint8_t *ret_dmx_mode) {
 }
 
 int tf_dmx_write_frame_low_level(TF_DMX *dmx, uint16_t frame_length, uint16_t frame_chunk_offset, uint8_t frame_chunk_data[60]) {
+    if (dmx == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(dmx->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -362,6 +380,9 @@ int tf_dmx_write_frame_low_level(TF_DMX *dmx, uint16_t frame_length, uint16_t fr
 }
 
 int tf_dmx_read_frame_low_level(TF_DMX *dmx, uint16_t *ret_frame_length, uint16_t *ret_frame_chunk_offset, uint8_t ret_frame_chunk_data[56], uint32_t *ret_frame_number) {
+    if (dmx == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(dmx->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -398,6 +419,9 @@ int tf_dmx_read_frame_low_level(TF_DMX *dmx, uint16_t *ret_frame_length, uint16_
 }
 
 int tf_dmx_set_frame_duration(TF_DMX *dmx, uint16_t frame_duration) {
+    if (dmx == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(dmx->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -430,6 +454,9 @@ int tf_dmx_set_frame_duration(TF_DMX *dmx, uint16_t frame_duration) {
 }
 
 int tf_dmx_get_frame_duration(TF_DMX *dmx, uint16_t *ret_frame_duration) {
+    if (dmx == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(dmx->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -462,6 +489,9 @@ int tf_dmx_get_frame_duration(TF_DMX *dmx, uint16_t *ret_frame_duration) {
 }
 
 int tf_dmx_get_frame_error_count(TF_DMX *dmx, uint32_t *ret_overrun_error_count, uint32_t *ret_framing_error_count) {
+    if (dmx == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(dmx->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -495,6 +525,9 @@ int tf_dmx_get_frame_error_count(TF_DMX *dmx, uint32_t *ret_overrun_error_count,
 }
 
 int tf_dmx_set_communication_led_config(TF_DMX *dmx, uint8_t config) {
+    if (dmx == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(dmx->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -527,6 +560,9 @@ int tf_dmx_set_communication_led_config(TF_DMX *dmx, uint8_t config) {
 }
 
 int tf_dmx_get_communication_led_config(TF_DMX *dmx, uint8_t *ret_config) {
+    if (dmx == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(dmx->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -559,6 +595,9 @@ int tf_dmx_get_communication_led_config(TF_DMX *dmx, uint8_t *ret_config) {
 }
 
 int tf_dmx_set_error_led_config(TF_DMX *dmx, uint8_t config) {
+    if (dmx == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(dmx->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -591,6 +630,9 @@ int tf_dmx_set_error_led_config(TF_DMX *dmx, uint8_t config) {
 }
 
 int tf_dmx_get_error_led_config(TF_DMX *dmx, uint8_t *ret_config) {
+    if (dmx == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(dmx->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -623,6 +665,9 @@ int tf_dmx_get_error_led_config(TF_DMX *dmx, uint8_t *ret_config) {
 }
 
 int tf_dmx_set_frame_callback_config(TF_DMX *dmx, bool frame_started_callback_enabled, bool frame_available_callback_enabled, bool frame_callback_enabled, bool frame_error_count_callback_enabled) {
+    if (dmx == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(dmx->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -658,6 +703,9 @@ int tf_dmx_set_frame_callback_config(TF_DMX *dmx, bool frame_started_callback_en
 }
 
 int tf_dmx_get_frame_callback_config(TF_DMX *dmx, bool *ret_frame_started_callback_enabled, bool *ret_frame_available_callback_enabled, bool *ret_frame_callback_enabled, bool *ret_frame_error_count_callback_enabled) {
+    if (dmx == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(dmx->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -693,6 +741,9 @@ int tf_dmx_get_frame_callback_config(TF_DMX *dmx, bool *ret_frame_started_callba
 }
 
 int tf_dmx_get_spitfp_error_count(TF_DMX *dmx, uint32_t *ret_error_count_ack_checksum, uint32_t *ret_error_count_message_checksum, uint32_t *ret_error_count_frame, uint32_t *ret_error_count_overflow) {
+    if (dmx == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(dmx->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -728,6 +779,9 @@ int tf_dmx_get_spitfp_error_count(TF_DMX *dmx, uint32_t *ret_error_count_ack_che
 }
 
 int tf_dmx_set_bootloader_mode(TF_DMX *dmx, uint8_t mode, uint8_t *ret_status) {
+    if (dmx == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(dmx->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -764,6 +818,9 @@ int tf_dmx_set_bootloader_mode(TF_DMX *dmx, uint8_t mode, uint8_t *ret_status) {
 }
 
 int tf_dmx_get_bootloader_mode(TF_DMX *dmx, uint8_t *ret_mode) {
+    if (dmx == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(dmx->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -796,6 +853,9 @@ int tf_dmx_get_bootloader_mode(TF_DMX *dmx, uint8_t *ret_mode) {
 }
 
 int tf_dmx_set_write_firmware_pointer(TF_DMX *dmx, uint32_t pointer) {
+    if (dmx == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(dmx->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -828,6 +888,9 @@ int tf_dmx_set_write_firmware_pointer(TF_DMX *dmx, uint32_t pointer) {
 }
 
 int tf_dmx_write_firmware(TF_DMX *dmx, uint8_t data[64], uint8_t *ret_status) {
+    if (dmx == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(dmx->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -864,6 +927,9 @@ int tf_dmx_write_firmware(TF_DMX *dmx, uint8_t data[64], uint8_t *ret_status) {
 }
 
 int tf_dmx_set_status_led_config(TF_DMX *dmx, uint8_t config) {
+    if (dmx == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(dmx->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -896,6 +962,9 @@ int tf_dmx_set_status_led_config(TF_DMX *dmx, uint8_t config) {
 }
 
 int tf_dmx_get_status_led_config(TF_DMX *dmx, uint8_t *ret_config) {
+    if (dmx == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(dmx->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -928,6 +997,9 @@ int tf_dmx_get_status_led_config(TF_DMX *dmx, uint8_t *ret_config) {
 }
 
 int tf_dmx_get_chip_temperature(TF_DMX *dmx, int16_t *ret_temperature) {
+    if (dmx == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(dmx->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -960,6 +1032,9 @@ int tf_dmx_get_chip_temperature(TF_DMX *dmx, int16_t *ret_temperature) {
 }
 
 int tf_dmx_reset(TF_DMX *dmx) {
+    if (dmx == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(dmx->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -988,6 +1063,9 @@ int tf_dmx_reset(TF_DMX *dmx) {
 }
 
 int tf_dmx_write_uid(TF_DMX *dmx, uint32_t uid) {
+    if (dmx == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(dmx->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1020,6 +1098,9 @@ int tf_dmx_write_uid(TF_DMX *dmx, uint32_t uid) {
 }
 
 int tf_dmx_read_uid(TF_DMX *dmx, uint32_t *ret_uid) {
+    if (dmx == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(dmx->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1052,6 +1133,9 @@ int tf_dmx_read_uid(TF_DMX *dmx, uint32_t *ret_uid) {
 }
 
 int tf_dmx_get_identity(TF_DMX *dmx, char ret_uid[8], char ret_connected_uid[8], char *ret_position, uint8_t ret_hardware_version[3], uint8_t ret_firmware_version[3], uint16_t *ret_device_identifier) {
+    if (dmx == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(dmx->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1097,6 +1181,9 @@ int tf_dmx_get_identity(TF_DMX *dmx, char ret_uid[8], char ret_connected_uid[8],
 }
 
 int tf_dmx_write_frame(TF_DMX *dmx, uint8_t *frame, uint16_t frame_length) {
+    if (dmx == NULL)
+        return TF_E_NULL;
+
     int ret = TF_E_OK;
     uint16_t frame_chunk_offset = 0;
     uint8_t frame_chunk_data[60];
@@ -1133,6 +1220,9 @@ int tf_dmx_write_frame(TF_DMX *dmx, uint8_t *frame, uint16_t frame_length) {
 }
 
 int tf_dmx_read_frame(TF_DMX *dmx, uint8_t *ret_frame, uint16_t *ret_frame_length, uint32_t *ret_frame_number) {
+    if (dmx == NULL)
+        return TF_E_NULL;
+
     int ret = TF_E_OK;
     uint16_t frame_length = 0;
     uint16_t frame_chunk_offset = 0;
@@ -1202,7 +1292,10 @@ int tf_dmx_read_frame(TF_DMX *dmx, uint8_t *ret_frame, uint16_t *ret_frame_lengt
     return ret;
 }
 #ifdef TF_IMPLEMENT_CALLBACKS
-void tf_dmx_register_frame_started_callback(TF_DMX *dmx, TF_DMXFrameStartedHandler handler, void *user_data) {
+int tf_dmx_register_frame_started_callback(TF_DMX *dmx, TF_DMXFrameStartedHandler handler, void *user_data) {
+    if (dmx == NULL)
+        return TF_E_NULL;
+
     if (handler == NULL) {
         dmx->tfp->needs_callback_tick = false;
         dmx->tfp->needs_callback_tick |= dmx->frame_available_handler != NULL;
@@ -1213,10 +1306,14 @@ void tf_dmx_register_frame_started_callback(TF_DMX *dmx, TF_DMXFrameStartedHandl
     }
     dmx->frame_started_handler = handler;
     dmx->frame_started_user_data = user_data;
+    return TF_E_OK;
 }
 
 
-void tf_dmx_register_frame_available_callback(TF_DMX *dmx, TF_DMXFrameAvailableHandler handler, void *user_data) {
+int tf_dmx_register_frame_available_callback(TF_DMX *dmx, TF_DMXFrameAvailableHandler handler, void *user_data) {
+    if (dmx == NULL)
+        return TF_E_NULL;
+
     if (handler == NULL) {
         dmx->tfp->needs_callback_tick = false;
         dmx->tfp->needs_callback_tick |= dmx->frame_started_handler != NULL;
@@ -1227,10 +1324,14 @@ void tf_dmx_register_frame_available_callback(TF_DMX *dmx, TF_DMXFrameAvailableH
     }
     dmx->frame_available_handler = handler;
     dmx->frame_available_user_data = user_data;
+    return TF_E_OK;
 }
 
 
-void tf_dmx_register_frame_low_level_callback(TF_DMX *dmx, TF_DMXFrameLowLevelHandler handler, void *user_data) {
+int tf_dmx_register_frame_low_level_callback(TF_DMX *dmx, TF_DMXFrameLowLevelHandler handler, void *user_data) {
+    if (dmx == NULL)
+        return TF_E_NULL;
+
     if (handler == NULL) {
         dmx->tfp->needs_callback_tick = false;
         dmx->tfp->needs_callback_tick |= dmx->frame_started_handler != NULL;
@@ -1241,10 +1342,14 @@ void tf_dmx_register_frame_low_level_callback(TF_DMX *dmx, TF_DMXFrameLowLevelHa
     }
     dmx->frame_low_level_handler = handler;
     dmx->frame_low_level_user_data = user_data;
+    return TF_E_OK;
 }
 
 
-void tf_dmx_register_frame_error_count_callback(TF_DMX *dmx, TF_DMXFrameErrorCountHandler handler, void *user_data) {
+int tf_dmx_register_frame_error_count_callback(TF_DMX *dmx, TF_DMXFrameErrorCountHandler handler, void *user_data) {
+    if (dmx == NULL)
+        return TF_E_NULL;
+
     if (handler == NULL) {
         dmx->tfp->needs_callback_tick = false;
         dmx->tfp->needs_callback_tick |= dmx->frame_started_handler != NULL;
@@ -1255,9 +1360,13 @@ void tf_dmx_register_frame_error_count_callback(TF_DMX *dmx, TF_DMXFrameErrorCou
     }
     dmx->frame_error_count_handler = handler;
     dmx->frame_error_count_user_data = user_data;
+    return TF_E_OK;
 }
 #endif
 int tf_dmx_callback_tick(TF_DMX *dmx, uint32_t timeout_us) {
+    if (dmx == NULL)
+        return TF_E_NULL;
+
     return tf_tfp_callback_tick(dmx->tfp, tf_hal_current_time_us(dmx->tfp->hal) + timeout_us);
 }
 

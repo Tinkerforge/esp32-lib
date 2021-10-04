@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-02-08.      *
+ * This file was automatically generated on 2021-10-04.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -81,6 +81,9 @@ static bool tf_barometer_v2_callback_handler(void *dev, uint8_t fid, TF_Packetbu
 }
 #endif
 int tf_barometer_v2_create(TF_BarometerV2 *barometer_v2, const char *uid, TF_HalContext *hal) {
+    if (barometer_v2 == NULL || uid == NULL || hal == NULL)
+        return TF_E_NULL;
+
     memset(barometer_v2, 0, sizeof(TF_BarometerV2));
 
     uint32_t numeric_uid;
@@ -110,12 +113,18 @@ int tf_barometer_v2_create(TF_BarometerV2 *barometer_v2, const char *uid, TF_Hal
 }
 
 int tf_barometer_v2_destroy(TF_BarometerV2 *barometer_v2) {
+    if (barometer_v2 == NULL)
+        return TF_E_NULL;
+
     int result = tf_tfp_destroy(barometer_v2->tfp);
     barometer_v2->tfp = NULL;
     return result;
 }
 
 int tf_barometer_v2_get_response_expected(TF_BarometerV2 *barometer_v2, uint8_t function_id, bool *ret_response_expected) {
+    if (barometer_v2 == NULL)
+        return TF_E_NULL;
+
     switch(function_id) {
         case TF_BAROMETER_V2_FUNCTION_SET_AIR_PRESSURE_CALLBACK_CONFIGURATION:
             if(ret_response_expected != NULL)
@@ -257,6 +266,9 @@ void tf_barometer_v2_set_response_expected_all(TF_BarometerV2 *barometer_v2, boo
 }
 
 int tf_barometer_v2_get_air_pressure(TF_BarometerV2 *barometer_v2, int32_t *ret_air_pressure) {
+    if (barometer_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(barometer_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -289,6 +301,9 @@ int tf_barometer_v2_get_air_pressure(TF_BarometerV2 *barometer_v2, int32_t *ret_
 }
 
 int tf_barometer_v2_set_air_pressure_callback_configuration(TF_BarometerV2 *barometer_v2, uint32_t period, bool value_has_to_change, char option, int32_t min, int32_t max) {
+    if (barometer_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(barometer_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -325,6 +340,9 @@ int tf_barometer_v2_set_air_pressure_callback_configuration(TF_BarometerV2 *baro
 }
 
 int tf_barometer_v2_get_air_pressure_callback_configuration(TF_BarometerV2 *barometer_v2, uint32_t *ret_period, bool *ret_value_has_to_change, char *ret_option, int32_t *ret_min, int32_t *ret_max) {
+    if (barometer_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(barometer_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -361,6 +379,9 @@ int tf_barometer_v2_get_air_pressure_callback_configuration(TF_BarometerV2 *baro
 }
 
 int tf_barometer_v2_get_altitude(TF_BarometerV2 *barometer_v2, int32_t *ret_altitude) {
+    if (barometer_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(barometer_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -393,6 +414,9 @@ int tf_barometer_v2_get_altitude(TF_BarometerV2 *barometer_v2, int32_t *ret_alti
 }
 
 int tf_barometer_v2_set_altitude_callback_configuration(TF_BarometerV2 *barometer_v2, uint32_t period, bool value_has_to_change, char option, int32_t min, int32_t max) {
+    if (barometer_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(barometer_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -429,6 +453,9 @@ int tf_barometer_v2_set_altitude_callback_configuration(TF_BarometerV2 *baromete
 }
 
 int tf_barometer_v2_get_altitude_callback_configuration(TF_BarometerV2 *barometer_v2, uint32_t *ret_period, bool *ret_value_has_to_change, char *ret_option, int32_t *ret_min, int32_t *ret_max) {
+    if (barometer_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(barometer_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -465,6 +492,9 @@ int tf_barometer_v2_get_altitude_callback_configuration(TF_BarometerV2 *baromete
 }
 
 int tf_barometer_v2_get_temperature(TF_BarometerV2 *barometer_v2, int32_t *ret_temperature) {
+    if (barometer_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(barometer_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -497,6 +527,9 @@ int tf_barometer_v2_get_temperature(TF_BarometerV2 *barometer_v2, int32_t *ret_t
 }
 
 int tf_barometer_v2_set_temperature_callback_configuration(TF_BarometerV2 *barometer_v2, uint32_t period, bool value_has_to_change, char option, int32_t min, int32_t max) {
+    if (barometer_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(barometer_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -533,6 +566,9 @@ int tf_barometer_v2_set_temperature_callback_configuration(TF_BarometerV2 *barom
 }
 
 int tf_barometer_v2_get_temperature_callback_configuration(TF_BarometerV2 *barometer_v2, uint32_t *ret_period, bool *ret_value_has_to_change, char *ret_option, int32_t *ret_min, int32_t *ret_max) {
+    if (barometer_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(barometer_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -569,6 +605,9 @@ int tf_barometer_v2_get_temperature_callback_configuration(TF_BarometerV2 *barom
 }
 
 int tf_barometer_v2_set_moving_average_configuration(TF_BarometerV2 *barometer_v2, uint16_t moving_average_length_air_pressure, uint16_t moving_average_length_temperature) {
+    if (barometer_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(barometer_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -602,6 +641,9 @@ int tf_barometer_v2_set_moving_average_configuration(TF_BarometerV2 *barometer_v
 }
 
 int tf_barometer_v2_get_moving_average_configuration(TF_BarometerV2 *barometer_v2, uint16_t *ret_moving_average_length_air_pressure, uint16_t *ret_moving_average_length_temperature) {
+    if (barometer_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(barometer_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -635,6 +677,9 @@ int tf_barometer_v2_get_moving_average_configuration(TF_BarometerV2 *barometer_v
 }
 
 int tf_barometer_v2_set_reference_air_pressure(TF_BarometerV2 *barometer_v2, int32_t air_pressure) {
+    if (barometer_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(barometer_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -667,6 +712,9 @@ int tf_barometer_v2_set_reference_air_pressure(TF_BarometerV2 *barometer_v2, int
 }
 
 int tf_barometer_v2_get_reference_air_pressure(TF_BarometerV2 *barometer_v2, int32_t *ret_air_pressure) {
+    if (barometer_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(barometer_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -699,6 +747,9 @@ int tf_barometer_v2_get_reference_air_pressure(TF_BarometerV2 *barometer_v2, int
 }
 
 int tf_barometer_v2_set_calibration(TF_BarometerV2 *barometer_v2, int32_t measured_air_pressure, int32_t actual_air_pressure) {
+    if (barometer_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(barometer_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -732,6 +783,9 @@ int tf_barometer_v2_set_calibration(TF_BarometerV2 *barometer_v2, int32_t measur
 }
 
 int tf_barometer_v2_get_calibration(TF_BarometerV2 *barometer_v2, int32_t *ret_measured_air_pressure, int32_t *ret_actual_air_pressure) {
+    if (barometer_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(barometer_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -765,6 +819,9 @@ int tf_barometer_v2_get_calibration(TF_BarometerV2 *barometer_v2, int32_t *ret_m
 }
 
 int tf_barometer_v2_set_sensor_configuration(TF_BarometerV2 *barometer_v2, uint8_t data_rate, uint8_t air_pressure_low_pass_filter) {
+    if (barometer_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(barometer_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -798,6 +855,9 @@ int tf_barometer_v2_set_sensor_configuration(TF_BarometerV2 *barometer_v2, uint8
 }
 
 int tf_barometer_v2_get_sensor_configuration(TF_BarometerV2 *barometer_v2, uint8_t *ret_data_rate, uint8_t *ret_air_pressure_low_pass_filter) {
+    if (barometer_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(barometer_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -831,6 +891,9 @@ int tf_barometer_v2_get_sensor_configuration(TF_BarometerV2 *barometer_v2, uint8
 }
 
 int tf_barometer_v2_get_spitfp_error_count(TF_BarometerV2 *barometer_v2, uint32_t *ret_error_count_ack_checksum, uint32_t *ret_error_count_message_checksum, uint32_t *ret_error_count_frame, uint32_t *ret_error_count_overflow) {
+    if (barometer_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(barometer_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -866,6 +929,9 @@ int tf_barometer_v2_get_spitfp_error_count(TF_BarometerV2 *barometer_v2, uint32_
 }
 
 int tf_barometer_v2_set_bootloader_mode(TF_BarometerV2 *barometer_v2, uint8_t mode, uint8_t *ret_status) {
+    if (barometer_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(barometer_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -902,6 +968,9 @@ int tf_barometer_v2_set_bootloader_mode(TF_BarometerV2 *barometer_v2, uint8_t mo
 }
 
 int tf_barometer_v2_get_bootloader_mode(TF_BarometerV2 *barometer_v2, uint8_t *ret_mode) {
+    if (barometer_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(barometer_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -934,6 +1003,9 @@ int tf_barometer_v2_get_bootloader_mode(TF_BarometerV2 *barometer_v2, uint8_t *r
 }
 
 int tf_barometer_v2_set_write_firmware_pointer(TF_BarometerV2 *barometer_v2, uint32_t pointer) {
+    if (barometer_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(barometer_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -966,6 +1038,9 @@ int tf_barometer_v2_set_write_firmware_pointer(TF_BarometerV2 *barometer_v2, uin
 }
 
 int tf_barometer_v2_write_firmware(TF_BarometerV2 *barometer_v2, uint8_t data[64], uint8_t *ret_status) {
+    if (barometer_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(barometer_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1002,6 +1077,9 @@ int tf_barometer_v2_write_firmware(TF_BarometerV2 *barometer_v2, uint8_t data[64
 }
 
 int tf_barometer_v2_set_status_led_config(TF_BarometerV2 *barometer_v2, uint8_t config) {
+    if (barometer_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(barometer_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1034,6 +1112,9 @@ int tf_barometer_v2_set_status_led_config(TF_BarometerV2 *barometer_v2, uint8_t 
 }
 
 int tf_barometer_v2_get_status_led_config(TF_BarometerV2 *barometer_v2, uint8_t *ret_config) {
+    if (barometer_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(barometer_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1066,6 +1147,9 @@ int tf_barometer_v2_get_status_led_config(TF_BarometerV2 *barometer_v2, uint8_t 
 }
 
 int tf_barometer_v2_get_chip_temperature(TF_BarometerV2 *barometer_v2, int16_t *ret_temperature) {
+    if (barometer_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(barometer_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1098,6 +1182,9 @@ int tf_barometer_v2_get_chip_temperature(TF_BarometerV2 *barometer_v2, int16_t *
 }
 
 int tf_barometer_v2_reset(TF_BarometerV2 *barometer_v2) {
+    if (barometer_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(barometer_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1126,6 +1213,9 @@ int tf_barometer_v2_reset(TF_BarometerV2 *barometer_v2) {
 }
 
 int tf_barometer_v2_write_uid(TF_BarometerV2 *barometer_v2, uint32_t uid) {
+    if (barometer_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(barometer_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1158,6 +1248,9 @@ int tf_barometer_v2_write_uid(TF_BarometerV2 *barometer_v2, uint32_t uid) {
 }
 
 int tf_barometer_v2_read_uid(TF_BarometerV2 *barometer_v2, uint32_t *ret_uid) {
+    if (barometer_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(barometer_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1190,6 +1283,9 @@ int tf_barometer_v2_read_uid(TF_BarometerV2 *barometer_v2, uint32_t *ret_uid) {
 }
 
 int tf_barometer_v2_get_identity(TF_BarometerV2 *barometer_v2, char ret_uid[8], char ret_connected_uid[8], char *ret_position, uint8_t ret_hardware_version[3], uint8_t ret_firmware_version[3], uint16_t *ret_device_identifier) {
+    if (barometer_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(barometer_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1234,7 +1330,10 @@ int tf_barometer_v2_get_identity(TF_BarometerV2 *barometer_v2, char ret_uid[8], 
     return tf_tfp_get_error(error_code);
 }
 #ifdef TF_IMPLEMENT_CALLBACKS
-void tf_barometer_v2_register_air_pressure_callback(TF_BarometerV2 *barometer_v2, TF_BarometerV2AirPressureHandler handler, void *user_data) {
+int tf_barometer_v2_register_air_pressure_callback(TF_BarometerV2 *barometer_v2, TF_BarometerV2AirPressureHandler handler, void *user_data) {
+    if (barometer_v2 == NULL)
+        return TF_E_NULL;
+
     if (handler == NULL) {
         barometer_v2->tfp->needs_callback_tick = false;
         barometer_v2->tfp->needs_callback_tick |= barometer_v2->altitude_handler != NULL;
@@ -1244,10 +1343,14 @@ void tf_barometer_v2_register_air_pressure_callback(TF_BarometerV2 *barometer_v2
     }
     barometer_v2->air_pressure_handler = handler;
     barometer_v2->air_pressure_user_data = user_data;
+    return TF_E_OK;
 }
 
 
-void tf_barometer_v2_register_altitude_callback(TF_BarometerV2 *barometer_v2, TF_BarometerV2AltitudeHandler handler, void *user_data) {
+int tf_barometer_v2_register_altitude_callback(TF_BarometerV2 *barometer_v2, TF_BarometerV2AltitudeHandler handler, void *user_data) {
+    if (barometer_v2 == NULL)
+        return TF_E_NULL;
+
     if (handler == NULL) {
         barometer_v2->tfp->needs_callback_tick = false;
         barometer_v2->tfp->needs_callback_tick |= barometer_v2->air_pressure_handler != NULL;
@@ -1257,10 +1360,14 @@ void tf_barometer_v2_register_altitude_callback(TF_BarometerV2 *barometer_v2, TF
     }
     barometer_v2->altitude_handler = handler;
     barometer_v2->altitude_user_data = user_data;
+    return TF_E_OK;
 }
 
 
-void tf_barometer_v2_register_temperature_callback(TF_BarometerV2 *barometer_v2, TF_BarometerV2TemperatureHandler handler, void *user_data) {
+int tf_barometer_v2_register_temperature_callback(TF_BarometerV2 *barometer_v2, TF_BarometerV2TemperatureHandler handler, void *user_data) {
+    if (barometer_v2 == NULL)
+        return TF_E_NULL;
+
     if (handler == NULL) {
         barometer_v2->tfp->needs_callback_tick = false;
         barometer_v2->tfp->needs_callback_tick |= barometer_v2->air_pressure_handler != NULL;
@@ -1270,9 +1377,13 @@ void tf_barometer_v2_register_temperature_callback(TF_BarometerV2 *barometer_v2,
     }
     barometer_v2->temperature_handler = handler;
     barometer_v2->temperature_user_data = user_data;
+    return TF_E_OK;
 }
 #endif
 int tf_barometer_v2_callback_tick(TF_BarometerV2 *barometer_v2, uint32_t timeout_us) {
+    if (barometer_v2 == NULL)
+        return TF_E_NULL;
+
     return tf_tfp_callback_tick(barometer_v2->tfp, tf_hal_current_time_us(barometer_v2->tfp->hal) + timeout_us);
 }
 

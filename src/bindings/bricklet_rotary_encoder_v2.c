@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-02-08.      *
+ * This file was automatically generated on 2021-10-04.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -81,6 +81,9 @@ static bool tf_rotary_encoder_v2_callback_handler(void *dev, uint8_t fid, TF_Pac
 }
 #endif
 int tf_rotary_encoder_v2_create(TF_RotaryEncoderV2 *rotary_encoder_v2, const char *uid, TF_HalContext *hal) {
+    if (rotary_encoder_v2 == NULL || uid == NULL || hal == NULL)
+        return TF_E_NULL;
+
     memset(rotary_encoder_v2, 0, sizeof(TF_RotaryEncoderV2));
 
     uint32_t numeric_uid;
@@ -109,12 +112,18 @@ int tf_rotary_encoder_v2_create(TF_RotaryEncoderV2 *rotary_encoder_v2, const cha
 }
 
 int tf_rotary_encoder_v2_destroy(TF_RotaryEncoderV2 *rotary_encoder_v2) {
+    if (rotary_encoder_v2 == NULL)
+        return TF_E_NULL;
+
     int result = tf_tfp_destroy(rotary_encoder_v2->tfp);
     rotary_encoder_v2->tfp = NULL;
     return result;
 }
 
 int tf_rotary_encoder_v2_get_response_expected(TF_RotaryEncoderV2 *rotary_encoder_v2, uint8_t function_id, bool *ret_response_expected) {
+    if (rotary_encoder_v2 == NULL)
+        return TF_E_NULL;
+
     switch(function_id) {
         case TF_ROTARY_ENCODER_V2_FUNCTION_SET_COUNT_CALLBACK_CONFIGURATION:
             if(ret_response_expected != NULL)
@@ -190,6 +199,9 @@ void tf_rotary_encoder_v2_set_response_expected_all(TF_RotaryEncoderV2 *rotary_e
 }
 
 int tf_rotary_encoder_v2_get_count(TF_RotaryEncoderV2 *rotary_encoder_v2, bool reset, int32_t *ret_count) {
+    if (rotary_encoder_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(rotary_encoder_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -226,6 +238,9 @@ int tf_rotary_encoder_v2_get_count(TF_RotaryEncoderV2 *rotary_encoder_v2, bool r
 }
 
 int tf_rotary_encoder_v2_set_count_callback_configuration(TF_RotaryEncoderV2 *rotary_encoder_v2, uint32_t period, bool value_has_to_change, char option, int32_t min, int32_t max) {
+    if (rotary_encoder_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(rotary_encoder_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -262,6 +277,9 @@ int tf_rotary_encoder_v2_set_count_callback_configuration(TF_RotaryEncoderV2 *ro
 }
 
 int tf_rotary_encoder_v2_get_count_callback_configuration(TF_RotaryEncoderV2 *rotary_encoder_v2, uint32_t *ret_period, bool *ret_value_has_to_change, char *ret_option, int32_t *ret_min, int32_t *ret_max) {
+    if (rotary_encoder_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(rotary_encoder_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -298,6 +316,9 @@ int tf_rotary_encoder_v2_get_count_callback_configuration(TF_RotaryEncoderV2 *ro
 }
 
 int tf_rotary_encoder_v2_is_pressed(TF_RotaryEncoderV2 *rotary_encoder_v2, bool *ret_pressed) {
+    if (rotary_encoder_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(rotary_encoder_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -330,6 +351,9 @@ int tf_rotary_encoder_v2_is_pressed(TF_RotaryEncoderV2 *rotary_encoder_v2, bool 
 }
 
 int tf_rotary_encoder_v2_get_spitfp_error_count(TF_RotaryEncoderV2 *rotary_encoder_v2, uint32_t *ret_error_count_ack_checksum, uint32_t *ret_error_count_message_checksum, uint32_t *ret_error_count_frame, uint32_t *ret_error_count_overflow) {
+    if (rotary_encoder_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(rotary_encoder_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -365,6 +389,9 @@ int tf_rotary_encoder_v2_get_spitfp_error_count(TF_RotaryEncoderV2 *rotary_encod
 }
 
 int tf_rotary_encoder_v2_set_bootloader_mode(TF_RotaryEncoderV2 *rotary_encoder_v2, uint8_t mode, uint8_t *ret_status) {
+    if (rotary_encoder_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(rotary_encoder_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -401,6 +428,9 @@ int tf_rotary_encoder_v2_set_bootloader_mode(TF_RotaryEncoderV2 *rotary_encoder_
 }
 
 int tf_rotary_encoder_v2_get_bootloader_mode(TF_RotaryEncoderV2 *rotary_encoder_v2, uint8_t *ret_mode) {
+    if (rotary_encoder_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(rotary_encoder_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -433,6 +463,9 @@ int tf_rotary_encoder_v2_get_bootloader_mode(TF_RotaryEncoderV2 *rotary_encoder_
 }
 
 int tf_rotary_encoder_v2_set_write_firmware_pointer(TF_RotaryEncoderV2 *rotary_encoder_v2, uint32_t pointer) {
+    if (rotary_encoder_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(rotary_encoder_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -465,6 +498,9 @@ int tf_rotary_encoder_v2_set_write_firmware_pointer(TF_RotaryEncoderV2 *rotary_e
 }
 
 int tf_rotary_encoder_v2_write_firmware(TF_RotaryEncoderV2 *rotary_encoder_v2, uint8_t data[64], uint8_t *ret_status) {
+    if (rotary_encoder_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(rotary_encoder_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -501,6 +537,9 @@ int tf_rotary_encoder_v2_write_firmware(TF_RotaryEncoderV2 *rotary_encoder_v2, u
 }
 
 int tf_rotary_encoder_v2_set_status_led_config(TF_RotaryEncoderV2 *rotary_encoder_v2, uint8_t config) {
+    if (rotary_encoder_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(rotary_encoder_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -533,6 +572,9 @@ int tf_rotary_encoder_v2_set_status_led_config(TF_RotaryEncoderV2 *rotary_encode
 }
 
 int tf_rotary_encoder_v2_get_status_led_config(TF_RotaryEncoderV2 *rotary_encoder_v2, uint8_t *ret_config) {
+    if (rotary_encoder_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(rotary_encoder_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -565,6 +607,9 @@ int tf_rotary_encoder_v2_get_status_led_config(TF_RotaryEncoderV2 *rotary_encode
 }
 
 int tf_rotary_encoder_v2_get_chip_temperature(TF_RotaryEncoderV2 *rotary_encoder_v2, int16_t *ret_temperature) {
+    if (rotary_encoder_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(rotary_encoder_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -597,6 +642,9 @@ int tf_rotary_encoder_v2_get_chip_temperature(TF_RotaryEncoderV2 *rotary_encoder
 }
 
 int tf_rotary_encoder_v2_reset(TF_RotaryEncoderV2 *rotary_encoder_v2) {
+    if (rotary_encoder_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(rotary_encoder_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -625,6 +673,9 @@ int tf_rotary_encoder_v2_reset(TF_RotaryEncoderV2 *rotary_encoder_v2) {
 }
 
 int tf_rotary_encoder_v2_write_uid(TF_RotaryEncoderV2 *rotary_encoder_v2, uint32_t uid) {
+    if (rotary_encoder_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(rotary_encoder_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -657,6 +708,9 @@ int tf_rotary_encoder_v2_write_uid(TF_RotaryEncoderV2 *rotary_encoder_v2, uint32
 }
 
 int tf_rotary_encoder_v2_read_uid(TF_RotaryEncoderV2 *rotary_encoder_v2, uint32_t *ret_uid) {
+    if (rotary_encoder_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(rotary_encoder_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -689,6 +743,9 @@ int tf_rotary_encoder_v2_read_uid(TF_RotaryEncoderV2 *rotary_encoder_v2, uint32_
 }
 
 int tf_rotary_encoder_v2_get_identity(TF_RotaryEncoderV2 *rotary_encoder_v2, char ret_uid[8], char ret_connected_uid[8], char *ret_position, uint8_t ret_hardware_version[3], uint8_t ret_firmware_version[3], uint16_t *ret_device_identifier) {
+    if (rotary_encoder_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(rotary_encoder_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -733,7 +790,10 @@ int tf_rotary_encoder_v2_get_identity(TF_RotaryEncoderV2 *rotary_encoder_v2, cha
     return tf_tfp_get_error(error_code);
 }
 #ifdef TF_IMPLEMENT_CALLBACKS
-void tf_rotary_encoder_v2_register_count_callback(TF_RotaryEncoderV2 *rotary_encoder_v2, TF_RotaryEncoderV2CountHandler handler, void *user_data) {
+int tf_rotary_encoder_v2_register_count_callback(TF_RotaryEncoderV2 *rotary_encoder_v2, TF_RotaryEncoderV2CountHandler handler, void *user_data) {
+    if (rotary_encoder_v2 == NULL)
+        return TF_E_NULL;
+
     if (handler == NULL) {
         rotary_encoder_v2->tfp->needs_callback_tick = false;
         rotary_encoder_v2->tfp->needs_callback_tick |= rotary_encoder_v2->pressed_handler != NULL;
@@ -743,10 +803,14 @@ void tf_rotary_encoder_v2_register_count_callback(TF_RotaryEncoderV2 *rotary_enc
     }
     rotary_encoder_v2->count_handler = handler;
     rotary_encoder_v2->count_user_data = user_data;
+    return TF_E_OK;
 }
 
 
-void tf_rotary_encoder_v2_register_pressed_callback(TF_RotaryEncoderV2 *rotary_encoder_v2, TF_RotaryEncoderV2PressedHandler handler, void *user_data) {
+int tf_rotary_encoder_v2_register_pressed_callback(TF_RotaryEncoderV2 *rotary_encoder_v2, TF_RotaryEncoderV2PressedHandler handler, void *user_data) {
+    if (rotary_encoder_v2 == NULL)
+        return TF_E_NULL;
+
     if (handler == NULL) {
         rotary_encoder_v2->tfp->needs_callback_tick = false;
         rotary_encoder_v2->tfp->needs_callback_tick |= rotary_encoder_v2->count_handler != NULL;
@@ -756,10 +820,14 @@ void tf_rotary_encoder_v2_register_pressed_callback(TF_RotaryEncoderV2 *rotary_e
     }
     rotary_encoder_v2->pressed_handler = handler;
     rotary_encoder_v2->pressed_user_data = user_data;
+    return TF_E_OK;
 }
 
 
-void tf_rotary_encoder_v2_register_released_callback(TF_RotaryEncoderV2 *rotary_encoder_v2, TF_RotaryEncoderV2ReleasedHandler handler, void *user_data) {
+int tf_rotary_encoder_v2_register_released_callback(TF_RotaryEncoderV2 *rotary_encoder_v2, TF_RotaryEncoderV2ReleasedHandler handler, void *user_data) {
+    if (rotary_encoder_v2 == NULL)
+        return TF_E_NULL;
+
     if (handler == NULL) {
         rotary_encoder_v2->tfp->needs_callback_tick = false;
         rotary_encoder_v2->tfp->needs_callback_tick |= rotary_encoder_v2->count_handler != NULL;
@@ -769,9 +837,13 @@ void tf_rotary_encoder_v2_register_released_callback(TF_RotaryEncoderV2 *rotary_
     }
     rotary_encoder_v2->released_handler = handler;
     rotary_encoder_v2->released_user_data = user_data;
+    return TF_E_OK;
 }
 #endif
 int tf_rotary_encoder_v2_callback_tick(TF_RotaryEncoderV2 *rotary_encoder_v2, uint32_t timeout_us) {
+    if (rotary_encoder_v2 == NULL)
+        return TF_E_NULL;
+
     return tf_tfp_callback_tick(rotary_encoder_v2->tfp, tf_hal_current_time_us(rotary_encoder_v2->tfp->hal) + timeout_us);
 }
 

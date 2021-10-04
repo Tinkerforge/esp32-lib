@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-02-08.      *
+ * This file was automatically generated on 2021-10-04.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -97,6 +97,9 @@ static bool tf_co2_v2_callback_handler(void *dev, uint8_t fid, TF_Packetbuffer *
 }
 #endif
 int tf_co2_v2_create(TF_CO2V2 *co2_v2, const char *uid, TF_HalContext *hal) {
+    if (co2_v2 == NULL || uid == NULL || hal == NULL)
+        return TF_E_NULL;
+
     memset(co2_v2, 0, sizeof(TF_CO2V2));
 
     uint32_t numeric_uid;
@@ -126,12 +129,18 @@ int tf_co2_v2_create(TF_CO2V2 *co2_v2, const char *uid, TF_HalContext *hal) {
 }
 
 int tf_co2_v2_destroy(TF_CO2V2 *co2_v2) {
+    if (co2_v2 == NULL)
+        return TF_E_NULL;
+
     int result = tf_tfp_destroy(co2_v2->tfp);
     co2_v2->tfp = NULL;
     return result;
 }
 
 int tf_co2_v2_get_response_expected(TF_CO2V2 *co2_v2, uint8_t function_id, bool *ret_response_expected) {
+    if (co2_v2 == NULL)
+        return TF_E_NULL;
+
     switch(function_id) {
         case TF_CO2_V2_FUNCTION_SET_AIR_PRESSURE:
             if(ret_response_expected != NULL)
@@ -262,6 +271,9 @@ void tf_co2_v2_set_response_expected_all(TF_CO2V2 *co2_v2, bool response_expecte
 }
 
 int tf_co2_v2_get_all_values(TF_CO2V2 *co2_v2, uint16_t *ret_co2_concentration, int16_t *ret_temperature, uint16_t *ret_humidity) {
+    if (co2_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(co2_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -296,6 +308,9 @@ int tf_co2_v2_get_all_values(TF_CO2V2 *co2_v2, uint16_t *ret_co2_concentration, 
 }
 
 int tf_co2_v2_set_air_pressure(TF_CO2V2 *co2_v2, uint16_t air_pressure) {
+    if (co2_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(co2_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -328,6 +343,9 @@ int tf_co2_v2_set_air_pressure(TF_CO2V2 *co2_v2, uint16_t air_pressure) {
 }
 
 int tf_co2_v2_get_air_pressure(TF_CO2V2 *co2_v2, uint16_t *ret_air_pressure) {
+    if (co2_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(co2_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -360,6 +378,9 @@ int tf_co2_v2_get_air_pressure(TF_CO2V2 *co2_v2, uint16_t *ret_air_pressure) {
 }
 
 int tf_co2_v2_set_temperature_offset(TF_CO2V2 *co2_v2, uint16_t offset) {
+    if (co2_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(co2_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -392,6 +413,9 @@ int tf_co2_v2_set_temperature_offset(TF_CO2V2 *co2_v2, uint16_t offset) {
 }
 
 int tf_co2_v2_get_temperature_offset(TF_CO2V2 *co2_v2, uint16_t *ret_offset) {
+    if (co2_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(co2_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -424,6 +448,9 @@ int tf_co2_v2_get_temperature_offset(TF_CO2V2 *co2_v2, uint16_t *ret_offset) {
 }
 
 int tf_co2_v2_set_all_values_callback_configuration(TF_CO2V2 *co2_v2, uint32_t period, bool value_has_to_change) {
+    if (co2_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(co2_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -457,6 +484,9 @@ int tf_co2_v2_set_all_values_callback_configuration(TF_CO2V2 *co2_v2, uint32_t p
 }
 
 int tf_co2_v2_get_all_values_callback_configuration(TF_CO2V2 *co2_v2, uint32_t *ret_period, bool *ret_value_has_to_change) {
+    if (co2_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(co2_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -490,6 +520,9 @@ int tf_co2_v2_get_all_values_callback_configuration(TF_CO2V2 *co2_v2, uint32_t *
 }
 
 int tf_co2_v2_get_co2_concentration(TF_CO2V2 *co2_v2, uint16_t *ret_co2_concentration) {
+    if (co2_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(co2_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -522,6 +555,9 @@ int tf_co2_v2_get_co2_concentration(TF_CO2V2 *co2_v2, uint16_t *ret_co2_concentr
 }
 
 int tf_co2_v2_set_co2_concentration_callback_configuration(TF_CO2V2 *co2_v2, uint32_t period, bool value_has_to_change, char option, uint16_t min, uint16_t max) {
+    if (co2_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(co2_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -558,6 +594,9 @@ int tf_co2_v2_set_co2_concentration_callback_configuration(TF_CO2V2 *co2_v2, uin
 }
 
 int tf_co2_v2_get_co2_concentration_callback_configuration(TF_CO2V2 *co2_v2, uint32_t *ret_period, bool *ret_value_has_to_change, char *ret_option, uint16_t *ret_min, uint16_t *ret_max) {
+    if (co2_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(co2_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -594,6 +633,9 @@ int tf_co2_v2_get_co2_concentration_callback_configuration(TF_CO2V2 *co2_v2, uin
 }
 
 int tf_co2_v2_get_temperature(TF_CO2V2 *co2_v2, int16_t *ret_temperature) {
+    if (co2_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(co2_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -626,6 +668,9 @@ int tf_co2_v2_get_temperature(TF_CO2V2 *co2_v2, int16_t *ret_temperature) {
 }
 
 int tf_co2_v2_set_temperature_callback_configuration(TF_CO2V2 *co2_v2, uint32_t period, bool value_has_to_change, char option, int16_t min, int16_t max) {
+    if (co2_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(co2_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -662,6 +707,9 @@ int tf_co2_v2_set_temperature_callback_configuration(TF_CO2V2 *co2_v2, uint32_t 
 }
 
 int tf_co2_v2_get_temperature_callback_configuration(TF_CO2V2 *co2_v2, uint32_t *ret_period, bool *ret_value_has_to_change, char *ret_option, int16_t *ret_min, int16_t *ret_max) {
+    if (co2_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(co2_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -698,6 +746,9 @@ int tf_co2_v2_get_temperature_callback_configuration(TF_CO2V2 *co2_v2, uint32_t 
 }
 
 int tf_co2_v2_get_humidity(TF_CO2V2 *co2_v2, uint16_t *ret_humidity) {
+    if (co2_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(co2_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -730,6 +781,9 @@ int tf_co2_v2_get_humidity(TF_CO2V2 *co2_v2, uint16_t *ret_humidity) {
 }
 
 int tf_co2_v2_set_humidity_callback_configuration(TF_CO2V2 *co2_v2, uint32_t period, bool value_has_to_change, char option, uint16_t min, uint16_t max) {
+    if (co2_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(co2_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -766,6 +820,9 @@ int tf_co2_v2_set_humidity_callback_configuration(TF_CO2V2 *co2_v2, uint32_t per
 }
 
 int tf_co2_v2_get_humidity_callback_configuration(TF_CO2V2 *co2_v2, uint32_t *ret_period, bool *ret_value_has_to_change, char *ret_option, uint16_t *ret_min, uint16_t *ret_max) {
+    if (co2_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(co2_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -802,6 +859,9 @@ int tf_co2_v2_get_humidity_callback_configuration(TF_CO2V2 *co2_v2, uint32_t *re
 }
 
 int tf_co2_v2_get_spitfp_error_count(TF_CO2V2 *co2_v2, uint32_t *ret_error_count_ack_checksum, uint32_t *ret_error_count_message_checksum, uint32_t *ret_error_count_frame, uint32_t *ret_error_count_overflow) {
+    if (co2_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(co2_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -837,6 +897,9 @@ int tf_co2_v2_get_spitfp_error_count(TF_CO2V2 *co2_v2, uint32_t *ret_error_count
 }
 
 int tf_co2_v2_set_bootloader_mode(TF_CO2V2 *co2_v2, uint8_t mode, uint8_t *ret_status) {
+    if (co2_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(co2_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -873,6 +936,9 @@ int tf_co2_v2_set_bootloader_mode(TF_CO2V2 *co2_v2, uint8_t mode, uint8_t *ret_s
 }
 
 int tf_co2_v2_get_bootloader_mode(TF_CO2V2 *co2_v2, uint8_t *ret_mode) {
+    if (co2_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(co2_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -905,6 +971,9 @@ int tf_co2_v2_get_bootloader_mode(TF_CO2V2 *co2_v2, uint8_t *ret_mode) {
 }
 
 int tf_co2_v2_set_write_firmware_pointer(TF_CO2V2 *co2_v2, uint32_t pointer) {
+    if (co2_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(co2_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -937,6 +1006,9 @@ int tf_co2_v2_set_write_firmware_pointer(TF_CO2V2 *co2_v2, uint32_t pointer) {
 }
 
 int tf_co2_v2_write_firmware(TF_CO2V2 *co2_v2, uint8_t data[64], uint8_t *ret_status) {
+    if (co2_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(co2_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -973,6 +1045,9 @@ int tf_co2_v2_write_firmware(TF_CO2V2 *co2_v2, uint8_t data[64], uint8_t *ret_st
 }
 
 int tf_co2_v2_set_status_led_config(TF_CO2V2 *co2_v2, uint8_t config) {
+    if (co2_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(co2_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1005,6 +1080,9 @@ int tf_co2_v2_set_status_led_config(TF_CO2V2 *co2_v2, uint8_t config) {
 }
 
 int tf_co2_v2_get_status_led_config(TF_CO2V2 *co2_v2, uint8_t *ret_config) {
+    if (co2_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(co2_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1037,6 +1115,9 @@ int tf_co2_v2_get_status_led_config(TF_CO2V2 *co2_v2, uint8_t *ret_config) {
 }
 
 int tf_co2_v2_get_chip_temperature(TF_CO2V2 *co2_v2, int16_t *ret_temperature) {
+    if (co2_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(co2_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1069,6 +1150,9 @@ int tf_co2_v2_get_chip_temperature(TF_CO2V2 *co2_v2, int16_t *ret_temperature) {
 }
 
 int tf_co2_v2_reset(TF_CO2V2 *co2_v2) {
+    if (co2_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(co2_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1097,6 +1181,9 @@ int tf_co2_v2_reset(TF_CO2V2 *co2_v2) {
 }
 
 int tf_co2_v2_write_uid(TF_CO2V2 *co2_v2, uint32_t uid) {
+    if (co2_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(co2_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1129,6 +1216,9 @@ int tf_co2_v2_write_uid(TF_CO2V2 *co2_v2, uint32_t uid) {
 }
 
 int tf_co2_v2_read_uid(TF_CO2V2 *co2_v2, uint32_t *ret_uid) {
+    if (co2_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(co2_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1161,6 +1251,9 @@ int tf_co2_v2_read_uid(TF_CO2V2 *co2_v2, uint32_t *ret_uid) {
 }
 
 int tf_co2_v2_get_identity(TF_CO2V2 *co2_v2, char ret_uid[8], char ret_connected_uid[8], char *ret_position, uint8_t ret_hardware_version[3], uint8_t ret_firmware_version[3], uint16_t *ret_device_identifier) {
+    if (co2_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(co2_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1205,7 +1298,10 @@ int tf_co2_v2_get_identity(TF_CO2V2 *co2_v2, char ret_uid[8], char ret_connected
     return tf_tfp_get_error(error_code);
 }
 #ifdef TF_IMPLEMENT_CALLBACKS
-void tf_co2_v2_register_all_values_callback(TF_CO2V2 *co2_v2, TF_CO2V2AllValuesHandler handler, void *user_data) {
+int tf_co2_v2_register_all_values_callback(TF_CO2V2 *co2_v2, TF_CO2V2AllValuesHandler handler, void *user_data) {
+    if (co2_v2 == NULL)
+        return TF_E_NULL;
+
     if (handler == NULL) {
         co2_v2->tfp->needs_callback_tick = false;
         co2_v2->tfp->needs_callback_tick |= co2_v2->co2_concentration_handler != NULL;
@@ -1216,10 +1312,14 @@ void tf_co2_v2_register_all_values_callback(TF_CO2V2 *co2_v2, TF_CO2V2AllValuesH
     }
     co2_v2->all_values_handler = handler;
     co2_v2->all_values_user_data = user_data;
+    return TF_E_OK;
 }
 
 
-void tf_co2_v2_register_co2_concentration_callback(TF_CO2V2 *co2_v2, TF_CO2V2CO2ConcentrationHandler handler, void *user_data) {
+int tf_co2_v2_register_co2_concentration_callback(TF_CO2V2 *co2_v2, TF_CO2V2CO2ConcentrationHandler handler, void *user_data) {
+    if (co2_v2 == NULL)
+        return TF_E_NULL;
+
     if (handler == NULL) {
         co2_v2->tfp->needs_callback_tick = false;
         co2_v2->tfp->needs_callback_tick |= co2_v2->all_values_handler != NULL;
@@ -1230,10 +1330,14 @@ void tf_co2_v2_register_co2_concentration_callback(TF_CO2V2 *co2_v2, TF_CO2V2CO2
     }
     co2_v2->co2_concentration_handler = handler;
     co2_v2->co2_concentration_user_data = user_data;
+    return TF_E_OK;
 }
 
 
-void tf_co2_v2_register_temperature_callback(TF_CO2V2 *co2_v2, TF_CO2V2TemperatureHandler handler, void *user_data) {
+int tf_co2_v2_register_temperature_callback(TF_CO2V2 *co2_v2, TF_CO2V2TemperatureHandler handler, void *user_data) {
+    if (co2_v2 == NULL)
+        return TF_E_NULL;
+
     if (handler == NULL) {
         co2_v2->tfp->needs_callback_tick = false;
         co2_v2->tfp->needs_callback_tick |= co2_v2->all_values_handler != NULL;
@@ -1244,10 +1348,14 @@ void tf_co2_v2_register_temperature_callback(TF_CO2V2 *co2_v2, TF_CO2V2Temperatu
     }
     co2_v2->temperature_handler = handler;
     co2_v2->temperature_user_data = user_data;
+    return TF_E_OK;
 }
 
 
-void tf_co2_v2_register_humidity_callback(TF_CO2V2 *co2_v2, TF_CO2V2HumidityHandler handler, void *user_data) {
+int tf_co2_v2_register_humidity_callback(TF_CO2V2 *co2_v2, TF_CO2V2HumidityHandler handler, void *user_data) {
+    if (co2_v2 == NULL)
+        return TF_E_NULL;
+
     if (handler == NULL) {
         co2_v2->tfp->needs_callback_tick = false;
         co2_v2->tfp->needs_callback_tick |= co2_v2->all_values_handler != NULL;
@@ -1258,9 +1366,13 @@ void tf_co2_v2_register_humidity_callback(TF_CO2V2 *co2_v2, TF_CO2V2HumidityHand
     }
     co2_v2->humidity_handler = handler;
     co2_v2->humidity_user_data = user_data;
+    return TF_E_OK;
 }
 #endif
 int tf_co2_v2_callback_tick(TF_CO2V2 *co2_v2, uint32_t timeout_us) {
+    if (co2_v2 == NULL)
+        return TF_E_NULL;
+
     return tf_tfp_callback_tick(co2_v2->tfp, tf_hal_current_time_us(co2_v2->tfp->hal) + timeout_us);
 }
 

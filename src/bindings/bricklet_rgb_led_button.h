@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-02-08.      *
+ * This file was automatically generated on 2021-10-04.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -316,7 +316,7 @@ TF_ATTRIBUTE_NONNULL_ALL void tf_rgb_led_button_set_response_expected_all(TF_RGB
  * 
  * The parameter is the current state of the button.
  */
-TF_ATTRIBUTE_NONNULL(1) void tf_rgb_led_button_register_button_state_changed_callback(TF_RGBLEDButton *rgb_led_button, TF_RGBLEDButtonButtonStateChangedHandler handler, void *user_data);
+TF_ATTRIBUTE_NONNULL(1) int tf_rgb_led_button_register_button_state_changed_callback(TF_RGBLEDButton *rgb_led_button, TF_RGBLEDButtonButtonStateChangedHandler handler, void *user_data);
 #endif
 #ifdef TF_IMPLEMENT_CALLBACKS
 /**

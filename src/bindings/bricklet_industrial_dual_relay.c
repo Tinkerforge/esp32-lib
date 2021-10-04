@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-02-08.      *
+ * This file was automatically generated on 2021-10-04.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -54,6 +54,9 @@ static bool tf_industrial_dual_relay_callback_handler(void *dev, uint8_t fid, TF
 }
 #endif
 int tf_industrial_dual_relay_create(TF_IndustrialDualRelay *industrial_dual_relay, const char *uid, TF_HalContext *hal) {
+    if (industrial_dual_relay == NULL || uid == NULL || hal == NULL)
+        return TF_E_NULL;
+
     memset(industrial_dual_relay, 0, sizeof(TF_IndustrialDualRelay));
 
     uint32_t numeric_uid;
@@ -82,12 +85,18 @@ int tf_industrial_dual_relay_create(TF_IndustrialDualRelay *industrial_dual_rela
 }
 
 int tf_industrial_dual_relay_destroy(TF_IndustrialDualRelay *industrial_dual_relay) {
+    if (industrial_dual_relay == NULL)
+        return TF_E_NULL;
+
     int result = tf_tfp_destroy(industrial_dual_relay->tfp);
     industrial_dual_relay->tfp = NULL;
     return result;
 }
 
 int tf_industrial_dual_relay_get_response_expected(TF_IndustrialDualRelay *industrial_dual_relay, uint8_t function_id, bool *ret_response_expected) {
+    if (industrial_dual_relay == NULL)
+        return TF_E_NULL;
+
     switch(function_id) {
         case TF_INDUSTRIAL_DUAL_RELAY_FUNCTION_SET_VALUE:
             if(ret_response_expected != NULL)
@@ -185,6 +194,9 @@ void tf_industrial_dual_relay_set_response_expected_all(TF_IndustrialDualRelay *
 }
 
 int tf_industrial_dual_relay_set_value(TF_IndustrialDualRelay *industrial_dual_relay, bool channel0, bool channel1) {
+    if (industrial_dual_relay == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(industrial_dual_relay->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -218,6 +230,9 @@ int tf_industrial_dual_relay_set_value(TF_IndustrialDualRelay *industrial_dual_r
 }
 
 int tf_industrial_dual_relay_get_value(TF_IndustrialDualRelay *industrial_dual_relay, bool *ret_channel0, bool *ret_channel1) {
+    if (industrial_dual_relay == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(industrial_dual_relay->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -251,6 +266,9 @@ int tf_industrial_dual_relay_get_value(TF_IndustrialDualRelay *industrial_dual_r
 }
 
 int tf_industrial_dual_relay_set_monoflop(TF_IndustrialDualRelay *industrial_dual_relay, uint8_t channel, bool value, uint32_t time) {
+    if (industrial_dual_relay == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(industrial_dual_relay->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -285,6 +303,9 @@ int tf_industrial_dual_relay_set_monoflop(TF_IndustrialDualRelay *industrial_dua
 }
 
 int tf_industrial_dual_relay_get_monoflop(TF_IndustrialDualRelay *industrial_dual_relay, uint8_t channel, bool *ret_value, uint32_t *ret_time, uint32_t *ret_time_remaining) {
+    if (industrial_dual_relay == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(industrial_dual_relay->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -323,6 +344,9 @@ int tf_industrial_dual_relay_get_monoflop(TF_IndustrialDualRelay *industrial_dua
 }
 
 int tf_industrial_dual_relay_set_selected_value(TF_IndustrialDualRelay *industrial_dual_relay, uint8_t channel, bool value) {
+    if (industrial_dual_relay == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(industrial_dual_relay->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -356,6 +380,9 @@ int tf_industrial_dual_relay_set_selected_value(TF_IndustrialDualRelay *industri
 }
 
 int tf_industrial_dual_relay_get_spitfp_error_count(TF_IndustrialDualRelay *industrial_dual_relay, uint32_t *ret_error_count_ack_checksum, uint32_t *ret_error_count_message_checksum, uint32_t *ret_error_count_frame, uint32_t *ret_error_count_overflow) {
+    if (industrial_dual_relay == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(industrial_dual_relay->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -391,6 +418,9 @@ int tf_industrial_dual_relay_get_spitfp_error_count(TF_IndustrialDualRelay *indu
 }
 
 int tf_industrial_dual_relay_set_bootloader_mode(TF_IndustrialDualRelay *industrial_dual_relay, uint8_t mode, uint8_t *ret_status) {
+    if (industrial_dual_relay == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(industrial_dual_relay->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -427,6 +457,9 @@ int tf_industrial_dual_relay_set_bootloader_mode(TF_IndustrialDualRelay *industr
 }
 
 int tf_industrial_dual_relay_get_bootloader_mode(TF_IndustrialDualRelay *industrial_dual_relay, uint8_t *ret_mode) {
+    if (industrial_dual_relay == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(industrial_dual_relay->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -459,6 +492,9 @@ int tf_industrial_dual_relay_get_bootloader_mode(TF_IndustrialDualRelay *industr
 }
 
 int tf_industrial_dual_relay_set_write_firmware_pointer(TF_IndustrialDualRelay *industrial_dual_relay, uint32_t pointer) {
+    if (industrial_dual_relay == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(industrial_dual_relay->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -491,6 +527,9 @@ int tf_industrial_dual_relay_set_write_firmware_pointer(TF_IndustrialDualRelay *
 }
 
 int tf_industrial_dual_relay_write_firmware(TF_IndustrialDualRelay *industrial_dual_relay, uint8_t data[64], uint8_t *ret_status) {
+    if (industrial_dual_relay == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(industrial_dual_relay->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -527,6 +566,9 @@ int tf_industrial_dual_relay_write_firmware(TF_IndustrialDualRelay *industrial_d
 }
 
 int tf_industrial_dual_relay_set_status_led_config(TF_IndustrialDualRelay *industrial_dual_relay, uint8_t config) {
+    if (industrial_dual_relay == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(industrial_dual_relay->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -559,6 +601,9 @@ int tf_industrial_dual_relay_set_status_led_config(TF_IndustrialDualRelay *indus
 }
 
 int tf_industrial_dual_relay_get_status_led_config(TF_IndustrialDualRelay *industrial_dual_relay, uint8_t *ret_config) {
+    if (industrial_dual_relay == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(industrial_dual_relay->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -591,6 +636,9 @@ int tf_industrial_dual_relay_get_status_led_config(TF_IndustrialDualRelay *indus
 }
 
 int tf_industrial_dual_relay_get_chip_temperature(TF_IndustrialDualRelay *industrial_dual_relay, int16_t *ret_temperature) {
+    if (industrial_dual_relay == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(industrial_dual_relay->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -623,6 +671,9 @@ int tf_industrial_dual_relay_get_chip_temperature(TF_IndustrialDualRelay *indust
 }
 
 int tf_industrial_dual_relay_reset(TF_IndustrialDualRelay *industrial_dual_relay) {
+    if (industrial_dual_relay == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(industrial_dual_relay->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -651,6 +702,9 @@ int tf_industrial_dual_relay_reset(TF_IndustrialDualRelay *industrial_dual_relay
 }
 
 int tf_industrial_dual_relay_write_uid(TF_IndustrialDualRelay *industrial_dual_relay, uint32_t uid) {
+    if (industrial_dual_relay == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(industrial_dual_relay->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -683,6 +737,9 @@ int tf_industrial_dual_relay_write_uid(TF_IndustrialDualRelay *industrial_dual_r
 }
 
 int tf_industrial_dual_relay_read_uid(TF_IndustrialDualRelay *industrial_dual_relay, uint32_t *ret_uid) {
+    if (industrial_dual_relay == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(industrial_dual_relay->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -715,6 +772,9 @@ int tf_industrial_dual_relay_read_uid(TF_IndustrialDualRelay *industrial_dual_re
 }
 
 int tf_industrial_dual_relay_get_identity(TF_IndustrialDualRelay *industrial_dual_relay, char ret_uid[8], char ret_connected_uid[8], char *ret_position, uint8_t ret_hardware_version[3], uint8_t ret_firmware_version[3], uint16_t *ret_device_identifier) {
+    if (industrial_dual_relay == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(industrial_dual_relay->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -759,7 +819,10 @@ int tf_industrial_dual_relay_get_identity(TF_IndustrialDualRelay *industrial_dua
     return tf_tfp_get_error(error_code);
 }
 #ifdef TF_IMPLEMENT_CALLBACKS
-void tf_industrial_dual_relay_register_monoflop_done_callback(TF_IndustrialDualRelay *industrial_dual_relay, TF_IndustrialDualRelayMonoflopDoneHandler handler, void *user_data) {
+int tf_industrial_dual_relay_register_monoflop_done_callback(TF_IndustrialDualRelay *industrial_dual_relay, TF_IndustrialDualRelayMonoflopDoneHandler handler, void *user_data) {
+    if (industrial_dual_relay == NULL)
+        return TF_E_NULL;
+
     if (handler == NULL) {
         industrial_dual_relay->tfp->needs_callback_tick = false;
         
@@ -768,9 +831,13 @@ void tf_industrial_dual_relay_register_monoflop_done_callback(TF_IndustrialDualR
     }
     industrial_dual_relay->monoflop_done_handler = handler;
     industrial_dual_relay->monoflop_done_user_data = user_data;
+    return TF_E_OK;
 }
 #endif
 int tf_industrial_dual_relay_callback_tick(TF_IndustrialDualRelay *industrial_dual_relay, uint32_t timeout_us) {
+    if (industrial_dual_relay == NULL)
+        return TF_E_NULL;
+
     return tf_tfp_callback_tick(industrial_dual_relay->tfp, tf_hal_current_time_us(industrial_dual_relay->tfp->hal) + timeout_us);
 }
 

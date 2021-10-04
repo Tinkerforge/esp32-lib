@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-02-08.      *
+ * This file was automatically generated on 2021-10-04.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -53,6 +53,9 @@ static bool tf_led_strip_v2_callback_handler(void *dev, uint8_t fid, TF_Packetbu
 }
 #endif
 int tf_led_strip_v2_create(TF_LEDStripV2 *led_strip_v2, const char *uid, TF_HalContext *hal) {
+    if (led_strip_v2 == NULL || uid == NULL || hal == NULL)
+        return TF_E_NULL;
+
     memset(led_strip_v2, 0, sizeof(TF_LEDStripV2));
 
     uint32_t numeric_uid;
@@ -82,12 +85,18 @@ int tf_led_strip_v2_create(TF_LEDStripV2 *led_strip_v2, const char *uid, TF_HalC
 }
 
 int tf_led_strip_v2_destroy(TF_LEDStripV2 *led_strip_v2) {
+    if (led_strip_v2 == NULL)
+        return TF_E_NULL;
+
     int result = tf_tfp_destroy(led_strip_v2->tfp);
     led_strip_v2->tfp = NULL;
     return result;
 }
 
 int tf_led_strip_v2_get_response_expected(TF_LEDStripV2 *led_strip_v2, uint8_t function_id, bool *ret_response_expected) {
+    if (led_strip_v2 == NULL)
+        return TF_E_NULL;
+
     switch(function_id) {
         case TF_LED_STRIP_V2_FUNCTION_SET_LED_VALUES_LOW_LEVEL:
             if(ret_response_expected != NULL)
@@ -218,6 +227,9 @@ void tf_led_strip_v2_set_response_expected_all(TF_LEDStripV2 *led_strip_v2, bool
 }
 
 int tf_led_strip_v2_set_led_values_low_level(TF_LEDStripV2 *led_strip_v2, uint16_t index, uint16_t value_length, uint16_t value_chunk_offset, uint8_t value_chunk_data[58]) {
+    if (led_strip_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(led_strip_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -253,6 +265,9 @@ int tf_led_strip_v2_set_led_values_low_level(TF_LEDStripV2 *led_strip_v2, uint16
 }
 
 int tf_led_strip_v2_get_led_values_low_level(TF_LEDStripV2 *led_strip_v2, uint16_t index, uint16_t length, uint16_t *ret_value_length, uint16_t *ret_value_chunk_offset, uint8_t ret_value_chunk_data[60]) {
+    if (led_strip_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(led_strip_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -293,6 +308,9 @@ int tf_led_strip_v2_get_led_values_low_level(TF_LEDStripV2 *led_strip_v2, uint16
 }
 
 int tf_led_strip_v2_set_frame_duration(TF_LEDStripV2 *led_strip_v2, uint16_t duration) {
+    if (led_strip_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(led_strip_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -325,6 +343,9 @@ int tf_led_strip_v2_set_frame_duration(TF_LEDStripV2 *led_strip_v2, uint16_t dur
 }
 
 int tf_led_strip_v2_get_frame_duration(TF_LEDStripV2 *led_strip_v2, uint16_t *ret_duration) {
+    if (led_strip_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(led_strip_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -357,6 +378,9 @@ int tf_led_strip_v2_get_frame_duration(TF_LEDStripV2 *led_strip_v2, uint16_t *re
 }
 
 int tf_led_strip_v2_get_supply_voltage(TF_LEDStripV2 *led_strip_v2, uint16_t *ret_voltage) {
+    if (led_strip_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(led_strip_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -389,6 +413,9 @@ int tf_led_strip_v2_get_supply_voltage(TF_LEDStripV2 *led_strip_v2, uint16_t *re
 }
 
 int tf_led_strip_v2_set_clock_frequency(TF_LEDStripV2 *led_strip_v2, uint32_t frequency) {
+    if (led_strip_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(led_strip_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -421,6 +448,9 @@ int tf_led_strip_v2_set_clock_frequency(TF_LEDStripV2 *led_strip_v2, uint32_t fr
 }
 
 int tf_led_strip_v2_get_clock_frequency(TF_LEDStripV2 *led_strip_v2, uint32_t *ret_frequency) {
+    if (led_strip_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(led_strip_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -453,6 +483,9 @@ int tf_led_strip_v2_get_clock_frequency(TF_LEDStripV2 *led_strip_v2, uint32_t *r
 }
 
 int tf_led_strip_v2_set_chip_type(TF_LEDStripV2 *led_strip_v2, uint16_t chip) {
+    if (led_strip_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(led_strip_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -485,6 +518,9 @@ int tf_led_strip_v2_set_chip_type(TF_LEDStripV2 *led_strip_v2, uint16_t chip) {
 }
 
 int tf_led_strip_v2_get_chip_type(TF_LEDStripV2 *led_strip_v2, uint16_t *ret_chip) {
+    if (led_strip_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(led_strip_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -517,6 +553,9 @@ int tf_led_strip_v2_get_chip_type(TF_LEDStripV2 *led_strip_v2, uint16_t *ret_chi
 }
 
 int tf_led_strip_v2_set_channel_mapping(TF_LEDStripV2 *led_strip_v2, uint8_t mapping) {
+    if (led_strip_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(led_strip_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -549,6 +588,9 @@ int tf_led_strip_v2_set_channel_mapping(TF_LEDStripV2 *led_strip_v2, uint8_t map
 }
 
 int tf_led_strip_v2_get_channel_mapping(TF_LEDStripV2 *led_strip_v2, uint8_t *ret_mapping) {
+    if (led_strip_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(led_strip_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -581,6 +623,9 @@ int tf_led_strip_v2_get_channel_mapping(TF_LEDStripV2 *led_strip_v2, uint8_t *re
 }
 
 int tf_led_strip_v2_set_frame_started_callback_configuration(TF_LEDStripV2 *led_strip_v2, bool enable) {
+    if (led_strip_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(led_strip_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -613,6 +658,9 @@ int tf_led_strip_v2_set_frame_started_callback_configuration(TF_LEDStripV2 *led_
 }
 
 int tf_led_strip_v2_get_frame_started_callback_configuration(TF_LEDStripV2 *led_strip_v2, bool *ret_enable) {
+    if (led_strip_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(led_strip_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -645,6 +693,9 @@ int tf_led_strip_v2_get_frame_started_callback_configuration(TF_LEDStripV2 *led_
 }
 
 int tf_led_strip_v2_get_spitfp_error_count(TF_LEDStripV2 *led_strip_v2, uint32_t *ret_error_count_ack_checksum, uint32_t *ret_error_count_message_checksum, uint32_t *ret_error_count_frame, uint32_t *ret_error_count_overflow) {
+    if (led_strip_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(led_strip_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -680,6 +731,9 @@ int tf_led_strip_v2_get_spitfp_error_count(TF_LEDStripV2 *led_strip_v2, uint32_t
 }
 
 int tf_led_strip_v2_set_bootloader_mode(TF_LEDStripV2 *led_strip_v2, uint8_t mode, uint8_t *ret_status) {
+    if (led_strip_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(led_strip_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -716,6 +770,9 @@ int tf_led_strip_v2_set_bootloader_mode(TF_LEDStripV2 *led_strip_v2, uint8_t mod
 }
 
 int tf_led_strip_v2_get_bootloader_mode(TF_LEDStripV2 *led_strip_v2, uint8_t *ret_mode) {
+    if (led_strip_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(led_strip_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -748,6 +805,9 @@ int tf_led_strip_v2_get_bootloader_mode(TF_LEDStripV2 *led_strip_v2, uint8_t *re
 }
 
 int tf_led_strip_v2_set_write_firmware_pointer(TF_LEDStripV2 *led_strip_v2, uint32_t pointer) {
+    if (led_strip_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(led_strip_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -780,6 +840,9 @@ int tf_led_strip_v2_set_write_firmware_pointer(TF_LEDStripV2 *led_strip_v2, uint
 }
 
 int tf_led_strip_v2_write_firmware(TF_LEDStripV2 *led_strip_v2, uint8_t data[64], uint8_t *ret_status) {
+    if (led_strip_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(led_strip_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -816,6 +879,9 @@ int tf_led_strip_v2_write_firmware(TF_LEDStripV2 *led_strip_v2, uint8_t data[64]
 }
 
 int tf_led_strip_v2_set_status_led_config(TF_LEDStripV2 *led_strip_v2, uint8_t config) {
+    if (led_strip_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(led_strip_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -848,6 +914,9 @@ int tf_led_strip_v2_set_status_led_config(TF_LEDStripV2 *led_strip_v2, uint8_t c
 }
 
 int tf_led_strip_v2_get_status_led_config(TF_LEDStripV2 *led_strip_v2, uint8_t *ret_config) {
+    if (led_strip_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(led_strip_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -880,6 +949,9 @@ int tf_led_strip_v2_get_status_led_config(TF_LEDStripV2 *led_strip_v2, uint8_t *
 }
 
 int tf_led_strip_v2_get_chip_temperature(TF_LEDStripV2 *led_strip_v2, int16_t *ret_temperature) {
+    if (led_strip_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(led_strip_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -912,6 +984,9 @@ int tf_led_strip_v2_get_chip_temperature(TF_LEDStripV2 *led_strip_v2, int16_t *r
 }
 
 int tf_led_strip_v2_reset(TF_LEDStripV2 *led_strip_v2) {
+    if (led_strip_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(led_strip_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -940,6 +1015,9 @@ int tf_led_strip_v2_reset(TF_LEDStripV2 *led_strip_v2) {
 }
 
 int tf_led_strip_v2_write_uid(TF_LEDStripV2 *led_strip_v2, uint32_t uid) {
+    if (led_strip_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(led_strip_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -972,6 +1050,9 @@ int tf_led_strip_v2_write_uid(TF_LEDStripV2 *led_strip_v2, uint32_t uid) {
 }
 
 int tf_led_strip_v2_read_uid(TF_LEDStripV2 *led_strip_v2, uint32_t *ret_uid) {
+    if (led_strip_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(led_strip_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1004,6 +1085,9 @@ int tf_led_strip_v2_read_uid(TF_LEDStripV2 *led_strip_v2, uint32_t *ret_uid) {
 }
 
 int tf_led_strip_v2_get_identity(TF_LEDStripV2 *led_strip_v2, char ret_uid[8], char ret_connected_uid[8], char *ret_position, uint8_t ret_hardware_version[3], uint8_t ret_firmware_version[3], uint16_t *ret_device_identifier) {
+    if (led_strip_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(led_strip_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1049,6 +1133,9 @@ int tf_led_strip_v2_get_identity(TF_LEDStripV2 *led_strip_v2, char ret_uid[8], c
 }
 
 int tf_led_strip_v2_set_led_values(TF_LEDStripV2 *led_strip_v2, uint16_t index, uint8_t *value, uint16_t value_length) {
+    if (led_strip_v2 == NULL)
+        return TF_E_NULL;
+
     int ret = TF_E_OK;
     uint16_t value_chunk_offset = 0;
     uint8_t value_chunk_data[58];
@@ -1085,6 +1172,9 @@ int tf_led_strip_v2_set_led_values(TF_LEDStripV2 *led_strip_v2, uint16_t index, 
 }
 
 int tf_led_strip_v2_get_led_values(TF_LEDStripV2 *led_strip_v2, uint16_t index, uint16_t length, uint8_t *ret_value, uint16_t *ret_value_length) {
+    if (led_strip_v2 == NULL)
+        return TF_E_NULL;
+
     int ret = TF_E_OK;
     uint16_t value_length = 0;
     uint16_t value_chunk_offset = 0;
@@ -1154,7 +1244,10 @@ int tf_led_strip_v2_get_led_values(TF_LEDStripV2 *led_strip_v2, uint16_t index, 
     return ret;
 }
 #ifdef TF_IMPLEMENT_CALLBACKS
-void tf_led_strip_v2_register_frame_started_callback(TF_LEDStripV2 *led_strip_v2, TF_LEDStripV2FrameStartedHandler handler, void *user_data) {
+int tf_led_strip_v2_register_frame_started_callback(TF_LEDStripV2 *led_strip_v2, TF_LEDStripV2FrameStartedHandler handler, void *user_data) {
+    if (led_strip_v2 == NULL)
+        return TF_E_NULL;
+
     if (handler == NULL) {
         led_strip_v2->tfp->needs_callback_tick = false;
         
@@ -1163,9 +1256,13 @@ void tf_led_strip_v2_register_frame_started_callback(TF_LEDStripV2 *led_strip_v2
     }
     led_strip_v2->frame_started_handler = handler;
     led_strip_v2->frame_started_user_data = user_data;
+    return TF_E_OK;
 }
 #endif
 int tf_led_strip_v2_callback_tick(TF_LEDStripV2 *led_strip_v2, uint32_t timeout_us) {
+    if (led_strip_v2 == NULL)
+        return TF_E_NULL;
+
     return tf_tfp_callback_tick(led_strip_v2->tfp, tf_hal_current_time_us(led_strip_v2->tfp->hal) + timeout_us);
 }
 

@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-02-08.      *
+ * This file was automatically generated on 2021-10-04.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -121,6 +121,9 @@ static bool tf_lcd_128x64_callback_handler(void *dev, uint8_t fid, TF_Packetbuff
 }
 #endif
 int tf_lcd_128x64_create(TF_LCD128x64 *lcd_128x64, const char *uid, TF_HalContext *hal) {
+    if (lcd_128x64 == NULL || uid == NULL || hal == NULL)
+        return TF_E_NULL;
+
     memset(lcd_128x64, 0, sizeof(TF_LCD128x64));
 
     uint32_t numeric_uid;
@@ -152,12 +155,18 @@ int tf_lcd_128x64_create(TF_LCD128x64 *lcd_128x64, const char *uid, TF_HalContex
 }
 
 int tf_lcd_128x64_destroy(TF_LCD128x64 *lcd_128x64) {
+    if (lcd_128x64 == NULL)
+        return TF_E_NULL;
+
     int result = tf_tfp_destroy(lcd_128x64->tfp);
     lcd_128x64->tfp = NULL;
     return result;
 }
 
 int tf_lcd_128x64_get_response_expected(TF_LCD128x64 *lcd_128x64, uint8_t function_id, bool *ret_response_expected) {
+    if (lcd_128x64 == NULL)
+        return TF_E_NULL;
+
     switch(function_id) {
         case TF_LCD_128X64_FUNCTION_WRITE_PIXELS_LOW_LEVEL:
             if(ret_response_expected != NULL)
@@ -519,6 +528,9 @@ void tf_lcd_128x64_set_response_expected_all(TF_LCD128x64 *lcd_128x64, bool resp
 }
 
 int tf_lcd_128x64_write_pixels_low_level(TF_LCD128x64 *lcd_128x64, uint8_t x_start, uint8_t y_start, uint8_t x_end, uint8_t y_end, uint16_t pixels_length, uint16_t pixels_chunk_offset, bool pixels_chunk_data[448]) {
+    if (lcd_128x64 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(lcd_128x64->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -558,6 +570,9 @@ int tf_lcd_128x64_write_pixels_low_level(TF_LCD128x64 *lcd_128x64, uint8_t x_sta
 }
 
 int tf_lcd_128x64_read_pixels_low_level(TF_LCD128x64 *lcd_128x64, uint8_t x_start, uint8_t y_start, uint8_t x_end, uint8_t y_end, uint16_t *ret_pixels_length, uint16_t *ret_pixels_chunk_offset, bool ret_pixels_chunk_data[480]) {
+    if (lcd_128x64 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(lcd_128x64->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -599,6 +614,9 @@ int tf_lcd_128x64_read_pixels_low_level(TF_LCD128x64 *lcd_128x64, uint8_t x_star
 }
 
 int tf_lcd_128x64_clear_display(TF_LCD128x64 *lcd_128x64) {
+    if (lcd_128x64 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(lcd_128x64->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -627,6 +645,9 @@ int tf_lcd_128x64_clear_display(TF_LCD128x64 *lcd_128x64) {
 }
 
 int tf_lcd_128x64_set_display_configuration(TF_LCD128x64 *lcd_128x64, uint8_t contrast, uint8_t backlight, bool invert, bool automatic_draw) {
+    if (lcd_128x64 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(lcd_128x64->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -662,6 +683,9 @@ int tf_lcd_128x64_set_display_configuration(TF_LCD128x64 *lcd_128x64, uint8_t co
 }
 
 int tf_lcd_128x64_get_display_configuration(TF_LCD128x64 *lcd_128x64, uint8_t *ret_contrast, uint8_t *ret_backlight, bool *ret_invert, bool *ret_automatic_draw) {
+    if (lcd_128x64 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(lcd_128x64->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -697,6 +721,9 @@ int tf_lcd_128x64_get_display_configuration(TF_LCD128x64 *lcd_128x64, uint8_t *r
 }
 
 int tf_lcd_128x64_write_line(TF_LCD128x64 *lcd_128x64, uint8_t line, uint8_t position, const char text[22]) {
+    if (lcd_128x64 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(lcd_128x64->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -732,6 +759,9 @@ int tf_lcd_128x64_write_line(TF_LCD128x64 *lcd_128x64, uint8_t line, uint8_t pos
 }
 
 int tf_lcd_128x64_draw_buffered_frame(TF_LCD128x64 *lcd_128x64, bool force_complete_redraw) {
+    if (lcd_128x64 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(lcd_128x64->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -764,6 +794,9 @@ int tf_lcd_128x64_draw_buffered_frame(TF_LCD128x64 *lcd_128x64, bool force_compl
 }
 
 int tf_lcd_128x64_get_touch_position(TF_LCD128x64 *lcd_128x64, uint16_t *ret_pressure, uint16_t *ret_x, uint16_t *ret_y, uint32_t *ret_age) {
+    if (lcd_128x64 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(lcd_128x64->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -799,6 +832,9 @@ int tf_lcd_128x64_get_touch_position(TF_LCD128x64 *lcd_128x64, uint16_t *ret_pre
 }
 
 int tf_lcd_128x64_set_touch_position_callback_configuration(TF_LCD128x64 *lcd_128x64, uint32_t period, bool value_has_to_change) {
+    if (lcd_128x64 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(lcd_128x64->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -832,6 +868,9 @@ int tf_lcd_128x64_set_touch_position_callback_configuration(TF_LCD128x64 *lcd_12
 }
 
 int tf_lcd_128x64_get_touch_position_callback_configuration(TF_LCD128x64 *lcd_128x64, uint32_t *ret_period, bool *ret_value_has_to_change) {
+    if (lcd_128x64 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(lcd_128x64->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -865,6 +904,9 @@ int tf_lcd_128x64_get_touch_position_callback_configuration(TF_LCD128x64 *lcd_12
 }
 
 int tf_lcd_128x64_get_touch_gesture(TF_LCD128x64 *lcd_128x64, uint8_t *ret_gesture, uint32_t *ret_duration, uint16_t *ret_pressure_max, uint16_t *ret_x_start, uint16_t *ret_y_start, uint16_t *ret_x_end, uint16_t *ret_y_end, uint32_t *ret_age) {
+    if (lcd_128x64 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(lcd_128x64->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -904,6 +946,9 @@ int tf_lcd_128x64_get_touch_gesture(TF_LCD128x64 *lcd_128x64, uint8_t *ret_gestu
 }
 
 int tf_lcd_128x64_set_touch_gesture_callback_configuration(TF_LCD128x64 *lcd_128x64, uint32_t period, bool value_has_to_change) {
+    if (lcd_128x64 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(lcd_128x64->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -937,6 +982,9 @@ int tf_lcd_128x64_set_touch_gesture_callback_configuration(TF_LCD128x64 *lcd_128
 }
 
 int tf_lcd_128x64_get_touch_gesture_callback_configuration(TF_LCD128x64 *lcd_128x64, uint32_t *ret_period, bool *ret_value_has_to_change) {
+    if (lcd_128x64 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(lcd_128x64->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -970,6 +1018,9 @@ int tf_lcd_128x64_get_touch_gesture_callback_configuration(TF_LCD128x64 *lcd_128
 }
 
 int tf_lcd_128x64_draw_line(TF_LCD128x64 *lcd_128x64, uint8_t position_x_start, uint8_t position_y_start, uint8_t position_x_end, uint8_t position_y_end, bool color) {
+    if (lcd_128x64 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(lcd_128x64->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1006,6 +1057,9 @@ int tf_lcd_128x64_draw_line(TF_LCD128x64 *lcd_128x64, uint8_t position_x_start, 
 }
 
 int tf_lcd_128x64_draw_box(TF_LCD128x64 *lcd_128x64, uint8_t position_x_start, uint8_t position_y_start, uint8_t position_x_end, uint8_t position_y_end, bool fill, bool color) {
+    if (lcd_128x64 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(lcd_128x64->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1043,6 +1097,9 @@ int tf_lcd_128x64_draw_box(TF_LCD128x64 *lcd_128x64, uint8_t position_x_start, u
 }
 
 int tf_lcd_128x64_draw_text(TF_LCD128x64 *lcd_128x64, uint8_t position_x, uint8_t position_y, uint8_t font, bool color, const char text[22]) {
+    if (lcd_128x64 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(lcd_128x64->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1080,6 +1137,9 @@ int tf_lcd_128x64_draw_text(TF_LCD128x64 *lcd_128x64, uint8_t position_x, uint8_
 }
 
 int tf_lcd_128x64_set_gui_button(TF_LCD128x64 *lcd_128x64, uint8_t index, uint8_t position_x, uint8_t position_y, uint8_t width, uint8_t height, const char text[16]) {
+    if (lcd_128x64 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(lcd_128x64->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1118,6 +1178,9 @@ int tf_lcd_128x64_set_gui_button(TF_LCD128x64 *lcd_128x64, uint8_t index, uint8_
 }
 
 int tf_lcd_128x64_get_gui_button(TF_LCD128x64 *lcd_128x64, uint8_t index, bool *ret_active, uint8_t *ret_position_x, uint8_t *ret_position_y, uint8_t *ret_width, uint8_t *ret_height, char ret_text[16]) {
+    if (lcd_128x64 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(lcd_128x64->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1159,6 +1222,9 @@ int tf_lcd_128x64_get_gui_button(TF_LCD128x64 *lcd_128x64, uint8_t index, bool *
 }
 
 int tf_lcd_128x64_remove_gui_button(TF_LCD128x64 *lcd_128x64, uint8_t index) {
+    if (lcd_128x64 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(lcd_128x64->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1191,6 +1257,9 @@ int tf_lcd_128x64_remove_gui_button(TF_LCD128x64 *lcd_128x64, uint8_t index) {
 }
 
 int tf_lcd_128x64_set_gui_button_pressed_callback_configuration(TF_LCD128x64 *lcd_128x64, uint32_t period, bool value_has_to_change) {
+    if (lcd_128x64 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(lcd_128x64->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1224,6 +1293,9 @@ int tf_lcd_128x64_set_gui_button_pressed_callback_configuration(TF_LCD128x64 *lc
 }
 
 int tf_lcd_128x64_get_gui_button_pressed_callback_configuration(TF_LCD128x64 *lcd_128x64, uint32_t *ret_period, bool *ret_value_has_to_change) {
+    if (lcd_128x64 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(lcd_128x64->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1257,6 +1329,9 @@ int tf_lcd_128x64_get_gui_button_pressed_callback_configuration(TF_LCD128x64 *lc
 }
 
 int tf_lcd_128x64_get_gui_button_pressed(TF_LCD128x64 *lcd_128x64, uint8_t index, bool *ret_pressed) {
+    if (lcd_128x64 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(lcd_128x64->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1293,6 +1368,9 @@ int tf_lcd_128x64_get_gui_button_pressed(TF_LCD128x64 *lcd_128x64, uint8_t index
 }
 
 int tf_lcd_128x64_set_gui_slider(TF_LCD128x64 *lcd_128x64, uint8_t index, uint8_t position_x, uint8_t position_y, uint8_t length, uint8_t direction, uint8_t value) {
+    if (lcd_128x64 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(lcd_128x64->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1330,6 +1408,9 @@ int tf_lcd_128x64_set_gui_slider(TF_LCD128x64 *lcd_128x64, uint8_t index, uint8_
 }
 
 int tf_lcd_128x64_get_gui_slider(TF_LCD128x64 *lcd_128x64, uint8_t index, bool *ret_active, uint8_t *ret_position_x, uint8_t *ret_position_y, uint8_t *ret_length, uint8_t *ret_direction, uint8_t *ret_value) {
+    if (lcd_128x64 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(lcd_128x64->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1371,6 +1452,9 @@ int tf_lcd_128x64_get_gui_slider(TF_LCD128x64 *lcd_128x64, uint8_t index, bool *
 }
 
 int tf_lcd_128x64_remove_gui_slider(TF_LCD128x64 *lcd_128x64, uint8_t index) {
+    if (lcd_128x64 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(lcd_128x64->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1403,6 +1487,9 @@ int tf_lcd_128x64_remove_gui_slider(TF_LCD128x64 *lcd_128x64, uint8_t index) {
 }
 
 int tf_lcd_128x64_set_gui_slider_value_callback_configuration(TF_LCD128x64 *lcd_128x64, uint32_t period, bool value_has_to_change) {
+    if (lcd_128x64 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(lcd_128x64->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1436,6 +1523,9 @@ int tf_lcd_128x64_set_gui_slider_value_callback_configuration(TF_LCD128x64 *lcd_
 }
 
 int tf_lcd_128x64_get_gui_slider_value_callback_configuration(TF_LCD128x64 *lcd_128x64, uint32_t *ret_period, bool *ret_value_has_to_change) {
+    if (lcd_128x64 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(lcd_128x64->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1469,6 +1559,9 @@ int tf_lcd_128x64_get_gui_slider_value_callback_configuration(TF_LCD128x64 *lcd_
 }
 
 int tf_lcd_128x64_get_gui_slider_value(TF_LCD128x64 *lcd_128x64, uint8_t index, uint8_t *ret_value) {
+    if (lcd_128x64 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(lcd_128x64->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1505,6 +1598,9 @@ int tf_lcd_128x64_get_gui_slider_value(TF_LCD128x64 *lcd_128x64, uint8_t index, 
 }
 
 int tf_lcd_128x64_set_gui_tab_configuration(TF_LCD128x64 *lcd_128x64, uint8_t change_tab_config, bool clear_gui) {
+    if (lcd_128x64 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(lcd_128x64->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1538,6 +1634,9 @@ int tf_lcd_128x64_set_gui_tab_configuration(TF_LCD128x64 *lcd_128x64, uint8_t ch
 }
 
 int tf_lcd_128x64_get_gui_tab_configuration(TF_LCD128x64 *lcd_128x64, uint8_t *ret_change_tab_config, bool *ret_clear_gui) {
+    if (lcd_128x64 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(lcd_128x64->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1571,6 +1670,9 @@ int tf_lcd_128x64_get_gui_tab_configuration(TF_LCD128x64 *lcd_128x64, uint8_t *r
 }
 
 int tf_lcd_128x64_set_gui_tab_text(TF_LCD128x64 *lcd_128x64, uint8_t index, const char text[5]) {
+    if (lcd_128x64 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(lcd_128x64->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1605,6 +1707,9 @@ int tf_lcd_128x64_set_gui_tab_text(TF_LCD128x64 *lcd_128x64, uint8_t index, cons
 }
 
 int tf_lcd_128x64_get_gui_tab_text(TF_LCD128x64 *lcd_128x64, uint8_t index, bool *ret_active, char ret_text[5]) {
+    if (lcd_128x64 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(lcd_128x64->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1642,6 +1747,9 @@ int tf_lcd_128x64_get_gui_tab_text(TF_LCD128x64 *lcd_128x64, uint8_t index, bool
 }
 
 int tf_lcd_128x64_set_gui_tab_icon(TF_LCD128x64 *lcd_128x64, uint8_t index, bool icon[168]) {
+    if (lcd_128x64 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(lcd_128x64->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1676,6 +1784,9 @@ int tf_lcd_128x64_set_gui_tab_icon(TF_LCD128x64 *lcd_128x64, uint8_t index, bool
 }
 
 int tf_lcd_128x64_get_gui_tab_icon(TF_LCD128x64 *lcd_128x64, uint8_t index, bool *ret_active, bool ret_icon[168]) {
+    if (lcd_128x64 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(lcd_128x64->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1713,6 +1824,9 @@ int tf_lcd_128x64_get_gui_tab_icon(TF_LCD128x64 *lcd_128x64, uint8_t index, bool
 }
 
 int tf_lcd_128x64_remove_gui_tab(TF_LCD128x64 *lcd_128x64, uint8_t index) {
+    if (lcd_128x64 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(lcd_128x64->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1745,6 +1859,9 @@ int tf_lcd_128x64_remove_gui_tab(TF_LCD128x64 *lcd_128x64, uint8_t index) {
 }
 
 int tf_lcd_128x64_set_gui_tab_selected(TF_LCD128x64 *lcd_128x64, uint8_t index) {
+    if (lcd_128x64 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(lcd_128x64->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1777,6 +1894,9 @@ int tf_lcd_128x64_set_gui_tab_selected(TF_LCD128x64 *lcd_128x64, uint8_t index) 
 }
 
 int tf_lcd_128x64_set_gui_tab_selected_callback_configuration(TF_LCD128x64 *lcd_128x64, uint32_t period, bool value_has_to_change) {
+    if (lcd_128x64 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(lcd_128x64->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1810,6 +1930,9 @@ int tf_lcd_128x64_set_gui_tab_selected_callback_configuration(TF_LCD128x64 *lcd_
 }
 
 int tf_lcd_128x64_get_gui_tab_selected_callback_configuration(TF_LCD128x64 *lcd_128x64, uint32_t *ret_period, bool *ret_value_has_to_change) {
+    if (lcd_128x64 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(lcd_128x64->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1843,6 +1966,9 @@ int tf_lcd_128x64_get_gui_tab_selected_callback_configuration(TF_LCD128x64 *lcd_
 }
 
 int tf_lcd_128x64_get_gui_tab_selected(TF_LCD128x64 *lcd_128x64, int8_t *ret_index) {
+    if (lcd_128x64 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(lcd_128x64->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1875,6 +2001,9 @@ int tf_lcd_128x64_get_gui_tab_selected(TF_LCD128x64 *lcd_128x64, int8_t *ret_ind
 }
 
 int tf_lcd_128x64_set_gui_graph_configuration(TF_LCD128x64 *lcd_128x64, uint8_t index, uint8_t graph_type, uint8_t position_x, uint8_t position_y, uint8_t width, uint8_t height, const char text_x[4], const char text_y[4]) {
+    if (lcd_128x64 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(lcd_128x64->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1916,6 +2045,9 @@ int tf_lcd_128x64_set_gui_graph_configuration(TF_LCD128x64 *lcd_128x64, uint8_t 
 }
 
 int tf_lcd_128x64_get_gui_graph_configuration(TF_LCD128x64 *lcd_128x64, uint8_t index, bool *ret_active, uint8_t *ret_graph_type, uint8_t *ret_position_x, uint8_t *ret_position_y, uint8_t *ret_width, uint8_t *ret_height, char ret_text_x[4], char ret_text_y[4]) {
+    if (lcd_128x64 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(lcd_128x64->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1959,6 +2091,9 @@ int tf_lcd_128x64_get_gui_graph_configuration(TF_LCD128x64 *lcd_128x64, uint8_t 
 }
 
 int tf_lcd_128x64_set_gui_graph_data_low_level(TF_LCD128x64 *lcd_128x64, uint8_t index, uint16_t data_length, uint16_t data_chunk_offset, uint8_t data_chunk_data[59]) {
+    if (lcd_128x64 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(lcd_128x64->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1994,6 +2129,9 @@ int tf_lcd_128x64_set_gui_graph_data_low_level(TF_LCD128x64 *lcd_128x64, uint8_t
 }
 
 int tf_lcd_128x64_get_gui_graph_data_low_level(TF_LCD128x64 *lcd_128x64, uint8_t index, uint16_t *ret_data_length, uint16_t *ret_data_chunk_offset, uint8_t ret_data_chunk_data[59]) {
+    if (lcd_128x64 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(lcd_128x64->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -2033,6 +2171,9 @@ int tf_lcd_128x64_get_gui_graph_data_low_level(TF_LCD128x64 *lcd_128x64, uint8_t
 }
 
 int tf_lcd_128x64_remove_gui_graph(TF_LCD128x64 *lcd_128x64, uint8_t index) {
+    if (lcd_128x64 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(lcd_128x64->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -2065,6 +2206,9 @@ int tf_lcd_128x64_remove_gui_graph(TF_LCD128x64 *lcd_128x64, uint8_t index) {
 }
 
 int tf_lcd_128x64_remove_all_gui(TF_LCD128x64 *lcd_128x64) {
+    if (lcd_128x64 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(lcd_128x64->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -2093,6 +2237,9 @@ int tf_lcd_128x64_remove_all_gui(TF_LCD128x64 *lcd_128x64) {
 }
 
 int tf_lcd_128x64_set_touch_led_config(TF_LCD128x64 *lcd_128x64, uint8_t config) {
+    if (lcd_128x64 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(lcd_128x64->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -2125,6 +2272,9 @@ int tf_lcd_128x64_set_touch_led_config(TF_LCD128x64 *lcd_128x64, uint8_t config)
 }
 
 int tf_lcd_128x64_get_touch_led_config(TF_LCD128x64 *lcd_128x64, uint8_t *ret_config) {
+    if (lcd_128x64 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(lcd_128x64->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -2157,6 +2307,9 @@ int tf_lcd_128x64_get_touch_led_config(TF_LCD128x64 *lcd_128x64, uint8_t *ret_co
 }
 
 int tf_lcd_128x64_get_spitfp_error_count(TF_LCD128x64 *lcd_128x64, uint32_t *ret_error_count_ack_checksum, uint32_t *ret_error_count_message_checksum, uint32_t *ret_error_count_frame, uint32_t *ret_error_count_overflow) {
+    if (lcd_128x64 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(lcd_128x64->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -2192,6 +2345,9 @@ int tf_lcd_128x64_get_spitfp_error_count(TF_LCD128x64 *lcd_128x64, uint32_t *ret
 }
 
 int tf_lcd_128x64_set_bootloader_mode(TF_LCD128x64 *lcd_128x64, uint8_t mode, uint8_t *ret_status) {
+    if (lcd_128x64 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(lcd_128x64->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -2228,6 +2384,9 @@ int tf_lcd_128x64_set_bootloader_mode(TF_LCD128x64 *lcd_128x64, uint8_t mode, ui
 }
 
 int tf_lcd_128x64_get_bootloader_mode(TF_LCD128x64 *lcd_128x64, uint8_t *ret_mode) {
+    if (lcd_128x64 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(lcd_128x64->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -2260,6 +2419,9 @@ int tf_lcd_128x64_get_bootloader_mode(TF_LCD128x64 *lcd_128x64, uint8_t *ret_mod
 }
 
 int tf_lcd_128x64_set_write_firmware_pointer(TF_LCD128x64 *lcd_128x64, uint32_t pointer) {
+    if (lcd_128x64 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(lcd_128x64->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -2292,6 +2454,9 @@ int tf_lcd_128x64_set_write_firmware_pointer(TF_LCD128x64 *lcd_128x64, uint32_t 
 }
 
 int tf_lcd_128x64_write_firmware(TF_LCD128x64 *lcd_128x64, uint8_t data[64], uint8_t *ret_status) {
+    if (lcd_128x64 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(lcd_128x64->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -2328,6 +2493,9 @@ int tf_lcd_128x64_write_firmware(TF_LCD128x64 *lcd_128x64, uint8_t data[64], uin
 }
 
 int tf_lcd_128x64_set_status_led_config(TF_LCD128x64 *lcd_128x64, uint8_t config) {
+    if (lcd_128x64 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(lcd_128x64->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -2360,6 +2528,9 @@ int tf_lcd_128x64_set_status_led_config(TF_LCD128x64 *lcd_128x64, uint8_t config
 }
 
 int tf_lcd_128x64_get_status_led_config(TF_LCD128x64 *lcd_128x64, uint8_t *ret_config) {
+    if (lcd_128x64 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(lcd_128x64->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -2392,6 +2563,9 @@ int tf_lcd_128x64_get_status_led_config(TF_LCD128x64 *lcd_128x64, uint8_t *ret_c
 }
 
 int tf_lcd_128x64_get_chip_temperature(TF_LCD128x64 *lcd_128x64, int16_t *ret_temperature) {
+    if (lcd_128x64 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(lcd_128x64->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -2424,6 +2598,9 @@ int tf_lcd_128x64_get_chip_temperature(TF_LCD128x64 *lcd_128x64, int16_t *ret_te
 }
 
 int tf_lcd_128x64_reset(TF_LCD128x64 *lcd_128x64) {
+    if (lcd_128x64 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(lcd_128x64->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -2452,6 +2629,9 @@ int tf_lcd_128x64_reset(TF_LCD128x64 *lcd_128x64) {
 }
 
 int tf_lcd_128x64_write_uid(TF_LCD128x64 *lcd_128x64, uint32_t uid) {
+    if (lcd_128x64 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(lcd_128x64->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -2484,6 +2664,9 @@ int tf_lcd_128x64_write_uid(TF_LCD128x64 *lcd_128x64, uint32_t uid) {
 }
 
 int tf_lcd_128x64_read_uid(TF_LCD128x64 *lcd_128x64, uint32_t *ret_uid) {
+    if (lcd_128x64 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(lcd_128x64->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -2516,6 +2699,9 @@ int tf_lcd_128x64_read_uid(TF_LCD128x64 *lcd_128x64, uint32_t *ret_uid) {
 }
 
 int tf_lcd_128x64_get_identity(TF_LCD128x64 *lcd_128x64, char ret_uid[8], char ret_connected_uid[8], char *ret_position, uint8_t ret_hardware_version[3], uint8_t ret_firmware_version[3], uint16_t *ret_device_identifier) {
+    if (lcd_128x64 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(lcd_128x64->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -2561,6 +2747,9 @@ int tf_lcd_128x64_get_identity(TF_LCD128x64 *lcd_128x64, char ret_uid[8], char r
 }
 
 int tf_lcd_128x64_write_pixels(TF_LCD128x64 *lcd_128x64, uint8_t x_start, uint8_t y_start, uint8_t x_end, uint8_t y_end, bool *pixels, uint16_t pixels_length) {
+    if (lcd_128x64 == NULL)
+        return TF_E_NULL;
+
     int ret = TF_E_OK;
     uint16_t pixels_chunk_offset = 0;
     bool pixels_chunk_data[448];
@@ -2597,6 +2786,9 @@ int tf_lcd_128x64_write_pixels(TF_LCD128x64 *lcd_128x64, uint8_t x_start, uint8_
 }
 
 int tf_lcd_128x64_read_pixels(TF_LCD128x64 *lcd_128x64, uint8_t x_start, uint8_t y_start, uint8_t x_end, uint8_t y_end, bool *ret_pixels, uint16_t *ret_pixels_length) {
+    if (lcd_128x64 == NULL)
+        return TF_E_NULL;
+
     int ret = TF_E_OK;
     uint16_t pixels_length = 0;
     uint16_t pixels_chunk_offset = 0;
@@ -2667,6 +2859,9 @@ int tf_lcd_128x64_read_pixels(TF_LCD128x64 *lcd_128x64, uint8_t x_start, uint8_t
 }
 
 int tf_lcd_128x64_set_gui_graph_data(TF_LCD128x64 *lcd_128x64, uint8_t index, uint8_t *data, uint16_t data_length) {
+    if (lcd_128x64 == NULL)
+        return TF_E_NULL;
+
     int ret = TF_E_OK;
     uint16_t data_chunk_offset = 0;
     uint8_t data_chunk_data[59];
@@ -2703,6 +2898,9 @@ int tf_lcd_128x64_set_gui_graph_data(TF_LCD128x64 *lcd_128x64, uint8_t index, ui
 }
 
 int tf_lcd_128x64_get_gui_graph_data(TF_LCD128x64 *lcd_128x64, uint8_t index, uint8_t *ret_data, uint16_t *ret_data_length) {
+    if (lcd_128x64 == NULL)
+        return TF_E_NULL;
+
     int ret = TF_E_OK;
     uint16_t data_length = 0;
     uint16_t data_chunk_offset = 0;
@@ -2772,7 +2970,10 @@ int tf_lcd_128x64_get_gui_graph_data(TF_LCD128x64 *lcd_128x64, uint8_t index, ui
     return ret;
 }
 #ifdef TF_IMPLEMENT_CALLBACKS
-void tf_lcd_128x64_register_touch_position_callback(TF_LCD128x64 *lcd_128x64, TF_LCD128x64TouchPositionHandler handler, void *user_data) {
+int tf_lcd_128x64_register_touch_position_callback(TF_LCD128x64 *lcd_128x64, TF_LCD128x64TouchPositionHandler handler, void *user_data) {
+    if (lcd_128x64 == NULL)
+        return TF_E_NULL;
+
     if (handler == NULL) {
         lcd_128x64->tfp->needs_callback_tick = false;
         lcd_128x64->tfp->needs_callback_tick |= lcd_128x64->touch_gesture_handler != NULL;
@@ -2784,10 +2985,14 @@ void tf_lcd_128x64_register_touch_position_callback(TF_LCD128x64 *lcd_128x64, TF
     }
     lcd_128x64->touch_position_handler = handler;
     lcd_128x64->touch_position_user_data = user_data;
+    return TF_E_OK;
 }
 
 
-void tf_lcd_128x64_register_touch_gesture_callback(TF_LCD128x64 *lcd_128x64, TF_LCD128x64TouchGestureHandler handler, void *user_data) {
+int tf_lcd_128x64_register_touch_gesture_callback(TF_LCD128x64 *lcd_128x64, TF_LCD128x64TouchGestureHandler handler, void *user_data) {
+    if (lcd_128x64 == NULL)
+        return TF_E_NULL;
+
     if (handler == NULL) {
         lcd_128x64->tfp->needs_callback_tick = false;
         lcd_128x64->tfp->needs_callback_tick |= lcd_128x64->touch_position_handler != NULL;
@@ -2799,10 +3004,14 @@ void tf_lcd_128x64_register_touch_gesture_callback(TF_LCD128x64 *lcd_128x64, TF_
     }
     lcd_128x64->touch_gesture_handler = handler;
     lcd_128x64->touch_gesture_user_data = user_data;
+    return TF_E_OK;
 }
 
 
-void tf_lcd_128x64_register_gui_button_pressed_callback(TF_LCD128x64 *lcd_128x64, TF_LCD128x64GUIButtonPressedHandler handler, void *user_data) {
+int tf_lcd_128x64_register_gui_button_pressed_callback(TF_LCD128x64 *lcd_128x64, TF_LCD128x64GUIButtonPressedHandler handler, void *user_data) {
+    if (lcd_128x64 == NULL)
+        return TF_E_NULL;
+
     if (handler == NULL) {
         lcd_128x64->tfp->needs_callback_tick = false;
         lcd_128x64->tfp->needs_callback_tick |= lcd_128x64->touch_position_handler != NULL;
@@ -2814,10 +3023,14 @@ void tf_lcd_128x64_register_gui_button_pressed_callback(TF_LCD128x64 *lcd_128x64
     }
     lcd_128x64->gui_button_pressed_handler = handler;
     lcd_128x64->gui_button_pressed_user_data = user_data;
+    return TF_E_OK;
 }
 
 
-void tf_lcd_128x64_register_gui_slider_value_callback(TF_LCD128x64 *lcd_128x64, TF_LCD128x64GUISliderValueHandler handler, void *user_data) {
+int tf_lcd_128x64_register_gui_slider_value_callback(TF_LCD128x64 *lcd_128x64, TF_LCD128x64GUISliderValueHandler handler, void *user_data) {
+    if (lcd_128x64 == NULL)
+        return TF_E_NULL;
+
     if (handler == NULL) {
         lcd_128x64->tfp->needs_callback_tick = false;
         lcd_128x64->tfp->needs_callback_tick |= lcd_128x64->touch_position_handler != NULL;
@@ -2829,10 +3042,14 @@ void tf_lcd_128x64_register_gui_slider_value_callback(TF_LCD128x64 *lcd_128x64, 
     }
     lcd_128x64->gui_slider_value_handler = handler;
     lcd_128x64->gui_slider_value_user_data = user_data;
+    return TF_E_OK;
 }
 
 
-void tf_lcd_128x64_register_gui_tab_selected_callback(TF_LCD128x64 *lcd_128x64, TF_LCD128x64GUITabSelectedHandler handler, void *user_data) {
+int tf_lcd_128x64_register_gui_tab_selected_callback(TF_LCD128x64 *lcd_128x64, TF_LCD128x64GUITabSelectedHandler handler, void *user_data) {
+    if (lcd_128x64 == NULL)
+        return TF_E_NULL;
+
     if (handler == NULL) {
         lcd_128x64->tfp->needs_callback_tick = false;
         lcd_128x64->tfp->needs_callback_tick |= lcd_128x64->touch_position_handler != NULL;
@@ -2844,9 +3061,13 @@ void tf_lcd_128x64_register_gui_tab_selected_callback(TF_LCD128x64 *lcd_128x64, 
     }
     lcd_128x64->gui_tab_selected_handler = handler;
     lcd_128x64->gui_tab_selected_user_data = user_data;
+    return TF_E_OK;
 }
 #endif
 int tf_lcd_128x64_callback_tick(TF_LCD128x64 *lcd_128x64, uint32_t timeout_us) {
+    if (lcd_128x64 == NULL)
+        return TF_E_NULL;
+
     return tf_tfp_callback_tick(lcd_128x64->tfp, tf_hal_current_time_us(lcd_128x64->tfp->hal) + timeout_us);
 }
 

@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-02-08.      *
+ * This file was automatically generated on 2021-10-04.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -410,7 +410,7 @@ TF_ATTRIBUTE_NONNULL_ALL void tf_thermal_imaging_set_response_expected_all(TF_Th
  * Each 8-bit value represents one gray-scale image pixel that can directly be
  * shown to a user on a display.
  */
-TF_ATTRIBUTE_NONNULL(1) void tf_thermal_imaging_register_high_contrast_image_low_level_callback(TF_ThermalImaging *thermal_imaging, TF_ThermalImagingHighContrastImageLowLevelHandler handler, void *user_data);
+TF_ATTRIBUTE_NONNULL(1) int tf_thermal_imaging_register_high_contrast_image_low_level_callback(TF_ThermalImaging *thermal_imaging, TF_ThermalImagingHighContrastImageLowLevelHandler handler, void *user_data);
 
 
 /**
@@ -431,7 +431,7 @@ TF_ATTRIBUTE_NONNULL(1) void tf_thermal_imaging_register_high_contrast_image_low
  * Each 16-bit value represents one temperature measurement in either
  * Kelvin/10 or Kelvin/100 (depending on the resolution set with {@link tf_thermal_imaging_set_resolution}).
  */
-TF_ATTRIBUTE_NONNULL(1) void tf_thermal_imaging_register_temperature_image_low_level_callback(TF_ThermalImaging *thermal_imaging, TF_ThermalImagingTemperatureImageLowLevelHandler handler, void *user_data);
+TF_ATTRIBUTE_NONNULL(1) int tf_thermal_imaging_register_temperature_image_low_level_callback(TF_ThermalImaging *thermal_imaging, TF_ThermalImagingTemperatureImageLowLevelHandler handler, void *user_data);
 #endif
 #ifdef TF_IMPLEMENT_CALLBACKS
 /**

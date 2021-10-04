@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-02-08.      *
+ * This file was automatically generated on 2021-10-04.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -83,6 +83,9 @@ static bool tf_real_time_clock_v2_callback_handler(void *dev, uint8_t fid, TF_Pa
 }
 #endif
 int tf_real_time_clock_v2_create(TF_RealTimeClockV2 *real_time_clock_v2, const char *uid, TF_HalContext *hal) {
+    if (real_time_clock_v2 == NULL || uid == NULL || hal == NULL)
+        return TF_E_NULL;
+
     memset(real_time_clock_v2, 0, sizeof(TF_RealTimeClockV2));
 
     uint32_t numeric_uid;
@@ -111,12 +114,18 @@ int tf_real_time_clock_v2_create(TF_RealTimeClockV2 *real_time_clock_v2, const c
 }
 
 int tf_real_time_clock_v2_destroy(TF_RealTimeClockV2 *real_time_clock_v2) {
+    if (real_time_clock_v2 == NULL)
+        return TF_E_NULL;
+
     int result = tf_tfp_destroy(real_time_clock_v2->tfp);
     real_time_clock_v2->tfp = NULL;
     return result;
 }
 
 int tf_real_time_clock_v2_get_response_expected(TF_RealTimeClockV2 *real_time_clock_v2, uint8_t function_id, bool *ret_response_expected) {
+    if (real_time_clock_v2 == NULL)
+        return TF_E_NULL;
+
     switch(function_id) {
         case TF_REAL_TIME_CLOCK_V2_FUNCTION_SET_DATE_TIME:
             if(ret_response_expected != NULL)
@@ -225,6 +234,9 @@ void tf_real_time_clock_v2_set_response_expected_all(TF_RealTimeClockV2 *real_ti
 }
 
 int tf_real_time_clock_v2_set_date_time(TF_RealTimeClockV2 *real_time_clock_v2, uint16_t year, uint8_t month, uint8_t day, uint8_t hour, uint8_t minute, uint8_t second, uint8_t centisecond, uint8_t weekday) {
+    if (real_time_clock_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(real_time_clock_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -264,6 +276,9 @@ int tf_real_time_clock_v2_set_date_time(TF_RealTimeClockV2 *real_time_clock_v2, 
 }
 
 int tf_real_time_clock_v2_get_date_time(TF_RealTimeClockV2 *real_time_clock_v2, uint16_t *ret_year, uint8_t *ret_month, uint8_t *ret_day, uint8_t *ret_hour, uint8_t *ret_minute, uint8_t *ret_second, uint8_t *ret_centisecond, uint8_t *ret_weekday, int64_t *ret_timestamp) {
+    if (real_time_clock_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(real_time_clock_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -304,6 +319,9 @@ int tf_real_time_clock_v2_get_date_time(TF_RealTimeClockV2 *real_time_clock_v2, 
 }
 
 int tf_real_time_clock_v2_get_timestamp(TF_RealTimeClockV2 *real_time_clock_v2, int64_t *ret_timestamp) {
+    if (real_time_clock_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(real_time_clock_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -336,6 +354,9 @@ int tf_real_time_clock_v2_get_timestamp(TF_RealTimeClockV2 *real_time_clock_v2, 
 }
 
 int tf_real_time_clock_v2_set_offset(TF_RealTimeClockV2 *real_time_clock_v2, int8_t offset) {
+    if (real_time_clock_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(real_time_clock_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -368,6 +389,9 @@ int tf_real_time_clock_v2_set_offset(TF_RealTimeClockV2 *real_time_clock_v2, int
 }
 
 int tf_real_time_clock_v2_get_offset(TF_RealTimeClockV2 *real_time_clock_v2, int8_t *ret_offset) {
+    if (real_time_clock_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(real_time_clock_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -400,6 +424,9 @@ int tf_real_time_clock_v2_get_offset(TF_RealTimeClockV2 *real_time_clock_v2, int
 }
 
 int tf_real_time_clock_v2_set_date_time_callback_configuration(TF_RealTimeClockV2 *real_time_clock_v2, uint32_t period) {
+    if (real_time_clock_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(real_time_clock_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -432,6 +459,9 @@ int tf_real_time_clock_v2_set_date_time_callback_configuration(TF_RealTimeClockV
 }
 
 int tf_real_time_clock_v2_get_date_time_callback_configuration(TF_RealTimeClockV2 *real_time_clock_v2, uint32_t *ret_period) {
+    if (real_time_clock_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(real_time_clock_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -464,6 +494,9 @@ int tf_real_time_clock_v2_get_date_time_callback_configuration(TF_RealTimeClockV
 }
 
 int tf_real_time_clock_v2_set_alarm(TF_RealTimeClockV2 *real_time_clock_v2, int8_t month, int8_t day, int8_t hour, int8_t minute, int8_t second, int8_t weekday, int32_t interval) {
+    if (real_time_clock_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(real_time_clock_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -502,6 +535,9 @@ int tf_real_time_clock_v2_set_alarm(TF_RealTimeClockV2 *real_time_clock_v2, int8
 }
 
 int tf_real_time_clock_v2_get_alarm(TF_RealTimeClockV2 *real_time_clock_v2, int8_t *ret_month, int8_t *ret_day, int8_t *ret_hour, int8_t *ret_minute, int8_t *ret_second, int8_t *ret_weekday, int32_t *ret_interval) {
+    if (real_time_clock_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(real_time_clock_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -540,6 +576,9 @@ int tf_real_time_clock_v2_get_alarm(TF_RealTimeClockV2 *real_time_clock_v2, int8
 }
 
 int tf_real_time_clock_v2_get_spitfp_error_count(TF_RealTimeClockV2 *real_time_clock_v2, uint32_t *ret_error_count_ack_checksum, uint32_t *ret_error_count_message_checksum, uint32_t *ret_error_count_frame, uint32_t *ret_error_count_overflow) {
+    if (real_time_clock_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(real_time_clock_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -575,6 +614,9 @@ int tf_real_time_clock_v2_get_spitfp_error_count(TF_RealTimeClockV2 *real_time_c
 }
 
 int tf_real_time_clock_v2_set_bootloader_mode(TF_RealTimeClockV2 *real_time_clock_v2, uint8_t mode, uint8_t *ret_status) {
+    if (real_time_clock_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(real_time_clock_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -611,6 +653,9 @@ int tf_real_time_clock_v2_set_bootloader_mode(TF_RealTimeClockV2 *real_time_cloc
 }
 
 int tf_real_time_clock_v2_get_bootloader_mode(TF_RealTimeClockV2 *real_time_clock_v2, uint8_t *ret_mode) {
+    if (real_time_clock_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(real_time_clock_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -643,6 +688,9 @@ int tf_real_time_clock_v2_get_bootloader_mode(TF_RealTimeClockV2 *real_time_cloc
 }
 
 int tf_real_time_clock_v2_set_write_firmware_pointer(TF_RealTimeClockV2 *real_time_clock_v2, uint32_t pointer) {
+    if (real_time_clock_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(real_time_clock_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -675,6 +723,9 @@ int tf_real_time_clock_v2_set_write_firmware_pointer(TF_RealTimeClockV2 *real_ti
 }
 
 int tf_real_time_clock_v2_write_firmware(TF_RealTimeClockV2 *real_time_clock_v2, uint8_t data[64], uint8_t *ret_status) {
+    if (real_time_clock_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(real_time_clock_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -711,6 +762,9 @@ int tf_real_time_clock_v2_write_firmware(TF_RealTimeClockV2 *real_time_clock_v2,
 }
 
 int tf_real_time_clock_v2_set_status_led_config(TF_RealTimeClockV2 *real_time_clock_v2, uint8_t config) {
+    if (real_time_clock_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(real_time_clock_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -743,6 +797,9 @@ int tf_real_time_clock_v2_set_status_led_config(TF_RealTimeClockV2 *real_time_cl
 }
 
 int tf_real_time_clock_v2_get_status_led_config(TF_RealTimeClockV2 *real_time_clock_v2, uint8_t *ret_config) {
+    if (real_time_clock_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(real_time_clock_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -775,6 +832,9 @@ int tf_real_time_clock_v2_get_status_led_config(TF_RealTimeClockV2 *real_time_cl
 }
 
 int tf_real_time_clock_v2_get_chip_temperature(TF_RealTimeClockV2 *real_time_clock_v2, int16_t *ret_temperature) {
+    if (real_time_clock_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(real_time_clock_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -807,6 +867,9 @@ int tf_real_time_clock_v2_get_chip_temperature(TF_RealTimeClockV2 *real_time_clo
 }
 
 int tf_real_time_clock_v2_reset(TF_RealTimeClockV2 *real_time_clock_v2) {
+    if (real_time_clock_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(real_time_clock_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -835,6 +898,9 @@ int tf_real_time_clock_v2_reset(TF_RealTimeClockV2 *real_time_clock_v2) {
 }
 
 int tf_real_time_clock_v2_write_uid(TF_RealTimeClockV2 *real_time_clock_v2, uint32_t uid) {
+    if (real_time_clock_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(real_time_clock_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -867,6 +933,9 @@ int tf_real_time_clock_v2_write_uid(TF_RealTimeClockV2 *real_time_clock_v2, uint
 }
 
 int tf_real_time_clock_v2_read_uid(TF_RealTimeClockV2 *real_time_clock_v2, uint32_t *ret_uid) {
+    if (real_time_clock_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(real_time_clock_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -899,6 +968,9 @@ int tf_real_time_clock_v2_read_uid(TF_RealTimeClockV2 *real_time_clock_v2, uint3
 }
 
 int tf_real_time_clock_v2_get_identity(TF_RealTimeClockV2 *real_time_clock_v2, char ret_uid[8], char ret_connected_uid[8], char *ret_position, uint8_t ret_hardware_version[3], uint8_t ret_firmware_version[3], uint16_t *ret_device_identifier) {
+    if (real_time_clock_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(real_time_clock_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -943,7 +1015,10 @@ int tf_real_time_clock_v2_get_identity(TF_RealTimeClockV2 *real_time_clock_v2, c
     return tf_tfp_get_error(error_code);
 }
 #ifdef TF_IMPLEMENT_CALLBACKS
-void tf_real_time_clock_v2_register_date_time_callback(TF_RealTimeClockV2 *real_time_clock_v2, TF_RealTimeClockV2DateTimeHandler handler, void *user_data) {
+int tf_real_time_clock_v2_register_date_time_callback(TF_RealTimeClockV2 *real_time_clock_v2, TF_RealTimeClockV2DateTimeHandler handler, void *user_data) {
+    if (real_time_clock_v2 == NULL)
+        return TF_E_NULL;
+
     if (handler == NULL) {
         real_time_clock_v2->tfp->needs_callback_tick = false;
         real_time_clock_v2->tfp->needs_callback_tick |= real_time_clock_v2->alarm_handler != NULL;
@@ -952,10 +1027,14 @@ void tf_real_time_clock_v2_register_date_time_callback(TF_RealTimeClockV2 *real_
     }
     real_time_clock_v2->date_time_handler = handler;
     real_time_clock_v2->date_time_user_data = user_data;
+    return TF_E_OK;
 }
 
 
-void tf_real_time_clock_v2_register_alarm_callback(TF_RealTimeClockV2 *real_time_clock_v2, TF_RealTimeClockV2AlarmHandler handler, void *user_data) {
+int tf_real_time_clock_v2_register_alarm_callback(TF_RealTimeClockV2 *real_time_clock_v2, TF_RealTimeClockV2AlarmHandler handler, void *user_data) {
+    if (real_time_clock_v2 == NULL)
+        return TF_E_NULL;
+
     if (handler == NULL) {
         real_time_clock_v2->tfp->needs_callback_tick = false;
         real_time_clock_v2->tfp->needs_callback_tick |= real_time_clock_v2->date_time_handler != NULL;
@@ -964,9 +1043,13 @@ void tf_real_time_clock_v2_register_alarm_callback(TF_RealTimeClockV2 *real_time
     }
     real_time_clock_v2->alarm_handler = handler;
     real_time_clock_v2->alarm_user_data = user_data;
+    return TF_E_OK;
 }
 #endif
 int tf_real_time_clock_v2_callback_tick(TF_RealTimeClockV2 *real_time_clock_v2, uint32_t timeout_us) {
+    if (real_time_clock_v2 == NULL)
+        return TF_E_NULL;
+
     return tf_tfp_callback_tick(real_time_clock_v2->tfp, tf_hal_current_time_us(real_time_clock_v2->tfp->hal) + timeout_us);
 }
 

@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-02-08.      *
+ * This file was automatically generated on 2021-10-04.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -85,6 +85,9 @@ static bool tf_io4_v2_callback_handler(void *dev, uint8_t fid, TF_Packetbuffer *
 }
 #endif
 int tf_io4_v2_create(TF_IO4V2 *io4_v2, const char *uid, TF_HalContext *hal) {
+    if (io4_v2 == NULL || uid == NULL || hal == NULL)
+        return TF_E_NULL;
+
     memset(io4_v2, 0, sizeof(TF_IO4V2));
 
     uint32_t numeric_uid;
@@ -114,12 +117,18 @@ int tf_io4_v2_create(TF_IO4V2 *io4_v2, const char *uid, TF_HalContext *hal) {
 }
 
 int tf_io4_v2_destroy(TF_IO4V2 *io4_v2) {
+    if (io4_v2 == NULL)
+        return TF_E_NULL;
+
     int result = tf_tfp_destroy(io4_v2->tfp);
     io4_v2->tfp = NULL;
     return result;
 }
 
 int tf_io4_v2_get_response_expected(TF_IO4V2 *io4_v2, uint8_t function_id, bool *ret_response_expected) {
+    if (io4_v2 == NULL)
+        return TF_E_NULL;
+
     switch(function_id) {
         case TF_IO4_V2_FUNCTION_SET_VALUE:
             if(ret_response_expected != NULL)
@@ -272,6 +281,9 @@ void tf_io4_v2_set_response_expected_all(TF_IO4V2 *io4_v2, bool response_expecte
 }
 
 int tf_io4_v2_set_value(TF_IO4V2 *io4_v2, bool value[4]) {
+    if (io4_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(io4_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -305,6 +317,9 @@ int tf_io4_v2_set_value(TF_IO4V2 *io4_v2, bool value[4]) {
 }
 
 int tf_io4_v2_get_value(TF_IO4V2 *io4_v2, bool ret_value[4]) {
+    if (io4_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(io4_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -337,6 +352,9 @@ int tf_io4_v2_get_value(TF_IO4V2 *io4_v2, bool ret_value[4]) {
 }
 
 int tf_io4_v2_set_selected_value(TF_IO4V2 *io4_v2, uint8_t channel, bool value) {
+    if (io4_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(io4_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -370,6 +388,9 @@ int tf_io4_v2_set_selected_value(TF_IO4V2 *io4_v2, uint8_t channel, bool value) 
 }
 
 int tf_io4_v2_set_configuration(TF_IO4V2 *io4_v2, uint8_t channel, char direction, bool value) {
+    if (io4_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(io4_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -404,6 +425,9 @@ int tf_io4_v2_set_configuration(TF_IO4V2 *io4_v2, uint8_t channel, char directio
 }
 
 int tf_io4_v2_get_configuration(TF_IO4V2 *io4_v2, uint8_t channel, char *ret_direction, bool *ret_value) {
+    if (io4_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(io4_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -441,6 +465,9 @@ int tf_io4_v2_get_configuration(TF_IO4V2 *io4_v2, uint8_t channel, char *ret_dir
 }
 
 int tf_io4_v2_set_input_value_callback_configuration(TF_IO4V2 *io4_v2, uint8_t channel, uint32_t period, bool value_has_to_change) {
+    if (io4_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(io4_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -475,6 +502,9 @@ int tf_io4_v2_set_input_value_callback_configuration(TF_IO4V2 *io4_v2, uint8_t c
 }
 
 int tf_io4_v2_get_input_value_callback_configuration(TF_IO4V2 *io4_v2, uint8_t channel, uint32_t *ret_period, bool *ret_value_has_to_change) {
+    if (io4_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(io4_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -512,6 +542,9 @@ int tf_io4_v2_get_input_value_callback_configuration(TF_IO4V2 *io4_v2, uint8_t c
 }
 
 int tf_io4_v2_set_all_input_value_callback_configuration(TF_IO4V2 *io4_v2, uint32_t period, bool value_has_to_change) {
+    if (io4_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(io4_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -545,6 +578,9 @@ int tf_io4_v2_set_all_input_value_callback_configuration(TF_IO4V2 *io4_v2, uint3
 }
 
 int tf_io4_v2_get_all_input_value_callback_configuration(TF_IO4V2 *io4_v2, uint32_t *ret_period, bool *ret_value_has_to_change) {
+    if (io4_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(io4_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -578,6 +614,9 @@ int tf_io4_v2_get_all_input_value_callback_configuration(TF_IO4V2 *io4_v2, uint3
 }
 
 int tf_io4_v2_set_monoflop(TF_IO4V2 *io4_v2, uint8_t channel, bool value, uint32_t time) {
+    if (io4_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(io4_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -612,6 +651,9 @@ int tf_io4_v2_set_monoflop(TF_IO4V2 *io4_v2, uint8_t channel, bool value, uint32
 }
 
 int tf_io4_v2_get_monoflop(TF_IO4V2 *io4_v2, uint8_t channel, bool *ret_value, uint32_t *ret_time, uint32_t *ret_time_remaining) {
+    if (io4_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(io4_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -650,6 +692,9 @@ int tf_io4_v2_get_monoflop(TF_IO4V2 *io4_v2, uint8_t channel, bool *ret_value, u
 }
 
 int tf_io4_v2_get_edge_count(TF_IO4V2 *io4_v2, uint8_t channel, bool reset_counter, uint32_t *ret_count) {
+    if (io4_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(io4_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -687,6 +732,9 @@ int tf_io4_v2_get_edge_count(TF_IO4V2 *io4_v2, uint8_t channel, bool reset_count
 }
 
 int tf_io4_v2_set_edge_count_configuration(TF_IO4V2 *io4_v2, uint8_t channel, uint8_t edge_type, uint8_t debounce) {
+    if (io4_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(io4_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -721,6 +769,9 @@ int tf_io4_v2_set_edge_count_configuration(TF_IO4V2 *io4_v2, uint8_t channel, ui
 }
 
 int tf_io4_v2_get_edge_count_configuration(TF_IO4V2 *io4_v2, uint8_t channel, uint8_t *ret_edge_type, uint8_t *ret_debounce) {
+    if (io4_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(io4_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -758,6 +809,9 @@ int tf_io4_v2_get_edge_count_configuration(TF_IO4V2 *io4_v2, uint8_t channel, ui
 }
 
 int tf_io4_v2_set_pwm_configuration(TF_IO4V2 *io4_v2, uint8_t channel, uint32_t frequency, uint16_t duty_cycle) {
+    if (io4_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(io4_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -792,6 +846,9 @@ int tf_io4_v2_set_pwm_configuration(TF_IO4V2 *io4_v2, uint8_t channel, uint32_t 
 }
 
 int tf_io4_v2_get_pwm_configuration(TF_IO4V2 *io4_v2, uint8_t channel, uint32_t *ret_frequency, uint16_t *ret_duty_cycle) {
+    if (io4_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(io4_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -829,6 +886,9 @@ int tf_io4_v2_get_pwm_configuration(TF_IO4V2 *io4_v2, uint8_t channel, uint32_t 
 }
 
 int tf_io4_v2_get_spitfp_error_count(TF_IO4V2 *io4_v2, uint32_t *ret_error_count_ack_checksum, uint32_t *ret_error_count_message_checksum, uint32_t *ret_error_count_frame, uint32_t *ret_error_count_overflow) {
+    if (io4_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(io4_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -864,6 +924,9 @@ int tf_io4_v2_get_spitfp_error_count(TF_IO4V2 *io4_v2, uint32_t *ret_error_count
 }
 
 int tf_io4_v2_set_bootloader_mode(TF_IO4V2 *io4_v2, uint8_t mode, uint8_t *ret_status) {
+    if (io4_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(io4_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -900,6 +963,9 @@ int tf_io4_v2_set_bootloader_mode(TF_IO4V2 *io4_v2, uint8_t mode, uint8_t *ret_s
 }
 
 int tf_io4_v2_get_bootloader_mode(TF_IO4V2 *io4_v2, uint8_t *ret_mode) {
+    if (io4_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(io4_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -932,6 +998,9 @@ int tf_io4_v2_get_bootloader_mode(TF_IO4V2 *io4_v2, uint8_t *ret_mode) {
 }
 
 int tf_io4_v2_set_write_firmware_pointer(TF_IO4V2 *io4_v2, uint32_t pointer) {
+    if (io4_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(io4_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -964,6 +1033,9 @@ int tf_io4_v2_set_write_firmware_pointer(TF_IO4V2 *io4_v2, uint32_t pointer) {
 }
 
 int tf_io4_v2_write_firmware(TF_IO4V2 *io4_v2, uint8_t data[64], uint8_t *ret_status) {
+    if (io4_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(io4_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1000,6 +1072,9 @@ int tf_io4_v2_write_firmware(TF_IO4V2 *io4_v2, uint8_t data[64], uint8_t *ret_st
 }
 
 int tf_io4_v2_set_status_led_config(TF_IO4V2 *io4_v2, uint8_t config) {
+    if (io4_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(io4_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1032,6 +1107,9 @@ int tf_io4_v2_set_status_led_config(TF_IO4V2 *io4_v2, uint8_t config) {
 }
 
 int tf_io4_v2_get_status_led_config(TF_IO4V2 *io4_v2, uint8_t *ret_config) {
+    if (io4_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(io4_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1064,6 +1142,9 @@ int tf_io4_v2_get_status_led_config(TF_IO4V2 *io4_v2, uint8_t *ret_config) {
 }
 
 int tf_io4_v2_get_chip_temperature(TF_IO4V2 *io4_v2, int16_t *ret_temperature) {
+    if (io4_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(io4_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1096,6 +1177,9 @@ int tf_io4_v2_get_chip_temperature(TF_IO4V2 *io4_v2, int16_t *ret_temperature) {
 }
 
 int tf_io4_v2_reset(TF_IO4V2 *io4_v2) {
+    if (io4_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(io4_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1124,6 +1208,9 @@ int tf_io4_v2_reset(TF_IO4V2 *io4_v2) {
 }
 
 int tf_io4_v2_write_uid(TF_IO4V2 *io4_v2, uint32_t uid) {
+    if (io4_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(io4_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1156,6 +1243,9 @@ int tf_io4_v2_write_uid(TF_IO4V2 *io4_v2, uint32_t uid) {
 }
 
 int tf_io4_v2_read_uid(TF_IO4V2 *io4_v2, uint32_t *ret_uid) {
+    if (io4_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(io4_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1188,6 +1278,9 @@ int tf_io4_v2_read_uid(TF_IO4V2 *io4_v2, uint32_t *ret_uid) {
 }
 
 int tf_io4_v2_get_identity(TF_IO4V2 *io4_v2, char ret_uid[8], char ret_connected_uid[8], char *ret_position, uint8_t ret_hardware_version[3], uint8_t ret_firmware_version[3], uint16_t *ret_device_identifier) {
+    if (io4_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(io4_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1232,7 +1325,10 @@ int tf_io4_v2_get_identity(TF_IO4V2 *io4_v2, char ret_uid[8], char ret_connected
     return tf_tfp_get_error(error_code);
 }
 #ifdef TF_IMPLEMENT_CALLBACKS
-void tf_io4_v2_register_input_value_callback(TF_IO4V2 *io4_v2, TF_IO4V2InputValueHandler handler, void *user_data) {
+int tf_io4_v2_register_input_value_callback(TF_IO4V2 *io4_v2, TF_IO4V2InputValueHandler handler, void *user_data) {
+    if (io4_v2 == NULL)
+        return TF_E_NULL;
+
     if (handler == NULL) {
         io4_v2->tfp->needs_callback_tick = false;
         io4_v2->tfp->needs_callback_tick |= io4_v2->all_input_value_handler != NULL;
@@ -1242,10 +1338,14 @@ void tf_io4_v2_register_input_value_callback(TF_IO4V2 *io4_v2, TF_IO4V2InputValu
     }
     io4_v2->input_value_handler = handler;
     io4_v2->input_value_user_data = user_data;
+    return TF_E_OK;
 }
 
 
-void tf_io4_v2_register_all_input_value_callback(TF_IO4V2 *io4_v2, TF_IO4V2AllInputValueHandler handler, void *user_data) {
+int tf_io4_v2_register_all_input_value_callback(TF_IO4V2 *io4_v2, TF_IO4V2AllInputValueHandler handler, void *user_data) {
+    if (io4_v2 == NULL)
+        return TF_E_NULL;
+
     if (handler == NULL) {
         io4_v2->tfp->needs_callback_tick = false;
         io4_v2->tfp->needs_callback_tick |= io4_v2->input_value_handler != NULL;
@@ -1255,10 +1355,14 @@ void tf_io4_v2_register_all_input_value_callback(TF_IO4V2 *io4_v2, TF_IO4V2AllIn
     }
     io4_v2->all_input_value_handler = handler;
     io4_v2->all_input_value_user_data = user_data;
+    return TF_E_OK;
 }
 
 
-void tf_io4_v2_register_monoflop_done_callback(TF_IO4V2 *io4_v2, TF_IO4V2MonoflopDoneHandler handler, void *user_data) {
+int tf_io4_v2_register_monoflop_done_callback(TF_IO4V2 *io4_v2, TF_IO4V2MonoflopDoneHandler handler, void *user_data) {
+    if (io4_v2 == NULL)
+        return TF_E_NULL;
+
     if (handler == NULL) {
         io4_v2->tfp->needs_callback_tick = false;
         io4_v2->tfp->needs_callback_tick |= io4_v2->input_value_handler != NULL;
@@ -1268,9 +1372,13 @@ void tf_io4_v2_register_monoflop_done_callback(TF_IO4V2 *io4_v2, TF_IO4V2Monoflo
     }
     io4_v2->monoflop_done_handler = handler;
     io4_v2->monoflop_done_user_data = user_data;
+    return TF_E_OK;
 }
 #endif
 int tf_io4_v2_callback_tick(TF_IO4V2 *io4_v2, uint32_t timeout_us) {
+    if (io4_v2 == NULL)
+        return TF_E_NULL;
+
     return tf_tfp_callback_tick(io4_v2->tfp, tf_hal_current_time_us(io4_v2->tfp->hal) + timeout_us);
 }
 

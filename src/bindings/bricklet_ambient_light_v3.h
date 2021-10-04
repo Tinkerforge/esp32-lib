@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-02-08.      *
+ * This file was automatically generated on 2021-10-04.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -406,7 +406,7 @@ TF_ATTRIBUTE_NONNULL_ALL void tf_ambient_light_v3_set_response_expected_all(TF_A
  * 
  * The parameter is the same as {@link tf_ambient_light_v3_get_illuminance}.
  */
-TF_ATTRIBUTE_NONNULL(1) void tf_ambient_light_v3_register_illuminance_callback(TF_AmbientLightV3 *ambient_light_v3, TF_AmbientLightV3IlluminanceHandler handler, void *user_data);
+TF_ATTRIBUTE_NONNULL(1) int tf_ambient_light_v3_register_illuminance_callback(TF_AmbientLightV3 *ambient_light_v3, TF_AmbientLightV3IlluminanceHandler handler, void *user_data);
 #endif
 #ifdef TF_IMPLEMENT_CALLBACKS
 /**
@@ -427,8 +427,11 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_ambient_light_v3_callback_tick(TF_AmbientLightV3
  * The illuminance is given in lux/100, i.e. a value of 450000 means that an
  * illuminance of 4500lux is measured.
  * 
- * An illuminance of 0lux indicates that the sensor is saturated and the
- * configuration should be modified, see {@link tf_ambient_light_v3_set_configuration}.
+ * An illuminance of 0lux indicates an error condition where the sensor cannot
+ * perform a reasonable measurement. This can happen with very dim or very bright
+ * light conditions. In bright light conditions this might indicate that the sensor
+ * is saturated and the configuration should be modified ({@link tf_ambient_light_v3_set_configuration})
+ * to better match the conditions.
  * 
  * 
  * If you want to get the value periodically, it is recommended to use the

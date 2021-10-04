@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-02-08.      *
+ * This file was automatically generated on 2021-10-04.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -67,6 +67,9 @@ static bool tf_piezo_speaker_v2_callback_handler(void *dev, uint8_t fid, TF_Pack
 }
 #endif
 int tf_piezo_speaker_v2_create(TF_PiezoSpeakerV2 *piezo_speaker_v2, const char *uid, TF_HalContext *hal) {
+    if (piezo_speaker_v2 == NULL || uid == NULL || hal == NULL)
+        return TF_E_NULL;
+
     memset(piezo_speaker_v2, 0, sizeof(TF_PiezoSpeakerV2));
 
     uint32_t numeric_uid;
@@ -95,12 +98,18 @@ int tf_piezo_speaker_v2_create(TF_PiezoSpeakerV2 *piezo_speaker_v2, const char *
 }
 
 int tf_piezo_speaker_v2_destroy(TF_PiezoSpeakerV2 *piezo_speaker_v2) {
+    if (piezo_speaker_v2 == NULL)
+        return TF_E_NULL;
+
     int result = tf_tfp_destroy(piezo_speaker_v2->tfp);
     piezo_speaker_v2->tfp = NULL;
     return result;
 }
 
 int tf_piezo_speaker_v2_get_response_expected(TF_PiezoSpeakerV2 *piezo_speaker_v2, uint8_t function_id, bool *ret_response_expected) {
+    if (piezo_speaker_v2 == NULL)
+        return TF_E_NULL;
+
     switch(function_id) {
         case TF_PIEZO_SPEAKER_V2_FUNCTION_SET_BEEP:
             if(ret_response_expected != NULL)
@@ -209,6 +218,9 @@ void tf_piezo_speaker_v2_set_response_expected_all(TF_PiezoSpeakerV2 *piezo_spea
 }
 
 int tf_piezo_speaker_v2_set_beep(TF_PiezoSpeakerV2 *piezo_speaker_v2, uint16_t frequency, uint8_t volume, uint32_t duration) {
+    if (piezo_speaker_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(piezo_speaker_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -243,6 +255,9 @@ int tf_piezo_speaker_v2_set_beep(TF_PiezoSpeakerV2 *piezo_speaker_v2, uint16_t f
 }
 
 int tf_piezo_speaker_v2_get_beep(TF_PiezoSpeakerV2 *piezo_speaker_v2, uint16_t *ret_frequency, uint8_t *ret_volume, uint32_t *ret_duration, uint32_t *ret_duration_remaining) {
+    if (piezo_speaker_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(piezo_speaker_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -278,6 +293,9 @@ int tf_piezo_speaker_v2_get_beep(TF_PiezoSpeakerV2 *piezo_speaker_v2, uint16_t *
 }
 
 int tf_piezo_speaker_v2_set_alarm(TF_PiezoSpeakerV2 *piezo_speaker_v2, uint16_t start_frequency, uint16_t end_frequency, uint16_t step_size, uint16_t step_delay, uint8_t volume, uint32_t duration) {
+    if (piezo_speaker_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(piezo_speaker_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -315,6 +333,9 @@ int tf_piezo_speaker_v2_set_alarm(TF_PiezoSpeakerV2 *piezo_speaker_v2, uint16_t 
 }
 
 int tf_piezo_speaker_v2_get_alarm(TF_PiezoSpeakerV2 *piezo_speaker_v2, uint16_t *ret_start_frequency, uint16_t *ret_end_frequency, uint16_t *ret_step_size, uint16_t *ret_step_delay, uint8_t *ret_volume, uint32_t *ret_duration, uint32_t *ret_duration_remaining, uint16_t *ret_current_frequency) {
+    if (piezo_speaker_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(piezo_speaker_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -354,6 +375,9 @@ int tf_piezo_speaker_v2_get_alarm(TF_PiezoSpeakerV2 *piezo_speaker_v2, uint16_t 
 }
 
 int tf_piezo_speaker_v2_update_volume(TF_PiezoSpeakerV2 *piezo_speaker_v2, uint8_t volume) {
+    if (piezo_speaker_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(piezo_speaker_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -386,6 +410,9 @@ int tf_piezo_speaker_v2_update_volume(TF_PiezoSpeakerV2 *piezo_speaker_v2, uint8
 }
 
 int tf_piezo_speaker_v2_update_frequency(TF_PiezoSpeakerV2 *piezo_speaker_v2, uint16_t frequency) {
+    if (piezo_speaker_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(piezo_speaker_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -418,6 +445,9 @@ int tf_piezo_speaker_v2_update_frequency(TF_PiezoSpeakerV2 *piezo_speaker_v2, ui
 }
 
 int tf_piezo_speaker_v2_get_spitfp_error_count(TF_PiezoSpeakerV2 *piezo_speaker_v2, uint32_t *ret_error_count_ack_checksum, uint32_t *ret_error_count_message_checksum, uint32_t *ret_error_count_frame, uint32_t *ret_error_count_overflow) {
+    if (piezo_speaker_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(piezo_speaker_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -453,6 +483,9 @@ int tf_piezo_speaker_v2_get_spitfp_error_count(TF_PiezoSpeakerV2 *piezo_speaker_
 }
 
 int tf_piezo_speaker_v2_set_bootloader_mode(TF_PiezoSpeakerV2 *piezo_speaker_v2, uint8_t mode, uint8_t *ret_status) {
+    if (piezo_speaker_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(piezo_speaker_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -489,6 +522,9 @@ int tf_piezo_speaker_v2_set_bootloader_mode(TF_PiezoSpeakerV2 *piezo_speaker_v2,
 }
 
 int tf_piezo_speaker_v2_get_bootloader_mode(TF_PiezoSpeakerV2 *piezo_speaker_v2, uint8_t *ret_mode) {
+    if (piezo_speaker_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(piezo_speaker_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -521,6 +557,9 @@ int tf_piezo_speaker_v2_get_bootloader_mode(TF_PiezoSpeakerV2 *piezo_speaker_v2,
 }
 
 int tf_piezo_speaker_v2_set_write_firmware_pointer(TF_PiezoSpeakerV2 *piezo_speaker_v2, uint32_t pointer) {
+    if (piezo_speaker_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(piezo_speaker_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -553,6 +592,9 @@ int tf_piezo_speaker_v2_set_write_firmware_pointer(TF_PiezoSpeakerV2 *piezo_spea
 }
 
 int tf_piezo_speaker_v2_write_firmware(TF_PiezoSpeakerV2 *piezo_speaker_v2, uint8_t data[64], uint8_t *ret_status) {
+    if (piezo_speaker_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(piezo_speaker_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -589,6 +631,9 @@ int tf_piezo_speaker_v2_write_firmware(TF_PiezoSpeakerV2 *piezo_speaker_v2, uint
 }
 
 int tf_piezo_speaker_v2_set_status_led_config(TF_PiezoSpeakerV2 *piezo_speaker_v2, uint8_t config) {
+    if (piezo_speaker_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(piezo_speaker_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -621,6 +666,9 @@ int tf_piezo_speaker_v2_set_status_led_config(TF_PiezoSpeakerV2 *piezo_speaker_v
 }
 
 int tf_piezo_speaker_v2_get_status_led_config(TF_PiezoSpeakerV2 *piezo_speaker_v2, uint8_t *ret_config) {
+    if (piezo_speaker_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(piezo_speaker_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -653,6 +701,9 @@ int tf_piezo_speaker_v2_get_status_led_config(TF_PiezoSpeakerV2 *piezo_speaker_v
 }
 
 int tf_piezo_speaker_v2_get_chip_temperature(TF_PiezoSpeakerV2 *piezo_speaker_v2, int16_t *ret_temperature) {
+    if (piezo_speaker_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(piezo_speaker_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -685,6 +736,9 @@ int tf_piezo_speaker_v2_get_chip_temperature(TF_PiezoSpeakerV2 *piezo_speaker_v2
 }
 
 int tf_piezo_speaker_v2_reset(TF_PiezoSpeakerV2 *piezo_speaker_v2) {
+    if (piezo_speaker_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(piezo_speaker_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -713,6 +767,9 @@ int tf_piezo_speaker_v2_reset(TF_PiezoSpeakerV2 *piezo_speaker_v2) {
 }
 
 int tf_piezo_speaker_v2_write_uid(TF_PiezoSpeakerV2 *piezo_speaker_v2, uint32_t uid) {
+    if (piezo_speaker_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(piezo_speaker_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -745,6 +802,9 @@ int tf_piezo_speaker_v2_write_uid(TF_PiezoSpeakerV2 *piezo_speaker_v2, uint32_t 
 }
 
 int tf_piezo_speaker_v2_read_uid(TF_PiezoSpeakerV2 *piezo_speaker_v2, uint32_t *ret_uid) {
+    if (piezo_speaker_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(piezo_speaker_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -777,6 +837,9 @@ int tf_piezo_speaker_v2_read_uid(TF_PiezoSpeakerV2 *piezo_speaker_v2, uint32_t *
 }
 
 int tf_piezo_speaker_v2_get_identity(TF_PiezoSpeakerV2 *piezo_speaker_v2, char ret_uid[8], char ret_connected_uid[8], char *ret_position, uint8_t ret_hardware_version[3], uint8_t ret_firmware_version[3], uint16_t *ret_device_identifier) {
+    if (piezo_speaker_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(piezo_speaker_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -821,7 +884,10 @@ int tf_piezo_speaker_v2_get_identity(TF_PiezoSpeakerV2 *piezo_speaker_v2, char r
     return tf_tfp_get_error(error_code);
 }
 #ifdef TF_IMPLEMENT_CALLBACKS
-void tf_piezo_speaker_v2_register_beep_finished_callback(TF_PiezoSpeakerV2 *piezo_speaker_v2, TF_PiezoSpeakerV2BeepFinishedHandler handler, void *user_data) {
+int tf_piezo_speaker_v2_register_beep_finished_callback(TF_PiezoSpeakerV2 *piezo_speaker_v2, TF_PiezoSpeakerV2BeepFinishedHandler handler, void *user_data) {
+    if (piezo_speaker_v2 == NULL)
+        return TF_E_NULL;
+
     if (handler == NULL) {
         piezo_speaker_v2->tfp->needs_callback_tick = false;
         piezo_speaker_v2->tfp->needs_callback_tick |= piezo_speaker_v2->alarm_finished_handler != NULL;
@@ -830,10 +896,14 @@ void tf_piezo_speaker_v2_register_beep_finished_callback(TF_PiezoSpeakerV2 *piez
     }
     piezo_speaker_v2->beep_finished_handler = handler;
     piezo_speaker_v2->beep_finished_user_data = user_data;
+    return TF_E_OK;
 }
 
 
-void tf_piezo_speaker_v2_register_alarm_finished_callback(TF_PiezoSpeakerV2 *piezo_speaker_v2, TF_PiezoSpeakerV2AlarmFinishedHandler handler, void *user_data) {
+int tf_piezo_speaker_v2_register_alarm_finished_callback(TF_PiezoSpeakerV2 *piezo_speaker_v2, TF_PiezoSpeakerV2AlarmFinishedHandler handler, void *user_data) {
+    if (piezo_speaker_v2 == NULL)
+        return TF_E_NULL;
+
     if (handler == NULL) {
         piezo_speaker_v2->tfp->needs_callback_tick = false;
         piezo_speaker_v2->tfp->needs_callback_tick |= piezo_speaker_v2->beep_finished_handler != NULL;
@@ -842,9 +912,13 @@ void tf_piezo_speaker_v2_register_alarm_finished_callback(TF_PiezoSpeakerV2 *pie
     }
     piezo_speaker_v2->alarm_finished_handler = handler;
     piezo_speaker_v2->alarm_finished_user_data = user_data;
+    return TF_E_OK;
 }
 #endif
 int tf_piezo_speaker_v2_callback_tick(TF_PiezoSpeakerV2 *piezo_speaker_v2, uint32_t timeout_us) {
+    if (piezo_speaker_v2 == NULL)
+        return TF_E_NULL;
+
     return tf_tfp_callback_tick(piezo_speaker_v2->tfp, tf_hal_current_time_us(piezo_speaker_v2->tfp->hal) + timeout_us);
 }
 

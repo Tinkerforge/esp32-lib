@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-02-08.      *
+ * This file was automatically generated on 2021-10-04.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -53,6 +53,9 @@ static bool tf_analog_in_v3_callback_handler(void *dev, uint8_t fid, TF_Packetbu
 }
 #endif
 int tf_analog_in_v3_create(TF_AnalogInV3 *analog_in_v3, const char *uid, TF_HalContext *hal) {
+    if (analog_in_v3 == NULL || uid == NULL || hal == NULL)
+        return TF_E_NULL;
+
     memset(analog_in_v3, 0, sizeof(TF_AnalogInV3));
 
     uint32_t numeric_uid;
@@ -81,12 +84,18 @@ int tf_analog_in_v3_create(TF_AnalogInV3 *analog_in_v3, const char *uid, TF_HalC
 }
 
 int tf_analog_in_v3_destroy(TF_AnalogInV3 *analog_in_v3) {
+    if (analog_in_v3 == NULL)
+        return TF_E_NULL;
+
     int result = tf_tfp_destroy(analog_in_v3->tfp);
     analog_in_v3->tfp = NULL;
     return result;
 }
 
 int tf_analog_in_v3_get_response_expected(TF_AnalogInV3 *analog_in_v3, uint8_t function_id, bool *ret_response_expected) {
+    if (analog_in_v3 == NULL)
+        return TF_E_NULL;
+
     switch(function_id) {
         case TF_ANALOG_IN_V3_FUNCTION_SET_VOLTAGE_CALLBACK_CONFIGURATION:
             if(ret_response_expected != NULL)
@@ -184,6 +193,9 @@ void tf_analog_in_v3_set_response_expected_all(TF_AnalogInV3 *analog_in_v3, bool
 }
 
 int tf_analog_in_v3_get_voltage(TF_AnalogInV3 *analog_in_v3, uint16_t *ret_voltage) {
+    if (analog_in_v3 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(analog_in_v3->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -216,6 +228,9 @@ int tf_analog_in_v3_get_voltage(TF_AnalogInV3 *analog_in_v3, uint16_t *ret_volta
 }
 
 int tf_analog_in_v3_set_voltage_callback_configuration(TF_AnalogInV3 *analog_in_v3, uint32_t period, bool value_has_to_change, char option, uint16_t min, uint16_t max) {
+    if (analog_in_v3 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(analog_in_v3->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -252,6 +267,9 @@ int tf_analog_in_v3_set_voltage_callback_configuration(TF_AnalogInV3 *analog_in_
 }
 
 int tf_analog_in_v3_get_voltage_callback_configuration(TF_AnalogInV3 *analog_in_v3, uint32_t *ret_period, bool *ret_value_has_to_change, char *ret_option, uint16_t *ret_min, uint16_t *ret_max) {
+    if (analog_in_v3 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(analog_in_v3->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -288,6 +306,9 @@ int tf_analog_in_v3_get_voltage_callback_configuration(TF_AnalogInV3 *analog_in_
 }
 
 int tf_analog_in_v3_set_oversampling(TF_AnalogInV3 *analog_in_v3, uint8_t oversampling) {
+    if (analog_in_v3 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(analog_in_v3->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -320,6 +341,9 @@ int tf_analog_in_v3_set_oversampling(TF_AnalogInV3 *analog_in_v3, uint8_t oversa
 }
 
 int tf_analog_in_v3_get_oversampling(TF_AnalogInV3 *analog_in_v3, uint8_t *ret_oversampling) {
+    if (analog_in_v3 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(analog_in_v3->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -352,6 +376,9 @@ int tf_analog_in_v3_get_oversampling(TF_AnalogInV3 *analog_in_v3, uint8_t *ret_o
 }
 
 int tf_analog_in_v3_set_calibration(TF_AnalogInV3 *analog_in_v3, int16_t offset, uint16_t multiplier, uint16_t divisor) {
+    if (analog_in_v3 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(analog_in_v3->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -386,6 +413,9 @@ int tf_analog_in_v3_set_calibration(TF_AnalogInV3 *analog_in_v3, int16_t offset,
 }
 
 int tf_analog_in_v3_get_calibration(TF_AnalogInV3 *analog_in_v3, int16_t *ret_offset, uint16_t *ret_multiplier, uint16_t *ret_divisor) {
+    if (analog_in_v3 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(analog_in_v3->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -420,6 +450,9 @@ int tf_analog_in_v3_get_calibration(TF_AnalogInV3 *analog_in_v3, int16_t *ret_of
 }
 
 int tf_analog_in_v3_get_spitfp_error_count(TF_AnalogInV3 *analog_in_v3, uint32_t *ret_error_count_ack_checksum, uint32_t *ret_error_count_message_checksum, uint32_t *ret_error_count_frame, uint32_t *ret_error_count_overflow) {
+    if (analog_in_v3 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(analog_in_v3->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -455,6 +488,9 @@ int tf_analog_in_v3_get_spitfp_error_count(TF_AnalogInV3 *analog_in_v3, uint32_t
 }
 
 int tf_analog_in_v3_set_bootloader_mode(TF_AnalogInV3 *analog_in_v3, uint8_t mode, uint8_t *ret_status) {
+    if (analog_in_v3 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(analog_in_v3->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -491,6 +527,9 @@ int tf_analog_in_v3_set_bootloader_mode(TF_AnalogInV3 *analog_in_v3, uint8_t mod
 }
 
 int tf_analog_in_v3_get_bootloader_mode(TF_AnalogInV3 *analog_in_v3, uint8_t *ret_mode) {
+    if (analog_in_v3 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(analog_in_v3->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -523,6 +562,9 @@ int tf_analog_in_v3_get_bootloader_mode(TF_AnalogInV3 *analog_in_v3, uint8_t *re
 }
 
 int tf_analog_in_v3_set_write_firmware_pointer(TF_AnalogInV3 *analog_in_v3, uint32_t pointer) {
+    if (analog_in_v3 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(analog_in_v3->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -555,6 +597,9 @@ int tf_analog_in_v3_set_write_firmware_pointer(TF_AnalogInV3 *analog_in_v3, uint
 }
 
 int tf_analog_in_v3_write_firmware(TF_AnalogInV3 *analog_in_v3, uint8_t data[64], uint8_t *ret_status) {
+    if (analog_in_v3 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(analog_in_v3->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -591,6 +636,9 @@ int tf_analog_in_v3_write_firmware(TF_AnalogInV3 *analog_in_v3, uint8_t data[64]
 }
 
 int tf_analog_in_v3_set_status_led_config(TF_AnalogInV3 *analog_in_v3, uint8_t config) {
+    if (analog_in_v3 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(analog_in_v3->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -623,6 +671,9 @@ int tf_analog_in_v3_set_status_led_config(TF_AnalogInV3 *analog_in_v3, uint8_t c
 }
 
 int tf_analog_in_v3_get_status_led_config(TF_AnalogInV3 *analog_in_v3, uint8_t *ret_config) {
+    if (analog_in_v3 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(analog_in_v3->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -655,6 +706,9 @@ int tf_analog_in_v3_get_status_led_config(TF_AnalogInV3 *analog_in_v3, uint8_t *
 }
 
 int tf_analog_in_v3_get_chip_temperature(TF_AnalogInV3 *analog_in_v3, int16_t *ret_temperature) {
+    if (analog_in_v3 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(analog_in_v3->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -687,6 +741,9 @@ int tf_analog_in_v3_get_chip_temperature(TF_AnalogInV3 *analog_in_v3, int16_t *r
 }
 
 int tf_analog_in_v3_reset(TF_AnalogInV3 *analog_in_v3) {
+    if (analog_in_v3 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(analog_in_v3->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -715,6 +772,9 @@ int tf_analog_in_v3_reset(TF_AnalogInV3 *analog_in_v3) {
 }
 
 int tf_analog_in_v3_write_uid(TF_AnalogInV3 *analog_in_v3, uint32_t uid) {
+    if (analog_in_v3 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(analog_in_v3->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -747,6 +807,9 @@ int tf_analog_in_v3_write_uid(TF_AnalogInV3 *analog_in_v3, uint32_t uid) {
 }
 
 int tf_analog_in_v3_read_uid(TF_AnalogInV3 *analog_in_v3, uint32_t *ret_uid) {
+    if (analog_in_v3 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(analog_in_v3->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -779,6 +842,9 @@ int tf_analog_in_v3_read_uid(TF_AnalogInV3 *analog_in_v3, uint32_t *ret_uid) {
 }
 
 int tf_analog_in_v3_get_identity(TF_AnalogInV3 *analog_in_v3, char ret_uid[8], char ret_connected_uid[8], char *ret_position, uint8_t ret_hardware_version[3], uint8_t ret_firmware_version[3], uint16_t *ret_device_identifier) {
+    if (analog_in_v3 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(analog_in_v3->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -823,7 +889,10 @@ int tf_analog_in_v3_get_identity(TF_AnalogInV3 *analog_in_v3, char ret_uid[8], c
     return tf_tfp_get_error(error_code);
 }
 #ifdef TF_IMPLEMENT_CALLBACKS
-void tf_analog_in_v3_register_voltage_callback(TF_AnalogInV3 *analog_in_v3, TF_AnalogInV3VoltageHandler handler, void *user_data) {
+int tf_analog_in_v3_register_voltage_callback(TF_AnalogInV3 *analog_in_v3, TF_AnalogInV3VoltageHandler handler, void *user_data) {
+    if (analog_in_v3 == NULL)
+        return TF_E_NULL;
+
     if (handler == NULL) {
         analog_in_v3->tfp->needs_callback_tick = false;
         
@@ -832,9 +901,13 @@ void tf_analog_in_v3_register_voltage_callback(TF_AnalogInV3 *analog_in_v3, TF_A
     }
     analog_in_v3->voltage_handler = handler;
     analog_in_v3->voltage_user_data = user_data;
+    return TF_E_OK;
 }
 #endif
 int tf_analog_in_v3_callback_tick(TF_AnalogInV3 *analog_in_v3, uint32_t timeout_us) {
+    if (analog_in_v3 == NULL)
+        return TF_E_NULL;
+
     return tf_tfp_callback_tick(analog_in_v3->tfp, tf_hal_current_time_us(analog_in_v3->tfp->hal) + timeout_us);
 }
 

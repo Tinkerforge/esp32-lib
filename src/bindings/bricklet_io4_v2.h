@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-02-08.      *
+ * This file was automatically generated on 2021-10-04.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -406,7 +406,7 @@ TF_ATTRIBUTE_NONNULL_ALL void tf_io4_v2_set_response_expected_all(TF_IO4V2 *io4_
  * for the channel. The `changed` parameter is true if the value has changed since
  * the last callback.
  */
-TF_ATTRIBUTE_NONNULL(1) void tf_io4_v2_register_input_value_callback(TF_IO4V2 *io4_v2, TF_IO4V2InputValueHandler handler, void *user_data);
+TF_ATTRIBUTE_NONNULL(1) int tf_io4_v2_register_input_value_callback(TF_IO4V2 *io4_v2, TF_IO4V2InputValueHandler handler, void *user_data);
 
 
 /**
@@ -424,7 +424,7 @@ TF_ATTRIBUTE_NONNULL(1) void tf_io4_v2_register_input_value_callback(TF_IO4V2 *i
  * `changed` parameter is true if the value has changed since
  * the last callback.
  */
-TF_ATTRIBUTE_NONNULL(1) void tf_io4_v2_register_all_input_value_callback(TF_IO4V2 *io4_v2, TF_IO4V2AllInputValueHandler handler, void *user_data);
+TF_ATTRIBUTE_NONNULL(1) int tf_io4_v2_register_all_input_value_callback(TF_IO4V2 *io4_v2, TF_IO4V2AllInputValueHandler handler, void *user_data);
 
 
 /**
@@ -439,7 +439,7 @@ TF_ATTRIBUTE_NONNULL(1) void tf_io4_v2_register_all_input_value_callback(TF_IO4V
  * parameters contain the channel and the current value of the channel
  * (the value after the monoflop).
  */
-TF_ATTRIBUTE_NONNULL(1) void tf_io4_v2_register_monoflop_done_callback(TF_IO4V2 *io4_v2, TF_IO4V2MonoflopDoneHandler handler, void *user_data);
+TF_ATTRIBUTE_NONNULL(1) int tf_io4_v2_register_monoflop_done_callback(TF_IO4V2 *io4_v2, TF_IO4V2MonoflopDoneHandler handler, void *user_data);
 #endif
 #ifdef TF_IMPLEMENT_CALLBACKS
 /**

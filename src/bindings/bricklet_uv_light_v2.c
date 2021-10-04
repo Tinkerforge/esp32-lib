@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-02-08.      *
+ * This file was automatically generated on 2021-10-04.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -81,6 +81,9 @@ static bool tf_uv_light_v2_callback_handler(void *dev, uint8_t fid, TF_Packetbuf
 }
 #endif
 int tf_uv_light_v2_create(TF_UVLightV2 *uv_light_v2, const char *uid, TF_HalContext *hal) {
+    if (uv_light_v2 == NULL || uid == NULL || hal == NULL)
+        return TF_E_NULL;
+
     memset(uv_light_v2, 0, sizeof(TF_UVLightV2));
 
     uint32_t numeric_uid;
@@ -109,12 +112,18 @@ int tf_uv_light_v2_create(TF_UVLightV2 *uv_light_v2, const char *uid, TF_HalCont
 }
 
 int tf_uv_light_v2_destroy(TF_UVLightV2 *uv_light_v2) {
+    if (uv_light_v2 == NULL)
+        return TF_E_NULL;
+
     int result = tf_tfp_destroy(uv_light_v2->tfp);
     uv_light_v2->tfp = NULL;
     return result;
 }
 
 int tf_uv_light_v2_get_response_expected(TF_UVLightV2 *uv_light_v2, uint8_t function_id, bool *ret_response_expected) {
+    if (uv_light_v2 == NULL)
+        return TF_E_NULL;
+
     switch(function_id) {
         case TF_UV_LIGHT_V2_FUNCTION_SET_UVA_CALLBACK_CONFIGURATION:
             if(ret_response_expected != NULL)
@@ -223,6 +232,9 @@ void tf_uv_light_v2_set_response_expected_all(TF_UVLightV2 *uv_light_v2, bool re
 }
 
 int tf_uv_light_v2_get_uva(TF_UVLightV2 *uv_light_v2, int32_t *ret_uva) {
+    if (uv_light_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(uv_light_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -255,6 +267,9 @@ int tf_uv_light_v2_get_uva(TF_UVLightV2 *uv_light_v2, int32_t *ret_uva) {
 }
 
 int tf_uv_light_v2_set_uva_callback_configuration(TF_UVLightV2 *uv_light_v2, uint32_t period, bool value_has_to_change, char option, int32_t min, int32_t max) {
+    if (uv_light_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(uv_light_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -291,6 +306,9 @@ int tf_uv_light_v2_set_uva_callback_configuration(TF_UVLightV2 *uv_light_v2, uin
 }
 
 int tf_uv_light_v2_get_uva_callback_configuration(TF_UVLightV2 *uv_light_v2, uint32_t *ret_period, bool *ret_value_has_to_change, char *ret_option, int32_t *ret_min, int32_t *ret_max) {
+    if (uv_light_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(uv_light_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -327,6 +345,9 @@ int tf_uv_light_v2_get_uva_callback_configuration(TF_UVLightV2 *uv_light_v2, uin
 }
 
 int tf_uv_light_v2_get_uvb(TF_UVLightV2 *uv_light_v2, int32_t *ret_uvb) {
+    if (uv_light_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(uv_light_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -359,6 +380,9 @@ int tf_uv_light_v2_get_uvb(TF_UVLightV2 *uv_light_v2, int32_t *ret_uvb) {
 }
 
 int tf_uv_light_v2_set_uvb_callback_configuration(TF_UVLightV2 *uv_light_v2, uint32_t period, bool value_has_to_change, char option, int32_t min, int32_t max) {
+    if (uv_light_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(uv_light_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -395,6 +419,9 @@ int tf_uv_light_v2_set_uvb_callback_configuration(TF_UVLightV2 *uv_light_v2, uin
 }
 
 int tf_uv_light_v2_get_uvb_callback_configuration(TF_UVLightV2 *uv_light_v2, uint32_t *ret_period, bool *ret_value_has_to_change, char *ret_option, int32_t *ret_min, int32_t *ret_max) {
+    if (uv_light_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(uv_light_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -431,6 +458,9 @@ int tf_uv_light_v2_get_uvb_callback_configuration(TF_UVLightV2 *uv_light_v2, uin
 }
 
 int tf_uv_light_v2_get_uvi(TF_UVLightV2 *uv_light_v2, int32_t *ret_uvi) {
+    if (uv_light_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(uv_light_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -463,6 +493,9 @@ int tf_uv_light_v2_get_uvi(TF_UVLightV2 *uv_light_v2, int32_t *ret_uvi) {
 }
 
 int tf_uv_light_v2_set_uvi_callback_configuration(TF_UVLightV2 *uv_light_v2, uint32_t period, bool value_has_to_change, char option, int32_t min, int32_t max) {
+    if (uv_light_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(uv_light_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -499,6 +532,9 @@ int tf_uv_light_v2_set_uvi_callback_configuration(TF_UVLightV2 *uv_light_v2, uin
 }
 
 int tf_uv_light_v2_get_uvi_callback_configuration(TF_UVLightV2 *uv_light_v2, uint32_t *ret_period, bool *ret_value_has_to_change, char *ret_option, int32_t *ret_min, int32_t *ret_max) {
+    if (uv_light_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(uv_light_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -535,6 +571,9 @@ int tf_uv_light_v2_get_uvi_callback_configuration(TF_UVLightV2 *uv_light_v2, uin
 }
 
 int tf_uv_light_v2_set_configuration(TF_UVLightV2 *uv_light_v2, uint8_t integration_time) {
+    if (uv_light_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(uv_light_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -567,6 +606,9 @@ int tf_uv_light_v2_set_configuration(TF_UVLightV2 *uv_light_v2, uint8_t integrat
 }
 
 int tf_uv_light_v2_get_configuration(TF_UVLightV2 *uv_light_v2, uint8_t *ret_integration_time) {
+    if (uv_light_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(uv_light_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -599,6 +641,9 @@ int tf_uv_light_v2_get_configuration(TF_UVLightV2 *uv_light_v2, uint8_t *ret_int
 }
 
 int tf_uv_light_v2_get_spitfp_error_count(TF_UVLightV2 *uv_light_v2, uint32_t *ret_error_count_ack_checksum, uint32_t *ret_error_count_message_checksum, uint32_t *ret_error_count_frame, uint32_t *ret_error_count_overflow) {
+    if (uv_light_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(uv_light_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -634,6 +679,9 @@ int tf_uv_light_v2_get_spitfp_error_count(TF_UVLightV2 *uv_light_v2, uint32_t *r
 }
 
 int tf_uv_light_v2_set_bootloader_mode(TF_UVLightV2 *uv_light_v2, uint8_t mode, uint8_t *ret_status) {
+    if (uv_light_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(uv_light_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -670,6 +718,9 @@ int tf_uv_light_v2_set_bootloader_mode(TF_UVLightV2 *uv_light_v2, uint8_t mode, 
 }
 
 int tf_uv_light_v2_get_bootloader_mode(TF_UVLightV2 *uv_light_v2, uint8_t *ret_mode) {
+    if (uv_light_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(uv_light_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -702,6 +753,9 @@ int tf_uv_light_v2_get_bootloader_mode(TF_UVLightV2 *uv_light_v2, uint8_t *ret_m
 }
 
 int tf_uv_light_v2_set_write_firmware_pointer(TF_UVLightV2 *uv_light_v2, uint32_t pointer) {
+    if (uv_light_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(uv_light_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -734,6 +788,9 @@ int tf_uv_light_v2_set_write_firmware_pointer(TF_UVLightV2 *uv_light_v2, uint32_
 }
 
 int tf_uv_light_v2_write_firmware(TF_UVLightV2 *uv_light_v2, uint8_t data[64], uint8_t *ret_status) {
+    if (uv_light_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(uv_light_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -770,6 +827,9 @@ int tf_uv_light_v2_write_firmware(TF_UVLightV2 *uv_light_v2, uint8_t data[64], u
 }
 
 int tf_uv_light_v2_set_status_led_config(TF_UVLightV2 *uv_light_v2, uint8_t config) {
+    if (uv_light_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(uv_light_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -802,6 +862,9 @@ int tf_uv_light_v2_set_status_led_config(TF_UVLightV2 *uv_light_v2, uint8_t conf
 }
 
 int tf_uv_light_v2_get_status_led_config(TF_UVLightV2 *uv_light_v2, uint8_t *ret_config) {
+    if (uv_light_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(uv_light_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -834,6 +897,9 @@ int tf_uv_light_v2_get_status_led_config(TF_UVLightV2 *uv_light_v2, uint8_t *ret
 }
 
 int tf_uv_light_v2_get_chip_temperature(TF_UVLightV2 *uv_light_v2, int16_t *ret_temperature) {
+    if (uv_light_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(uv_light_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -866,6 +932,9 @@ int tf_uv_light_v2_get_chip_temperature(TF_UVLightV2 *uv_light_v2, int16_t *ret_
 }
 
 int tf_uv_light_v2_reset(TF_UVLightV2 *uv_light_v2) {
+    if (uv_light_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(uv_light_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -894,6 +963,9 @@ int tf_uv_light_v2_reset(TF_UVLightV2 *uv_light_v2) {
 }
 
 int tf_uv_light_v2_write_uid(TF_UVLightV2 *uv_light_v2, uint32_t uid) {
+    if (uv_light_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(uv_light_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -926,6 +998,9 @@ int tf_uv_light_v2_write_uid(TF_UVLightV2 *uv_light_v2, uint32_t uid) {
 }
 
 int tf_uv_light_v2_read_uid(TF_UVLightV2 *uv_light_v2, uint32_t *ret_uid) {
+    if (uv_light_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(uv_light_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -958,6 +1033,9 @@ int tf_uv_light_v2_read_uid(TF_UVLightV2 *uv_light_v2, uint32_t *ret_uid) {
 }
 
 int tf_uv_light_v2_get_identity(TF_UVLightV2 *uv_light_v2, char ret_uid[8], char ret_connected_uid[8], char *ret_position, uint8_t ret_hardware_version[3], uint8_t ret_firmware_version[3], uint16_t *ret_device_identifier) {
+    if (uv_light_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(uv_light_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1002,7 +1080,10 @@ int tf_uv_light_v2_get_identity(TF_UVLightV2 *uv_light_v2, char ret_uid[8], char
     return tf_tfp_get_error(error_code);
 }
 #ifdef TF_IMPLEMENT_CALLBACKS
-void tf_uv_light_v2_register_uva_callback(TF_UVLightV2 *uv_light_v2, TF_UVLightV2UVAHandler handler, void *user_data) {
+int tf_uv_light_v2_register_uva_callback(TF_UVLightV2 *uv_light_v2, TF_UVLightV2UVAHandler handler, void *user_data) {
+    if (uv_light_v2 == NULL)
+        return TF_E_NULL;
+
     if (handler == NULL) {
         uv_light_v2->tfp->needs_callback_tick = false;
         uv_light_v2->tfp->needs_callback_tick |= uv_light_v2->uvb_handler != NULL;
@@ -1012,10 +1093,14 @@ void tf_uv_light_v2_register_uva_callback(TF_UVLightV2 *uv_light_v2, TF_UVLightV
     }
     uv_light_v2->uva_handler = handler;
     uv_light_v2->uva_user_data = user_data;
+    return TF_E_OK;
 }
 
 
-void tf_uv_light_v2_register_uvb_callback(TF_UVLightV2 *uv_light_v2, TF_UVLightV2UVBHandler handler, void *user_data) {
+int tf_uv_light_v2_register_uvb_callback(TF_UVLightV2 *uv_light_v2, TF_UVLightV2UVBHandler handler, void *user_data) {
+    if (uv_light_v2 == NULL)
+        return TF_E_NULL;
+
     if (handler == NULL) {
         uv_light_v2->tfp->needs_callback_tick = false;
         uv_light_v2->tfp->needs_callback_tick |= uv_light_v2->uva_handler != NULL;
@@ -1025,10 +1110,14 @@ void tf_uv_light_v2_register_uvb_callback(TF_UVLightV2 *uv_light_v2, TF_UVLightV
     }
     uv_light_v2->uvb_handler = handler;
     uv_light_v2->uvb_user_data = user_data;
+    return TF_E_OK;
 }
 
 
-void tf_uv_light_v2_register_uvi_callback(TF_UVLightV2 *uv_light_v2, TF_UVLightV2UVIHandler handler, void *user_data) {
+int tf_uv_light_v2_register_uvi_callback(TF_UVLightV2 *uv_light_v2, TF_UVLightV2UVIHandler handler, void *user_data) {
+    if (uv_light_v2 == NULL)
+        return TF_E_NULL;
+
     if (handler == NULL) {
         uv_light_v2->tfp->needs_callback_tick = false;
         uv_light_v2->tfp->needs_callback_tick |= uv_light_v2->uva_handler != NULL;
@@ -1038,9 +1127,13 @@ void tf_uv_light_v2_register_uvi_callback(TF_UVLightV2 *uv_light_v2, TF_UVLightV
     }
     uv_light_v2->uvi_handler = handler;
     uv_light_v2->uvi_user_data = user_data;
+    return TF_E_OK;
 }
 #endif
 int tf_uv_light_v2_callback_tick(TF_UVLightV2 *uv_light_v2, uint32_t timeout_us) {
+    if (uv_light_v2 == NULL)
+        return TF_E_NULL;
+
     return tf_tfp_callback_tick(uv_light_v2->tfp, tf_hal_current_time_us(uv_light_v2->tfp->hal) + timeout_us);
 }
 

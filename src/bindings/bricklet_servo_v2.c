@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-02-08.      *
+ * This file was automatically generated on 2021-10-04.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -54,6 +54,9 @@ static bool tf_servo_v2_callback_handler(void *dev, uint8_t fid, TF_Packetbuffer
 }
 #endif
 int tf_servo_v2_create(TF_ServoV2 *servo_v2, const char *uid, TF_HalContext *hal) {
+    if (servo_v2 == NULL || uid == NULL || hal == NULL)
+        return TF_E_NULL;
+
     memset(servo_v2, 0, sizeof(TF_ServoV2));
 
     uint32_t numeric_uid;
@@ -83,12 +86,18 @@ int tf_servo_v2_create(TF_ServoV2 *servo_v2, const char *uid, TF_HalContext *hal
 }
 
 int tf_servo_v2_destroy(TF_ServoV2 *servo_v2) {
+    if (servo_v2 == NULL)
+        return TF_E_NULL;
+
     int result = tf_tfp_destroy(servo_v2->tfp);
     servo_v2->tfp = NULL;
     return result;
 }
 
 int tf_servo_v2_get_response_expected(TF_ServoV2 *servo_v2, uint8_t function_id, bool *ret_response_expected) {
+    if (servo_v2 == NULL)
+        return TF_E_NULL;
+
     switch(function_id) {
         case TF_SERVO_V2_FUNCTION_SET_ENABLE:
             if(ret_response_expected != NULL)
@@ -263,6 +272,9 @@ void tf_servo_v2_set_response_expected_all(TF_ServoV2 *servo_v2, bool response_e
 }
 
 int tf_servo_v2_get_status(TF_ServoV2 *servo_v2, bool ret_enabled[10], int16_t ret_current_position[10], int16_t ret_current_velocity[10], uint16_t ret_current[10], uint16_t *ret_input_voltage) {
+    if (servo_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(servo_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -300,6 +312,9 @@ int tf_servo_v2_get_status(TF_ServoV2 *servo_v2, bool ret_enabled[10], int16_t r
 }
 
 int tf_servo_v2_set_enable(TF_ServoV2 *servo_v2, uint16_t servo_channel, bool enable) {
+    if (servo_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(servo_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -333,6 +348,9 @@ int tf_servo_v2_set_enable(TF_ServoV2 *servo_v2, uint16_t servo_channel, bool en
 }
 
 int tf_servo_v2_get_enabled(TF_ServoV2 *servo_v2, uint16_t servo_channel, bool *ret_enable) {
+    if (servo_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(servo_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -369,6 +387,9 @@ int tf_servo_v2_get_enabled(TF_ServoV2 *servo_v2, uint16_t servo_channel, bool *
 }
 
 int tf_servo_v2_set_position(TF_ServoV2 *servo_v2, uint16_t servo_channel, int16_t position) {
+    if (servo_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(servo_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -402,6 +423,9 @@ int tf_servo_v2_set_position(TF_ServoV2 *servo_v2, uint16_t servo_channel, int16
 }
 
 int tf_servo_v2_get_position(TF_ServoV2 *servo_v2, uint16_t servo_channel, int16_t *ret_position) {
+    if (servo_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(servo_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -438,6 +462,9 @@ int tf_servo_v2_get_position(TF_ServoV2 *servo_v2, uint16_t servo_channel, int16
 }
 
 int tf_servo_v2_get_current_position(TF_ServoV2 *servo_v2, uint16_t servo_channel, int16_t *ret_position) {
+    if (servo_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(servo_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -474,6 +501,9 @@ int tf_servo_v2_get_current_position(TF_ServoV2 *servo_v2, uint16_t servo_channe
 }
 
 int tf_servo_v2_get_current_velocity(TF_ServoV2 *servo_v2, uint16_t servo_channel, uint16_t *ret_velocity) {
+    if (servo_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(servo_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -510,6 +540,9 @@ int tf_servo_v2_get_current_velocity(TF_ServoV2 *servo_v2, uint16_t servo_channe
 }
 
 int tf_servo_v2_set_motion_configuration(TF_ServoV2 *servo_v2, uint16_t servo_channel, uint32_t velocity, uint32_t acceleration, uint32_t deceleration) {
+    if (servo_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(servo_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -545,6 +578,9 @@ int tf_servo_v2_set_motion_configuration(TF_ServoV2 *servo_v2, uint16_t servo_ch
 }
 
 int tf_servo_v2_get_motion_configuration(TF_ServoV2 *servo_v2, uint16_t servo_channel, uint32_t *ret_velocity, uint32_t *ret_acceleration, uint32_t *ret_deceleration) {
+    if (servo_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(servo_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -583,6 +619,9 @@ int tf_servo_v2_get_motion_configuration(TF_ServoV2 *servo_v2, uint16_t servo_ch
 }
 
 int tf_servo_v2_set_pulse_width(TF_ServoV2 *servo_v2, uint16_t servo_channel, uint32_t min, uint32_t max) {
+    if (servo_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(servo_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -617,6 +656,9 @@ int tf_servo_v2_set_pulse_width(TF_ServoV2 *servo_v2, uint16_t servo_channel, ui
 }
 
 int tf_servo_v2_get_pulse_width(TF_ServoV2 *servo_v2, uint16_t servo_channel, uint32_t *ret_min, uint32_t *ret_max) {
+    if (servo_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(servo_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -654,6 +696,9 @@ int tf_servo_v2_get_pulse_width(TF_ServoV2 *servo_v2, uint16_t servo_channel, ui
 }
 
 int tf_servo_v2_set_degree(TF_ServoV2 *servo_v2, uint16_t servo_channel, int16_t min, int16_t max) {
+    if (servo_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(servo_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -688,6 +733,9 @@ int tf_servo_v2_set_degree(TF_ServoV2 *servo_v2, uint16_t servo_channel, int16_t
 }
 
 int tf_servo_v2_get_degree(TF_ServoV2 *servo_v2, uint16_t servo_channel, int16_t *ret_min, int16_t *ret_max) {
+    if (servo_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(servo_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -725,6 +773,9 @@ int tf_servo_v2_get_degree(TF_ServoV2 *servo_v2, uint16_t servo_channel, int16_t
 }
 
 int tf_servo_v2_set_period(TF_ServoV2 *servo_v2, uint16_t servo_channel, uint32_t period) {
+    if (servo_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(servo_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -758,6 +809,9 @@ int tf_servo_v2_set_period(TF_ServoV2 *servo_v2, uint16_t servo_channel, uint32_
 }
 
 int tf_servo_v2_get_period(TF_ServoV2 *servo_v2, uint16_t servo_channel, uint32_t *ret_period) {
+    if (servo_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(servo_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -794,6 +848,9 @@ int tf_servo_v2_get_period(TF_ServoV2 *servo_v2, uint16_t servo_channel, uint32_
 }
 
 int tf_servo_v2_get_servo_current(TF_ServoV2 *servo_v2, uint16_t servo_channel, uint16_t *ret_current) {
+    if (servo_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(servo_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -830,6 +887,9 @@ int tf_servo_v2_get_servo_current(TF_ServoV2 *servo_v2, uint16_t servo_channel, 
 }
 
 int tf_servo_v2_set_servo_current_configuration(TF_ServoV2 *servo_v2, uint16_t servo_channel, uint8_t averaging_duration) {
+    if (servo_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(servo_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -863,6 +923,9 @@ int tf_servo_v2_set_servo_current_configuration(TF_ServoV2 *servo_v2, uint16_t s
 }
 
 int tf_servo_v2_get_servo_current_configuration(TF_ServoV2 *servo_v2, uint16_t servo_channel, uint8_t *ret_averaging_duration) {
+    if (servo_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(servo_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -899,6 +962,9 @@ int tf_servo_v2_get_servo_current_configuration(TF_ServoV2 *servo_v2, uint16_t s
 }
 
 int tf_servo_v2_set_input_voltage_configuration(TF_ServoV2 *servo_v2, uint8_t averaging_duration) {
+    if (servo_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(servo_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -931,6 +997,9 @@ int tf_servo_v2_set_input_voltage_configuration(TF_ServoV2 *servo_v2, uint8_t av
 }
 
 int tf_servo_v2_get_input_voltage_configuration(TF_ServoV2 *servo_v2, uint8_t *ret_averaging_duration) {
+    if (servo_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(servo_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -963,6 +1032,9 @@ int tf_servo_v2_get_input_voltage_configuration(TF_ServoV2 *servo_v2, uint8_t *r
 }
 
 int tf_servo_v2_get_overall_current(TF_ServoV2 *servo_v2, uint16_t *ret_current) {
+    if (servo_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(servo_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -995,6 +1067,9 @@ int tf_servo_v2_get_overall_current(TF_ServoV2 *servo_v2, uint16_t *ret_current)
 }
 
 int tf_servo_v2_get_input_voltage(TF_ServoV2 *servo_v2, uint16_t *ret_voltage) {
+    if (servo_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(servo_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1027,6 +1102,9 @@ int tf_servo_v2_get_input_voltage(TF_ServoV2 *servo_v2, uint16_t *ret_voltage) {
 }
 
 int tf_servo_v2_set_current_calibration(TF_ServoV2 *servo_v2, int16_t offset[10]) {
+    if (servo_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(servo_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1060,6 +1138,9 @@ int tf_servo_v2_set_current_calibration(TF_ServoV2 *servo_v2, int16_t offset[10]
 }
 
 int tf_servo_v2_get_current_calibration(TF_ServoV2 *servo_v2, int16_t ret_offset[10]) {
+    if (servo_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(servo_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1093,6 +1174,9 @@ int tf_servo_v2_get_current_calibration(TF_ServoV2 *servo_v2, int16_t ret_offset
 }
 
 int tf_servo_v2_set_position_reached_callback_configuration(TF_ServoV2 *servo_v2, uint16_t servo_channel, bool enabled) {
+    if (servo_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(servo_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1126,6 +1210,9 @@ int tf_servo_v2_set_position_reached_callback_configuration(TF_ServoV2 *servo_v2
 }
 
 int tf_servo_v2_get_position_reached_callback_configuration(TF_ServoV2 *servo_v2, uint16_t servo_channel, bool *ret_enabled) {
+    if (servo_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(servo_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1162,6 +1249,9 @@ int tf_servo_v2_get_position_reached_callback_configuration(TF_ServoV2 *servo_v2
 }
 
 int tf_servo_v2_get_spitfp_error_count(TF_ServoV2 *servo_v2, uint32_t *ret_error_count_ack_checksum, uint32_t *ret_error_count_message_checksum, uint32_t *ret_error_count_frame, uint32_t *ret_error_count_overflow) {
+    if (servo_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(servo_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1197,6 +1287,9 @@ int tf_servo_v2_get_spitfp_error_count(TF_ServoV2 *servo_v2, uint32_t *ret_error
 }
 
 int tf_servo_v2_set_bootloader_mode(TF_ServoV2 *servo_v2, uint8_t mode, uint8_t *ret_status) {
+    if (servo_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(servo_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1233,6 +1326,9 @@ int tf_servo_v2_set_bootloader_mode(TF_ServoV2 *servo_v2, uint8_t mode, uint8_t 
 }
 
 int tf_servo_v2_get_bootloader_mode(TF_ServoV2 *servo_v2, uint8_t *ret_mode) {
+    if (servo_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(servo_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1265,6 +1361,9 @@ int tf_servo_v2_get_bootloader_mode(TF_ServoV2 *servo_v2, uint8_t *ret_mode) {
 }
 
 int tf_servo_v2_set_write_firmware_pointer(TF_ServoV2 *servo_v2, uint32_t pointer) {
+    if (servo_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(servo_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1297,6 +1396,9 @@ int tf_servo_v2_set_write_firmware_pointer(TF_ServoV2 *servo_v2, uint32_t pointe
 }
 
 int tf_servo_v2_write_firmware(TF_ServoV2 *servo_v2, uint8_t data[64], uint8_t *ret_status) {
+    if (servo_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(servo_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1333,6 +1435,9 @@ int tf_servo_v2_write_firmware(TF_ServoV2 *servo_v2, uint8_t data[64], uint8_t *
 }
 
 int tf_servo_v2_set_status_led_config(TF_ServoV2 *servo_v2, uint8_t config) {
+    if (servo_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(servo_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1365,6 +1470,9 @@ int tf_servo_v2_set_status_led_config(TF_ServoV2 *servo_v2, uint8_t config) {
 }
 
 int tf_servo_v2_get_status_led_config(TF_ServoV2 *servo_v2, uint8_t *ret_config) {
+    if (servo_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(servo_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1397,6 +1505,9 @@ int tf_servo_v2_get_status_led_config(TF_ServoV2 *servo_v2, uint8_t *ret_config)
 }
 
 int tf_servo_v2_get_chip_temperature(TF_ServoV2 *servo_v2, int16_t *ret_temperature) {
+    if (servo_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(servo_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1429,6 +1540,9 @@ int tf_servo_v2_get_chip_temperature(TF_ServoV2 *servo_v2, int16_t *ret_temperat
 }
 
 int tf_servo_v2_reset(TF_ServoV2 *servo_v2) {
+    if (servo_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(servo_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1457,6 +1571,9 @@ int tf_servo_v2_reset(TF_ServoV2 *servo_v2) {
 }
 
 int tf_servo_v2_write_uid(TF_ServoV2 *servo_v2, uint32_t uid) {
+    if (servo_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(servo_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1489,6 +1606,9 @@ int tf_servo_v2_write_uid(TF_ServoV2 *servo_v2, uint32_t uid) {
 }
 
 int tf_servo_v2_read_uid(TF_ServoV2 *servo_v2, uint32_t *ret_uid) {
+    if (servo_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(servo_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1521,6 +1641,9 @@ int tf_servo_v2_read_uid(TF_ServoV2 *servo_v2, uint32_t *ret_uid) {
 }
 
 int tf_servo_v2_get_identity(TF_ServoV2 *servo_v2, char ret_uid[8], char ret_connected_uid[8], char *ret_position, uint8_t ret_hardware_version[3], uint8_t ret_firmware_version[3], uint16_t *ret_device_identifier) {
+    if (servo_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(servo_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1565,7 +1688,10 @@ int tf_servo_v2_get_identity(TF_ServoV2 *servo_v2, char ret_uid[8], char ret_con
     return tf_tfp_get_error(error_code);
 }
 #ifdef TF_IMPLEMENT_CALLBACKS
-void tf_servo_v2_register_position_reached_callback(TF_ServoV2 *servo_v2, TF_ServoV2PositionReachedHandler handler, void *user_data) {
+int tf_servo_v2_register_position_reached_callback(TF_ServoV2 *servo_v2, TF_ServoV2PositionReachedHandler handler, void *user_data) {
+    if (servo_v2 == NULL)
+        return TF_E_NULL;
+
     if (handler == NULL) {
         servo_v2->tfp->needs_callback_tick = false;
         
@@ -1574,9 +1700,13 @@ void tf_servo_v2_register_position_reached_callback(TF_ServoV2 *servo_v2, TF_Ser
     }
     servo_v2->position_reached_handler = handler;
     servo_v2->position_reached_user_data = user_data;
+    return TF_E_OK;
 }
 #endif
 int tf_servo_v2_callback_tick(TF_ServoV2 *servo_v2, uint32_t timeout_us) {
+    if (servo_v2 == NULL)
+        return TF_E_NULL;
+
     return tf_tfp_callback_tick(servo_v2->tfp, tf_hal_current_time_us(servo_v2->tfp->hal) + timeout_us);
 }
 

@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-02-08.      *
+ * This file was automatically generated on 2021-10-04.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -817,7 +817,7 @@ TF_ATTRIBUTE_NONNULL_ALL void tf_rs485_set_response_expected_all(TF_RS485 *rs485
  * 
  * To enable this callback, use {@link tf_rs485_enable_read_callback}.
  */
-TF_ATTRIBUTE_NONNULL(1) void tf_rs485_register_read_low_level_callback(TF_RS485 *rs485, TF_RS485ReadLowLevelHandler handler, void *user_data);
+TF_ATTRIBUTE_NONNULL(1) int tf_rs485_register_read_low_level_callback(TF_RS485 *rs485, TF_RS485ReadLowLevelHandler handler, void *user_data);
 
 
 /**
@@ -831,7 +831,7 @@ TF_ATTRIBUTE_NONNULL(1) void tf_rs485_register_read_low_level_callback(TF_RS485 
  * This callback is called if a new error occurs. It returns
  * the current overrun and parity error count.
  */
-TF_ATTRIBUTE_NONNULL(1) void tf_rs485_register_error_count_callback(TF_RS485 *rs485, TF_RS485ErrorCountHandler handler, void *user_data);
+TF_ATTRIBUTE_NONNULL(1) int tf_rs485_register_error_count_callback(TF_RS485 *rs485, TF_RS485ErrorCountHandler handler, void *user_data);
 
 
 /**
@@ -850,7 +850,7 @@ TF_ATTRIBUTE_NONNULL(1) void tf_rs485_register_error_count_callback(TF_RS485 *rs
  * 
  * To send a response of this request use {@link tf_rs485_modbus_slave_answer_read_coils_request}.
  */
-TF_ATTRIBUTE_NONNULL(1) void tf_rs485_register_modbus_slave_read_coils_request_callback(TF_RS485 *rs485, TF_RS485ModbusSlaveReadCoilsRequestHandler handler, void *user_data);
+TF_ATTRIBUTE_NONNULL(1) int tf_rs485_register_modbus_slave_read_coils_request_callback(TF_RS485 *rs485, TF_RS485ModbusSlaveReadCoilsRequestHandler handler, void *user_data);
 
 
 /**
@@ -875,7 +875,7 @@ TF_ATTRIBUTE_NONNULL(1) void tf_rs485_register_modbus_slave_read_coils_request_c
  * request within the master request timeout period as set by
  * {@link tf_rs485_set_modbus_configuration}.
  */
-TF_ATTRIBUTE_NONNULL(1) void tf_rs485_register_modbus_master_read_coils_response_low_level_callback(TF_RS485 *rs485, TF_RS485ModbusMasterReadCoilsResponseLowLevelHandler handler, void *user_data);
+TF_ATTRIBUTE_NONNULL(1) int tf_rs485_register_modbus_master_read_coils_response_low_level_callback(TF_RS485 *rs485, TF_RS485ModbusMasterReadCoilsResponseLowLevelHandler handler, void *user_data);
 
 
 /**
@@ -894,7 +894,7 @@ TF_ATTRIBUTE_NONNULL(1) void tf_rs485_register_modbus_master_read_coils_response
  * 
  * To send a response of this request use {@link tf_rs485_modbus_slave_answer_read_holding_registers_request}.
  */
-TF_ATTRIBUTE_NONNULL(1) void tf_rs485_register_modbus_slave_read_holding_registers_request_callback(TF_RS485 *rs485, TF_RS485ModbusSlaveReadHoldingRegistersRequestHandler handler, void *user_data);
+TF_ATTRIBUTE_NONNULL(1) int tf_rs485_register_modbus_slave_read_holding_registers_request_callback(TF_RS485 *rs485, TF_RS485ModbusSlaveReadHoldingRegistersRequestHandler handler, void *user_data);
 
 
 /**
@@ -919,7 +919,7 @@ TF_ATTRIBUTE_NONNULL(1) void tf_rs485_register_modbus_slave_read_holding_registe
  * request within the master request timeout period as set by
  * {@link tf_rs485_set_modbus_configuration}.
  */
-TF_ATTRIBUTE_NONNULL(1) void tf_rs485_register_modbus_master_read_holding_registers_response_low_level_callback(TF_RS485 *rs485, TF_RS485ModbusMasterReadHoldingRegistersResponseLowLevelHandler handler, void *user_data);
+TF_ATTRIBUTE_NONNULL(1) int tf_rs485_register_modbus_master_read_holding_registers_response_low_level_callback(TF_RS485 *rs485, TF_RS485ModbusMasterReadHoldingRegistersResponseLowLevelHandler handler, void *user_data);
 
 
 /**
@@ -938,7 +938,7 @@ TF_ATTRIBUTE_NONNULL(1) void tf_rs485_register_modbus_master_read_holding_regist
  * 
  * To send a response of this request use {@link tf_rs485_modbus_slave_answer_write_single_coil_request}.
  */
-TF_ATTRIBUTE_NONNULL(1) void tf_rs485_register_modbus_slave_write_single_coil_request_callback(TF_RS485 *rs485, TF_RS485ModbusSlaveWriteSingleCoilRequestHandler handler, void *user_data);
+TF_ATTRIBUTE_NONNULL(1) int tf_rs485_register_modbus_slave_write_single_coil_request_callback(TF_RS485 *rs485, TF_RS485ModbusSlaveWriteSingleCoilRequestHandler handler, void *user_data);
 
 
 /**
@@ -962,7 +962,7 @@ TF_ATTRIBUTE_NONNULL(1) void tf_rs485_register_modbus_slave_write_single_coil_re
  * any valid response of the request within the master request timeout period as set
  * by {@link tf_rs485_set_modbus_configuration}.
  */
-TF_ATTRIBUTE_NONNULL(1) void tf_rs485_register_modbus_master_write_single_coil_response_callback(TF_RS485 *rs485, TF_RS485ModbusMasterWriteSingleCoilResponseHandler handler, void *user_data);
+TF_ATTRIBUTE_NONNULL(1) int tf_rs485_register_modbus_master_write_single_coil_response_callback(TF_RS485 *rs485, TF_RS485ModbusMasterWriteSingleCoilResponseHandler handler, void *user_data);
 
 
 /**
@@ -981,7 +981,7 @@ TF_ATTRIBUTE_NONNULL(1) void tf_rs485_register_modbus_master_write_single_coil_r
  * 
  * To send a response of this request use {@link tf_rs485_modbus_slave_answer_write_single_register_request}.
  */
-TF_ATTRIBUTE_NONNULL(1) void tf_rs485_register_modbus_slave_write_single_register_request_callback(TF_RS485 *rs485, TF_RS485ModbusSlaveWriteSingleRegisterRequestHandler handler, void *user_data);
+TF_ATTRIBUTE_NONNULL(1) int tf_rs485_register_modbus_slave_write_single_register_request_callback(TF_RS485 *rs485, TF_RS485ModbusSlaveWriteSingleRegisterRequestHandler handler, void *user_data);
 
 
 /**
@@ -1005,7 +1005,7 @@ TF_ATTRIBUTE_NONNULL(1) void tf_rs485_register_modbus_slave_write_single_registe
  * master did not receive any valid response of the request within the master request
  * timeout period as set by {@link tf_rs485_set_modbus_configuration}.
  */
-TF_ATTRIBUTE_NONNULL(1) void tf_rs485_register_modbus_master_write_single_register_response_callback(TF_RS485 *rs485, TF_RS485ModbusMasterWriteSingleRegisterResponseHandler handler, void *user_data);
+TF_ATTRIBUTE_NONNULL(1) int tf_rs485_register_modbus_master_write_single_register_response_callback(TF_RS485 *rs485, TF_RS485ModbusMasterWriteSingleRegisterResponseHandler handler, void *user_data);
 
 
 /**
@@ -1024,7 +1024,7 @@ TF_ATTRIBUTE_NONNULL(1) void tf_rs485_register_modbus_master_write_single_regist
  * 
  * To send a response of this request use {@link tf_rs485_modbus_slave_answer_write_multiple_coils_request}.
  */
-TF_ATTRIBUTE_NONNULL(1) void tf_rs485_register_modbus_slave_write_multiple_coils_request_low_level_callback(TF_RS485 *rs485, TF_RS485ModbusSlaveWriteMultipleCoilsRequestLowLevelHandler handler, void *user_data);
+TF_ATTRIBUTE_NONNULL(1) int tf_rs485_register_modbus_slave_write_multiple_coils_request_low_level_callback(TF_RS485 *rs485, TF_RS485ModbusSlaveWriteMultipleCoilsRequestLowLevelHandler handler, void *user_data);
 
 
 /**
@@ -1048,7 +1048,7 @@ TF_ATTRIBUTE_NONNULL(1) void tf_rs485_register_modbus_slave_write_multiple_coils
  * master did not receive any valid response of the request within the master request
  * timeout period as set by {@link tf_rs485_set_modbus_configuration}.
  */
-TF_ATTRIBUTE_NONNULL(1) void tf_rs485_register_modbus_master_write_multiple_coils_response_callback(TF_RS485 *rs485, TF_RS485ModbusMasterWriteMultipleCoilsResponseHandler handler, void *user_data);
+TF_ATTRIBUTE_NONNULL(1) int tf_rs485_register_modbus_master_write_multiple_coils_response_callback(TF_RS485 *rs485, TF_RS485ModbusMasterWriteMultipleCoilsResponseHandler handler, void *user_data);
 
 
 /**
@@ -1067,7 +1067,7 @@ TF_ATTRIBUTE_NONNULL(1) void tf_rs485_register_modbus_master_write_multiple_coil
  * 
  * To send a response of this request use {@link tf_rs485_modbus_slave_answer_write_multiple_registers_request}.
  */
-TF_ATTRIBUTE_NONNULL(1) void tf_rs485_register_modbus_slave_write_multiple_registers_request_low_level_callback(TF_RS485 *rs485, TF_RS485ModbusSlaveWriteMultipleRegistersRequestLowLevelHandler handler, void *user_data);
+TF_ATTRIBUTE_NONNULL(1) int tf_rs485_register_modbus_slave_write_multiple_registers_request_low_level_callback(TF_RS485 *rs485, TF_RS485ModbusSlaveWriteMultipleRegistersRequestLowLevelHandler handler, void *user_data);
 
 
 /**
@@ -1091,7 +1091,7 @@ TF_ATTRIBUTE_NONNULL(1) void tf_rs485_register_modbus_slave_write_multiple_regis
  * that the master did not receive any valid response of the request within the master
  * request timeout period as set by {@link tf_rs485_set_modbus_configuration}.
  */
-TF_ATTRIBUTE_NONNULL(1) void tf_rs485_register_modbus_master_write_multiple_registers_response_callback(TF_RS485 *rs485, TF_RS485ModbusMasterWriteMultipleRegistersResponseHandler handler, void *user_data);
+TF_ATTRIBUTE_NONNULL(1) int tf_rs485_register_modbus_master_write_multiple_registers_response_callback(TF_RS485 *rs485, TF_RS485ModbusMasterWriteMultipleRegistersResponseHandler handler, void *user_data);
 
 
 /**
@@ -1110,7 +1110,7 @@ TF_ATTRIBUTE_NONNULL(1) void tf_rs485_register_modbus_master_write_multiple_regi
  * 
  * To send a response of this request use {@link tf_rs485_modbus_slave_answer_read_discrete_inputs_request}.
  */
-TF_ATTRIBUTE_NONNULL(1) void tf_rs485_register_modbus_slave_read_discrete_inputs_request_callback(TF_RS485 *rs485, TF_RS485ModbusSlaveReadDiscreteInputsRequestHandler handler, void *user_data);
+TF_ATTRIBUTE_NONNULL(1) int tf_rs485_register_modbus_slave_read_discrete_inputs_request_callback(TF_RS485 *rs485, TF_RS485ModbusSlaveReadDiscreteInputsRequestHandler handler, void *user_data);
 
 
 /**
@@ -1135,7 +1135,7 @@ TF_ATTRIBUTE_NONNULL(1) void tf_rs485_register_modbus_slave_read_discrete_inputs
  * request within the master request timeout period as set by
  * {@link tf_rs485_set_modbus_configuration}.
  */
-TF_ATTRIBUTE_NONNULL(1) void tf_rs485_register_modbus_master_read_discrete_inputs_response_low_level_callback(TF_RS485 *rs485, TF_RS485ModbusMasterReadDiscreteInputsResponseLowLevelHandler handler, void *user_data);
+TF_ATTRIBUTE_NONNULL(1) int tf_rs485_register_modbus_master_read_discrete_inputs_response_low_level_callback(TF_RS485 *rs485, TF_RS485ModbusMasterReadDiscreteInputsResponseLowLevelHandler handler, void *user_data);
 
 
 /**
@@ -1154,7 +1154,7 @@ TF_ATTRIBUTE_NONNULL(1) void tf_rs485_register_modbus_master_read_discrete_input
  * 
  * To send a response of this request use {@link tf_rs485_modbus_slave_answer_read_input_registers_request}.
  */
-TF_ATTRIBUTE_NONNULL(1) void tf_rs485_register_modbus_slave_read_input_registers_request_callback(TF_RS485 *rs485, TF_RS485ModbusSlaveReadInputRegistersRequestHandler handler, void *user_data);
+TF_ATTRIBUTE_NONNULL(1) int tf_rs485_register_modbus_slave_read_input_registers_request_callback(TF_RS485 *rs485, TF_RS485ModbusSlaveReadInputRegistersRequestHandler handler, void *user_data);
 
 
 /**
@@ -1179,7 +1179,7 @@ TF_ATTRIBUTE_NONNULL(1) void tf_rs485_register_modbus_slave_read_input_registers
  * request within the master request timeout period as set by
  * {@link tf_rs485_set_modbus_configuration}.
  */
-TF_ATTRIBUTE_NONNULL(1) void tf_rs485_register_modbus_master_read_input_registers_response_low_level_callback(TF_RS485 *rs485, TF_RS485ModbusMasterReadInputRegistersResponseLowLevelHandler handler, void *user_data);
+TF_ATTRIBUTE_NONNULL(1) int tf_rs485_register_modbus_master_read_input_registers_response_low_level_callback(TF_RS485 *rs485, TF_RS485ModbusMasterReadInputRegistersResponseLowLevelHandler handler, void *user_data);
 
 
 /**
@@ -1197,7 +1197,7 @@ TF_ATTRIBUTE_NONNULL(1) void tf_rs485_register_modbus_master_read_input_register
  * 
  * .. versionadded:: 2.0.5$nbsp;(Plugin)
  */
-TF_ATTRIBUTE_NONNULL(1) void tf_rs485_register_frame_readable_callback(TF_RS485 *rs485, TF_RS485FrameReadableHandler handler, void *user_data);
+TF_ATTRIBUTE_NONNULL(1) int tf_rs485_register_frame_readable_callback(TF_RS485 *rs485, TF_RS485FrameReadableHandler handler, void *user_data);
 #endif
 #ifdef TF_IMPLEMENT_CALLBACKS
 /**

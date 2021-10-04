@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-07-28.      *
+ * This file was automatically generated on 2021-10-04.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -28,6 +28,9 @@ static bool tf_evse_callback_handler(void *dev, uint8_t fid, TF_Packetbuffer *pa
     return false;
 }
 int tf_evse_create(TF_EVSE *evse, const char *uid, TF_HalContext *hal) {
+    if (evse == NULL || uid == NULL || hal == NULL)
+        return TF_E_NULL;
+
     memset(evse, 0, sizeof(TF_EVSE));
 
     uint32_t numeric_uid;
@@ -57,12 +60,18 @@ int tf_evse_create(TF_EVSE *evse, const char *uid, TF_HalContext *hal) {
 }
 
 int tf_evse_destroy(TF_EVSE *evse) {
+    if (evse == NULL)
+        return TF_E_NULL;
+
     int result = tf_tfp_destroy(evse->tfp);
     evse->tfp = NULL;
     return result;
 }
 
 int tf_evse_get_response_expected(TF_EVSE *evse, uint8_t function_id, bool *ret_response_expected) {
+    if (evse == NULL)
+        return TF_E_NULL;
+
     switch(function_id) {
         case TF_EVSE_FUNCTION_SET_MAX_CHARGING_CURRENT:
             if(ret_response_expected != NULL)
@@ -226,6 +235,9 @@ void tf_evse_set_response_expected_all(TF_EVSE *evse, bool response_expected) {
 }
 
 int tf_evse_get_state(TF_EVSE *evse, uint8_t *ret_iec61851_state, uint8_t *ret_vehicle_state, uint8_t *ret_contactor_state, uint8_t *ret_contactor_error, uint8_t *ret_charge_release, uint16_t *ret_allowed_charging_current, uint8_t *ret_error_state, uint8_t *ret_lock_state, uint32_t *ret_time_since_state_change, uint32_t *ret_uptime) {
+    if (evse == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(evse->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -267,6 +279,9 @@ int tf_evse_get_state(TF_EVSE *evse, uint8_t *ret_iec61851_state, uint8_t *ret_v
 }
 
 int tf_evse_get_hardware_configuration(TF_EVSE *evse, uint8_t *ret_jumper_configuration, bool *ret_has_lock_switch) {
+    if (evse == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(evse->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -300,6 +315,9 @@ int tf_evse_get_hardware_configuration(TF_EVSE *evse, uint8_t *ret_jumper_config
 }
 
 int tf_evse_get_low_level_state(TF_EVSE *evse, bool *ret_low_level_mode_enabled, uint8_t *ret_led_state, uint16_t *ret_cp_pwm_duty_cycle, uint16_t ret_adc_values[2], int16_t ret_voltages[3], uint32_t ret_resistances[2], bool ret_gpio[5], uint8_t *ret_hardware_version) {
+    if (evse == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(evse->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -340,6 +358,9 @@ int tf_evse_get_low_level_state(TF_EVSE *evse, bool *ret_low_level_mode_enabled,
 }
 
 int tf_evse_set_max_charging_current(TF_EVSE *evse, uint16_t max_current) {
+    if (evse == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(evse->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -372,6 +393,9 @@ int tf_evse_set_max_charging_current(TF_EVSE *evse, uint16_t max_current) {
 }
 
 int tf_evse_get_max_charging_current(TF_EVSE *evse, uint16_t *ret_max_current_configured, uint16_t *ret_max_current_incoming_cable, uint16_t *ret_max_current_outgoing_cable, uint16_t *ret_max_current_managed) {
+    if (evse == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(evse->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -407,6 +431,9 @@ int tf_evse_get_max_charging_current(TF_EVSE *evse, uint16_t *ret_max_current_co
 }
 
 int tf_evse_calibrate(TF_EVSE *evse, uint8_t state, uint32_t password, int32_t value, bool *ret_success) {
+    if (evse == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(evse->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -446,6 +473,9 @@ int tf_evse_calibrate(TF_EVSE *evse, uint8_t state, uint32_t password, int32_t v
 }
 
 int tf_evse_start_charging(TF_EVSE *evse) {
+    if (evse == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(evse->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -474,6 +504,9 @@ int tf_evse_start_charging(TF_EVSE *evse) {
 }
 
 int tf_evse_stop_charging(TF_EVSE *evse) {
+    if (evse == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(evse->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -502,6 +535,9 @@ int tf_evse_stop_charging(TF_EVSE *evse) {
 }
 
 int tf_evse_set_charging_autostart(TF_EVSE *evse, bool autostart) {
+    if (evse == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(evse->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -534,6 +570,9 @@ int tf_evse_set_charging_autostart(TF_EVSE *evse, bool autostart) {
 }
 
 int tf_evse_get_charging_autostart(TF_EVSE *evse, bool *ret_autostart) {
+    if (evse == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(evse->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -566,6 +605,9 @@ int tf_evse_get_charging_autostart(TF_EVSE *evse, bool *ret_autostart) {
 }
 
 int tf_evse_get_managed(TF_EVSE *evse, bool *ret_managed) {
+    if (evse == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(evse->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -598,6 +640,9 @@ int tf_evse_get_managed(TF_EVSE *evse, bool *ret_managed) {
 }
 
 int tf_evse_set_managed(TF_EVSE *evse, bool managed, uint32_t password) {
+    if (evse == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(evse->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -631,6 +676,9 @@ int tf_evse_set_managed(TF_EVSE *evse, bool managed, uint32_t password) {
 }
 
 int tf_evse_set_managed_current(TF_EVSE *evse, uint16_t current) {
+    if (evse == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(evse->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -663,6 +711,9 @@ int tf_evse_set_managed_current(TF_EVSE *evse, uint16_t current) {
 }
 
 int tf_evse_get_user_calibration(TF_EVSE *evse, bool *ret_user_calibration_active, int16_t *ret_voltage_diff, int16_t *ret_voltage_mul, int16_t *ret_voltage_div, int16_t *ret_resistance_2700, int16_t ret_resistance_880[14]) {
+    if (evse == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(evse->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -701,6 +752,9 @@ int tf_evse_get_user_calibration(TF_EVSE *evse, bool *ret_user_calibration_activ
 }
 
 int tf_evse_set_user_calibration(TF_EVSE *evse, uint32_t password, bool user_calibration_active, int16_t voltage_diff, int16_t voltage_mul, int16_t voltage_div, int16_t resistance_2700, int16_t resistance_880[14]) {
+    if (evse == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(evse->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -740,6 +794,9 @@ int tf_evse_set_user_calibration(TF_EVSE *evse, uint32_t password, bool user_cal
 }
 
 int tf_evse_get_data_storage(TF_EVSE *evse, uint8_t page, uint8_t ret_data[63]) {
+    if (evse == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(evse->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -777,6 +834,9 @@ int tf_evse_get_data_storage(TF_EVSE *evse, uint8_t page, uint8_t ret_data[63]) 
 }
 
 int tf_evse_set_data_storage(TF_EVSE *evse, uint8_t page, uint8_t data[63]) {
+    if (evse == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(evse->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -810,6 +870,9 @@ int tf_evse_set_data_storage(TF_EVSE *evse, uint8_t page, uint8_t data[63]) {
 }
 
 int tf_evse_get_spitfp_error_count(TF_EVSE *evse, uint32_t *ret_error_count_ack_checksum, uint32_t *ret_error_count_message_checksum, uint32_t *ret_error_count_frame, uint32_t *ret_error_count_overflow) {
+    if (evse == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(evse->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -845,6 +908,9 @@ int tf_evse_get_spitfp_error_count(TF_EVSE *evse, uint32_t *ret_error_count_ack_
 }
 
 int tf_evse_set_bootloader_mode(TF_EVSE *evse, uint8_t mode, uint8_t *ret_status) {
+    if (evse == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(evse->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -881,6 +947,9 @@ int tf_evse_set_bootloader_mode(TF_EVSE *evse, uint8_t mode, uint8_t *ret_status
 }
 
 int tf_evse_get_bootloader_mode(TF_EVSE *evse, uint8_t *ret_mode) {
+    if (evse == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(evse->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -913,6 +982,9 @@ int tf_evse_get_bootloader_mode(TF_EVSE *evse, uint8_t *ret_mode) {
 }
 
 int tf_evse_set_write_firmware_pointer(TF_EVSE *evse, uint32_t pointer) {
+    if (evse == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(evse->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -945,6 +1017,9 @@ int tf_evse_set_write_firmware_pointer(TF_EVSE *evse, uint32_t pointer) {
 }
 
 int tf_evse_write_firmware(TF_EVSE *evse, uint8_t data[64], uint8_t *ret_status) {
+    if (evse == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(evse->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -981,6 +1056,9 @@ int tf_evse_write_firmware(TF_EVSE *evse, uint8_t data[64], uint8_t *ret_status)
 }
 
 int tf_evse_set_status_led_config(TF_EVSE *evse, uint8_t config) {
+    if (evse == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(evse->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1013,6 +1091,9 @@ int tf_evse_set_status_led_config(TF_EVSE *evse, uint8_t config) {
 }
 
 int tf_evse_get_status_led_config(TF_EVSE *evse, uint8_t *ret_config) {
+    if (evse == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(evse->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1045,6 +1126,9 @@ int tf_evse_get_status_led_config(TF_EVSE *evse, uint8_t *ret_config) {
 }
 
 int tf_evse_get_chip_temperature(TF_EVSE *evse, int16_t *ret_temperature) {
+    if (evse == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(evse->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1077,6 +1161,9 @@ int tf_evse_get_chip_temperature(TF_EVSE *evse, int16_t *ret_temperature) {
 }
 
 int tf_evse_reset(TF_EVSE *evse) {
+    if (evse == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(evse->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1105,6 +1192,9 @@ int tf_evse_reset(TF_EVSE *evse) {
 }
 
 int tf_evse_write_uid(TF_EVSE *evse, uint32_t uid) {
+    if (evse == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(evse->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1137,6 +1227,9 @@ int tf_evse_write_uid(TF_EVSE *evse, uint32_t uid) {
 }
 
 int tf_evse_read_uid(TF_EVSE *evse, uint32_t *ret_uid) {
+    if (evse == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(evse->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1169,6 +1262,9 @@ int tf_evse_read_uid(TF_EVSE *evse, uint32_t *ret_uid) {
 }
 
 int tf_evse_get_identity(TF_EVSE *evse, char ret_uid[8], char ret_connected_uid[8], char *ret_position, uint8_t ret_hardware_version[3], uint8_t ret_firmware_version[3], uint16_t *ret_device_identifier) {
+    if (evse == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(evse->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1215,6 +1311,9 @@ int tf_evse_get_identity(TF_EVSE *evse, char ret_uid[8], char ret_connected_uid[
 
 
 int tf_evse_callback_tick(TF_EVSE *evse, uint32_t timeout_us) {
+    if (evse == NULL)
+        return TF_E_NULL;
+
     return tf_tfp_callback_tick(evse->tfp, tf_hal_current_time_us(evse->tfp->hal) + timeout_us);
 }
 

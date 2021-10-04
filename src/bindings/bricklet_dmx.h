@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-02-08.      *
+ * This file was automatically generated on 2021-10-04.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -428,7 +428,7 @@ TF_ATTRIBUTE_NONNULL_ALL void tf_dmx_set_response_expected_all(TF_DMX *dmx, bool
  * 
  * This callback can only be triggered in master mode.
  */
-TF_ATTRIBUTE_NONNULL(1) void tf_dmx_register_frame_started_callback(TF_DMX *dmx, TF_DMXFrameStartedHandler handler, void *user_data);
+TF_ATTRIBUTE_NONNULL(1) int tf_dmx_register_frame_started_callback(TF_DMX *dmx, TF_DMXFrameStartedHandler handler, void *user_data);
 
 
 /**
@@ -449,7 +449,7 @@ TF_ATTRIBUTE_NONNULL(1) void tf_dmx_register_frame_started_callback(TF_DMX *dmx,
  * 
  * This callback can only be triggered in slave mode.
  */
-TF_ATTRIBUTE_NONNULL(1) void tf_dmx_register_frame_available_callback(TF_DMX *dmx, TF_DMXFrameAvailableHandler handler, void *user_data);
+TF_ATTRIBUTE_NONNULL(1) int tf_dmx_register_frame_available_callback(TF_DMX *dmx, TF_DMXFrameAvailableHandler handler, void *user_data);
 
 
 /**
@@ -470,7 +470,7 @@ TF_ATTRIBUTE_NONNULL(1) void tf_dmx_register_frame_available_callback(TF_DMX *dm
  * 
  * This callback can only be triggered in slave mode.
  */
-TF_ATTRIBUTE_NONNULL(1) void tf_dmx_register_frame_low_level_callback(TF_DMX *dmx, TF_DMXFrameLowLevelHandler handler, void *user_data);
+TF_ATTRIBUTE_NONNULL(1) int tf_dmx_register_frame_low_level_callback(TF_DMX *dmx, TF_DMXFrameLowLevelHandler handler, void *user_data);
 
 
 /**
@@ -484,7 +484,7 @@ TF_ATTRIBUTE_NONNULL(1) void tf_dmx_register_frame_low_level_callback(TF_DMX *dm
  * This callback is called if a new error occurs. It returns
  * the current overrun and framing error count.
  */
-TF_ATTRIBUTE_NONNULL(1) void tf_dmx_register_frame_error_count_callback(TF_DMX *dmx, TF_DMXFrameErrorCountHandler handler, void *user_data);
+TF_ATTRIBUTE_NONNULL(1) int tf_dmx_register_frame_error_count_callback(TF_DMX *dmx, TF_DMXFrameErrorCountHandler handler, void *user_data);
 #endif
 #ifdef TF_IMPLEMENT_CALLBACKS
 /**

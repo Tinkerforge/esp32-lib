@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-02-08.      *
+ * This file was automatically generated on 2021-10-04.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -355,7 +355,7 @@ TF_ATTRIBUTE_NONNULL_ALL void tf_temperature_ir_v2_set_response_expected_all(TF_
  * 
  * The parameter is the same as {@link tf_temperature_ir_v2_get_ambient_temperature}.
  */
-TF_ATTRIBUTE_NONNULL(1) void tf_temperature_ir_v2_register_ambient_temperature_callback(TF_TemperatureIRV2 *temperature_ir_v2, TF_TemperatureIRV2AmbientTemperatureHandler handler, void *user_data);
+TF_ATTRIBUTE_NONNULL(1) int tf_temperature_ir_v2_register_ambient_temperature_callback(TF_TemperatureIRV2 *temperature_ir_v2, TF_TemperatureIRV2AmbientTemperatureHandler handler, void *user_data);
 
 
 /**
@@ -371,7 +371,7 @@ TF_ATTRIBUTE_NONNULL(1) void tf_temperature_ir_v2_register_ambient_temperature_c
  * 
  * The parameter is the same as {@link tf_temperature_ir_v2_get_object_temperature}.
  */
-TF_ATTRIBUTE_NONNULL(1) void tf_temperature_ir_v2_register_object_temperature_callback(TF_TemperatureIRV2 *temperature_ir_v2, TF_TemperatureIRV2ObjectTemperatureHandler handler, void *user_data);
+TF_ATTRIBUTE_NONNULL(1) int tf_temperature_ir_v2_register_object_temperature_callback(TF_TemperatureIRV2 *temperature_ir_v2, TF_TemperatureIRV2ObjectTemperatureHandler handler, void *user_data);
 #endif
 #ifdef TF_IMPLEMENT_CALLBACKS
 /**

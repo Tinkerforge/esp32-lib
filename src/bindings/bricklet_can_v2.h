@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-02-08.      *
+ * This file was automatically generated on 2021-10-04.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -518,7 +518,7 @@ TF_ATTRIBUTE_NONNULL_ALL void tf_can_v2_set_response_expected_all(TF_CANV2 *can_
  * 
  * To enable this callback, use {@link tf_can_v2_set_frame_read_callback_configuration}.
  */
-TF_ATTRIBUTE_NONNULL(1) void tf_can_v2_register_frame_read_low_level_callback(TF_CANV2 *can_v2, TF_CANV2FrameReadLowLevelHandler handler, void *user_data);
+TF_ATTRIBUTE_NONNULL(1) int tf_can_v2_register_frame_read_low_level_callback(TF_CANV2 *can_v2, TF_CANV2FrameReadLowLevelHandler handler, void *user_data);
 
 
 /**
@@ -542,7 +542,7 @@ TF_ATTRIBUTE_NONNULL(1) void tf_can_v2_register_frame_read_low_level_callback(TF
  * 
  * .. versionadded:: 2.0.3$nbsp;(Plugin)
  */
-TF_ATTRIBUTE_NONNULL(1) void tf_can_v2_register_frame_readable_callback(TF_CANV2 *can_v2, TF_CANV2FrameReadableHandler handler, void *user_data);
+TF_ATTRIBUTE_NONNULL(1) int tf_can_v2_register_frame_readable_callback(TF_CANV2 *can_v2, TF_CANV2FrameReadableHandler handler, void *user_data);
 
 
 /**
@@ -562,7 +562,7 @@ TF_ATTRIBUTE_NONNULL(1) void tf_can_v2_register_frame_readable_callback(TF_CANV2
  * 
  * .. versionadded:: 2.0.3$nbsp;(Plugin)
  */
-TF_ATTRIBUTE_NONNULL(1) void tf_can_v2_register_error_occurred_callback(TF_CANV2 *can_v2, TF_CANV2ErrorOccurredHandler handler, void *user_data);
+TF_ATTRIBUTE_NONNULL(1) int tf_can_v2_register_error_occurred_callback(TF_CANV2 *can_v2, TF_CANV2ErrorOccurredHandler handler, void *user_data);
 #endif
 #ifdef TF_IMPLEMENT_CALLBACKS
 /**

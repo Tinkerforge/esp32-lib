@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-02-08.      *
+ * This file was automatically generated on 2021-10-04.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -130,6 +130,9 @@ static bool tf_gps_v2_callback_handler(void *dev, uint8_t fid, TF_Packetbuffer *
 }
 #endif
 int tf_gps_v2_create(TF_GPSV2 *gps_v2, const char *uid, TF_HalContext *hal) {
+    if (gps_v2 == NULL || uid == NULL || hal == NULL)
+        return TF_E_NULL;
+
     memset(gps_v2, 0, sizeof(TF_GPSV2));
 
     uint32_t numeric_uid;
@@ -159,12 +162,18 @@ int tf_gps_v2_create(TF_GPSV2 *gps_v2, const char *uid, TF_HalContext *hal) {
 }
 
 int tf_gps_v2_destroy(TF_GPSV2 *gps_v2) {
+    if (gps_v2 == NULL)
+        return TF_E_NULL;
+
     int result = tf_tfp_destroy(gps_v2->tfp);
     gps_v2->tfp = NULL;
     return result;
 }
 
 int tf_gps_v2_get_response_expected(TF_GPSV2 *gps_v2, uint8_t function_id, bool *ret_response_expected) {
+    if (gps_v2 == NULL)
+        return TF_E_NULL;
+
     switch(function_id) {
         case TF_GPS_V2_FUNCTION_RESTART:
             if(ret_response_expected != NULL)
@@ -317,6 +326,9 @@ void tf_gps_v2_set_response_expected_all(TF_GPSV2 *gps_v2, bool response_expecte
 }
 
 int tf_gps_v2_get_coordinates(TF_GPSV2 *gps_v2, uint32_t *ret_latitude, char *ret_ns, uint32_t *ret_longitude, char *ret_ew) {
+    if (gps_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(gps_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -352,6 +364,9 @@ int tf_gps_v2_get_coordinates(TF_GPSV2 *gps_v2, uint32_t *ret_latitude, char *re
 }
 
 int tf_gps_v2_get_status(TF_GPSV2 *gps_v2, bool *ret_has_fix, uint8_t *ret_satellites_view) {
+    if (gps_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(gps_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -385,6 +400,9 @@ int tf_gps_v2_get_status(TF_GPSV2 *gps_v2, bool *ret_has_fix, uint8_t *ret_satel
 }
 
 int tf_gps_v2_get_altitude(TF_GPSV2 *gps_v2, int32_t *ret_altitude, int32_t *ret_geoidal_separation) {
+    if (gps_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(gps_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -418,6 +436,9 @@ int tf_gps_v2_get_altitude(TF_GPSV2 *gps_v2, int32_t *ret_altitude, int32_t *ret
 }
 
 int tf_gps_v2_get_motion(TF_GPSV2 *gps_v2, uint32_t *ret_course, uint32_t *ret_speed) {
+    if (gps_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(gps_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -451,6 +472,9 @@ int tf_gps_v2_get_motion(TF_GPSV2 *gps_v2, uint32_t *ret_course, uint32_t *ret_s
 }
 
 int tf_gps_v2_get_date_time(TF_GPSV2 *gps_v2, uint32_t *ret_date, uint32_t *ret_time) {
+    if (gps_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(gps_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -484,6 +508,9 @@ int tf_gps_v2_get_date_time(TF_GPSV2 *gps_v2, uint32_t *ret_date, uint32_t *ret_
 }
 
 int tf_gps_v2_restart(TF_GPSV2 *gps_v2, uint8_t restart_type) {
+    if (gps_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(gps_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -516,6 +543,9 @@ int tf_gps_v2_restart(TF_GPSV2 *gps_v2, uint8_t restart_type) {
 }
 
 int tf_gps_v2_get_satellite_system_status_low_level(TF_GPSV2 *gps_v2, uint8_t satellite_system, uint8_t *ret_satellite_numbers_length, uint8_t ret_satellite_numbers_data[12], uint8_t *ret_fix, uint16_t *ret_pdop, uint16_t *ret_hdop, uint16_t *ret_vdop) {
+    if (gps_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(gps_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -558,6 +588,9 @@ int tf_gps_v2_get_satellite_system_status_low_level(TF_GPSV2 *gps_v2, uint8_t sa
 }
 
 int tf_gps_v2_get_satellite_status(TF_GPSV2 *gps_v2, uint8_t satellite_system, uint8_t satellite_number, int16_t *ret_elevation, int16_t *ret_azimuth, int16_t *ret_snr) {
+    if (gps_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(gps_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -597,6 +630,9 @@ int tf_gps_v2_get_satellite_status(TF_GPSV2 *gps_v2, uint8_t satellite_system, u
 }
 
 int tf_gps_v2_set_fix_led_config(TF_GPSV2 *gps_v2, uint8_t config) {
+    if (gps_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(gps_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -629,6 +665,9 @@ int tf_gps_v2_set_fix_led_config(TF_GPSV2 *gps_v2, uint8_t config) {
 }
 
 int tf_gps_v2_get_fix_led_config(TF_GPSV2 *gps_v2, uint8_t *ret_config) {
+    if (gps_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(gps_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -661,6 +700,9 @@ int tf_gps_v2_get_fix_led_config(TF_GPSV2 *gps_v2, uint8_t *ret_config) {
 }
 
 int tf_gps_v2_set_coordinates_callback_period(TF_GPSV2 *gps_v2, uint32_t period) {
+    if (gps_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(gps_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -693,6 +735,9 @@ int tf_gps_v2_set_coordinates_callback_period(TF_GPSV2 *gps_v2, uint32_t period)
 }
 
 int tf_gps_v2_get_coordinates_callback_period(TF_GPSV2 *gps_v2, uint32_t *ret_period) {
+    if (gps_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(gps_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -725,6 +770,9 @@ int tf_gps_v2_get_coordinates_callback_period(TF_GPSV2 *gps_v2, uint32_t *ret_pe
 }
 
 int tf_gps_v2_set_status_callback_period(TF_GPSV2 *gps_v2, uint32_t period) {
+    if (gps_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(gps_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -757,6 +805,9 @@ int tf_gps_v2_set_status_callback_period(TF_GPSV2 *gps_v2, uint32_t period) {
 }
 
 int tf_gps_v2_get_status_callback_period(TF_GPSV2 *gps_v2, uint32_t *ret_period) {
+    if (gps_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(gps_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -789,6 +840,9 @@ int tf_gps_v2_get_status_callback_period(TF_GPSV2 *gps_v2, uint32_t *ret_period)
 }
 
 int tf_gps_v2_set_altitude_callback_period(TF_GPSV2 *gps_v2, uint32_t period) {
+    if (gps_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(gps_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -821,6 +875,9 @@ int tf_gps_v2_set_altitude_callback_period(TF_GPSV2 *gps_v2, uint32_t period) {
 }
 
 int tf_gps_v2_get_altitude_callback_period(TF_GPSV2 *gps_v2, uint32_t *ret_period) {
+    if (gps_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(gps_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -853,6 +910,9 @@ int tf_gps_v2_get_altitude_callback_period(TF_GPSV2 *gps_v2, uint32_t *ret_perio
 }
 
 int tf_gps_v2_set_motion_callback_period(TF_GPSV2 *gps_v2, uint32_t period) {
+    if (gps_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(gps_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -885,6 +945,9 @@ int tf_gps_v2_set_motion_callback_period(TF_GPSV2 *gps_v2, uint32_t period) {
 }
 
 int tf_gps_v2_get_motion_callback_period(TF_GPSV2 *gps_v2, uint32_t *ret_period) {
+    if (gps_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(gps_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -917,6 +980,9 @@ int tf_gps_v2_get_motion_callback_period(TF_GPSV2 *gps_v2, uint32_t *ret_period)
 }
 
 int tf_gps_v2_set_date_time_callback_period(TF_GPSV2 *gps_v2, uint32_t period) {
+    if (gps_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(gps_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -949,6 +1015,9 @@ int tf_gps_v2_set_date_time_callback_period(TF_GPSV2 *gps_v2, uint32_t period) {
 }
 
 int tf_gps_v2_get_date_time_callback_period(TF_GPSV2 *gps_v2, uint32_t *ret_period) {
+    if (gps_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(gps_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -981,6 +1050,9 @@ int tf_gps_v2_get_date_time_callback_period(TF_GPSV2 *gps_v2, uint32_t *ret_peri
 }
 
 int tf_gps_v2_set_sbas_config(TF_GPSV2 *gps_v2, uint8_t sbas_config) {
+    if (gps_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(gps_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1013,6 +1085,9 @@ int tf_gps_v2_set_sbas_config(TF_GPSV2 *gps_v2, uint8_t sbas_config) {
 }
 
 int tf_gps_v2_get_sbas_config(TF_GPSV2 *gps_v2, uint8_t *ret_sbas_config) {
+    if (gps_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(gps_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1045,6 +1120,9 @@ int tf_gps_v2_get_sbas_config(TF_GPSV2 *gps_v2, uint8_t *ret_sbas_config) {
 }
 
 int tf_gps_v2_get_spitfp_error_count(TF_GPSV2 *gps_v2, uint32_t *ret_error_count_ack_checksum, uint32_t *ret_error_count_message_checksum, uint32_t *ret_error_count_frame, uint32_t *ret_error_count_overflow) {
+    if (gps_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(gps_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1080,6 +1158,9 @@ int tf_gps_v2_get_spitfp_error_count(TF_GPSV2 *gps_v2, uint32_t *ret_error_count
 }
 
 int tf_gps_v2_set_bootloader_mode(TF_GPSV2 *gps_v2, uint8_t mode, uint8_t *ret_status) {
+    if (gps_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(gps_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1116,6 +1197,9 @@ int tf_gps_v2_set_bootloader_mode(TF_GPSV2 *gps_v2, uint8_t mode, uint8_t *ret_s
 }
 
 int tf_gps_v2_get_bootloader_mode(TF_GPSV2 *gps_v2, uint8_t *ret_mode) {
+    if (gps_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(gps_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1148,6 +1232,9 @@ int tf_gps_v2_get_bootloader_mode(TF_GPSV2 *gps_v2, uint8_t *ret_mode) {
 }
 
 int tf_gps_v2_set_write_firmware_pointer(TF_GPSV2 *gps_v2, uint32_t pointer) {
+    if (gps_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(gps_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1180,6 +1267,9 @@ int tf_gps_v2_set_write_firmware_pointer(TF_GPSV2 *gps_v2, uint32_t pointer) {
 }
 
 int tf_gps_v2_write_firmware(TF_GPSV2 *gps_v2, uint8_t data[64], uint8_t *ret_status) {
+    if (gps_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(gps_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1216,6 +1306,9 @@ int tf_gps_v2_write_firmware(TF_GPSV2 *gps_v2, uint8_t data[64], uint8_t *ret_st
 }
 
 int tf_gps_v2_set_status_led_config(TF_GPSV2 *gps_v2, uint8_t config) {
+    if (gps_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(gps_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1248,6 +1341,9 @@ int tf_gps_v2_set_status_led_config(TF_GPSV2 *gps_v2, uint8_t config) {
 }
 
 int tf_gps_v2_get_status_led_config(TF_GPSV2 *gps_v2, uint8_t *ret_config) {
+    if (gps_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(gps_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1280,6 +1376,9 @@ int tf_gps_v2_get_status_led_config(TF_GPSV2 *gps_v2, uint8_t *ret_config) {
 }
 
 int tf_gps_v2_get_chip_temperature(TF_GPSV2 *gps_v2, int16_t *ret_temperature) {
+    if (gps_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(gps_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1312,6 +1411,9 @@ int tf_gps_v2_get_chip_temperature(TF_GPSV2 *gps_v2, int16_t *ret_temperature) {
 }
 
 int tf_gps_v2_reset(TF_GPSV2 *gps_v2) {
+    if (gps_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(gps_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1340,6 +1442,9 @@ int tf_gps_v2_reset(TF_GPSV2 *gps_v2) {
 }
 
 int tf_gps_v2_write_uid(TF_GPSV2 *gps_v2, uint32_t uid) {
+    if (gps_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(gps_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1372,6 +1477,9 @@ int tf_gps_v2_write_uid(TF_GPSV2 *gps_v2, uint32_t uid) {
 }
 
 int tf_gps_v2_read_uid(TF_GPSV2 *gps_v2, uint32_t *ret_uid) {
+    if (gps_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(gps_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1404,6 +1512,9 @@ int tf_gps_v2_read_uid(TF_GPSV2 *gps_v2, uint32_t *ret_uid) {
 }
 
 int tf_gps_v2_get_identity(TF_GPSV2 *gps_v2, char ret_uid[8], char ret_connected_uid[8], char *ret_position, uint8_t ret_hardware_version[3], uint8_t ret_firmware_version[3], uint16_t *ret_device_identifier) {
+    if (gps_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(gps_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -1449,6 +1560,9 @@ int tf_gps_v2_get_identity(TF_GPSV2 *gps_v2, char ret_uid[8], char ret_connected
 }
 
 int tf_gps_v2_get_satellite_system_status(TF_GPSV2 *gps_v2, uint8_t satellite_system, uint8_t *ret_satellite_numbers, uint8_t *ret_satellite_numbers_length, uint8_t *ret_fix, uint16_t *ret_pdop, uint16_t *ret_hdop, uint16_t *ret_vdop) {
+    if (gps_v2 == NULL)
+        return TF_E_NULL;
+
     int ret = TF_E_OK;
     uint8_t satellite_numbers_length = 0;
     uint8_t satellite_numbers_data[12];
@@ -1469,7 +1583,10 @@ int tf_gps_v2_get_satellite_system_status(TF_GPSV2 *gps_v2, uint8_t satellite_sy
     return ret;
 }
 #ifdef TF_IMPLEMENT_CALLBACKS
-void tf_gps_v2_register_pulse_per_second_callback(TF_GPSV2 *gps_v2, TF_GPSV2PulsePerSecondHandler handler, void *user_data) {
+int tf_gps_v2_register_pulse_per_second_callback(TF_GPSV2 *gps_v2, TF_GPSV2PulsePerSecondHandler handler, void *user_data) {
+    if (gps_v2 == NULL)
+        return TF_E_NULL;
+
     if (handler == NULL) {
         gps_v2->tfp->needs_callback_tick = false;
         gps_v2->tfp->needs_callback_tick |= gps_v2->coordinates_handler != NULL;
@@ -1482,10 +1599,14 @@ void tf_gps_v2_register_pulse_per_second_callback(TF_GPSV2 *gps_v2, TF_GPSV2Puls
     }
     gps_v2->pulse_per_second_handler = handler;
     gps_v2->pulse_per_second_user_data = user_data;
+    return TF_E_OK;
 }
 
 
-void tf_gps_v2_register_coordinates_callback(TF_GPSV2 *gps_v2, TF_GPSV2CoordinatesHandler handler, void *user_data) {
+int tf_gps_v2_register_coordinates_callback(TF_GPSV2 *gps_v2, TF_GPSV2CoordinatesHandler handler, void *user_data) {
+    if (gps_v2 == NULL)
+        return TF_E_NULL;
+
     if (handler == NULL) {
         gps_v2->tfp->needs_callback_tick = false;
         gps_v2->tfp->needs_callback_tick |= gps_v2->pulse_per_second_handler != NULL;
@@ -1498,10 +1619,14 @@ void tf_gps_v2_register_coordinates_callback(TF_GPSV2 *gps_v2, TF_GPSV2Coordinat
     }
     gps_v2->coordinates_handler = handler;
     gps_v2->coordinates_user_data = user_data;
+    return TF_E_OK;
 }
 
 
-void tf_gps_v2_register_status_callback(TF_GPSV2 *gps_v2, TF_GPSV2StatusHandler handler, void *user_data) {
+int tf_gps_v2_register_status_callback(TF_GPSV2 *gps_v2, TF_GPSV2StatusHandler handler, void *user_data) {
+    if (gps_v2 == NULL)
+        return TF_E_NULL;
+
     if (handler == NULL) {
         gps_v2->tfp->needs_callback_tick = false;
         gps_v2->tfp->needs_callback_tick |= gps_v2->pulse_per_second_handler != NULL;
@@ -1514,10 +1639,14 @@ void tf_gps_v2_register_status_callback(TF_GPSV2 *gps_v2, TF_GPSV2StatusHandler 
     }
     gps_v2->status_handler = handler;
     gps_v2->status_user_data = user_data;
+    return TF_E_OK;
 }
 
 
-void tf_gps_v2_register_altitude_callback(TF_GPSV2 *gps_v2, TF_GPSV2AltitudeHandler handler, void *user_data) {
+int tf_gps_v2_register_altitude_callback(TF_GPSV2 *gps_v2, TF_GPSV2AltitudeHandler handler, void *user_data) {
+    if (gps_v2 == NULL)
+        return TF_E_NULL;
+
     if (handler == NULL) {
         gps_v2->tfp->needs_callback_tick = false;
         gps_v2->tfp->needs_callback_tick |= gps_v2->pulse_per_second_handler != NULL;
@@ -1530,10 +1659,14 @@ void tf_gps_v2_register_altitude_callback(TF_GPSV2 *gps_v2, TF_GPSV2AltitudeHand
     }
     gps_v2->altitude_handler = handler;
     gps_v2->altitude_user_data = user_data;
+    return TF_E_OK;
 }
 
 
-void tf_gps_v2_register_motion_callback(TF_GPSV2 *gps_v2, TF_GPSV2MotionHandler handler, void *user_data) {
+int tf_gps_v2_register_motion_callback(TF_GPSV2 *gps_v2, TF_GPSV2MotionHandler handler, void *user_data) {
+    if (gps_v2 == NULL)
+        return TF_E_NULL;
+
     if (handler == NULL) {
         gps_v2->tfp->needs_callback_tick = false;
         gps_v2->tfp->needs_callback_tick |= gps_v2->pulse_per_second_handler != NULL;
@@ -1546,10 +1679,14 @@ void tf_gps_v2_register_motion_callback(TF_GPSV2 *gps_v2, TF_GPSV2MotionHandler 
     }
     gps_v2->motion_handler = handler;
     gps_v2->motion_user_data = user_data;
+    return TF_E_OK;
 }
 
 
-void tf_gps_v2_register_date_time_callback(TF_GPSV2 *gps_v2, TF_GPSV2DateTimeHandler handler, void *user_data) {
+int tf_gps_v2_register_date_time_callback(TF_GPSV2 *gps_v2, TF_GPSV2DateTimeHandler handler, void *user_data) {
+    if (gps_v2 == NULL)
+        return TF_E_NULL;
+
     if (handler == NULL) {
         gps_v2->tfp->needs_callback_tick = false;
         gps_v2->tfp->needs_callback_tick |= gps_v2->pulse_per_second_handler != NULL;
@@ -1562,9 +1699,13 @@ void tf_gps_v2_register_date_time_callback(TF_GPSV2 *gps_v2, TF_GPSV2DateTimeHan
     }
     gps_v2->date_time_handler = handler;
     gps_v2->date_time_user_data = user_data;
+    return TF_E_OK;
 }
 #endif
 int tf_gps_v2_callback_tick(TF_GPSV2 *gps_v2, uint32_t timeout_us) {
+    if (gps_v2 == NULL)
+        return TF_E_NULL;
+
     return tf_tfp_callback_tick(gps_v2->tfp, tf_hal_current_time_us(gps_v2->tfp->hal) + timeout_us);
 }
 

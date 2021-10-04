@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-02-08.      *
+ * This file was automatically generated on 2021-10-04.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -67,6 +67,9 @@ static bool tf_temperature_ir_v2_callback_handler(void *dev, uint8_t fid, TF_Pac
 }
 #endif
 int tf_temperature_ir_v2_create(TF_TemperatureIRV2 *temperature_ir_v2, const char *uid, TF_HalContext *hal) {
+    if (temperature_ir_v2 == NULL || uid == NULL || hal == NULL)
+        return TF_E_NULL;
+
     memset(temperature_ir_v2, 0, sizeof(TF_TemperatureIRV2));
 
     uint32_t numeric_uid;
@@ -95,12 +98,18 @@ int tf_temperature_ir_v2_create(TF_TemperatureIRV2 *temperature_ir_v2, const cha
 }
 
 int tf_temperature_ir_v2_destroy(TF_TemperatureIRV2 *temperature_ir_v2) {
+    if (temperature_ir_v2 == NULL)
+        return TF_E_NULL;
+
     int result = tf_tfp_destroy(temperature_ir_v2->tfp);
     temperature_ir_v2->tfp = NULL;
     return result;
 }
 
 int tf_temperature_ir_v2_get_response_expected(TF_TemperatureIRV2 *temperature_ir_v2, uint8_t function_id, bool *ret_response_expected) {
+    if (temperature_ir_v2 == NULL)
+        return TF_E_NULL;
+
     switch(function_id) {
         case TF_TEMPERATURE_IR_V2_FUNCTION_SET_AMBIENT_TEMPERATURE_CALLBACK_CONFIGURATION:
             if(ret_response_expected != NULL)
@@ -198,6 +207,9 @@ void tf_temperature_ir_v2_set_response_expected_all(TF_TemperatureIRV2 *temperat
 }
 
 int tf_temperature_ir_v2_get_ambient_temperature(TF_TemperatureIRV2 *temperature_ir_v2, int16_t *ret_temperature) {
+    if (temperature_ir_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(temperature_ir_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -230,6 +242,9 @@ int tf_temperature_ir_v2_get_ambient_temperature(TF_TemperatureIRV2 *temperature
 }
 
 int tf_temperature_ir_v2_set_ambient_temperature_callback_configuration(TF_TemperatureIRV2 *temperature_ir_v2, uint32_t period, bool value_has_to_change, char option, int16_t min, int16_t max) {
+    if (temperature_ir_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(temperature_ir_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -266,6 +281,9 @@ int tf_temperature_ir_v2_set_ambient_temperature_callback_configuration(TF_Tempe
 }
 
 int tf_temperature_ir_v2_get_ambient_temperature_callback_configuration(TF_TemperatureIRV2 *temperature_ir_v2, uint32_t *ret_period, bool *ret_value_has_to_change, char *ret_option, int16_t *ret_min, int16_t *ret_max) {
+    if (temperature_ir_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(temperature_ir_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -302,6 +320,9 @@ int tf_temperature_ir_v2_get_ambient_temperature_callback_configuration(TF_Tempe
 }
 
 int tf_temperature_ir_v2_get_object_temperature(TF_TemperatureIRV2 *temperature_ir_v2, int16_t *ret_temperature) {
+    if (temperature_ir_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(temperature_ir_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -334,6 +355,9 @@ int tf_temperature_ir_v2_get_object_temperature(TF_TemperatureIRV2 *temperature_
 }
 
 int tf_temperature_ir_v2_set_object_temperature_callback_configuration(TF_TemperatureIRV2 *temperature_ir_v2, uint32_t period, bool value_has_to_change, char option, int16_t min, int16_t max) {
+    if (temperature_ir_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(temperature_ir_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -370,6 +394,9 @@ int tf_temperature_ir_v2_set_object_temperature_callback_configuration(TF_Temper
 }
 
 int tf_temperature_ir_v2_get_object_temperature_callback_configuration(TF_TemperatureIRV2 *temperature_ir_v2, uint32_t *ret_period, bool *ret_value_has_to_change, char *ret_option, int16_t *ret_min, int16_t *ret_max) {
+    if (temperature_ir_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(temperature_ir_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -406,6 +433,9 @@ int tf_temperature_ir_v2_get_object_temperature_callback_configuration(TF_Temper
 }
 
 int tf_temperature_ir_v2_set_emissivity(TF_TemperatureIRV2 *temperature_ir_v2, uint16_t emissivity) {
+    if (temperature_ir_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(temperature_ir_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -438,6 +468,9 @@ int tf_temperature_ir_v2_set_emissivity(TF_TemperatureIRV2 *temperature_ir_v2, u
 }
 
 int tf_temperature_ir_v2_get_emissivity(TF_TemperatureIRV2 *temperature_ir_v2, uint16_t *ret_emissivity) {
+    if (temperature_ir_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(temperature_ir_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -470,6 +503,9 @@ int tf_temperature_ir_v2_get_emissivity(TF_TemperatureIRV2 *temperature_ir_v2, u
 }
 
 int tf_temperature_ir_v2_get_spitfp_error_count(TF_TemperatureIRV2 *temperature_ir_v2, uint32_t *ret_error_count_ack_checksum, uint32_t *ret_error_count_message_checksum, uint32_t *ret_error_count_frame, uint32_t *ret_error_count_overflow) {
+    if (temperature_ir_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(temperature_ir_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -505,6 +541,9 @@ int tf_temperature_ir_v2_get_spitfp_error_count(TF_TemperatureIRV2 *temperature_
 }
 
 int tf_temperature_ir_v2_set_bootloader_mode(TF_TemperatureIRV2 *temperature_ir_v2, uint8_t mode, uint8_t *ret_status) {
+    if (temperature_ir_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(temperature_ir_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -541,6 +580,9 @@ int tf_temperature_ir_v2_set_bootloader_mode(TF_TemperatureIRV2 *temperature_ir_
 }
 
 int tf_temperature_ir_v2_get_bootloader_mode(TF_TemperatureIRV2 *temperature_ir_v2, uint8_t *ret_mode) {
+    if (temperature_ir_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(temperature_ir_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -573,6 +615,9 @@ int tf_temperature_ir_v2_get_bootloader_mode(TF_TemperatureIRV2 *temperature_ir_
 }
 
 int tf_temperature_ir_v2_set_write_firmware_pointer(TF_TemperatureIRV2 *temperature_ir_v2, uint32_t pointer) {
+    if (temperature_ir_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(temperature_ir_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -605,6 +650,9 @@ int tf_temperature_ir_v2_set_write_firmware_pointer(TF_TemperatureIRV2 *temperat
 }
 
 int tf_temperature_ir_v2_write_firmware(TF_TemperatureIRV2 *temperature_ir_v2, uint8_t data[64], uint8_t *ret_status) {
+    if (temperature_ir_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(temperature_ir_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -641,6 +689,9 @@ int tf_temperature_ir_v2_write_firmware(TF_TemperatureIRV2 *temperature_ir_v2, u
 }
 
 int tf_temperature_ir_v2_set_status_led_config(TF_TemperatureIRV2 *temperature_ir_v2, uint8_t config) {
+    if (temperature_ir_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(temperature_ir_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -673,6 +724,9 @@ int tf_temperature_ir_v2_set_status_led_config(TF_TemperatureIRV2 *temperature_i
 }
 
 int tf_temperature_ir_v2_get_status_led_config(TF_TemperatureIRV2 *temperature_ir_v2, uint8_t *ret_config) {
+    if (temperature_ir_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(temperature_ir_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -705,6 +759,9 @@ int tf_temperature_ir_v2_get_status_led_config(TF_TemperatureIRV2 *temperature_i
 }
 
 int tf_temperature_ir_v2_get_chip_temperature(TF_TemperatureIRV2 *temperature_ir_v2, int16_t *ret_temperature) {
+    if (temperature_ir_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(temperature_ir_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -737,6 +794,9 @@ int tf_temperature_ir_v2_get_chip_temperature(TF_TemperatureIRV2 *temperature_ir
 }
 
 int tf_temperature_ir_v2_reset(TF_TemperatureIRV2 *temperature_ir_v2) {
+    if (temperature_ir_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(temperature_ir_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -765,6 +825,9 @@ int tf_temperature_ir_v2_reset(TF_TemperatureIRV2 *temperature_ir_v2) {
 }
 
 int tf_temperature_ir_v2_write_uid(TF_TemperatureIRV2 *temperature_ir_v2, uint32_t uid) {
+    if (temperature_ir_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(temperature_ir_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -797,6 +860,9 @@ int tf_temperature_ir_v2_write_uid(TF_TemperatureIRV2 *temperature_ir_v2, uint32
 }
 
 int tf_temperature_ir_v2_read_uid(TF_TemperatureIRV2 *temperature_ir_v2, uint32_t *ret_uid) {
+    if (temperature_ir_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(temperature_ir_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -829,6 +895,9 @@ int tf_temperature_ir_v2_read_uid(TF_TemperatureIRV2 *temperature_ir_v2, uint32_
 }
 
 int tf_temperature_ir_v2_get_identity(TF_TemperatureIRV2 *temperature_ir_v2, char ret_uid[8], char ret_connected_uid[8], char *ret_position, uint8_t ret_hardware_version[3], uint8_t ret_firmware_version[3], uint16_t *ret_device_identifier) {
+    if (temperature_ir_v2 == NULL)
+        return TF_E_NULL;
+
     if(tf_hal_get_common(temperature_ir_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
@@ -873,7 +942,10 @@ int tf_temperature_ir_v2_get_identity(TF_TemperatureIRV2 *temperature_ir_v2, cha
     return tf_tfp_get_error(error_code);
 }
 #ifdef TF_IMPLEMENT_CALLBACKS
-void tf_temperature_ir_v2_register_ambient_temperature_callback(TF_TemperatureIRV2 *temperature_ir_v2, TF_TemperatureIRV2AmbientTemperatureHandler handler, void *user_data) {
+int tf_temperature_ir_v2_register_ambient_temperature_callback(TF_TemperatureIRV2 *temperature_ir_v2, TF_TemperatureIRV2AmbientTemperatureHandler handler, void *user_data) {
+    if (temperature_ir_v2 == NULL)
+        return TF_E_NULL;
+
     if (handler == NULL) {
         temperature_ir_v2->tfp->needs_callback_tick = false;
         temperature_ir_v2->tfp->needs_callback_tick |= temperature_ir_v2->object_temperature_handler != NULL;
@@ -882,10 +954,14 @@ void tf_temperature_ir_v2_register_ambient_temperature_callback(TF_TemperatureIR
     }
     temperature_ir_v2->ambient_temperature_handler = handler;
     temperature_ir_v2->ambient_temperature_user_data = user_data;
+    return TF_E_OK;
 }
 
 
-void tf_temperature_ir_v2_register_object_temperature_callback(TF_TemperatureIRV2 *temperature_ir_v2, TF_TemperatureIRV2ObjectTemperatureHandler handler, void *user_data) {
+int tf_temperature_ir_v2_register_object_temperature_callback(TF_TemperatureIRV2 *temperature_ir_v2, TF_TemperatureIRV2ObjectTemperatureHandler handler, void *user_data) {
+    if (temperature_ir_v2 == NULL)
+        return TF_E_NULL;
+
     if (handler == NULL) {
         temperature_ir_v2->tfp->needs_callback_tick = false;
         temperature_ir_v2->tfp->needs_callback_tick |= temperature_ir_v2->ambient_temperature_handler != NULL;
@@ -894,9 +970,13 @@ void tf_temperature_ir_v2_register_object_temperature_callback(TF_TemperatureIRV
     }
     temperature_ir_v2->object_temperature_handler = handler;
     temperature_ir_v2->object_temperature_user_data = user_data;
+    return TF_E_OK;
 }
 #endif
 int tf_temperature_ir_v2_callback_tick(TF_TemperatureIRV2 *temperature_ir_v2, uint32_t timeout_us) {
+    if (temperature_ir_v2 == NULL)
+        return TF_E_NULL;
+
     return tf_tfp_callback_tick(temperature_ir_v2->tfp, tf_hal_current_time_us(temperature_ir_v2->tfp->hal) + timeout_us);
 }
 
