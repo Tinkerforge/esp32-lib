@@ -64,7 +64,7 @@ public:
 
     String callCommand(String path, Config::ConfUpdate payload);
 
-    Config *getState(String path);
+    Config *getState(String path, bool log_if_not_found = true);
 
     void addCommand(String path, Config *config, std::initializer_list<String> keys_to_censor_in_debug_report, std::function<void(void)> callback, bool is_action);
     void addState(String path, Config *config, std::initializer_list<String> keys_to_censor, uint32_t interval_ms);

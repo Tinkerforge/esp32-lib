@@ -264,7 +264,7 @@ String API::callCommand(String path, Config::ConfUpdate payload)
     return String("Unknown command ") + path;
 }
 
-Config* API::getState(String path)
+Config* API::getState(String path, bool log_if_not_found)
 {
     for (auto &reg: states) {
         if(reg.path != path)
@@ -272,9 +272,12 @@ Config* API::getState(String path)
 
         return reg.config;
     }
-    logger.printfln("Key %s not found. Contents are:", path.c_str());
-    for (auto &reg: states) {
-        logger.printfln("%s,",reg.path.c_str());
+
+    if(log_if_not_found) {
+        logger.printfln("Key %s not found. Contents are:", path.c_str());
+        for (auto &reg: states) {
+            logger.printfln("%s,",reg.path.c_str());
+        }
     }
     return nullptr;
 }
