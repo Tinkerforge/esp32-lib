@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-10-04.      *
+ * This file was automatically generated on 2021-10-11.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -126,6 +126,16 @@ typedef struct TF_EVSE {
  * \ingroup BrickletEVSE
  */
 #define TF_EVSE_FUNCTION_SET_DATA_STORAGE 17
+
+/**
+ * \ingroup BrickletEVSE
+ */
+#define TF_EVSE_FUNCTION_GET_INDICATOR_LED 18
+
+/**
+ * \ingroup BrickletEVSE
+ */
+#define TF_EVSE_FUNCTION_SET_INDICATOR_LED 19
 
 /**
  * \ingroup BrickletEVSE
@@ -699,6 +709,20 @@ TF_ATTRIBUTE_NONNULL(1) int tf_evse_get_data_storage(TF_EVSE *evse, uint8_t page
  * TODO
  */
 TF_ATTRIBUTE_NONNULL(1) int tf_evse_set_data_storage(TF_EVSE *evse, uint8_t page, uint8_t data[63]);
+
+/**
+ * \ingroup BrickletEVSE
+ *
+ * TODO
+ */
+TF_ATTRIBUTE_NONNULL(1) int tf_evse_get_indicator_led(TF_EVSE *evse, int16_t *ret_indication, uint16_t *ret_duration);
+
+/**
+ * \ingroup BrickletEVSE
+ *
+ * TODO
+ */
+TF_ATTRIBUTE_NONNULL(1) int tf_evse_set_indicator_led(TF_EVSE *evse, int16_t indication, uint16_t duration, uint8_t *ret_status);
 
 /**
  * \ingroup BrickletEVSE

@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-10-04.      *
+ * This file was automatically generated on 2021-10-11.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -860,6 +860,82 @@ int tf_evse_set_data_storage(TF_EVSE *evse, uint8_t page, uint8_t data[63]) {
     if (result & TF_TICK_TIMEOUT) {
         //return -result;
         return TF_E_TIMEOUT;
+    }
+
+    result = tf_tfp_finish_send(evse->tfp, result, deadline);
+    if(result < 0)
+        return result;
+
+    return tf_tfp_get_error(error_code);
+}
+
+int tf_evse_get_indicator_led(TF_EVSE *evse, int16_t *ret_indication, uint16_t *ret_duration) {
+    if (evse == NULL)
+        return TF_E_NULL;
+
+    if(tf_hal_get_common(evse->tfp->hal)->locked) {
+        return TF_E_LOCKED;
+    }
+
+    bool response_expected = true;
+    tf_tfp_prepare_send(evse->tfp, TF_EVSE_FUNCTION_GET_INDICATOR_LED, 0, 4, response_expected);
+
+    uint32_t deadline = tf_hal_current_time_us(evse->tfp->hal) + tf_hal_get_common(evse->tfp->hal)->timeout;
+
+    uint8_t error_code = 0;
+    int result = tf_tfp_transmit_packet(evse->tfp, response_expected, deadline, &error_code);
+    if(result < 0)
+        return result;
+
+    if (result & TF_TICK_TIMEOUT) {
+        //return -result;
+        return TF_E_TIMEOUT;
+    }
+
+    if (result & TF_TICK_PACKET_RECEIVED && error_code == 0) {
+        if (ret_indication != NULL) { *ret_indication = tf_packetbuffer_read_int16_t(&evse->tfp->spitfp->recv_buf); } else { tf_packetbuffer_remove(&evse->tfp->spitfp->recv_buf, 2); }
+        if (ret_duration != NULL) { *ret_duration = tf_packetbuffer_read_uint16_t(&evse->tfp->spitfp->recv_buf); } else { tf_packetbuffer_remove(&evse->tfp->spitfp->recv_buf, 2); }
+        tf_tfp_packet_processed(evse->tfp);
+    }
+
+    result = tf_tfp_finish_send(evse->tfp, result, deadline);
+    if(result < 0)
+        return result;
+
+    return tf_tfp_get_error(error_code);
+}
+
+int tf_evse_set_indicator_led(TF_EVSE *evse, int16_t indication, uint16_t duration, uint8_t *ret_status) {
+    if (evse == NULL)
+        return TF_E_NULL;
+
+    if(tf_hal_get_common(evse->tfp->hal)->locked) {
+        return TF_E_LOCKED;
+    }
+
+    bool response_expected = true;
+    tf_tfp_prepare_send(evse->tfp, TF_EVSE_FUNCTION_SET_INDICATOR_LED, 4, 1, response_expected);
+
+    uint8_t *buf = tf_tfp_get_payload_buffer(evse->tfp);
+
+    indication = tf_leconvert_int16_to(indication); memcpy(buf + 0, &indication, 2);
+    duration = tf_leconvert_uint16_to(duration); memcpy(buf + 2, &duration, 2);
+
+    uint32_t deadline = tf_hal_current_time_us(evse->tfp->hal) + tf_hal_get_common(evse->tfp->hal)->timeout;
+
+    uint8_t error_code = 0;
+    int result = tf_tfp_transmit_packet(evse->tfp, response_expected, deadline, &error_code);
+    if(result < 0)
+        return result;
+
+    if (result & TF_TICK_TIMEOUT) {
+        //return -result;
+        return TF_E_TIMEOUT;
+    }
+
+    if (result & TF_TICK_PACKET_RECEIVED && error_code == 0) {
+        if (ret_status != NULL) { *ret_status = tf_packetbuffer_read_uint8_t(&evse->tfp->spitfp->recv_buf); } else { tf_packetbuffer_remove(&evse->tfp->spitfp->recv_buf, 1); }
+        tf_tfp_packet_processed(evse->tfp);
     }
 
     result = tf_tfp_finish_send(evse->tfp, result, deadline);
