@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-10-04.      *
+ * This file was automatically generated on 2021-10-13.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -336,7 +336,7 @@ int tf_evse_v2_get_hardware_configuration(TF_EVSEV2 *evse_v2, uint8_t *ret_jumpe
     return tf_tfp_get_error(error_code);
 }
 
-int tf_evse_v2_get_low_level_state(TF_EVSEV2 *evse_v2, uint8_t *ret_led_state, uint16_t *ret_cp_pwm_duty_cycle, uint16_t ret_adc_values[7], int16_t ret_voltages[7], uint32_t ret_resistances[2], bool ret_gpio[24]) {
+int tf_evse_v2_get_low_level_state(TF_EVSEV2 *evse_v2, uint8_t *ret_led_state, uint16_t *ret_cp_pwm_duty_cycle, uint16_t ret_adc_values[7], int16_t ret_voltages[7], uint32_t ret_resistances[2], bool ret_gpio[24], uint32_t *ret_charging_time) {
     if (evse_v2 == NULL)
         return TF_E_NULL;
 
@@ -345,7 +345,7 @@ int tf_evse_v2_get_low_level_state(TF_EVSEV2 *evse_v2, uint8_t *ret_led_state, u
     }
 
     bool response_expected = true;
-    tf_tfp_prepare_send(evse_v2->tfp, TF_EVSE_V2_FUNCTION_GET_LOW_LEVEL_STATE, 0, 42, response_expected);
+    tf_tfp_prepare_send(evse_v2->tfp, TF_EVSE_V2_FUNCTION_GET_LOW_LEVEL_STATE, 0, 46, response_expected);
 
     size_t i;
     uint32_t deadline = tf_hal_current_time_us(evse_v2->tfp->hal) + tf_hal_get_common(evse_v2->tfp->hal)->timeout;
@@ -367,6 +367,7 @@ int tf_evse_v2_get_low_level_state(TF_EVSEV2 *evse_v2, uint8_t *ret_led_state, u
         if (ret_voltages != NULL) { for (i = 0; i < 7; ++i) ret_voltages[i] = tf_packetbuffer_read_int16_t(&evse_v2->tfp->spitfp->recv_buf);} else { tf_packetbuffer_remove(&evse_v2->tfp->spitfp->recv_buf, 14); }
         if (ret_resistances != NULL) { for (i = 0; i < 2; ++i) ret_resistances[i] = tf_packetbuffer_read_uint32_t(&evse_v2->tfp->spitfp->recv_buf);} else { tf_packetbuffer_remove(&evse_v2->tfp->spitfp->recv_buf, 8); }
         if (ret_gpio != NULL) { tf_packetbuffer_read_bool_array(&evse_v2->tfp->spitfp->recv_buf, ret_gpio, 24);} else { tf_packetbuffer_remove(&evse_v2->tfp->spitfp->recv_buf, 3); }
+        if (ret_charging_time != NULL) { *ret_charging_time = tf_packetbuffer_read_uint32_t(&evse_v2->tfp->spitfp->recv_buf); } else { tf_packetbuffer_remove(&evse_v2->tfp->spitfp->recv_buf, 4); }
         tf_tfp_packet_processed(evse_v2->tfp);
     }
 
