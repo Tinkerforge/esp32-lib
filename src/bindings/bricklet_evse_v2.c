@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-10-13.      *
+ * This file was automatically generated on 2021-10-15.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -1189,6 +1189,189 @@ int tf_evse_v2_get_button_configuration(TF_EVSEV2 *evse_v2, uint8_t *ret_button_
 
     if (result & TF_TICK_PACKET_RECEIVED && error_code == 0) {
         if (ret_button_configuration != NULL) { *ret_button_configuration = tf_packetbuffer_read_uint8_t(&evse_v2->tfp->spitfp->recv_buf); } else { tf_packetbuffer_remove(&evse_v2->tfp->spitfp->recv_buf, 1); }
+        tf_tfp_packet_processed(evse_v2->tfp);
+    }
+
+    result = tf_tfp_finish_send(evse_v2->tfp, result, deadline);
+    if(result < 0)
+        return result;
+
+    return tf_tfp_get_error(error_code);
+}
+
+int tf_evse_v2_get_button_state(TF_EVSEV2 *evse_v2, uint32_t *ret_button_press_time, uint32_t *ret_button_release_time, bool *ret_button_pressed) {
+    if (evse_v2 == NULL)
+        return TF_E_NULL;
+
+    if(tf_hal_get_common(evse_v2->tfp->hal)->locked) {
+        return TF_E_LOCKED;
+    }
+
+    bool response_expected = true;
+    tf_tfp_prepare_send(evse_v2->tfp, TF_EVSE_V2_FUNCTION_GET_BUTTON_STATE, 0, 9, response_expected);
+
+    uint32_t deadline = tf_hal_current_time_us(evse_v2->tfp->hal) + tf_hal_get_common(evse_v2->tfp->hal)->timeout;
+
+    uint8_t error_code = 0;
+    int result = tf_tfp_transmit_packet(evse_v2->tfp, response_expected, deadline, &error_code);
+    if(result < 0)
+        return result;
+
+    if (result & TF_TICK_TIMEOUT) {
+        //return -result;
+        return TF_E_TIMEOUT;
+    }
+
+    if (result & TF_TICK_PACKET_RECEIVED && error_code == 0) {
+        if (ret_button_press_time != NULL) { *ret_button_press_time = tf_packetbuffer_read_uint32_t(&evse_v2->tfp->spitfp->recv_buf); } else { tf_packetbuffer_remove(&evse_v2->tfp->spitfp->recv_buf, 4); }
+        if (ret_button_release_time != NULL) { *ret_button_release_time = tf_packetbuffer_read_uint32_t(&evse_v2->tfp->spitfp->recv_buf); } else { tf_packetbuffer_remove(&evse_v2->tfp->spitfp->recv_buf, 4); }
+        if (ret_button_pressed != NULL) { *ret_button_pressed = tf_packetbuffer_read_bool(&evse_v2->tfp->spitfp->recv_buf); } else { tf_packetbuffer_remove(&evse_v2->tfp->spitfp->recv_buf, 1); }
+        tf_tfp_packet_processed(evse_v2->tfp);
+    }
+
+    result = tf_tfp_finish_send(evse_v2->tfp, result, deadline);
+    if(result < 0)
+        return result;
+
+    return tf_tfp_get_error(error_code);
+}
+
+int tf_evse_v2_get_all_data_1(TF_EVSEV2 *evse_v2, uint8_t *ret_iec61851_state, uint8_t *ret_vehicle_state, uint8_t *ret_contactor_state, uint8_t *ret_contactor_error, uint8_t *ret_charge_release, uint16_t *ret_allowed_charging_current, uint8_t *ret_error_state, uint8_t *ret_lock_state, uint32_t *ret_time_since_state_change, uint32_t *ret_uptime, uint8_t *ret_jumper_configuration, bool *ret_has_lock_switch) {
+    if (evse_v2 == NULL)
+        return TF_E_NULL;
+
+    if(tf_hal_get_common(evse_v2->tfp->hal)->locked) {
+        return TF_E_LOCKED;
+    }
+
+    bool response_expected = true;
+    tf_tfp_prepare_send(evse_v2->tfp, TF_EVSE_V2_FUNCTION_GET_ALL_DATA_1, 0, 19, response_expected);
+
+    uint32_t deadline = tf_hal_current_time_us(evse_v2->tfp->hal) + tf_hal_get_common(evse_v2->tfp->hal)->timeout;
+
+    uint8_t error_code = 0;
+    int result = tf_tfp_transmit_packet(evse_v2->tfp, response_expected, deadline, &error_code);
+    if(result < 0)
+        return result;
+
+    if (result & TF_TICK_TIMEOUT) {
+        //return -result;
+        return TF_E_TIMEOUT;
+    }
+
+    if (result & TF_TICK_PACKET_RECEIVED && error_code == 0) {
+        if (ret_iec61851_state != NULL) { *ret_iec61851_state = tf_packetbuffer_read_uint8_t(&evse_v2->tfp->spitfp->recv_buf); } else { tf_packetbuffer_remove(&evse_v2->tfp->spitfp->recv_buf, 1); }
+        if (ret_vehicle_state != NULL) { *ret_vehicle_state = tf_packetbuffer_read_uint8_t(&evse_v2->tfp->spitfp->recv_buf); } else { tf_packetbuffer_remove(&evse_v2->tfp->spitfp->recv_buf, 1); }
+        if (ret_contactor_state != NULL) { *ret_contactor_state = tf_packetbuffer_read_uint8_t(&evse_v2->tfp->spitfp->recv_buf); } else { tf_packetbuffer_remove(&evse_v2->tfp->spitfp->recv_buf, 1); }
+        if (ret_contactor_error != NULL) { *ret_contactor_error = tf_packetbuffer_read_uint8_t(&evse_v2->tfp->spitfp->recv_buf); } else { tf_packetbuffer_remove(&evse_v2->tfp->spitfp->recv_buf, 1); }
+        if (ret_charge_release != NULL) { *ret_charge_release = tf_packetbuffer_read_uint8_t(&evse_v2->tfp->spitfp->recv_buf); } else { tf_packetbuffer_remove(&evse_v2->tfp->spitfp->recv_buf, 1); }
+        if (ret_allowed_charging_current != NULL) { *ret_allowed_charging_current = tf_packetbuffer_read_uint16_t(&evse_v2->tfp->spitfp->recv_buf); } else { tf_packetbuffer_remove(&evse_v2->tfp->spitfp->recv_buf, 2); }
+        if (ret_error_state != NULL) { *ret_error_state = tf_packetbuffer_read_uint8_t(&evse_v2->tfp->spitfp->recv_buf); } else { tf_packetbuffer_remove(&evse_v2->tfp->spitfp->recv_buf, 1); }
+        if (ret_lock_state != NULL) { *ret_lock_state = tf_packetbuffer_read_uint8_t(&evse_v2->tfp->spitfp->recv_buf); } else { tf_packetbuffer_remove(&evse_v2->tfp->spitfp->recv_buf, 1); }
+        if (ret_time_since_state_change != NULL) { *ret_time_since_state_change = tf_packetbuffer_read_uint32_t(&evse_v2->tfp->spitfp->recv_buf); } else { tf_packetbuffer_remove(&evse_v2->tfp->spitfp->recv_buf, 4); }
+        if (ret_uptime != NULL) { *ret_uptime = tf_packetbuffer_read_uint32_t(&evse_v2->tfp->spitfp->recv_buf); } else { tf_packetbuffer_remove(&evse_v2->tfp->spitfp->recv_buf, 4); }
+        if (ret_jumper_configuration != NULL) { *ret_jumper_configuration = tf_packetbuffer_read_uint8_t(&evse_v2->tfp->spitfp->recv_buf); } else { tf_packetbuffer_remove(&evse_v2->tfp->spitfp->recv_buf, 1); }
+        if (ret_has_lock_switch != NULL) { *ret_has_lock_switch = tf_packetbuffer_read_bool(&evse_v2->tfp->spitfp->recv_buf); } else { tf_packetbuffer_remove(&evse_v2->tfp->spitfp->recv_buf, 1); }
+        tf_tfp_packet_processed(evse_v2->tfp);
+    }
+
+    result = tf_tfp_finish_send(evse_v2->tfp, result, deadline);
+    if(result < 0)
+        return result;
+
+    return tf_tfp_get_error(error_code);
+}
+
+int tf_evse_v2_get_all_data_2(TF_EVSEV2 *evse_v2, uint8_t *ret_led_state, uint16_t *ret_cp_pwm_duty_cycle, uint16_t ret_adc_values[7], int16_t ret_voltages[7], uint32_t ret_resistances[2], bool ret_gpio[24], uint32_t *ret_charging_time, uint16_t *ret_max_current_configured, uint16_t *ret_max_current_incoming_cable, uint16_t *ret_max_current_outgoing_cable, uint16_t *ret_max_current_managed, bool *ret_autostart) {
+    if (evse_v2 == NULL)
+        return TF_E_NULL;
+
+    if(tf_hal_get_common(evse_v2->tfp->hal)->locked) {
+        return TF_E_LOCKED;
+    }
+
+    bool response_expected = true;
+    tf_tfp_prepare_send(evse_v2->tfp, TF_EVSE_V2_FUNCTION_GET_ALL_DATA_2, 0, 55, response_expected);
+
+    size_t i;
+    uint32_t deadline = tf_hal_current_time_us(evse_v2->tfp->hal) + tf_hal_get_common(evse_v2->tfp->hal)->timeout;
+
+    uint8_t error_code = 0;
+    int result = tf_tfp_transmit_packet(evse_v2->tfp, response_expected, deadline, &error_code);
+    if(result < 0)
+        return result;
+
+    if (result & TF_TICK_TIMEOUT) {
+        //return -result;
+        return TF_E_TIMEOUT;
+    }
+
+    if (result & TF_TICK_PACKET_RECEIVED && error_code == 0) {
+        if (ret_led_state != NULL) { *ret_led_state = tf_packetbuffer_read_uint8_t(&evse_v2->tfp->spitfp->recv_buf); } else { tf_packetbuffer_remove(&evse_v2->tfp->spitfp->recv_buf, 1); }
+        if (ret_cp_pwm_duty_cycle != NULL) { *ret_cp_pwm_duty_cycle = tf_packetbuffer_read_uint16_t(&evse_v2->tfp->spitfp->recv_buf); } else { tf_packetbuffer_remove(&evse_v2->tfp->spitfp->recv_buf, 2); }
+        if (ret_adc_values != NULL) { for (i = 0; i < 7; ++i) ret_adc_values[i] = tf_packetbuffer_read_uint16_t(&evse_v2->tfp->spitfp->recv_buf);} else { tf_packetbuffer_remove(&evse_v2->tfp->spitfp->recv_buf, 14); }
+        if (ret_voltages != NULL) { for (i = 0; i < 7; ++i) ret_voltages[i] = tf_packetbuffer_read_int16_t(&evse_v2->tfp->spitfp->recv_buf);} else { tf_packetbuffer_remove(&evse_v2->tfp->spitfp->recv_buf, 14); }
+        if (ret_resistances != NULL) { for (i = 0; i < 2; ++i) ret_resistances[i] = tf_packetbuffer_read_uint32_t(&evse_v2->tfp->spitfp->recv_buf);} else { tf_packetbuffer_remove(&evse_v2->tfp->spitfp->recv_buf, 8); }
+        if (ret_gpio != NULL) { tf_packetbuffer_read_bool_array(&evse_v2->tfp->spitfp->recv_buf, ret_gpio, 24);} else { tf_packetbuffer_remove(&evse_v2->tfp->spitfp->recv_buf, 3); }
+        if (ret_charging_time != NULL) { *ret_charging_time = tf_packetbuffer_read_uint32_t(&evse_v2->tfp->spitfp->recv_buf); } else { tf_packetbuffer_remove(&evse_v2->tfp->spitfp->recv_buf, 4); }
+        if (ret_max_current_configured != NULL) { *ret_max_current_configured = tf_packetbuffer_read_uint16_t(&evse_v2->tfp->spitfp->recv_buf); } else { tf_packetbuffer_remove(&evse_v2->tfp->spitfp->recv_buf, 2); }
+        if (ret_max_current_incoming_cable != NULL) { *ret_max_current_incoming_cable = tf_packetbuffer_read_uint16_t(&evse_v2->tfp->spitfp->recv_buf); } else { tf_packetbuffer_remove(&evse_v2->tfp->spitfp->recv_buf, 2); }
+        if (ret_max_current_outgoing_cable != NULL) { *ret_max_current_outgoing_cable = tf_packetbuffer_read_uint16_t(&evse_v2->tfp->spitfp->recv_buf); } else { tf_packetbuffer_remove(&evse_v2->tfp->spitfp->recv_buf, 2); }
+        if (ret_max_current_managed != NULL) { *ret_max_current_managed = tf_packetbuffer_read_uint16_t(&evse_v2->tfp->spitfp->recv_buf); } else { tf_packetbuffer_remove(&evse_v2->tfp->spitfp->recv_buf, 2); }
+        if (ret_autostart != NULL) { *ret_autostart = tf_packetbuffer_read_bool(&evse_v2->tfp->spitfp->recv_buf); } else { tf_packetbuffer_remove(&evse_v2->tfp->spitfp->recv_buf, 1); }
+        tf_tfp_packet_processed(evse_v2->tfp);
+    }
+
+    result = tf_tfp_finish_send(evse_v2->tfp, result, deadline);
+    if(result < 0)
+        return result;
+
+    return tf_tfp_get_error(error_code);
+}
+
+int tf_evse_v2_get_all_data_3(TF_EVSEV2 *evse_v2, float *ret_power, float *ret_energy_relative, float *ret_energy_absolute, bool ret_phases_active[3], bool ret_phases_connected[3], bool *ret_available, uint32_t ret_error_count[6], uint8_t *ret_dc_fault_current_state, uint8_t *ret_shutdown_input_configuration, uint8_t *ret_input_configuration, uint8_t *ret_output_configuration, bool *ret_managed, int16_t *ret_indication, uint16_t *ret_duration, uint8_t *ret_button_configuration, uint32_t *ret_button_press_time, uint32_t *ret_button_release_time, bool *ret_button_pressed) {
+    if (evse_v2 == NULL)
+        return TF_E_NULL;
+
+    if(tf_hal_get_common(evse_v2->tfp->hal)->locked) {
+        return TF_E_LOCKED;
+    }
+
+    bool response_expected = true;
+    tf_tfp_prepare_send(evse_v2->tfp, TF_EVSE_V2_FUNCTION_GET_ALL_DATA_3, 0, 58, response_expected);
+
+    size_t i;
+    uint32_t deadline = tf_hal_current_time_us(evse_v2->tfp->hal) + tf_hal_get_common(evse_v2->tfp->hal)->timeout;
+
+    uint8_t error_code = 0;
+    int result = tf_tfp_transmit_packet(evse_v2->tfp, response_expected, deadline, &error_code);
+    if(result < 0)
+        return result;
+
+    if (result & TF_TICK_TIMEOUT) {
+        //return -result;
+        return TF_E_TIMEOUT;
+    }
+
+    if (result & TF_TICK_PACKET_RECEIVED && error_code == 0) {
+        if (ret_power != NULL) { *ret_power = tf_packetbuffer_read_float(&evse_v2->tfp->spitfp->recv_buf); } else { tf_packetbuffer_remove(&evse_v2->tfp->spitfp->recv_buf, 4); }
+        if (ret_energy_relative != NULL) { *ret_energy_relative = tf_packetbuffer_read_float(&evse_v2->tfp->spitfp->recv_buf); } else { tf_packetbuffer_remove(&evse_v2->tfp->spitfp->recv_buf, 4); }
+        if (ret_energy_absolute != NULL) { *ret_energy_absolute = tf_packetbuffer_read_float(&evse_v2->tfp->spitfp->recv_buf); } else { tf_packetbuffer_remove(&evse_v2->tfp->spitfp->recv_buf, 4); }
+        if (ret_phases_active != NULL) { tf_packetbuffer_read_bool_array(&evse_v2->tfp->spitfp->recv_buf, ret_phases_active, 3);} else { tf_packetbuffer_remove(&evse_v2->tfp->spitfp->recv_buf, 1); }
+        if (ret_phases_connected != NULL) { tf_packetbuffer_read_bool_array(&evse_v2->tfp->spitfp->recv_buf, ret_phases_connected, 3);} else { tf_packetbuffer_remove(&evse_v2->tfp->spitfp->recv_buf, 1); }
+        if (ret_available != NULL) { *ret_available = tf_packetbuffer_read_bool(&evse_v2->tfp->spitfp->recv_buf); } else { tf_packetbuffer_remove(&evse_v2->tfp->spitfp->recv_buf, 1); }
+        if (ret_error_count != NULL) { for (i = 0; i < 6; ++i) ret_error_count[i] = tf_packetbuffer_read_uint32_t(&evse_v2->tfp->spitfp->recv_buf);} else { tf_packetbuffer_remove(&evse_v2->tfp->spitfp->recv_buf, 24); }
+        if (ret_dc_fault_current_state != NULL) { *ret_dc_fault_current_state = tf_packetbuffer_read_uint8_t(&evse_v2->tfp->spitfp->recv_buf); } else { tf_packetbuffer_remove(&evse_v2->tfp->spitfp->recv_buf, 1); }
+        if (ret_shutdown_input_configuration != NULL) { *ret_shutdown_input_configuration = tf_packetbuffer_read_uint8_t(&evse_v2->tfp->spitfp->recv_buf); } else { tf_packetbuffer_remove(&evse_v2->tfp->spitfp->recv_buf, 1); }
+        if (ret_input_configuration != NULL) { *ret_input_configuration = tf_packetbuffer_read_uint8_t(&evse_v2->tfp->spitfp->recv_buf); } else { tf_packetbuffer_remove(&evse_v2->tfp->spitfp->recv_buf, 1); }
+        if (ret_output_configuration != NULL) { *ret_output_configuration = tf_packetbuffer_read_uint8_t(&evse_v2->tfp->spitfp->recv_buf); } else { tf_packetbuffer_remove(&evse_v2->tfp->spitfp->recv_buf, 1); }
+        if (ret_managed != NULL) { *ret_managed = tf_packetbuffer_read_bool(&evse_v2->tfp->spitfp->recv_buf); } else { tf_packetbuffer_remove(&evse_v2->tfp->spitfp->recv_buf, 1); }
+        if (ret_indication != NULL) { *ret_indication = tf_packetbuffer_read_int16_t(&evse_v2->tfp->spitfp->recv_buf); } else { tf_packetbuffer_remove(&evse_v2->tfp->spitfp->recv_buf, 2); }
+        if (ret_duration != NULL) { *ret_duration = tf_packetbuffer_read_uint16_t(&evse_v2->tfp->spitfp->recv_buf); } else { tf_packetbuffer_remove(&evse_v2->tfp->spitfp->recv_buf, 2); }
+        if (ret_button_configuration != NULL) { *ret_button_configuration = tf_packetbuffer_read_uint8_t(&evse_v2->tfp->spitfp->recv_buf); } else { tf_packetbuffer_remove(&evse_v2->tfp->spitfp->recv_buf, 1); }
+        if (ret_button_press_time != NULL) { *ret_button_press_time = tf_packetbuffer_read_uint32_t(&evse_v2->tfp->spitfp->recv_buf); } else { tf_packetbuffer_remove(&evse_v2->tfp->spitfp->recv_buf, 4); }
+        if (ret_button_release_time != NULL) { *ret_button_release_time = tf_packetbuffer_read_uint32_t(&evse_v2->tfp->spitfp->recv_buf); } else { tf_packetbuffer_remove(&evse_v2->tfp->spitfp->recv_buf, 4); }
+        if (ret_button_pressed != NULL) { *ret_button_pressed = tf_packetbuffer_read_bool(&evse_v2->tfp->spitfp->recv_buf); } else { tf_packetbuffer_remove(&evse_v2->tfp->spitfp->recv_buf, 1); }
         tf_tfp_packet_processed(evse_v2->tfp);
     }
 

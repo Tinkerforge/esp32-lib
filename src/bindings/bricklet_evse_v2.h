@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-10-13.      *
+ * This file was automatically generated on 2021-10-15.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -171,6 +171,26 @@ typedef struct TF_EVSEV2 {
  * \ingroup BrickletEVSEV2
  */
 #define TF_EVSE_V2_FUNCTION_GET_BUTTON_CONFIGURATION 26
+
+/**
+ * \ingroup BrickletEVSEV2
+ */
+#define TF_EVSE_V2_FUNCTION_GET_BUTTON_STATE 27
+
+/**
+ * \ingroup BrickletEVSEV2
+ */
+#define TF_EVSE_V2_FUNCTION_GET_ALL_DATA_1 28
+
+/**
+ * \ingroup BrickletEVSEV2
+ */
+#define TF_EVSE_V2_FUNCTION_GET_ALL_DATA_2 29
+
+/**
+ * \ingroup BrickletEVSEV2
+ */
+#define TF_EVSE_V2_FUNCTION_GET_ALL_DATA_3 30
 
 /**
  * \ingroup BrickletEVSEV2
@@ -867,6 +887,34 @@ TF_ATTRIBUTE_NONNULL(1) int tf_evse_v2_set_button_configuration(TF_EVSEV2 *evse_
  * TODO
  */
 TF_ATTRIBUTE_NONNULL(1) int tf_evse_v2_get_button_configuration(TF_EVSEV2 *evse_v2, uint8_t *ret_button_configuration);
+
+/**
+ * \ingroup BrickletEVSEV2
+ *
+ * TODO
+ */
+TF_ATTRIBUTE_NONNULL(1) int tf_evse_v2_get_button_state(TF_EVSEV2 *evse_v2, uint32_t *ret_button_press_time, uint32_t *ret_button_release_time, bool *ret_button_pressed);
+
+/**
+ * \ingroup BrickletEVSEV2
+ *
+ * TODO
+ */
+TF_ATTRIBUTE_NONNULL(1) int tf_evse_v2_get_all_data_1(TF_EVSEV2 *evse_v2, uint8_t *ret_iec61851_state, uint8_t *ret_vehicle_state, uint8_t *ret_contactor_state, uint8_t *ret_contactor_error, uint8_t *ret_charge_release, uint16_t *ret_allowed_charging_current, uint8_t *ret_error_state, uint8_t *ret_lock_state, uint32_t *ret_time_since_state_change, uint32_t *ret_uptime, uint8_t *ret_jumper_configuration, bool *ret_has_lock_switch);
+
+/**
+ * \ingroup BrickletEVSEV2
+ *
+ * TODO
+ */
+TF_ATTRIBUTE_NONNULL(1) int tf_evse_v2_get_all_data_2(TF_EVSEV2 *evse_v2, uint8_t *ret_led_state, uint16_t *ret_cp_pwm_duty_cycle, uint16_t ret_adc_values[7], int16_t ret_voltages[7], uint32_t ret_resistances[2], bool ret_gpio[24], uint32_t *ret_charging_time, uint16_t *ret_max_current_configured, uint16_t *ret_max_current_incoming_cable, uint16_t *ret_max_current_outgoing_cable, uint16_t *ret_max_current_managed, bool *ret_autostart);
+
+/**
+ * \ingroup BrickletEVSEV2
+ *
+ * TODO
+ */
+TF_ATTRIBUTE_NONNULL(1) int tf_evse_v2_get_all_data_3(TF_EVSEV2 *evse_v2, float *ret_power, float *ret_energy_relative, float *ret_energy_absolute, bool ret_phases_active[3], bool ret_phases_connected[3], bool *ret_available, uint32_t ret_error_count[6], uint8_t *ret_dc_fault_current_state, uint8_t *ret_shutdown_input_configuration, uint8_t *ret_input_configuration, uint8_t *ret_output_configuration, bool *ret_managed, int16_t *ret_indication, uint16_t *ret_duration, uint8_t *ret_button_configuration, uint32_t *ret_button_press_time, uint32_t *ret_button_release_time, bool *ret_button_pressed);
 
 /**
  * \ingroup BrickletEVSEV2
