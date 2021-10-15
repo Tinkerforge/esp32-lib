@@ -51,7 +51,7 @@ void API::setup()
                 backend->pushStateUpdate(payload, reg.path);
             }
         }
-    }, 1000, 1000);
+    }, 250, 250);
 }
 
 void API::addCommand(String path, Config *config, std::initializer_list<String> keys_to_censor_in_debug_report, std::function<void(void)> callback, bool is_action)
