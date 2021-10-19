@@ -334,7 +334,11 @@ static bool flash_firmware(TF_Unknown *bricklet, const uint8_t *firmware, size_t
     return true;
 }
 
-int ensure_matching_firmware(TF_HalContext *hal, const char *uid, const char* name, const char *purpose, uint8_t *expected_firmware_version, const uint8_t *firmware, size_t firmware_len, EventLog *logger, bool force) {
+#define FIRMWARE_MAJOR_OFFSET 10
+#define FIRMWARE_MINOR_OFFSET 11
+#define FIRMWARE_PATCH_OFFSET 12
+
+int ensure_matching_firmware(TF_HalContext *hal, const char *uid, const char* name, const char *purpose, const uint8_t *firmware, size_t firmware_len, EventLog *logger, bool force) {
     TF_Unknown bricklet;
 
     uint32_t numeric_uid;
@@ -364,18 +368,24 @@ int ensure_matching_firmware(TF_HalContext *hal, const char *uid, const char* na
         return -1;
     }
 
+    uint8_t embedded_firmware_version[3] = {
+        firmware[firmware_len - FIRMWARE_MAJOR_OFFSET],
+        firmware[firmware_len - FIRMWARE_MINOR_OFFSET],
+        firmware[firmware_len - FIRMWARE_PATCH_OFFSET],
+    };
+
     bool flash_required = force;
     for(int i = 0; i < 3; ++i) {
         // Intentionally use != here: we also want to downgrade the bricklet firmware if the ESP firmware embeds an older one.
         // This makes sure, that the interfaces fit.
-        flash_required |= firmware_version[i] != expected_firmware_version[i];
+        flash_required |= firmware_version[i] != embedded_firmware_version[i];
     }
 
     if (flash_required) {
         logger->printfln("%s firmware is %d.%d.%d not the expected %d.%d.%d. Flashing firmware...",
                       name,
                       firmware_version[0], firmware_version[1], firmware_version[2],
-                      expected_firmware_version[0], expected_firmware_version[1], expected_firmware_version[2]);
+                      embedded_firmware_version[0], embedded_firmware_version[1], embedded_firmware_version[2]);
         if(!flash_firmware(&bricklet, firmware, firmware_len, logger)) {
             logger->printfln("%s flashing failed. Disabling %s support.", name, purpose);
             return -1;
