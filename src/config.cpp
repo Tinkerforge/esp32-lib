@@ -564,6 +564,11 @@ const String &Config::asString() const {
     return *as<String, Config::ConfString>();
 }
 
+const char *Config::asCStr() const {
+    return as<String, Config::ConfString>()->c_str();
+}
+
+
 const float &Config::asFloat() const {
     return *as<float, Config::ConfFloat>();
 }
