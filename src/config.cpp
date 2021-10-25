@@ -238,7 +238,7 @@ struct from_json {
         x.value.clear();
         for(size_t i = 0; i < arr.size(); ++i) {
             x.value.push_back(x.prototype[0]);
-            String inner_error = strict_variant::apply_visitor(from_json{arr[i]}, x.value[i].value);
+            String inner_error = strict_variant::apply_visitor(from_json{arr[i], force_same_keys}, x.value[i].value);
             if(inner_error != "")
                 return String("[") + i + "]" + inner_error;
         }
@@ -254,11 +254,14 @@ struct from_json {
 
         JsonObject obj = json_node.as<JsonObject>();
 
-        if(obj.size() != x.value.size())
+        if(force_same_keys && obj.size() != x.value.size())
             return String("JSON object had ") + obj.size() + " entries instead of the expected " + x.value.size();
 
         for(size_t i = 0; i < x.value.size(); ++i) {
-            String inner_error = strict_variant::apply_visitor(from_json{obj[x.value[i].first]}, x.value[i].second.value);
+            if (!force_same_keys && !obj.containsKey(x.value[i].first))
+                continue;
+
+            String inner_error = strict_variant::apply_visitor(from_json{obj[x.value[i].first], force_same_keys}, x.value[i].second.value);
             if(inner_error != "")
                 return String("[\"") + x.value[i].first + "\"]" + inner_error;
         }
@@ -267,6 +270,7 @@ struct from_json {
     }
 
     JsonVariant json_node;
+    bool force_same_keys;
 };
 
 
@@ -630,7 +634,7 @@ String Config::update_from_file(File file) {
     if (error)
         return String("Failed to read file: ") + String(error.c_str());
 
-    String err = strict_variant::apply_visitor(from_json{doc.as<JsonVariant>()}, copy);
+    String err = strict_variant::apply_visitor(from_json{doc.as<JsonVariant>(), false}, copy);
 
     if (err == "") {
         value = copy;
@@ -651,7 +655,7 @@ String Config::update_from_string(String s) {
         return String("Failed to deserialize string: ") + String(error.c_str());
     }
 
-    String err = strict_variant::apply_visitor(from_json{doc.as<JsonVariant>()}, copy);
+    String err = strict_variant::apply_visitor(from_json{doc.as<JsonVariant>(), true}, copy);
 
     if (err == "") {
         value = copy;
@@ -663,7 +667,7 @@ String Config::update_from_string(String s) {
 
 String Config::update_from_json(JsonVariant root) {
     ConfVariant copy = value;
-    String err = strict_variant::apply_visitor(from_json{root}, copy);
+    String err = strict_variant::apply_visitor(from_json{root, true}, copy);
     if (err == "") {
         value = copy;
         this->updated = true;
