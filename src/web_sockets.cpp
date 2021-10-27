@@ -81,7 +81,7 @@ static esp_err_t ws_handler(httpd_req_t *req)
 
         struct httpd_req_aux   *aux = (struct httpd_req_aux *) req->aux;
         if (aux->ws_handshake_detect) {
-            logger.printfln("Responding WS handshake to sock %d", aux->sd->fd);
+            //logger.printfln("Responding WS handshake to sock %d", aux->sd->fd);
             struct httpd_data *hd = (struct httpd_data *) server.httpd;
             esp_err_t ret = httpd_ws_respond_server_handshake(&hd->hd_req, nullptr);
             if (ret != ESP_OK) {
@@ -93,7 +93,7 @@ static esp_err_t ws_handler(httpd_req_t *req)
             aux->sd->ws_control_frames = true;
             aux->sd->ws_user_ctx = req->user_ctx;
 
-            logger.printfln("Handshake done, the new connection was opened");
+            //logger.printfln("Handshake done, the new connection was opened");
 
             int sock = httpd_req_to_sockfd(req);
             WebSockets *ws = (WebSockets*)req->user_ctx;
