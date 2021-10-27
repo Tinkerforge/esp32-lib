@@ -48,8 +48,8 @@ struct CommandRegistration {
 
 class IAPIBackend {
 public:
-    virtual void addCommand(CommandRegistration reg) = 0;
-    virtual void addState(StateRegistration reg) = 0;
+    virtual void addCommand(const CommandRegistration &reg) = 0;
+    virtual void addState(const StateRegistration &reg) = 0;
     virtual void pushStateUpdate(String payload, String path) = 0;
     virtual void wifiAvailable() = 0;
 };
