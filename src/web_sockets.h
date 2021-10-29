@@ -43,6 +43,9 @@ public:
 
     void sendToClient(const char *payload, size_t payload_len, int sock);
     void sendToAll(const char *payload, size_t payload_len);
+    void sendToAllOwned(char *payload, size_t payload_len);
+
+    bool haveActiveClient();
 
     void onConnect(std::function<void(WebSocketsClient)> fn);
 

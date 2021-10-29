@@ -217,7 +217,14 @@ void WebSocketsClient::send(const char* payload, size_t payload_len)
 void WebSockets::sendToClient(const char *payload, size_t payload_len, int sock) {
     httpd_handle_t httpd = server.httpd;
     int *payload_ref_counter = (int*)malloc(sizeof(int));
+    if (payload_ref_counter == nullptr)
+        return;
     char *payload_copy = (char*)malloc(payload_len * sizeof(char));
+    if (payload_copy == nullptr) {
+        free(payload_ref_counter);
+        return;
+    }
+
     memcpy(payload_copy, payload, payload_len);
 
     *payload_ref_counter = 1;
@@ -232,6 +239,94 @@ void WebSockets::sendToClient(const char *payload, size_t payload_len, int sock)
 
     if (httpd_queue_work(httpd, work, nullptr) != ESP_OK) {
         logger.printfln("httpd_queue_work failed!");
+    }
+}
+
+
+bool WebSockets::haveActiveClient() {
+    httpd_handle_t httpd = server.httpd;
+    size_t clients = 7;
+    int    client_fds[7];
+
+    auto result = httpd_get_client_list(httpd, &clients, client_fds);
+    if (result != ESP_OK) {
+        logger.printfln("httpd_get_client_list failed! %d", result);
+        return false;
+    }
+
+    int active_clients = 0;
+    int http_clients = 0;
+    int invalid_clients = 0;
+    int unknown_clients = 0;
+    //printf("payload (len: %d) after copy: %s\n", payload_len, payload_copy);
+
+    for (size_t i=0; i < clients; ++i)
+        if (httpd_ws_get_fd_info(httpd, client_fds[i]) == HTTPD_WS_CLIENT_WEBSOCKET)
+            ++active_clients;
+        else if (httpd_ws_get_fd_info(httpd, client_fds[i]) == HTTPD_WS_CLIENT_HTTP)
+            ++http_clients;
+        else if (httpd_ws_get_fd_info(httpd, client_fds[i]) == HTTPD_WS_CLIENT_INVALID)
+            ++invalid_clients;
+        else
+            ++unknown_clients;
+
+    return active_clients != 0;
+}
+
+void WebSockets::sendToAllOwned(char *payload, size_t payload_len) {
+    httpd_handle_t httpd = server.httpd;
+    size_t clients = 7;
+    int    client_fds[7];
+
+    auto result = httpd_get_client_list(httpd, &clients, client_fds);
+    if (result != ESP_OK) {
+        logger.printfln("httpd_get_client_list failed! %d", result);
+        return;
+    }
+
+    int active_clients = 0;
+    int http_clients = 0;
+    int invalid_clients = 0;
+    int unknown_clients = 0;
+    //printf("payload (len: %d) after copy: %s\n", payload_len, payload_copy);
+
+    for (size_t i=0; i < clients; ++i)
+        if (httpd_ws_get_fd_info(httpd, client_fds[i]) == HTTPD_WS_CLIENT_WEBSOCKET)
+            ++active_clients;
+        else if (httpd_ws_get_fd_info(httpd, client_fds[i]) == HTTPD_WS_CLIENT_HTTP)
+            ++http_clients;
+        else if (httpd_ws_get_fd_info(httpd, client_fds[i]) == HTTPD_WS_CLIENT_INVALID)
+            ++invalid_clients;
+        else
+            ++unknown_clients;
+
+    /*printf("active_clients %d, http_clients %d, invalid_clients %d, unknown_clients %d\n",
+            active_clients,
+            http_clients,
+            invalid_clients,
+            unknown_clients);*/
+
+    if (active_clients == 0)
+        return;
+
+    int *payload_ref_counter = (int*)malloc(sizeof(int));
+    if (payload_ref_counter == nullptr)
+        return;
+
+    *payload_ref_counter = active_clients;
+
+    std::lock_guard<std::mutex> lock{work_queue_mutex};
+    for (size_t i=0; i < clients; ++i) {
+        int sock = client_fds[i];
+        if (httpd_ws_get_fd_info(httpd, sock) != HTTPD_WS_CLIENT_WEBSOCKET) {
+            continue;
+        }
+
+        work_queue.emplace_back(httpd, sock, payload, payload_len, payload_ref_counter);
+
+        if (httpd_queue_work(httpd, work, nullptr) != ESP_OK) {
+            logger.printfln("httpd_queue_work failed!");
+        }
     }
 }
 
@@ -272,9 +367,17 @@ void WebSockets::sendToAll(const char *payload, size_t payload_len) {
         return;
 
     int *payload_ref_counter = (int*)malloc(sizeof(int));
+    if (payload_ref_counter == nullptr)
+        return;
+
     *payload_ref_counter = active_clients;
 
     char *payload_copy = (char*)malloc(payload_len * sizeof(char));
+    if (payload_copy == nullptr) {
+        free(payload_ref_counter);
+        return;
+    }
+
     memcpy(payload_copy, payload, payload_len);
 
     std::lock_guard<std::mutex> lock{work_queue_mutex};
