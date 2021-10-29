@@ -81,10 +81,6 @@ public:
 
     void registerBackend(IAPIBackend *backend);
 
-    bool reconnect_in_progress;
-    uint32_t last_attempt = 0;
-    bool attemptReconnect(const char*);
-    void reconnectDone(const char*);
     void wifiAvailable();
 
     std::vector<StateRegistration> states;
