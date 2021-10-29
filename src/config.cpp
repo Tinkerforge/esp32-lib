@@ -651,6 +651,25 @@ String Config::update_from_file(File file) {
     return err;
 }
 
+String Config::update_from_cstr(char *c, size_t len) {
+    ConfVariant copy = value;
+    DynamicJsonDocument doc(json_size());
+    DeserializationError error = deserializeJson(doc, c, len);
+
+    if (error) {
+        return String("Failed to deserialize string: ") + String(error.c_str());
+    }
+
+    String err = strict_variant::apply_visitor(from_json{doc.as<JsonVariant>(), true}, copy);
+
+    if (err == "") {
+        value = copy;
+        this->updated = true;
+    }
+
+    return err;
+}
+
 String Config::update_from_string(String s) {
     ConfVariant copy = value;
     DynamicJsonDocument doc(json_size());

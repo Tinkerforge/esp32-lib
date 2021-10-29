@@ -438,6 +438,8 @@ struct Config {
 
     String update_from_file(File file);
 
+    String update_from_cstr(char *c, size_t payload_len);
+
     String update_from_string(String s);
 
     String update_from_json(JsonVariant root);
