@@ -337,7 +337,7 @@ int ensure_matching_firmware(TF_HalContext *hal, const char *uid, const char* na
     }
 
     uint8_t port_id;
-    int inventory_index;
+    uint8_t inventory_index;
     rc = tf_hal_get_port_id(hal, numeric_uid, &port_id, &inventory_index);
     if (rc < 0) {
         return rc;
