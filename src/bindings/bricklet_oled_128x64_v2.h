@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-10-04.      *
+ * This file was automatically generated on 2021-11-12.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -25,7 +25,7 @@ extern "C" {
  */
 
 struct TF_OLED128x64V2;
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
 
 
 #endif
@@ -36,7 +36,7 @@ struct TF_OLED128x64V2;
  */
 typedef struct TF_OLED128x64V2 {
     TF_TfpContext *tfp;
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
 
 #endif
     uint8_t response_expected[2];
@@ -137,7 +137,7 @@ typedef struct TF_OLED128x64V2 {
  */
 #define TF_OLED_128X64_V2_FUNCTION_GET_IDENTITY 255
 
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
 
 #endif
 
@@ -240,7 +240,7 @@ typedef struct TF_OLED128x64V2 {
  * Creates the device object \c oled_128x64_v2 with the unique device ID \c uid and adds
  * it to the IPConnection \c ipcon.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_oled_128x64_v2_create(TF_OLED128x64V2 *oled_128x64_v2, const char *uid, TF_HalContext *hal);
+int tf_oled_128x64_v2_create(TF_OLED128x64V2 *oled_128x64_v2, const char *uid, TF_HalContext *hal);
 
 /**
  * \ingroup BrickletOLED128x64V2
@@ -248,7 +248,7 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_oled_128x64_v2_create(TF_OLED128x64V2 *oled_128x
  * Removes the device object \c oled_128x64_v2 from its IPConnection and destroys it.
  * The device object cannot be used anymore afterwards.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_oled_128x64_v2_destroy(TF_OLED128x64V2 *oled_128x64_v2);
+int tf_oled_128x64_v2_destroy(TF_OLED128x64V2 *oled_128x64_v2);
 
 /**
  * \ingroup BrickletOLED128x64V2
@@ -269,7 +269,7 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_oled_128x64_v2_destroy(TF_OLED128x64V2 *oled_128
  * disabled for a setter function then no response is sent and errors are
  * silently ignored, because they cannot be detected.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_oled_128x64_v2_get_response_expected(TF_OLED128x64V2 *oled_128x64_v2, uint8_t function_id, bool *ret_response_expected);
+int tf_oled_128x64_v2_get_response_expected(TF_OLED128x64V2 *oled_128x64_v2, uint8_t function_id, bool *ret_response_expected);
 
 /**
  * \ingroup BrickletOLED128x64V2
@@ -285,7 +285,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_oled_128x64_v2_get_response_expected(TF_OLED128x6
  * setter function then no response is sent and errors are silently ignored,
  * because they cannot be detected.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_oled_128x64_v2_set_response_expected(TF_OLED128x64V2 *oled_128x64_v2, uint8_t function_id, bool response_expected);
+int tf_oled_128x64_v2_set_response_expected(TF_OLED128x64V2 *oled_128x64_v2, uint8_t function_id, bool response_expected);
 
 /**
  * \ingroup BrickletOLED128x64V2
@@ -293,10 +293,10 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_oled_128x64_v2_set_response_expected(TF_OLED128x
  * Changes the response expected flag for all setter and callback configuration
  * functions of this device at once.
  */
-TF_ATTRIBUTE_NONNULL_ALL void tf_oled_128x64_v2_set_response_expected_all(TF_OLED128x64V2 *oled_128x64_v2, bool response_expected);
+void tf_oled_128x64_v2_set_response_expected_all(TF_OLED128x64V2 *oled_128x64_v2, bool response_expected);
 
 
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
 /**
  * \ingroup BrickletOLED128x64V2
  *
@@ -304,7 +304,7 @@ TF_ATTRIBUTE_NONNULL_ALL void tf_oled_128x64_v2_set_response_expected_all(TF_OLE
  *
  * This function can be used in a non-blocking fashion by calling it with a timeout of 0.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_oled_128x64_v2_callback_tick(TF_OLED128x64V2 *oled_128x64_v2, uint32_t timeout_us);
+int tf_oled_128x64_v2_callback_tick(TF_OLED128x64V2 *oled_128x64_v2, uint32_t timeout_us);
 #endif
 
 /**
@@ -327,7 +327,7 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_oled_128x64_v2_callback_tick(TF_OLED128x64V2 *ol
  * Automatic draw can be configured with the {@link tf_oled_128x64_v2_set_display_configuration}
  * function.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_oled_128x64_v2_write_pixels_low_level(TF_OLED128x64V2 *oled_128x64_v2, uint8_t x_start, uint8_t y_start, uint8_t x_end, uint8_t y_end, uint16_t pixels_length, uint16_t pixels_chunk_offset, bool pixels_chunk_data[448]);
+int tf_oled_128x64_v2_write_pixels_low_level(TF_OLED128x64V2 *oled_128x64_v2, uint8_t x_start, uint8_t y_start, uint8_t x_end, uint8_t y_end, uint16_t pixels_length, uint16_t pixels_chunk_offset, const bool pixels_chunk_data[448]);
 
 /**
  * \ingroup BrickletOLED128x64V2
@@ -346,7 +346,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_oled_128x64_v2_write_pixels_low_level(TF_OLED128x
  * Automatic draw can be configured with the {@link tf_oled_128x64_v2_set_display_configuration}
  * function.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_oled_128x64_v2_read_pixels_low_level(TF_OLED128x64V2 *oled_128x64_v2, uint8_t x_start, uint8_t y_start, uint8_t x_end, uint8_t y_end, uint16_t *ret_pixels_length, uint16_t *ret_pixels_chunk_offset, bool ret_pixels_chunk_data[480]);
+int tf_oled_128x64_v2_read_pixels_low_level(TF_OLED128x64V2 *oled_128x64_v2, uint8_t x_start, uint8_t y_start, uint8_t x_end, uint8_t y_end, uint16_t *ret_pixels_length, uint16_t *ret_pixels_chunk_offset, bool ret_pixels_chunk_data[480]);
 
 /**
  * \ingroup BrickletOLED128x64V2
@@ -363,7 +363,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_oled_128x64_v2_read_pixels_low_level(TF_OLED128x6
  * Automatic draw can be configured with the {@link tf_oled_128x64_v2_set_display_configuration}
  * function.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_oled_128x64_v2_clear_display(TF_OLED128x64V2 *oled_128x64_v2);
+int tf_oled_128x64_v2_clear_display(TF_OLED128x64V2 *oled_128x64_v2);
 
 /**
  * \ingroup BrickletOLED128x64V2
@@ -378,14 +378,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_oled_128x64_v2_clear_display(TF_OLED128x64V2 *ole
  * changes are written into an internal buffer and only shown on the display after
  * a call of {@link tf_oled_128x64_v2_draw_buffered_frame}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_oled_128x64_v2_set_display_configuration(TF_OLED128x64V2 *oled_128x64_v2, uint8_t contrast, bool invert, bool automatic_draw);
+int tf_oled_128x64_v2_set_display_configuration(TF_OLED128x64V2 *oled_128x64_v2, uint8_t contrast, bool invert, bool automatic_draw);
 
 /**
  * \ingroup BrickletOLED128x64V2
  *
  * Returns the configuration as set by {@link tf_oled_128x64_v2_set_display_configuration}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_oled_128x64_v2_get_display_configuration(TF_OLED128x64V2 *oled_128x64_v2, uint8_t *ret_contrast, bool *ret_invert, bool *ret_automatic_draw);
+int tf_oled_128x64_v2_get_display_configuration(TF_OLED128x64V2 *oled_128x64_v2, uint8_t *ret_contrast, bool *ret_invert, bool *ret_automatic_draw);
 
 /**
  * \ingroup BrickletOLED128x64V2
@@ -411,7 +411,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_oled_128x64_v2_get_display_configuration(TF_OLED1
  * Automatic draw can be configured with the {@link tf_oled_128x64_v2_set_display_configuration}
  * function.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_oled_128x64_v2_write_line(TF_OLED128x64V2 *oled_128x64_v2, uint8_t line, uint8_t position, const char text[22]);
+int tf_oled_128x64_v2_write_line(TF_OLED128x64V2 *oled_128x64_v2, uint8_t line, uint8_t position, const char *text);
 
 /**
  * \ingroup BrickletOLED128x64V2
@@ -426,7 +426,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_oled_128x64_v2_write_line(TF_OLED128x64V2 *oled_1
  * instead of only the changed parts. Normally it should not be necessary to set this to
  * *true*. It may only become necessary in case of stuck pixels because of errors.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_oled_128x64_v2_draw_buffered_frame(TF_OLED128x64V2 *oled_128x64_v2, bool force_complete_redraw);
+int tf_oled_128x64_v2_draw_buffered_frame(TF_OLED128x64V2 *oled_128x64_v2, bool force_complete_redraw);
 
 /**
  * \ingroup BrickletOLED128x64V2
@@ -443,7 +443,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_oled_128x64_v2_draw_buffered_frame(TF_OLED128x64V
  * The errors counts are for errors that occur on the Bricklet side. All
  * Bricks have a similar function that returns the errors on the Brick side.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_oled_128x64_v2_get_spitfp_error_count(TF_OLED128x64V2 *oled_128x64_v2, uint32_t *ret_error_count_ack_checksum, uint32_t *ret_error_count_message_checksum, uint32_t *ret_error_count_frame, uint32_t *ret_error_count_overflow);
+int tf_oled_128x64_v2_get_spitfp_error_count(TF_OLED128x64V2 *oled_128x64_v2, uint32_t *ret_error_count_ack_checksum, uint32_t *ret_error_count_message_checksum, uint32_t *ret_error_count_frame, uint32_t *ret_error_count_overflow);
 
 /**
  * \ingroup BrickletOLED128x64V2
@@ -458,14 +458,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_oled_128x64_v2_get_spitfp_error_count(TF_OLED128x
  * This function is used by Brick Viewer during flashing. It should not be
  * necessary to call it in a normal user program.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_oled_128x64_v2_set_bootloader_mode(TF_OLED128x64V2 *oled_128x64_v2, uint8_t mode, uint8_t *ret_status);
+int tf_oled_128x64_v2_set_bootloader_mode(TF_OLED128x64V2 *oled_128x64_v2, uint8_t mode, uint8_t *ret_status);
 
 /**
  * \ingroup BrickletOLED128x64V2
  *
  * Returns the current bootloader mode, see {@link tf_oled_128x64_v2_set_bootloader_mode}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_oled_128x64_v2_get_bootloader_mode(TF_OLED128x64V2 *oled_128x64_v2, uint8_t *ret_mode);
+int tf_oled_128x64_v2_get_bootloader_mode(TF_OLED128x64V2 *oled_128x64_v2, uint8_t *ret_mode);
 
 /**
  * \ingroup BrickletOLED128x64V2
@@ -477,7 +477,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_oled_128x64_v2_get_bootloader_mode(TF_OLED128x64V
  * This function is used by Brick Viewer during flashing. It should not be
  * necessary to call it in a normal user program.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_oled_128x64_v2_set_write_firmware_pointer(TF_OLED128x64V2 *oled_128x64_v2, uint32_t pointer);
+int tf_oled_128x64_v2_set_write_firmware_pointer(TF_OLED128x64V2 *oled_128x64_v2, uint32_t pointer);
 
 /**
  * \ingroup BrickletOLED128x64V2
@@ -491,7 +491,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_oled_128x64_v2_set_write_firmware_pointer(TF_OLED
  * This function is used by Brick Viewer during flashing. It should not be
  * necessary to call it in a normal user program.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_oled_128x64_v2_write_firmware(TF_OLED128x64V2 *oled_128x64_v2, uint8_t data[64], uint8_t *ret_status);
+int tf_oled_128x64_v2_write_firmware(TF_OLED128x64V2 *oled_128x64_v2, const uint8_t data[64], uint8_t *ret_status);
 
 /**
  * \ingroup BrickletOLED128x64V2
@@ -504,14 +504,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_oled_128x64_v2_write_firmware(TF_OLED128x64V2 *ol
  * 
  * If the Bricklet is in bootloader mode, the LED is will show heartbeat by default.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_oled_128x64_v2_set_status_led_config(TF_OLED128x64V2 *oled_128x64_v2, uint8_t config);
+int tf_oled_128x64_v2_set_status_led_config(TF_OLED128x64V2 *oled_128x64_v2, uint8_t config);
 
 /**
  * \ingroup BrickletOLED128x64V2
  *
  * Returns the configuration as set by {@link tf_oled_128x64_v2_set_status_led_config}
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_oled_128x64_v2_get_status_led_config(TF_OLED128x64V2 *oled_128x64_v2, uint8_t *ret_config);
+int tf_oled_128x64_v2_get_status_led_config(TF_OLED128x64V2 *oled_128x64_v2, uint8_t *ret_config);
 
 /**
  * \ingroup BrickletOLED128x64V2
@@ -523,7 +523,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_oled_128x64_v2_get_status_led_config(TF_OLED128x6
  * accuracy. Practically it is only useful as an indicator for
  * temperature changes.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_oled_128x64_v2_get_chip_temperature(TF_OLED128x64V2 *oled_128x64_v2, int16_t *ret_temperature);
+int tf_oled_128x64_v2_get_chip_temperature(TF_OLED128x64V2 *oled_128x64_v2, int16_t *ret_temperature);
 
 /**
  * \ingroup BrickletOLED128x64V2
@@ -535,7 +535,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_oled_128x64_v2_get_chip_temperature(TF_OLED128x64
  * calling functions on the existing ones will result in
  * undefined behavior!
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_oled_128x64_v2_reset(TF_OLED128x64V2 *oled_128x64_v2);
+int tf_oled_128x64_v2_reset(TF_OLED128x64V2 *oled_128x64_v2);
 
 /**
  * \ingroup BrickletOLED128x64V2
@@ -546,7 +546,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_oled_128x64_v2_reset(TF_OLED128x64V2 *oled_128x64
  * 
  * We recommend that you use Brick Viewer to change the UID.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_oled_128x64_v2_write_uid(TF_OLED128x64V2 *oled_128x64_v2, uint32_t uid);
+int tf_oled_128x64_v2_write_uid(TF_OLED128x64V2 *oled_128x64_v2, uint32_t uid);
 
 /**
  * \ingroup BrickletOLED128x64V2
@@ -554,7 +554,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_oled_128x64_v2_write_uid(TF_OLED128x64V2 *oled_12
  * Returns the current UID as an integer. Encode as
  * Base58 to get the usual string version.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_oled_128x64_v2_read_uid(TF_OLED128x64V2 *oled_128x64_v2, uint32_t *ret_uid);
+int tf_oled_128x64_v2_read_uid(TF_OLED128x64V2 *oled_128x64_v2, uint32_t *ret_uid);
 
 /**
  * \ingroup BrickletOLED128x64V2
@@ -570,7 +570,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_oled_128x64_v2_read_uid(TF_OLED128x64V2 *oled_128
  * The device identifier numbers can be found :ref:`here <device_identifier>`.
  * |device_identifier_constant|
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_oled_128x64_v2_get_identity(TF_OLED128x64V2 *oled_128x64_v2, char ret_uid[8], char ret_connected_uid[8], char *ret_position, uint8_t ret_hardware_version[3], uint8_t ret_firmware_version[3], uint16_t *ret_device_identifier);
+int tf_oled_128x64_v2_get_identity(TF_OLED128x64V2 *oled_128x64_v2, char ret_uid[8], char ret_connected_uid[8], char *ret_position, uint8_t ret_hardware_version[3], uint8_t ret_firmware_version[3], uint16_t *ret_device_identifier);
 
 /**
  * \ingroup BrickletOLED128x64V2
@@ -592,7 +592,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_oled_128x64_v2_get_identity(TF_OLED128x64V2 *oled
  * Automatic draw can be configured with the {@link tf_oled_128x64_v2_set_display_configuration}
  * function.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_oled_128x64_v2_write_pixels(TF_OLED128x64V2 *oled_128x64_v2, uint8_t x_start, uint8_t y_start, uint8_t x_end, uint8_t y_end, bool *pixels, uint16_t pixels_length);
+int tf_oled_128x64_v2_write_pixels(TF_OLED128x64V2 *oled_128x64_v2, uint8_t x_start, uint8_t y_start, uint8_t x_end, uint8_t y_end, const bool *pixels, uint16_t pixels_length);
 
 /**
  * \ingroup BrickletOLED128x64V2
@@ -611,7 +611,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_oled_128x64_v2_write_pixels(TF_OLED128x64V2 *oled
  * Automatic draw can be configured with the {@link tf_oled_128x64_v2_set_display_configuration}
  * function.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_oled_128x64_v2_read_pixels(TF_OLED128x64V2 *oled_128x64_v2, uint8_t x_start, uint8_t y_start, uint8_t x_end, uint8_t y_end, bool *ret_pixels, uint16_t *ret_pixels_length);
+int tf_oled_128x64_v2_read_pixels(TF_OLED128x64V2 *oled_128x64_v2, uint8_t x_start, uint8_t y_start, uint8_t x_end, uint8_t y_end, bool *ret_pixels, uint16_t *ret_pixels_length);
 
 #ifdef __cplusplus
 }

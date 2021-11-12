@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-10-04.      *
+ * This file was automatically generated on 2021-11-12.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -25,7 +25,7 @@ extern "C" {
  */
 
 struct TF_PTCV2;
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
 
 typedef void (*TF_PTCV2TemperatureHandler)(struct TF_PTCV2 *device, int32_t temperature, void *user_data);
 typedef void (*TF_PTCV2ResistanceHandler)(struct TF_PTCV2 *device, int32_t resistance, void *user_data);
@@ -39,7 +39,7 @@ typedef void (*TF_PTCV2SensorConnectedHandler)(struct TF_PTCV2 *device, bool con
  */
 typedef struct TF_PTCV2 {
     TF_TfpContext *tfp;
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
     TF_PTCV2TemperatureHandler temperature_handler;
     void *temperature_user_data;
 
@@ -188,7 +188,7 @@ typedef struct TF_PTCV2 {
  */
 #define TF_PTC_V2_FUNCTION_GET_IDENTITY 255
 
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
 
 /**
  * \ingroup BrickletPTCV2
@@ -356,7 +356,7 @@ typedef struct TF_PTCV2 {
  * Creates the device object \c ptc_v2 with the unique device ID \c uid and adds
  * it to the IPConnection \c ipcon.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_ptc_v2_create(TF_PTCV2 *ptc_v2, const char *uid, TF_HalContext *hal);
+int tf_ptc_v2_create(TF_PTCV2 *ptc_v2, const char *uid, TF_HalContext *hal);
 
 /**
  * \ingroup BrickletPTCV2
@@ -364,7 +364,7 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_ptc_v2_create(TF_PTCV2 *ptc_v2, const char *uid,
  * Removes the device object \c ptc_v2 from its IPConnection and destroys it.
  * The device object cannot be used anymore afterwards.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_ptc_v2_destroy(TF_PTCV2 *ptc_v2);
+int tf_ptc_v2_destroy(TF_PTCV2 *ptc_v2);
 
 /**
  * \ingroup BrickletPTCV2
@@ -385,7 +385,7 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_ptc_v2_destroy(TF_PTCV2 *ptc_v2);
  * disabled for a setter function then no response is sent and errors are
  * silently ignored, because they cannot be detected.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_ptc_v2_get_response_expected(TF_PTCV2 *ptc_v2, uint8_t function_id, bool *ret_response_expected);
+int tf_ptc_v2_get_response_expected(TF_PTCV2 *ptc_v2, uint8_t function_id, bool *ret_response_expected);
 
 /**
  * \ingroup BrickletPTCV2
@@ -401,7 +401,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_ptc_v2_get_response_expected(TF_PTCV2 *ptc_v2, ui
  * setter function then no response is sent and errors are silently ignored,
  * because they cannot be detected.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_ptc_v2_set_response_expected(TF_PTCV2 *ptc_v2, uint8_t function_id, bool response_expected);
+int tf_ptc_v2_set_response_expected(TF_PTCV2 *ptc_v2, uint8_t function_id, bool response_expected);
 
 /**
  * \ingroup BrickletPTCV2
@@ -409,8 +409,8 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_ptc_v2_set_response_expected(TF_PTCV2 *ptc_v2, u
  * Changes the response expected flag for all setter and callback configuration
  * functions of this device at once.
  */
-TF_ATTRIBUTE_NONNULL_ALL void tf_ptc_v2_set_response_expected_all(TF_PTCV2 *ptc_v2, bool response_expected);
-#ifdef TF_IMPLEMENT_CALLBACKS
+void tf_ptc_v2_set_response_expected_all(TF_PTCV2 *ptc_v2, bool response_expected);
+#if TF_IMPLEMENT_CALLBACKS != 0
 /**
  * \ingroup BrickletPTCV2
  *
@@ -424,7 +424,7 @@ TF_ATTRIBUTE_NONNULL_ALL void tf_ptc_v2_set_response_expected_all(TF_PTCV2 *ptc_
  * 
  * The parameter is the same as {@link tf_ptc_v2_get_temperature}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_ptc_v2_register_temperature_callback(TF_PTCV2 *ptc_v2, TF_PTCV2TemperatureHandler handler, void *user_data);
+int tf_ptc_v2_register_temperature_callback(TF_PTCV2 *ptc_v2, TF_PTCV2TemperatureHandler handler, void *user_data);
 
 
 /**
@@ -440,7 +440,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_ptc_v2_register_temperature_callback(TF_PTCV2 *pt
  * 
  * The parameter is the same as {@link tf_ptc_v2_get_resistance}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_ptc_v2_register_resistance_callback(TF_PTCV2 *ptc_v2, TF_PTCV2ResistanceHandler handler, void *user_data);
+int tf_ptc_v2_register_resistance_callback(TF_PTCV2 *ptc_v2, TF_PTCV2ResistanceHandler handler, void *user_data);
 
 
 /**
@@ -456,9 +456,9 @@ TF_ATTRIBUTE_NONNULL(1) int tf_ptc_v2_register_resistance_callback(TF_PTCV2 *ptc
  * 
  * The parameter is the same as {@link tf_ptc_v2_is_sensor_connected}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_ptc_v2_register_sensor_connected_callback(TF_PTCV2 *ptc_v2, TF_PTCV2SensorConnectedHandler handler, void *user_data);
+int tf_ptc_v2_register_sensor_connected_callback(TF_PTCV2 *ptc_v2, TF_PTCV2SensorConnectedHandler handler, void *user_data);
 #endif
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
 /**
  * \ingroup BrickletPTCV2
  *
@@ -466,7 +466,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_ptc_v2_register_sensor_connected_callback(TF_PTCV
  *
  * This function can be used in a non-blocking fashion by calling it with a timeout of 0.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_ptc_v2_callback_tick(TF_PTCV2 *ptc_v2, uint32_t timeout_us);
+int tf_ptc_v2_callback_tick(TF_PTCV2 *ptc_v2, uint32_t timeout_us);
 #endif
 
 /**
@@ -479,7 +479,7 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_ptc_v2_callback_tick(TF_PTCV2 *ptc_v2, uint32_t 
  * {@link tf_ptc_v2_register_temperature_callback} callback. You can set the callback configuration
  * with {@link tf_ptc_v2_set_temperature_callback_configuration}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_ptc_v2_get_temperature(TF_PTCV2 *ptc_v2, int32_t *ret_temperature);
+int tf_ptc_v2_get_temperature(TF_PTCV2 *ptc_v2, int32_t *ret_temperature);
 
 /**
  * \ingroup BrickletPTCV2
@@ -512,14 +512,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_ptc_v2_get_temperature(TF_PTCV2 *ptc_v2, int32_t 
  * 
  * If the option is set to 'x' (threshold turned off) the callback is triggered with the fixed period.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_ptc_v2_set_temperature_callback_configuration(TF_PTCV2 *ptc_v2, uint32_t period, bool value_has_to_change, char option, int32_t min, int32_t max);
+int tf_ptc_v2_set_temperature_callback_configuration(TF_PTCV2 *ptc_v2, uint32_t period, bool value_has_to_change, char option, int32_t min, int32_t max);
 
 /**
  * \ingroup BrickletPTCV2
  *
  * Returns the callback configuration as set by {@link tf_ptc_v2_set_temperature_callback_configuration}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_ptc_v2_get_temperature_callback_configuration(TF_PTCV2 *ptc_v2, uint32_t *ret_period, bool *ret_value_has_to_change, char *ret_option, int32_t *ret_min, int32_t *ret_max);
+int tf_ptc_v2_get_temperature_callback_configuration(TF_PTCV2 *ptc_v2, uint32_t *ret_period, bool *ret_value_has_to_change, char *ret_option, int32_t *ret_min, int32_t *ret_max);
 
 /**
  * \ingroup BrickletPTCV2
@@ -536,7 +536,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_ptc_v2_get_temperature_callback_configuration(TF_
  * {@link tf_ptc_v2_register_resistance_callback} callback. You can set the callback configuration
  * with {@link tf_ptc_v2_set_resistance_callback_configuration}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_ptc_v2_get_resistance(TF_PTCV2 *ptc_v2, int32_t *ret_resistance);
+int tf_ptc_v2_get_resistance(TF_PTCV2 *ptc_v2, int32_t *ret_resistance);
 
 /**
  * \ingroup BrickletPTCV2
@@ -569,14 +569,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_ptc_v2_get_resistance(TF_PTCV2 *ptc_v2, int32_t *
  * 
  * If the option is set to 'x' (threshold turned off) the callback is triggered with the fixed period.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_ptc_v2_set_resistance_callback_configuration(TF_PTCV2 *ptc_v2, uint32_t period, bool value_has_to_change, char option, int32_t min, int32_t max);
+int tf_ptc_v2_set_resistance_callback_configuration(TF_PTCV2 *ptc_v2, uint32_t period, bool value_has_to_change, char option, int32_t min, int32_t max);
 
 /**
  * \ingroup BrickletPTCV2
  *
  * Returns the callback configuration as set by {@link tf_ptc_v2_set_resistance_callback_configuration}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_ptc_v2_get_resistance_callback_configuration(TF_PTCV2 *ptc_v2, uint32_t *ret_period, bool *ret_value_has_to_change, char *ret_option, int32_t *ret_min, int32_t *ret_max);
+int tf_ptc_v2_get_resistance_callback_configuration(TF_PTCV2 *ptc_v2, uint32_t *ret_period, bool *ret_value_has_to_change, char *ret_option, int32_t *ret_min, int32_t *ret_max);
 
 /**
  * \ingroup BrickletPTCV2
@@ -586,7 +586,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_ptc_v2_get_resistance_callback_configuration(TF_P
  * harmonics of the AC power's fundamental frequency) is
  * attenuated by 82dB.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_ptc_v2_set_noise_rejection_filter(TF_PTCV2 *ptc_v2, uint8_t filter);
+int tf_ptc_v2_set_noise_rejection_filter(TF_PTCV2 *ptc_v2, uint8_t filter);
 
 /**
  * \ingroup BrickletPTCV2
@@ -594,7 +594,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_ptc_v2_set_noise_rejection_filter(TF_PTCV2 *ptc_v
  * Returns the noise rejection filter option as set by
  * {@link tf_ptc_v2_set_noise_rejection_filter}
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_ptc_v2_get_noise_rejection_filter(TF_PTCV2 *ptc_v2, uint8_t *ret_filter);
+int tf_ptc_v2_get_noise_rejection_filter(TF_PTCV2 *ptc_v2, uint8_t *ret_filter);
 
 /**
  * \ingroup BrickletPTCV2
@@ -609,7 +609,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_ptc_v2_get_noise_rejection_filter(TF_PTCV2 *ptc_v
  * {@link tf_ptc_v2_register_sensor_connected_callback} callback. You can set the callback configuration
  * with {@link tf_ptc_v2_set_sensor_connected_callback_configuration}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_ptc_v2_is_sensor_connected(TF_PTCV2 *ptc_v2, bool *ret_connected);
+int tf_ptc_v2_is_sensor_connected(TF_PTCV2 *ptc_v2, bool *ret_connected);
 
 /**
  * \ingroup BrickletPTCV2
@@ -618,14 +618,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_ptc_v2_is_sensor_connected(TF_PTCV2 *ptc_v2, bool
  * correspond to 2-, 3- and 4-wire sensors. The value has to match the jumper
  * configuration on the Bricklet.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_ptc_v2_set_wire_mode(TF_PTCV2 *ptc_v2, uint8_t mode);
+int tf_ptc_v2_set_wire_mode(TF_PTCV2 *ptc_v2, uint8_t mode);
 
 /**
  * \ingroup BrickletPTCV2
  *
  * Returns the wire mode as set by {@link tf_ptc_v2_set_wire_mode}
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_ptc_v2_get_wire_mode(TF_PTCV2 *ptc_v2, uint8_t *ret_mode);
+int tf_ptc_v2_get_wire_mode(TF_PTCV2 *ptc_v2, uint8_t *ret_mode);
 
 /**
  * \ingroup BrickletPTCV2
@@ -642,14 +642,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_ptc_v2_get_wire_mode(TF_PTCV2 *ptc_v2, uint8_t *r
  * 
  * The default values match the non-changeable averaging settings of the old PTC Bricklet 1.0
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_ptc_v2_set_moving_average_configuration(TF_PTCV2 *ptc_v2, uint16_t moving_average_length_resistance, uint16_t moving_average_length_temperature);
+int tf_ptc_v2_set_moving_average_configuration(TF_PTCV2 *ptc_v2, uint16_t moving_average_length_resistance, uint16_t moving_average_length_temperature);
 
 /**
  * \ingroup BrickletPTCV2
  *
  * Returns the moving average configuration as set by {@link tf_ptc_v2_set_moving_average_configuration}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_ptc_v2_get_moving_average_configuration(TF_PTCV2 *ptc_v2, uint16_t *ret_moving_average_length_resistance, uint16_t *ret_moving_average_length_temperature);
+int tf_ptc_v2_get_moving_average_configuration(TF_PTCV2 *ptc_v2, uint16_t *ret_moving_average_length_resistance, uint16_t *ret_moving_average_length_temperature);
 
 /**
  * \ingroup BrickletPTCV2
@@ -657,14 +657,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_ptc_v2_get_moving_average_configuration(TF_PTCV2 
  * If you enable this callback, the {@link tf_ptc_v2_register_sensor_connected_callback} callback is triggered
  * every time a Pt sensor is connected/disconnected.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_ptc_v2_set_sensor_connected_callback_configuration(TF_PTCV2 *ptc_v2, bool enabled);
+int tf_ptc_v2_set_sensor_connected_callback_configuration(TF_PTCV2 *ptc_v2, bool enabled);
 
 /**
  * \ingroup BrickletPTCV2
  *
  * Returns the configuration as set by {@link tf_ptc_v2_set_sensor_connected_callback_configuration}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_ptc_v2_get_sensor_connected_callback_configuration(TF_PTCV2 *ptc_v2, bool *ret_enabled);
+int tf_ptc_v2_get_sensor_connected_callback_configuration(TF_PTCV2 *ptc_v2, bool *ret_enabled);
 
 /**
  * \ingroup BrickletPTCV2
@@ -681,7 +681,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_ptc_v2_get_sensor_connected_callback_configuratio
  * The errors counts are for errors that occur on the Bricklet side. All
  * Bricks have a similar function that returns the errors on the Brick side.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_ptc_v2_get_spitfp_error_count(TF_PTCV2 *ptc_v2, uint32_t *ret_error_count_ack_checksum, uint32_t *ret_error_count_message_checksum, uint32_t *ret_error_count_frame, uint32_t *ret_error_count_overflow);
+int tf_ptc_v2_get_spitfp_error_count(TF_PTCV2 *ptc_v2, uint32_t *ret_error_count_ack_checksum, uint32_t *ret_error_count_message_checksum, uint32_t *ret_error_count_frame, uint32_t *ret_error_count_overflow);
 
 /**
  * \ingroup BrickletPTCV2
@@ -696,14 +696,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_ptc_v2_get_spitfp_error_count(TF_PTCV2 *ptc_v2, u
  * This function is used by Brick Viewer during flashing. It should not be
  * necessary to call it in a normal user program.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_ptc_v2_set_bootloader_mode(TF_PTCV2 *ptc_v2, uint8_t mode, uint8_t *ret_status);
+int tf_ptc_v2_set_bootloader_mode(TF_PTCV2 *ptc_v2, uint8_t mode, uint8_t *ret_status);
 
 /**
  * \ingroup BrickletPTCV2
  *
  * Returns the current bootloader mode, see {@link tf_ptc_v2_set_bootloader_mode}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_ptc_v2_get_bootloader_mode(TF_PTCV2 *ptc_v2, uint8_t *ret_mode);
+int tf_ptc_v2_get_bootloader_mode(TF_PTCV2 *ptc_v2, uint8_t *ret_mode);
 
 /**
  * \ingroup BrickletPTCV2
@@ -715,7 +715,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_ptc_v2_get_bootloader_mode(TF_PTCV2 *ptc_v2, uint
  * This function is used by Brick Viewer during flashing. It should not be
  * necessary to call it in a normal user program.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_ptc_v2_set_write_firmware_pointer(TF_PTCV2 *ptc_v2, uint32_t pointer);
+int tf_ptc_v2_set_write_firmware_pointer(TF_PTCV2 *ptc_v2, uint32_t pointer);
 
 /**
  * \ingroup BrickletPTCV2
@@ -729,7 +729,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_ptc_v2_set_write_firmware_pointer(TF_PTCV2 *ptc_v
  * This function is used by Brick Viewer during flashing. It should not be
  * necessary to call it in a normal user program.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_ptc_v2_write_firmware(TF_PTCV2 *ptc_v2, uint8_t data[64], uint8_t *ret_status);
+int tf_ptc_v2_write_firmware(TF_PTCV2 *ptc_v2, const uint8_t data[64], uint8_t *ret_status);
 
 /**
  * \ingroup BrickletPTCV2
@@ -742,14 +742,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_ptc_v2_write_firmware(TF_PTCV2 *ptc_v2, uint8_t d
  * 
  * If the Bricklet is in bootloader mode, the LED is will show heartbeat by default.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_ptc_v2_set_status_led_config(TF_PTCV2 *ptc_v2, uint8_t config);
+int tf_ptc_v2_set_status_led_config(TF_PTCV2 *ptc_v2, uint8_t config);
 
 /**
  * \ingroup BrickletPTCV2
  *
  * Returns the configuration as set by {@link tf_ptc_v2_set_status_led_config}
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_ptc_v2_get_status_led_config(TF_PTCV2 *ptc_v2, uint8_t *ret_config);
+int tf_ptc_v2_get_status_led_config(TF_PTCV2 *ptc_v2, uint8_t *ret_config);
 
 /**
  * \ingroup BrickletPTCV2
@@ -761,7 +761,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_ptc_v2_get_status_led_config(TF_PTCV2 *ptc_v2, ui
  * accuracy. Practically it is only useful as an indicator for
  * temperature changes.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_ptc_v2_get_chip_temperature(TF_PTCV2 *ptc_v2, int16_t *ret_temperature);
+int tf_ptc_v2_get_chip_temperature(TF_PTCV2 *ptc_v2, int16_t *ret_temperature);
 
 /**
  * \ingroup BrickletPTCV2
@@ -773,7 +773,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_ptc_v2_get_chip_temperature(TF_PTCV2 *ptc_v2, int
  * calling functions on the existing ones will result in
  * undefined behavior!
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_ptc_v2_reset(TF_PTCV2 *ptc_v2);
+int tf_ptc_v2_reset(TF_PTCV2 *ptc_v2);
 
 /**
  * \ingroup BrickletPTCV2
@@ -784,7 +784,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_ptc_v2_reset(TF_PTCV2 *ptc_v2);
  * 
  * We recommend that you use Brick Viewer to change the UID.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_ptc_v2_write_uid(TF_PTCV2 *ptc_v2, uint32_t uid);
+int tf_ptc_v2_write_uid(TF_PTCV2 *ptc_v2, uint32_t uid);
 
 /**
  * \ingroup BrickletPTCV2
@@ -792,7 +792,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_ptc_v2_write_uid(TF_PTCV2 *ptc_v2, uint32_t uid);
  * Returns the current UID as an integer. Encode as
  * Base58 to get the usual string version.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_ptc_v2_read_uid(TF_PTCV2 *ptc_v2, uint32_t *ret_uid);
+int tf_ptc_v2_read_uid(TF_PTCV2 *ptc_v2, uint32_t *ret_uid);
 
 /**
  * \ingroup BrickletPTCV2
@@ -808,7 +808,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_ptc_v2_read_uid(TF_PTCV2 *ptc_v2, uint32_t *ret_u
  * The device identifier numbers can be found :ref:`here <device_identifier>`.
  * |device_identifier_constant|
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_ptc_v2_get_identity(TF_PTCV2 *ptc_v2, char ret_uid[8], char ret_connected_uid[8], char *ret_position, uint8_t ret_hardware_version[3], uint8_t ret_firmware_version[3], uint16_t *ret_device_identifier);
+int tf_ptc_v2_get_identity(TF_PTCV2 *ptc_v2, char ret_uid[8], char ret_connected_uid[8], char *ret_position, uint8_t ret_hardware_version[3], uint8_t ret_firmware_version[3], uint16_t *ret_device_identifier);
 
 #ifdef __cplusplus
 }

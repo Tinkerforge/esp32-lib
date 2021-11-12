@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-10-04.      *
+ * This file was automatically generated on 2021-11-12.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -25,7 +25,7 @@ extern "C" {
  */
 
 struct TF_AirQuality;
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
 
 typedef void (*TF_AirQualityAllValuesHandler)(struct TF_AirQuality *device, int32_t iaq_index, uint8_t iaq_index_accuracy, int32_t temperature, int32_t humidity, int32_t air_pressure, void *user_data);
 typedef void (*TF_AirQualityIAQIndexHandler)(struct TF_AirQuality *device, int32_t iaq_index, uint8_t iaq_index_accuracy, void *user_data);
@@ -41,7 +41,7 @@ typedef void (*TF_AirQualityAirPressureHandler)(struct TF_AirQuality *device, in
  */
 typedef struct TF_AirQuality {
     TF_TfpContext *tfp;
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
     TF_AirQualityAllValuesHandler all_values_handler;
     void *all_values_user_data;
 
@@ -221,7 +221,7 @@ typedef struct TF_AirQuality {
  */
 #define TF_AIR_QUALITY_FUNCTION_GET_IDENTITY 255
 
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
 
 /**
  * \ingroup BrickletAirQuality
@@ -404,7 +404,7 @@ typedef struct TF_AirQuality {
  * Creates the device object \c air_quality with the unique device ID \c uid and adds
  * it to the IPConnection \c ipcon.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_air_quality_create(TF_AirQuality *air_quality, const char *uid, TF_HalContext *hal);
+int tf_air_quality_create(TF_AirQuality *air_quality, const char *uid, TF_HalContext *hal);
 
 /**
  * \ingroup BrickletAirQuality
@@ -412,7 +412,7 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_air_quality_create(TF_AirQuality *air_quality, c
  * Removes the device object \c air_quality from its IPConnection and destroys it.
  * The device object cannot be used anymore afterwards.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_air_quality_destroy(TF_AirQuality *air_quality);
+int tf_air_quality_destroy(TF_AirQuality *air_quality);
 
 /**
  * \ingroup BrickletAirQuality
@@ -433,7 +433,7 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_air_quality_destroy(TF_AirQuality *air_quality);
  * disabled for a setter function then no response is sent and errors are
  * silently ignored, because they cannot be detected.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_air_quality_get_response_expected(TF_AirQuality *air_quality, uint8_t function_id, bool *ret_response_expected);
+int tf_air_quality_get_response_expected(TF_AirQuality *air_quality, uint8_t function_id, bool *ret_response_expected);
 
 /**
  * \ingroup BrickletAirQuality
@@ -449,7 +449,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_air_quality_get_response_expected(TF_AirQuality *
  * setter function then no response is sent and errors are silently ignored,
  * because they cannot be detected.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_air_quality_set_response_expected(TF_AirQuality *air_quality, uint8_t function_id, bool response_expected);
+int tf_air_quality_set_response_expected(TF_AirQuality *air_quality, uint8_t function_id, bool response_expected);
 
 /**
  * \ingroup BrickletAirQuality
@@ -457,8 +457,8 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_air_quality_set_response_expected(TF_AirQuality 
  * Changes the response expected flag for all setter and callback configuration
  * functions of this device at once.
  */
-TF_ATTRIBUTE_NONNULL_ALL void tf_air_quality_set_response_expected_all(TF_AirQuality *air_quality, bool response_expected);
-#ifdef TF_IMPLEMENT_CALLBACKS
+void tf_air_quality_set_response_expected_all(TF_AirQuality *air_quality, bool response_expected);
+#if TF_IMPLEMENT_CALLBACKS != 0
 /**
  * \ingroup BrickletAirQuality
  *
@@ -472,7 +472,7 @@ TF_ATTRIBUTE_NONNULL_ALL void tf_air_quality_set_response_expected_all(TF_AirQua
  * 
  * The parameters are the same as {@link tf_air_quality_get_all_values}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_air_quality_register_all_values_callback(TF_AirQuality *air_quality, TF_AirQualityAllValuesHandler handler, void *user_data);
+int tf_air_quality_register_all_values_callback(TF_AirQuality *air_quality, TF_AirQualityAllValuesHandler handler, void *user_data);
 
 
 /**
@@ -488,7 +488,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_air_quality_register_all_values_callback(TF_AirQu
  * 
  * The parameters are the same as {@link tf_air_quality_get_iaq_index}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_air_quality_register_iaq_index_callback(TF_AirQuality *air_quality, TF_AirQualityIAQIndexHandler handler, void *user_data);
+int tf_air_quality_register_iaq_index_callback(TF_AirQuality *air_quality, TF_AirQualityIAQIndexHandler handler, void *user_data);
 
 
 /**
@@ -504,7 +504,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_air_quality_register_iaq_index_callback(TF_AirQua
  * 
  * The parameter is the same as {@link tf_air_quality_get_temperature}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_air_quality_register_temperature_callback(TF_AirQuality *air_quality, TF_AirQualityTemperatureHandler handler, void *user_data);
+int tf_air_quality_register_temperature_callback(TF_AirQuality *air_quality, TF_AirQualityTemperatureHandler handler, void *user_data);
 
 
 /**
@@ -520,7 +520,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_air_quality_register_temperature_callback(TF_AirQ
  * 
  * The parameter is the same as {@link tf_air_quality_get_humidity}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_air_quality_register_humidity_callback(TF_AirQuality *air_quality, TF_AirQualityHumidityHandler handler, void *user_data);
+int tf_air_quality_register_humidity_callback(TF_AirQuality *air_quality, TF_AirQualityHumidityHandler handler, void *user_data);
 
 
 /**
@@ -536,9 +536,9 @@ TF_ATTRIBUTE_NONNULL(1) int tf_air_quality_register_humidity_callback(TF_AirQual
  * 
  * The parameter is the same as {@link tf_air_quality_get_air_pressure}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_air_quality_register_air_pressure_callback(TF_AirQuality *air_quality, TF_AirQualityAirPressureHandler handler, void *user_data);
+int tf_air_quality_register_air_pressure_callback(TF_AirQuality *air_quality, TF_AirQualityAirPressureHandler handler, void *user_data);
 #endif
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
 /**
  * \ingroup BrickletAirQuality
  *
@@ -546,7 +546,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_air_quality_register_air_pressure_callback(TF_Air
  *
  * This function can be used in a non-blocking fashion by calling it with a timeout of 0.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_air_quality_callback_tick(TF_AirQuality *air_quality, uint32_t timeout_us);
+int tf_air_quality_callback_tick(TF_AirQuality *air_quality, uint32_t timeout_us);
 #endif
 
 /**
@@ -562,7 +562,7 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_air_quality_callback_tick(TF_AirQuality *air_qua
  *    :align: center
  *    :target: ../../_images/Misc/bricklet_air_quality_iaq_index.png
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_air_quality_get_all_values(TF_AirQuality *air_quality, int32_t *ret_iaq_index, uint8_t *ret_iaq_index_accuracy, int32_t *ret_temperature, int32_t *ret_humidity, int32_t *ret_air_pressure);
+int tf_air_quality_get_all_values(TF_AirQuality *air_quality, int32_t *ret_iaq_index, uint8_t *ret_iaq_index_accuracy, int32_t *ret_temperature, int32_t *ret_humidity, int32_t *ret_air_pressure);
 
 /**
  * \ingroup BrickletAirQuality
@@ -582,7 +582,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_air_quality_get_all_values(TF_AirQuality *air_qua
  * recommend to measure and set the temperature offset to improve the accuracy of
  * the measurements.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_air_quality_set_temperature_offset(TF_AirQuality *air_quality, int32_t offset);
+int tf_air_quality_set_temperature_offset(TF_AirQuality *air_quality, int32_t offset);
 
 /**
  * \ingroup BrickletAirQuality
@@ -590,7 +590,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_air_quality_set_temperature_offset(TF_AirQuality 
  * Returns the temperature offset as set by
  * {@link tf_air_quality_set_temperature_offset}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_air_quality_get_temperature_offset(TF_AirQuality *air_quality, int32_t *ret_offset);
+int tf_air_quality_get_temperature_offset(TF_AirQuality *air_quality, int32_t *ret_offset);
 
 /**
  * \ingroup BrickletAirQuality
@@ -605,7 +605,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_air_quality_get_temperature_offset(TF_AirQuality 
  * If it is set to false, the callback is continuously triggered with the period,
  * independent of the value.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_air_quality_set_all_values_callback_configuration(TF_AirQuality *air_quality, uint32_t period, bool value_has_to_change);
+int tf_air_quality_set_all_values_callback_configuration(TF_AirQuality *air_quality, uint32_t period, bool value_has_to_change);
 
 /**
  * \ingroup BrickletAirQuality
@@ -613,7 +613,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_air_quality_set_all_values_callback_configuration
  * Returns the callback configuration as set by
  * {@link tf_air_quality_set_all_values_callback_configuration}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_air_quality_get_all_values_callback_configuration(TF_AirQuality *air_quality, uint32_t *ret_period, bool *ret_value_has_to_change);
+int tf_air_quality_get_all_values_callback_configuration(TF_AirQuality *air_quality, uint32_t *ret_period, bool *ret_value_has_to_change);
 
 /**
  * \ingroup BrickletAirQuality
@@ -630,7 +630,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_air_quality_get_all_values_callback_configuration
  * {@link tf_air_quality_register_iaq_index_callback} callback. You can set the callback configuration
  * with {@link tf_air_quality_set_iaq_index_callback_configuration}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_air_quality_get_iaq_index(TF_AirQuality *air_quality, int32_t *ret_iaq_index, uint8_t *ret_iaq_index_accuracy);
+int tf_air_quality_get_iaq_index(TF_AirQuality *air_quality, int32_t *ret_iaq_index, uint8_t *ret_iaq_index_accuracy);
 
 /**
  * \ingroup BrickletAirQuality
@@ -645,7 +645,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_air_quality_get_iaq_index(TF_AirQuality *air_qual
  * If it is set to false, the callback is continuously triggered with the period,
  * independent of the value.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_air_quality_set_iaq_index_callback_configuration(TF_AirQuality *air_quality, uint32_t period, bool value_has_to_change);
+int tf_air_quality_set_iaq_index_callback_configuration(TF_AirQuality *air_quality, uint32_t period, bool value_has_to_change);
 
 /**
  * \ingroup BrickletAirQuality
@@ -653,7 +653,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_air_quality_set_iaq_index_callback_configuration(
  * Returns the callback configuration as set by
  * {@link tf_air_quality_set_iaq_index_callback_configuration}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_air_quality_get_iaq_index_callback_configuration(TF_AirQuality *air_quality, uint32_t *ret_period, bool *ret_value_has_to_change);
+int tf_air_quality_get_iaq_index_callback_configuration(TF_AirQuality *air_quality, uint32_t *ret_period, bool *ret_value_has_to_change);
 
 /**
  * \ingroup BrickletAirQuality
@@ -665,7 +665,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_air_quality_get_iaq_index_callback_configuration(
  * {@link tf_air_quality_register_temperature_callback} callback. You can set the callback configuration
  * with {@link tf_air_quality_set_temperature_callback_configuration}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_air_quality_get_temperature(TF_AirQuality *air_quality, int32_t *ret_temperature);
+int tf_air_quality_get_temperature(TF_AirQuality *air_quality, int32_t *ret_temperature);
 
 /**
  * \ingroup BrickletAirQuality
@@ -698,14 +698,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_air_quality_get_temperature(TF_AirQuality *air_qu
  * 
  * If the option is set to 'x' (threshold turned off) the callback is triggered with the fixed period.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_air_quality_set_temperature_callback_configuration(TF_AirQuality *air_quality, uint32_t period, bool value_has_to_change, char option, int32_t min, int32_t max);
+int tf_air_quality_set_temperature_callback_configuration(TF_AirQuality *air_quality, uint32_t period, bool value_has_to_change, char option, int32_t min, int32_t max);
 
 /**
  * \ingroup BrickletAirQuality
  *
  * Returns the callback configuration as set by {@link tf_air_quality_set_temperature_callback_configuration}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_air_quality_get_temperature_callback_configuration(TF_AirQuality *air_quality, uint32_t *ret_period, bool *ret_value_has_to_change, char *ret_option, int32_t *ret_min, int32_t *ret_max);
+int tf_air_quality_get_temperature_callback_configuration(TF_AirQuality *air_quality, uint32_t *ret_period, bool *ret_value_has_to_change, char *ret_option, int32_t *ret_min, int32_t *ret_max);
 
 /**
  * \ingroup BrickletAirQuality
@@ -717,7 +717,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_air_quality_get_temperature_callback_configuratio
  * {@link tf_air_quality_register_humidity_callback} callback. You can set the callback configuration
  * with {@link tf_air_quality_set_humidity_callback_configuration}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_air_quality_get_humidity(TF_AirQuality *air_quality, int32_t *ret_humidity);
+int tf_air_quality_get_humidity(TF_AirQuality *air_quality, int32_t *ret_humidity);
 
 /**
  * \ingroup BrickletAirQuality
@@ -750,14 +750,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_air_quality_get_humidity(TF_AirQuality *air_quali
  * 
  * If the option is set to 'x' (threshold turned off) the callback is triggered with the fixed period.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_air_quality_set_humidity_callback_configuration(TF_AirQuality *air_quality, uint32_t period, bool value_has_to_change, char option, int32_t min, int32_t max);
+int tf_air_quality_set_humidity_callback_configuration(TF_AirQuality *air_quality, uint32_t period, bool value_has_to_change, char option, int32_t min, int32_t max);
 
 /**
  * \ingroup BrickletAirQuality
  *
  * Returns the callback configuration as set by {@link tf_air_quality_set_humidity_callback_configuration}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_air_quality_get_humidity_callback_configuration(TF_AirQuality *air_quality, uint32_t *ret_period, bool *ret_value_has_to_change, char *ret_option, int32_t *ret_min, int32_t *ret_max);
+int tf_air_quality_get_humidity_callback_configuration(TF_AirQuality *air_quality, uint32_t *ret_period, bool *ret_value_has_to_change, char *ret_option, int32_t *ret_min, int32_t *ret_max);
 
 /**
  * \ingroup BrickletAirQuality
@@ -769,7 +769,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_air_quality_get_humidity_callback_configuration(T
  * {@link tf_air_quality_register_air_pressure_callback} callback. You can set the callback configuration
  * with {@link tf_air_quality_set_air_pressure_callback_configuration}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_air_quality_get_air_pressure(TF_AirQuality *air_quality, int32_t *ret_air_pressure);
+int tf_air_quality_get_air_pressure(TF_AirQuality *air_quality, int32_t *ret_air_pressure);
 
 /**
  * \ingroup BrickletAirQuality
@@ -802,14 +802,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_air_quality_get_air_pressure(TF_AirQuality *air_q
  * 
  * If the option is set to 'x' (threshold turned off) the callback is triggered with the fixed period.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_air_quality_set_air_pressure_callback_configuration(TF_AirQuality *air_quality, uint32_t period, bool value_has_to_change, char option, int32_t min, int32_t max);
+int tf_air_quality_set_air_pressure_callback_configuration(TF_AirQuality *air_quality, uint32_t period, bool value_has_to_change, char option, int32_t min, int32_t max);
 
 /**
  * \ingroup BrickletAirQuality
  *
  * Returns the callback configuration as set by {@link tf_air_quality_set_air_pressure_callback_configuration}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_air_quality_get_air_pressure_callback_configuration(TF_AirQuality *air_quality, uint32_t *ret_period, bool *ret_value_has_to_change, char *ret_option, int32_t *ret_min, int32_t *ret_max);
+int tf_air_quality_get_air_pressure_callback_configuration(TF_AirQuality *air_quality, uint32_t *ret_period, bool *ret_value_has_to_change, char *ret_option, int32_t *ret_min, int32_t *ret_max);
 
 /**
  * \ingroup BrickletAirQuality
@@ -825,7 +825,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_air_quality_get_air_pressure_callback_configurati
  * 
  * .. versionadded:: 2.0.3$nbsp;(Plugin)
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_air_quality_remove_calibration(TF_AirQuality *air_quality);
+int tf_air_quality_remove_calibration(TF_AirQuality *air_quality);
 
 /**
  * \ingroup BrickletAirQuality
@@ -853,7 +853,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_air_quality_remove_calibration(TF_AirQuality *air
  * 
  * .. versionadded:: 2.0.3$nbsp;(Plugin)
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_air_quality_set_background_calibration_duration(TF_AirQuality *air_quality, uint8_t duration);
+int tf_air_quality_set_background_calibration_duration(TF_AirQuality *air_quality, uint8_t duration);
 
 /**
  * \ingroup BrickletAirQuality
@@ -863,7 +863,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_air_quality_set_background_calibration_duration(T
  * 
  * .. versionadded:: 2.0.3$nbsp;(Plugin)
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_air_quality_get_background_calibration_duration(TF_AirQuality *air_quality, uint8_t *ret_duration);
+int tf_air_quality_get_background_calibration_duration(TF_AirQuality *air_quality, uint8_t *ret_duration);
 
 /**
  * \ingroup BrickletAirQuality
@@ -880,7 +880,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_air_quality_get_background_calibration_duration(T
  * The errors counts are for errors that occur on the Bricklet side. All
  * Bricks have a similar function that returns the errors on the Brick side.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_air_quality_get_spitfp_error_count(TF_AirQuality *air_quality, uint32_t *ret_error_count_ack_checksum, uint32_t *ret_error_count_message_checksum, uint32_t *ret_error_count_frame, uint32_t *ret_error_count_overflow);
+int tf_air_quality_get_spitfp_error_count(TF_AirQuality *air_quality, uint32_t *ret_error_count_ack_checksum, uint32_t *ret_error_count_message_checksum, uint32_t *ret_error_count_frame, uint32_t *ret_error_count_overflow);
 
 /**
  * \ingroup BrickletAirQuality
@@ -895,14 +895,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_air_quality_get_spitfp_error_count(TF_AirQuality 
  * This function is used by Brick Viewer during flashing. It should not be
  * necessary to call it in a normal user program.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_air_quality_set_bootloader_mode(TF_AirQuality *air_quality, uint8_t mode, uint8_t *ret_status);
+int tf_air_quality_set_bootloader_mode(TF_AirQuality *air_quality, uint8_t mode, uint8_t *ret_status);
 
 /**
  * \ingroup BrickletAirQuality
  *
  * Returns the current bootloader mode, see {@link tf_air_quality_set_bootloader_mode}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_air_quality_get_bootloader_mode(TF_AirQuality *air_quality, uint8_t *ret_mode);
+int tf_air_quality_get_bootloader_mode(TF_AirQuality *air_quality, uint8_t *ret_mode);
 
 /**
  * \ingroup BrickletAirQuality
@@ -914,7 +914,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_air_quality_get_bootloader_mode(TF_AirQuality *ai
  * This function is used by Brick Viewer during flashing. It should not be
  * necessary to call it in a normal user program.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_air_quality_set_write_firmware_pointer(TF_AirQuality *air_quality, uint32_t pointer);
+int tf_air_quality_set_write_firmware_pointer(TF_AirQuality *air_quality, uint32_t pointer);
 
 /**
  * \ingroup BrickletAirQuality
@@ -928,7 +928,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_air_quality_set_write_firmware_pointer(TF_AirQual
  * This function is used by Brick Viewer during flashing. It should not be
  * necessary to call it in a normal user program.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_air_quality_write_firmware(TF_AirQuality *air_quality, uint8_t data[64], uint8_t *ret_status);
+int tf_air_quality_write_firmware(TF_AirQuality *air_quality, const uint8_t data[64], uint8_t *ret_status);
 
 /**
  * \ingroup BrickletAirQuality
@@ -941,14 +941,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_air_quality_write_firmware(TF_AirQuality *air_qua
  * 
  * If the Bricklet is in bootloader mode, the LED is will show heartbeat by default.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_air_quality_set_status_led_config(TF_AirQuality *air_quality, uint8_t config);
+int tf_air_quality_set_status_led_config(TF_AirQuality *air_quality, uint8_t config);
 
 /**
  * \ingroup BrickletAirQuality
  *
  * Returns the configuration as set by {@link tf_air_quality_set_status_led_config}
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_air_quality_get_status_led_config(TF_AirQuality *air_quality, uint8_t *ret_config);
+int tf_air_quality_get_status_led_config(TF_AirQuality *air_quality, uint8_t *ret_config);
 
 /**
  * \ingroup BrickletAirQuality
@@ -960,7 +960,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_air_quality_get_status_led_config(TF_AirQuality *
  * accuracy. Practically it is only useful as an indicator for
  * temperature changes.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_air_quality_get_chip_temperature(TF_AirQuality *air_quality, int16_t *ret_temperature);
+int tf_air_quality_get_chip_temperature(TF_AirQuality *air_quality, int16_t *ret_temperature);
 
 /**
  * \ingroup BrickletAirQuality
@@ -972,7 +972,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_air_quality_get_chip_temperature(TF_AirQuality *a
  * calling functions on the existing ones will result in
  * undefined behavior!
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_air_quality_reset(TF_AirQuality *air_quality);
+int tf_air_quality_reset(TF_AirQuality *air_quality);
 
 /**
  * \ingroup BrickletAirQuality
@@ -983,7 +983,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_air_quality_reset(TF_AirQuality *air_quality);
  * 
  * We recommend that you use Brick Viewer to change the UID.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_air_quality_write_uid(TF_AirQuality *air_quality, uint32_t uid);
+int tf_air_quality_write_uid(TF_AirQuality *air_quality, uint32_t uid);
 
 /**
  * \ingroup BrickletAirQuality
@@ -991,7 +991,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_air_quality_write_uid(TF_AirQuality *air_quality,
  * Returns the current UID as an integer. Encode as
  * Base58 to get the usual string version.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_air_quality_read_uid(TF_AirQuality *air_quality, uint32_t *ret_uid);
+int tf_air_quality_read_uid(TF_AirQuality *air_quality, uint32_t *ret_uid);
 
 /**
  * \ingroup BrickletAirQuality
@@ -1007,7 +1007,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_air_quality_read_uid(TF_AirQuality *air_quality, 
  * The device identifier numbers can be found :ref:`here <device_identifier>`.
  * |device_identifier_constant|
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_air_quality_get_identity(TF_AirQuality *air_quality, char ret_uid[8], char ret_connected_uid[8], char *ret_position, uint8_t ret_hardware_version[3], uint8_t ret_firmware_version[3], uint16_t *ret_device_identifier);
+int tf_air_quality_get_identity(TF_AirQuality *air_quality, char ret_uid[8], char ret_connected_uid[8], char *ret_position, uint8_t ret_hardware_version[3], uint8_t ret_firmware_version[3], uint16_t *ret_device_identifier);
 
 #ifdef __cplusplus
 }

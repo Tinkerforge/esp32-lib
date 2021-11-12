@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-10-04.      *
+ * This file was automatically generated on 2021-11-12.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -21,7 +21,7 @@ extern "C" {
 #endif
 
 
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
 static bool tf_thermal_imaging_callback_handler(void *dev, uint8_t fid, TF_Packetbuffer *payload) {
     TF_ThermalImaging *thermal_imaging = (TF_ThermalImaging *) dev;
     (void)payload;
@@ -36,7 +36,7 @@ static bool tf_thermal_imaging_callback_handler(void *dev, uint8_t fid, TF_Packe
             size_t i;
             uint16_t image_chunk_offset = tf_packetbuffer_read_uint16_t(payload);
             uint8_t image_chunk_data[62]; for (i = 0; i < 62; ++i) image_chunk_data[i] = tf_packetbuffer_read_uint8_t(payload);
-            TF_HalCommon *common = tf_hal_get_common(thermal_imaging->tfp->hal);
+            TF_HalCommon *common = tf_hal_get_common((TF_HalContext*)thermal_imaging->tfp->hal);
             common->locked = true;
             fn(thermal_imaging, image_chunk_offset, image_chunk_data, user_data);
             common->locked = false;
@@ -51,7 +51,7 @@ static bool tf_thermal_imaging_callback_handler(void *dev, uint8_t fid, TF_Packe
             size_t i;
             uint16_t image_chunk_offset = tf_packetbuffer_read_uint16_t(payload);
             uint16_t image_chunk_data[31]; for (i = 0; i < 31; ++i) image_chunk_data[i] = tf_packetbuffer_read_uint16_t(payload);
-            TF_HalCommon *common = tf_hal_get_common(thermal_imaging->tfp->hal);
+            TF_HalCommon *common = tf_hal_get_common((TF_HalContext*)thermal_imaging->tfp->hal);
             common->locked = true;
             fn(thermal_imaging, image_chunk_offset, image_chunk_data, user_data);
             common->locked = false;
@@ -81,13 +81,12 @@ int tf_thermal_imaging_create(TF_ThermalImaging *thermal_imaging, const char *ui
     }
 
     uint8_t port_id;
-    int inventory_index;
+    uint8_t inventory_index;
     rc = tf_hal_get_port_id(hal, numeric_uid, &port_id, &inventory_index);
     if (rc < 0) {
         return rc;
     }
 
-    //rc = tf_tfp_init(thermal_imaging->tfp, numeric_uid, TF_THERMAL_IMAGING_DEVICE_IDENTIFIER, hal, port_id, inventory_index, tf_thermal_imaging_callback_handler);
     rc = tf_hal_get_tfp(hal, &thermal_imaging->tfp, TF_THERMAL_IMAGING_DEVICE_IDENTIFIER, inventory_index);
     if (rc != TF_E_OK) {
         return rc;
@@ -235,7 +234,7 @@ int tf_thermal_imaging_get_high_contrast_image_low_level(TF_ThermalImaging *ther
     if (thermal_imaging == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(thermal_imaging->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)thermal_imaging->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -243,7 +242,7 @@ int tf_thermal_imaging_get_high_contrast_image_low_level(TF_ThermalImaging *ther
     tf_tfp_prepare_send(thermal_imaging->tfp, TF_THERMAL_IMAGING_FUNCTION_GET_HIGH_CONTRAST_IMAGE_LOW_LEVEL, 0, 64, response_expected);
 
     size_t i;
-    uint32_t deadline = tf_hal_current_time_us(thermal_imaging->tfp->hal) + tf_hal_get_common(thermal_imaging->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)thermal_imaging->tfp->hal) + tf_hal_get_common((TF_HalContext*)thermal_imaging->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(thermal_imaging->tfp, response_expected, deadline, &error_code);
@@ -272,7 +271,7 @@ int tf_thermal_imaging_get_temperature_image_low_level(TF_ThermalImaging *therma
     if (thermal_imaging == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(thermal_imaging->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)thermal_imaging->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -280,7 +279,7 @@ int tf_thermal_imaging_get_temperature_image_low_level(TF_ThermalImaging *therma
     tf_tfp_prepare_send(thermal_imaging->tfp, TF_THERMAL_IMAGING_FUNCTION_GET_TEMPERATURE_IMAGE_LOW_LEVEL, 0, 64, response_expected);
 
     size_t i;
-    uint32_t deadline = tf_hal_current_time_us(thermal_imaging->tfp->hal) + tf_hal_get_common(thermal_imaging->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)thermal_imaging->tfp->hal) + tf_hal_get_common((TF_HalContext*)thermal_imaging->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(thermal_imaging->tfp, response_expected, deadline, &error_code);
@@ -309,7 +308,7 @@ int tf_thermal_imaging_get_statistics(TF_ThermalImaging *thermal_imaging, uint16
     if (thermal_imaging == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(thermal_imaging->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)thermal_imaging->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -317,7 +316,7 @@ int tf_thermal_imaging_get_statistics(TF_ThermalImaging *thermal_imaging, uint16
     tf_tfp_prepare_send(thermal_imaging->tfp, TF_THERMAL_IMAGING_FUNCTION_GET_STATISTICS, 0, 19, response_expected);
 
     size_t i;
-    uint32_t deadline = tf_hal_current_time_us(thermal_imaging->tfp->hal) + tf_hal_get_common(thermal_imaging->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)thermal_imaging->tfp->hal) + tf_hal_get_common((TF_HalContext*)thermal_imaging->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(thermal_imaging->tfp, response_expected, deadline, &error_code);
@@ -349,7 +348,7 @@ int tf_thermal_imaging_set_resolution(TF_ThermalImaging *thermal_imaging, uint8_
     if (thermal_imaging == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(thermal_imaging->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)thermal_imaging->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -361,7 +360,7 @@ int tf_thermal_imaging_set_resolution(TF_ThermalImaging *thermal_imaging, uint8_
 
     buf[0] = (uint8_t)resolution;
 
-    uint32_t deadline = tf_hal_current_time_us(thermal_imaging->tfp->hal) + tf_hal_get_common(thermal_imaging->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)thermal_imaging->tfp->hal) + tf_hal_get_common((TF_HalContext*)thermal_imaging->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(thermal_imaging->tfp, response_expected, deadline, &error_code);
@@ -384,14 +383,14 @@ int tf_thermal_imaging_get_resolution(TF_ThermalImaging *thermal_imaging, uint8_
     if (thermal_imaging == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(thermal_imaging->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)thermal_imaging->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
     bool response_expected = true;
     tf_tfp_prepare_send(thermal_imaging->tfp, TF_THERMAL_IMAGING_FUNCTION_GET_RESOLUTION, 0, 1, response_expected);
 
-    uint32_t deadline = tf_hal_current_time_us(thermal_imaging->tfp->hal) + tf_hal_get_common(thermal_imaging->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)thermal_imaging->tfp->hal) + tf_hal_get_common((TF_HalContext*)thermal_imaging->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(thermal_imaging->tfp, response_expected, deadline, &error_code);
@@ -415,11 +414,11 @@ int tf_thermal_imaging_get_resolution(TF_ThermalImaging *thermal_imaging, uint8_
     return tf_tfp_get_error(error_code);
 }
 
-int tf_thermal_imaging_set_spotmeter_config(TF_ThermalImaging *thermal_imaging, uint8_t region_of_interest[4]) {
+int tf_thermal_imaging_set_spotmeter_config(TF_ThermalImaging *thermal_imaging, const uint8_t region_of_interest[4]) {
     if (thermal_imaging == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(thermal_imaging->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)thermal_imaging->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -431,7 +430,7 @@ int tf_thermal_imaging_set_spotmeter_config(TF_ThermalImaging *thermal_imaging, 
 
     memcpy(buf + 0, region_of_interest, 4);
 
-    uint32_t deadline = tf_hal_current_time_us(thermal_imaging->tfp->hal) + tf_hal_get_common(thermal_imaging->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)thermal_imaging->tfp->hal) + tf_hal_get_common((TF_HalContext*)thermal_imaging->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(thermal_imaging->tfp, response_expected, deadline, &error_code);
@@ -454,7 +453,7 @@ int tf_thermal_imaging_get_spotmeter_config(TF_ThermalImaging *thermal_imaging, 
     if (thermal_imaging == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(thermal_imaging->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)thermal_imaging->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -462,7 +461,7 @@ int tf_thermal_imaging_get_spotmeter_config(TF_ThermalImaging *thermal_imaging, 
     tf_tfp_prepare_send(thermal_imaging->tfp, TF_THERMAL_IMAGING_FUNCTION_GET_SPOTMETER_CONFIG, 0, 4, response_expected);
 
     size_t i;
-    uint32_t deadline = tf_hal_current_time_us(thermal_imaging->tfp->hal) + tf_hal_get_common(thermal_imaging->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)thermal_imaging->tfp->hal) + tf_hal_get_common((TF_HalContext*)thermal_imaging->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(thermal_imaging->tfp, response_expected, deadline, &error_code);
@@ -486,11 +485,11 @@ int tf_thermal_imaging_get_spotmeter_config(TF_ThermalImaging *thermal_imaging, 
     return tf_tfp_get_error(error_code);
 }
 
-int tf_thermal_imaging_set_high_contrast_config(TF_ThermalImaging *thermal_imaging, uint8_t region_of_interest[4], uint16_t dampening_factor, uint16_t clip_limit[2], uint16_t empty_counts) {
+int tf_thermal_imaging_set_high_contrast_config(TF_ThermalImaging *thermal_imaging, const uint8_t region_of_interest[4], uint16_t dampening_factor, const uint16_t clip_limit[2], uint16_t empty_counts) {
     if (thermal_imaging == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(thermal_imaging->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)thermal_imaging->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -506,7 +505,7 @@ int tf_thermal_imaging_set_high_contrast_config(TF_ThermalImaging *thermal_imagi
     for (i = 0; i < 2; i++) { uint16_t tmp_clip_limit = tf_leconvert_uint16_to(clip_limit[i]); memcpy(buf + 6 + (i * sizeof(uint16_t)), &tmp_clip_limit, sizeof(uint16_t)); }
     empty_counts = tf_leconvert_uint16_to(empty_counts); memcpy(buf + 10, &empty_counts, 2);
 
-    uint32_t deadline = tf_hal_current_time_us(thermal_imaging->tfp->hal) + tf_hal_get_common(thermal_imaging->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)thermal_imaging->tfp->hal) + tf_hal_get_common((TF_HalContext*)thermal_imaging->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(thermal_imaging->tfp, response_expected, deadline, &error_code);
@@ -529,7 +528,7 @@ int tf_thermal_imaging_get_high_contrast_config(TF_ThermalImaging *thermal_imagi
     if (thermal_imaging == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(thermal_imaging->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)thermal_imaging->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -537,7 +536,7 @@ int tf_thermal_imaging_get_high_contrast_config(TF_ThermalImaging *thermal_imagi
     tf_tfp_prepare_send(thermal_imaging->tfp, TF_THERMAL_IMAGING_FUNCTION_GET_HIGH_CONTRAST_CONFIG, 0, 12, response_expected);
 
     size_t i;
-    uint32_t deadline = tf_hal_current_time_us(thermal_imaging->tfp->hal) + tf_hal_get_common(thermal_imaging->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)thermal_imaging->tfp->hal) + tf_hal_get_common((TF_HalContext*)thermal_imaging->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(thermal_imaging->tfp, response_expected, deadline, &error_code);
@@ -568,7 +567,7 @@ int tf_thermal_imaging_set_image_transfer_config(TF_ThermalImaging *thermal_imag
     if (thermal_imaging == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(thermal_imaging->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)thermal_imaging->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -580,7 +579,7 @@ int tf_thermal_imaging_set_image_transfer_config(TF_ThermalImaging *thermal_imag
 
     buf[0] = (uint8_t)config;
 
-    uint32_t deadline = tf_hal_current_time_us(thermal_imaging->tfp->hal) + tf_hal_get_common(thermal_imaging->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)thermal_imaging->tfp->hal) + tf_hal_get_common((TF_HalContext*)thermal_imaging->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(thermal_imaging->tfp, response_expected, deadline, &error_code);
@@ -603,14 +602,14 @@ int tf_thermal_imaging_get_image_transfer_config(TF_ThermalImaging *thermal_imag
     if (thermal_imaging == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(thermal_imaging->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)thermal_imaging->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
     bool response_expected = true;
     tf_tfp_prepare_send(thermal_imaging->tfp, TF_THERMAL_IMAGING_FUNCTION_GET_IMAGE_TRANSFER_CONFIG, 0, 1, response_expected);
 
-    uint32_t deadline = tf_hal_current_time_us(thermal_imaging->tfp->hal) + tf_hal_get_common(thermal_imaging->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)thermal_imaging->tfp->hal) + tf_hal_get_common((TF_HalContext*)thermal_imaging->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(thermal_imaging->tfp, response_expected, deadline, &error_code);
@@ -638,7 +637,7 @@ int tf_thermal_imaging_set_flux_linear_parameters(TF_ThermalImaging *thermal_ima
     if (thermal_imaging == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(thermal_imaging->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)thermal_imaging->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -657,7 +656,7 @@ int tf_thermal_imaging_set_flux_linear_parameters(TF_ThermalImaging *thermal_ima
     reflection_window = tf_leconvert_uint16_to(reflection_window); memcpy(buf + 12, &reflection_window, 2);
     temperature_reflection = tf_leconvert_uint16_to(temperature_reflection); memcpy(buf + 14, &temperature_reflection, 2);
 
-    uint32_t deadline = tf_hal_current_time_us(thermal_imaging->tfp->hal) + tf_hal_get_common(thermal_imaging->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)thermal_imaging->tfp->hal) + tf_hal_get_common((TF_HalContext*)thermal_imaging->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(thermal_imaging->tfp, response_expected, deadline, &error_code);
@@ -680,14 +679,14 @@ int tf_thermal_imaging_get_flux_linear_parameters(TF_ThermalImaging *thermal_ima
     if (thermal_imaging == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(thermal_imaging->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)thermal_imaging->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
     bool response_expected = true;
     tf_tfp_prepare_send(thermal_imaging->tfp, TF_THERMAL_IMAGING_FUNCTION_GET_FLUX_LINEAR_PARAMETERS, 0, 16, response_expected);
 
-    uint32_t deadline = tf_hal_current_time_us(thermal_imaging->tfp->hal) + tf_hal_get_common(thermal_imaging->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)thermal_imaging->tfp->hal) + tf_hal_get_common((TF_HalContext*)thermal_imaging->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(thermal_imaging->tfp, response_expected, deadline, &error_code);
@@ -722,14 +721,14 @@ int tf_thermal_imaging_get_spitfp_error_count(TF_ThermalImaging *thermal_imaging
     if (thermal_imaging == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(thermal_imaging->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)thermal_imaging->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
     bool response_expected = true;
     tf_tfp_prepare_send(thermal_imaging->tfp, TF_THERMAL_IMAGING_FUNCTION_GET_SPITFP_ERROR_COUNT, 0, 16, response_expected);
 
-    uint32_t deadline = tf_hal_current_time_us(thermal_imaging->tfp->hal) + tf_hal_get_common(thermal_imaging->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)thermal_imaging->tfp->hal) + tf_hal_get_common((TF_HalContext*)thermal_imaging->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(thermal_imaging->tfp, response_expected, deadline, &error_code);
@@ -760,7 +759,7 @@ int tf_thermal_imaging_set_bootloader_mode(TF_ThermalImaging *thermal_imaging, u
     if (thermal_imaging == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(thermal_imaging->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)thermal_imaging->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -771,7 +770,7 @@ int tf_thermal_imaging_set_bootloader_mode(TF_ThermalImaging *thermal_imaging, u
 
     buf[0] = (uint8_t)mode;
 
-    uint32_t deadline = tf_hal_current_time_us(thermal_imaging->tfp->hal) + tf_hal_get_common(thermal_imaging->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)thermal_imaging->tfp->hal) + tf_hal_get_common((TF_HalContext*)thermal_imaging->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(thermal_imaging->tfp, response_expected, deadline, &error_code);
@@ -799,14 +798,14 @@ int tf_thermal_imaging_get_bootloader_mode(TF_ThermalImaging *thermal_imaging, u
     if (thermal_imaging == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(thermal_imaging->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)thermal_imaging->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
     bool response_expected = true;
     tf_tfp_prepare_send(thermal_imaging->tfp, TF_THERMAL_IMAGING_FUNCTION_GET_BOOTLOADER_MODE, 0, 1, response_expected);
 
-    uint32_t deadline = tf_hal_current_time_us(thermal_imaging->tfp->hal) + tf_hal_get_common(thermal_imaging->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)thermal_imaging->tfp->hal) + tf_hal_get_common((TF_HalContext*)thermal_imaging->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(thermal_imaging->tfp, response_expected, deadline, &error_code);
@@ -834,7 +833,7 @@ int tf_thermal_imaging_set_write_firmware_pointer(TF_ThermalImaging *thermal_ima
     if (thermal_imaging == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(thermal_imaging->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)thermal_imaging->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -846,7 +845,7 @@ int tf_thermal_imaging_set_write_firmware_pointer(TF_ThermalImaging *thermal_ima
 
     pointer = tf_leconvert_uint32_to(pointer); memcpy(buf + 0, &pointer, 4);
 
-    uint32_t deadline = tf_hal_current_time_us(thermal_imaging->tfp->hal) + tf_hal_get_common(thermal_imaging->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)thermal_imaging->tfp->hal) + tf_hal_get_common((TF_HalContext*)thermal_imaging->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(thermal_imaging->tfp, response_expected, deadline, &error_code);
@@ -865,11 +864,11 @@ int tf_thermal_imaging_set_write_firmware_pointer(TF_ThermalImaging *thermal_ima
     return tf_tfp_get_error(error_code);
 }
 
-int tf_thermal_imaging_write_firmware(TF_ThermalImaging *thermal_imaging, uint8_t data[64], uint8_t *ret_status) {
+int tf_thermal_imaging_write_firmware(TF_ThermalImaging *thermal_imaging, const uint8_t data[64], uint8_t *ret_status) {
     if (thermal_imaging == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(thermal_imaging->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)thermal_imaging->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -880,7 +879,7 @@ int tf_thermal_imaging_write_firmware(TF_ThermalImaging *thermal_imaging, uint8_
 
     memcpy(buf + 0, data, 64);
 
-    uint32_t deadline = tf_hal_current_time_us(thermal_imaging->tfp->hal) + tf_hal_get_common(thermal_imaging->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)thermal_imaging->tfp->hal) + tf_hal_get_common((TF_HalContext*)thermal_imaging->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(thermal_imaging->tfp, response_expected, deadline, &error_code);
@@ -908,7 +907,7 @@ int tf_thermal_imaging_set_status_led_config(TF_ThermalImaging *thermal_imaging,
     if (thermal_imaging == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(thermal_imaging->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)thermal_imaging->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -920,7 +919,7 @@ int tf_thermal_imaging_set_status_led_config(TF_ThermalImaging *thermal_imaging,
 
     buf[0] = (uint8_t)config;
 
-    uint32_t deadline = tf_hal_current_time_us(thermal_imaging->tfp->hal) + tf_hal_get_common(thermal_imaging->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)thermal_imaging->tfp->hal) + tf_hal_get_common((TF_HalContext*)thermal_imaging->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(thermal_imaging->tfp, response_expected, deadline, &error_code);
@@ -943,14 +942,14 @@ int tf_thermal_imaging_get_status_led_config(TF_ThermalImaging *thermal_imaging,
     if (thermal_imaging == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(thermal_imaging->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)thermal_imaging->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
     bool response_expected = true;
     tf_tfp_prepare_send(thermal_imaging->tfp, TF_THERMAL_IMAGING_FUNCTION_GET_STATUS_LED_CONFIG, 0, 1, response_expected);
 
-    uint32_t deadline = tf_hal_current_time_us(thermal_imaging->tfp->hal) + tf_hal_get_common(thermal_imaging->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)thermal_imaging->tfp->hal) + tf_hal_get_common((TF_HalContext*)thermal_imaging->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(thermal_imaging->tfp, response_expected, deadline, &error_code);
@@ -978,14 +977,14 @@ int tf_thermal_imaging_get_chip_temperature(TF_ThermalImaging *thermal_imaging, 
     if (thermal_imaging == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(thermal_imaging->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)thermal_imaging->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
     bool response_expected = true;
     tf_tfp_prepare_send(thermal_imaging->tfp, TF_THERMAL_IMAGING_FUNCTION_GET_CHIP_TEMPERATURE, 0, 2, response_expected);
 
-    uint32_t deadline = tf_hal_current_time_us(thermal_imaging->tfp->hal) + tf_hal_get_common(thermal_imaging->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)thermal_imaging->tfp->hal) + tf_hal_get_common((TF_HalContext*)thermal_imaging->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(thermal_imaging->tfp, response_expected, deadline, &error_code);
@@ -1013,7 +1012,7 @@ int tf_thermal_imaging_reset(TF_ThermalImaging *thermal_imaging) {
     if (thermal_imaging == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(thermal_imaging->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)thermal_imaging->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -1021,7 +1020,7 @@ int tf_thermal_imaging_reset(TF_ThermalImaging *thermal_imaging) {
     tf_thermal_imaging_get_response_expected(thermal_imaging, TF_THERMAL_IMAGING_FUNCTION_RESET, &response_expected);
     tf_tfp_prepare_send(thermal_imaging->tfp, TF_THERMAL_IMAGING_FUNCTION_RESET, 0, 0, response_expected);
 
-    uint32_t deadline = tf_hal_current_time_us(thermal_imaging->tfp->hal) + tf_hal_get_common(thermal_imaging->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)thermal_imaging->tfp->hal) + tf_hal_get_common((TF_HalContext*)thermal_imaging->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(thermal_imaging->tfp, response_expected, deadline, &error_code);
@@ -1044,7 +1043,7 @@ int tf_thermal_imaging_write_uid(TF_ThermalImaging *thermal_imaging, uint32_t ui
     if (thermal_imaging == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(thermal_imaging->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)thermal_imaging->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -1056,7 +1055,7 @@ int tf_thermal_imaging_write_uid(TF_ThermalImaging *thermal_imaging, uint32_t ui
 
     uid = tf_leconvert_uint32_to(uid); memcpy(buf + 0, &uid, 4);
 
-    uint32_t deadline = tf_hal_current_time_us(thermal_imaging->tfp->hal) + tf_hal_get_common(thermal_imaging->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)thermal_imaging->tfp->hal) + tf_hal_get_common((TF_HalContext*)thermal_imaging->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(thermal_imaging->tfp, response_expected, deadline, &error_code);
@@ -1079,14 +1078,14 @@ int tf_thermal_imaging_read_uid(TF_ThermalImaging *thermal_imaging, uint32_t *re
     if (thermal_imaging == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(thermal_imaging->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)thermal_imaging->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
     bool response_expected = true;
     tf_tfp_prepare_send(thermal_imaging->tfp, TF_THERMAL_IMAGING_FUNCTION_READ_UID, 0, 4, response_expected);
 
-    uint32_t deadline = tf_hal_current_time_us(thermal_imaging->tfp->hal) + tf_hal_get_common(thermal_imaging->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)thermal_imaging->tfp->hal) + tf_hal_get_common((TF_HalContext*)thermal_imaging->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(thermal_imaging->tfp, response_expected, deadline, &error_code);
@@ -1114,7 +1113,7 @@ int tf_thermal_imaging_get_identity(TF_ThermalImaging *thermal_imaging, char ret
     if (thermal_imaging == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(thermal_imaging->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)thermal_imaging->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -1122,7 +1121,7 @@ int tf_thermal_imaging_get_identity(TF_ThermalImaging *thermal_imaging, char ret
     tf_tfp_prepare_send(thermal_imaging->tfp, TF_THERMAL_IMAGING_FUNCTION_GET_IDENTITY, 0, 25, response_expected);
 
     size_t i;
-    uint32_t deadline = tf_hal_current_time_us(thermal_imaging->tfp->hal) + tf_hal_get_common(thermal_imaging->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)thermal_imaging->tfp->hal) + tf_hal_get_common((TF_HalContext*)thermal_imaging->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(thermal_imaging->tfp, response_expected, deadline, &error_code);
@@ -1143,7 +1142,7 @@ int tf_thermal_imaging_get_identity(TF_ThermalImaging *thermal_imaging, char ret
         if (ret_firmware_version != NULL) { for (i = 0; i < 3; ++i) ret_firmware_version[i] = tf_packetbuffer_read_uint8_t(&thermal_imaging->tfp->spitfp->recv_buf);} else { tf_packetbuffer_remove(&thermal_imaging->tfp->spitfp->recv_buf, 3); }
         if (ret_device_identifier != NULL) { *ret_device_identifier = tf_packetbuffer_read_uint16_t(&thermal_imaging->tfp->spitfp->recv_buf); } else { tf_packetbuffer_remove(&thermal_imaging->tfp->spitfp->recv_buf, 2); }
         if (tmp_connected_uid[0] == 0 && ret_position != NULL) {
-            *ret_position = tf_hal_get_port_name(thermal_imaging->tfp->hal, thermal_imaging->tfp->spitfp->port_id);
+            *ret_position = tf_hal_get_port_name((TF_HalContext*)thermal_imaging->tfp->hal, thermal_imaging->tfp->spitfp->port_id);
         }
         if (ret_connected_uid != NULL) {
             memcpy(ret_connected_uid, tmp_connected_uid, 8);
@@ -1163,17 +1162,19 @@ int tf_thermal_imaging_get_high_contrast_image(TF_ThermalImaging *thermal_imagin
         return TF_E_NULL;
 
     int ret = TF_E_OK;
-    uint16_t image_length = 4800;
+    uint16_t max_image_length = 4800;
+    uint16_t image_length = 0;
     uint16_t image_chunk_offset = 0;
     uint8_t image_chunk_data[62];
     bool image_out_of_sync;
     uint16_t image_chunk_length = 0;
 
-    *ret_image_length = 0;
-
     ret = tf_thermal_imaging_get_high_contrast_image_low_level(thermal_imaging, &image_chunk_offset, image_chunk_data);
 
     if (ret != TF_E_OK) {
+        if (ret_image_length != NULL) {
+            *ret_image_length = image_length;
+        }
         return ret;
     }
 
@@ -1184,44 +1185,54 @@ int tf_thermal_imaging_get_high_contrast_image(TF_ThermalImaging *thermal_imagin
     image_out_of_sync = image_chunk_offset != 0;
 
     if (!image_out_of_sync) {
-        image_chunk_length = image_length - image_chunk_offset;
+        image_chunk_length = max_image_length - image_chunk_offset;
 
         if (image_chunk_length > 62) {
             image_chunk_length = 62;
         }
 
-        memcpy(ret_image, image_chunk_data, sizeof(uint8_t) * image_chunk_length);
-        *ret_image_length = image_chunk_length;
+        if (ret_image != NULL) {
+            memcpy(ret_image, image_chunk_data, sizeof(uint8_t) * image_chunk_length);
+        }
 
-        while (*ret_image_length < image_length) {
+        image_length = image_chunk_length;
+
+        while (image_length < max_image_length) {
             ret = tf_thermal_imaging_get_high_contrast_image_low_level(thermal_imaging, &image_chunk_offset, image_chunk_data);
 
             if (ret != TF_E_OK) {
+                if (ret_image_length != NULL) {
+                    *ret_image_length = image_length;
+                }
                 return ret;
             }
 
-            image_out_of_sync = image_chunk_offset != *ret_image_length;
+            image_out_of_sync = image_chunk_offset != image_length;
 
             if (image_out_of_sync) {
                 break;
             }
 
-            image_chunk_length = image_length - image_chunk_offset;
+            image_chunk_length = max_image_length - image_chunk_offset;
 
             if (image_chunk_length > 62) {
                 image_chunk_length = 62;
             }
 
-            memcpy(&ret_image[*ret_image_length], image_chunk_data, sizeof(uint8_t) * image_chunk_length);
-            *ret_image_length += image_chunk_length;
+            if (ret_image != NULL) {
+                memcpy(&ret_image[image_length], image_chunk_data, sizeof(uint8_t) * image_chunk_length);
+            }
+            image_length += image_chunk_length;
         }
     }
 
     if (image_out_of_sync) {
-        *ret_image_length = 0; // return empty array
+        if (ret_image_length != NULL) {
+            *ret_image_length = 0; // return empty array
+        }
 
         // discard remaining stream to bring it back in-sync
-        while (image_chunk_offset + 62 < image_length) {
+        while (image_chunk_offset + 62 < max_image_length) {
             ret = tf_thermal_imaging_get_high_contrast_image_low_level(thermal_imaging, &image_chunk_offset, image_chunk_data);
 
             if (ret != TF_E_OK) {
@@ -1240,17 +1251,19 @@ int tf_thermal_imaging_get_temperature_image(TF_ThermalImaging *thermal_imaging,
         return TF_E_NULL;
 
     int ret = TF_E_OK;
-    uint16_t image_length = 4800;
+    uint16_t max_image_length = 4800;
+    uint16_t image_length = 0;
     uint16_t image_chunk_offset = 0;
     uint16_t image_chunk_data[31];
     bool image_out_of_sync;
     uint16_t image_chunk_length = 0;
 
-    *ret_image_length = 0;
-
     ret = tf_thermal_imaging_get_temperature_image_low_level(thermal_imaging, &image_chunk_offset, image_chunk_data);
 
     if (ret != TF_E_OK) {
+        if (ret_image_length != NULL) {
+            *ret_image_length = image_length;
+        }
         return ret;
     }
 
@@ -1261,44 +1274,54 @@ int tf_thermal_imaging_get_temperature_image(TF_ThermalImaging *thermal_imaging,
     image_out_of_sync = image_chunk_offset != 0;
 
     if (!image_out_of_sync) {
-        image_chunk_length = image_length - image_chunk_offset;
+        image_chunk_length = max_image_length - image_chunk_offset;
 
         if (image_chunk_length > 31) {
             image_chunk_length = 31;
         }
 
-        memcpy(ret_image, image_chunk_data, sizeof(uint16_t) * image_chunk_length);
-        *ret_image_length = image_chunk_length;
+        if (ret_image != NULL) {
+            memcpy(ret_image, image_chunk_data, sizeof(uint16_t) * image_chunk_length);
+        }
 
-        while (*ret_image_length < image_length) {
+        image_length = image_chunk_length;
+
+        while (image_length < max_image_length) {
             ret = tf_thermal_imaging_get_temperature_image_low_level(thermal_imaging, &image_chunk_offset, image_chunk_data);
 
             if (ret != TF_E_OK) {
+                if (ret_image_length != NULL) {
+                    *ret_image_length = image_length;
+                }
                 return ret;
             }
 
-            image_out_of_sync = image_chunk_offset != *ret_image_length;
+            image_out_of_sync = image_chunk_offset != image_length;
 
             if (image_out_of_sync) {
                 break;
             }
 
-            image_chunk_length = image_length - image_chunk_offset;
+            image_chunk_length = max_image_length - image_chunk_offset;
 
             if (image_chunk_length > 31) {
                 image_chunk_length = 31;
             }
 
-            memcpy(&ret_image[*ret_image_length], image_chunk_data, sizeof(uint16_t) * image_chunk_length);
-            *ret_image_length += image_chunk_length;
+            if (ret_image != NULL) {
+                memcpy(&ret_image[image_length], image_chunk_data, sizeof(uint16_t) * image_chunk_length);
+            }
+            image_length += image_chunk_length;
         }
     }
 
     if (image_out_of_sync) {
-        *ret_image_length = 0; // return empty array
+        if (ret_image_length != NULL) {
+            *ret_image_length = 0; // return empty array
+        }
 
         // discard remaining stream to bring it back in-sync
-        while (image_chunk_offset + 31 < image_length) {
+        while (image_chunk_offset + 31 < max_image_length) {
             ret = tf_thermal_imaging_get_temperature_image_low_level(thermal_imaging, &image_chunk_offset, image_chunk_data);
 
             if (ret != TF_E_OK) {
@@ -1311,7 +1334,7 @@ int tf_thermal_imaging_get_temperature_image(TF_ThermalImaging *thermal_imaging,
 
     return ret;
 }
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
 int tf_thermal_imaging_register_high_contrast_image_low_level_callback(TF_ThermalImaging *thermal_imaging, TF_ThermalImagingHighContrastImageLowLevelHandler handler, void *user_data) {
     if (thermal_imaging == NULL)
         return TF_E_NULL;
@@ -1347,7 +1370,7 @@ int tf_thermal_imaging_callback_tick(TF_ThermalImaging *thermal_imaging, uint32_
     if (thermal_imaging == NULL)
         return TF_E_NULL;
 
-    return tf_tfp_callback_tick(thermal_imaging->tfp, tf_hal_current_time_us(thermal_imaging->tfp->hal) + timeout_us);
+    return tf_tfp_callback_tick(thermal_imaging->tfp, tf_hal_current_time_us((TF_HalContext*)thermal_imaging->tfp->hal) + timeout_us);
 }
 
 #ifdef __cplusplus

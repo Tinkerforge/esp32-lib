@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-10-04.      *
+ * This file was automatically generated on 2021-11-12.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -25,7 +25,7 @@ extern "C" {
  */
 
 struct TF_UVLightV2;
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
 
 typedef void (*TF_UVLightV2UVAHandler)(struct TF_UVLightV2 *device, int32_t uva, void *user_data);
 typedef void (*TF_UVLightV2UVBHandler)(struct TF_UVLightV2 *device, int32_t uvb, void *user_data);
@@ -39,7 +39,7 @@ typedef void (*TF_UVLightV2UVIHandler)(struct TF_UVLightV2 *device, int32_t uvi,
  */
 typedef struct TF_UVLightV2 {
     TF_TfpContext *tfp;
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
     TF_UVLightV2UVAHandler uva_handler;
     void *uva_user_data;
 
@@ -168,7 +168,7 @@ typedef struct TF_UVLightV2 {
  */
 #define TF_UV_LIGHT_V2_FUNCTION_GET_IDENTITY 255
 
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
 
 /**
  * \ingroup BrickletUVLightV2
@@ -336,7 +336,7 @@ typedef struct TF_UVLightV2 {
  * Creates the device object \c uv_light_v2 with the unique device ID \c uid and adds
  * it to the IPConnection \c ipcon.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_uv_light_v2_create(TF_UVLightV2 *uv_light_v2, const char *uid, TF_HalContext *hal);
+int tf_uv_light_v2_create(TF_UVLightV2 *uv_light_v2, const char *uid, TF_HalContext *hal);
 
 /**
  * \ingroup BrickletUVLightV2
@@ -344,7 +344,7 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_uv_light_v2_create(TF_UVLightV2 *uv_light_v2, co
  * Removes the device object \c uv_light_v2 from its IPConnection and destroys it.
  * The device object cannot be used anymore afterwards.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_uv_light_v2_destroy(TF_UVLightV2 *uv_light_v2);
+int tf_uv_light_v2_destroy(TF_UVLightV2 *uv_light_v2);
 
 /**
  * \ingroup BrickletUVLightV2
@@ -365,7 +365,7 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_uv_light_v2_destroy(TF_UVLightV2 *uv_light_v2);
  * disabled for a setter function then no response is sent and errors are
  * silently ignored, because they cannot be detected.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_uv_light_v2_get_response_expected(TF_UVLightV2 *uv_light_v2, uint8_t function_id, bool *ret_response_expected);
+int tf_uv_light_v2_get_response_expected(TF_UVLightV2 *uv_light_v2, uint8_t function_id, bool *ret_response_expected);
 
 /**
  * \ingroup BrickletUVLightV2
@@ -381,7 +381,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_uv_light_v2_get_response_expected(TF_UVLightV2 *u
  * setter function then no response is sent and errors are silently ignored,
  * because they cannot be detected.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_uv_light_v2_set_response_expected(TF_UVLightV2 *uv_light_v2, uint8_t function_id, bool response_expected);
+int tf_uv_light_v2_set_response_expected(TF_UVLightV2 *uv_light_v2, uint8_t function_id, bool response_expected);
 
 /**
  * \ingroup BrickletUVLightV2
@@ -389,8 +389,8 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_uv_light_v2_set_response_expected(TF_UVLightV2 *
  * Changes the response expected flag for all setter and callback configuration
  * functions of this device at once.
  */
-TF_ATTRIBUTE_NONNULL_ALL void tf_uv_light_v2_set_response_expected_all(TF_UVLightV2 *uv_light_v2, bool response_expected);
-#ifdef TF_IMPLEMENT_CALLBACKS
+void tf_uv_light_v2_set_response_expected_all(TF_UVLightV2 *uv_light_v2, bool response_expected);
+#if TF_IMPLEMENT_CALLBACKS != 0
 /**
  * \ingroup BrickletUVLightV2
  *
@@ -404,7 +404,7 @@ TF_ATTRIBUTE_NONNULL_ALL void tf_uv_light_v2_set_response_expected_all(TF_UVLigh
  * 
  * The parameter is the same as {@link tf_uv_light_v2_get_uva}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_uv_light_v2_register_uva_callback(TF_UVLightV2 *uv_light_v2, TF_UVLightV2UVAHandler handler, void *user_data);
+int tf_uv_light_v2_register_uva_callback(TF_UVLightV2 *uv_light_v2, TF_UVLightV2UVAHandler handler, void *user_data);
 
 
 /**
@@ -420,7 +420,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_uv_light_v2_register_uva_callback(TF_UVLightV2 *u
  * 
  * The parameter is the same as {@link tf_uv_light_v2_get_uvb}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_uv_light_v2_register_uvb_callback(TF_UVLightV2 *uv_light_v2, TF_UVLightV2UVBHandler handler, void *user_data);
+int tf_uv_light_v2_register_uvb_callback(TF_UVLightV2 *uv_light_v2, TF_UVLightV2UVBHandler handler, void *user_data);
 
 
 /**
@@ -436,9 +436,9 @@ TF_ATTRIBUTE_NONNULL(1) int tf_uv_light_v2_register_uvb_callback(TF_UVLightV2 *u
  * 
  * The parameter is the same as {@link tf_uv_light_v2_get_uvi}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_uv_light_v2_register_uvi_callback(TF_UVLightV2 *uv_light_v2, TF_UVLightV2UVIHandler handler, void *user_data);
+int tf_uv_light_v2_register_uvi_callback(TF_UVLightV2 *uv_light_v2, TF_UVLightV2UVIHandler handler, void *user_data);
 #endif
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
 /**
  * \ingroup BrickletUVLightV2
  *
@@ -446,7 +446,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_uv_light_v2_register_uvi_callback(TF_UVLightV2 *u
  *
  * This function can be used in a non-blocking fashion by calling it with a timeout of 0.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_uv_light_v2_callback_tick(TF_UVLightV2 *uv_light_v2, uint32_t timeout_us);
+int tf_uv_light_v2_callback_tick(TF_UVLightV2 *uv_light_v2, uint32_t timeout_us);
 #endif
 
 /**
@@ -469,7 +469,7 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_uv_light_v2_callback_tick(TF_UVLightV2 *uv_light
  * {@link tf_uv_light_v2_register_uva_callback} callback. You can set the callback configuration
  * with {@link tf_uv_light_v2_set_uva_callback_configuration}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_uv_light_v2_get_uva(TF_UVLightV2 *uv_light_v2, int32_t *ret_uva);
+int tf_uv_light_v2_get_uva(TF_UVLightV2 *uv_light_v2, int32_t *ret_uva);
 
 /**
  * \ingroup BrickletUVLightV2
@@ -502,14 +502,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_uv_light_v2_get_uva(TF_UVLightV2 *uv_light_v2, in
  * 
  * If the option is set to 'x' (threshold turned off) the callback is triggered with the fixed period.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_uv_light_v2_set_uva_callback_configuration(TF_UVLightV2 *uv_light_v2, uint32_t period, bool value_has_to_change, char option, int32_t min, int32_t max);
+int tf_uv_light_v2_set_uva_callback_configuration(TF_UVLightV2 *uv_light_v2, uint32_t period, bool value_has_to_change, char option, int32_t min, int32_t max);
 
 /**
  * \ingroup BrickletUVLightV2
  *
  * Returns the callback configuration as set by {@link tf_uv_light_v2_set_uva_callback_configuration}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_uv_light_v2_get_uva_callback_configuration(TF_UVLightV2 *uv_light_v2, uint32_t *ret_period, bool *ret_value_has_to_change, char *ret_option, int32_t *ret_min, int32_t *ret_max);
+int tf_uv_light_v2_get_uva_callback_configuration(TF_UVLightV2 *uv_light_v2, uint32_t *ret_period, bool *ret_value_has_to_change, char *ret_option, int32_t *ret_min, int32_t *ret_max);
 
 /**
  * \ingroup BrickletUVLightV2
@@ -531,7 +531,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_uv_light_v2_get_uva_callback_configuration(TF_UVL
  * {@link tf_uv_light_v2_register_uvb_callback} callback. You can set the callback configuration
  * with {@link tf_uv_light_v2_set_uvb_callback_configuration}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_uv_light_v2_get_uvb(TF_UVLightV2 *uv_light_v2, int32_t *ret_uvb);
+int tf_uv_light_v2_get_uvb(TF_UVLightV2 *uv_light_v2, int32_t *ret_uvb);
 
 /**
  * \ingroup BrickletUVLightV2
@@ -564,14 +564,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_uv_light_v2_get_uvb(TF_UVLightV2 *uv_light_v2, in
  * 
  * If the option is set to 'x' (threshold turned off) the callback is triggered with the fixed period.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_uv_light_v2_set_uvb_callback_configuration(TF_UVLightV2 *uv_light_v2, uint32_t period, bool value_has_to_change, char option, int32_t min, int32_t max);
+int tf_uv_light_v2_set_uvb_callback_configuration(TF_UVLightV2 *uv_light_v2, uint32_t period, bool value_has_to_change, char option, int32_t min, int32_t max);
 
 /**
  * \ingroup BrickletUVLightV2
  *
  * Returns the callback configuration as set by {@link tf_uv_light_v2_set_uvb_callback_configuration}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_uv_light_v2_get_uvb_callback_configuration(TF_UVLightV2 *uv_light_v2, uint32_t *ret_period, bool *ret_value_has_to_change, char *ret_option, int32_t *ret_min, int32_t *ret_max);
+int tf_uv_light_v2_get_uvb_callback_configuration(TF_UVLightV2 *uv_light_v2, uint32_t *ret_period, bool *ret_value_has_to_change, char *ret_option, int32_t *ret_min, int32_t *ret_max);
 
 /**
  * \ingroup BrickletUVLightV2
@@ -589,7 +589,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_uv_light_v2_get_uvb_callback_configuration(TF_UVL
  * {@link tf_uv_light_v2_register_uvi_callback} callback. You can set the callback configuration
  * with {@link tf_uv_light_v2_set_uvi_callback_configuration}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_uv_light_v2_get_uvi(TF_UVLightV2 *uv_light_v2, int32_t *ret_uvi);
+int tf_uv_light_v2_get_uvi(TF_UVLightV2 *uv_light_v2, int32_t *ret_uvi);
 
 /**
  * \ingroup BrickletUVLightV2
@@ -622,14 +622,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_uv_light_v2_get_uvi(TF_UVLightV2 *uv_light_v2, in
  * 
  * If the option is set to 'x' (threshold turned off) the callback is triggered with the fixed period.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_uv_light_v2_set_uvi_callback_configuration(TF_UVLightV2 *uv_light_v2, uint32_t period, bool value_has_to_change, char option, int32_t min, int32_t max);
+int tf_uv_light_v2_set_uvi_callback_configuration(TF_UVLightV2 *uv_light_v2, uint32_t period, bool value_has_to_change, char option, int32_t min, int32_t max);
 
 /**
  * \ingroup BrickletUVLightV2
  *
  * Returns the callback configuration as set by {@link tf_uv_light_v2_set_uvi_callback_configuration}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_uv_light_v2_get_uvi_callback_configuration(TF_UVLightV2 *uv_light_v2, uint32_t *ret_period, bool *ret_value_has_to_change, char *ret_option, int32_t *ret_min, int32_t *ret_max);
+int tf_uv_light_v2_get_uvi_callback_configuration(TF_UVLightV2 *uv_light_v2, uint32_t *ret_period, bool *ret_value_has_to_change, char *ret_option, int32_t *ret_min, int32_t *ret_max);
 
 /**
  * \ingroup BrickletUVLightV2
@@ -643,14 +643,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_uv_light_v2_get_uvi_callback_configuration(TF_UVL
  * sensor can be saturated. If this happens the UVA/UVB/UVI readings are all -1.
  * In this case you need to choose a shorter integration time.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_uv_light_v2_set_configuration(TF_UVLightV2 *uv_light_v2, uint8_t integration_time);
+int tf_uv_light_v2_set_configuration(TF_UVLightV2 *uv_light_v2, uint8_t integration_time);
 
 /**
  * \ingroup BrickletUVLightV2
  *
  * Returns the configuration as set by {@link tf_uv_light_v2_set_configuration}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_uv_light_v2_get_configuration(TF_UVLightV2 *uv_light_v2, uint8_t *ret_integration_time);
+int tf_uv_light_v2_get_configuration(TF_UVLightV2 *uv_light_v2, uint8_t *ret_integration_time);
 
 /**
  * \ingroup BrickletUVLightV2
@@ -667,7 +667,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_uv_light_v2_get_configuration(TF_UVLightV2 *uv_li
  * The errors counts are for errors that occur on the Bricklet side. All
  * Bricks have a similar function that returns the errors on the Brick side.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_uv_light_v2_get_spitfp_error_count(TF_UVLightV2 *uv_light_v2, uint32_t *ret_error_count_ack_checksum, uint32_t *ret_error_count_message_checksum, uint32_t *ret_error_count_frame, uint32_t *ret_error_count_overflow);
+int tf_uv_light_v2_get_spitfp_error_count(TF_UVLightV2 *uv_light_v2, uint32_t *ret_error_count_ack_checksum, uint32_t *ret_error_count_message_checksum, uint32_t *ret_error_count_frame, uint32_t *ret_error_count_overflow);
 
 /**
  * \ingroup BrickletUVLightV2
@@ -682,14 +682,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_uv_light_v2_get_spitfp_error_count(TF_UVLightV2 *
  * This function is used by Brick Viewer during flashing. It should not be
  * necessary to call it in a normal user program.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_uv_light_v2_set_bootloader_mode(TF_UVLightV2 *uv_light_v2, uint8_t mode, uint8_t *ret_status);
+int tf_uv_light_v2_set_bootloader_mode(TF_UVLightV2 *uv_light_v2, uint8_t mode, uint8_t *ret_status);
 
 /**
  * \ingroup BrickletUVLightV2
  *
  * Returns the current bootloader mode, see {@link tf_uv_light_v2_set_bootloader_mode}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_uv_light_v2_get_bootloader_mode(TF_UVLightV2 *uv_light_v2, uint8_t *ret_mode);
+int tf_uv_light_v2_get_bootloader_mode(TF_UVLightV2 *uv_light_v2, uint8_t *ret_mode);
 
 /**
  * \ingroup BrickletUVLightV2
@@ -701,7 +701,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_uv_light_v2_get_bootloader_mode(TF_UVLightV2 *uv_
  * This function is used by Brick Viewer during flashing. It should not be
  * necessary to call it in a normal user program.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_uv_light_v2_set_write_firmware_pointer(TF_UVLightV2 *uv_light_v2, uint32_t pointer);
+int tf_uv_light_v2_set_write_firmware_pointer(TF_UVLightV2 *uv_light_v2, uint32_t pointer);
 
 /**
  * \ingroup BrickletUVLightV2
@@ -715,7 +715,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_uv_light_v2_set_write_firmware_pointer(TF_UVLight
  * This function is used by Brick Viewer during flashing. It should not be
  * necessary to call it in a normal user program.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_uv_light_v2_write_firmware(TF_UVLightV2 *uv_light_v2, uint8_t data[64], uint8_t *ret_status);
+int tf_uv_light_v2_write_firmware(TF_UVLightV2 *uv_light_v2, const uint8_t data[64], uint8_t *ret_status);
 
 /**
  * \ingroup BrickletUVLightV2
@@ -728,14 +728,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_uv_light_v2_write_firmware(TF_UVLightV2 *uv_light
  * 
  * If the Bricklet is in bootloader mode, the LED is will show heartbeat by default.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_uv_light_v2_set_status_led_config(TF_UVLightV2 *uv_light_v2, uint8_t config);
+int tf_uv_light_v2_set_status_led_config(TF_UVLightV2 *uv_light_v2, uint8_t config);
 
 /**
  * \ingroup BrickletUVLightV2
  *
  * Returns the configuration as set by {@link tf_uv_light_v2_set_status_led_config}
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_uv_light_v2_get_status_led_config(TF_UVLightV2 *uv_light_v2, uint8_t *ret_config);
+int tf_uv_light_v2_get_status_led_config(TF_UVLightV2 *uv_light_v2, uint8_t *ret_config);
 
 /**
  * \ingroup BrickletUVLightV2
@@ -747,7 +747,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_uv_light_v2_get_status_led_config(TF_UVLightV2 *u
  * accuracy. Practically it is only useful as an indicator for
  * temperature changes.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_uv_light_v2_get_chip_temperature(TF_UVLightV2 *uv_light_v2, int16_t *ret_temperature);
+int tf_uv_light_v2_get_chip_temperature(TF_UVLightV2 *uv_light_v2, int16_t *ret_temperature);
 
 /**
  * \ingroup BrickletUVLightV2
@@ -759,7 +759,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_uv_light_v2_get_chip_temperature(TF_UVLightV2 *uv
  * calling functions on the existing ones will result in
  * undefined behavior!
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_uv_light_v2_reset(TF_UVLightV2 *uv_light_v2);
+int tf_uv_light_v2_reset(TF_UVLightV2 *uv_light_v2);
 
 /**
  * \ingroup BrickletUVLightV2
@@ -770,7 +770,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_uv_light_v2_reset(TF_UVLightV2 *uv_light_v2);
  * 
  * We recommend that you use Brick Viewer to change the UID.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_uv_light_v2_write_uid(TF_UVLightV2 *uv_light_v2, uint32_t uid);
+int tf_uv_light_v2_write_uid(TF_UVLightV2 *uv_light_v2, uint32_t uid);
 
 /**
  * \ingroup BrickletUVLightV2
@@ -778,7 +778,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_uv_light_v2_write_uid(TF_UVLightV2 *uv_light_v2, 
  * Returns the current UID as an integer. Encode as
  * Base58 to get the usual string version.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_uv_light_v2_read_uid(TF_UVLightV2 *uv_light_v2, uint32_t *ret_uid);
+int tf_uv_light_v2_read_uid(TF_UVLightV2 *uv_light_v2, uint32_t *ret_uid);
 
 /**
  * \ingroup BrickletUVLightV2
@@ -794,7 +794,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_uv_light_v2_read_uid(TF_UVLightV2 *uv_light_v2, u
  * The device identifier numbers can be found :ref:`here <device_identifier>`.
  * |device_identifier_constant|
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_uv_light_v2_get_identity(TF_UVLightV2 *uv_light_v2, char ret_uid[8], char ret_connected_uid[8], char *ret_position, uint8_t ret_hardware_version[3], uint8_t ret_firmware_version[3], uint16_t *ret_device_identifier);
+int tf_uv_light_v2_get_identity(TF_UVLightV2 *uv_light_v2, char ret_uid[8], char ret_connected_uid[8], char *ret_position, uint8_t ret_hardware_version[3], uint8_t ret_firmware_version[3], uint16_t *ret_device_identifier);
 
 #ifdef __cplusplus
 }

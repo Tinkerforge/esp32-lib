@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-10-04.      *
+ * This file was automatically generated on 2021-11-12.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -25,7 +25,7 @@ extern "C" {
  */
 
 struct TF_VoltageCurrentV2;
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
 
 typedef void (*TF_VoltageCurrentV2CurrentHandler)(struct TF_VoltageCurrentV2 *device, int32_t current, void *user_data);
 typedef void (*TF_VoltageCurrentV2VoltageHandler)(struct TF_VoltageCurrentV2 *device, int32_t voltage, void *user_data);
@@ -39,7 +39,7 @@ typedef void (*TF_VoltageCurrentV2PowerHandler)(struct TF_VoltageCurrentV2 *devi
  */
 typedef struct TF_VoltageCurrentV2 {
     TF_TfpContext *tfp;
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
     TF_VoltageCurrentV2CurrentHandler current_handler;
     void *current_user_data;
 
@@ -178,7 +178,7 @@ typedef struct TF_VoltageCurrentV2 {
  */
 #define TF_VOLTAGE_CURRENT_V2_FUNCTION_GET_IDENTITY 255
 
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
 
 /**
  * \ingroup BrickletVoltageCurrentV2
@@ -401,7 +401,7 @@ typedef struct TF_VoltageCurrentV2 {
  * Creates the device object \c voltage_current_v2 with the unique device ID \c uid and adds
  * it to the IPConnection \c ipcon.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_voltage_current_v2_create(TF_VoltageCurrentV2 *voltage_current_v2, const char *uid, TF_HalContext *hal);
+int tf_voltage_current_v2_create(TF_VoltageCurrentV2 *voltage_current_v2, const char *uid, TF_HalContext *hal);
 
 /**
  * \ingroup BrickletVoltageCurrentV2
@@ -409,7 +409,7 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_voltage_current_v2_create(TF_VoltageCurrentV2 *v
  * Removes the device object \c voltage_current_v2 from its IPConnection and destroys it.
  * The device object cannot be used anymore afterwards.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_voltage_current_v2_destroy(TF_VoltageCurrentV2 *voltage_current_v2);
+int tf_voltage_current_v2_destroy(TF_VoltageCurrentV2 *voltage_current_v2);
 
 /**
  * \ingroup BrickletVoltageCurrentV2
@@ -430,7 +430,7 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_voltage_current_v2_destroy(TF_VoltageCurrentV2 *
  * disabled for a setter function then no response is sent and errors are
  * silently ignored, because they cannot be detected.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_voltage_current_v2_get_response_expected(TF_VoltageCurrentV2 *voltage_current_v2, uint8_t function_id, bool *ret_response_expected);
+int tf_voltage_current_v2_get_response_expected(TF_VoltageCurrentV2 *voltage_current_v2, uint8_t function_id, bool *ret_response_expected);
 
 /**
  * \ingroup BrickletVoltageCurrentV2
@@ -446,7 +446,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_voltage_current_v2_get_response_expected(TF_Volta
  * setter function then no response is sent and errors are silently ignored,
  * because they cannot be detected.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_voltage_current_v2_set_response_expected(TF_VoltageCurrentV2 *voltage_current_v2, uint8_t function_id, bool response_expected);
+int tf_voltage_current_v2_set_response_expected(TF_VoltageCurrentV2 *voltage_current_v2, uint8_t function_id, bool response_expected);
 
 /**
  * \ingroup BrickletVoltageCurrentV2
@@ -454,8 +454,8 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_voltage_current_v2_set_response_expected(TF_Volt
  * Changes the response expected flag for all setter and callback configuration
  * functions of this device at once.
  */
-TF_ATTRIBUTE_NONNULL_ALL void tf_voltage_current_v2_set_response_expected_all(TF_VoltageCurrentV2 *voltage_current_v2, bool response_expected);
-#ifdef TF_IMPLEMENT_CALLBACKS
+void tf_voltage_current_v2_set_response_expected_all(TF_VoltageCurrentV2 *voltage_current_v2, bool response_expected);
+#if TF_IMPLEMENT_CALLBACKS != 0
 /**
  * \ingroup BrickletVoltageCurrentV2
  *
@@ -469,7 +469,7 @@ TF_ATTRIBUTE_NONNULL_ALL void tf_voltage_current_v2_set_response_expected_all(TF
  * 
  * The parameter is the same as {@link tf_voltage_current_v2_get_current}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_voltage_current_v2_register_current_callback(TF_VoltageCurrentV2 *voltage_current_v2, TF_VoltageCurrentV2CurrentHandler handler, void *user_data);
+int tf_voltage_current_v2_register_current_callback(TF_VoltageCurrentV2 *voltage_current_v2, TF_VoltageCurrentV2CurrentHandler handler, void *user_data);
 
 
 /**
@@ -485,7 +485,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_voltage_current_v2_register_current_callback(TF_V
  * 
  * The parameter is the same as {@link tf_voltage_current_v2_get_voltage}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_voltage_current_v2_register_voltage_callback(TF_VoltageCurrentV2 *voltage_current_v2, TF_VoltageCurrentV2VoltageHandler handler, void *user_data);
+int tf_voltage_current_v2_register_voltage_callback(TF_VoltageCurrentV2 *voltage_current_v2, TF_VoltageCurrentV2VoltageHandler handler, void *user_data);
 
 
 /**
@@ -501,9 +501,9 @@ TF_ATTRIBUTE_NONNULL(1) int tf_voltage_current_v2_register_voltage_callback(TF_V
  * 
  * The parameter is the same as {@link tf_voltage_current_v2_get_power}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_voltage_current_v2_register_power_callback(TF_VoltageCurrentV2 *voltage_current_v2, TF_VoltageCurrentV2PowerHandler handler, void *user_data);
+int tf_voltage_current_v2_register_power_callback(TF_VoltageCurrentV2 *voltage_current_v2, TF_VoltageCurrentV2PowerHandler handler, void *user_data);
 #endif
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
 /**
  * \ingroup BrickletVoltageCurrentV2
  *
@@ -511,7 +511,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_voltage_current_v2_register_power_callback(TF_Vol
  *
  * This function can be used in a non-blocking fashion by calling it with a timeout of 0.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_voltage_current_v2_callback_tick(TF_VoltageCurrentV2 *voltage_current_v2, uint32_t timeout_us);
+int tf_voltage_current_v2_callback_tick(TF_VoltageCurrentV2 *voltage_current_v2, uint32_t timeout_us);
 #endif
 
 /**
@@ -524,7 +524,7 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_voltage_current_v2_callback_tick(TF_VoltageCurre
  * {@link tf_voltage_current_v2_register_current_callback} callback. You can set the callback configuration
  * with {@link tf_voltage_current_v2_set_current_callback_configuration}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_voltage_current_v2_get_current(TF_VoltageCurrentV2 *voltage_current_v2, int32_t *ret_current);
+int tf_voltage_current_v2_get_current(TF_VoltageCurrentV2 *voltage_current_v2, int32_t *ret_current);
 
 /**
  * \ingroup BrickletVoltageCurrentV2
@@ -557,14 +557,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_voltage_current_v2_get_current(TF_VoltageCurrentV
  * 
  * If the option is set to 'x' (threshold turned off) the callback is triggered with the fixed period.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_voltage_current_v2_set_current_callback_configuration(TF_VoltageCurrentV2 *voltage_current_v2, uint32_t period, bool value_has_to_change, char option, int32_t min, int32_t max);
+int tf_voltage_current_v2_set_current_callback_configuration(TF_VoltageCurrentV2 *voltage_current_v2, uint32_t period, bool value_has_to_change, char option, int32_t min, int32_t max);
 
 /**
  * \ingroup BrickletVoltageCurrentV2
  *
  * Returns the callback configuration as set by {@link tf_voltage_current_v2_set_current_callback_configuration}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_voltage_current_v2_get_current_callback_configuration(TF_VoltageCurrentV2 *voltage_current_v2, uint32_t *ret_period, bool *ret_value_has_to_change, char *ret_option, int32_t *ret_min, int32_t *ret_max);
+int tf_voltage_current_v2_get_current_callback_configuration(TF_VoltageCurrentV2 *voltage_current_v2, uint32_t *ret_period, bool *ret_value_has_to_change, char *ret_option, int32_t *ret_min, int32_t *ret_max);
 
 /**
  * \ingroup BrickletVoltageCurrentV2
@@ -576,7 +576,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_voltage_current_v2_get_current_callback_configura
  * {@link tf_voltage_current_v2_register_voltage_callback} callback. You can set the callback configuration
  * with {@link tf_voltage_current_v2_set_voltage_callback_configuration}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_voltage_current_v2_get_voltage(TF_VoltageCurrentV2 *voltage_current_v2, int32_t *ret_voltage);
+int tf_voltage_current_v2_get_voltage(TF_VoltageCurrentV2 *voltage_current_v2, int32_t *ret_voltage);
 
 /**
  * \ingroup BrickletVoltageCurrentV2
@@ -609,14 +609,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_voltage_current_v2_get_voltage(TF_VoltageCurrentV
  * 
  * If the option is set to 'x' (threshold turned off) the callback is triggered with the fixed period.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_voltage_current_v2_set_voltage_callback_configuration(TF_VoltageCurrentV2 *voltage_current_v2, uint32_t period, bool value_has_to_change, char option, int32_t min, int32_t max);
+int tf_voltage_current_v2_set_voltage_callback_configuration(TF_VoltageCurrentV2 *voltage_current_v2, uint32_t period, bool value_has_to_change, char option, int32_t min, int32_t max);
 
 /**
  * \ingroup BrickletVoltageCurrentV2
  *
  * Returns the callback configuration as set by {@link tf_voltage_current_v2_set_voltage_callback_configuration}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_voltage_current_v2_get_voltage_callback_configuration(TF_VoltageCurrentV2 *voltage_current_v2, uint32_t *ret_period, bool *ret_value_has_to_change, char *ret_option, int32_t *ret_min, int32_t *ret_max);
+int tf_voltage_current_v2_get_voltage_callback_configuration(TF_VoltageCurrentV2 *voltage_current_v2, uint32_t *ret_period, bool *ret_value_has_to_change, char *ret_option, int32_t *ret_min, int32_t *ret_max);
 
 /**
  * \ingroup BrickletVoltageCurrentV2
@@ -628,7 +628,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_voltage_current_v2_get_voltage_callback_configura
  * {@link tf_voltage_current_v2_register_power_callback} callback. You can set the callback configuration
  * with {@link tf_voltage_current_v2_set_power_callback_configuration}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_voltage_current_v2_get_power(TF_VoltageCurrentV2 *voltage_current_v2, int32_t *ret_power);
+int tf_voltage_current_v2_get_power(TF_VoltageCurrentV2 *voltage_current_v2, int32_t *ret_power);
 
 /**
  * \ingroup BrickletVoltageCurrentV2
@@ -661,14 +661,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_voltage_current_v2_get_power(TF_VoltageCurrentV2 
  * 
  * If the option is set to 'x' (threshold turned off) the callback is triggered with the fixed period.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_voltage_current_v2_set_power_callback_configuration(TF_VoltageCurrentV2 *voltage_current_v2, uint32_t period, bool value_has_to_change, char option, int32_t min, int32_t max);
+int tf_voltage_current_v2_set_power_callback_configuration(TF_VoltageCurrentV2 *voltage_current_v2, uint32_t period, bool value_has_to_change, char option, int32_t min, int32_t max);
 
 /**
  * \ingroup BrickletVoltageCurrentV2
  *
  * Returns the callback configuration as set by {@link tf_voltage_current_v2_set_power_callback_configuration}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_voltage_current_v2_get_power_callback_configuration(TF_VoltageCurrentV2 *voltage_current_v2, uint32_t *ret_period, bool *ret_value_has_to_change, char *ret_option, int32_t *ret_min, int32_t *ret_max);
+int tf_voltage_current_v2_get_power_callback_configuration(TF_VoltageCurrentV2 *voltage_current_v2, uint32_t *ret_period, bool *ret_value_has_to_change, char *ret_option, int32_t *ret_min, int32_t *ret_max);
 
 /**
  * \ingroup BrickletVoltageCurrentV2
@@ -677,14 +677,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_voltage_current_v2_get_power_callback_configurati
  * possible to configure number of averages as well as
  * voltage and current conversion time.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_voltage_current_v2_set_configuration(TF_VoltageCurrentV2 *voltage_current_v2, uint8_t averaging, uint8_t voltage_conversion_time, uint8_t current_conversion_time);
+int tf_voltage_current_v2_set_configuration(TF_VoltageCurrentV2 *voltage_current_v2, uint8_t averaging, uint8_t voltage_conversion_time, uint8_t current_conversion_time);
 
 /**
  * \ingroup BrickletVoltageCurrentV2
  *
  * Returns the configuration as set by {@link tf_voltage_current_v2_set_configuration}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_voltage_current_v2_get_configuration(TF_VoltageCurrentV2 *voltage_current_v2, uint8_t *ret_averaging, uint8_t *ret_voltage_conversion_time, uint8_t *ret_current_conversion_time);
+int tf_voltage_current_v2_get_configuration(TF_VoltageCurrentV2 *voltage_current_v2, uint8_t *ret_averaging, uint8_t *ret_voltage_conversion_time, uint8_t *ret_current_conversion_time);
 
 /**
  * \ingroup BrickletVoltageCurrentV2
@@ -701,14 +701,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_voltage_current_v2_get_configuration(TF_VoltageCu
  * The calibration will be saved on the EEPROM of the Voltage/Current
  * Bricklet and only needs to be done once.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_voltage_current_v2_set_calibration(TF_VoltageCurrentV2 *voltage_current_v2, uint16_t voltage_multiplier, uint16_t voltage_divisor, uint16_t current_multiplier, uint16_t current_divisor);
+int tf_voltage_current_v2_set_calibration(TF_VoltageCurrentV2 *voltage_current_v2, uint16_t voltage_multiplier, uint16_t voltage_divisor, uint16_t current_multiplier, uint16_t current_divisor);
 
 /**
  * \ingroup BrickletVoltageCurrentV2
  *
  * Returns the calibration as set by {@link tf_voltage_current_v2_set_calibration}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_voltage_current_v2_get_calibration(TF_VoltageCurrentV2 *voltage_current_v2, uint16_t *ret_voltage_multiplier, uint16_t *ret_voltage_divisor, uint16_t *ret_current_multiplier, uint16_t *ret_current_divisor);
+int tf_voltage_current_v2_get_calibration(TF_VoltageCurrentV2 *voltage_current_v2, uint16_t *ret_voltage_multiplier, uint16_t *ret_voltage_divisor, uint16_t *ret_current_multiplier, uint16_t *ret_current_divisor);
 
 /**
  * \ingroup BrickletVoltageCurrentV2
@@ -725,7 +725,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_voltage_current_v2_get_calibration(TF_VoltageCurr
  * The errors counts are for errors that occur on the Bricklet side. All
  * Bricks have a similar function that returns the errors on the Brick side.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_voltage_current_v2_get_spitfp_error_count(TF_VoltageCurrentV2 *voltage_current_v2, uint32_t *ret_error_count_ack_checksum, uint32_t *ret_error_count_message_checksum, uint32_t *ret_error_count_frame, uint32_t *ret_error_count_overflow);
+int tf_voltage_current_v2_get_spitfp_error_count(TF_VoltageCurrentV2 *voltage_current_v2, uint32_t *ret_error_count_ack_checksum, uint32_t *ret_error_count_message_checksum, uint32_t *ret_error_count_frame, uint32_t *ret_error_count_overflow);
 
 /**
  * \ingroup BrickletVoltageCurrentV2
@@ -740,14 +740,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_voltage_current_v2_get_spitfp_error_count(TF_Volt
  * This function is used by Brick Viewer during flashing. It should not be
  * necessary to call it in a normal user program.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_voltage_current_v2_set_bootloader_mode(TF_VoltageCurrentV2 *voltage_current_v2, uint8_t mode, uint8_t *ret_status);
+int tf_voltage_current_v2_set_bootloader_mode(TF_VoltageCurrentV2 *voltage_current_v2, uint8_t mode, uint8_t *ret_status);
 
 /**
  * \ingroup BrickletVoltageCurrentV2
  *
  * Returns the current bootloader mode, see {@link tf_voltage_current_v2_set_bootloader_mode}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_voltage_current_v2_get_bootloader_mode(TF_VoltageCurrentV2 *voltage_current_v2, uint8_t *ret_mode);
+int tf_voltage_current_v2_get_bootloader_mode(TF_VoltageCurrentV2 *voltage_current_v2, uint8_t *ret_mode);
 
 /**
  * \ingroup BrickletVoltageCurrentV2
@@ -759,7 +759,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_voltage_current_v2_get_bootloader_mode(TF_Voltage
  * This function is used by Brick Viewer during flashing. It should not be
  * necessary to call it in a normal user program.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_voltage_current_v2_set_write_firmware_pointer(TF_VoltageCurrentV2 *voltage_current_v2, uint32_t pointer);
+int tf_voltage_current_v2_set_write_firmware_pointer(TF_VoltageCurrentV2 *voltage_current_v2, uint32_t pointer);
 
 /**
  * \ingroup BrickletVoltageCurrentV2
@@ -773,7 +773,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_voltage_current_v2_set_write_firmware_pointer(TF_
  * This function is used by Brick Viewer during flashing. It should not be
  * necessary to call it in a normal user program.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_voltage_current_v2_write_firmware(TF_VoltageCurrentV2 *voltage_current_v2, uint8_t data[64], uint8_t *ret_status);
+int tf_voltage_current_v2_write_firmware(TF_VoltageCurrentV2 *voltage_current_v2, const uint8_t data[64], uint8_t *ret_status);
 
 /**
  * \ingroup BrickletVoltageCurrentV2
@@ -786,14 +786,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_voltage_current_v2_write_firmware(TF_VoltageCurre
  * 
  * If the Bricklet is in bootloader mode, the LED is will show heartbeat by default.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_voltage_current_v2_set_status_led_config(TF_VoltageCurrentV2 *voltage_current_v2, uint8_t config);
+int tf_voltage_current_v2_set_status_led_config(TF_VoltageCurrentV2 *voltage_current_v2, uint8_t config);
 
 /**
  * \ingroup BrickletVoltageCurrentV2
  *
  * Returns the configuration as set by {@link tf_voltage_current_v2_set_status_led_config}
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_voltage_current_v2_get_status_led_config(TF_VoltageCurrentV2 *voltage_current_v2, uint8_t *ret_config);
+int tf_voltage_current_v2_get_status_led_config(TF_VoltageCurrentV2 *voltage_current_v2, uint8_t *ret_config);
 
 /**
  * \ingroup BrickletVoltageCurrentV2
@@ -805,7 +805,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_voltage_current_v2_get_status_led_config(TF_Volta
  * accuracy. Practically it is only useful as an indicator for
  * temperature changes.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_voltage_current_v2_get_chip_temperature(TF_VoltageCurrentV2 *voltage_current_v2, int16_t *ret_temperature);
+int tf_voltage_current_v2_get_chip_temperature(TF_VoltageCurrentV2 *voltage_current_v2, int16_t *ret_temperature);
 
 /**
  * \ingroup BrickletVoltageCurrentV2
@@ -817,7 +817,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_voltage_current_v2_get_chip_temperature(TF_Voltag
  * calling functions on the existing ones will result in
  * undefined behavior!
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_voltage_current_v2_reset(TF_VoltageCurrentV2 *voltage_current_v2);
+int tf_voltage_current_v2_reset(TF_VoltageCurrentV2 *voltage_current_v2);
 
 /**
  * \ingroup BrickletVoltageCurrentV2
@@ -828,7 +828,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_voltage_current_v2_reset(TF_VoltageCurrentV2 *vol
  * 
  * We recommend that you use Brick Viewer to change the UID.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_voltage_current_v2_write_uid(TF_VoltageCurrentV2 *voltage_current_v2, uint32_t uid);
+int tf_voltage_current_v2_write_uid(TF_VoltageCurrentV2 *voltage_current_v2, uint32_t uid);
 
 /**
  * \ingroup BrickletVoltageCurrentV2
@@ -836,7 +836,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_voltage_current_v2_write_uid(TF_VoltageCurrentV2 
  * Returns the current UID as an integer. Encode as
  * Base58 to get the usual string version.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_voltage_current_v2_read_uid(TF_VoltageCurrentV2 *voltage_current_v2, uint32_t *ret_uid);
+int tf_voltage_current_v2_read_uid(TF_VoltageCurrentV2 *voltage_current_v2, uint32_t *ret_uid);
 
 /**
  * \ingroup BrickletVoltageCurrentV2
@@ -852,7 +852,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_voltage_current_v2_read_uid(TF_VoltageCurrentV2 *
  * The device identifier numbers can be found :ref:`here <device_identifier>`.
  * |device_identifier_constant|
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_voltage_current_v2_get_identity(TF_VoltageCurrentV2 *voltage_current_v2, char ret_uid[8], char ret_connected_uid[8], char *ret_position, uint8_t ret_hardware_version[3], uint8_t ret_firmware_version[3], uint16_t *ret_device_identifier);
+int tf_voltage_current_v2_get_identity(TF_VoltageCurrentV2 *voltage_current_v2, char ret_uid[8], char ret_connected_uid[8], char *ret_position, uint8_t ret_hardware_version[3], uint8_t ret_firmware_version[3], uint16_t *ret_device_identifier);
 
 #ifdef __cplusplus
 }

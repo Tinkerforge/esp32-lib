@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-10-04.      *
+ * This file was automatically generated on 2021-11-12.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -21,7 +21,7 @@ extern "C" {
 #endif
 
 
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
 static bool tf_ptc_v2_callback_handler(void *dev, uint8_t fid, TF_Packetbuffer *payload) {
     TF_PTCV2 *ptc_v2 = (TF_PTCV2 *) dev;
     (void)payload;
@@ -35,7 +35,7 @@ static bool tf_ptc_v2_callback_handler(void *dev, uint8_t fid, TF_Packetbuffer *
                 return false;
 
             int32_t temperature = tf_packetbuffer_read_int32_t(payload);
-            TF_HalCommon *common = tf_hal_get_common(ptc_v2->tfp->hal);
+            TF_HalCommon *common = tf_hal_get_common((TF_HalContext*)ptc_v2->tfp->hal);
             common->locked = true;
             fn(ptc_v2, temperature, user_data);
             common->locked = false;
@@ -49,7 +49,7 @@ static bool tf_ptc_v2_callback_handler(void *dev, uint8_t fid, TF_Packetbuffer *
                 return false;
 
             int32_t resistance = tf_packetbuffer_read_int32_t(payload);
-            TF_HalCommon *common = tf_hal_get_common(ptc_v2->tfp->hal);
+            TF_HalCommon *common = tf_hal_get_common((TF_HalContext*)ptc_v2->tfp->hal);
             common->locked = true;
             fn(ptc_v2, resistance, user_data);
             common->locked = false;
@@ -63,7 +63,7 @@ static bool tf_ptc_v2_callback_handler(void *dev, uint8_t fid, TF_Packetbuffer *
                 return false;
 
             bool connected = tf_packetbuffer_read_bool(payload);
-            TF_HalCommon *common = tf_hal_get_common(ptc_v2->tfp->hal);
+            TF_HalCommon *common = tf_hal_get_common((TF_HalContext*)ptc_v2->tfp->hal);
             common->locked = true;
             fn(ptc_v2, connected, user_data);
             common->locked = false;
@@ -93,13 +93,12 @@ int tf_ptc_v2_create(TF_PTCV2 *ptc_v2, const char *uid, TF_HalContext *hal) {
     }
 
     uint8_t port_id;
-    int inventory_index;
+    uint8_t inventory_index;
     rc = tf_hal_get_port_id(hal, numeric_uid, &port_id, &inventory_index);
     if (rc < 0) {
         return rc;
     }
 
-    //rc = tf_tfp_init(ptc_v2->tfp, numeric_uid, TF_PTC_V2_DEVICE_IDENTIFIER, hal, port_id, inventory_index, tf_ptc_v2_callback_handler);
     rc = tf_hal_get_tfp(hal, &ptc_v2->tfp, TF_PTC_V2_DEVICE_IDENTIFIER, inventory_index);
     if (rc != TF_E_OK) {
         return rc;
@@ -258,14 +257,14 @@ int tf_ptc_v2_get_temperature(TF_PTCV2 *ptc_v2, int32_t *ret_temperature) {
     if (ptc_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(ptc_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)ptc_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
     bool response_expected = true;
     tf_tfp_prepare_send(ptc_v2->tfp, TF_PTC_V2_FUNCTION_GET_TEMPERATURE, 0, 4, response_expected);
 
-    uint32_t deadline = tf_hal_current_time_us(ptc_v2->tfp->hal) + tf_hal_get_common(ptc_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)ptc_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)ptc_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(ptc_v2->tfp, response_expected, deadline, &error_code);
@@ -293,7 +292,7 @@ int tf_ptc_v2_set_temperature_callback_configuration(TF_PTCV2 *ptc_v2, uint32_t 
     if (ptc_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(ptc_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)ptc_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -309,7 +308,7 @@ int tf_ptc_v2_set_temperature_callback_configuration(TF_PTCV2 *ptc_v2, uint32_t 
     min = tf_leconvert_int32_to(min); memcpy(buf + 6, &min, 4);
     max = tf_leconvert_int32_to(max); memcpy(buf + 10, &max, 4);
 
-    uint32_t deadline = tf_hal_current_time_us(ptc_v2->tfp->hal) + tf_hal_get_common(ptc_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)ptc_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)ptc_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(ptc_v2->tfp, response_expected, deadline, &error_code);
@@ -332,14 +331,14 @@ int tf_ptc_v2_get_temperature_callback_configuration(TF_PTCV2 *ptc_v2, uint32_t 
     if (ptc_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(ptc_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)ptc_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
     bool response_expected = true;
     tf_tfp_prepare_send(ptc_v2->tfp, TF_PTC_V2_FUNCTION_GET_TEMPERATURE_CALLBACK_CONFIGURATION, 0, 14, response_expected);
 
-    uint32_t deadline = tf_hal_current_time_us(ptc_v2->tfp->hal) + tf_hal_get_common(ptc_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)ptc_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)ptc_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(ptc_v2->tfp, response_expected, deadline, &error_code);
@@ -371,14 +370,14 @@ int tf_ptc_v2_get_resistance(TF_PTCV2 *ptc_v2, int32_t *ret_resistance) {
     if (ptc_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(ptc_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)ptc_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
     bool response_expected = true;
     tf_tfp_prepare_send(ptc_v2->tfp, TF_PTC_V2_FUNCTION_GET_RESISTANCE, 0, 4, response_expected);
 
-    uint32_t deadline = tf_hal_current_time_us(ptc_v2->tfp->hal) + tf_hal_get_common(ptc_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)ptc_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)ptc_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(ptc_v2->tfp, response_expected, deadline, &error_code);
@@ -406,7 +405,7 @@ int tf_ptc_v2_set_resistance_callback_configuration(TF_PTCV2 *ptc_v2, uint32_t p
     if (ptc_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(ptc_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)ptc_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -422,7 +421,7 @@ int tf_ptc_v2_set_resistance_callback_configuration(TF_PTCV2 *ptc_v2, uint32_t p
     min = tf_leconvert_int32_to(min); memcpy(buf + 6, &min, 4);
     max = tf_leconvert_int32_to(max); memcpy(buf + 10, &max, 4);
 
-    uint32_t deadline = tf_hal_current_time_us(ptc_v2->tfp->hal) + tf_hal_get_common(ptc_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)ptc_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)ptc_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(ptc_v2->tfp, response_expected, deadline, &error_code);
@@ -445,14 +444,14 @@ int tf_ptc_v2_get_resistance_callback_configuration(TF_PTCV2 *ptc_v2, uint32_t *
     if (ptc_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(ptc_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)ptc_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
     bool response_expected = true;
     tf_tfp_prepare_send(ptc_v2->tfp, TF_PTC_V2_FUNCTION_GET_RESISTANCE_CALLBACK_CONFIGURATION, 0, 14, response_expected);
 
-    uint32_t deadline = tf_hal_current_time_us(ptc_v2->tfp->hal) + tf_hal_get_common(ptc_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)ptc_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)ptc_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(ptc_v2->tfp, response_expected, deadline, &error_code);
@@ -484,7 +483,7 @@ int tf_ptc_v2_set_noise_rejection_filter(TF_PTCV2 *ptc_v2, uint8_t filter) {
     if (ptc_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(ptc_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)ptc_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -496,7 +495,7 @@ int tf_ptc_v2_set_noise_rejection_filter(TF_PTCV2 *ptc_v2, uint8_t filter) {
 
     buf[0] = (uint8_t)filter;
 
-    uint32_t deadline = tf_hal_current_time_us(ptc_v2->tfp->hal) + tf_hal_get_common(ptc_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)ptc_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)ptc_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(ptc_v2->tfp, response_expected, deadline, &error_code);
@@ -519,14 +518,14 @@ int tf_ptc_v2_get_noise_rejection_filter(TF_PTCV2 *ptc_v2, uint8_t *ret_filter) 
     if (ptc_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(ptc_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)ptc_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
     bool response_expected = true;
     tf_tfp_prepare_send(ptc_v2->tfp, TF_PTC_V2_FUNCTION_GET_NOISE_REJECTION_FILTER, 0, 1, response_expected);
 
-    uint32_t deadline = tf_hal_current_time_us(ptc_v2->tfp->hal) + tf_hal_get_common(ptc_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)ptc_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)ptc_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(ptc_v2->tfp, response_expected, deadline, &error_code);
@@ -554,14 +553,14 @@ int tf_ptc_v2_is_sensor_connected(TF_PTCV2 *ptc_v2, bool *ret_connected) {
     if (ptc_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(ptc_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)ptc_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
     bool response_expected = true;
     tf_tfp_prepare_send(ptc_v2->tfp, TF_PTC_V2_FUNCTION_IS_SENSOR_CONNECTED, 0, 1, response_expected);
 
-    uint32_t deadline = tf_hal_current_time_us(ptc_v2->tfp->hal) + tf_hal_get_common(ptc_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)ptc_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)ptc_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(ptc_v2->tfp, response_expected, deadline, &error_code);
@@ -589,7 +588,7 @@ int tf_ptc_v2_set_wire_mode(TF_PTCV2 *ptc_v2, uint8_t mode) {
     if (ptc_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(ptc_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)ptc_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -601,7 +600,7 @@ int tf_ptc_v2_set_wire_mode(TF_PTCV2 *ptc_v2, uint8_t mode) {
 
     buf[0] = (uint8_t)mode;
 
-    uint32_t deadline = tf_hal_current_time_us(ptc_v2->tfp->hal) + tf_hal_get_common(ptc_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)ptc_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)ptc_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(ptc_v2->tfp, response_expected, deadline, &error_code);
@@ -624,14 +623,14 @@ int tf_ptc_v2_get_wire_mode(TF_PTCV2 *ptc_v2, uint8_t *ret_mode) {
     if (ptc_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(ptc_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)ptc_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
     bool response_expected = true;
     tf_tfp_prepare_send(ptc_v2->tfp, TF_PTC_V2_FUNCTION_GET_WIRE_MODE, 0, 1, response_expected);
 
-    uint32_t deadline = tf_hal_current_time_us(ptc_v2->tfp->hal) + tf_hal_get_common(ptc_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)ptc_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)ptc_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(ptc_v2->tfp, response_expected, deadline, &error_code);
@@ -659,7 +658,7 @@ int tf_ptc_v2_set_moving_average_configuration(TF_PTCV2 *ptc_v2, uint16_t moving
     if (ptc_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(ptc_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)ptc_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -672,7 +671,7 @@ int tf_ptc_v2_set_moving_average_configuration(TF_PTCV2 *ptc_v2, uint16_t moving
     moving_average_length_resistance = tf_leconvert_uint16_to(moving_average_length_resistance); memcpy(buf + 0, &moving_average_length_resistance, 2);
     moving_average_length_temperature = tf_leconvert_uint16_to(moving_average_length_temperature); memcpy(buf + 2, &moving_average_length_temperature, 2);
 
-    uint32_t deadline = tf_hal_current_time_us(ptc_v2->tfp->hal) + tf_hal_get_common(ptc_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)ptc_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)ptc_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(ptc_v2->tfp, response_expected, deadline, &error_code);
@@ -695,14 +694,14 @@ int tf_ptc_v2_get_moving_average_configuration(TF_PTCV2 *ptc_v2, uint16_t *ret_m
     if (ptc_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(ptc_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)ptc_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
     bool response_expected = true;
     tf_tfp_prepare_send(ptc_v2->tfp, TF_PTC_V2_FUNCTION_GET_MOVING_AVERAGE_CONFIGURATION, 0, 4, response_expected);
 
-    uint32_t deadline = tf_hal_current_time_us(ptc_v2->tfp->hal) + tf_hal_get_common(ptc_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)ptc_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)ptc_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(ptc_v2->tfp, response_expected, deadline, &error_code);
@@ -731,7 +730,7 @@ int tf_ptc_v2_set_sensor_connected_callback_configuration(TF_PTCV2 *ptc_v2, bool
     if (ptc_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(ptc_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)ptc_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -743,7 +742,7 @@ int tf_ptc_v2_set_sensor_connected_callback_configuration(TF_PTCV2 *ptc_v2, bool
 
     buf[0] = enabled ? 1 : 0;
 
-    uint32_t deadline = tf_hal_current_time_us(ptc_v2->tfp->hal) + tf_hal_get_common(ptc_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)ptc_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)ptc_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(ptc_v2->tfp, response_expected, deadline, &error_code);
@@ -766,14 +765,14 @@ int tf_ptc_v2_get_sensor_connected_callback_configuration(TF_PTCV2 *ptc_v2, bool
     if (ptc_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(ptc_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)ptc_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
     bool response_expected = true;
     tf_tfp_prepare_send(ptc_v2->tfp, TF_PTC_V2_FUNCTION_GET_SENSOR_CONNECTED_CALLBACK_CONFIGURATION, 0, 1, response_expected);
 
-    uint32_t deadline = tf_hal_current_time_us(ptc_v2->tfp->hal) + tf_hal_get_common(ptc_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)ptc_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)ptc_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(ptc_v2->tfp, response_expected, deadline, &error_code);
@@ -801,14 +800,14 @@ int tf_ptc_v2_get_spitfp_error_count(TF_PTCV2 *ptc_v2, uint32_t *ret_error_count
     if (ptc_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(ptc_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)ptc_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
     bool response_expected = true;
     tf_tfp_prepare_send(ptc_v2->tfp, TF_PTC_V2_FUNCTION_GET_SPITFP_ERROR_COUNT, 0, 16, response_expected);
 
-    uint32_t deadline = tf_hal_current_time_us(ptc_v2->tfp->hal) + tf_hal_get_common(ptc_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)ptc_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)ptc_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(ptc_v2->tfp, response_expected, deadline, &error_code);
@@ -839,7 +838,7 @@ int tf_ptc_v2_set_bootloader_mode(TF_PTCV2 *ptc_v2, uint8_t mode, uint8_t *ret_s
     if (ptc_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(ptc_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)ptc_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -850,7 +849,7 @@ int tf_ptc_v2_set_bootloader_mode(TF_PTCV2 *ptc_v2, uint8_t mode, uint8_t *ret_s
 
     buf[0] = (uint8_t)mode;
 
-    uint32_t deadline = tf_hal_current_time_us(ptc_v2->tfp->hal) + tf_hal_get_common(ptc_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)ptc_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)ptc_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(ptc_v2->tfp, response_expected, deadline, &error_code);
@@ -878,14 +877,14 @@ int tf_ptc_v2_get_bootloader_mode(TF_PTCV2 *ptc_v2, uint8_t *ret_mode) {
     if (ptc_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(ptc_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)ptc_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
     bool response_expected = true;
     tf_tfp_prepare_send(ptc_v2->tfp, TF_PTC_V2_FUNCTION_GET_BOOTLOADER_MODE, 0, 1, response_expected);
 
-    uint32_t deadline = tf_hal_current_time_us(ptc_v2->tfp->hal) + tf_hal_get_common(ptc_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)ptc_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)ptc_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(ptc_v2->tfp, response_expected, deadline, &error_code);
@@ -913,7 +912,7 @@ int tf_ptc_v2_set_write_firmware_pointer(TF_PTCV2 *ptc_v2, uint32_t pointer) {
     if (ptc_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(ptc_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)ptc_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -925,7 +924,7 @@ int tf_ptc_v2_set_write_firmware_pointer(TF_PTCV2 *ptc_v2, uint32_t pointer) {
 
     pointer = tf_leconvert_uint32_to(pointer); memcpy(buf + 0, &pointer, 4);
 
-    uint32_t deadline = tf_hal_current_time_us(ptc_v2->tfp->hal) + tf_hal_get_common(ptc_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)ptc_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)ptc_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(ptc_v2->tfp, response_expected, deadline, &error_code);
@@ -944,11 +943,11 @@ int tf_ptc_v2_set_write_firmware_pointer(TF_PTCV2 *ptc_v2, uint32_t pointer) {
     return tf_tfp_get_error(error_code);
 }
 
-int tf_ptc_v2_write_firmware(TF_PTCV2 *ptc_v2, uint8_t data[64], uint8_t *ret_status) {
+int tf_ptc_v2_write_firmware(TF_PTCV2 *ptc_v2, const uint8_t data[64], uint8_t *ret_status) {
     if (ptc_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(ptc_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)ptc_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -959,7 +958,7 @@ int tf_ptc_v2_write_firmware(TF_PTCV2 *ptc_v2, uint8_t data[64], uint8_t *ret_st
 
     memcpy(buf + 0, data, 64);
 
-    uint32_t deadline = tf_hal_current_time_us(ptc_v2->tfp->hal) + tf_hal_get_common(ptc_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)ptc_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)ptc_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(ptc_v2->tfp, response_expected, deadline, &error_code);
@@ -987,7 +986,7 @@ int tf_ptc_v2_set_status_led_config(TF_PTCV2 *ptc_v2, uint8_t config) {
     if (ptc_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(ptc_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)ptc_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -999,7 +998,7 @@ int tf_ptc_v2_set_status_led_config(TF_PTCV2 *ptc_v2, uint8_t config) {
 
     buf[0] = (uint8_t)config;
 
-    uint32_t deadline = tf_hal_current_time_us(ptc_v2->tfp->hal) + tf_hal_get_common(ptc_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)ptc_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)ptc_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(ptc_v2->tfp, response_expected, deadline, &error_code);
@@ -1022,14 +1021,14 @@ int tf_ptc_v2_get_status_led_config(TF_PTCV2 *ptc_v2, uint8_t *ret_config) {
     if (ptc_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(ptc_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)ptc_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
     bool response_expected = true;
     tf_tfp_prepare_send(ptc_v2->tfp, TF_PTC_V2_FUNCTION_GET_STATUS_LED_CONFIG, 0, 1, response_expected);
 
-    uint32_t deadline = tf_hal_current_time_us(ptc_v2->tfp->hal) + tf_hal_get_common(ptc_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)ptc_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)ptc_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(ptc_v2->tfp, response_expected, deadline, &error_code);
@@ -1057,14 +1056,14 @@ int tf_ptc_v2_get_chip_temperature(TF_PTCV2 *ptc_v2, int16_t *ret_temperature) {
     if (ptc_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(ptc_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)ptc_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
     bool response_expected = true;
     tf_tfp_prepare_send(ptc_v2->tfp, TF_PTC_V2_FUNCTION_GET_CHIP_TEMPERATURE, 0, 2, response_expected);
 
-    uint32_t deadline = tf_hal_current_time_us(ptc_v2->tfp->hal) + tf_hal_get_common(ptc_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)ptc_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)ptc_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(ptc_v2->tfp, response_expected, deadline, &error_code);
@@ -1092,7 +1091,7 @@ int tf_ptc_v2_reset(TF_PTCV2 *ptc_v2) {
     if (ptc_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(ptc_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)ptc_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -1100,7 +1099,7 @@ int tf_ptc_v2_reset(TF_PTCV2 *ptc_v2) {
     tf_ptc_v2_get_response_expected(ptc_v2, TF_PTC_V2_FUNCTION_RESET, &response_expected);
     tf_tfp_prepare_send(ptc_v2->tfp, TF_PTC_V2_FUNCTION_RESET, 0, 0, response_expected);
 
-    uint32_t deadline = tf_hal_current_time_us(ptc_v2->tfp->hal) + tf_hal_get_common(ptc_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)ptc_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)ptc_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(ptc_v2->tfp, response_expected, deadline, &error_code);
@@ -1123,7 +1122,7 @@ int tf_ptc_v2_write_uid(TF_PTCV2 *ptc_v2, uint32_t uid) {
     if (ptc_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(ptc_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)ptc_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -1135,7 +1134,7 @@ int tf_ptc_v2_write_uid(TF_PTCV2 *ptc_v2, uint32_t uid) {
 
     uid = tf_leconvert_uint32_to(uid); memcpy(buf + 0, &uid, 4);
 
-    uint32_t deadline = tf_hal_current_time_us(ptc_v2->tfp->hal) + tf_hal_get_common(ptc_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)ptc_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)ptc_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(ptc_v2->tfp, response_expected, deadline, &error_code);
@@ -1158,14 +1157,14 @@ int tf_ptc_v2_read_uid(TF_PTCV2 *ptc_v2, uint32_t *ret_uid) {
     if (ptc_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(ptc_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)ptc_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
     bool response_expected = true;
     tf_tfp_prepare_send(ptc_v2->tfp, TF_PTC_V2_FUNCTION_READ_UID, 0, 4, response_expected);
 
-    uint32_t deadline = tf_hal_current_time_us(ptc_v2->tfp->hal) + tf_hal_get_common(ptc_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)ptc_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)ptc_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(ptc_v2->tfp, response_expected, deadline, &error_code);
@@ -1193,7 +1192,7 @@ int tf_ptc_v2_get_identity(TF_PTCV2 *ptc_v2, char ret_uid[8], char ret_connected
     if (ptc_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(ptc_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)ptc_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -1201,7 +1200,7 @@ int tf_ptc_v2_get_identity(TF_PTCV2 *ptc_v2, char ret_uid[8], char ret_connected
     tf_tfp_prepare_send(ptc_v2->tfp, TF_PTC_V2_FUNCTION_GET_IDENTITY, 0, 25, response_expected);
 
     size_t i;
-    uint32_t deadline = tf_hal_current_time_us(ptc_v2->tfp->hal) + tf_hal_get_common(ptc_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)ptc_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)ptc_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(ptc_v2->tfp, response_expected, deadline, &error_code);
@@ -1222,7 +1221,7 @@ int tf_ptc_v2_get_identity(TF_PTCV2 *ptc_v2, char ret_uid[8], char ret_connected
         if (ret_firmware_version != NULL) { for (i = 0; i < 3; ++i) ret_firmware_version[i] = tf_packetbuffer_read_uint8_t(&ptc_v2->tfp->spitfp->recv_buf);} else { tf_packetbuffer_remove(&ptc_v2->tfp->spitfp->recv_buf, 3); }
         if (ret_device_identifier != NULL) { *ret_device_identifier = tf_packetbuffer_read_uint16_t(&ptc_v2->tfp->spitfp->recv_buf); } else { tf_packetbuffer_remove(&ptc_v2->tfp->spitfp->recv_buf, 2); }
         if (tmp_connected_uid[0] == 0 && ret_position != NULL) {
-            *ret_position = tf_hal_get_port_name(ptc_v2->tfp->hal, ptc_v2->tfp->spitfp->port_id);
+            *ret_position = tf_hal_get_port_name((TF_HalContext*)ptc_v2->tfp->hal, ptc_v2->tfp->spitfp->port_id);
         }
         if (ret_connected_uid != NULL) {
             memcpy(ret_connected_uid, tmp_connected_uid, 8);
@@ -1236,7 +1235,7 @@ int tf_ptc_v2_get_identity(TF_PTCV2 *ptc_v2, char ret_uid[8], char ret_connected
 
     return tf_tfp_get_error(error_code);
 }
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
 int tf_ptc_v2_register_temperature_callback(TF_PTCV2 *ptc_v2, TF_PTCV2TemperatureHandler handler, void *user_data) {
     if (ptc_v2 == NULL)
         return TF_E_NULL;
@@ -1291,7 +1290,7 @@ int tf_ptc_v2_callback_tick(TF_PTCV2 *ptc_v2, uint32_t timeout_us) {
     if (ptc_v2 == NULL)
         return TF_E_NULL;
 
-    return tf_tfp_callback_tick(ptc_v2->tfp, tf_hal_current_time_us(ptc_v2->tfp->hal) + timeout_us);
+    return tf_tfp_callback_tick(ptc_v2->tfp, tf_hal_current_time_us((TF_HalContext*)ptc_v2->tfp->hal) + timeout_us);
 }
 
 #ifdef __cplusplus

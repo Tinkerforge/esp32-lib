@@ -18,7 +18,7 @@
 #include "errors.h"
 
 // Forward declare init here. Is intentionally not defined in tfp.h (see there why)
-int tf_tfp_init(TF_TfpContext *tfp, TF_HalContext *hal, uint8_t port_id) TF_ATTRIBUTE_NONNULL_ALL TF_ATTRIBUTE_WARN_UNUSED_RESULT;
+int tf_tfp_create(TF_TfpContext *tfp, TF_HalContext *hal, uint8_t port_id) TF_ATTRIBUTE_NONNULL_ALL TF_ATTRIBUTE_WARN_UNUSED_RESULT;
 
 int tf_hal_common_create(TF_HalContext *hal) {
     TF_HalCommon *hal_common = tf_hal_get_common(hal);
@@ -35,14 +35,14 @@ int tf_hal_common_prepare(TF_HalContext *hal, uint8_t port_count, uint32_t port_
     hal_common->used = 1;
     hal_common->device_overflow_count = 0;
 
-    int rc = tf_tfp_init(&hal_common->tfps[0], hal, 0);
+    int rc = tf_tfp_create(&hal_common->tfps[0], hal, 0);
     if (rc != TF_E_OK) {
         return rc;
     }
 
     for(int i = 0; i < port_count; ++i) {
-        TF_PortCommon *port_common = tf_hal_get_port_common(hal, i);
-        tf_spitfp_init(&port_common->spitfp, hal, i);
+        TF_PortCommon *port_common = tf_hal_get_port_common(hal, (uint8_t)i);
+        tf_spitfp_create(&port_common->spitfp, hal, (uint8_t)i);
 
         tf_unknown_create(&unknown, "1", hal, (uint8_t)i, 0);
 
@@ -101,7 +101,7 @@ static void enum_handler(TF_HalContext* hal,
     hal_common->port_ids[hal_common->used] = port_id;
     hal_common->uids[hal_common->used] = numeric_uid;
     hal_common->dids[hal_common->used] = dev_id;
-    if(tf_tfp_init(&hal_common->tfps[hal_common->used], hal, port_id) == TF_E_OK) {
+    if(tf_tfp_create(&hal_common->tfps[hal_common->used], hal, port_id) == TF_E_OK) {
         ++hal_common->used;
     }
 }
@@ -167,13 +167,13 @@ static void write_chunk(const char *fmt, const char *cursor) {
 }
 
 void tf_hal_printf(const char *fmt, ...){
-	va_list va;
-	va_start(va, fmt);
+    va_list va;
+    va_start(va, fmt);
 
     char character;
     const char *cursor = fmt;
 
-	while((character = *(cursor++))) {
+    while((character = *(cursor++))) {
         if(character == '\n') {
             write_chunk(fmt, cursor);
             fmt = cursor;
@@ -182,7 +182,7 @@ void tf_hal_printf(const char *fmt, ...){
             continue;
         }
 
-		if(character != '%') {
+        if(character != '%') {
             continue;
         }
 
@@ -344,13 +344,13 @@ uint32_t tf_hal_get_timeout(TF_HalContext *hal) {
     return tf_hal_get_common(hal)->timeout;
 }
 
-int tf_hal_get_port_id(TF_HalContext *hal, uint32_t uid, uint8_t *port_id, int *inventory_index) {
+int tf_hal_get_port_id(TF_HalContext *hal, uint32_t uid, uint8_t *port_id, uint8_t *inventory_index) {
     TF_HalCommon *hal_common = tf_hal_get_common(hal);
 
     for(int i = 1; i < (int)hal_common->used; ++i) {
         if(hal_common->uids[i] == uid) {
             *port_id = hal_common->port_ids[i];
-            *inventory_index = i;
+            *inventory_index = (uint8_t)i;
             return TF_E_OK;
         }
     }
@@ -404,6 +404,7 @@ static TF_TfpContext *next_callback_tick_tfp(TF_HalContext *hal) {
     return NULL;
 }
 
+#if TF_NET_ENABLE != 0
 static uint8_t enumerate_request[8] = {
     0, 0, 0, 0, //uid 1
     8, // length 8
@@ -422,8 +423,10 @@ static TF_TfpHeader enumerate_request_header = {
     .error_code=0,
     .flags=0
 };
+#endif
 
 int tf_hal_tick(TF_HalContext *hal, uint32_t timeout_us) {
+#if TF_NET_ENABLE != 0
     uint32_t deadline_us = tf_hal_current_time_us(hal) + timeout_us;
     TF_HalCommon *hal_common = tf_hal_get_common(hal);
     TF_NetContext *net = hal_common->net;
@@ -447,9 +450,10 @@ int tf_hal_tick(TF_HalContext *hal, uint32_t timeout_us) {
         TF_TfpHeader header;
         int packet_id = -1;
         while(tf_net_get_available_packet_header(net, &header, &packet_id)) {
+            uint8_t pid = (uint8_t) packet_id;
             // We should never get callback packets from the network side of things. Drop them.
             if(header.seq_num == 0) {
-                tf_net_drop_packet(net, packet_id);
+                tf_net_drop_packet(net, pid);
                 continue;
             }
 
@@ -458,23 +462,10 @@ int tf_hal_tick(TF_HalContext *hal, uint32_t timeout_us) {
                 for(int i = 1; i < (int)hal_common->used; ++i) {
                     hal_common->send_enumerate_request[i] = true;
                 }
-                tf_net_drop_packet(net, packet_id);
+                tf_net_drop_packet(net, pid);
                 continue;
             }
 
-            // Handle UID 1 (brick daemon)
-            if (header.uid == 1 && header.response_expected) {
-                uint8_t buf[TF_SPITFP_MAX_MESSAGE_LENGTH] = {0};
-                tf_net_get_packet(net, packet_id, buf);
-                tf_net_drop_packet(net, packet_id);
-
-                header.error_code = 2;
-                // Set error code in buffer to 2 (function not supported)
-                buf[7] = (2 << 6) | (buf[7] & 0x3F);
-
-                tf_net_send_packet(net, &header, buf);
-                continue;
-            }
             bool device_found = false;
             bool dispatched = false;
             for(int i = 1; i < (int)hal_common->used; ++i) {
@@ -489,8 +480,8 @@ int tf_hal_tick(TF_HalContext *hal, uint32_t timeout_us) {
                     continue;
                 }
 
-                uint8_t buf[TF_TFP_MESSAGE_MAX_LENGTH] = {0};
-                tf_net_get_packet(net, packet_id, buf);
+                uint8_t buf[TF_TFP_MAX_MESSAGE_LENGTH] = {0};
+                tf_net_get_packet(net, pid, buf);
                 tf_tfp_inject_packet(&hal_common->tfps[i], &header, buf);
                 //TODO: What timeout to use here? If decided, use return value to check for the timeout, maybe increase an error count
                 tf_tfp_transmit_packet(&hal_common->tfps[i], false, deadline_us, &ignored);
@@ -499,11 +490,11 @@ int tf_hal_tick(TF_HalContext *hal, uint32_t timeout_us) {
             }
 
             if(!device_found || (device_found && dispatched)) {
-                tf_net_drop_packet(net, packet_id);
+                tf_net_drop_packet(net, pid);
             }
         }
     }
-
+#endif
     tf_hal_callback_tick(hal, timeout_us);
     return TF_E_OK;
 }
@@ -528,18 +519,7 @@ int tf_hal_callback_tick(TF_HalContext *hal, uint32_t timeout_us) {
 bool tf_hal_deadline_elapsed(TF_HalContext *hal, uint32_t deadline_us) {
     uint32_t now = tf_hal_current_time_us(hal);
 
-    if(now < deadline_us) {
-        uint32_t diff = deadline_us - now;
-        if (diff < UINT32_MAX / 2)
-            return false;
-        return true;
-    }
-    else {
-        uint32_t diff = now - deadline_us;
-        if(diff > UINT32_MAX / 2)
-            return false;
-        return true;
-    }
+    return ((uint32_t)(now - deadline_us)) < (UINT32_MAX / 2);
 }
 
 int tf_hal_get_error_counters(TF_HalContext *hal,

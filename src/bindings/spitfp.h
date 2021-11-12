@@ -24,8 +24,6 @@ extern "C" {
 typedef struct TF_SpiTfpStateMachine {
     uint32_t deadline_us;
 
-    uint8_t state;
-
     union {
         struct { uint8_t _unused; } idle;
 
@@ -46,14 +44,14 @@ typedef struct TF_SpiTfpStateMachine {
 
         struct { uint8_t _unused; } build_ack;
     } info;
+
+    uint8_t state;
 } TF_SpiTfpStateMachine;
 
 struct TF_HalContext;
 
 typedef struct TF_SpiTfpContext {
     struct TF_HalContext *hal;
-
-    uint8_t port_id;
 
     uint8_t last_sequence_number_seen;
     uint8_t last_sequence_number_acked;
@@ -63,13 +61,15 @@ typedef struct TF_SpiTfpContext {
     uint32_t error_count_checksum;
     uint32_t error_count_frame;
 
+    uint8_t port_id;
+
     uint8_t send_buf[TF_SPITFP_MAX_MESSAGE_LENGTH];
     TF_Packetbuffer recv_buf;
 
     struct TF_SpiTfpStateMachine state;
 } TF_SpiTfpContext;
 
-int tf_spitfp_init(TF_SpiTfpContext *spitfp, struct TF_HalContext *hal, uint8_t port_id) TF_ATTRIBUTE_NONNULL_ALL TF_ATTRIBUTE_WARN_UNUSED_RESULT;
+int tf_spitfp_create(TF_SpiTfpContext *spitfp, struct TF_HalContext *hal, uint8_t port_id) TF_ATTRIBUTE_NONNULL_ALL;
 int tf_spitfp_destroy(TF_SpiTfpContext *spitfp) TF_ATTRIBUTE_NONNULL_ALL TF_ATTRIBUTE_WARN_UNUSED_RESULT;
 
 uint8_t *tf_spitfp_get_payload_buffer(TF_SpiTfpContext *spitfp) TF_ATTRIBUTE_NONNULL_ALL;

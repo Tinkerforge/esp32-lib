@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-10-04.      *
+ * This file was automatically generated on 2021-11-12.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -25,7 +25,7 @@ extern "C" {
  */
 
 struct TF_IndustrialCounter;
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
 
 typedef void (*TF_IndustrialCounterAllCounterHandler)(struct TF_IndustrialCounter *device, int64_t counter[4], void *user_data);
 typedef void (*TF_IndustrialCounterAllSignalDataHandler)(struct TF_IndustrialCounter *device, uint16_t duty_cycle[4], uint64_t period[4], uint32_t frequency[4], bool value[4], void *user_data);
@@ -38,7 +38,7 @@ typedef void (*TF_IndustrialCounterAllSignalDataHandler)(struct TF_IndustrialCou
  */
 typedef struct TF_IndustrialCounter {
     TF_TfpContext *tfp;
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
     TF_IndustrialCounterAllCounterHandler all_counter_handler;
     void *all_counter_user_data;
 
@@ -199,7 +199,7 @@ typedef struct TF_IndustrialCounter {
  */
 #define TF_INDUSTRIAL_COUNTER_FUNCTION_GET_IDENTITY 255
 
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
 
 /**
  * \ingroup BrickletIndustrialCounter
@@ -512,7 +512,7 @@ typedef struct TF_IndustrialCounter {
  * Creates the device object \c industrial_counter with the unique device ID \c uid and adds
  * it to the IPConnection \c ipcon.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_industrial_counter_create(TF_IndustrialCounter *industrial_counter, const char *uid, TF_HalContext *hal);
+int tf_industrial_counter_create(TF_IndustrialCounter *industrial_counter, const char *uid, TF_HalContext *hal);
 
 /**
  * \ingroup BrickletIndustrialCounter
@@ -520,7 +520,7 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_industrial_counter_create(TF_IndustrialCounter *
  * Removes the device object \c industrial_counter from its IPConnection and destroys it.
  * The device object cannot be used anymore afterwards.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_industrial_counter_destroy(TF_IndustrialCounter *industrial_counter);
+int tf_industrial_counter_destroy(TF_IndustrialCounter *industrial_counter);
 
 /**
  * \ingroup BrickletIndustrialCounter
@@ -541,7 +541,7 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_industrial_counter_destroy(TF_IndustrialCounter 
  * disabled for a setter function then no response is sent and errors are
  * silently ignored, because they cannot be detected.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_industrial_counter_get_response_expected(TF_IndustrialCounter *industrial_counter, uint8_t function_id, bool *ret_response_expected);
+int tf_industrial_counter_get_response_expected(TF_IndustrialCounter *industrial_counter, uint8_t function_id, bool *ret_response_expected);
 
 /**
  * \ingroup BrickletIndustrialCounter
@@ -557,7 +557,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_industrial_counter_get_response_expected(TF_Indus
  * setter function then no response is sent and errors are silently ignored,
  * because they cannot be detected.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_industrial_counter_set_response_expected(TF_IndustrialCounter *industrial_counter, uint8_t function_id, bool response_expected);
+int tf_industrial_counter_set_response_expected(TF_IndustrialCounter *industrial_counter, uint8_t function_id, bool response_expected);
 
 /**
  * \ingroup BrickletIndustrialCounter
@@ -565,8 +565,8 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_industrial_counter_set_response_expected(TF_Indu
  * Changes the response expected flag for all setter and callback configuration
  * functions of this device at once.
  */
-TF_ATTRIBUTE_NONNULL_ALL void tf_industrial_counter_set_response_expected_all(TF_IndustrialCounter *industrial_counter, bool response_expected);
-#ifdef TF_IMPLEMENT_CALLBACKS
+void tf_industrial_counter_set_response_expected_all(TF_IndustrialCounter *industrial_counter, bool response_expected);
+#if TF_IMPLEMENT_CALLBACKS != 0
 /**
  * \ingroup BrickletIndustrialCounter
  *
@@ -580,7 +580,7 @@ TF_ATTRIBUTE_NONNULL_ALL void tf_industrial_counter_set_response_expected_all(TF
  * 
  * The parameters are the same as {@link tf_industrial_counter_get_all_counter}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_industrial_counter_register_all_counter_callback(TF_IndustrialCounter *industrial_counter, TF_IndustrialCounterAllCounterHandler handler, void *user_data);
+int tf_industrial_counter_register_all_counter_callback(TF_IndustrialCounter *industrial_counter, TF_IndustrialCounterAllCounterHandler handler, void *user_data);
 
 
 /**
@@ -596,9 +596,9 @@ TF_ATTRIBUTE_NONNULL(1) int tf_industrial_counter_register_all_counter_callback(
  * 
  * The parameters are the same as {@link tf_industrial_counter_get_all_signal_data}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_industrial_counter_register_all_signal_data_callback(TF_IndustrialCounter *industrial_counter, TF_IndustrialCounterAllSignalDataHandler handler, void *user_data);
+int tf_industrial_counter_register_all_signal_data_callback(TF_IndustrialCounter *industrial_counter, TF_IndustrialCounterAllSignalDataHandler handler, void *user_data);
 #endif
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
 /**
  * \ingroup BrickletIndustrialCounter
  *
@@ -606,7 +606,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_industrial_counter_register_all_signal_data_callb
  *
  * This function can be used in a non-blocking fashion by calling it with a timeout of 0.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_industrial_counter_callback_tick(TF_IndustrialCounter *industrial_counter, uint32_t timeout_us);
+int tf_industrial_counter_callback_tick(TF_IndustrialCounter *industrial_counter, uint32_t timeout_us);
 #endif
 
 /**
@@ -614,14 +614,14 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_industrial_counter_callback_tick(TF_IndustrialCo
  *
  * Returns the current counter value for the given channel.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_industrial_counter_get_counter(TF_IndustrialCounter *industrial_counter, uint8_t channel, int64_t *ret_counter);
+int tf_industrial_counter_get_counter(TF_IndustrialCounter *industrial_counter, uint8_t channel, int64_t *ret_counter);
 
 /**
  * \ingroup BrickletIndustrialCounter
  *
  * Returns the current counter values for all four channels.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_industrial_counter_get_all_counter(TF_IndustrialCounter *industrial_counter, int64_t ret_counter[4]);
+int tf_industrial_counter_get_all_counter(TF_IndustrialCounter *industrial_counter, int64_t ret_counter[4]);
 
 /**
  * \ingroup BrickletIndustrialCounter
@@ -630,7 +630,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_industrial_counter_get_all_counter(TF_IndustrialC
  * 
  * The default value for the counters on startup is 0.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_industrial_counter_set_counter(TF_IndustrialCounter *industrial_counter, uint8_t channel, int64_t counter);
+int tf_industrial_counter_set_counter(TF_IndustrialCounter *industrial_counter, uint8_t channel, int64_t counter);
 
 /**
  * \ingroup BrickletIndustrialCounter
@@ -639,7 +639,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_industrial_counter_set_counter(TF_IndustrialCount
  * 
  * The default value for the counters on startup is 0.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_industrial_counter_set_all_counter(TF_IndustrialCounter *industrial_counter, int64_t counter[4]);
+int tf_industrial_counter_set_all_counter(TF_IndustrialCounter *industrial_counter, const int64_t counter[4]);
 
 /**
  * \ingroup BrickletIndustrialCounter
@@ -647,7 +647,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_industrial_counter_set_all_counter(TF_IndustrialC
  * Returns the signal data (duty cycle, period, frequency and value) for the
  * given channel.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_industrial_counter_get_signal_data(TF_IndustrialCounter *industrial_counter, uint8_t channel, uint16_t *ret_duty_cycle, uint64_t *ret_period, uint32_t *ret_frequency, bool *ret_value);
+int tf_industrial_counter_get_signal_data(TF_IndustrialCounter *industrial_counter, uint8_t channel, uint16_t *ret_duty_cycle, uint64_t *ret_period, uint32_t *ret_frequency, bool *ret_value);
 
 /**
  * \ingroup BrickletIndustrialCounter
@@ -655,7 +655,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_industrial_counter_get_signal_data(TF_IndustrialC
  * Returns the signal data (duty cycle, period, frequency and value) for all four
  * channels.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_industrial_counter_get_all_signal_data(TF_IndustrialCounter *industrial_counter, uint16_t ret_duty_cycle[4], uint64_t ret_period[4], uint32_t ret_frequency[4], bool ret_value[4]);
+int tf_industrial_counter_get_all_signal_data(TF_IndustrialCounter *industrial_counter, uint16_t ret_duty_cycle[4], uint64_t ret_period[4], uint32_t ret_frequency[4], bool ret_value[4]);
 
 /**
  * \ingroup BrickletIndustrialCounter
@@ -666,7 +666,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_industrial_counter_get_all_signal_data(TF_Industr
  * 
  * By default all channels are activated.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_industrial_counter_set_counter_active(TF_IndustrialCounter *industrial_counter, uint8_t channel, bool active);
+int tf_industrial_counter_set_counter_active(TF_IndustrialCounter *industrial_counter, uint8_t channel, bool active);
 
 /**
  * \ingroup BrickletIndustrialCounter
@@ -677,7 +677,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_industrial_counter_set_counter_active(TF_Industri
  * 
  * By default all channels are activated.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_industrial_counter_set_all_counter_active(TF_IndustrialCounter *industrial_counter, bool active[4]);
+int tf_industrial_counter_set_all_counter_active(TF_IndustrialCounter *industrial_counter, const bool active[4]);
 
 /**
  * \ingroup BrickletIndustrialCounter
@@ -686,7 +686,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_industrial_counter_set_all_counter_active(TF_Indu
  * 
  * true = activated, false = deactivated.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_industrial_counter_get_counter_active(TF_IndustrialCounter *industrial_counter, uint8_t channel, bool *ret_active);
+int tf_industrial_counter_get_counter_active(TF_IndustrialCounter *industrial_counter, uint8_t channel, bool *ret_active);
 
 /**
  * \ingroup BrickletIndustrialCounter
@@ -695,7 +695,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_industrial_counter_get_counter_active(TF_Industri
  * 
  * true = activated, false = deactivated.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_industrial_counter_get_all_counter_active(TF_IndustrialCounter *industrial_counter, bool ret_active[4]);
+int tf_industrial_counter_get_all_counter_active(TF_IndustrialCounter *industrial_counter, bool ret_active[4]);
 
 /**
  * \ingroup BrickletIndustrialCounter
@@ -715,14 +715,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_industrial_counter_get_all_counter_active(TF_Indu
  *   `here <https://www.tinkerforge.com/en/doc/Hardware/Bricklets/Industrial_Counter.html#duty-cycle-prescaler-and-frequency-integration-time>`__
  *   for details.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_industrial_counter_set_counter_configuration(TF_IndustrialCounter *industrial_counter, uint8_t channel, uint8_t count_edge, uint8_t count_direction, uint8_t duty_cycle_prescaler, uint8_t frequency_integration_time);
+int tf_industrial_counter_set_counter_configuration(TF_IndustrialCounter *industrial_counter, uint8_t channel, uint8_t count_edge, uint8_t count_direction, uint8_t duty_cycle_prescaler, uint8_t frequency_integration_time);
 
 /**
  * \ingroup BrickletIndustrialCounter
  *
  * Returns the counter configuration as set by {@link tf_industrial_counter_set_counter_configuration}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_industrial_counter_get_counter_configuration(TF_IndustrialCounter *industrial_counter, uint8_t channel, uint8_t *ret_count_edge, uint8_t *ret_count_direction, uint8_t *ret_duty_cycle_prescaler, uint8_t *ret_frequency_integration_time);
+int tf_industrial_counter_get_counter_configuration(TF_IndustrialCounter *industrial_counter, uint8_t channel, uint8_t *ret_count_edge, uint8_t *ret_count_direction, uint8_t *ret_duty_cycle_prescaler, uint8_t *ret_frequency_integration_time);
 
 /**
  * \ingroup BrickletIndustrialCounter
@@ -737,7 +737,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_industrial_counter_get_counter_configuration(TF_I
  * If it is set to false, the callback is continuously triggered with the period,
  * independent of the value.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_industrial_counter_set_all_counter_callback_configuration(TF_IndustrialCounter *industrial_counter, uint32_t period, bool value_has_to_change);
+int tf_industrial_counter_set_all_counter_callback_configuration(TF_IndustrialCounter *industrial_counter, uint32_t period, bool value_has_to_change);
 
 /**
  * \ingroup BrickletIndustrialCounter
@@ -745,7 +745,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_industrial_counter_set_all_counter_callback_confi
  * Returns the callback configuration as set by
  * {@link tf_industrial_counter_set_all_counter_callback_configuration}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_industrial_counter_get_all_counter_callback_configuration(TF_IndustrialCounter *industrial_counter, uint32_t *ret_period, bool *ret_value_has_to_change);
+int tf_industrial_counter_get_all_counter_callback_configuration(TF_IndustrialCounter *industrial_counter, uint32_t *ret_period, bool *ret_value_has_to_change);
 
 /**
  * \ingroup BrickletIndustrialCounter
@@ -760,7 +760,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_industrial_counter_get_all_counter_callback_confi
  * If it is set to false, the callback is continuously triggered with the period,
  * independent of the value.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_industrial_counter_set_all_signal_data_callback_configuration(TF_IndustrialCounter *industrial_counter, uint32_t period, bool value_has_to_change);
+int tf_industrial_counter_set_all_signal_data_callback_configuration(TF_IndustrialCounter *industrial_counter, uint32_t period, bool value_has_to_change);
 
 /**
  * \ingroup BrickletIndustrialCounter
@@ -768,7 +768,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_industrial_counter_set_all_signal_data_callback_c
  * Returns the callback configuration as set by
  * {@link tf_industrial_counter_set_all_signal_data_callback_configuration}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_industrial_counter_get_all_signal_data_callback_configuration(TF_IndustrialCounter *industrial_counter, uint32_t *ret_period, bool *ret_value_has_to_change);
+int tf_industrial_counter_get_all_signal_data_callback_configuration(TF_IndustrialCounter *industrial_counter, uint32_t *ret_period, bool *ret_value_has_to_change);
 
 /**
  * \ingroup BrickletIndustrialCounter
@@ -777,14 +777,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_industrial_counter_get_all_signal_data_callback_c
  * heartbeat. You can also set the LED to "Channel Status". In this mode the
  * LED is on if the channel is high and off otherwise.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_industrial_counter_set_channel_led_config(TF_IndustrialCounter *industrial_counter, uint8_t channel, uint8_t config);
+int tf_industrial_counter_set_channel_led_config(TF_IndustrialCounter *industrial_counter, uint8_t channel, uint8_t config);
 
 /**
  * \ingroup BrickletIndustrialCounter
  *
  * Returns the channel LED configuration as set by {@link tf_industrial_counter_set_channel_led_config}
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_industrial_counter_get_channel_led_config(TF_IndustrialCounter *industrial_counter, uint8_t channel, uint8_t *ret_config);
+int tf_industrial_counter_get_channel_led_config(TF_IndustrialCounter *industrial_counter, uint8_t channel, uint8_t *ret_config);
 
 /**
  * \ingroup BrickletIndustrialCounter
@@ -801,7 +801,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_industrial_counter_get_channel_led_config(TF_Indu
  * The errors counts are for errors that occur on the Bricklet side. All
  * Bricks have a similar function that returns the errors on the Brick side.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_industrial_counter_get_spitfp_error_count(TF_IndustrialCounter *industrial_counter, uint32_t *ret_error_count_ack_checksum, uint32_t *ret_error_count_message_checksum, uint32_t *ret_error_count_frame, uint32_t *ret_error_count_overflow);
+int tf_industrial_counter_get_spitfp_error_count(TF_IndustrialCounter *industrial_counter, uint32_t *ret_error_count_ack_checksum, uint32_t *ret_error_count_message_checksum, uint32_t *ret_error_count_frame, uint32_t *ret_error_count_overflow);
 
 /**
  * \ingroup BrickletIndustrialCounter
@@ -816,14 +816,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_industrial_counter_get_spitfp_error_count(TF_Indu
  * This function is used by Brick Viewer during flashing. It should not be
  * necessary to call it in a normal user program.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_industrial_counter_set_bootloader_mode(TF_IndustrialCounter *industrial_counter, uint8_t mode, uint8_t *ret_status);
+int tf_industrial_counter_set_bootloader_mode(TF_IndustrialCounter *industrial_counter, uint8_t mode, uint8_t *ret_status);
 
 /**
  * \ingroup BrickletIndustrialCounter
  *
  * Returns the current bootloader mode, see {@link tf_industrial_counter_set_bootloader_mode}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_industrial_counter_get_bootloader_mode(TF_IndustrialCounter *industrial_counter, uint8_t *ret_mode);
+int tf_industrial_counter_get_bootloader_mode(TF_IndustrialCounter *industrial_counter, uint8_t *ret_mode);
 
 /**
  * \ingroup BrickletIndustrialCounter
@@ -835,7 +835,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_industrial_counter_get_bootloader_mode(TF_Industr
  * This function is used by Brick Viewer during flashing. It should not be
  * necessary to call it in a normal user program.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_industrial_counter_set_write_firmware_pointer(TF_IndustrialCounter *industrial_counter, uint32_t pointer);
+int tf_industrial_counter_set_write_firmware_pointer(TF_IndustrialCounter *industrial_counter, uint32_t pointer);
 
 /**
  * \ingroup BrickletIndustrialCounter
@@ -849,7 +849,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_industrial_counter_set_write_firmware_pointer(TF_
  * This function is used by Brick Viewer during flashing. It should not be
  * necessary to call it in a normal user program.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_industrial_counter_write_firmware(TF_IndustrialCounter *industrial_counter, uint8_t data[64], uint8_t *ret_status);
+int tf_industrial_counter_write_firmware(TF_IndustrialCounter *industrial_counter, const uint8_t data[64], uint8_t *ret_status);
 
 /**
  * \ingroup BrickletIndustrialCounter
@@ -862,14 +862,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_industrial_counter_write_firmware(TF_IndustrialCo
  * 
  * If the Bricklet is in bootloader mode, the LED is will show heartbeat by default.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_industrial_counter_set_status_led_config(TF_IndustrialCounter *industrial_counter, uint8_t config);
+int tf_industrial_counter_set_status_led_config(TF_IndustrialCounter *industrial_counter, uint8_t config);
 
 /**
  * \ingroup BrickletIndustrialCounter
  *
  * Returns the configuration as set by {@link tf_industrial_counter_set_status_led_config}
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_industrial_counter_get_status_led_config(TF_IndustrialCounter *industrial_counter, uint8_t *ret_config);
+int tf_industrial_counter_get_status_led_config(TF_IndustrialCounter *industrial_counter, uint8_t *ret_config);
 
 /**
  * \ingroup BrickletIndustrialCounter
@@ -881,7 +881,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_industrial_counter_get_status_led_config(TF_Indus
  * accuracy. Practically it is only useful as an indicator for
  * temperature changes.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_industrial_counter_get_chip_temperature(TF_IndustrialCounter *industrial_counter, int16_t *ret_temperature);
+int tf_industrial_counter_get_chip_temperature(TF_IndustrialCounter *industrial_counter, int16_t *ret_temperature);
 
 /**
  * \ingroup BrickletIndustrialCounter
@@ -893,7 +893,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_industrial_counter_get_chip_temperature(TF_Indust
  * calling functions on the existing ones will result in
  * undefined behavior!
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_industrial_counter_reset(TF_IndustrialCounter *industrial_counter);
+int tf_industrial_counter_reset(TF_IndustrialCounter *industrial_counter);
 
 /**
  * \ingroup BrickletIndustrialCounter
@@ -904,7 +904,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_industrial_counter_reset(TF_IndustrialCounter *in
  * 
  * We recommend that you use Brick Viewer to change the UID.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_industrial_counter_write_uid(TF_IndustrialCounter *industrial_counter, uint32_t uid);
+int tf_industrial_counter_write_uid(TF_IndustrialCounter *industrial_counter, uint32_t uid);
 
 /**
  * \ingroup BrickletIndustrialCounter
@@ -912,7 +912,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_industrial_counter_write_uid(TF_IndustrialCounter
  * Returns the current UID as an integer. Encode as
  * Base58 to get the usual string version.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_industrial_counter_read_uid(TF_IndustrialCounter *industrial_counter, uint32_t *ret_uid);
+int tf_industrial_counter_read_uid(TF_IndustrialCounter *industrial_counter, uint32_t *ret_uid);
 
 /**
  * \ingroup BrickletIndustrialCounter
@@ -928,7 +928,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_industrial_counter_read_uid(TF_IndustrialCounter 
  * The device identifier numbers can be found :ref:`here <device_identifier>`.
  * |device_identifier_constant|
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_industrial_counter_get_identity(TF_IndustrialCounter *industrial_counter, char ret_uid[8], char ret_connected_uid[8], char *ret_position, uint8_t ret_hardware_version[3], uint8_t ret_firmware_version[3], uint16_t *ret_device_identifier);
+int tf_industrial_counter_get_identity(TF_IndustrialCounter *industrial_counter, char ret_uid[8], char ret_connected_uid[8], char *ret_position, uint8_t ret_hardware_version[3], uint8_t ret_firmware_version[3], uint16_t *ret_device_identifier);
 
 #ifdef __cplusplus
 }

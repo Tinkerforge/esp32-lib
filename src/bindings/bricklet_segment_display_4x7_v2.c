@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-10-04.      *
+ * This file was automatically generated on 2021-11-12.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -21,7 +21,7 @@ extern "C" {
 #endif
 
 
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
 static bool tf_segment_display_4x7_v2_callback_handler(void *dev, uint8_t fid, TF_Packetbuffer *payload) {
     TF_SegmentDisplay4x7V2 *segment_display_4x7_v2 = (TF_SegmentDisplay4x7V2 *) dev;
     (void)payload;
@@ -35,7 +35,7 @@ static bool tf_segment_display_4x7_v2_callback_handler(void *dev, uint8_t fid, T
                 return false;
 
 
-            TF_HalCommon *common = tf_hal_get_common(segment_display_4x7_v2->tfp->hal);
+            TF_HalCommon *common = tf_hal_get_common((TF_HalContext*)segment_display_4x7_v2->tfp->hal);
             common->locked = true;
             fn(segment_display_4x7_v2, user_data);
             common->locked = false;
@@ -65,13 +65,12 @@ int tf_segment_display_4x7_v2_create(TF_SegmentDisplay4x7V2 *segment_display_4x7
     }
 
     uint8_t port_id;
-    int inventory_index;
+    uint8_t inventory_index;
     rc = tf_hal_get_port_id(hal, numeric_uid, &port_id, &inventory_index);
     if (rc < 0) {
         return rc;
     }
 
-    //rc = tf_tfp_init(segment_display_4x7_v2->tfp, numeric_uid, TF_SEGMENT_DISPLAY_4X7_V2_DEVICE_IDENTIFIER, hal, port_id, inventory_index, tf_segment_display_4x7_v2_callback_handler);
     rc = tf_hal_get_tfp(hal, &segment_display_4x7_v2->tfp, TF_SEGMENT_DISPLAY_4X7_V2_DEVICE_IDENTIFIER, inventory_index);
     if (rc != TF_E_OK) {
         return rc;
@@ -215,11 +214,11 @@ void tf_segment_display_4x7_v2_set_response_expected_all(TF_SegmentDisplay4x7V2 
     memset(segment_display_4x7_v2->response_expected, response_expected ? 0xFF : 0, 2);
 }
 
-int tf_segment_display_4x7_v2_set_segments(TF_SegmentDisplay4x7V2 *segment_display_4x7_v2, bool digit0[8], bool digit1[8], bool digit2[8], bool digit3[8], bool colon[2], bool tick) {
+int tf_segment_display_4x7_v2_set_segments(TF_SegmentDisplay4x7V2 *segment_display_4x7_v2, const bool digit0[8], const bool digit1[8], const bool digit2[8], const bool digit3[8], const bool colon[2], bool tick) {
     if (segment_display_4x7_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(segment_display_4x7_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)segment_display_4x7_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -237,7 +236,7 @@ int tf_segment_display_4x7_v2_set_segments(TF_SegmentDisplay4x7V2 *segment_displ
     memset(buf + 4, 0, 1); for (i = 0; i < 2; ++i) buf[4 + (i / 8)] |= (colon[i] ? 1 : 0) << (i % 8);
     buf[5] = tick ? 1 : 0;
 
-    uint32_t deadline = tf_hal_current_time_us(segment_display_4x7_v2->tfp->hal) + tf_hal_get_common(segment_display_4x7_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)segment_display_4x7_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)segment_display_4x7_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(segment_display_4x7_v2->tfp, response_expected, deadline, &error_code);
@@ -260,14 +259,14 @@ int tf_segment_display_4x7_v2_get_segments(TF_SegmentDisplay4x7V2 *segment_displ
     if (segment_display_4x7_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(segment_display_4x7_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)segment_display_4x7_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
     bool response_expected = true;
     tf_tfp_prepare_send(segment_display_4x7_v2->tfp, TF_SEGMENT_DISPLAY_4X7_V2_FUNCTION_GET_SEGMENTS, 0, 6, response_expected);
 
-    uint32_t deadline = tf_hal_current_time_us(segment_display_4x7_v2->tfp->hal) + tf_hal_get_common(segment_display_4x7_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)segment_display_4x7_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)segment_display_4x7_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(segment_display_4x7_v2->tfp, response_expected, deadline, &error_code);
@@ -300,7 +299,7 @@ int tf_segment_display_4x7_v2_set_brightness(TF_SegmentDisplay4x7V2 *segment_dis
     if (segment_display_4x7_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(segment_display_4x7_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)segment_display_4x7_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -312,7 +311,7 @@ int tf_segment_display_4x7_v2_set_brightness(TF_SegmentDisplay4x7V2 *segment_dis
 
     buf[0] = (uint8_t)brightness;
 
-    uint32_t deadline = tf_hal_current_time_us(segment_display_4x7_v2->tfp->hal) + tf_hal_get_common(segment_display_4x7_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)segment_display_4x7_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)segment_display_4x7_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(segment_display_4x7_v2->tfp, response_expected, deadline, &error_code);
@@ -335,14 +334,14 @@ int tf_segment_display_4x7_v2_get_brightness(TF_SegmentDisplay4x7V2 *segment_dis
     if (segment_display_4x7_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(segment_display_4x7_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)segment_display_4x7_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
     bool response_expected = true;
     tf_tfp_prepare_send(segment_display_4x7_v2->tfp, TF_SEGMENT_DISPLAY_4X7_V2_FUNCTION_GET_BRIGHTNESS, 0, 1, response_expected);
 
-    uint32_t deadline = tf_hal_current_time_us(segment_display_4x7_v2->tfp->hal) + tf_hal_get_common(segment_display_4x7_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)segment_display_4x7_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)segment_display_4x7_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(segment_display_4x7_v2->tfp, response_expected, deadline, &error_code);
@@ -366,11 +365,11 @@ int tf_segment_display_4x7_v2_get_brightness(TF_SegmentDisplay4x7V2 *segment_dis
     return tf_tfp_get_error(error_code);
 }
 
-int tf_segment_display_4x7_v2_set_numeric_value(TF_SegmentDisplay4x7V2 *segment_display_4x7_v2, int8_t value[4]) {
+int tf_segment_display_4x7_v2_set_numeric_value(TF_SegmentDisplay4x7V2 *segment_display_4x7_v2, const int8_t value[4]) {
     if (segment_display_4x7_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(segment_display_4x7_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)segment_display_4x7_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -382,7 +381,7 @@ int tf_segment_display_4x7_v2_set_numeric_value(TF_SegmentDisplay4x7V2 *segment_
 
     memcpy(buf + 0, value, 4);
 
-    uint32_t deadline = tf_hal_current_time_us(segment_display_4x7_v2->tfp->hal) + tf_hal_get_common(segment_display_4x7_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)segment_display_4x7_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)segment_display_4x7_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(segment_display_4x7_v2->tfp, response_expected, deadline, &error_code);
@@ -405,7 +404,7 @@ int tf_segment_display_4x7_v2_set_selected_segment(TF_SegmentDisplay4x7V2 *segme
     if (segment_display_4x7_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(segment_display_4x7_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)segment_display_4x7_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -418,7 +417,7 @@ int tf_segment_display_4x7_v2_set_selected_segment(TF_SegmentDisplay4x7V2 *segme
     buf[0] = (uint8_t)segment;
     buf[1] = value ? 1 : 0;
 
-    uint32_t deadline = tf_hal_current_time_us(segment_display_4x7_v2->tfp->hal) + tf_hal_get_common(segment_display_4x7_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)segment_display_4x7_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)segment_display_4x7_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(segment_display_4x7_v2->tfp, response_expected, deadline, &error_code);
@@ -441,7 +440,7 @@ int tf_segment_display_4x7_v2_get_selected_segment(TF_SegmentDisplay4x7V2 *segme
     if (segment_display_4x7_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(segment_display_4x7_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)segment_display_4x7_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -452,7 +451,7 @@ int tf_segment_display_4x7_v2_get_selected_segment(TF_SegmentDisplay4x7V2 *segme
 
     buf[0] = (uint8_t)segment;
 
-    uint32_t deadline = tf_hal_current_time_us(segment_display_4x7_v2->tfp->hal) + tf_hal_get_common(segment_display_4x7_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)segment_display_4x7_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)segment_display_4x7_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(segment_display_4x7_v2->tfp, response_expected, deadline, &error_code);
@@ -480,7 +479,7 @@ int tf_segment_display_4x7_v2_start_counter(TF_SegmentDisplay4x7V2 *segment_disp
     if (segment_display_4x7_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(segment_display_4x7_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)segment_display_4x7_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -495,7 +494,7 @@ int tf_segment_display_4x7_v2_start_counter(TF_SegmentDisplay4x7V2 *segment_disp
     increment = tf_leconvert_int16_to(increment); memcpy(buf + 4, &increment, 2);
     length = tf_leconvert_uint32_to(length); memcpy(buf + 6, &length, 4);
 
-    uint32_t deadline = tf_hal_current_time_us(segment_display_4x7_v2->tfp->hal) + tf_hal_get_common(segment_display_4x7_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)segment_display_4x7_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)segment_display_4x7_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(segment_display_4x7_v2->tfp, response_expected, deadline, &error_code);
@@ -518,14 +517,14 @@ int tf_segment_display_4x7_v2_get_counter_value(TF_SegmentDisplay4x7V2 *segment_
     if (segment_display_4x7_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(segment_display_4x7_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)segment_display_4x7_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
     bool response_expected = true;
     tf_tfp_prepare_send(segment_display_4x7_v2->tfp, TF_SEGMENT_DISPLAY_4X7_V2_FUNCTION_GET_COUNTER_VALUE, 0, 2, response_expected);
 
-    uint32_t deadline = tf_hal_current_time_us(segment_display_4x7_v2->tfp->hal) + tf_hal_get_common(segment_display_4x7_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)segment_display_4x7_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)segment_display_4x7_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(segment_display_4x7_v2->tfp, response_expected, deadline, &error_code);
@@ -553,14 +552,14 @@ int tf_segment_display_4x7_v2_get_spitfp_error_count(TF_SegmentDisplay4x7V2 *seg
     if (segment_display_4x7_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(segment_display_4x7_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)segment_display_4x7_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
     bool response_expected = true;
     tf_tfp_prepare_send(segment_display_4x7_v2->tfp, TF_SEGMENT_DISPLAY_4X7_V2_FUNCTION_GET_SPITFP_ERROR_COUNT, 0, 16, response_expected);
 
-    uint32_t deadline = tf_hal_current_time_us(segment_display_4x7_v2->tfp->hal) + tf_hal_get_common(segment_display_4x7_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)segment_display_4x7_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)segment_display_4x7_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(segment_display_4x7_v2->tfp, response_expected, deadline, &error_code);
@@ -591,7 +590,7 @@ int tf_segment_display_4x7_v2_set_bootloader_mode(TF_SegmentDisplay4x7V2 *segmen
     if (segment_display_4x7_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(segment_display_4x7_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)segment_display_4x7_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -602,7 +601,7 @@ int tf_segment_display_4x7_v2_set_bootloader_mode(TF_SegmentDisplay4x7V2 *segmen
 
     buf[0] = (uint8_t)mode;
 
-    uint32_t deadline = tf_hal_current_time_us(segment_display_4x7_v2->tfp->hal) + tf_hal_get_common(segment_display_4x7_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)segment_display_4x7_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)segment_display_4x7_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(segment_display_4x7_v2->tfp, response_expected, deadline, &error_code);
@@ -630,14 +629,14 @@ int tf_segment_display_4x7_v2_get_bootloader_mode(TF_SegmentDisplay4x7V2 *segmen
     if (segment_display_4x7_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(segment_display_4x7_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)segment_display_4x7_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
     bool response_expected = true;
     tf_tfp_prepare_send(segment_display_4x7_v2->tfp, TF_SEGMENT_DISPLAY_4X7_V2_FUNCTION_GET_BOOTLOADER_MODE, 0, 1, response_expected);
 
-    uint32_t deadline = tf_hal_current_time_us(segment_display_4x7_v2->tfp->hal) + tf_hal_get_common(segment_display_4x7_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)segment_display_4x7_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)segment_display_4x7_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(segment_display_4x7_v2->tfp, response_expected, deadline, &error_code);
@@ -665,7 +664,7 @@ int tf_segment_display_4x7_v2_set_write_firmware_pointer(TF_SegmentDisplay4x7V2 
     if (segment_display_4x7_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(segment_display_4x7_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)segment_display_4x7_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -677,7 +676,7 @@ int tf_segment_display_4x7_v2_set_write_firmware_pointer(TF_SegmentDisplay4x7V2 
 
     pointer = tf_leconvert_uint32_to(pointer); memcpy(buf + 0, &pointer, 4);
 
-    uint32_t deadline = tf_hal_current_time_us(segment_display_4x7_v2->tfp->hal) + tf_hal_get_common(segment_display_4x7_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)segment_display_4x7_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)segment_display_4x7_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(segment_display_4x7_v2->tfp, response_expected, deadline, &error_code);
@@ -696,11 +695,11 @@ int tf_segment_display_4x7_v2_set_write_firmware_pointer(TF_SegmentDisplay4x7V2 
     return tf_tfp_get_error(error_code);
 }
 
-int tf_segment_display_4x7_v2_write_firmware(TF_SegmentDisplay4x7V2 *segment_display_4x7_v2, uint8_t data[64], uint8_t *ret_status) {
+int tf_segment_display_4x7_v2_write_firmware(TF_SegmentDisplay4x7V2 *segment_display_4x7_v2, const uint8_t data[64], uint8_t *ret_status) {
     if (segment_display_4x7_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(segment_display_4x7_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)segment_display_4x7_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -711,7 +710,7 @@ int tf_segment_display_4x7_v2_write_firmware(TF_SegmentDisplay4x7V2 *segment_dis
 
     memcpy(buf + 0, data, 64);
 
-    uint32_t deadline = tf_hal_current_time_us(segment_display_4x7_v2->tfp->hal) + tf_hal_get_common(segment_display_4x7_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)segment_display_4x7_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)segment_display_4x7_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(segment_display_4x7_v2->tfp, response_expected, deadline, &error_code);
@@ -739,7 +738,7 @@ int tf_segment_display_4x7_v2_set_status_led_config(TF_SegmentDisplay4x7V2 *segm
     if (segment_display_4x7_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(segment_display_4x7_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)segment_display_4x7_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -751,7 +750,7 @@ int tf_segment_display_4x7_v2_set_status_led_config(TF_SegmentDisplay4x7V2 *segm
 
     buf[0] = (uint8_t)config;
 
-    uint32_t deadline = tf_hal_current_time_us(segment_display_4x7_v2->tfp->hal) + tf_hal_get_common(segment_display_4x7_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)segment_display_4x7_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)segment_display_4x7_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(segment_display_4x7_v2->tfp, response_expected, deadline, &error_code);
@@ -774,14 +773,14 @@ int tf_segment_display_4x7_v2_get_status_led_config(TF_SegmentDisplay4x7V2 *segm
     if (segment_display_4x7_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(segment_display_4x7_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)segment_display_4x7_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
     bool response_expected = true;
     tf_tfp_prepare_send(segment_display_4x7_v2->tfp, TF_SEGMENT_DISPLAY_4X7_V2_FUNCTION_GET_STATUS_LED_CONFIG, 0, 1, response_expected);
 
-    uint32_t deadline = tf_hal_current_time_us(segment_display_4x7_v2->tfp->hal) + tf_hal_get_common(segment_display_4x7_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)segment_display_4x7_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)segment_display_4x7_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(segment_display_4x7_v2->tfp, response_expected, deadline, &error_code);
@@ -809,14 +808,14 @@ int tf_segment_display_4x7_v2_get_chip_temperature(TF_SegmentDisplay4x7V2 *segme
     if (segment_display_4x7_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(segment_display_4x7_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)segment_display_4x7_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
     bool response_expected = true;
     tf_tfp_prepare_send(segment_display_4x7_v2->tfp, TF_SEGMENT_DISPLAY_4X7_V2_FUNCTION_GET_CHIP_TEMPERATURE, 0, 2, response_expected);
 
-    uint32_t deadline = tf_hal_current_time_us(segment_display_4x7_v2->tfp->hal) + tf_hal_get_common(segment_display_4x7_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)segment_display_4x7_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)segment_display_4x7_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(segment_display_4x7_v2->tfp, response_expected, deadline, &error_code);
@@ -844,7 +843,7 @@ int tf_segment_display_4x7_v2_reset(TF_SegmentDisplay4x7V2 *segment_display_4x7_
     if (segment_display_4x7_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(segment_display_4x7_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)segment_display_4x7_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -852,7 +851,7 @@ int tf_segment_display_4x7_v2_reset(TF_SegmentDisplay4x7V2 *segment_display_4x7_
     tf_segment_display_4x7_v2_get_response_expected(segment_display_4x7_v2, TF_SEGMENT_DISPLAY_4X7_V2_FUNCTION_RESET, &response_expected);
     tf_tfp_prepare_send(segment_display_4x7_v2->tfp, TF_SEGMENT_DISPLAY_4X7_V2_FUNCTION_RESET, 0, 0, response_expected);
 
-    uint32_t deadline = tf_hal_current_time_us(segment_display_4x7_v2->tfp->hal) + tf_hal_get_common(segment_display_4x7_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)segment_display_4x7_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)segment_display_4x7_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(segment_display_4x7_v2->tfp, response_expected, deadline, &error_code);
@@ -875,7 +874,7 @@ int tf_segment_display_4x7_v2_write_uid(TF_SegmentDisplay4x7V2 *segment_display_
     if (segment_display_4x7_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(segment_display_4x7_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)segment_display_4x7_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -887,7 +886,7 @@ int tf_segment_display_4x7_v2_write_uid(TF_SegmentDisplay4x7V2 *segment_display_
 
     uid = tf_leconvert_uint32_to(uid); memcpy(buf + 0, &uid, 4);
 
-    uint32_t deadline = tf_hal_current_time_us(segment_display_4x7_v2->tfp->hal) + tf_hal_get_common(segment_display_4x7_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)segment_display_4x7_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)segment_display_4x7_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(segment_display_4x7_v2->tfp, response_expected, deadline, &error_code);
@@ -910,14 +909,14 @@ int tf_segment_display_4x7_v2_read_uid(TF_SegmentDisplay4x7V2 *segment_display_4
     if (segment_display_4x7_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(segment_display_4x7_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)segment_display_4x7_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
     bool response_expected = true;
     tf_tfp_prepare_send(segment_display_4x7_v2->tfp, TF_SEGMENT_DISPLAY_4X7_V2_FUNCTION_READ_UID, 0, 4, response_expected);
 
-    uint32_t deadline = tf_hal_current_time_us(segment_display_4x7_v2->tfp->hal) + tf_hal_get_common(segment_display_4x7_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)segment_display_4x7_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)segment_display_4x7_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(segment_display_4x7_v2->tfp, response_expected, deadline, &error_code);
@@ -945,7 +944,7 @@ int tf_segment_display_4x7_v2_get_identity(TF_SegmentDisplay4x7V2 *segment_displ
     if (segment_display_4x7_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(segment_display_4x7_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)segment_display_4x7_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -953,7 +952,7 @@ int tf_segment_display_4x7_v2_get_identity(TF_SegmentDisplay4x7V2 *segment_displ
     tf_tfp_prepare_send(segment_display_4x7_v2->tfp, TF_SEGMENT_DISPLAY_4X7_V2_FUNCTION_GET_IDENTITY, 0, 25, response_expected);
 
     size_t i;
-    uint32_t deadline = tf_hal_current_time_us(segment_display_4x7_v2->tfp->hal) + tf_hal_get_common(segment_display_4x7_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)segment_display_4x7_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)segment_display_4x7_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(segment_display_4x7_v2->tfp, response_expected, deadline, &error_code);
@@ -974,7 +973,7 @@ int tf_segment_display_4x7_v2_get_identity(TF_SegmentDisplay4x7V2 *segment_displ
         if (ret_firmware_version != NULL) { for (i = 0; i < 3; ++i) ret_firmware_version[i] = tf_packetbuffer_read_uint8_t(&segment_display_4x7_v2->tfp->spitfp->recv_buf);} else { tf_packetbuffer_remove(&segment_display_4x7_v2->tfp->spitfp->recv_buf, 3); }
         if (ret_device_identifier != NULL) { *ret_device_identifier = tf_packetbuffer_read_uint16_t(&segment_display_4x7_v2->tfp->spitfp->recv_buf); } else { tf_packetbuffer_remove(&segment_display_4x7_v2->tfp->spitfp->recv_buf, 2); }
         if (tmp_connected_uid[0] == 0 && ret_position != NULL) {
-            *ret_position = tf_hal_get_port_name(segment_display_4x7_v2->tfp->hal, segment_display_4x7_v2->tfp->spitfp->port_id);
+            *ret_position = tf_hal_get_port_name((TF_HalContext*)segment_display_4x7_v2->tfp->hal, segment_display_4x7_v2->tfp->spitfp->port_id);
         }
         if (ret_connected_uid != NULL) {
             memcpy(ret_connected_uid, tmp_connected_uid, 8);
@@ -988,7 +987,7 @@ int tf_segment_display_4x7_v2_get_identity(TF_SegmentDisplay4x7V2 *segment_displ
 
     return tf_tfp_get_error(error_code);
 }
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
 int tf_segment_display_4x7_v2_register_counter_finished_callback(TF_SegmentDisplay4x7V2 *segment_display_4x7_v2, TF_SegmentDisplay4x7V2CounterFinishedHandler handler, void *user_data) {
     if (segment_display_4x7_v2 == NULL)
         return TF_E_NULL;
@@ -1008,7 +1007,7 @@ int tf_segment_display_4x7_v2_callback_tick(TF_SegmentDisplay4x7V2 *segment_disp
     if (segment_display_4x7_v2 == NULL)
         return TF_E_NULL;
 
-    return tf_tfp_callback_tick(segment_display_4x7_v2->tfp, tf_hal_current_time_us(segment_display_4x7_v2->tfp->hal) + timeout_us);
+    return tf_tfp_callback_tick(segment_display_4x7_v2->tfp, tf_hal_current_time_us((TF_HalContext*)segment_display_4x7_v2->tfp->hal) + timeout_us);
 }
 
 #ifdef __cplusplus

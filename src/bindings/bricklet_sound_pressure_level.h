@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-10-04.      *
+ * This file was automatically generated on 2021-11-12.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -25,7 +25,7 @@ extern "C" {
  */
 
 struct TF_SoundPressureLevel;
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
 
 typedef void (*TF_SoundPressureLevelDecibelHandler)(struct TF_SoundPressureLevel *device, uint16_t decibel, void *user_data);
 typedef void (*TF_SoundPressureLevelSpectrumLowLevelHandler)(struct TF_SoundPressureLevel *device, uint16_t spectrum_length, uint16_t spectrum_chunk_offset, uint16_t spectrum_chunk_data[30], void *user_data);
@@ -38,7 +38,7 @@ typedef void (*TF_SoundPressureLevelSpectrumLowLevelHandler)(struct TF_SoundPres
  */
 typedef struct TF_SoundPressureLevel {
     TF_TfpContext *tfp;
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
     TF_SoundPressureLevelDecibelHandler decibel_handler;
     void *decibel_user_data;
 
@@ -149,7 +149,7 @@ typedef struct TF_SoundPressureLevel {
  */
 #define TF_SOUND_PRESSURE_LEVEL_FUNCTION_GET_IDENTITY 255
 
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
 
 /**
  * \ingroup BrickletSoundPressureLevel
@@ -337,7 +337,7 @@ typedef struct TF_SoundPressureLevel {
  * Creates the device object \c sound_pressure_level with the unique device ID \c uid and adds
  * it to the IPConnection \c ipcon.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_sound_pressure_level_create(TF_SoundPressureLevel *sound_pressure_level, const char *uid, TF_HalContext *hal);
+int tf_sound_pressure_level_create(TF_SoundPressureLevel *sound_pressure_level, const char *uid, TF_HalContext *hal);
 
 /**
  * \ingroup BrickletSoundPressureLevel
@@ -345,7 +345,7 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_sound_pressure_level_create(TF_SoundPressureLeve
  * Removes the device object \c sound_pressure_level from its IPConnection and destroys it.
  * The device object cannot be used anymore afterwards.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_sound_pressure_level_destroy(TF_SoundPressureLevel *sound_pressure_level);
+int tf_sound_pressure_level_destroy(TF_SoundPressureLevel *sound_pressure_level);
 
 /**
  * \ingroup BrickletSoundPressureLevel
@@ -366,7 +366,7 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_sound_pressure_level_destroy(TF_SoundPressureLev
  * disabled for a setter function then no response is sent and errors are
  * silently ignored, because they cannot be detected.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_sound_pressure_level_get_response_expected(TF_SoundPressureLevel *sound_pressure_level, uint8_t function_id, bool *ret_response_expected);
+int tf_sound_pressure_level_get_response_expected(TF_SoundPressureLevel *sound_pressure_level, uint8_t function_id, bool *ret_response_expected);
 
 /**
  * \ingroup BrickletSoundPressureLevel
@@ -382,7 +382,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_sound_pressure_level_get_response_expected(TF_Sou
  * setter function then no response is sent and errors are silently ignored,
  * because they cannot be detected.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_sound_pressure_level_set_response_expected(TF_SoundPressureLevel *sound_pressure_level, uint8_t function_id, bool response_expected);
+int tf_sound_pressure_level_set_response_expected(TF_SoundPressureLevel *sound_pressure_level, uint8_t function_id, bool response_expected);
 
 /**
  * \ingroup BrickletSoundPressureLevel
@@ -390,8 +390,8 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_sound_pressure_level_set_response_expected(TF_So
  * Changes the response expected flag for all setter and callback configuration
  * functions of this device at once.
  */
-TF_ATTRIBUTE_NONNULL_ALL void tf_sound_pressure_level_set_response_expected_all(TF_SoundPressureLevel *sound_pressure_level, bool response_expected);
-#ifdef TF_IMPLEMENT_CALLBACKS
+void tf_sound_pressure_level_set_response_expected_all(TF_SoundPressureLevel *sound_pressure_level, bool response_expected);
+#if TF_IMPLEMENT_CALLBACKS != 0
 /**
  * \ingroup BrickletSoundPressureLevel
  *
@@ -405,7 +405,7 @@ TF_ATTRIBUTE_NONNULL_ALL void tf_sound_pressure_level_set_response_expected_all(
  * 
  * The parameter is the same as {@link tf_sound_pressure_level_get_decibel}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_sound_pressure_level_register_decibel_callback(TF_SoundPressureLevel *sound_pressure_level, TF_SoundPressureLevelDecibelHandler handler, void *user_data);
+int tf_sound_pressure_level_register_decibel_callback(TF_SoundPressureLevel *sound_pressure_level, TF_SoundPressureLevelDecibelHandler handler, void *user_data);
 
 
 /**
@@ -421,9 +421,9 @@ TF_ATTRIBUTE_NONNULL(1) int tf_sound_pressure_level_register_decibel_callback(TF
  * 
  * The parameter is the same as {@link tf_sound_pressure_level_get_spectrum}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_sound_pressure_level_register_spectrum_low_level_callback(TF_SoundPressureLevel *sound_pressure_level, TF_SoundPressureLevelSpectrumLowLevelHandler handler, void *user_data);
+int tf_sound_pressure_level_register_spectrum_low_level_callback(TF_SoundPressureLevel *sound_pressure_level, TF_SoundPressureLevelSpectrumLowLevelHandler handler, void *user_data);
 #endif
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
 /**
  * \ingroup BrickletSoundPressureLevel
  *
@@ -431,7 +431,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_sound_pressure_level_register_spectrum_low_level_
  *
  * This function can be used in a non-blocking fashion by calling it with a timeout of 0.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_sound_pressure_level_callback_tick(TF_SoundPressureLevel *sound_pressure_level, uint32_t timeout_us);
+int tf_sound_pressure_level_callback_tick(TF_SoundPressureLevel *sound_pressure_level, uint32_t timeout_us);
 #endif
 
 /**
@@ -449,7 +449,7 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_sound_pressure_level_callback_tick(TF_SoundPress
  * {@link tf_sound_pressure_level_register_decibel_callback} callback. You can set the callback configuration
  * with {@link tf_sound_pressure_level_set_decibel_callback_configuration}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_sound_pressure_level_get_decibel(TF_SoundPressureLevel *sound_pressure_level, uint16_t *ret_decibel);
+int tf_sound_pressure_level_get_decibel(TF_SoundPressureLevel *sound_pressure_level, uint16_t *ret_decibel);
 
 /**
  * \ingroup BrickletSoundPressureLevel
@@ -482,14 +482,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_sound_pressure_level_get_decibel(TF_SoundPressure
  * 
  * If the option is set to 'x' (threshold turned off) the callback is triggered with the fixed period.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_sound_pressure_level_set_decibel_callback_configuration(TF_SoundPressureLevel *sound_pressure_level, uint32_t period, bool value_has_to_change, char option, uint16_t min, uint16_t max);
+int tf_sound_pressure_level_set_decibel_callback_configuration(TF_SoundPressureLevel *sound_pressure_level, uint32_t period, bool value_has_to_change, char option, uint16_t min, uint16_t max);
 
 /**
  * \ingroup BrickletSoundPressureLevel
  *
  * Returns the callback configuration as set by {@link tf_sound_pressure_level_set_decibel_callback_configuration}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_sound_pressure_level_get_decibel_callback_configuration(TF_SoundPressureLevel *sound_pressure_level, uint32_t *ret_period, bool *ret_value_has_to_change, char *ret_option, uint16_t *ret_min, uint16_t *ret_max);
+int tf_sound_pressure_level_get_decibel_callback_configuration(TF_SoundPressureLevel *sound_pressure_level, uint32_t *ret_period, bool *ret_value_has_to_change, char *ret_option, uint16_t *ret_min, uint16_t *ret_max);
 
 /**
  * \ingroup BrickletSoundPressureLevel
@@ -513,7 +513,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_sound_pressure_level_get_decibel_callback_configu
  * spectrum you have to apply the formula f(x) = 20*log10(max(1, x/sqrt(2)))
  * on each value.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_sound_pressure_level_get_spectrum_low_level(TF_SoundPressureLevel *sound_pressure_level, uint16_t *ret_spectrum_length, uint16_t *ret_spectrum_chunk_offset, uint16_t ret_spectrum_chunk_data[30]);
+int tf_sound_pressure_level_get_spectrum_low_level(TF_SoundPressureLevel *sound_pressure_level, uint16_t *ret_spectrum_length, uint16_t *ret_spectrum_chunk_offset, uint16_t ret_spectrum_chunk_data[30]);
 
 /**
  * \ingroup BrickletSoundPressureLevel
@@ -524,7 +524,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_sound_pressure_level_get_spectrum_low_level(TF_So
  * Every new measured spectrum will be send at most once. Set the period to 1 to
  * make sure that you get every spectrum.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_sound_pressure_level_set_spectrum_callback_configuration(TF_SoundPressureLevel *sound_pressure_level, uint32_t period);
+int tf_sound_pressure_level_set_spectrum_callback_configuration(TF_SoundPressureLevel *sound_pressure_level, uint32_t period);
 
 /**
  * \ingroup BrickletSoundPressureLevel
@@ -532,7 +532,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_sound_pressure_level_set_spectrum_callback_config
  * Returns the callback configuration as set by
  * {@link tf_sound_pressure_level_get_spectrum_callback_configuration}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_sound_pressure_level_get_spectrum_callback_configuration(TF_SoundPressureLevel *sound_pressure_level, uint32_t *ret_period);
+int tf_sound_pressure_level_get_spectrum_callback_configuration(TF_SoundPressureLevel *sound_pressure_level, uint32_t *ret_period);
 
 /**
  * \ingroup BrickletSoundPressureLevel
@@ -559,14 +559,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_sound_pressure_level_get_spectrum_callback_config
  * flat response, no weighting is applied. ITU-R 468 is an ITU
  * weighting standard mostly used in the UK and Europe.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_sound_pressure_level_set_configuration(TF_SoundPressureLevel *sound_pressure_level, uint8_t fft_size, uint8_t weighting);
+int tf_sound_pressure_level_set_configuration(TF_SoundPressureLevel *sound_pressure_level, uint8_t fft_size, uint8_t weighting);
 
 /**
  * \ingroup BrickletSoundPressureLevel
  *
  * Returns the configuration as set by {@link tf_sound_pressure_level_set_configuration}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_sound_pressure_level_get_configuration(TF_SoundPressureLevel *sound_pressure_level, uint8_t *ret_fft_size, uint8_t *ret_weighting);
+int tf_sound_pressure_level_get_configuration(TF_SoundPressureLevel *sound_pressure_level, uint8_t *ret_fft_size, uint8_t *ret_weighting);
 
 /**
  * \ingroup BrickletSoundPressureLevel
@@ -583,7 +583,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_sound_pressure_level_get_configuration(TF_SoundPr
  * The errors counts are for errors that occur on the Bricklet side. All
  * Bricks have a similar function that returns the errors on the Brick side.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_sound_pressure_level_get_spitfp_error_count(TF_SoundPressureLevel *sound_pressure_level, uint32_t *ret_error_count_ack_checksum, uint32_t *ret_error_count_message_checksum, uint32_t *ret_error_count_frame, uint32_t *ret_error_count_overflow);
+int tf_sound_pressure_level_get_spitfp_error_count(TF_SoundPressureLevel *sound_pressure_level, uint32_t *ret_error_count_ack_checksum, uint32_t *ret_error_count_message_checksum, uint32_t *ret_error_count_frame, uint32_t *ret_error_count_overflow);
 
 /**
  * \ingroup BrickletSoundPressureLevel
@@ -598,14 +598,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_sound_pressure_level_get_spitfp_error_count(TF_So
  * This function is used by Brick Viewer during flashing. It should not be
  * necessary to call it in a normal user program.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_sound_pressure_level_set_bootloader_mode(TF_SoundPressureLevel *sound_pressure_level, uint8_t mode, uint8_t *ret_status);
+int tf_sound_pressure_level_set_bootloader_mode(TF_SoundPressureLevel *sound_pressure_level, uint8_t mode, uint8_t *ret_status);
 
 /**
  * \ingroup BrickletSoundPressureLevel
  *
  * Returns the current bootloader mode, see {@link tf_sound_pressure_level_set_bootloader_mode}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_sound_pressure_level_get_bootloader_mode(TF_SoundPressureLevel *sound_pressure_level, uint8_t *ret_mode);
+int tf_sound_pressure_level_get_bootloader_mode(TF_SoundPressureLevel *sound_pressure_level, uint8_t *ret_mode);
 
 /**
  * \ingroup BrickletSoundPressureLevel
@@ -617,7 +617,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_sound_pressure_level_get_bootloader_mode(TF_Sound
  * This function is used by Brick Viewer during flashing. It should not be
  * necessary to call it in a normal user program.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_sound_pressure_level_set_write_firmware_pointer(TF_SoundPressureLevel *sound_pressure_level, uint32_t pointer);
+int tf_sound_pressure_level_set_write_firmware_pointer(TF_SoundPressureLevel *sound_pressure_level, uint32_t pointer);
 
 /**
  * \ingroup BrickletSoundPressureLevel
@@ -631,7 +631,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_sound_pressure_level_set_write_firmware_pointer(T
  * This function is used by Brick Viewer during flashing. It should not be
  * necessary to call it in a normal user program.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_sound_pressure_level_write_firmware(TF_SoundPressureLevel *sound_pressure_level, uint8_t data[64], uint8_t *ret_status);
+int tf_sound_pressure_level_write_firmware(TF_SoundPressureLevel *sound_pressure_level, const uint8_t data[64], uint8_t *ret_status);
 
 /**
  * \ingroup BrickletSoundPressureLevel
@@ -644,14 +644,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_sound_pressure_level_write_firmware(TF_SoundPress
  * 
  * If the Bricklet is in bootloader mode, the LED is will show heartbeat by default.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_sound_pressure_level_set_status_led_config(TF_SoundPressureLevel *sound_pressure_level, uint8_t config);
+int tf_sound_pressure_level_set_status_led_config(TF_SoundPressureLevel *sound_pressure_level, uint8_t config);
 
 /**
  * \ingroup BrickletSoundPressureLevel
  *
  * Returns the configuration as set by {@link tf_sound_pressure_level_set_status_led_config}
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_sound_pressure_level_get_status_led_config(TF_SoundPressureLevel *sound_pressure_level, uint8_t *ret_config);
+int tf_sound_pressure_level_get_status_led_config(TF_SoundPressureLevel *sound_pressure_level, uint8_t *ret_config);
 
 /**
  * \ingroup BrickletSoundPressureLevel
@@ -663,7 +663,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_sound_pressure_level_get_status_led_config(TF_Sou
  * accuracy. Practically it is only useful as an indicator for
  * temperature changes.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_sound_pressure_level_get_chip_temperature(TF_SoundPressureLevel *sound_pressure_level, int16_t *ret_temperature);
+int tf_sound_pressure_level_get_chip_temperature(TF_SoundPressureLevel *sound_pressure_level, int16_t *ret_temperature);
 
 /**
  * \ingroup BrickletSoundPressureLevel
@@ -675,7 +675,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_sound_pressure_level_get_chip_temperature(TF_Soun
  * calling functions on the existing ones will result in
  * undefined behavior!
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_sound_pressure_level_reset(TF_SoundPressureLevel *sound_pressure_level);
+int tf_sound_pressure_level_reset(TF_SoundPressureLevel *sound_pressure_level);
 
 /**
  * \ingroup BrickletSoundPressureLevel
@@ -686,7 +686,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_sound_pressure_level_reset(TF_SoundPressureLevel 
  * 
  * We recommend that you use Brick Viewer to change the UID.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_sound_pressure_level_write_uid(TF_SoundPressureLevel *sound_pressure_level, uint32_t uid);
+int tf_sound_pressure_level_write_uid(TF_SoundPressureLevel *sound_pressure_level, uint32_t uid);
 
 /**
  * \ingroup BrickletSoundPressureLevel
@@ -694,7 +694,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_sound_pressure_level_write_uid(TF_SoundPressureLe
  * Returns the current UID as an integer. Encode as
  * Base58 to get the usual string version.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_sound_pressure_level_read_uid(TF_SoundPressureLevel *sound_pressure_level, uint32_t *ret_uid);
+int tf_sound_pressure_level_read_uid(TF_SoundPressureLevel *sound_pressure_level, uint32_t *ret_uid);
 
 /**
  * \ingroup BrickletSoundPressureLevel
@@ -710,7 +710,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_sound_pressure_level_read_uid(TF_SoundPressureLev
  * The device identifier numbers can be found :ref:`here <device_identifier>`.
  * |device_identifier_constant|
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_sound_pressure_level_get_identity(TF_SoundPressureLevel *sound_pressure_level, char ret_uid[8], char ret_connected_uid[8], char *ret_position, uint8_t ret_hardware_version[3], uint8_t ret_firmware_version[3], uint16_t *ret_device_identifier);
+int tf_sound_pressure_level_get_identity(TF_SoundPressureLevel *sound_pressure_level, char ret_uid[8], char ret_connected_uid[8], char *ret_position, uint8_t ret_hardware_version[3], uint8_t ret_firmware_version[3], uint16_t *ret_device_identifier);
 
 /**
  * \ingroup BrickletSoundPressureLevel
@@ -734,7 +734,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_sound_pressure_level_get_identity(TF_SoundPressur
  * spectrum you have to apply the formula f(x) = 20*log10(max(1, x/sqrt(2)))
  * on each value.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_sound_pressure_level_get_spectrum(TF_SoundPressureLevel *sound_pressure_level, uint16_t *ret_spectrum, uint16_t *ret_spectrum_length);
+int tf_sound_pressure_level_get_spectrum(TF_SoundPressureLevel *sound_pressure_level, uint16_t *ret_spectrum, uint16_t *ret_spectrum_length);
 
 #ifdef __cplusplus
 }

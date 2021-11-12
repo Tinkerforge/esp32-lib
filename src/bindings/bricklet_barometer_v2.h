@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-10-04.      *
+ * This file was automatically generated on 2021-11-12.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -25,7 +25,7 @@ extern "C" {
  */
 
 struct TF_BarometerV2;
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
 
 typedef void (*TF_BarometerV2AirPressureHandler)(struct TF_BarometerV2 *device, int32_t air_pressure, void *user_data);
 typedef void (*TF_BarometerV2AltitudeHandler)(struct TF_BarometerV2 *device, int32_t altitude, void *user_data);
@@ -39,7 +39,7 @@ typedef void (*TF_BarometerV2TemperatureHandler)(struct TF_BarometerV2 *device, 
  */
 typedef struct TF_BarometerV2 {
     TF_TfpContext *tfp;
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
     TF_BarometerV2AirPressureHandler air_pressure_handler;
     void *air_pressure_user_data;
 
@@ -198,7 +198,7 @@ typedef struct TF_BarometerV2 {
  */
 #define TF_BAROMETER_V2_FUNCTION_GET_IDENTITY 255
 
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
 
 /**
  * \ingroup BrickletBarometerV2
@@ -386,7 +386,7 @@ typedef struct TF_BarometerV2 {
  * Creates the device object \c barometer_v2 with the unique device ID \c uid and adds
  * it to the IPConnection \c ipcon.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_barometer_v2_create(TF_BarometerV2 *barometer_v2, const char *uid, TF_HalContext *hal);
+int tf_barometer_v2_create(TF_BarometerV2 *barometer_v2, const char *uid, TF_HalContext *hal);
 
 /**
  * \ingroup BrickletBarometerV2
@@ -394,7 +394,7 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_barometer_v2_create(TF_BarometerV2 *barometer_v2
  * Removes the device object \c barometer_v2 from its IPConnection and destroys it.
  * The device object cannot be used anymore afterwards.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_barometer_v2_destroy(TF_BarometerV2 *barometer_v2);
+int tf_barometer_v2_destroy(TF_BarometerV2 *barometer_v2);
 
 /**
  * \ingroup BrickletBarometerV2
@@ -415,7 +415,7 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_barometer_v2_destroy(TF_BarometerV2 *barometer_v
  * disabled for a setter function then no response is sent and errors are
  * silently ignored, because they cannot be detected.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_barometer_v2_get_response_expected(TF_BarometerV2 *barometer_v2, uint8_t function_id, bool *ret_response_expected);
+int tf_barometer_v2_get_response_expected(TF_BarometerV2 *barometer_v2, uint8_t function_id, bool *ret_response_expected);
 
 /**
  * \ingroup BrickletBarometerV2
@@ -431,7 +431,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_barometer_v2_get_response_expected(TF_BarometerV2
  * setter function then no response is sent and errors are silently ignored,
  * because they cannot be detected.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_barometer_v2_set_response_expected(TF_BarometerV2 *barometer_v2, uint8_t function_id, bool response_expected);
+int tf_barometer_v2_set_response_expected(TF_BarometerV2 *barometer_v2, uint8_t function_id, bool response_expected);
 
 /**
  * \ingroup BrickletBarometerV2
@@ -439,8 +439,8 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_barometer_v2_set_response_expected(TF_BarometerV
  * Changes the response expected flag for all setter and callback configuration
  * functions of this device at once.
  */
-TF_ATTRIBUTE_NONNULL_ALL void tf_barometer_v2_set_response_expected_all(TF_BarometerV2 *barometer_v2, bool response_expected);
-#ifdef TF_IMPLEMENT_CALLBACKS
+void tf_barometer_v2_set_response_expected_all(TF_BarometerV2 *barometer_v2, bool response_expected);
+#if TF_IMPLEMENT_CALLBACKS != 0
 /**
  * \ingroup BrickletBarometerV2
  *
@@ -454,7 +454,7 @@ TF_ATTRIBUTE_NONNULL_ALL void tf_barometer_v2_set_response_expected_all(TF_Barom
  * 
  * The parameter is the same as {@link tf_barometer_v2_get_air_pressure}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_barometer_v2_register_air_pressure_callback(TF_BarometerV2 *barometer_v2, TF_BarometerV2AirPressureHandler handler, void *user_data);
+int tf_barometer_v2_register_air_pressure_callback(TF_BarometerV2 *barometer_v2, TF_BarometerV2AirPressureHandler handler, void *user_data);
 
 
 /**
@@ -470,7 +470,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_barometer_v2_register_air_pressure_callback(TF_Ba
  * 
  * The parameter is the same as {@link tf_barometer_v2_get_altitude}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_barometer_v2_register_altitude_callback(TF_BarometerV2 *barometer_v2, TF_BarometerV2AltitudeHandler handler, void *user_data);
+int tf_barometer_v2_register_altitude_callback(TF_BarometerV2 *barometer_v2, TF_BarometerV2AltitudeHandler handler, void *user_data);
 
 
 /**
@@ -486,9 +486,9 @@ TF_ATTRIBUTE_NONNULL(1) int tf_barometer_v2_register_altitude_callback(TF_Barome
  * 
  * The parameter is the same as {@link tf_barometer_v2_get_temperature}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_barometer_v2_register_temperature_callback(TF_BarometerV2 *barometer_v2, TF_BarometerV2TemperatureHandler handler, void *user_data);
+int tf_barometer_v2_register_temperature_callback(TF_BarometerV2 *barometer_v2, TF_BarometerV2TemperatureHandler handler, void *user_data);
 #endif
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
 /**
  * \ingroup BrickletBarometerV2
  *
@@ -496,7 +496,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_barometer_v2_register_temperature_callback(TF_Bar
  *
  * This function can be used in a non-blocking fashion by calling it with a timeout of 0.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_barometer_v2_callback_tick(TF_BarometerV2 *barometer_v2, uint32_t timeout_us);
+int tf_barometer_v2_callback_tick(TF_BarometerV2 *barometer_v2, uint32_t timeout_us);
 #endif
 
 /**
@@ -509,7 +509,7 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_barometer_v2_callback_tick(TF_BarometerV2 *barom
  * {@link tf_barometer_v2_register_air_pressure_callback} callback. You can set the callback configuration
  * with {@link tf_barometer_v2_set_air_pressure_callback_configuration}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_barometer_v2_get_air_pressure(TF_BarometerV2 *barometer_v2, int32_t *ret_air_pressure);
+int tf_barometer_v2_get_air_pressure(TF_BarometerV2 *barometer_v2, int32_t *ret_air_pressure);
 
 /**
  * \ingroup BrickletBarometerV2
@@ -542,14 +542,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_barometer_v2_get_air_pressure(TF_BarometerV2 *bar
  * 
  * If the option is set to 'x' (threshold turned off) the callback is triggered with the fixed period.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_barometer_v2_set_air_pressure_callback_configuration(TF_BarometerV2 *barometer_v2, uint32_t period, bool value_has_to_change, char option, int32_t min, int32_t max);
+int tf_barometer_v2_set_air_pressure_callback_configuration(TF_BarometerV2 *barometer_v2, uint32_t period, bool value_has_to_change, char option, int32_t min, int32_t max);
 
 /**
  * \ingroup BrickletBarometerV2
  *
  * Returns the callback configuration as set by {@link tf_barometer_v2_set_air_pressure_callback_configuration}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_barometer_v2_get_air_pressure_callback_configuration(TF_BarometerV2 *barometer_v2, uint32_t *ret_period, bool *ret_value_has_to_change, char *ret_option, int32_t *ret_min, int32_t *ret_max);
+int tf_barometer_v2_get_air_pressure_callback_configuration(TF_BarometerV2 *barometer_v2, uint32_t *ret_period, bool *ret_value_has_to_change, char *ret_option, int32_t *ret_min, int32_t *ret_max);
 
 /**
  * \ingroup BrickletBarometerV2
@@ -564,7 +564,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_barometer_v2_get_air_pressure_callback_configurat
  * {@link tf_barometer_v2_register_altitude_callback} callback. You can set the callback configuration
  * with {@link tf_barometer_v2_set_altitude_callback_configuration}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_barometer_v2_get_altitude(TF_BarometerV2 *barometer_v2, int32_t *ret_altitude);
+int tf_barometer_v2_get_altitude(TF_BarometerV2 *barometer_v2, int32_t *ret_altitude);
 
 /**
  * \ingroup BrickletBarometerV2
@@ -597,14 +597,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_barometer_v2_get_altitude(TF_BarometerV2 *baromet
  * 
  * If the option is set to 'x' (threshold turned off) the callback is triggered with the fixed period.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_barometer_v2_set_altitude_callback_configuration(TF_BarometerV2 *barometer_v2, uint32_t period, bool value_has_to_change, char option, int32_t min, int32_t max);
+int tf_barometer_v2_set_altitude_callback_configuration(TF_BarometerV2 *barometer_v2, uint32_t period, bool value_has_to_change, char option, int32_t min, int32_t max);
 
 /**
  * \ingroup BrickletBarometerV2
  *
  * Returns the callback configuration as set by {@link tf_barometer_v2_set_altitude_callback_configuration}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_barometer_v2_get_altitude_callback_configuration(TF_BarometerV2 *barometer_v2, uint32_t *ret_period, bool *ret_value_has_to_change, char *ret_option, int32_t *ret_min, int32_t *ret_max);
+int tf_barometer_v2_get_altitude_callback_configuration(TF_BarometerV2 *barometer_v2, uint32_t *ret_period, bool *ret_value_has_to_change, char *ret_option, int32_t *ret_min, int32_t *ret_max);
 
 /**
  * \ingroup BrickletBarometerV2
@@ -621,7 +621,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_barometer_v2_get_altitude_callback_configuration(
  * {@link tf_barometer_v2_register_temperature_callback} callback. You can set the callback configuration
  * with {@link tf_barometer_v2_set_temperature_callback_configuration}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_barometer_v2_get_temperature(TF_BarometerV2 *barometer_v2, int32_t *ret_temperature);
+int tf_barometer_v2_get_temperature(TF_BarometerV2 *barometer_v2, int32_t *ret_temperature);
 
 /**
  * \ingroup BrickletBarometerV2
@@ -654,14 +654,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_barometer_v2_get_temperature(TF_BarometerV2 *baro
  * 
  * If the option is set to 'x' (threshold turned off) the callback is triggered with the fixed period.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_barometer_v2_set_temperature_callback_configuration(TF_BarometerV2 *barometer_v2, uint32_t period, bool value_has_to_change, char option, int32_t min, int32_t max);
+int tf_barometer_v2_set_temperature_callback_configuration(TF_BarometerV2 *barometer_v2, uint32_t period, bool value_has_to_change, char option, int32_t min, int32_t max);
 
 /**
  * \ingroup BrickletBarometerV2
  *
  * Returns the callback configuration as set by {@link tf_barometer_v2_set_temperature_callback_configuration}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_barometer_v2_get_temperature_callback_configuration(TF_BarometerV2 *barometer_v2, uint32_t *ret_period, bool *ret_value_has_to_change, char *ret_option, int32_t *ret_min, int32_t *ret_max);
+int tf_barometer_v2_get_temperature_callback_configuration(TF_BarometerV2 *barometer_v2, uint32_t *ret_period, bool *ret_value_has_to_change, char *ret_option, int32_t *ret_min, int32_t *ret_max);
 
 /**
  * \ingroup BrickletBarometerV2
@@ -675,7 +675,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_barometer_v2_get_temperature_callback_configurati
  * If you want to do long term measurements the longest moving average will give
  * the cleanest results.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_barometer_v2_set_moving_average_configuration(TF_BarometerV2 *barometer_v2, uint16_t moving_average_length_air_pressure, uint16_t moving_average_length_temperature);
+int tf_barometer_v2_set_moving_average_configuration(TF_BarometerV2 *barometer_v2, uint16_t moving_average_length_air_pressure, uint16_t moving_average_length_temperature);
 
 /**
  * \ingroup BrickletBarometerV2
@@ -683,7 +683,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_barometer_v2_set_moving_average_configuration(TF_
  * Returns the moving average configuration as set by
  * {@link tf_barometer_v2_set_moving_average_configuration}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_barometer_v2_get_moving_average_configuration(TF_BarometerV2 *barometer_v2, uint16_t *ret_moving_average_length_air_pressure, uint16_t *ret_moving_average_length_temperature);
+int tf_barometer_v2_get_moving_average_configuration(TF_BarometerV2 *barometer_v2, uint16_t *ret_moving_average_length_air_pressure, uint16_t *ret_moving_average_length_temperature);
 
 /**
  * \ingroup BrickletBarometerV2
@@ -698,14 +698,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_barometer_v2_get_moving_average_configuration(TF_
  * `QFE <https://en.wikipedia.org/wiki/Mean_sea_level_pressure#Mean_sea_level_pressure>`__
  * used in aviation.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_barometer_v2_set_reference_air_pressure(TF_BarometerV2 *barometer_v2, int32_t air_pressure);
+int tf_barometer_v2_set_reference_air_pressure(TF_BarometerV2 *barometer_v2, int32_t air_pressure);
 
 /**
  * \ingroup BrickletBarometerV2
  *
  * Returns the reference air pressure as set by {@link tf_barometer_v2_set_reference_air_pressure}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_barometer_v2_get_reference_air_pressure(TF_BarometerV2 *barometer_v2, int32_t *ret_air_pressure);
+int tf_barometer_v2_get_reference_air_pressure(TF_BarometerV2 *barometer_v2, int32_t *ret_air_pressure);
 
 /**
  * \ingroup BrickletBarometerV2
@@ -725,7 +725,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_barometer_v2_get_reference_air_pressure(TF_Barome
  * The calibration is saved in the EEPROM of the Bricklet and only needs to be
  * configured once.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_barometer_v2_set_calibration(TF_BarometerV2 *barometer_v2, int32_t measured_air_pressure, int32_t actual_air_pressure);
+int tf_barometer_v2_set_calibration(TF_BarometerV2 *barometer_v2, int32_t measured_air_pressure, int32_t actual_air_pressure);
 
 /**
  * \ingroup BrickletBarometerV2
@@ -733,7 +733,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_barometer_v2_set_calibration(TF_BarometerV2 *baro
  * Returns the air pressure one point calibration values as set by
  * {@link tf_barometer_v2_set_calibration}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_barometer_v2_get_calibration(TF_BarometerV2 *barometer_v2, int32_t *ret_measured_air_pressure, int32_t *ret_actual_air_pressure);
+int tf_barometer_v2_get_calibration(TF_BarometerV2 *barometer_v2, int32_t *ret_measured_air_pressure, int32_t *ret_actual_air_pressure);
 
 /**
  * \ingroup BrickletBarometerV2
@@ -749,14 +749,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_barometer_v2_get_calibration(TF_BarometerV2 *baro
  * self-heating of the sensor. If the accuracy of the temperature reading is
  * important to you, we would recommend the 1Hz data rate.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_barometer_v2_set_sensor_configuration(TF_BarometerV2 *barometer_v2, uint8_t data_rate, uint8_t air_pressure_low_pass_filter);
+int tf_barometer_v2_set_sensor_configuration(TF_BarometerV2 *barometer_v2, uint8_t data_rate, uint8_t air_pressure_low_pass_filter);
 
 /**
  * \ingroup BrickletBarometerV2
  *
  * Returns the sensor configuration as set by {@link tf_barometer_v2_set_sensor_configuration}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_barometer_v2_get_sensor_configuration(TF_BarometerV2 *barometer_v2, uint8_t *ret_data_rate, uint8_t *ret_air_pressure_low_pass_filter);
+int tf_barometer_v2_get_sensor_configuration(TF_BarometerV2 *barometer_v2, uint8_t *ret_data_rate, uint8_t *ret_air_pressure_low_pass_filter);
 
 /**
  * \ingroup BrickletBarometerV2
@@ -773,7 +773,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_barometer_v2_get_sensor_configuration(TF_Baromete
  * The errors counts are for errors that occur on the Bricklet side. All
  * Bricks have a similar function that returns the errors on the Brick side.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_barometer_v2_get_spitfp_error_count(TF_BarometerV2 *barometer_v2, uint32_t *ret_error_count_ack_checksum, uint32_t *ret_error_count_message_checksum, uint32_t *ret_error_count_frame, uint32_t *ret_error_count_overflow);
+int tf_barometer_v2_get_spitfp_error_count(TF_BarometerV2 *barometer_v2, uint32_t *ret_error_count_ack_checksum, uint32_t *ret_error_count_message_checksum, uint32_t *ret_error_count_frame, uint32_t *ret_error_count_overflow);
 
 /**
  * \ingroup BrickletBarometerV2
@@ -788,14 +788,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_barometer_v2_get_spitfp_error_count(TF_BarometerV
  * This function is used by Brick Viewer during flashing. It should not be
  * necessary to call it in a normal user program.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_barometer_v2_set_bootloader_mode(TF_BarometerV2 *barometer_v2, uint8_t mode, uint8_t *ret_status);
+int tf_barometer_v2_set_bootloader_mode(TF_BarometerV2 *barometer_v2, uint8_t mode, uint8_t *ret_status);
 
 /**
  * \ingroup BrickletBarometerV2
  *
  * Returns the current bootloader mode, see {@link tf_barometer_v2_set_bootloader_mode}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_barometer_v2_get_bootloader_mode(TF_BarometerV2 *barometer_v2, uint8_t *ret_mode);
+int tf_barometer_v2_get_bootloader_mode(TF_BarometerV2 *barometer_v2, uint8_t *ret_mode);
 
 /**
  * \ingroup BrickletBarometerV2
@@ -807,7 +807,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_barometer_v2_get_bootloader_mode(TF_BarometerV2 *
  * This function is used by Brick Viewer during flashing. It should not be
  * necessary to call it in a normal user program.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_barometer_v2_set_write_firmware_pointer(TF_BarometerV2 *barometer_v2, uint32_t pointer);
+int tf_barometer_v2_set_write_firmware_pointer(TF_BarometerV2 *barometer_v2, uint32_t pointer);
 
 /**
  * \ingroup BrickletBarometerV2
@@ -821,7 +821,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_barometer_v2_set_write_firmware_pointer(TF_Barome
  * This function is used by Brick Viewer during flashing. It should not be
  * necessary to call it in a normal user program.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_barometer_v2_write_firmware(TF_BarometerV2 *barometer_v2, uint8_t data[64], uint8_t *ret_status);
+int tf_barometer_v2_write_firmware(TF_BarometerV2 *barometer_v2, const uint8_t data[64], uint8_t *ret_status);
 
 /**
  * \ingroup BrickletBarometerV2
@@ -834,14 +834,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_barometer_v2_write_firmware(TF_BarometerV2 *barom
  * 
  * If the Bricklet is in bootloader mode, the LED is will show heartbeat by default.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_barometer_v2_set_status_led_config(TF_BarometerV2 *barometer_v2, uint8_t config);
+int tf_barometer_v2_set_status_led_config(TF_BarometerV2 *barometer_v2, uint8_t config);
 
 /**
  * \ingroup BrickletBarometerV2
  *
  * Returns the configuration as set by {@link tf_barometer_v2_set_status_led_config}
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_barometer_v2_get_status_led_config(TF_BarometerV2 *barometer_v2, uint8_t *ret_config);
+int tf_barometer_v2_get_status_led_config(TF_BarometerV2 *barometer_v2, uint8_t *ret_config);
 
 /**
  * \ingroup BrickletBarometerV2
@@ -853,7 +853,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_barometer_v2_get_status_led_config(TF_BarometerV2
  * accuracy. Practically it is only useful as an indicator for
  * temperature changes.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_barometer_v2_get_chip_temperature(TF_BarometerV2 *barometer_v2, int16_t *ret_temperature);
+int tf_barometer_v2_get_chip_temperature(TF_BarometerV2 *barometer_v2, int16_t *ret_temperature);
 
 /**
  * \ingroup BrickletBarometerV2
@@ -865,7 +865,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_barometer_v2_get_chip_temperature(TF_BarometerV2 
  * calling functions on the existing ones will result in
  * undefined behavior!
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_barometer_v2_reset(TF_BarometerV2 *barometer_v2);
+int tf_barometer_v2_reset(TF_BarometerV2 *barometer_v2);
 
 /**
  * \ingroup BrickletBarometerV2
@@ -876,7 +876,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_barometer_v2_reset(TF_BarometerV2 *barometer_v2);
  * 
  * We recommend that you use Brick Viewer to change the UID.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_barometer_v2_write_uid(TF_BarometerV2 *barometer_v2, uint32_t uid);
+int tf_barometer_v2_write_uid(TF_BarometerV2 *barometer_v2, uint32_t uid);
 
 /**
  * \ingroup BrickletBarometerV2
@@ -884,7 +884,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_barometer_v2_write_uid(TF_BarometerV2 *barometer_
  * Returns the current UID as an integer. Encode as
  * Base58 to get the usual string version.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_barometer_v2_read_uid(TF_BarometerV2 *barometer_v2, uint32_t *ret_uid);
+int tf_barometer_v2_read_uid(TF_BarometerV2 *barometer_v2, uint32_t *ret_uid);
 
 /**
  * \ingroup BrickletBarometerV2
@@ -900,7 +900,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_barometer_v2_read_uid(TF_BarometerV2 *barometer_v
  * The device identifier numbers can be found :ref:`here <device_identifier>`.
  * |device_identifier_constant|
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_barometer_v2_get_identity(TF_BarometerV2 *barometer_v2, char ret_uid[8], char ret_connected_uid[8], char *ret_position, uint8_t ret_hardware_version[3], uint8_t ret_firmware_version[3], uint16_t *ret_device_identifier);
+int tf_barometer_v2_get_identity(TF_BarometerV2 *barometer_v2, char ret_uid[8], char ret_connected_uid[8], char *ret_position, uint8_t ret_hardware_version[3], uint8_t ret_firmware_version[3], uint16_t *ret_device_identifier);
 
 #ifdef __cplusplus
 }

@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-10-04.      *
+ * This file was automatically generated on 2021-11-12.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -25,7 +25,7 @@ extern "C" {
  */
 
 struct TF_DualButtonV2;
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
 
 typedef void (*TF_DualButtonV2StateChangedHandler)(struct TF_DualButtonV2 *device, uint8_t button_l, uint8_t button_r, uint8_t led_l, uint8_t led_r, void *user_data);
 
@@ -37,7 +37,7 @@ typedef void (*TF_DualButtonV2StateChangedHandler)(struct TF_DualButtonV2 *devic
  */
 typedef struct TF_DualButtonV2 {
     TF_TfpContext *tfp;
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
     TF_DualButtonV2StateChangedHandler state_changed_handler;
     void *state_changed_user_data;
 
@@ -135,7 +135,7 @@ typedef struct TF_DualButtonV2 {
  */
 #define TF_DUAL_BUTTON_V2_FUNCTION_GET_IDENTITY 255
 
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
 
 /**
  * \ingroup BrickletDualButtonV2
@@ -283,7 +283,7 @@ typedef struct TF_DualButtonV2 {
  * Creates the device object \c dual_button_v2 with the unique device ID \c uid and adds
  * it to the IPConnection \c ipcon.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_dual_button_v2_create(TF_DualButtonV2 *dual_button_v2, const char *uid, TF_HalContext *hal);
+int tf_dual_button_v2_create(TF_DualButtonV2 *dual_button_v2, const char *uid, TF_HalContext *hal);
 
 /**
  * \ingroup BrickletDualButtonV2
@@ -291,7 +291,7 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_dual_button_v2_create(TF_DualButtonV2 *dual_butt
  * Removes the device object \c dual_button_v2 from its IPConnection and destroys it.
  * The device object cannot be used anymore afterwards.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_dual_button_v2_destroy(TF_DualButtonV2 *dual_button_v2);
+int tf_dual_button_v2_destroy(TF_DualButtonV2 *dual_button_v2);
 
 /**
  * \ingroup BrickletDualButtonV2
@@ -312,7 +312,7 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_dual_button_v2_destroy(TF_DualButtonV2 *dual_but
  * disabled for a setter function then no response is sent and errors are
  * silently ignored, because they cannot be detected.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_dual_button_v2_get_response_expected(TF_DualButtonV2 *dual_button_v2, uint8_t function_id, bool *ret_response_expected);
+int tf_dual_button_v2_get_response_expected(TF_DualButtonV2 *dual_button_v2, uint8_t function_id, bool *ret_response_expected);
 
 /**
  * \ingroup BrickletDualButtonV2
@@ -328,7 +328,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_dual_button_v2_get_response_expected(TF_DualButto
  * setter function then no response is sent and errors are silently ignored,
  * because they cannot be detected.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_dual_button_v2_set_response_expected(TF_DualButtonV2 *dual_button_v2, uint8_t function_id, bool response_expected);
+int tf_dual_button_v2_set_response_expected(TF_DualButtonV2 *dual_button_v2, uint8_t function_id, bool response_expected);
 
 /**
  * \ingroup BrickletDualButtonV2
@@ -336,8 +336,8 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_dual_button_v2_set_response_expected(TF_DualButt
  * Changes the response expected flag for all setter and callback configuration
  * functions of this device at once.
  */
-TF_ATTRIBUTE_NONNULL_ALL void tf_dual_button_v2_set_response_expected_all(TF_DualButtonV2 *dual_button_v2, bool response_expected);
-#ifdef TF_IMPLEMENT_CALLBACKS
+void tf_dual_button_v2_set_response_expected_all(TF_DualButtonV2 *dual_button_v2, bool response_expected);
+#if TF_IMPLEMENT_CALLBACKS != 0
 /**
  * \ingroup BrickletDualButtonV2
  *
@@ -362,9 +362,9 @@ TF_ATTRIBUTE_NONNULL_ALL void tf_dual_button_v2_set_response_expected_all(TF_Dua
  * 
  * This callback can be enabled with {@link tf_dual_button_v2_set_state_changed_callback_configuration}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_dual_button_v2_register_state_changed_callback(TF_DualButtonV2 *dual_button_v2, TF_DualButtonV2StateChangedHandler handler, void *user_data);
+int tf_dual_button_v2_register_state_changed_callback(TF_DualButtonV2 *dual_button_v2, TF_DualButtonV2StateChangedHandler handler, void *user_data);
 #endif
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
 /**
  * \ingroup BrickletDualButtonV2
  *
@@ -372,7 +372,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_dual_button_v2_register_state_changed_callback(TF
  *
  * This function can be used in a non-blocking fashion by calling it with a timeout of 0.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_dual_button_v2_callback_tick(TF_DualButtonV2 *dual_button_v2, uint32_t timeout_us);
+int tf_dual_button_v2_callback_tick(TF_DualButtonV2 *dual_button_v2, uint32_t timeout_us);
 #endif
 
 /**
@@ -391,14 +391,14 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_dual_button_v2_callback_tick(TF_DualButtonV2 *du
  * of the other LED, you can get the state with {@link tf_dual_button_v2_get_led_state} or you
  * can use {@link tf_dual_button_v2_set_selected_led_state}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_dual_button_v2_set_led_state(TF_DualButtonV2 *dual_button_v2, uint8_t led_l, uint8_t led_r);
+int tf_dual_button_v2_set_led_state(TF_DualButtonV2 *dual_button_v2, uint8_t led_l, uint8_t led_r);
 
 /**
  * \ingroup BrickletDualButtonV2
  *
  * Returns the current state of the LEDs, as set by {@link tf_dual_button_v2_set_led_state}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_dual_button_v2_get_led_state(TF_DualButtonV2 *dual_button_v2, uint8_t *ret_led_l, uint8_t *ret_led_r);
+int tf_dual_button_v2_get_led_state(TF_DualButtonV2 *dual_button_v2, uint8_t *ret_led_l, uint8_t *ret_led_r);
 
 /**
  * \ingroup BrickletDualButtonV2
@@ -408,7 +408,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_dual_button_v2_get_led_state(TF_DualButtonV2 *dua
  * * 0 = pressed
  * * 1 = released
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_dual_button_v2_get_button_state(TF_DualButtonV2 *dual_button_v2, uint8_t *ret_button_l, uint8_t *ret_button_r);
+int tf_dual_button_v2_get_button_state(TF_DualButtonV2 *dual_button_v2, uint8_t *ret_button_l, uint8_t *ret_button_r);
 
 /**
  * \ingroup BrickletDualButtonV2
@@ -417,7 +417,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_dual_button_v2_get_button_state(TF_DualButtonV2 *
  * 
  * The other LED remains untouched.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_dual_button_v2_set_selected_led_state(TF_DualButtonV2 *dual_button_v2, uint8_t led, uint8_t state);
+int tf_dual_button_v2_set_selected_led_state(TF_DualButtonV2 *dual_button_v2, uint8_t led, uint8_t state);
 
 /**
  * \ingroup BrickletDualButtonV2
@@ -425,14 +425,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_dual_button_v2_set_selected_led_state(TF_DualButt
  * If you enable this callback, the {@link tf_dual_button_v2_register_state_changed_callback} callback is triggered
  * every time a button is pressed/released
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_dual_button_v2_set_state_changed_callback_configuration(TF_DualButtonV2 *dual_button_v2, bool enabled);
+int tf_dual_button_v2_set_state_changed_callback_configuration(TF_DualButtonV2 *dual_button_v2, bool enabled);
 
 /**
  * \ingroup BrickletDualButtonV2
  *
  * Returns the configuration as set by {@link tf_dual_button_v2_set_state_changed_callback_configuration}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_dual_button_v2_get_state_changed_callback_configuration(TF_DualButtonV2 *dual_button_v2, bool *ret_enabled);
+int tf_dual_button_v2_get_state_changed_callback_configuration(TF_DualButtonV2 *dual_button_v2, bool *ret_enabled);
 
 /**
  * \ingroup BrickletDualButtonV2
@@ -449,7 +449,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_dual_button_v2_get_state_changed_callback_configu
  * The errors counts are for errors that occur on the Bricklet side. All
  * Bricks have a similar function that returns the errors on the Brick side.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_dual_button_v2_get_spitfp_error_count(TF_DualButtonV2 *dual_button_v2, uint32_t *ret_error_count_ack_checksum, uint32_t *ret_error_count_message_checksum, uint32_t *ret_error_count_frame, uint32_t *ret_error_count_overflow);
+int tf_dual_button_v2_get_spitfp_error_count(TF_DualButtonV2 *dual_button_v2, uint32_t *ret_error_count_ack_checksum, uint32_t *ret_error_count_message_checksum, uint32_t *ret_error_count_frame, uint32_t *ret_error_count_overflow);
 
 /**
  * \ingroup BrickletDualButtonV2
@@ -464,14 +464,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_dual_button_v2_get_spitfp_error_count(TF_DualButt
  * This function is used by Brick Viewer during flashing. It should not be
  * necessary to call it in a normal user program.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_dual_button_v2_set_bootloader_mode(TF_DualButtonV2 *dual_button_v2, uint8_t mode, uint8_t *ret_status);
+int tf_dual_button_v2_set_bootloader_mode(TF_DualButtonV2 *dual_button_v2, uint8_t mode, uint8_t *ret_status);
 
 /**
  * \ingroup BrickletDualButtonV2
  *
  * Returns the current bootloader mode, see {@link tf_dual_button_v2_set_bootloader_mode}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_dual_button_v2_get_bootloader_mode(TF_DualButtonV2 *dual_button_v2, uint8_t *ret_mode);
+int tf_dual_button_v2_get_bootloader_mode(TF_DualButtonV2 *dual_button_v2, uint8_t *ret_mode);
 
 /**
  * \ingroup BrickletDualButtonV2
@@ -483,7 +483,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_dual_button_v2_get_bootloader_mode(TF_DualButtonV
  * This function is used by Brick Viewer during flashing. It should not be
  * necessary to call it in a normal user program.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_dual_button_v2_set_write_firmware_pointer(TF_DualButtonV2 *dual_button_v2, uint32_t pointer);
+int tf_dual_button_v2_set_write_firmware_pointer(TF_DualButtonV2 *dual_button_v2, uint32_t pointer);
 
 /**
  * \ingroup BrickletDualButtonV2
@@ -497,7 +497,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_dual_button_v2_set_write_firmware_pointer(TF_Dual
  * This function is used by Brick Viewer during flashing. It should not be
  * necessary to call it in a normal user program.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_dual_button_v2_write_firmware(TF_DualButtonV2 *dual_button_v2, uint8_t data[64], uint8_t *ret_status);
+int tf_dual_button_v2_write_firmware(TF_DualButtonV2 *dual_button_v2, const uint8_t data[64], uint8_t *ret_status);
 
 /**
  * \ingroup BrickletDualButtonV2
@@ -510,14 +510,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_dual_button_v2_write_firmware(TF_DualButtonV2 *du
  * 
  * If the Bricklet is in bootloader mode, the LED is will show heartbeat by default.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_dual_button_v2_set_status_led_config(TF_DualButtonV2 *dual_button_v2, uint8_t config);
+int tf_dual_button_v2_set_status_led_config(TF_DualButtonV2 *dual_button_v2, uint8_t config);
 
 /**
  * \ingroup BrickletDualButtonV2
  *
  * Returns the configuration as set by {@link tf_dual_button_v2_set_status_led_config}
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_dual_button_v2_get_status_led_config(TF_DualButtonV2 *dual_button_v2, uint8_t *ret_config);
+int tf_dual_button_v2_get_status_led_config(TF_DualButtonV2 *dual_button_v2, uint8_t *ret_config);
 
 /**
  * \ingroup BrickletDualButtonV2
@@ -529,7 +529,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_dual_button_v2_get_status_led_config(TF_DualButto
  * accuracy. Practically it is only useful as an indicator for
  * temperature changes.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_dual_button_v2_get_chip_temperature(TF_DualButtonV2 *dual_button_v2, int16_t *ret_temperature);
+int tf_dual_button_v2_get_chip_temperature(TF_DualButtonV2 *dual_button_v2, int16_t *ret_temperature);
 
 /**
  * \ingroup BrickletDualButtonV2
@@ -541,7 +541,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_dual_button_v2_get_chip_temperature(TF_DualButton
  * calling functions on the existing ones will result in
  * undefined behavior!
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_dual_button_v2_reset(TF_DualButtonV2 *dual_button_v2);
+int tf_dual_button_v2_reset(TF_DualButtonV2 *dual_button_v2);
 
 /**
  * \ingroup BrickletDualButtonV2
@@ -552,7 +552,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_dual_button_v2_reset(TF_DualButtonV2 *dual_button
  * 
  * We recommend that you use Brick Viewer to change the UID.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_dual_button_v2_write_uid(TF_DualButtonV2 *dual_button_v2, uint32_t uid);
+int tf_dual_button_v2_write_uid(TF_DualButtonV2 *dual_button_v2, uint32_t uid);
 
 /**
  * \ingroup BrickletDualButtonV2
@@ -560,7 +560,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_dual_button_v2_write_uid(TF_DualButtonV2 *dual_bu
  * Returns the current UID as an integer. Encode as
  * Base58 to get the usual string version.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_dual_button_v2_read_uid(TF_DualButtonV2 *dual_button_v2, uint32_t *ret_uid);
+int tf_dual_button_v2_read_uid(TF_DualButtonV2 *dual_button_v2, uint32_t *ret_uid);
 
 /**
  * \ingroup BrickletDualButtonV2
@@ -576,7 +576,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_dual_button_v2_read_uid(TF_DualButtonV2 *dual_but
  * The device identifier numbers can be found :ref:`here <device_identifier>`.
  * |device_identifier_constant|
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_dual_button_v2_get_identity(TF_DualButtonV2 *dual_button_v2, char ret_uid[8], char ret_connected_uid[8], char *ret_position, uint8_t ret_hardware_version[3], uint8_t ret_firmware_version[3], uint16_t *ret_device_identifier);
+int tf_dual_button_v2_get_identity(TF_DualButtonV2 *dual_button_v2, char ret_uid[8], char ret_connected_uid[8], char *ret_position, uint8_t ret_hardware_version[3], uint8_t ret_firmware_version[3], uint16_t *ret_device_identifier);
 
 #ifdef __cplusplus
 }

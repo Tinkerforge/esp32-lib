@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-10-04.      *
+ * This file was automatically generated on 2021-11-12.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -40,13 +40,12 @@ int tf_one_wire_create(TF_OneWire *one_wire, const char *uid, TF_HalContext *hal
     }
 
     uint8_t port_id;
-    int inventory_index;
+    uint8_t inventory_index;
     rc = tf_hal_get_port_id(hal, numeric_uid, &port_id, &inventory_index);
     if (rc < 0) {
         return rc;
     }
 
-    //rc = tf_tfp_init(one_wire->tfp, numeric_uid, TF_ONE_WIRE_DEVICE_IDENTIFIER, hal, port_id, inventory_index, tf_one_wire_callback_handler);
     rc = tf_hal_get_tfp(hal, &one_wire->tfp, TF_ONE_WIRE_DEVICE_IDENTIFIER, inventory_index);
     if (rc != TF_E_OK) {
         return rc;
@@ -149,7 +148,7 @@ int tf_one_wire_search_bus_low_level(TF_OneWire *one_wire, uint16_t *ret_identif
     if (one_wire == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(one_wire->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)one_wire->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -157,7 +156,7 @@ int tf_one_wire_search_bus_low_level(TF_OneWire *one_wire, uint16_t *ret_identif
     tf_tfp_prepare_send(one_wire->tfp, TF_ONE_WIRE_FUNCTION_SEARCH_BUS_LOW_LEVEL, 0, 61, response_expected);
 
     size_t i;
-    uint32_t deadline = tf_hal_current_time_us(one_wire->tfp->hal) + tf_hal_get_common(one_wire->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)one_wire->tfp->hal) + tf_hal_get_common((TF_HalContext*)one_wire->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(one_wire->tfp, response_expected, deadline, &error_code);
@@ -188,14 +187,14 @@ int tf_one_wire_reset_bus(TF_OneWire *one_wire, uint8_t *ret_status) {
     if (one_wire == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(one_wire->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)one_wire->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
     bool response_expected = true;
     tf_tfp_prepare_send(one_wire->tfp, TF_ONE_WIRE_FUNCTION_RESET_BUS, 0, 1, response_expected);
 
-    uint32_t deadline = tf_hal_current_time_us(one_wire->tfp->hal) + tf_hal_get_common(one_wire->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)one_wire->tfp->hal) + tf_hal_get_common((TF_HalContext*)one_wire->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(one_wire->tfp, response_expected, deadline, &error_code);
@@ -223,7 +222,7 @@ int tf_one_wire_write(TF_OneWire *one_wire, uint8_t data, uint8_t *ret_status) {
     if (one_wire == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(one_wire->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)one_wire->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -234,7 +233,7 @@ int tf_one_wire_write(TF_OneWire *one_wire, uint8_t data, uint8_t *ret_status) {
 
     buf[0] = (uint8_t)data;
 
-    uint32_t deadline = tf_hal_current_time_us(one_wire->tfp->hal) + tf_hal_get_common(one_wire->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)one_wire->tfp->hal) + tf_hal_get_common((TF_HalContext*)one_wire->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(one_wire->tfp, response_expected, deadline, &error_code);
@@ -262,14 +261,14 @@ int tf_one_wire_read(TF_OneWire *one_wire, uint8_t *ret_data, uint8_t *ret_statu
     if (one_wire == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(one_wire->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)one_wire->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
     bool response_expected = true;
     tf_tfp_prepare_send(one_wire->tfp, TF_ONE_WIRE_FUNCTION_READ, 0, 2, response_expected);
 
-    uint32_t deadline = tf_hal_current_time_us(one_wire->tfp->hal) + tf_hal_get_common(one_wire->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)one_wire->tfp->hal) + tf_hal_get_common((TF_HalContext*)one_wire->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(one_wire->tfp, response_expected, deadline, &error_code);
@@ -298,7 +297,7 @@ int tf_one_wire_write_command(TF_OneWire *one_wire, uint64_t identifier, uint8_t
     if (one_wire == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(one_wire->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)one_wire->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -310,7 +309,7 @@ int tf_one_wire_write_command(TF_OneWire *one_wire, uint64_t identifier, uint8_t
     identifier = tf_leconvert_uint64_to(identifier); memcpy(buf + 0, &identifier, 8);
     buf[8] = (uint8_t)command;
 
-    uint32_t deadline = tf_hal_current_time_us(one_wire->tfp->hal) + tf_hal_get_common(one_wire->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)one_wire->tfp->hal) + tf_hal_get_common((TF_HalContext*)one_wire->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(one_wire->tfp, response_expected, deadline, &error_code);
@@ -338,7 +337,7 @@ int tf_one_wire_set_communication_led_config(TF_OneWire *one_wire, uint8_t confi
     if (one_wire == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(one_wire->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)one_wire->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -350,7 +349,7 @@ int tf_one_wire_set_communication_led_config(TF_OneWire *one_wire, uint8_t confi
 
     buf[0] = (uint8_t)config;
 
-    uint32_t deadline = tf_hal_current_time_us(one_wire->tfp->hal) + tf_hal_get_common(one_wire->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)one_wire->tfp->hal) + tf_hal_get_common((TF_HalContext*)one_wire->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(one_wire->tfp, response_expected, deadline, &error_code);
@@ -373,14 +372,14 @@ int tf_one_wire_get_communication_led_config(TF_OneWire *one_wire, uint8_t *ret_
     if (one_wire == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(one_wire->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)one_wire->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
     bool response_expected = true;
     tf_tfp_prepare_send(one_wire->tfp, TF_ONE_WIRE_FUNCTION_GET_COMMUNICATION_LED_CONFIG, 0, 1, response_expected);
 
-    uint32_t deadline = tf_hal_current_time_us(one_wire->tfp->hal) + tf_hal_get_common(one_wire->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)one_wire->tfp->hal) + tf_hal_get_common((TF_HalContext*)one_wire->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(one_wire->tfp, response_expected, deadline, &error_code);
@@ -408,14 +407,14 @@ int tf_one_wire_get_spitfp_error_count(TF_OneWire *one_wire, uint32_t *ret_error
     if (one_wire == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(one_wire->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)one_wire->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
     bool response_expected = true;
     tf_tfp_prepare_send(one_wire->tfp, TF_ONE_WIRE_FUNCTION_GET_SPITFP_ERROR_COUNT, 0, 16, response_expected);
 
-    uint32_t deadline = tf_hal_current_time_us(one_wire->tfp->hal) + tf_hal_get_common(one_wire->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)one_wire->tfp->hal) + tf_hal_get_common((TF_HalContext*)one_wire->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(one_wire->tfp, response_expected, deadline, &error_code);
@@ -446,7 +445,7 @@ int tf_one_wire_set_bootloader_mode(TF_OneWire *one_wire, uint8_t mode, uint8_t 
     if (one_wire == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(one_wire->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)one_wire->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -457,7 +456,7 @@ int tf_one_wire_set_bootloader_mode(TF_OneWire *one_wire, uint8_t mode, uint8_t 
 
     buf[0] = (uint8_t)mode;
 
-    uint32_t deadline = tf_hal_current_time_us(one_wire->tfp->hal) + tf_hal_get_common(one_wire->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)one_wire->tfp->hal) + tf_hal_get_common((TF_HalContext*)one_wire->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(one_wire->tfp, response_expected, deadline, &error_code);
@@ -485,14 +484,14 @@ int tf_one_wire_get_bootloader_mode(TF_OneWire *one_wire, uint8_t *ret_mode) {
     if (one_wire == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(one_wire->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)one_wire->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
     bool response_expected = true;
     tf_tfp_prepare_send(one_wire->tfp, TF_ONE_WIRE_FUNCTION_GET_BOOTLOADER_MODE, 0, 1, response_expected);
 
-    uint32_t deadline = tf_hal_current_time_us(one_wire->tfp->hal) + tf_hal_get_common(one_wire->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)one_wire->tfp->hal) + tf_hal_get_common((TF_HalContext*)one_wire->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(one_wire->tfp, response_expected, deadline, &error_code);
@@ -520,7 +519,7 @@ int tf_one_wire_set_write_firmware_pointer(TF_OneWire *one_wire, uint32_t pointe
     if (one_wire == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(one_wire->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)one_wire->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -532,7 +531,7 @@ int tf_one_wire_set_write_firmware_pointer(TF_OneWire *one_wire, uint32_t pointe
 
     pointer = tf_leconvert_uint32_to(pointer); memcpy(buf + 0, &pointer, 4);
 
-    uint32_t deadline = tf_hal_current_time_us(one_wire->tfp->hal) + tf_hal_get_common(one_wire->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)one_wire->tfp->hal) + tf_hal_get_common((TF_HalContext*)one_wire->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(one_wire->tfp, response_expected, deadline, &error_code);
@@ -551,11 +550,11 @@ int tf_one_wire_set_write_firmware_pointer(TF_OneWire *one_wire, uint32_t pointe
     return tf_tfp_get_error(error_code);
 }
 
-int tf_one_wire_write_firmware(TF_OneWire *one_wire, uint8_t data[64], uint8_t *ret_status) {
+int tf_one_wire_write_firmware(TF_OneWire *one_wire, const uint8_t data[64], uint8_t *ret_status) {
     if (one_wire == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(one_wire->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)one_wire->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -566,7 +565,7 @@ int tf_one_wire_write_firmware(TF_OneWire *one_wire, uint8_t data[64], uint8_t *
 
     memcpy(buf + 0, data, 64);
 
-    uint32_t deadline = tf_hal_current_time_us(one_wire->tfp->hal) + tf_hal_get_common(one_wire->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)one_wire->tfp->hal) + tf_hal_get_common((TF_HalContext*)one_wire->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(one_wire->tfp, response_expected, deadline, &error_code);
@@ -594,7 +593,7 @@ int tf_one_wire_set_status_led_config(TF_OneWire *one_wire, uint8_t config) {
     if (one_wire == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(one_wire->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)one_wire->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -606,7 +605,7 @@ int tf_one_wire_set_status_led_config(TF_OneWire *one_wire, uint8_t config) {
 
     buf[0] = (uint8_t)config;
 
-    uint32_t deadline = tf_hal_current_time_us(one_wire->tfp->hal) + tf_hal_get_common(one_wire->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)one_wire->tfp->hal) + tf_hal_get_common((TF_HalContext*)one_wire->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(one_wire->tfp, response_expected, deadline, &error_code);
@@ -629,14 +628,14 @@ int tf_one_wire_get_status_led_config(TF_OneWire *one_wire, uint8_t *ret_config)
     if (one_wire == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(one_wire->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)one_wire->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
     bool response_expected = true;
     tf_tfp_prepare_send(one_wire->tfp, TF_ONE_WIRE_FUNCTION_GET_STATUS_LED_CONFIG, 0, 1, response_expected);
 
-    uint32_t deadline = tf_hal_current_time_us(one_wire->tfp->hal) + tf_hal_get_common(one_wire->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)one_wire->tfp->hal) + tf_hal_get_common((TF_HalContext*)one_wire->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(one_wire->tfp, response_expected, deadline, &error_code);
@@ -664,14 +663,14 @@ int tf_one_wire_get_chip_temperature(TF_OneWire *one_wire, int16_t *ret_temperat
     if (one_wire == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(one_wire->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)one_wire->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
     bool response_expected = true;
     tf_tfp_prepare_send(one_wire->tfp, TF_ONE_WIRE_FUNCTION_GET_CHIP_TEMPERATURE, 0, 2, response_expected);
 
-    uint32_t deadline = tf_hal_current_time_us(one_wire->tfp->hal) + tf_hal_get_common(one_wire->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)one_wire->tfp->hal) + tf_hal_get_common((TF_HalContext*)one_wire->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(one_wire->tfp, response_expected, deadline, &error_code);
@@ -699,7 +698,7 @@ int tf_one_wire_reset(TF_OneWire *one_wire) {
     if (one_wire == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(one_wire->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)one_wire->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -707,7 +706,7 @@ int tf_one_wire_reset(TF_OneWire *one_wire) {
     tf_one_wire_get_response_expected(one_wire, TF_ONE_WIRE_FUNCTION_RESET, &response_expected);
     tf_tfp_prepare_send(one_wire->tfp, TF_ONE_WIRE_FUNCTION_RESET, 0, 0, response_expected);
 
-    uint32_t deadline = tf_hal_current_time_us(one_wire->tfp->hal) + tf_hal_get_common(one_wire->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)one_wire->tfp->hal) + tf_hal_get_common((TF_HalContext*)one_wire->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(one_wire->tfp, response_expected, deadline, &error_code);
@@ -730,7 +729,7 @@ int tf_one_wire_write_uid(TF_OneWire *one_wire, uint32_t uid) {
     if (one_wire == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(one_wire->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)one_wire->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -742,7 +741,7 @@ int tf_one_wire_write_uid(TF_OneWire *one_wire, uint32_t uid) {
 
     uid = tf_leconvert_uint32_to(uid); memcpy(buf + 0, &uid, 4);
 
-    uint32_t deadline = tf_hal_current_time_us(one_wire->tfp->hal) + tf_hal_get_common(one_wire->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)one_wire->tfp->hal) + tf_hal_get_common((TF_HalContext*)one_wire->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(one_wire->tfp, response_expected, deadline, &error_code);
@@ -765,14 +764,14 @@ int tf_one_wire_read_uid(TF_OneWire *one_wire, uint32_t *ret_uid) {
     if (one_wire == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(one_wire->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)one_wire->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
     bool response_expected = true;
     tf_tfp_prepare_send(one_wire->tfp, TF_ONE_WIRE_FUNCTION_READ_UID, 0, 4, response_expected);
 
-    uint32_t deadline = tf_hal_current_time_us(one_wire->tfp->hal) + tf_hal_get_common(one_wire->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)one_wire->tfp->hal) + tf_hal_get_common((TF_HalContext*)one_wire->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(one_wire->tfp, response_expected, deadline, &error_code);
@@ -800,7 +799,7 @@ int tf_one_wire_get_identity(TF_OneWire *one_wire, char ret_uid[8], char ret_con
     if (one_wire == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(one_wire->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)one_wire->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -808,7 +807,7 @@ int tf_one_wire_get_identity(TF_OneWire *one_wire, char ret_uid[8], char ret_con
     tf_tfp_prepare_send(one_wire->tfp, TF_ONE_WIRE_FUNCTION_GET_IDENTITY, 0, 25, response_expected);
 
     size_t i;
-    uint32_t deadline = tf_hal_current_time_us(one_wire->tfp->hal) + tf_hal_get_common(one_wire->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)one_wire->tfp->hal) + tf_hal_get_common((TF_HalContext*)one_wire->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(one_wire->tfp, response_expected, deadline, &error_code);
@@ -829,7 +828,7 @@ int tf_one_wire_get_identity(TF_OneWire *one_wire, char ret_uid[8], char ret_con
         if (ret_firmware_version != NULL) { for (i = 0; i < 3; ++i) ret_firmware_version[i] = tf_packetbuffer_read_uint8_t(&one_wire->tfp->spitfp->recv_buf);} else { tf_packetbuffer_remove(&one_wire->tfp->spitfp->recv_buf, 3); }
         if (ret_device_identifier != NULL) { *ret_device_identifier = tf_packetbuffer_read_uint16_t(&one_wire->tfp->spitfp->recv_buf); } else { tf_packetbuffer_remove(&one_wire->tfp->spitfp->recv_buf, 2); }
         if (tmp_connected_uid[0] == 0 && ret_position != NULL) {
-            *ret_position = tf_hal_get_port_name(one_wire->tfp->hal, one_wire->tfp->spitfp->port_id);
+            *ret_position = tf_hal_get_port_name((TF_HalContext*)one_wire->tfp->hal, one_wire->tfp->spitfp->port_id);
         }
         if (ret_connected_uid != NULL) {
             memcpy(ret_connected_uid, tmp_connected_uid, 8);
@@ -849,61 +848,73 @@ int tf_one_wire_search_bus(TF_OneWire *one_wire, uint64_t *ret_identifier, uint1
         return TF_E_NULL;
 
     int ret = TF_E_OK;
+    uint16_t max_identifier_length = 0;
     uint16_t identifier_length = 0;
     uint16_t identifier_chunk_offset = 0;
     uint64_t identifier_chunk_data[7];
     bool identifier_out_of_sync;
     uint16_t identifier_chunk_length = 0;
 
-    *ret_identifier_length = 0;
-
     ret = tf_one_wire_search_bus_low_level(one_wire, &identifier_length, &identifier_chunk_offset, identifier_chunk_data, ret_status);
 
     if (ret != TF_E_OK) {
+        if (ret_identifier_length != NULL) {
+            *ret_identifier_length = identifier_length;
+        }
         return ret;
     }
 
     identifier_out_of_sync = identifier_chunk_offset != 0;
 
     if (!identifier_out_of_sync) {
-        identifier_chunk_length = identifier_length - identifier_chunk_offset;
+        identifier_chunk_length = max_identifier_length - identifier_chunk_offset;
 
         if (identifier_chunk_length > 7) {
             identifier_chunk_length = 7;
         }
 
-        memcpy(ret_identifier, identifier_chunk_data, sizeof(uint64_t) * identifier_chunk_length);
-        *ret_identifier_length = identifier_chunk_length;
+        if (ret_identifier != NULL) {
+            memcpy(ret_identifier, identifier_chunk_data, sizeof(uint64_t) * identifier_chunk_length);
+        }
 
-        while (*ret_identifier_length < identifier_length) {
+        identifier_length = identifier_chunk_length;
+
+        while (identifier_length < max_identifier_length) {
             ret = tf_one_wire_search_bus_low_level(one_wire, &identifier_length, &identifier_chunk_offset, identifier_chunk_data, ret_status);
 
             if (ret != TF_E_OK) {
+                if (ret_identifier_length != NULL) {
+                    *ret_identifier_length = identifier_length;
+                }
                 return ret;
             }
 
-            identifier_out_of_sync = identifier_chunk_offset != *ret_identifier_length;
+            identifier_out_of_sync = identifier_chunk_offset != identifier_length;
 
             if (identifier_out_of_sync) {
                 break;
             }
 
-            identifier_chunk_length = identifier_length - identifier_chunk_offset;
+            identifier_chunk_length = max_identifier_length - identifier_chunk_offset;
 
             if (identifier_chunk_length > 7) {
                 identifier_chunk_length = 7;
             }
 
-            memcpy(&ret_identifier[*ret_identifier_length], identifier_chunk_data, sizeof(uint64_t) * identifier_chunk_length);
-            *ret_identifier_length += identifier_chunk_length;
+            if (ret_identifier != NULL) {
+                memcpy(&ret_identifier[identifier_length], identifier_chunk_data, sizeof(uint64_t) * identifier_chunk_length);
+            }
+            identifier_length += identifier_chunk_length;
         }
     }
 
     if (identifier_out_of_sync) {
-        *ret_identifier_length = 0; // return empty array
+        if (ret_identifier_length != NULL) {
+            *ret_identifier_length = 0; // return empty array
+        }
 
         // discard remaining stream to bring it back in-sync
-        while (identifier_chunk_offset + 7 < identifier_length) {
+        while (identifier_chunk_offset + 7 < max_identifier_length) {
             ret = tf_one_wire_search_bus_low_level(one_wire, &identifier_length, &identifier_chunk_offset, identifier_chunk_data, ret_status);
 
             if (ret != TF_E_OK) {
@@ -922,7 +933,7 @@ int tf_one_wire_callback_tick(TF_OneWire *one_wire, uint32_t timeout_us) {
     if (one_wire == NULL)
         return TF_E_NULL;
 
-    return tf_tfp_callback_tick(one_wire->tfp, tf_hal_current_time_us(one_wire->tfp->hal) + timeout_us);
+    return tf_tfp_callback_tick(one_wire->tfp, tf_hal_current_time_us((TF_HalContext*)one_wire->tfp->hal) + timeout_us);
 }
 
 #ifdef __cplusplus

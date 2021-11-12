@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-10-04.      *
+ * This file was automatically generated on 2021-11-12.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -21,7 +21,7 @@ extern "C" {
 #endif
 
 
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
 static bool tf_accelerometer_v2_callback_handler(void *dev, uint8_t fid, TF_Packetbuffer *payload) {
     TF_AccelerometerV2 *accelerometer_v2 = (TF_AccelerometerV2 *) dev;
     (void)payload;
@@ -37,7 +37,7 @@ static bool tf_accelerometer_v2_callback_handler(void *dev, uint8_t fid, TF_Pack
             int32_t x = tf_packetbuffer_read_int32_t(payload);
             int32_t y = tf_packetbuffer_read_int32_t(payload);
             int32_t z = tf_packetbuffer_read_int32_t(payload);
-            TF_HalCommon *common = tf_hal_get_common(accelerometer_v2->tfp->hal);
+            TF_HalCommon *common = tf_hal_get_common((TF_HalContext*)accelerometer_v2->tfp->hal);
             common->locked = true;
             fn(accelerometer_v2, x, y, z, user_data);
             common->locked = false;
@@ -51,7 +51,7 @@ static bool tf_accelerometer_v2_callback_handler(void *dev, uint8_t fid, TF_Pack
                 return false;
             size_t i;
             int16_t acceleration[30]; for (i = 0; i < 30; ++i) acceleration[i] = tf_packetbuffer_read_int16_t(payload);
-            TF_HalCommon *common = tf_hal_get_common(accelerometer_v2->tfp->hal);
+            TF_HalCommon *common = tf_hal_get_common((TF_HalContext*)accelerometer_v2->tfp->hal);
             common->locked = true;
             fn(accelerometer_v2, acceleration, user_data);
             common->locked = false;
@@ -65,7 +65,7 @@ static bool tf_accelerometer_v2_callback_handler(void *dev, uint8_t fid, TF_Pack
                 return false;
             size_t i;
             int8_t acceleration[60]; for (i = 0; i < 60; ++i) acceleration[i] = tf_packetbuffer_read_int8_t(payload);
-            TF_HalCommon *common = tf_hal_get_common(accelerometer_v2->tfp->hal);
+            TF_HalCommon *common = tf_hal_get_common((TF_HalContext*)accelerometer_v2->tfp->hal);
             common->locked = true;
             fn(accelerometer_v2, acceleration, user_data);
             common->locked = false;
@@ -95,13 +95,12 @@ int tf_accelerometer_v2_create(TF_AccelerometerV2 *accelerometer_v2, const char 
     }
 
     uint8_t port_id;
-    int inventory_index;
+    uint8_t inventory_index;
     rc = tf_hal_get_port_id(hal, numeric_uid, &port_id, &inventory_index);
     if (rc < 0) {
         return rc;
     }
 
-    //rc = tf_tfp_init(accelerometer_v2->tfp, numeric_uid, TF_ACCELEROMETER_V2_DEVICE_IDENTIFIER, hal, port_id, inventory_index, tf_accelerometer_v2_callback_handler);
     rc = tf_hal_get_tfp(hal, &accelerometer_v2->tfp, TF_ACCELEROMETER_V2_DEVICE_IDENTIFIER, inventory_index);
     if (rc != TF_E_OK) {
         return rc;
@@ -249,14 +248,14 @@ int tf_accelerometer_v2_get_acceleration(TF_AccelerometerV2 *accelerometer_v2, i
     if (accelerometer_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(accelerometer_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)accelerometer_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
     bool response_expected = true;
     tf_tfp_prepare_send(accelerometer_v2->tfp, TF_ACCELEROMETER_V2_FUNCTION_GET_ACCELERATION, 0, 12, response_expected);
 
-    uint32_t deadline = tf_hal_current_time_us(accelerometer_v2->tfp->hal) + tf_hal_get_common(accelerometer_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)accelerometer_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)accelerometer_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(accelerometer_v2->tfp, response_expected, deadline, &error_code);
@@ -286,7 +285,7 @@ int tf_accelerometer_v2_set_configuration(TF_AccelerometerV2 *accelerometer_v2, 
     if (accelerometer_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(accelerometer_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)accelerometer_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -299,7 +298,7 @@ int tf_accelerometer_v2_set_configuration(TF_AccelerometerV2 *accelerometer_v2, 
     buf[0] = (uint8_t)data_rate;
     buf[1] = (uint8_t)full_scale;
 
-    uint32_t deadline = tf_hal_current_time_us(accelerometer_v2->tfp->hal) + tf_hal_get_common(accelerometer_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)accelerometer_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)accelerometer_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(accelerometer_v2->tfp, response_expected, deadline, &error_code);
@@ -322,14 +321,14 @@ int tf_accelerometer_v2_get_configuration(TF_AccelerometerV2 *accelerometer_v2, 
     if (accelerometer_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(accelerometer_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)accelerometer_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
     bool response_expected = true;
     tf_tfp_prepare_send(accelerometer_v2->tfp, TF_ACCELEROMETER_V2_FUNCTION_GET_CONFIGURATION, 0, 2, response_expected);
 
-    uint32_t deadline = tf_hal_current_time_us(accelerometer_v2->tfp->hal) + tf_hal_get_common(accelerometer_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)accelerometer_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)accelerometer_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(accelerometer_v2->tfp, response_expected, deadline, &error_code);
@@ -358,7 +357,7 @@ int tf_accelerometer_v2_set_acceleration_callback_configuration(TF_Accelerometer
     if (accelerometer_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(accelerometer_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)accelerometer_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -371,7 +370,7 @@ int tf_accelerometer_v2_set_acceleration_callback_configuration(TF_Accelerometer
     period = tf_leconvert_uint32_to(period); memcpy(buf + 0, &period, 4);
     buf[4] = value_has_to_change ? 1 : 0;
 
-    uint32_t deadline = tf_hal_current_time_us(accelerometer_v2->tfp->hal) + tf_hal_get_common(accelerometer_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)accelerometer_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)accelerometer_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(accelerometer_v2->tfp, response_expected, deadline, &error_code);
@@ -394,14 +393,14 @@ int tf_accelerometer_v2_get_acceleration_callback_configuration(TF_Accelerometer
     if (accelerometer_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(accelerometer_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)accelerometer_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
     bool response_expected = true;
     tf_tfp_prepare_send(accelerometer_v2->tfp, TF_ACCELEROMETER_V2_FUNCTION_GET_ACCELERATION_CALLBACK_CONFIGURATION, 0, 5, response_expected);
 
-    uint32_t deadline = tf_hal_current_time_us(accelerometer_v2->tfp->hal) + tf_hal_get_common(accelerometer_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)accelerometer_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)accelerometer_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(accelerometer_v2->tfp, response_expected, deadline, &error_code);
@@ -430,7 +429,7 @@ int tf_accelerometer_v2_set_info_led_config(TF_AccelerometerV2 *accelerometer_v2
     if (accelerometer_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(accelerometer_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)accelerometer_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -442,7 +441,7 @@ int tf_accelerometer_v2_set_info_led_config(TF_AccelerometerV2 *accelerometer_v2
 
     buf[0] = (uint8_t)config;
 
-    uint32_t deadline = tf_hal_current_time_us(accelerometer_v2->tfp->hal) + tf_hal_get_common(accelerometer_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)accelerometer_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)accelerometer_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(accelerometer_v2->tfp, response_expected, deadline, &error_code);
@@ -465,14 +464,14 @@ int tf_accelerometer_v2_get_info_led_config(TF_AccelerometerV2 *accelerometer_v2
     if (accelerometer_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(accelerometer_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)accelerometer_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
     bool response_expected = true;
     tf_tfp_prepare_send(accelerometer_v2->tfp, TF_ACCELEROMETER_V2_FUNCTION_GET_INFO_LED_CONFIG, 0, 1, response_expected);
 
-    uint32_t deadline = tf_hal_current_time_us(accelerometer_v2->tfp->hal) + tf_hal_get_common(accelerometer_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)accelerometer_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)accelerometer_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(accelerometer_v2->tfp, response_expected, deadline, &error_code);
@@ -500,7 +499,7 @@ int tf_accelerometer_v2_set_continuous_acceleration_configuration(TF_Acceleromet
     if (accelerometer_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(accelerometer_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)accelerometer_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -515,7 +514,7 @@ int tf_accelerometer_v2_set_continuous_acceleration_configuration(TF_Acceleromet
     buf[2] = enable_z ? 1 : 0;
     buf[3] = (uint8_t)resolution;
 
-    uint32_t deadline = tf_hal_current_time_us(accelerometer_v2->tfp->hal) + tf_hal_get_common(accelerometer_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)accelerometer_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)accelerometer_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(accelerometer_v2->tfp, response_expected, deadline, &error_code);
@@ -538,14 +537,14 @@ int tf_accelerometer_v2_get_continuous_acceleration_configuration(TF_Acceleromet
     if (accelerometer_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(accelerometer_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)accelerometer_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
     bool response_expected = true;
     tf_tfp_prepare_send(accelerometer_v2->tfp, TF_ACCELEROMETER_V2_FUNCTION_GET_CONTINUOUS_ACCELERATION_CONFIGURATION, 0, 4, response_expected);
 
-    uint32_t deadline = tf_hal_current_time_us(accelerometer_v2->tfp->hal) + tf_hal_get_common(accelerometer_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)accelerometer_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)accelerometer_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(accelerometer_v2->tfp, response_expected, deadline, &error_code);
@@ -576,7 +575,7 @@ int tf_accelerometer_v2_set_filter_configuration(TF_AccelerometerV2 *acceleromet
     if (accelerometer_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(accelerometer_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)accelerometer_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -589,7 +588,7 @@ int tf_accelerometer_v2_set_filter_configuration(TF_AccelerometerV2 *acceleromet
     buf[0] = (uint8_t)iir_bypass;
     buf[1] = (uint8_t)low_pass_filter;
 
-    uint32_t deadline = tf_hal_current_time_us(accelerometer_v2->tfp->hal) + tf_hal_get_common(accelerometer_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)accelerometer_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)accelerometer_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(accelerometer_v2->tfp, response_expected, deadline, &error_code);
@@ -612,14 +611,14 @@ int tf_accelerometer_v2_get_filter_configuration(TF_AccelerometerV2 *acceleromet
     if (accelerometer_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(accelerometer_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)accelerometer_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
     bool response_expected = true;
     tf_tfp_prepare_send(accelerometer_v2->tfp, TF_ACCELEROMETER_V2_FUNCTION_GET_FILTER_CONFIGURATION, 0, 2, response_expected);
 
-    uint32_t deadline = tf_hal_current_time_us(accelerometer_v2->tfp->hal) + tf_hal_get_common(accelerometer_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)accelerometer_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)accelerometer_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(accelerometer_v2->tfp, response_expected, deadline, &error_code);
@@ -648,14 +647,14 @@ int tf_accelerometer_v2_get_spitfp_error_count(TF_AccelerometerV2 *accelerometer
     if (accelerometer_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(accelerometer_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)accelerometer_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
     bool response_expected = true;
     tf_tfp_prepare_send(accelerometer_v2->tfp, TF_ACCELEROMETER_V2_FUNCTION_GET_SPITFP_ERROR_COUNT, 0, 16, response_expected);
 
-    uint32_t deadline = tf_hal_current_time_us(accelerometer_v2->tfp->hal) + tf_hal_get_common(accelerometer_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)accelerometer_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)accelerometer_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(accelerometer_v2->tfp, response_expected, deadline, &error_code);
@@ -686,7 +685,7 @@ int tf_accelerometer_v2_set_bootloader_mode(TF_AccelerometerV2 *accelerometer_v2
     if (accelerometer_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(accelerometer_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)accelerometer_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -697,7 +696,7 @@ int tf_accelerometer_v2_set_bootloader_mode(TF_AccelerometerV2 *accelerometer_v2
 
     buf[0] = (uint8_t)mode;
 
-    uint32_t deadline = tf_hal_current_time_us(accelerometer_v2->tfp->hal) + tf_hal_get_common(accelerometer_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)accelerometer_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)accelerometer_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(accelerometer_v2->tfp, response_expected, deadline, &error_code);
@@ -725,14 +724,14 @@ int tf_accelerometer_v2_get_bootloader_mode(TF_AccelerometerV2 *accelerometer_v2
     if (accelerometer_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(accelerometer_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)accelerometer_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
     bool response_expected = true;
     tf_tfp_prepare_send(accelerometer_v2->tfp, TF_ACCELEROMETER_V2_FUNCTION_GET_BOOTLOADER_MODE, 0, 1, response_expected);
 
-    uint32_t deadline = tf_hal_current_time_us(accelerometer_v2->tfp->hal) + tf_hal_get_common(accelerometer_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)accelerometer_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)accelerometer_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(accelerometer_v2->tfp, response_expected, deadline, &error_code);
@@ -760,7 +759,7 @@ int tf_accelerometer_v2_set_write_firmware_pointer(TF_AccelerometerV2 *accelerom
     if (accelerometer_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(accelerometer_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)accelerometer_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -772,7 +771,7 @@ int tf_accelerometer_v2_set_write_firmware_pointer(TF_AccelerometerV2 *accelerom
 
     pointer = tf_leconvert_uint32_to(pointer); memcpy(buf + 0, &pointer, 4);
 
-    uint32_t deadline = tf_hal_current_time_us(accelerometer_v2->tfp->hal) + tf_hal_get_common(accelerometer_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)accelerometer_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)accelerometer_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(accelerometer_v2->tfp, response_expected, deadline, &error_code);
@@ -791,11 +790,11 @@ int tf_accelerometer_v2_set_write_firmware_pointer(TF_AccelerometerV2 *accelerom
     return tf_tfp_get_error(error_code);
 }
 
-int tf_accelerometer_v2_write_firmware(TF_AccelerometerV2 *accelerometer_v2, uint8_t data[64], uint8_t *ret_status) {
+int tf_accelerometer_v2_write_firmware(TF_AccelerometerV2 *accelerometer_v2, const uint8_t data[64], uint8_t *ret_status) {
     if (accelerometer_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(accelerometer_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)accelerometer_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -806,7 +805,7 @@ int tf_accelerometer_v2_write_firmware(TF_AccelerometerV2 *accelerometer_v2, uin
 
     memcpy(buf + 0, data, 64);
 
-    uint32_t deadline = tf_hal_current_time_us(accelerometer_v2->tfp->hal) + tf_hal_get_common(accelerometer_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)accelerometer_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)accelerometer_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(accelerometer_v2->tfp, response_expected, deadline, &error_code);
@@ -834,7 +833,7 @@ int tf_accelerometer_v2_set_status_led_config(TF_AccelerometerV2 *accelerometer_
     if (accelerometer_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(accelerometer_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)accelerometer_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -846,7 +845,7 @@ int tf_accelerometer_v2_set_status_led_config(TF_AccelerometerV2 *accelerometer_
 
     buf[0] = (uint8_t)config;
 
-    uint32_t deadline = tf_hal_current_time_us(accelerometer_v2->tfp->hal) + tf_hal_get_common(accelerometer_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)accelerometer_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)accelerometer_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(accelerometer_v2->tfp, response_expected, deadline, &error_code);
@@ -869,14 +868,14 @@ int tf_accelerometer_v2_get_status_led_config(TF_AccelerometerV2 *accelerometer_
     if (accelerometer_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(accelerometer_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)accelerometer_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
     bool response_expected = true;
     tf_tfp_prepare_send(accelerometer_v2->tfp, TF_ACCELEROMETER_V2_FUNCTION_GET_STATUS_LED_CONFIG, 0, 1, response_expected);
 
-    uint32_t deadline = tf_hal_current_time_us(accelerometer_v2->tfp->hal) + tf_hal_get_common(accelerometer_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)accelerometer_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)accelerometer_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(accelerometer_v2->tfp, response_expected, deadline, &error_code);
@@ -904,14 +903,14 @@ int tf_accelerometer_v2_get_chip_temperature(TF_AccelerometerV2 *accelerometer_v
     if (accelerometer_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(accelerometer_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)accelerometer_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
     bool response_expected = true;
     tf_tfp_prepare_send(accelerometer_v2->tfp, TF_ACCELEROMETER_V2_FUNCTION_GET_CHIP_TEMPERATURE, 0, 2, response_expected);
 
-    uint32_t deadline = tf_hal_current_time_us(accelerometer_v2->tfp->hal) + tf_hal_get_common(accelerometer_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)accelerometer_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)accelerometer_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(accelerometer_v2->tfp, response_expected, deadline, &error_code);
@@ -939,7 +938,7 @@ int tf_accelerometer_v2_reset(TF_AccelerometerV2 *accelerometer_v2) {
     if (accelerometer_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(accelerometer_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)accelerometer_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -947,7 +946,7 @@ int tf_accelerometer_v2_reset(TF_AccelerometerV2 *accelerometer_v2) {
     tf_accelerometer_v2_get_response_expected(accelerometer_v2, TF_ACCELEROMETER_V2_FUNCTION_RESET, &response_expected);
     tf_tfp_prepare_send(accelerometer_v2->tfp, TF_ACCELEROMETER_V2_FUNCTION_RESET, 0, 0, response_expected);
 
-    uint32_t deadline = tf_hal_current_time_us(accelerometer_v2->tfp->hal) + tf_hal_get_common(accelerometer_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)accelerometer_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)accelerometer_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(accelerometer_v2->tfp, response_expected, deadline, &error_code);
@@ -970,7 +969,7 @@ int tf_accelerometer_v2_write_uid(TF_AccelerometerV2 *accelerometer_v2, uint32_t
     if (accelerometer_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(accelerometer_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)accelerometer_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -982,7 +981,7 @@ int tf_accelerometer_v2_write_uid(TF_AccelerometerV2 *accelerometer_v2, uint32_t
 
     uid = tf_leconvert_uint32_to(uid); memcpy(buf + 0, &uid, 4);
 
-    uint32_t deadline = tf_hal_current_time_us(accelerometer_v2->tfp->hal) + tf_hal_get_common(accelerometer_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)accelerometer_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)accelerometer_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(accelerometer_v2->tfp, response_expected, deadline, &error_code);
@@ -1005,14 +1004,14 @@ int tf_accelerometer_v2_read_uid(TF_AccelerometerV2 *accelerometer_v2, uint32_t 
     if (accelerometer_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(accelerometer_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)accelerometer_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
     bool response_expected = true;
     tf_tfp_prepare_send(accelerometer_v2->tfp, TF_ACCELEROMETER_V2_FUNCTION_READ_UID, 0, 4, response_expected);
 
-    uint32_t deadline = tf_hal_current_time_us(accelerometer_v2->tfp->hal) + tf_hal_get_common(accelerometer_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)accelerometer_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)accelerometer_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(accelerometer_v2->tfp, response_expected, deadline, &error_code);
@@ -1040,7 +1039,7 @@ int tf_accelerometer_v2_get_identity(TF_AccelerometerV2 *accelerometer_v2, char 
     if (accelerometer_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(accelerometer_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)accelerometer_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -1048,7 +1047,7 @@ int tf_accelerometer_v2_get_identity(TF_AccelerometerV2 *accelerometer_v2, char 
     tf_tfp_prepare_send(accelerometer_v2->tfp, TF_ACCELEROMETER_V2_FUNCTION_GET_IDENTITY, 0, 25, response_expected);
 
     size_t i;
-    uint32_t deadline = tf_hal_current_time_us(accelerometer_v2->tfp->hal) + tf_hal_get_common(accelerometer_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)accelerometer_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)accelerometer_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(accelerometer_v2->tfp, response_expected, deadline, &error_code);
@@ -1069,7 +1068,7 @@ int tf_accelerometer_v2_get_identity(TF_AccelerometerV2 *accelerometer_v2, char 
         if (ret_firmware_version != NULL) { for (i = 0; i < 3; ++i) ret_firmware_version[i] = tf_packetbuffer_read_uint8_t(&accelerometer_v2->tfp->spitfp->recv_buf);} else { tf_packetbuffer_remove(&accelerometer_v2->tfp->spitfp->recv_buf, 3); }
         if (ret_device_identifier != NULL) { *ret_device_identifier = tf_packetbuffer_read_uint16_t(&accelerometer_v2->tfp->spitfp->recv_buf); } else { tf_packetbuffer_remove(&accelerometer_v2->tfp->spitfp->recv_buf, 2); }
         if (tmp_connected_uid[0] == 0 && ret_position != NULL) {
-            *ret_position = tf_hal_get_port_name(accelerometer_v2->tfp->hal, accelerometer_v2->tfp->spitfp->port_id);
+            *ret_position = tf_hal_get_port_name((TF_HalContext*)accelerometer_v2->tfp->hal, accelerometer_v2->tfp->spitfp->port_id);
         }
         if (ret_connected_uid != NULL) {
             memcpy(ret_connected_uid, tmp_connected_uid, 8);
@@ -1083,7 +1082,7 @@ int tf_accelerometer_v2_get_identity(TF_AccelerometerV2 *accelerometer_v2, char 
 
     return tf_tfp_get_error(error_code);
 }
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
 int tf_accelerometer_v2_register_acceleration_callback(TF_AccelerometerV2 *accelerometer_v2, TF_AccelerometerV2AccelerationHandler handler, void *user_data) {
     if (accelerometer_v2 == NULL)
         return TF_E_NULL;
@@ -1138,7 +1137,7 @@ int tf_accelerometer_v2_callback_tick(TF_AccelerometerV2 *accelerometer_v2, uint
     if (accelerometer_v2 == NULL)
         return TF_E_NULL;
 
-    return tf_tfp_callback_tick(accelerometer_v2->tfp, tf_hal_current_time_us(accelerometer_v2->tfp->hal) + timeout_us);
+    return tf_tfp_callback_tick(accelerometer_v2->tfp, tf_hal_current_time_us((TF_HalContext*)accelerometer_v2->tfp->hal) + timeout_us);
 }
 
 #ifdef __cplusplus

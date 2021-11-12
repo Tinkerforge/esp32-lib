@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-10-04.      *
+ * This file was automatically generated on 2021-11-12.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -25,7 +25,7 @@ extern "C" {
  */
 
 struct TF_IO4V2;
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
 
 typedef void (*TF_IO4V2InputValueHandler)(struct TF_IO4V2 *device, uint8_t channel, bool changed, bool value, void *user_data);
 typedef void (*TF_IO4V2AllInputValueHandler)(struct TF_IO4V2 *device, bool changed[4], bool value[4], void *user_data);
@@ -39,7 +39,7 @@ typedef void (*TF_IO4V2MonoflopDoneHandler)(struct TF_IO4V2 *device, uint8_t cha
  */
 typedef struct TF_IO4V2 {
     TF_TfpContext *tfp;
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
     TF_IO4V2InputValueHandler input_value_handler;
     void *input_value_user_data;
 
@@ -193,7 +193,7 @@ typedef struct TF_IO4V2 {
  */
 #define TF_IO4_V2_FUNCTION_GET_IDENTITY 255
 
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
 
 /**
  * \ingroup BrickletIO4V2
@@ -336,7 +336,7 @@ typedef struct TF_IO4V2 {
  * Creates the device object \c io4_v2 with the unique device ID \c uid and adds
  * it to the IPConnection \c ipcon.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_io4_v2_create(TF_IO4V2 *io4_v2, const char *uid, TF_HalContext *hal);
+int tf_io4_v2_create(TF_IO4V2 *io4_v2, const char *uid, TF_HalContext *hal);
 
 /**
  * \ingroup BrickletIO4V2
@@ -344,7 +344,7 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_io4_v2_create(TF_IO4V2 *io4_v2, const char *uid,
  * Removes the device object \c io4_v2 from its IPConnection and destroys it.
  * The device object cannot be used anymore afterwards.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_io4_v2_destroy(TF_IO4V2 *io4_v2);
+int tf_io4_v2_destroy(TF_IO4V2 *io4_v2);
 
 /**
  * \ingroup BrickletIO4V2
@@ -365,7 +365,7 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_io4_v2_destroy(TF_IO4V2 *io4_v2);
  * disabled for a setter function then no response is sent and errors are
  * silently ignored, because they cannot be detected.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_io4_v2_get_response_expected(TF_IO4V2 *io4_v2, uint8_t function_id, bool *ret_response_expected);
+int tf_io4_v2_get_response_expected(TF_IO4V2 *io4_v2, uint8_t function_id, bool *ret_response_expected);
 
 /**
  * \ingroup BrickletIO4V2
@@ -381,7 +381,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_io4_v2_get_response_expected(TF_IO4V2 *io4_v2, ui
  * setter function then no response is sent and errors are silently ignored,
  * because they cannot be detected.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_io4_v2_set_response_expected(TF_IO4V2 *io4_v2, uint8_t function_id, bool response_expected);
+int tf_io4_v2_set_response_expected(TF_IO4V2 *io4_v2, uint8_t function_id, bool response_expected);
 
 /**
  * \ingroup BrickletIO4V2
@@ -389,8 +389,8 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_io4_v2_set_response_expected(TF_IO4V2 *io4_v2, u
  * Changes the response expected flag for all setter and callback configuration
  * functions of this device at once.
  */
-TF_ATTRIBUTE_NONNULL_ALL void tf_io4_v2_set_response_expected_all(TF_IO4V2 *io4_v2, bool response_expected);
-#ifdef TF_IMPLEMENT_CALLBACKS
+void tf_io4_v2_set_response_expected_all(TF_IO4V2 *io4_v2, bool response_expected);
+#if TF_IMPLEMENT_CALLBACKS != 0
 /**
  * \ingroup BrickletIO4V2
  *
@@ -406,7 +406,7 @@ TF_ATTRIBUTE_NONNULL_ALL void tf_io4_v2_set_response_expected_all(TF_IO4V2 *io4_
  * for the channel. The `changed` parameter is true if the value has changed since
  * the last callback.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_io4_v2_register_input_value_callback(TF_IO4V2 *io4_v2, TF_IO4V2InputValueHandler handler, void *user_data);
+int tf_io4_v2_register_input_value_callback(TF_IO4V2 *io4_v2, TF_IO4V2InputValueHandler handler, void *user_data);
 
 
 /**
@@ -424,7 +424,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_io4_v2_register_input_value_callback(TF_IO4V2 *io
  * `changed` parameter is true if the value has changed since
  * the last callback.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_io4_v2_register_all_input_value_callback(TF_IO4V2 *io4_v2, TF_IO4V2AllInputValueHandler handler, void *user_data);
+int tf_io4_v2_register_all_input_value_callback(TF_IO4V2 *io4_v2, TF_IO4V2AllInputValueHandler handler, void *user_data);
 
 
 /**
@@ -439,9 +439,9 @@ TF_ATTRIBUTE_NONNULL(1) int tf_io4_v2_register_all_input_value_callback(TF_IO4V2
  * parameters contain the channel and the current value of the channel
  * (the value after the monoflop).
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_io4_v2_register_monoflop_done_callback(TF_IO4V2 *io4_v2, TF_IO4V2MonoflopDoneHandler handler, void *user_data);
+int tf_io4_v2_register_monoflop_done_callback(TF_IO4V2 *io4_v2, TF_IO4V2MonoflopDoneHandler handler, void *user_data);
 #endif
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
 /**
  * \ingroup BrickletIO4V2
  *
@@ -449,7 +449,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_io4_v2_register_monoflop_done_callback(TF_IO4V2 *
  *
  * This function can be used in a non-blocking fashion by calling it with a timeout of 0.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_io4_v2_callback_tick(TF_IO4V2 *io4_v2, uint32_t timeout_us);
+int tf_io4_v2_callback_tick(TF_IO4V2 *io4_v2, uint32_t timeout_us);
 #endif
 
 /**
@@ -469,7 +469,7 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_io4_v2_callback_tick(TF_IO4V2 *io4_v2, uint32_t 
  *  This function does nothing for channels that are configured as input. Pull-up
  *  resistors can be switched on with {@link tf_io4_v2_set_configuration}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_io4_v2_set_value(TF_IO4V2 *io4_v2, bool value[4]);
+int tf_io4_v2_set_value(TF_IO4V2 *io4_v2, const bool value[4]);
 
 /**
  * \ingroup BrickletIO4V2
@@ -478,7 +478,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_io4_v2_set_value(TF_IO4V2 *io4_v2, bool value[4])
  * This function works if the channel is configured as input as well as if it is
  * configured as output.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_io4_v2_get_value(TF_IO4V2 *io4_v2, bool ret_value[4]);
+int tf_io4_v2_get_value(TF_IO4V2 *io4_v2, bool ret_value[4]);
 
 /**
  * \ingroup BrickletIO4V2
@@ -492,7 +492,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_io4_v2_get_value(TF_IO4V2 *io4_v2, bool ret_value
  *  This function does nothing for channels that are configured as input. Pull-up
  *  resistors can be switched on with {@link tf_io4_v2_set_configuration}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_io4_v2_set_selected_value(TF_IO4V2 *io4_v2, uint8_t channel, bool value);
+int tf_io4_v2_set_selected_value(TF_IO4V2 *io4_v2, uint8_t channel, bool value);
 
 /**
  * \ingroup BrickletIO4V2
@@ -516,14 +516,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_io4_v2_set_selected_value(TF_IO4V2 *io4_v2, uint8
  * A running monoflop timer or PWM for the specific channel will be aborted if this
  * function is called.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_io4_v2_set_configuration(TF_IO4V2 *io4_v2, uint8_t channel, char direction, bool value);
+int tf_io4_v2_set_configuration(TF_IO4V2 *io4_v2, uint8_t channel, char direction, bool value);
 
 /**
  * \ingroup BrickletIO4V2
  *
  * Returns the channel configuration as set by {@link tf_io4_v2_set_configuration}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_io4_v2_get_configuration(TF_IO4V2 *io4_v2, uint8_t channel, char *ret_direction, bool *ret_value);
+int tf_io4_v2_get_configuration(TF_IO4V2 *io4_v2, uint8_t channel, char *ret_direction, bool *ret_value);
 
 /**
  * \ingroup BrickletIO4V2
@@ -540,7 +540,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_io4_v2_get_configuration(TF_IO4V2 *io4_v2, uint8_
  * If it is set to false, the callback is continuously triggered with the period,
  * independent of the value.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_io4_v2_set_input_value_callback_configuration(TF_IO4V2 *io4_v2, uint8_t channel, uint32_t period, bool value_has_to_change);
+int tf_io4_v2_set_input_value_callback_configuration(TF_IO4V2 *io4_v2, uint8_t channel, uint32_t period, bool value_has_to_change);
 
 /**
  * \ingroup BrickletIO4V2
@@ -548,7 +548,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_io4_v2_set_input_value_callback_configuration(TF_
  * Returns the callback configuration for the given channel as set by
  * {@link tf_io4_v2_set_input_value_callback_configuration}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_io4_v2_get_input_value_callback_configuration(TF_IO4V2 *io4_v2, uint8_t channel, uint32_t *ret_period, bool *ret_value_has_to_change);
+int tf_io4_v2_get_input_value_callback_configuration(TF_IO4V2 *io4_v2, uint8_t channel, uint32_t *ret_period, bool *ret_value_has_to_change);
 
 /**
  * \ingroup BrickletIO4V2
@@ -563,7 +563,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_io4_v2_get_input_value_callback_configuration(TF_
  * If it is set to false, the callback is continuously triggered with the period,
  * independent of the value.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_io4_v2_set_all_input_value_callback_configuration(TF_IO4V2 *io4_v2, uint32_t period, bool value_has_to_change);
+int tf_io4_v2_set_all_input_value_callback_configuration(TF_IO4V2 *io4_v2, uint32_t period, bool value_has_to_change);
 
 /**
  * \ingroup BrickletIO4V2
@@ -571,7 +571,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_io4_v2_set_all_input_value_callback_configuration
  * Returns the callback configuration as set by
  * {@link tf_io4_v2_set_all_input_value_callback_configuration}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_io4_v2_get_all_input_value_callback_configuration(TF_IO4V2 *io4_v2, uint32_t *ret_period, bool *ret_value_has_to_change);
+int tf_io4_v2_get_all_input_value_callback_configuration(TF_IO4V2 *io4_v2, uint32_t *ret_period, bool *ret_value_has_to_change);
 
 /**
  * \ingroup BrickletIO4V2
@@ -591,7 +591,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_io4_v2_get_all_input_value_callback_configuration
  * of two seconds. The channel will be *high* all the time. If now the RS485
  * connection is lost, the channel will turn *low* in at most two seconds.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_io4_v2_set_monoflop(TF_IO4V2 *io4_v2, uint8_t channel, bool value, uint32_t time);
+int tf_io4_v2_set_monoflop(TF_IO4V2 *io4_v2, uint8_t channel, bool value, uint32_t time);
 
 /**
  * \ingroup BrickletIO4V2
@@ -602,7 +602,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_io4_v2_set_monoflop(TF_IO4V2 *io4_v2, uint8_t cha
  * If the timer is not running currently, the remaining time will be returned
  * as 0.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_io4_v2_get_monoflop(TF_IO4V2 *io4_v2, uint8_t channel, bool *ret_value, uint32_t *ret_time, uint32_t *ret_time_remaining);
+int tf_io4_v2_get_monoflop(TF_IO4V2 *io4_v2, uint8_t channel, bool *ret_value, uint32_t *ret_time, uint32_t *ret_time_remaining);
 
 /**
  * \ingroup BrickletIO4V2
@@ -616,7 +616,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_io4_v2_get_monoflop(TF_IO4V2 *io4_v2, uint8_t cha
  * \note
  *  Calling this function is only allowed for channels configured as input.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_io4_v2_get_edge_count(TF_IO4V2 *io4_v2, uint8_t channel, bool reset_counter, uint32_t *ret_count);
+int tf_io4_v2_get_edge_count(TF_IO4V2 *io4_v2, uint8_t channel, bool reset_counter, uint32_t *ret_count);
 
 /**
  * \ingroup BrickletIO4V2
@@ -638,7 +638,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_io4_v2_get_edge_count(TF_IO4V2 *io4_v2, uint8_t c
  * \note
  *  Calling this function is only allowed for channels configured as input.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_io4_v2_set_edge_count_configuration(TF_IO4V2 *io4_v2, uint8_t channel, uint8_t edge_type, uint8_t debounce);
+int tf_io4_v2_set_edge_count_configuration(TF_IO4V2 *io4_v2, uint8_t channel, uint8_t edge_type, uint8_t debounce);
 
 /**
  * \ingroup BrickletIO4V2
@@ -649,7 +649,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_io4_v2_set_edge_count_configuration(TF_IO4V2 *io4
  * \note
  *  Calling this function is only allowed for channels configured as input.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_io4_v2_get_edge_count_configuration(TF_IO4V2 *io4_v2, uint8_t channel, uint8_t *ret_edge_type, uint8_t *ret_debounce);
+int tf_io4_v2_get_edge_count_configuration(TF_IO4V2 *io4_v2, uint8_t channel, uint8_t *ret_edge_type, uint8_t *ret_debounce);
 
 /**
  * \ingroup BrickletIO4V2
@@ -663,14 +663,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_io4_v2_get_edge_count_configuration(TF_IO4V2 *io4
  * A running monoflop timer for the given channel will be aborted if this function
  * is called.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_io4_v2_set_pwm_configuration(TF_IO4V2 *io4_v2, uint8_t channel, uint32_t frequency, uint16_t duty_cycle);
+int tf_io4_v2_set_pwm_configuration(TF_IO4V2 *io4_v2, uint8_t channel, uint32_t frequency, uint16_t duty_cycle);
 
 /**
  * \ingroup BrickletIO4V2
  *
  * Returns the PWM configuration as set by {@link tf_io4_v2_set_pwm_configuration}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_io4_v2_get_pwm_configuration(TF_IO4V2 *io4_v2, uint8_t channel, uint32_t *ret_frequency, uint16_t *ret_duty_cycle);
+int tf_io4_v2_get_pwm_configuration(TF_IO4V2 *io4_v2, uint8_t channel, uint32_t *ret_frequency, uint16_t *ret_duty_cycle);
 
 /**
  * \ingroup BrickletIO4V2
@@ -687,7 +687,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_io4_v2_get_pwm_configuration(TF_IO4V2 *io4_v2, ui
  * The errors counts are for errors that occur on the Bricklet side. All
  * Bricks have a similar function that returns the errors on the Brick side.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_io4_v2_get_spitfp_error_count(TF_IO4V2 *io4_v2, uint32_t *ret_error_count_ack_checksum, uint32_t *ret_error_count_message_checksum, uint32_t *ret_error_count_frame, uint32_t *ret_error_count_overflow);
+int tf_io4_v2_get_spitfp_error_count(TF_IO4V2 *io4_v2, uint32_t *ret_error_count_ack_checksum, uint32_t *ret_error_count_message_checksum, uint32_t *ret_error_count_frame, uint32_t *ret_error_count_overflow);
 
 /**
  * \ingroup BrickletIO4V2
@@ -702,14 +702,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_io4_v2_get_spitfp_error_count(TF_IO4V2 *io4_v2, u
  * This function is used by Brick Viewer during flashing. It should not be
  * necessary to call it in a normal user program.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_io4_v2_set_bootloader_mode(TF_IO4V2 *io4_v2, uint8_t mode, uint8_t *ret_status);
+int tf_io4_v2_set_bootloader_mode(TF_IO4V2 *io4_v2, uint8_t mode, uint8_t *ret_status);
 
 /**
  * \ingroup BrickletIO4V2
  *
  * Returns the current bootloader mode, see {@link tf_io4_v2_set_bootloader_mode}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_io4_v2_get_bootloader_mode(TF_IO4V2 *io4_v2, uint8_t *ret_mode);
+int tf_io4_v2_get_bootloader_mode(TF_IO4V2 *io4_v2, uint8_t *ret_mode);
 
 /**
  * \ingroup BrickletIO4V2
@@ -721,7 +721,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_io4_v2_get_bootloader_mode(TF_IO4V2 *io4_v2, uint
  * This function is used by Brick Viewer during flashing. It should not be
  * necessary to call it in a normal user program.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_io4_v2_set_write_firmware_pointer(TF_IO4V2 *io4_v2, uint32_t pointer);
+int tf_io4_v2_set_write_firmware_pointer(TF_IO4V2 *io4_v2, uint32_t pointer);
 
 /**
  * \ingroup BrickletIO4V2
@@ -735,7 +735,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_io4_v2_set_write_firmware_pointer(TF_IO4V2 *io4_v
  * This function is used by Brick Viewer during flashing. It should not be
  * necessary to call it in a normal user program.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_io4_v2_write_firmware(TF_IO4V2 *io4_v2, uint8_t data[64], uint8_t *ret_status);
+int tf_io4_v2_write_firmware(TF_IO4V2 *io4_v2, const uint8_t data[64], uint8_t *ret_status);
 
 /**
  * \ingroup BrickletIO4V2
@@ -748,14 +748,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_io4_v2_write_firmware(TF_IO4V2 *io4_v2, uint8_t d
  * 
  * If the Bricklet is in bootloader mode, the LED is will show heartbeat by default.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_io4_v2_set_status_led_config(TF_IO4V2 *io4_v2, uint8_t config);
+int tf_io4_v2_set_status_led_config(TF_IO4V2 *io4_v2, uint8_t config);
 
 /**
  * \ingroup BrickletIO4V2
  *
  * Returns the configuration as set by {@link tf_io4_v2_set_status_led_config}
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_io4_v2_get_status_led_config(TF_IO4V2 *io4_v2, uint8_t *ret_config);
+int tf_io4_v2_get_status_led_config(TF_IO4V2 *io4_v2, uint8_t *ret_config);
 
 /**
  * \ingroup BrickletIO4V2
@@ -767,7 +767,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_io4_v2_get_status_led_config(TF_IO4V2 *io4_v2, ui
  * accuracy. Practically it is only useful as an indicator for
  * temperature changes.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_io4_v2_get_chip_temperature(TF_IO4V2 *io4_v2, int16_t *ret_temperature);
+int tf_io4_v2_get_chip_temperature(TF_IO4V2 *io4_v2, int16_t *ret_temperature);
 
 /**
  * \ingroup BrickletIO4V2
@@ -779,7 +779,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_io4_v2_get_chip_temperature(TF_IO4V2 *io4_v2, int
  * calling functions on the existing ones will result in
  * undefined behavior!
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_io4_v2_reset(TF_IO4V2 *io4_v2);
+int tf_io4_v2_reset(TF_IO4V2 *io4_v2);
 
 /**
  * \ingroup BrickletIO4V2
@@ -790,7 +790,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_io4_v2_reset(TF_IO4V2 *io4_v2);
  * 
  * We recommend that you use Brick Viewer to change the UID.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_io4_v2_write_uid(TF_IO4V2 *io4_v2, uint32_t uid);
+int tf_io4_v2_write_uid(TF_IO4V2 *io4_v2, uint32_t uid);
 
 /**
  * \ingroup BrickletIO4V2
@@ -798,7 +798,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_io4_v2_write_uid(TF_IO4V2 *io4_v2, uint32_t uid);
  * Returns the current UID as an integer. Encode as
  * Base58 to get the usual string version.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_io4_v2_read_uid(TF_IO4V2 *io4_v2, uint32_t *ret_uid);
+int tf_io4_v2_read_uid(TF_IO4V2 *io4_v2, uint32_t *ret_uid);
 
 /**
  * \ingroup BrickletIO4V2
@@ -814,7 +814,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_io4_v2_read_uid(TF_IO4V2 *io4_v2, uint32_t *ret_u
  * The device identifier numbers can be found :ref:`here <device_identifier>`.
  * |device_identifier_constant|
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_io4_v2_get_identity(TF_IO4V2 *io4_v2, char ret_uid[8], char ret_connected_uid[8], char *ret_position, uint8_t ret_hardware_version[3], uint8_t ret_firmware_version[3], uint16_t *ret_device_identifier);
+int tf_io4_v2_get_identity(TF_IO4V2 *io4_v2, char ret_uid[8], char ret_connected_uid[8], char *ret_position, uint8_t ret_hardware_version[3], uint8_t ret_firmware_version[3], uint16_t *ret_device_identifier);
 
 #ifdef __cplusplus
 }

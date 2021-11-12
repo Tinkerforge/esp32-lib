@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-10-04.      *
+ * This file was automatically generated on 2021-11-12.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -25,7 +25,7 @@ extern "C" {
  */
 
 struct TF_PiezoSpeakerV2;
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
 
 typedef void (*TF_PiezoSpeakerV2BeepFinishedHandler)(struct TF_PiezoSpeakerV2 *device, void *user_data);
 typedef void (*TF_PiezoSpeakerV2AlarmFinishedHandler)(struct TF_PiezoSpeakerV2 *device, void *user_data);
@@ -38,7 +38,7 @@ typedef void (*TF_PiezoSpeakerV2AlarmFinishedHandler)(struct TF_PiezoSpeakerV2 *
  */
 typedef struct TF_PiezoSpeakerV2 {
     TF_TfpContext *tfp;
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
     TF_PiezoSpeakerV2BeepFinishedHandler beep_finished_handler;
     void *beep_finished_user_data;
 
@@ -139,7 +139,7 @@ typedef struct TF_PiezoSpeakerV2 {
  */
 #define TF_PIEZO_SPEAKER_V2_FUNCTION_GET_IDENTITY 255
 
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
 
 /**
  * \ingroup BrickletPiezoSpeakerV2
@@ -272,7 +272,7 @@ typedef struct TF_PiezoSpeakerV2 {
  * Creates the device object \c piezo_speaker_v2 with the unique device ID \c uid and adds
  * it to the IPConnection \c ipcon.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_piezo_speaker_v2_create(TF_PiezoSpeakerV2 *piezo_speaker_v2, const char *uid, TF_HalContext *hal);
+int tf_piezo_speaker_v2_create(TF_PiezoSpeakerV2 *piezo_speaker_v2, const char *uid, TF_HalContext *hal);
 
 /**
  * \ingroup BrickletPiezoSpeakerV2
@@ -280,7 +280,7 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_piezo_speaker_v2_create(TF_PiezoSpeakerV2 *piezo
  * Removes the device object \c piezo_speaker_v2 from its IPConnection and destroys it.
  * The device object cannot be used anymore afterwards.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_piezo_speaker_v2_destroy(TF_PiezoSpeakerV2 *piezo_speaker_v2);
+int tf_piezo_speaker_v2_destroy(TF_PiezoSpeakerV2 *piezo_speaker_v2);
 
 /**
  * \ingroup BrickletPiezoSpeakerV2
@@ -301,7 +301,7 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_piezo_speaker_v2_destroy(TF_PiezoSpeakerV2 *piez
  * disabled for a setter function then no response is sent and errors are
  * silently ignored, because they cannot be detected.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_piezo_speaker_v2_get_response_expected(TF_PiezoSpeakerV2 *piezo_speaker_v2, uint8_t function_id, bool *ret_response_expected);
+int tf_piezo_speaker_v2_get_response_expected(TF_PiezoSpeakerV2 *piezo_speaker_v2, uint8_t function_id, bool *ret_response_expected);
 
 /**
  * \ingroup BrickletPiezoSpeakerV2
@@ -317,7 +317,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_piezo_speaker_v2_get_response_expected(TF_PiezoSp
  * setter function then no response is sent and errors are silently ignored,
  * because they cannot be detected.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_piezo_speaker_v2_set_response_expected(TF_PiezoSpeakerV2 *piezo_speaker_v2, uint8_t function_id, bool response_expected);
+int tf_piezo_speaker_v2_set_response_expected(TF_PiezoSpeakerV2 *piezo_speaker_v2, uint8_t function_id, bool response_expected);
 
 /**
  * \ingroup BrickletPiezoSpeakerV2
@@ -325,8 +325,8 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_piezo_speaker_v2_set_response_expected(TF_PiezoS
  * Changes the response expected flag for all setter and callback configuration
  * functions of this device at once.
  */
-TF_ATTRIBUTE_NONNULL_ALL void tf_piezo_speaker_v2_set_response_expected_all(TF_PiezoSpeakerV2 *piezo_speaker_v2, bool response_expected);
-#ifdef TF_IMPLEMENT_CALLBACKS
+void tf_piezo_speaker_v2_set_response_expected_all(TF_PiezoSpeakerV2 *piezo_speaker_v2, bool response_expected);
+#if TF_IMPLEMENT_CALLBACKS != 0
 /**
  * \ingroup BrickletPiezoSpeakerV2
  *
@@ -337,7 +337,7 @@ TF_ATTRIBUTE_NONNULL_ALL void tf_piezo_speaker_v2_set_response_expected_all(TF_P
  * 
  * This callback is triggered if a beep set by {@link tf_piezo_speaker_v2_set_beep} is finished
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_piezo_speaker_v2_register_beep_finished_callback(TF_PiezoSpeakerV2 *piezo_speaker_v2, TF_PiezoSpeakerV2BeepFinishedHandler handler, void *user_data);
+int tf_piezo_speaker_v2_register_beep_finished_callback(TF_PiezoSpeakerV2 *piezo_speaker_v2, TF_PiezoSpeakerV2BeepFinishedHandler handler, void *user_data);
 
 
 /**
@@ -350,9 +350,9 @@ TF_ATTRIBUTE_NONNULL(1) int tf_piezo_speaker_v2_register_beep_finished_callback(
  * 
  * This callback is triggered if a alarm set by {@link tf_piezo_speaker_v2_set_alarm} is finished
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_piezo_speaker_v2_register_alarm_finished_callback(TF_PiezoSpeakerV2 *piezo_speaker_v2, TF_PiezoSpeakerV2AlarmFinishedHandler handler, void *user_data);
+int tf_piezo_speaker_v2_register_alarm_finished_callback(TF_PiezoSpeakerV2 *piezo_speaker_v2, TF_PiezoSpeakerV2AlarmFinishedHandler handler, void *user_data);
 #endif
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
 /**
  * \ingroup BrickletPiezoSpeakerV2
  *
@@ -360,7 +360,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_piezo_speaker_v2_register_alarm_finished_callback
  *
  * This function can be used in a non-blocking fashion by calling it with a timeout of 0.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_piezo_speaker_v2_callback_tick(TF_PiezoSpeakerV2 *piezo_speaker_v2, uint32_t timeout_us);
+int tf_piezo_speaker_v2_callback_tick(TF_PiezoSpeakerV2 *piezo_speaker_v2, uint32_t timeout_us);
 #endif
 
 /**
@@ -371,7 +371,7 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_piezo_speaker_v2_callback_tick(TF_PiezoSpeakerV2
  * A duration of 0 stops the current beep if any is ongoing.
  * A duration of 4294967295 results in an infinite beep.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_piezo_speaker_v2_set_beep(TF_PiezoSpeakerV2 *piezo_speaker_v2, uint16_t frequency, uint8_t volume, uint32_t duration);
+int tf_piezo_speaker_v2_set_beep(TF_PiezoSpeakerV2 *piezo_speaker_v2, uint16_t frequency, uint8_t volume, uint32_t duration);
 
 /**
  * \ingroup BrickletPiezoSpeakerV2
@@ -382,7 +382,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_piezo_speaker_v2_set_beep(TF_PiezoSpeakerV2 *piez
  * If the frequency or volume is updated during a beep (with {@link tf_piezo_speaker_v2_update_frequency}
  * or {@link tf_piezo_speaker_v2_update_volume}) this function returns the updated value.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_piezo_speaker_v2_get_beep(TF_PiezoSpeakerV2 *piezo_speaker_v2, uint16_t *ret_frequency, uint8_t *ret_volume, uint32_t *ret_duration, uint32_t *ret_duration_remaining);
+int tf_piezo_speaker_v2_get_beep(TF_PiezoSpeakerV2 *piezo_speaker_v2, uint16_t *ret_frequency, uint8_t *ret_volume, uint32_t *ret_duration, uint32_t *ret_duration_remaining);
 
 /**
  * \ingroup BrickletPiezoSpeakerV2
@@ -428,7 +428,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_piezo_speaker_v2_get_beep(TF_PiezoSpeakerV2 *piez
  * * Step Size: has to be small enough to fit into the frequency range
  * * Step Delay: has to be small enough to fit into the duration
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_piezo_speaker_v2_set_alarm(TF_PiezoSpeakerV2 *piezo_speaker_v2, uint16_t start_frequency, uint16_t end_frequency, uint16_t step_size, uint16_t step_delay, uint8_t volume, uint32_t duration);
+int tf_piezo_speaker_v2_set_alarm(TF_PiezoSpeakerV2 *piezo_speaker_v2, uint16_t start_frequency, uint16_t end_frequency, uint16_t step_size, uint16_t step_delay, uint8_t volume, uint32_t duration);
 
 /**
  * \ingroup BrickletPiezoSpeakerV2
@@ -440,21 +440,21 @@ TF_ATTRIBUTE_NONNULL(1) int tf_piezo_speaker_v2_set_alarm(TF_PiezoSpeakerV2 *pie
  * If the volume is updated during an alarm (with {@link tf_piezo_speaker_v2_update_volume})
  * this function returns the updated value.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_piezo_speaker_v2_get_alarm(TF_PiezoSpeakerV2 *piezo_speaker_v2, uint16_t *ret_start_frequency, uint16_t *ret_end_frequency, uint16_t *ret_step_size, uint16_t *ret_step_delay, uint8_t *ret_volume, uint32_t *ret_duration, uint32_t *ret_duration_remaining, uint16_t *ret_current_frequency);
+int tf_piezo_speaker_v2_get_alarm(TF_PiezoSpeakerV2 *piezo_speaker_v2, uint16_t *ret_start_frequency, uint16_t *ret_end_frequency, uint16_t *ret_step_size, uint16_t *ret_step_delay, uint8_t *ret_volume, uint32_t *ret_duration, uint32_t *ret_duration_remaining, uint16_t *ret_current_frequency);
 
 /**
  * \ingroup BrickletPiezoSpeakerV2
  *
  * Updates the volume of an ongoing beep or alarm.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_piezo_speaker_v2_update_volume(TF_PiezoSpeakerV2 *piezo_speaker_v2, uint8_t volume);
+int tf_piezo_speaker_v2_update_volume(TF_PiezoSpeakerV2 *piezo_speaker_v2, uint8_t volume);
 
 /**
  * \ingroup BrickletPiezoSpeakerV2
  *
  * Updates the frequency of an ongoing beep.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_piezo_speaker_v2_update_frequency(TF_PiezoSpeakerV2 *piezo_speaker_v2, uint16_t frequency);
+int tf_piezo_speaker_v2_update_frequency(TF_PiezoSpeakerV2 *piezo_speaker_v2, uint16_t frequency);
 
 /**
  * \ingroup BrickletPiezoSpeakerV2
@@ -471,7 +471,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_piezo_speaker_v2_update_frequency(TF_PiezoSpeaker
  * The errors counts are for errors that occur on the Bricklet side. All
  * Bricks have a similar function that returns the errors on the Brick side.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_piezo_speaker_v2_get_spitfp_error_count(TF_PiezoSpeakerV2 *piezo_speaker_v2, uint32_t *ret_error_count_ack_checksum, uint32_t *ret_error_count_message_checksum, uint32_t *ret_error_count_frame, uint32_t *ret_error_count_overflow);
+int tf_piezo_speaker_v2_get_spitfp_error_count(TF_PiezoSpeakerV2 *piezo_speaker_v2, uint32_t *ret_error_count_ack_checksum, uint32_t *ret_error_count_message_checksum, uint32_t *ret_error_count_frame, uint32_t *ret_error_count_overflow);
 
 /**
  * \ingroup BrickletPiezoSpeakerV2
@@ -486,14 +486,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_piezo_speaker_v2_get_spitfp_error_count(TF_PiezoS
  * This function is used by Brick Viewer during flashing. It should not be
  * necessary to call it in a normal user program.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_piezo_speaker_v2_set_bootloader_mode(TF_PiezoSpeakerV2 *piezo_speaker_v2, uint8_t mode, uint8_t *ret_status);
+int tf_piezo_speaker_v2_set_bootloader_mode(TF_PiezoSpeakerV2 *piezo_speaker_v2, uint8_t mode, uint8_t *ret_status);
 
 /**
  * \ingroup BrickletPiezoSpeakerV2
  *
  * Returns the current bootloader mode, see {@link tf_piezo_speaker_v2_set_bootloader_mode}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_piezo_speaker_v2_get_bootloader_mode(TF_PiezoSpeakerV2 *piezo_speaker_v2, uint8_t *ret_mode);
+int tf_piezo_speaker_v2_get_bootloader_mode(TF_PiezoSpeakerV2 *piezo_speaker_v2, uint8_t *ret_mode);
 
 /**
  * \ingroup BrickletPiezoSpeakerV2
@@ -505,7 +505,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_piezo_speaker_v2_get_bootloader_mode(TF_PiezoSpea
  * This function is used by Brick Viewer during flashing. It should not be
  * necessary to call it in a normal user program.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_piezo_speaker_v2_set_write_firmware_pointer(TF_PiezoSpeakerV2 *piezo_speaker_v2, uint32_t pointer);
+int tf_piezo_speaker_v2_set_write_firmware_pointer(TF_PiezoSpeakerV2 *piezo_speaker_v2, uint32_t pointer);
 
 /**
  * \ingroup BrickletPiezoSpeakerV2
@@ -519,7 +519,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_piezo_speaker_v2_set_write_firmware_pointer(TF_Pi
  * This function is used by Brick Viewer during flashing. It should not be
  * necessary to call it in a normal user program.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_piezo_speaker_v2_write_firmware(TF_PiezoSpeakerV2 *piezo_speaker_v2, uint8_t data[64], uint8_t *ret_status);
+int tf_piezo_speaker_v2_write_firmware(TF_PiezoSpeakerV2 *piezo_speaker_v2, const uint8_t data[64], uint8_t *ret_status);
 
 /**
  * \ingroup BrickletPiezoSpeakerV2
@@ -532,14 +532,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_piezo_speaker_v2_write_firmware(TF_PiezoSpeakerV2
  * 
  * If the Bricklet is in bootloader mode, the LED is will show heartbeat by default.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_piezo_speaker_v2_set_status_led_config(TF_PiezoSpeakerV2 *piezo_speaker_v2, uint8_t config);
+int tf_piezo_speaker_v2_set_status_led_config(TF_PiezoSpeakerV2 *piezo_speaker_v2, uint8_t config);
 
 /**
  * \ingroup BrickletPiezoSpeakerV2
  *
  * Returns the configuration as set by {@link tf_piezo_speaker_v2_set_status_led_config}
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_piezo_speaker_v2_get_status_led_config(TF_PiezoSpeakerV2 *piezo_speaker_v2, uint8_t *ret_config);
+int tf_piezo_speaker_v2_get_status_led_config(TF_PiezoSpeakerV2 *piezo_speaker_v2, uint8_t *ret_config);
 
 /**
  * \ingroup BrickletPiezoSpeakerV2
@@ -551,7 +551,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_piezo_speaker_v2_get_status_led_config(TF_PiezoSp
  * accuracy. Practically it is only useful as an indicator for
  * temperature changes.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_piezo_speaker_v2_get_chip_temperature(TF_PiezoSpeakerV2 *piezo_speaker_v2, int16_t *ret_temperature);
+int tf_piezo_speaker_v2_get_chip_temperature(TF_PiezoSpeakerV2 *piezo_speaker_v2, int16_t *ret_temperature);
 
 /**
  * \ingroup BrickletPiezoSpeakerV2
@@ -563,7 +563,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_piezo_speaker_v2_get_chip_temperature(TF_PiezoSpe
  * calling functions on the existing ones will result in
  * undefined behavior!
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_piezo_speaker_v2_reset(TF_PiezoSpeakerV2 *piezo_speaker_v2);
+int tf_piezo_speaker_v2_reset(TF_PiezoSpeakerV2 *piezo_speaker_v2);
 
 /**
  * \ingroup BrickletPiezoSpeakerV2
@@ -574,7 +574,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_piezo_speaker_v2_reset(TF_PiezoSpeakerV2 *piezo_s
  * 
  * We recommend that you use Brick Viewer to change the UID.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_piezo_speaker_v2_write_uid(TF_PiezoSpeakerV2 *piezo_speaker_v2, uint32_t uid);
+int tf_piezo_speaker_v2_write_uid(TF_PiezoSpeakerV2 *piezo_speaker_v2, uint32_t uid);
 
 /**
  * \ingroup BrickletPiezoSpeakerV2
@@ -582,7 +582,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_piezo_speaker_v2_write_uid(TF_PiezoSpeakerV2 *pie
  * Returns the current UID as an integer. Encode as
  * Base58 to get the usual string version.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_piezo_speaker_v2_read_uid(TF_PiezoSpeakerV2 *piezo_speaker_v2, uint32_t *ret_uid);
+int tf_piezo_speaker_v2_read_uid(TF_PiezoSpeakerV2 *piezo_speaker_v2, uint32_t *ret_uid);
 
 /**
  * \ingroup BrickletPiezoSpeakerV2
@@ -598,7 +598,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_piezo_speaker_v2_read_uid(TF_PiezoSpeakerV2 *piez
  * The device identifier numbers can be found :ref:`here <device_identifier>`.
  * |device_identifier_constant|
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_piezo_speaker_v2_get_identity(TF_PiezoSpeakerV2 *piezo_speaker_v2, char ret_uid[8], char ret_connected_uid[8], char *ret_position, uint8_t ret_hardware_version[3], uint8_t ret_firmware_version[3], uint16_t *ret_device_identifier);
+int tf_piezo_speaker_v2_get_identity(TF_PiezoSpeakerV2 *piezo_speaker_v2, char ret_uid[8], char ret_connected_uid[8], char *ret_position, uint8_t ret_hardware_version[3], uint8_t ret_firmware_version[3], uint16_t *ret_device_identifier);
 
 #ifdef __cplusplus
 }

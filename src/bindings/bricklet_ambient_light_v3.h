@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-10-04.      *
+ * This file was automatically generated on 2021-11-12.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -25,7 +25,7 @@ extern "C" {
  */
 
 struct TF_AmbientLightV3;
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
 
 typedef void (*TF_AmbientLightV3IlluminanceHandler)(struct TF_AmbientLightV3 *device, uint32_t illuminance, void *user_data);
 
@@ -37,7 +37,7 @@ typedef void (*TF_AmbientLightV3IlluminanceHandler)(struct TF_AmbientLightV3 *de
  */
 typedef struct TF_AmbientLightV3 {
     TF_TfpContext *tfp;
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
     TF_AmbientLightV3IlluminanceHandler illuminance_handler;
     void *illuminance_user_data;
 
@@ -130,7 +130,7 @@ typedef struct TF_AmbientLightV3 {
  */
 #define TF_AMBIENT_LIGHT_V3_FUNCTION_GET_IDENTITY 255
 
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
 
 /**
  * \ingroup BrickletAmbientLightV3
@@ -338,7 +338,7 @@ typedef struct TF_AmbientLightV3 {
  * Creates the device object \c ambient_light_v3 with the unique device ID \c uid and adds
  * it to the IPConnection \c ipcon.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_ambient_light_v3_create(TF_AmbientLightV3 *ambient_light_v3, const char *uid, TF_HalContext *hal);
+int tf_ambient_light_v3_create(TF_AmbientLightV3 *ambient_light_v3, const char *uid, TF_HalContext *hal);
 
 /**
  * \ingroup BrickletAmbientLightV3
@@ -346,7 +346,7 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_ambient_light_v3_create(TF_AmbientLightV3 *ambie
  * Removes the device object \c ambient_light_v3 from its IPConnection and destroys it.
  * The device object cannot be used anymore afterwards.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_ambient_light_v3_destroy(TF_AmbientLightV3 *ambient_light_v3);
+int tf_ambient_light_v3_destroy(TF_AmbientLightV3 *ambient_light_v3);
 
 /**
  * \ingroup BrickletAmbientLightV3
@@ -367,7 +367,7 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_ambient_light_v3_destroy(TF_AmbientLightV3 *ambi
  * disabled for a setter function then no response is sent and errors are
  * silently ignored, because they cannot be detected.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_ambient_light_v3_get_response_expected(TF_AmbientLightV3 *ambient_light_v3, uint8_t function_id, bool *ret_response_expected);
+int tf_ambient_light_v3_get_response_expected(TF_AmbientLightV3 *ambient_light_v3, uint8_t function_id, bool *ret_response_expected);
 
 /**
  * \ingroup BrickletAmbientLightV3
@@ -383,7 +383,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_ambient_light_v3_get_response_expected(TF_Ambient
  * setter function then no response is sent and errors are silently ignored,
  * because they cannot be detected.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_ambient_light_v3_set_response_expected(TF_AmbientLightV3 *ambient_light_v3, uint8_t function_id, bool response_expected);
+int tf_ambient_light_v3_set_response_expected(TF_AmbientLightV3 *ambient_light_v3, uint8_t function_id, bool response_expected);
 
 /**
  * \ingroup BrickletAmbientLightV3
@@ -391,8 +391,8 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_ambient_light_v3_set_response_expected(TF_Ambien
  * Changes the response expected flag for all setter and callback configuration
  * functions of this device at once.
  */
-TF_ATTRIBUTE_NONNULL_ALL void tf_ambient_light_v3_set_response_expected_all(TF_AmbientLightV3 *ambient_light_v3, bool response_expected);
-#ifdef TF_IMPLEMENT_CALLBACKS
+void tf_ambient_light_v3_set_response_expected_all(TF_AmbientLightV3 *ambient_light_v3, bool response_expected);
+#if TF_IMPLEMENT_CALLBACKS != 0
 /**
  * \ingroup BrickletAmbientLightV3
  *
@@ -406,9 +406,9 @@ TF_ATTRIBUTE_NONNULL_ALL void tf_ambient_light_v3_set_response_expected_all(TF_A
  * 
  * The parameter is the same as {@link tf_ambient_light_v3_get_illuminance}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_ambient_light_v3_register_illuminance_callback(TF_AmbientLightV3 *ambient_light_v3, TF_AmbientLightV3IlluminanceHandler handler, void *user_data);
+int tf_ambient_light_v3_register_illuminance_callback(TF_AmbientLightV3 *ambient_light_v3, TF_AmbientLightV3IlluminanceHandler handler, void *user_data);
 #endif
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
 /**
  * \ingroup BrickletAmbientLightV3
  *
@@ -416,7 +416,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_ambient_light_v3_register_illuminance_callback(TF
  *
  * This function can be used in a non-blocking fashion by calling it with a timeout of 0.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_ambient_light_v3_callback_tick(TF_AmbientLightV3 *ambient_light_v3, uint32_t timeout_us);
+int tf_ambient_light_v3_callback_tick(TF_AmbientLightV3 *ambient_light_v3, uint32_t timeout_us);
 #endif
 
 /**
@@ -438,7 +438,7 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_ambient_light_v3_callback_tick(TF_AmbientLightV3
  * {@link tf_ambient_light_v3_register_illuminance_callback} callback. You can set the callback configuration
  * with {@link tf_ambient_light_v3_set_illuminance_callback_configuration}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_ambient_light_v3_get_illuminance(TF_AmbientLightV3 *ambient_light_v3, uint32_t *ret_illuminance);
+int tf_ambient_light_v3_get_illuminance(TF_AmbientLightV3 *ambient_light_v3, uint32_t *ret_illuminance);
 
 /**
  * \ingroup BrickletAmbientLightV3
@@ -471,14 +471,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_ambient_light_v3_get_illuminance(TF_AmbientLightV
  * 
  * If the option is set to 'x' (threshold turned off) the callback is triggered with the fixed period.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_ambient_light_v3_set_illuminance_callback_configuration(TF_AmbientLightV3 *ambient_light_v3, uint32_t period, bool value_has_to_change, char option, uint32_t min, uint32_t max);
+int tf_ambient_light_v3_set_illuminance_callback_configuration(TF_AmbientLightV3 *ambient_light_v3, uint32_t period, bool value_has_to_change, char option, uint32_t min, uint32_t max);
 
 /**
  * \ingroup BrickletAmbientLightV3
  *
  * Returns the callback configuration as set by {@link tf_ambient_light_v3_set_illuminance_callback_configuration}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_ambient_light_v3_get_illuminance_callback_configuration(TF_AmbientLightV3 *ambient_light_v3, uint32_t *ret_period, bool *ret_value_has_to_change, char *ret_option, uint32_t *ret_min, uint32_t *ret_max);
+int tf_ambient_light_v3_get_illuminance_callback_configuration(TF_AmbientLightV3 *ambient_light_v3, uint32_t *ret_period, bool *ret_value_has_to_change, char *ret_option, uint32_t *ret_min, uint32_t *ret_max);
 
 /**
  * \ingroup BrickletAmbientLightV3
@@ -504,14 +504,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_ambient_light_v3_get_illuminance_callback_configu
  * configure the next higher illuminance range. If the highest range is already
  * in use, then start to reduce the integration time.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_ambient_light_v3_set_configuration(TF_AmbientLightV3 *ambient_light_v3, uint8_t illuminance_range, uint8_t integration_time);
+int tf_ambient_light_v3_set_configuration(TF_AmbientLightV3 *ambient_light_v3, uint8_t illuminance_range, uint8_t integration_time);
 
 /**
  * \ingroup BrickletAmbientLightV3
  *
  * Returns the configuration as set by {@link tf_ambient_light_v3_set_configuration}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_ambient_light_v3_get_configuration(TF_AmbientLightV3 *ambient_light_v3, uint8_t *ret_illuminance_range, uint8_t *ret_integration_time);
+int tf_ambient_light_v3_get_configuration(TF_AmbientLightV3 *ambient_light_v3, uint8_t *ret_illuminance_range, uint8_t *ret_integration_time);
 
 /**
  * \ingroup BrickletAmbientLightV3
@@ -528,7 +528,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_ambient_light_v3_get_configuration(TF_AmbientLigh
  * The errors counts are for errors that occur on the Bricklet side. All
  * Bricks have a similar function that returns the errors on the Brick side.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_ambient_light_v3_get_spitfp_error_count(TF_AmbientLightV3 *ambient_light_v3, uint32_t *ret_error_count_ack_checksum, uint32_t *ret_error_count_message_checksum, uint32_t *ret_error_count_frame, uint32_t *ret_error_count_overflow);
+int tf_ambient_light_v3_get_spitfp_error_count(TF_AmbientLightV3 *ambient_light_v3, uint32_t *ret_error_count_ack_checksum, uint32_t *ret_error_count_message_checksum, uint32_t *ret_error_count_frame, uint32_t *ret_error_count_overflow);
 
 /**
  * \ingroup BrickletAmbientLightV3
@@ -543,14 +543,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_ambient_light_v3_get_spitfp_error_count(TF_Ambien
  * This function is used by Brick Viewer during flashing. It should not be
  * necessary to call it in a normal user program.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_ambient_light_v3_set_bootloader_mode(TF_AmbientLightV3 *ambient_light_v3, uint8_t mode, uint8_t *ret_status);
+int tf_ambient_light_v3_set_bootloader_mode(TF_AmbientLightV3 *ambient_light_v3, uint8_t mode, uint8_t *ret_status);
 
 /**
  * \ingroup BrickletAmbientLightV3
  *
  * Returns the current bootloader mode, see {@link tf_ambient_light_v3_set_bootloader_mode}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_ambient_light_v3_get_bootloader_mode(TF_AmbientLightV3 *ambient_light_v3, uint8_t *ret_mode);
+int tf_ambient_light_v3_get_bootloader_mode(TF_AmbientLightV3 *ambient_light_v3, uint8_t *ret_mode);
 
 /**
  * \ingroup BrickletAmbientLightV3
@@ -562,7 +562,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_ambient_light_v3_get_bootloader_mode(TF_AmbientLi
  * This function is used by Brick Viewer during flashing. It should not be
  * necessary to call it in a normal user program.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_ambient_light_v3_set_write_firmware_pointer(TF_AmbientLightV3 *ambient_light_v3, uint32_t pointer);
+int tf_ambient_light_v3_set_write_firmware_pointer(TF_AmbientLightV3 *ambient_light_v3, uint32_t pointer);
 
 /**
  * \ingroup BrickletAmbientLightV3
@@ -576,7 +576,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_ambient_light_v3_set_write_firmware_pointer(TF_Am
  * This function is used by Brick Viewer during flashing. It should not be
  * necessary to call it in a normal user program.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_ambient_light_v3_write_firmware(TF_AmbientLightV3 *ambient_light_v3, uint8_t data[64], uint8_t *ret_status);
+int tf_ambient_light_v3_write_firmware(TF_AmbientLightV3 *ambient_light_v3, const uint8_t data[64], uint8_t *ret_status);
 
 /**
  * \ingroup BrickletAmbientLightV3
@@ -589,14 +589,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_ambient_light_v3_write_firmware(TF_AmbientLightV3
  * 
  * If the Bricklet is in bootloader mode, the LED is will show heartbeat by default.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_ambient_light_v3_set_status_led_config(TF_AmbientLightV3 *ambient_light_v3, uint8_t config);
+int tf_ambient_light_v3_set_status_led_config(TF_AmbientLightV3 *ambient_light_v3, uint8_t config);
 
 /**
  * \ingroup BrickletAmbientLightV3
  *
  * Returns the configuration as set by {@link tf_ambient_light_v3_set_status_led_config}
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_ambient_light_v3_get_status_led_config(TF_AmbientLightV3 *ambient_light_v3, uint8_t *ret_config);
+int tf_ambient_light_v3_get_status_led_config(TF_AmbientLightV3 *ambient_light_v3, uint8_t *ret_config);
 
 /**
  * \ingroup BrickletAmbientLightV3
@@ -608,7 +608,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_ambient_light_v3_get_status_led_config(TF_Ambient
  * accuracy. Practically it is only useful as an indicator for
  * temperature changes.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_ambient_light_v3_get_chip_temperature(TF_AmbientLightV3 *ambient_light_v3, int16_t *ret_temperature);
+int tf_ambient_light_v3_get_chip_temperature(TF_AmbientLightV3 *ambient_light_v3, int16_t *ret_temperature);
 
 /**
  * \ingroup BrickletAmbientLightV3
@@ -620,7 +620,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_ambient_light_v3_get_chip_temperature(TF_AmbientL
  * calling functions on the existing ones will result in
  * undefined behavior!
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_ambient_light_v3_reset(TF_AmbientLightV3 *ambient_light_v3);
+int tf_ambient_light_v3_reset(TF_AmbientLightV3 *ambient_light_v3);
 
 /**
  * \ingroup BrickletAmbientLightV3
@@ -631,7 +631,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_ambient_light_v3_reset(TF_AmbientLightV3 *ambient
  * 
  * We recommend that you use Brick Viewer to change the UID.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_ambient_light_v3_write_uid(TF_AmbientLightV3 *ambient_light_v3, uint32_t uid);
+int tf_ambient_light_v3_write_uid(TF_AmbientLightV3 *ambient_light_v3, uint32_t uid);
 
 /**
  * \ingroup BrickletAmbientLightV3
@@ -639,7 +639,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_ambient_light_v3_write_uid(TF_AmbientLightV3 *amb
  * Returns the current UID as an integer. Encode as
  * Base58 to get the usual string version.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_ambient_light_v3_read_uid(TF_AmbientLightV3 *ambient_light_v3, uint32_t *ret_uid);
+int tf_ambient_light_v3_read_uid(TF_AmbientLightV3 *ambient_light_v3, uint32_t *ret_uid);
 
 /**
  * \ingroup BrickletAmbientLightV3
@@ -655,7 +655,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_ambient_light_v3_read_uid(TF_AmbientLightV3 *ambi
  * The device identifier numbers can be found :ref:`here <device_identifier>`.
  * |device_identifier_constant|
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_ambient_light_v3_get_identity(TF_AmbientLightV3 *ambient_light_v3, char ret_uid[8], char ret_connected_uid[8], char *ret_position, uint8_t ret_hardware_version[3], uint8_t ret_firmware_version[3], uint16_t *ret_device_identifier);
+int tf_ambient_light_v3_get_identity(TF_AmbientLightV3 *ambient_light_v3, char ret_uid[8], char ret_connected_uid[8], char *ret_position, uint8_t ret_hardware_version[3], uint8_t ret_firmware_version[3], uint16_t *ret_device_identifier);
 
 #ifdef __cplusplus
 }

@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-10-04.      *
+ * This file was automatically generated on 2021-11-12.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -25,7 +25,7 @@ extern "C" {
  */
 
 struct TF_AnalogInV3;
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
 
 typedef void (*TF_AnalogInV3VoltageHandler)(struct TF_AnalogInV3 *device, uint16_t voltage, void *user_data);
 
@@ -37,7 +37,7 @@ typedef void (*TF_AnalogInV3VoltageHandler)(struct TF_AnalogInV3 *device, uint16
  */
 typedef struct TF_AnalogInV3 {
     TF_TfpContext *tfp;
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
     TF_AnalogInV3VoltageHandler voltage_handler;
     void *voltage_user_data;
 
@@ -140,7 +140,7 @@ typedef struct TF_AnalogInV3 {
  */
 #define TF_ANALOG_IN_V3_FUNCTION_GET_IDENTITY 255
 
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
 
 /**
  * \ingroup BrickletAnalogInV3
@@ -323,7 +323,7 @@ typedef struct TF_AnalogInV3 {
  * Creates the device object \c analog_in_v3 with the unique device ID \c uid and adds
  * it to the IPConnection \c ipcon.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_analog_in_v3_create(TF_AnalogInV3 *analog_in_v3, const char *uid, TF_HalContext *hal);
+int tf_analog_in_v3_create(TF_AnalogInV3 *analog_in_v3, const char *uid, TF_HalContext *hal);
 
 /**
  * \ingroup BrickletAnalogInV3
@@ -331,7 +331,7 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_analog_in_v3_create(TF_AnalogInV3 *analog_in_v3,
  * Removes the device object \c analog_in_v3 from its IPConnection and destroys it.
  * The device object cannot be used anymore afterwards.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_analog_in_v3_destroy(TF_AnalogInV3 *analog_in_v3);
+int tf_analog_in_v3_destroy(TF_AnalogInV3 *analog_in_v3);
 
 /**
  * \ingroup BrickletAnalogInV3
@@ -352,7 +352,7 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_analog_in_v3_destroy(TF_AnalogInV3 *analog_in_v3
  * disabled for a setter function then no response is sent and errors are
  * silently ignored, because they cannot be detected.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_analog_in_v3_get_response_expected(TF_AnalogInV3 *analog_in_v3, uint8_t function_id, bool *ret_response_expected);
+int tf_analog_in_v3_get_response_expected(TF_AnalogInV3 *analog_in_v3, uint8_t function_id, bool *ret_response_expected);
 
 /**
  * \ingroup BrickletAnalogInV3
@@ -368,7 +368,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_analog_in_v3_get_response_expected(TF_AnalogInV3 
  * setter function then no response is sent and errors are silently ignored,
  * because they cannot be detected.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_analog_in_v3_set_response_expected(TF_AnalogInV3 *analog_in_v3, uint8_t function_id, bool response_expected);
+int tf_analog_in_v3_set_response_expected(TF_AnalogInV3 *analog_in_v3, uint8_t function_id, bool response_expected);
 
 /**
  * \ingroup BrickletAnalogInV3
@@ -376,8 +376,8 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_analog_in_v3_set_response_expected(TF_AnalogInV3
  * Changes the response expected flag for all setter and callback configuration
  * functions of this device at once.
  */
-TF_ATTRIBUTE_NONNULL_ALL void tf_analog_in_v3_set_response_expected_all(TF_AnalogInV3 *analog_in_v3, bool response_expected);
-#ifdef TF_IMPLEMENT_CALLBACKS
+void tf_analog_in_v3_set_response_expected_all(TF_AnalogInV3 *analog_in_v3, bool response_expected);
+#if TF_IMPLEMENT_CALLBACKS != 0
 /**
  * \ingroup BrickletAnalogInV3
  *
@@ -391,9 +391,9 @@ TF_ATTRIBUTE_NONNULL_ALL void tf_analog_in_v3_set_response_expected_all(TF_Analo
  * 
  * The parameter is the same as {@link tf_analog_in_v3_get_voltage}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_analog_in_v3_register_voltage_callback(TF_AnalogInV3 *analog_in_v3, TF_AnalogInV3VoltageHandler handler, void *user_data);
+int tf_analog_in_v3_register_voltage_callback(TF_AnalogInV3 *analog_in_v3, TF_AnalogInV3VoltageHandler handler, void *user_data);
 #endif
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
 /**
  * \ingroup BrickletAnalogInV3
  *
@@ -401,7 +401,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_analog_in_v3_register_voltage_callback(TF_AnalogI
  *
  * This function can be used in a non-blocking fashion by calling it with a timeout of 0.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_analog_in_v3_callback_tick(TF_AnalogInV3 *analog_in_v3, uint32_t timeout_us);
+int tf_analog_in_v3_callback_tick(TF_AnalogInV3 *analog_in_v3, uint32_t timeout_us);
 #endif
 
 /**
@@ -415,7 +415,7 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_analog_in_v3_callback_tick(TF_AnalogInV3 *analog
  * {@link tf_analog_in_v3_register_voltage_callback} callback. You can set the callback configuration
  * with {@link tf_analog_in_v3_set_voltage_callback_configuration}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_analog_in_v3_get_voltage(TF_AnalogInV3 *analog_in_v3, uint16_t *ret_voltage);
+int tf_analog_in_v3_get_voltage(TF_AnalogInV3 *analog_in_v3, uint16_t *ret_voltage);
 
 /**
  * \ingroup BrickletAnalogInV3
@@ -448,14 +448,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_analog_in_v3_get_voltage(TF_AnalogInV3 *analog_in
  * 
  * If the option is set to 'x' (threshold turned off) the callback is triggered with the fixed period.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_analog_in_v3_set_voltage_callback_configuration(TF_AnalogInV3 *analog_in_v3, uint32_t period, bool value_has_to_change, char option, uint16_t min, uint16_t max);
+int tf_analog_in_v3_set_voltage_callback_configuration(TF_AnalogInV3 *analog_in_v3, uint32_t period, bool value_has_to_change, char option, uint16_t min, uint16_t max);
 
 /**
  * \ingroup BrickletAnalogInV3
  *
  * Returns the callback configuration as set by {@link tf_analog_in_v3_set_voltage_callback_configuration}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_analog_in_v3_get_voltage_callback_configuration(TF_AnalogInV3 *analog_in_v3, uint32_t *ret_period, bool *ret_value_has_to_change, char *ret_option, uint16_t *ret_min, uint16_t *ret_max);
+int tf_analog_in_v3_get_voltage_callback_configuration(TF_AnalogInV3 *analog_in_v3, uint32_t *ret_period, bool *ret_value_has_to_change, char *ret_option, uint16_t *ret_min, uint16_t *ret_max);
 
 /**
  * \ingroup BrickletAnalogInV3
@@ -473,14 +473,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_analog_in_v3_get_voltage_callback_configuration(T
  * oversampling the reaction time increases (changes in voltage will be
  * measured faster).
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_analog_in_v3_set_oversampling(TF_AnalogInV3 *analog_in_v3, uint8_t oversampling);
+int tf_analog_in_v3_set_oversampling(TF_AnalogInV3 *analog_in_v3, uint8_t oversampling);
 
 /**
  * \ingroup BrickletAnalogInV3
  *
  * Returns the oversampling value as set by {@link tf_analog_in_v3_set_oversampling}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_analog_in_v3_get_oversampling(TF_AnalogInV3 *analog_in_v3, uint8_t *ret_oversampling);
+int tf_analog_in_v3_get_oversampling(TF_AnalogInV3 *analog_in_v3, uint8_t *ret_oversampling);
 
 /**
  * \ingroup BrickletAnalogInV3
@@ -494,14 +494,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_analog_in_v3_get_oversampling(TF_AnalogInV3 *anal
  * the Bricklet. The calibration will be saved internally and only
  * has to be done once.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_analog_in_v3_set_calibration(TF_AnalogInV3 *analog_in_v3, int16_t offset, uint16_t multiplier, uint16_t divisor);
+int tf_analog_in_v3_set_calibration(TF_AnalogInV3 *analog_in_v3, int16_t offset, uint16_t multiplier, uint16_t divisor);
 
 /**
  * \ingroup BrickletAnalogInV3
  *
  * Returns the calibration as set by {@link tf_analog_in_v3_set_calibration}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_analog_in_v3_get_calibration(TF_AnalogInV3 *analog_in_v3, int16_t *ret_offset, uint16_t *ret_multiplier, uint16_t *ret_divisor);
+int tf_analog_in_v3_get_calibration(TF_AnalogInV3 *analog_in_v3, int16_t *ret_offset, uint16_t *ret_multiplier, uint16_t *ret_divisor);
 
 /**
  * \ingroup BrickletAnalogInV3
@@ -518,7 +518,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_analog_in_v3_get_calibration(TF_AnalogInV3 *analo
  * The errors counts are for errors that occur on the Bricklet side. All
  * Bricks have a similar function that returns the errors on the Brick side.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_analog_in_v3_get_spitfp_error_count(TF_AnalogInV3 *analog_in_v3, uint32_t *ret_error_count_ack_checksum, uint32_t *ret_error_count_message_checksum, uint32_t *ret_error_count_frame, uint32_t *ret_error_count_overflow);
+int tf_analog_in_v3_get_spitfp_error_count(TF_AnalogInV3 *analog_in_v3, uint32_t *ret_error_count_ack_checksum, uint32_t *ret_error_count_message_checksum, uint32_t *ret_error_count_frame, uint32_t *ret_error_count_overflow);
 
 /**
  * \ingroup BrickletAnalogInV3
@@ -533,14 +533,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_analog_in_v3_get_spitfp_error_count(TF_AnalogInV3
  * This function is used by Brick Viewer during flashing. It should not be
  * necessary to call it in a normal user program.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_analog_in_v3_set_bootloader_mode(TF_AnalogInV3 *analog_in_v3, uint8_t mode, uint8_t *ret_status);
+int tf_analog_in_v3_set_bootloader_mode(TF_AnalogInV3 *analog_in_v3, uint8_t mode, uint8_t *ret_status);
 
 /**
  * \ingroup BrickletAnalogInV3
  *
  * Returns the current bootloader mode, see {@link tf_analog_in_v3_set_bootloader_mode}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_analog_in_v3_get_bootloader_mode(TF_AnalogInV3 *analog_in_v3, uint8_t *ret_mode);
+int tf_analog_in_v3_get_bootloader_mode(TF_AnalogInV3 *analog_in_v3, uint8_t *ret_mode);
 
 /**
  * \ingroup BrickletAnalogInV3
@@ -552,7 +552,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_analog_in_v3_get_bootloader_mode(TF_AnalogInV3 *a
  * This function is used by Brick Viewer during flashing. It should not be
  * necessary to call it in a normal user program.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_analog_in_v3_set_write_firmware_pointer(TF_AnalogInV3 *analog_in_v3, uint32_t pointer);
+int tf_analog_in_v3_set_write_firmware_pointer(TF_AnalogInV3 *analog_in_v3, uint32_t pointer);
 
 /**
  * \ingroup BrickletAnalogInV3
@@ -566,7 +566,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_analog_in_v3_set_write_firmware_pointer(TF_Analog
  * This function is used by Brick Viewer during flashing. It should not be
  * necessary to call it in a normal user program.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_analog_in_v3_write_firmware(TF_AnalogInV3 *analog_in_v3, uint8_t data[64], uint8_t *ret_status);
+int tf_analog_in_v3_write_firmware(TF_AnalogInV3 *analog_in_v3, const uint8_t data[64], uint8_t *ret_status);
 
 /**
  * \ingroup BrickletAnalogInV3
@@ -579,14 +579,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_analog_in_v3_write_firmware(TF_AnalogInV3 *analog
  * 
  * If the Bricklet is in bootloader mode, the LED is will show heartbeat by default.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_analog_in_v3_set_status_led_config(TF_AnalogInV3 *analog_in_v3, uint8_t config);
+int tf_analog_in_v3_set_status_led_config(TF_AnalogInV3 *analog_in_v3, uint8_t config);
 
 /**
  * \ingroup BrickletAnalogInV3
  *
  * Returns the configuration as set by {@link tf_analog_in_v3_set_status_led_config}
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_analog_in_v3_get_status_led_config(TF_AnalogInV3 *analog_in_v3, uint8_t *ret_config);
+int tf_analog_in_v3_get_status_led_config(TF_AnalogInV3 *analog_in_v3, uint8_t *ret_config);
 
 /**
  * \ingroup BrickletAnalogInV3
@@ -598,7 +598,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_analog_in_v3_get_status_led_config(TF_AnalogInV3 
  * accuracy. Practically it is only useful as an indicator for
  * temperature changes.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_analog_in_v3_get_chip_temperature(TF_AnalogInV3 *analog_in_v3, int16_t *ret_temperature);
+int tf_analog_in_v3_get_chip_temperature(TF_AnalogInV3 *analog_in_v3, int16_t *ret_temperature);
 
 /**
  * \ingroup BrickletAnalogInV3
@@ -610,7 +610,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_analog_in_v3_get_chip_temperature(TF_AnalogInV3 *
  * calling functions on the existing ones will result in
  * undefined behavior!
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_analog_in_v3_reset(TF_AnalogInV3 *analog_in_v3);
+int tf_analog_in_v3_reset(TF_AnalogInV3 *analog_in_v3);
 
 /**
  * \ingroup BrickletAnalogInV3
@@ -621,7 +621,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_analog_in_v3_reset(TF_AnalogInV3 *analog_in_v3);
  * 
  * We recommend that you use Brick Viewer to change the UID.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_analog_in_v3_write_uid(TF_AnalogInV3 *analog_in_v3, uint32_t uid);
+int tf_analog_in_v3_write_uid(TF_AnalogInV3 *analog_in_v3, uint32_t uid);
 
 /**
  * \ingroup BrickletAnalogInV3
@@ -629,7 +629,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_analog_in_v3_write_uid(TF_AnalogInV3 *analog_in_v
  * Returns the current UID as an integer. Encode as
  * Base58 to get the usual string version.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_analog_in_v3_read_uid(TF_AnalogInV3 *analog_in_v3, uint32_t *ret_uid);
+int tf_analog_in_v3_read_uid(TF_AnalogInV3 *analog_in_v3, uint32_t *ret_uid);
 
 /**
  * \ingroup BrickletAnalogInV3
@@ -645,7 +645,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_analog_in_v3_read_uid(TF_AnalogInV3 *analog_in_v3
  * The device identifier numbers can be found :ref:`here <device_identifier>`.
  * |device_identifier_constant|
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_analog_in_v3_get_identity(TF_AnalogInV3 *analog_in_v3, char ret_uid[8], char ret_connected_uid[8], char *ret_position, uint8_t ret_hardware_version[3], uint8_t ret_firmware_version[3], uint16_t *ret_device_identifier);
+int tf_analog_in_v3_get_identity(TF_AnalogInV3 *analog_in_v3, char ret_uid[8], char ret_connected_uid[8], char *ret_position, uint8_t ret_hardware_version[3], uint8_t ret_firmware_version[3], uint16_t *ret_device_identifier);
 
 #ifdef __cplusplus
 }

@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-10-15.      *
+ * This file was automatically generated on 2021-11-08.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -40,13 +40,12 @@ int tf_evse_v2_create(TF_EVSEV2 *evse_v2, const char *uid, TF_HalContext *hal) {
     }
 
     uint8_t port_id;
-    int inventory_index;
+    uint8_t inventory_index;
     rc = tf_hal_get_port_id(hal, numeric_uid, &port_id, &inventory_index);
     if (rc < 0) {
         return rc;
     }
 
-    //rc = tf_tfp_init(evse_v2->tfp, numeric_uid, TF_EVSE_V2_DEVICE_IDENTIFIER, hal, port_id, inventory_index, tf_evse_v2_callback_handler);
     rc = tf_hal_get_tfp(hal, &evse_v2->tfp, TF_EVSE_V2_DEVICE_IDENTIFIER, inventory_index);
     if (rc != TF_E_OK) {
         return rc;
@@ -117,21 +116,25 @@ int tf_evse_v2_get_response_expected(TF_EVSEV2 *evse_v2, uint8_t function_id, bo
             if(ret_response_expected != NULL)
                 *ret_response_expected = (evse_v2->response_expected[1] & (1 << 2)) != 0;
             break;
-        case TF_EVSE_V2_FUNCTION_SET_WRITE_FIRMWARE_POINTER:
+        case TF_EVSE_V2_FUNCTION_SET_CONTROL_PILOT_CONFIGURATION:
             if(ret_response_expected != NULL)
                 *ret_response_expected = (evse_v2->response_expected[1] & (1 << 3)) != 0;
             break;
-        case TF_EVSE_V2_FUNCTION_SET_STATUS_LED_CONFIG:
+        case TF_EVSE_V2_FUNCTION_SET_WRITE_FIRMWARE_POINTER:
             if(ret_response_expected != NULL)
                 *ret_response_expected = (evse_v2->response_expected[1] & (1 << 4)) != 0;
             break;
-        case TF_EVSE_V2_FUNCTION_RESET:
+        case TF_EVSE_V2_FUNCTION_SET_STATUS_LED_CONFIG:
             if(ret_response_expected != NULL)
                 *ret_response_expected = (evse_v2->response_expected[1] & (1 << 5)) != 0;
             break;
-        case TF_EVSE_V2_FUNCTION_WRITE_UID:
+        case TF_EVSE_V2_FUNCTION_RESET:
             if(ret_response_expected != NULL)
                 *ret_response_expected = (evse_v2->response_expected[1] & (1 << 6)) != 0;
+            break;
+        case TF_EVSE_V2_FUNCTION_WRITE_UID:
+            if(ret_response_expected != NULL)
+                *ret_response_expected = (evse_v2->response_expected[1] & (1 << 7)) != 0;
             break;
         default:
             return TF_E_INVALID_PARAMETER;
@@ -218,32 +221,39 @@ int tf_evse_v2_set_response_expected(TF_EVSEV2 *evse_v2, uint8_t function_id, bo
                 evse_v2->response_expected[1] &= ~(1 << 2);
             }
             break;
-        case TF_EVSE_V2_FUNCTION_SET_WRITE_FIRMWARE_POINTER:
+        case TF_EVSE_V2_FUNCTION_SET_CONTROL_PILOT_CONFIGURATION:
             if (response_expected) {
                 evse_v2->response_expected[1] |= (1 << 3);
             } else {
                 evse_v2->response_expected[1] &= ~(1 << 3);
             }
             break;
-        case TF_EVSE_V2_FUNCTION_SET_STATUS_LED_CONFIG:
+        case TF_EVSE_V2_FUNCTION_SET_WRITE_FIRMWARE_POINTER:
             if (response_expected) {
                 evse_v2->response_expected[1] |= (1 << 4);
             } else {
                 evse_v2->response_expected[1] &= ~(1 << 4);
             }
             break;
-        case TF_EVSE_V2_FUNCTION_RESET:
+        case TF_EVSE_V2_FUNCTION_SET_STATUS_LED_CONFIG:
             if (response_expected) {
                 evse_v2->response_expected[1] |= (1 << 5);
             } else {
                 evse_v2->response_expected[1] &= ~(1 << 5);
             }
             break;
-        case TF_EVSE_V2_FUNCTION_WRITE_UID:
+        case TF_EVSE_V2_FUNCTION_RESET:
             if (response_expected) {
                 evse_v2->response_expected[1] |= (1 << 6);
             } else {
                 evse_v2->response_expected[1] &= ~(1 << 6);
+            }
+            break;
+        case TF_EVSE_V2_FUNCTION_WRITE_UID:
+            if (response_expected) {
+                evse_v2->response_expected[1] |= (1 << 7);
+            } else {
+                evse_v2->response_expected[1] &= ~(1 << 7);
             }
             break;
         default:
@@ -260,14 +270,14 @@ int tf_evse_v2_get_state(TF_EVSEV2 *evse_v2, uint8_t *ret_iec61851_state, uint8_
     if (evse_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(evse_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)evse_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
     bool response_expected = true;
     tf_tfp_prepare_send(evse_v2->tfp, TF_EVSE_V2_FUNCTION_GET_STATE, 0, 17, response_expected);
 
-    uint32_t deadline = tf_hal_current_time_us(evse_v2->tfp->hal) + tf_hal_get_common(evse_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)evse_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)evse_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(evse_v2->tfp, response_expected, deadline, &error_code);
@@ -304,14 +314,14 @@ int tf_evse_v2_get_hardware_configuration(TF_EVSEV2 *evse_v2, uint8_t *ret_jumpe
     if (evse_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(evse_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)evse_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
     bool response_expected = true;
     tf_tfp_prepare_send(evse_v2->tfp, TF_EVSE_V2_FUNCTION_GET_HARDWARE_CONFIGURATION, 0, 2, response_expected);
 
-    uint32_t deadline = tf_hal_current_time_us(evse_v2->tfp->hal) + tf_hal_get_common(evse_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)evse_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)evse_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(evse_v2->tfp, response_expected, deadline, &error_code);
@@ -340,7 +350,7 @@ int tf_evse_v2_get_low_level_state(TF_EVSEV2 *evse_v2, uint8_t *ret_led_state, u
     if (evse_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(evse_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)evse_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -348,7 +358,7 @@ int tf_evse_v2_get_low_level_state(TF_EVSEV2 *evse_v2, uint8_t *ret_led_state, u
     tf_tfp_prepare_send(evse_v2->tfp, TF_EVSE_V2_FUNCTION_GET_LOW_LEVEL_STATE, 0, 46, response_expected);
 
     size_t i;
-    uint32_t deadline = tf_hal_current_time_us(evse_v2->tfp->hal) + tf_hal_get_common(evse_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)evse_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)evse_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(evse_v2->tfp, response_expected, deadline, &error_code);
@@ -382,7 +392,7 @@ int tf_evse_v2_set_max_charging_current(TF_EVSEV2 *evse_v2, uint16_t max_current
     if (evse_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(evse_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)evse_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -394,7 +404,7 @@ int tf_evse_v2_set_max_charging_current(TF_EVSEV2 *evse_v2, uint16_t max_current
 
     max_current = tf_leconvert_uint16_to(max_current); memcpy(buf + 0, &max_current, 2);
 
-    uint32_t deadline = tf_hal_current_time_us(evse_v2->tfp->hal) + tf_hal_get_common(evse_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)evse_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)evse_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(evse_v2->tfp, response_expected, deadline, &error_code);
@@ -417,14 +427,14 @@ int tf_evse_v2_get_max_charging_current(TF_EVSEV2 *evse_v2, uint16_t *ret_max_cu
     if (evse_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(evse_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)evse_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
     bool response_expected = true;
     tf_tfp_prepare_send(evse_v2->tfp, TF_EVSE_V2_FUNCTION_GET_MAX_CHARGING_CURRENT, 0, 8, response_expected);
 
-    uint32_t deadline = tf_hal_current_time_us(evse_v2->tfp->hal) + tf_hal_get_common(evse_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)evse_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)evse_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(evse_v2->tfp, response_expected, deadline, &error_code);
@@ -455,7 +465,7 @@ int tf_evse_v2_start_charging(TF_EVSEV2 *evse_v2) {
     if (evse_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(evse_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)evse_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -463,7 +473,7 @@ int tf_evse_v2_start_charging(TF_EVSEV2 *evse_v2) {
     tf_evse_v2_get_response_expected(evse_v2, TF_EVSE_V2_FUNCTION_START_CHARGING, &response_expected);
     tf_tfp_prepare_send(evse_v2->tfp, TF_EVSE_V2_FUNCTION_START_CHARGING, 0, 0, response_expected);
 
-    uint32_t deadline = tf_hal_current_time_us(evse_v2->tfp->hal) + tf_hal_get_common(evse_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)evse_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)evse_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(evse_v2->tfp, response_expected, deadline, &error_code);
@@ -486,7 +496,7 @@ int tf_evse_v2_stop_charging(TF_EVSEV2 *evse_v2) {
     if (evse_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(evse_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)evse_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -494,7 +504,7 @@ int tf_evse_v2_stop_charging(TF_EVSEV2 *evse_v2) {
     tf_evse_v2_get_response_expected(evse_v2, TF_EVSE_V2_FUNCTION_STOP_CHARGING, &response_expected);
     tf_tfp_prepare_send(evse_v2->tfp, TF_EVSE_V2_FUNCTION_STOP_CHARGING, 0, 0, response_expected);
 
-    uint32_t deadline = tf_hal_current_time_us(evse_v2->tfp->hal) + tf_hal_get_common(evse_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)evse_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)evse_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(evse_v2->tfp, response_expected, deadline, &error_code);
@@ -517,7 +527,7 @@ int tf_evse_v2_set_charging_autostart(TF_EVSEV2 *evse_v2, bool autostart) {
     if (evse_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(evse_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)evse_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -529,7 +539,7 @@ int tf_evse_v2_set_charging_autostart(TF_EVSEV2 *evse_v2, bool autostart) {
 
     buf[0] = autostart ? 1 : 0;
 
-    uint32_t deadline = tf_hal_current_time_us(evse_v2->tfp->hal) + tf_hal_get_common(evse_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)evse_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)evse_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(evse_v2->tfp, response_expected, deadline, &error_code);
@@ -552,14 +562,14 @@ int tf_evse_v2_get_charging_autostart(TF_EVSEV2 *evse_v2, bool *ret_autostart) {
     if (evse_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(evse_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)evse_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
     bool response_expected = true;
     tf_tfp_prepare_send(evse_v2->tfp, TF_EVSE_V2_FUNCTION_GET_CHARGING_AUTOSTART, 0, 1, response_expected);
 
-    uint32_t deadline = tf_hal_current_time_us(evse_v2->tfp->hal) + tf_hal_get_common(evse_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)evse_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)evse_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(evse_v2->tfp, response_expected, deadline, &error_code);
@@ -587,14 +597,14 @@ int tf_evse_v2_get_energy_meter_values(TF_EVSEV2 *evse_v2, float *ret_power, flo
     if (evse_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(evse_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)evse_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
     bool response_expected = true;
     tf_tfp_prepare_send(evse_v2->tfp, TF_EVSE_V2_FUNCTION_GET_ENERGY_METER_VALUES, 0, 14, response_expected);
 
-    uint32_t deadline = tf_hal_current_time_us(evse_v2->tfp->hal) + tf_hal_get_common(evse_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)evse_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)evse_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(evse_v2->tfp, response_expected, deadline, &error_code);
@@ -626,7 +636,7 @@ int tf_evse_v2_get_energy_meter_detailed_values_low_level(TF_EVSEV2 *evse_v2, ui
     if (evse_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(evse_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)evse_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -634,7 +644,7 @@ int tf_evse_v2_get_energy_meter_detailed_values_low_level(TF_EVSEV2 *evse_v2, ui
     tf_tfp_prepare_send(evse_v2->tfp, TF_EVSE_V2_FUNCTION_GET_ENERGY_METER_DETAILED_VALUES_LOW_LEVEL, 0, 62, response_expected);
 
     size_t i;
-    uint32_t deadline = tf_hal_current_time_us(evse_v2->tfp->hal) + tf_hal_get_common(evse_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)evse_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)evse_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(evse_v2->tfp, response_expected, deadline, &error_code);
@@ -663,7 +673,7 @@ int tf_evse_v2_get_energy_meter_state(TF_EVSEV2 *evse_v2, bool *ret_available, u
     if (evse_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(evse_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)evse_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -671,7 +681,7 @@ int tf_evse_v2_get_energy_meter_state(TF_EVSEV2 *evse_v2, bool *ret_available, u
     tf_tfp_prepare_send(evse_v2->tfp, TF_EVSE_V2_FUNCTION_GET_ENERGY_METER_STATE, 0, 25, response_expected);
 
     size_t i;
-    uint32_t deadline = tf_hal_current_time_us(evse_v2->tfp->hal) + tf_hal_get_common(evse_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)evse_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)evse_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(evse_v2->tfp, response_expected, deadline, &error_code);
@@ -700,7 +710,7 @@ int tf_evse_v2_reset_energy_meter(TF_EVSEV2 *evse_v2) {
     if (evse_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(evse_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)evse_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -708,7 +718,7 @@ int tf_evse_v2_reset_energy_meter(TF_EVSEV2 *evse_v2) {
     tf_evse_v2_get_response_expected(evse_v2, TF_EVSE_V2_FUNCTION_RESET_ENERGY_METER, &response_expected);
     tf_tfp_prepare_send(evse_v2->tfp, TF_EVSE_V2_FUNCTION_RESET_ENERGY_METER, 0, 0, response_expected);
 
-    uint32_t deadline = tf_hal_current_time_us(evse_v2->tfp->hal) + tf_hal_get_common(evse_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)evse_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)evse_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(evse_v2->tfp, response_expected, deadline, &error_code);
@@ -731,14 +741,14 @@ int tf_evse_v2_get_dc_fault_current_state(TF_EVSEV2 *evse_v2, uint8_t *ret_dc_fa
     if (evse_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(evse_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)evse_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
     bool response_expected = true;
     tf_tfp_prepare_send(evse_v2->tfp, TF_EVSE_V2_FUNCTION_GET_DC_FAULT_CURRENT_STATE, 0, 1, response_expected);
 
-    uint32_t deadline = tf_hal_current_time_us(evse_v2->tfp->hal) + tf_hal_get_common(evse_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)evse_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)evse_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(evse_v2->tfp, response_expected, deadline, &error_code);
@@ -766,7 +776,7 @@ int tf_evse_v2_reset_dc_fault_current(TF_EVSEV2 *evse_v2, uint32_t password) {
     if (evse_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(evse_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)evse_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -778,7 +788,7 @@ int tf_evse_v2_reset_dc_fault_current(TF_EVSEV2 *evse_v2, uint32_t password) {
 
     password = tf_leconvert_uint32_to(password); memcpy(buf + 0, &password, 4);
 
-    uint32_t deadline = tf_hal_current_time_us(evse_v2->tfp->hal) + tf_hal_get_common(evse_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)evse_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)evse_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(evse_v2->tfp, response_expected, deadline, &error_code);
@@ -801,7 +811,7 @@ int tf_evse_v2_set_gpio_configuration(TF_EVSEV2 *evse_v2, uint8_t shutdown_input
     if (evse_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(evse_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)evse_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -815,7 +825,7 @@ int tf_evse_v2_set_gpio_configuration(TF_EVSEV2 *evse_v2, uint8_t shutdown_input
     buf[1] = (uint8_t)input_configuration;
     buf[2] = (uint8_t)output_configuration;
 
-    uint32_t deadline = tf_hal_current_time_us(evse_v2->tfp->hal) + tf_hal_get_common(evse_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)evse_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)evse_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(evse_v2->tfp, response_expected, deadline, &error_code);
@@ -838,14 +848,14 @@ int tf_evse_v2_get_gpio_configuration(TF_EVSEV2 *evse_v2, uint8_t *ret_shutdown_
     if (evse_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(evse_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)evse_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
     bool response_expected = true;
     tf_tfp_prepare_send(evse_v2->tfp, TF_EVSE_V2_FUNCTION_GET_GPIO_CONFIGURATION, 0, 3, response_expected);
 
-    uint32_t deadline = tf_hal_current_time_us(evse_v2->tfp->hal) + tf_hal_get_common(evse_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)evse_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)evse_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(evse_v2->tfp, response_expected, deadline, &error_code);
@@ -875,14 +885,14 @@ int tf_evse_v2_get_managed(TF_EVSEV2 *evse_v2, bool *ret_managed) {
     if (evse_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(evse_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)evse_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
     bool response_expected = true;
     tf_tfp_prepare_send(evse_v2->tfp, TF_EVSE_V2_FUNCTION_GET_MANAGED, 0, 1, response_expected);
 
-    uint32_t deadline = tf_hal_current_time_us(evse_v2->tfp->hal) + tf_hal_get_common(evse_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)evse_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)evse_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(evse_v2->tfp, response_expected, deadline, &error_code);
@@ -910,7 +920,7 @@ int tf_evse_v2_set_managed(TF_EVSEV2 *evse_v2, bool managed, uint32_t password) 
     if (evse_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(evse_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)evse_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -923,7 +933,7 @@ int tf_evse_v2_set_managed(TF_EVSEV2 *evse_v2, bool managed, uint32_t password) 
     buf[0] = managed ? 1 : 0;
     password = tf_leconvert_uint32_to(password); memcpy(buf + 1, &password, 4);
 
-    uint32_t deadline = tf_hal_current_time_us(evse_v2->tfp->hal) + tf_hal_get_common(evse_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)evse_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)evse_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(evse_v2->tfp, response_expected, deadline, &error_code);
@@ -946,7 +956,7 @@ int tf_evse_v2_set_managed_current(TF_EVSEV2 *evse_v2, uint16_t current) {
     if (evse_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(evse_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)evse_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -958,7 +968,7 @@ int tf_evse_v2_set_managed_current(TF_EVSEV2 *evse_v2, uint16_t current) {
 
     current = tf_leconvert_uint16_to(current); memcpy(buf + 0, &current, 2);
 
-    uint32_t deadline = tf_hal_current_time_us(evse_v2->tfp->hal) + tf_hal_get_common(evse_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)evse_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)evse_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(evse_v2->tfp, response_expected, deadline, &error_code);
@@ -981,7 +991,7 @@ int tf_evse_v2_get_data_storage(TF_EVSEV2 *evse_v2, uint8_t page, uint8_t ret_da
     if (evse_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(evse_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)evse_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -993,7 +1003,7 @@ int tf_evse_v2_get_data_storage(TF_EVSEV2 *evse_v2, uint8_t page, uint8_t ret_da
 
     buf[0] = (uint8_t)page;
 
-    uint32_t deadline = tf_hal_current_time_us(evse_v2->tfp->hal) + tf_hal_get_common(evse_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)evse_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)evse_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(evse_v2->tfp, response_expected, deadline, &error_code);
@@ -1017,11 +1027,11 @@ int tf_evse_v2_get_data_storage(TF_EVSEV2 *evse_v2, uint8_t page, uint8_t ret_da
     return tf_tfp_get_error(error_code);
 }
 
-int tf_evse_v2_set_data_storage(TF_EVSEV2 *evse_v2, uint8_t page, uint8_t data[63]) {
+int tf_evse_v2_set_data_storage(TF_EVSEV2 *evse_v2, uint8_t page, const uint8_t data[63]) {
     if (evse_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(evse_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)evse_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -1034,7 +1044,7 @@ int tf_evse_v2_set_data_storage(TF_EVSEV2 *evse_v2, uint8_t page, uint8_t data[6
     buf[0] = (uint8_t)page;
     memcpy(buf + 1, data, 63);
 
-    uint32_t deadline = tf_hal_current_time_us(evse_v2->tfp->hal) + tf_hal_get_common(evse_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)evse_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)evse_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(evse_v2->tfp, response_expected, deadline, &error_code);
@@ -1057,14 +1067,14 @@ int tf_evse_v2_get_indicator_led(TF_EVSEV2 *evse_v2, int16_t *ret_indication, ui
     if (evse_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(evse_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)evse_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
     bool response_expected = true;
     tf_tfp_prepare_send(evse_v2->tfp, TF_EVSE_V2_FUNCTION_GET_INDICATOR_LED, 0, 4, response_expected);
 
-    uint32_t deadline = tf_hal_current_time_us(evse_v2->tfp->hal) + tf_hal_get_common(evse_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)evse_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)evse_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(evse_v2->tfp, response_expected, deadline, &error_code);
@@ -1093,7 +1103,7 @@ int tf_evse_v2_set_indicator_led(TF_EVSEV2 *evse_v2, int16_t indication, uint16_
     if (evse_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(evse_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)evse_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -1105,7 +1115,7 @@ int tf_evse_v2_set_indicator_led(TF_EVSEV2 *evse_v2, int16_t indication, uint16_
     indication = tf_leconvert_int16_to(indication); memcpy(buf + 0, &indication, 2);
     duration = tf_leconvert_uint16_to(duration); memcpy(buf + 2, &duration, 2);
 
-    uint32_t deadline = tf_hal_current_time_us(evse_v2->tfp->hal) + tf_hal_get_common(evse_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)evse_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)evse_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(evse_v2->tfp, response_expected, deadline, &error_code);
@@ -1133,7 +1143,7 @@ int tf_evse_v2_set_button_configuration(TF_EVSEV2 *evse_v2, uint8_t button_confi
     if (evse_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(evse_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)evse_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -1145,7 +1155,7 @@ int tf_evse_v2_set_button_configuration(TF_EVSEV2 *evse_v2, uint8_t button_confi
 
     buf[0] = (uint8_t)button_configuration;
 
-    uint32_t deadline = tf_hal_current_time_us(evse_v2->tfp->hal) + tf_hal_get_common(evse_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)evse_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)evse_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(evse_v2->tfp, response_expected, deadline, &error_code);
@@ -1168,14 +1178,14 @@ int tf_evse_v2_get_button_configuration(TF_EVSEV2 *evse_v2, uint8_t *ret_button_
     if (evse_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(evse_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)evse_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
     bool response_expected = true;
     tf_tfp_prepare_send(evse_v2->tfp, TF_EVSE_V2_FUNCTION_GET_BUTTON_CONFIGURATION, 0, 1, response_expected);
 
-    uint32_t deadline = tf_hal_current_time_us(evse_v2->tfp->hal) + tf_hal_get_common(evse_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)evse_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)evse_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(evse_v2->tfp, response_expected, deadline, &error_code);
@@ -1203,14 +1213,14 @@ int tf_evse_v2_get_button_state(TF_EVSEV2 *evse_v2, uint32_t *ret_button_press_t
     if (evse_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(evse_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)evse_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
     bool response_expected = true;
     tf_tfp_prepare_send(evse_v2->tfp, TF_EVSE_V2_FUNCTION_GET_BUTTON_STATE, 0, 9, response_expected);
 
-    uint32_t deadline = tf_hal_current_time_us(evse_v2->tfp->hal) + tf_hal_get_common(evse_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)evse_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)evse_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(evse_v2->tfp, response_expected, deadline, &error_code);
@@ -1236,18 +1246,88 @@ int tf_evse_v2_get_button_state(TF_EVSEV2 *evse_v2, uint32_t *ret_button_press_t
     return tf_tfp_get_error(error_code);
 }
 
+int tf_evse_v2_set_control_pilot_configuration(TF_EVSEV2 *evse_v2, uint8_t control_pilot) {
+    if (evse_v2 == NULL)
+        return TF_E_NULL;
+
+    if(tf_hal_get_common((TF_HalContext*)evse_v2->tfp->hal)->locked) {
+        return TF_E_LOCKED;
+    }
+
+    bool response_expected = true;
+    tf_evse_v2_get_response_expected(evse_v2, TF_EVSE_V2_FUNCTION_SET_CONTROL_PILOT_CONFIGURATION, &response_expected);
+    tf_tfp_prepare_send(evse_v2->tfp, TF_EVSE_V2_FUNCTION_SET_CONTROL_PILOT_CONFIGURATION, 1, 0, response_expected);
+
+    uint8_t *buf = tf_tfp_get_payload_buffer(evse_v2->tfp);
+
+    buf[0] = (uint8_t)control_pilot;
+
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)evse_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)evse_v2->tfp->hal)->timeout;
+
+    uint8_t error_code = 0;
+    int result = tf_tfp_transmit_packet(evse_v2->tfp, response_expected, deadline, &error_code);
+    if(result < 0)
+        return result;
+
+    if (result & TF_TICK_TIMEOUT) {
+        //return -result;
+        return TF_E_TIMEOUT;
+    }
+
+    result = tf_tfp_finish_send(evse_v2->tfp, result, deadline);
+    if(result < 0)
+        return result;
+
+    return tf_tfp_get_error(error_code);
+}
+
+int tf_evse_v2_get_control_pilot_configuration(TF_EVSEV2 *evse_v2, uint8_t *ret_control_pilot) {
+    if (evse_v2 == NULL)
+        return TF_E_NULL;
+
+    if(tf_hal_get_common((TF_HalContext*)evse_v2->tfp->hal)->locked) {
+        return TF_E_LOCKED;
+    }
+
+    bool response_expected = true;
+    tf_tfp_prepare_send(evse_v2->tfp, TF_EVSE_V2_FUNCTION_GET_CONTROL_PILOT_CONFIGURATION, 0, 1, response_expected);
+
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)evse_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)evse_v2->tfp->hal)->timeout;
+
+    uint8_t error_code = 0;
+    int result = tf_tfp_transmit_packet(evse_v2->tfp, response_expected, deadline, &error_code);
+    if(result < 0)
+        return result;
+
+    if (result & TF_TICK_TIMEOUT) {
+        //return -result;
+        return TF_E_TIMEOUT;
+    }
+
+    if (result & TF_TICK_PACKET_RECEIVED && error_code == 0) {
+        if (ret_control_pilot != NULL) { *ret_control_pilot = tf_packetbuffer_read_uint8_t(&evse_v2->tfp->spitfp->recv_buf); } else { tf_packetbuffer_remove(&evse_v2->tfp->spitfp->recv_buf, 1); }
+        tf_tfp_packet_processed(evse_v2->tfp);
+    }
+
+    result = tf_tfp_finish_send(evse_v2->tfp, result, deadline);
+    if(result < 0)
+        return result;
+
+    return tf_tfp_get_error(error_code);
+}
+
 int tf_evse_v2_get_all_data_1(TF_EVSEV2 *evse_v2, uint8_t *ret_iec61851_state, uint8_t *ret_vehicle_state, uint8_t *ret_contactor_state, uint8_t *ret_contactor_error, uint8_t *ret_charge_release, uint16_t *ret_allowed_charging_current, uint8_t *ret_error_state, uint8_t *ret_lock_state, uint32_t *ret_time_since_state_change, uint32_t *ret_uptime, uint8_t *ret_jumper_configuration, bool *ret_has_lock_switch) {
     if (evse_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(evse_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)evse_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
     bool response_expected = true;
     tf_tfp_prepare_send(evse_v2->tfp, TF_EVSE_V2_FUNCTION_GET_ALL_DATA_1, 0, 19, response_expected);
 
-    uint32_t deadline = tf_hal_current_time_us(evse_v2->tfp->hal) + tf_hal_get_common(evse_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)evse_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)evse_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(evse_v2->tfp, response_expected, deadline, &error_code);
@@ -1286,7 +1366,7 @@ int tf_evse_v2_get_all_data_2(TF_EVSEV2 *evse_v2, uint8_t *ret_led_state, uint16
     if (evse_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(evse_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)evse_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -1294,7 +1374,7 @@ int tf_evse_v2_get_all_data_2(TF_EVSEV2 *evse_v2, uint8_t *ret_led_state, uint16
     tf_tfp_prepare_send(evse_v2->tfp, TF_EVSE_V2_FUNCTION_GET_ALL_DATA_2, 0, 55, response_expected);
 
     size_t i;
-    uint32_t deadline = tf_hal_current_time_us(evse_v2->tfp->hal) + tf_hal_get_common(evse_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)evse_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)evse_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(evse_v2->tfp, response_expected, deadline, &error_code);
@@ -1329,19 +1409,19 @@ int tf_evse_v2_get_all_data_2(TF_EVSEV2 *evse_v2, uint8_t *ret_led_state, uint16
     return tf_tfp_get_error(error_code);
 }
 
-int tf_evse_v2_get_all_data_3(TF_EVSEV2 *evse_v2, float *ret_power, float *ret_energy_relative, float *ret_energy_absolute, bool ret_phases_active[3], bool ret_phases_connected[3], bool *ret_available, uint32_t ret_error_count[6], uint8_t *ret_dc_fault_current_state, uint8_t *ret_shutdown_input_configuration, uint8_t *ret_input_configuration, uint8_t *ret_output_configuration, bool *ret_managed, int16_t *ret_indication, uint16_t *ret_duration, uint8_t *ret_button_configuration, uint32_t *ret_button_press_time, uint32_t *ret_button_release_time, bool *ret_button_pressed) {
+int tf_evse_v2_get_all_data_3(TF_EVSEV2 *evse_v2, float *ret_power, float *ret_energy_relative, float *ret_energy_absolute, bool ret_phases_active[3], bool ret_phases_connected[3], bool *ret_available, uint32_t ret_error_count[6], uint8_t *ret_dc_fault_current_state, uint8_t *ret_shutdown_input_configuration, uint8_t *ret_input_configuration, uint8_t *ret_output_configuration, bool *ret_managed, int16_t *ret_indication, uint16_t *ret_duration, uint8_t *ret_button_configuration, uint32_t *ret_button_press_time, uint32_t *ret_button_release_time, bool *ret_button_pressed, uint8_t *ret_control_pilot) {
     if (evse_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(evse_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)evse_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
     bool response_expected = true;
-    tf_tfp_prepare_send(evse_v2->tfp, TF_EVSE_V2_FUNCTION_GET_ALL_DATA_3, 0, 58, response_expected);
+    tf_tfp_prepare_send(evse_v2->tfp, TF_EVSE_V2_FUNCTION_GET_ALL_DATA_3, 0, 59, response_expected);
 
     size_t i;
-    uint32_t deadline = tf_hal_current_time_us(evse_v2->tfp->hal) + tf_hal_get_common(evse_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)evse_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)evse_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(evse_v2->tfp, response_expected, deadline, &error_code);
@@ -1372,6 +1452,7 @@ int tf_evse_v2_get_all_data_3(TF_EVSEV2 *evse_v2, float *ret_power, float *ret_e
         if (ret_button_press_time != NULL) { *ret_button_press_time = tf_packetbuffer_read_uint32_t(&evse_v2->tfp->spitfp->recv_buf); } else { tf_packetbuffer_remove(&evse_v2->tfp->spitfp->recv_buf, 4); }
         if (ret_button_release_time != NULL) { *ret_button_release_time = tf_packetbuffer_read_uint32_t(&evse_v2->tfp->spitfp->recv_buf); } else { tf_packetbuffer_remove(&evse_v2->tfp->spitfp->recv_buf, 4); }
         if (ret_button_pressed != NULL) { *ret_button_pressed = tf_packetbuffer_read_bool(&evse_v2->tfp->spitfp->recv_buf); } else { tf_packetbuffer_remove(&evse_v2->tfp->spitfp->recv_buf, 1); }
+        if (ret_control_pilot != NULL) { *ret_control_pilot = tf_packetbuffer_read_uint8_t(&evse_v2->tfp->spitfp->recv_buf); } else { tf_packetbuffer_remove(&evse_v2->tfp->spitfp->recv_buf, 1); }
         tf_tfp_packet_processed(evse_v2->tfp);
     }
 
@@ -1386,14 +1467,14 @@ int tf_evse_v2_get_spitfp_error_count(TF_EVSEV2 *evse_v2, uint32_t *ret_error_co
     if (evse_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(evse_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)evse_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
     bool response_expected = true;
     tf_tfp_prepare_send(evse_v2->tfp, TF_EVSE_V2_FUNCTION_GET_SPITFP_ERROR_COUNT, 0, 16, response_expected);
 
-    uint32_t deadline = tf_hal_current_time_us(evse_v2->tfp->hal) + tf_hal_get_common(evse_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)evse_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)evse_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(evse_v2->tfp, response_expected, deadline, &error_code);
@@ -1424,7 +1505,7 @@ int tf_evse_v2_set_bootloader_mode(TF_EVSEV2 *evse_v2, uint8_t mode, uint8_t *re
     if (evse_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(evse_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)evse_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -1435,7 +1516,7 @@ int tf_evse_v2_set_bootloader_mode(TF_EVSEV2 *evse_v2, uint8_t mode, uint8_t *re
 
     buf[0] = (uint8_t)mode;
 
-    uint32_t deadline = tf_hal_current_time_us(evse_v2->tfp->hal) + tf_hal_get_common(evse_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)evse_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)evse_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(evse_v2->tfp, response_expected, deadline, &error_code);
@@ -1463,14 +1544,14 @@ int tf_evse_v2_get_bootloader_mode(TF_EVSEV2 *evse_v2, uint8_t *ret_mode) {
     if (evse_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(evse_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)evse_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
     bool response_expected = true;
     tf_tfp_prepare_send(evse_v2->tfp, TF_EVSE_V2_FUNCTION_GET_BOOTLOADER_MODE, 0, 1, response_expected);
 
-    uint32_t deadline = tf_hal_current_time_us(evse_v2->tfp->hal) + tf_hal_get_common(evse_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)evse_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)evse_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(evse_v2->tfp, response_expected, deadline, &error_code);
@@ -1498,7 +1579,7 @@ int tf_evse_v2_set_write_firmware_pointer(TF_EVSEV2 *evse_v2, uint32_t pointer) 
     if (evse_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(evse_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)evse_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -1510,7 +1591,7 @@ int tf_evse_v2_set_write_firmware_pointer(TF_EVSEV2 *evse_v2, uint32_t pointer) 
 
     pointer = tf_leconvert_uint32_to(pointer); memcpy(buf + 0, &pointer, 4);
 
-    uint32_t deadline = tf_hal_current_time_us(evse_v2->tfp->hal) + tf_hal_get_common(evse_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)evse_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)evse_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(evse_v2->tfp, response_expected, deadline, &error_code);
@@ -1529,11 +1610,11 @@ int tf_evse_v2_set_write_firmware_pointer(TF_EVSEV2 *evse_v2, uint32_t pointer) 
     return tf_tfp_get_error(error_code);
 }
 
-int tf_evse_v2_write_firmware(TF_EVSEV2 *evse_v2, uint8_t data[64], uint8_t *ret_status) {
+int tf_evse_v2_write_firmware(TF_EVSEV2 *evse_v2, const uint8_t data[64], uint8_t *ret_status) {
     if (evse_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(evse_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)evse_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -1544,7 +1625,7 @@ int tf_evse_v2_write_firmware(TF_EVSEV2 *evse_v2, uint8_t data[64], uint8_t *ret
 
     memcpy(buf + 0, data, 64);
 
-    uint32_t deadline = tf_hal_current_time_us(evse_v2->tfp->hal) + tf_hal_get_common(evse_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)evse_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)evse_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(evse_v2->tfp, response_expected, deadline, &error_code);
@@ -1572,7 +1653,7 @@ int tf_evse_v2_set_status_led_config(TF_EVSEV2 *evse_v2, uint8_t config) {
     if (evse_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(evse_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)evse_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -1584,7 +1665,7 @@ int tf_evse_v2_set_status_led_config(TF_EVSEV2 *evse_v2, uint8_t config) {
 
     buf[0] = (uint8_t)config;
 
-    uint32_t deadline = tf_hal_current_time_us(evse_v2->tfp->hal) + tf_hal_get_common(evse_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)evse_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)evse_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(evse_v2->tfp, response_expected, deadline, &error_code);
@@ -1607,14 +1688,14 @@ int tf_evse_v2_get_status_led_config(TF_EVSEV2 *evse_v2, uint8_t *ret_config) {
     if (evse_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(evse_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)evse_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
     bool response_expected = true;
     tf_tfp_prepare_send(evse_v2->tfp, TF_EVSE_V2_FUNCTION_GET_STATUS_LED_CONFIG, 0, 1, response_expected);
 
-    uint32_t deadline = tf_hal_current_time_us(evse_v2->tfp->hal) + tf_hal_get_common(evse_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)evse_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)evse_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(evse_v2->tfp, response_expected, deadline, &error_code);
@@ -1642,14 +1723,14 @@ int tf_evse_v2_get_chip_temperature(TF_EVSEV2 *evse_v2, int16_t *ret_temperature
     if (evse_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(evse_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)evse_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
     bool response_expected = true;
     tf_tfp_prepare_send(evse_v2->tfp, TF_EVSE_V2_FUNCTION_GET_CHIP_TEMPERATURE, 0, 2, response_expected);
 
-    uint32_t deadline = tf_hal_current_time_us(evse_v2->tfp->hal) + tf_hal_get_common(evse_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)evse_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)evse_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(evse_v2->tfp, response_expected, deadline, &error_code);
@@ -1677,7 +1758,7 @@ int tf_evse_v2_reset(TF_EVSEV2 *evse_v2) {
     if (evse_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(evse_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)evse_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -1685,7 +1766,7 @@ int tf_evse_v2_reset(TF_EVSEV2 *evse_v2) {
     tf_evse_v2_get_response_expected(evse_v2, TF_EVSE_V2_FUNCTION_RESET, &response_expected);
     tf_tfp_prepare_send(evse_v2->tfp, TF_EVSE_V2_FUNCTION_RESET, 0, 0, response_expected);
 
-    uint32_t deadline = tf_hal_current_time_us(evse_v2->tfp->hal) + tf_hal_get_common(evse_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)evse_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)evse_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(evse_v2->tfp, response_expected, deadline, &error_code);
@@ -1708,7 +1789,7 @@ int tf_evse_v2_write_uid(TF_EVSEV2 *evse_v2, uint32_t uid) {
     if (evse_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(evse_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)evse_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -1720,7 +1801,7 @@ int tf_evse_v2_write_uid(TF_EVSEV2 *evse_v2, uint32_t uid) {
 
     uid = tf_leconvert_uint32_to(uid); memcpy(buf + 0, &uid, 4);
 
-    uint32_t deadline = tf_hal_current_time_us(evse_v2->tfp->hal) + tf_hal_get_common(evse_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)evse_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)evse_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(evse_v2->tfp, response_expected, deadline, &error_code);
@@ -1743,14 +1824,14 @@ int tf_evse_v2_read_uid(TF_EVSEV2 *evse_v2, uint32_t *ret_uid) {
     if (evse_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(evse_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)evse_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
     bool response_expected = true;
     tf_tfp_prepare_send(evse_v2->tfp, TF_EVSE_V2_FUNCTION_READ_UID, 0, 4, response_expected);
 
-    uint32_t deadline = tf_hal_current_time_us(evse_v2->tfp->hal) + tf_hal_get_common(evse_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)evse_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)evse_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(evse_v2->tfp, response_expected, deadline, &error_code);
@@ -1778,7 +1859,7 @@ int tf_evse_v2_get_identity(TF_EVSEV2 *evse_v2, char ret_uid[8], char ret_connec
     if (evse_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(evse_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)evse_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -1786,7 +1867,7 @@ int tf_evse_v2_get_identity(TF_EVSEV2 *evse_v2, char ret_uid[8], char ret_connec
     tf_tfp_prepare_send(evse_v2->tfp, TF_EVSE_V2_FUNCTION_GET_IDENTITY, 0, 25, response_expected);
 
     size_t i;
-    uint32_t deadline = tf_hal_current_time_us(evse_v2->tfp->hal) + tf_hal_get_common(evse_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)evse_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)evse_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(evse_v2->tfp, response_expected, deadline, &error_code);
@@ -1807,7 +1888,7 @@ int tf_evse_v2_get_identity(TF_EVSEV2 *evse_v2, char ret_uid[8], char ret_connec
         if (ret_firmware_version != NULL) { for (i = 0; i < 3; ++i) ret_firmware_version[i] = tf_packetbuffer_read_uint8_t(&evse_v2->tfp->spitfp->recv_buf);} else { tf_packetbuffer_remove(&evse_v2->tfp->spitfp->recv_buf, 3); }
         if (ret_device_identifier != NULL) { *ret_device_identifier = tf_packetbuffer_read_uint16_t(&evse_v2->tfp->spitfp->recv_buf); } else { tf_packetbuffer_remove(&evse_v2->tfp->spitfp->recv_buf, 2); }
         if (tmp_connected_uid[0] == 0 && ret_position != NULL) {
-            *ret_position = tf_hal_get_port_name(evse_v2->tfp->hal, evse_v2->tfp->spitfp->port_id);
+            *ret_position = tf_hal_get_port_name((TF_HalContext*)evse_v2->tfp->hal, evse_v2->tfp->spitfp->port_id);
         }
         if (ret_connected_uid != NULL) {
             memcpy(ret_connected_uid, tmp_connected_uid, 8);
@@ -1827,17 +1908,19 @@ int tf_evse_v2_get_energy_meter_detailed_values(TF_EVSEV2 *evse_v2, float *ret_v
         return TF_E_NULL;
 
     int ret = TF_E_OK;
-    uint16_t values_length = 85;
+    uint16_t max_values_length = 85;
+    uint16_t values_length = 0;
     uint16_t values_chunk_offset = 0;
     float values_chunk_data[15];
     bool values_out_of_sync;
     uint16_t values_chunk_length = 0;
 
-    *ret_values_length = 0;
-
     ret = tf_evse_v2_get_energy_meter_detailed_values_low_level(evse_v2, &values_chunk_offset, values_chunk_data);
 
     if (ret != TF_E_OK) {
+        if (ret_values_length != NULL) {
+            *ret_values_length = values_length;
+        }
         return ret;
     }
 
@@ -1848,44 +1931,54 @@ int tf_evse_v2_get_energy_meter_detailed_values(TF_EVSEV2 *evse_v2, float *ret_v
     values_out_of_sync = values_chunk_offset != 0;
 
     if (!values_out_of_sync) {
-        values_chunk_length = values_length - values_chunk_offset;
+        values_chunk_length = max_values_length - values_chunk_offset;
 
         if (values_chunk_length > 15) {
             values_chunk_length = 15;
         }
 
-        memcpy(ret_values, values_chunk_data, sizeof(float) * values_chunk_length);
-        *ret_values_length = values_chunk_length;
+        if (ret_values != NULL) {
+            memcpy(ret_values, values_chunk_data, sizeof(float) * values_chunk_length);
+        }
 
-        while (*ret_values_length < values_length) {
+        values_length = values_chunk_length;
+
+        while (values_length < max_values_length) {
             ret = tf_evse_v2_get_energy_meter_detailed_values_low_level(evse_v2, &values_chunk_offset, values_chunk_data);
 
             if (ret != TF_E_OK) {
+                if (ret_values_length != NULL) {
+                    *ret_values_length = values_length;
+                }
                 return ret;
             }
 
-            values_out_of_sync = values_chunk_offset != *ret_values_length;
+            values_out_of_sync = values_chunk_offset != values_length;
 
             if (values_out_of_sync) {
                 break;
             }
 
-            values_chunk_length = values_length - values_chunk_offset;
+            values_chunk_length = max_values_length - values_chunk_offset;
 
             if (values_chunk_length > 15) {
                 values_chunk_length = 15;
             }
 
-            memcpy(&ret_values[*ret_values_length], values_chunk_data, sizeof(float) * values_chunk_length);
-            *ret_values_length += values_chunk_length;
+            if (ret_values != NULL) {
+                memcpy(&ret_values[values_length], values_chunk_data, sizeof(float) * values_chunk_length);
+            }
+            values_length += values_chunk_length;
         }
     }
 
     if (values_out_of_sync) {
-        *ret_values_length = 0; // return empty array
+        if (ret_values_length != NULL) {
+            *ret_values_length = 0; // return empty array
+        }
 
         // discard remaining stream to bring it back in-sync
-        while (values_chunk_offset + 15 < values_length) {
+        while (values_chunk_offset + 15 < max_values_length) {
             ret = tf_evse_v2_get_energy_meter_detailed_values_low_level(evse_v2, &values_chunk_offset, values_chunk_data);
 
             if (ret != TF_E_OK) {
@@ -1904,7 +1997,7 @@ int tf_evse_v2_callback_tick(TF_EVSEV2 *evse_v2, uint32_t timeout_us) {
     if (evse_v2 == NULL)
         return TF_E_NULL;
 
-    return tf_tfp_callback_tick(evse_v2->tfp, tf_hal_current_time_us(evse_v2->tfp->hal) + timeout_us);
+    return tf_tfp_callback_tick(evse_v2->tfp, tf_hal_current_time_us((TF_HalContext*)evse_v2->tfp->hal) + timeout_us);
 }
 
 #ifdef __cplusplus

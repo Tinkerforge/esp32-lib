@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-10-04.      *
+ * This file was automatically generated on 2021-11-12.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -25,7 +25,7 @@ extern "C" {
  */
 
 struct TF_RotaryPotiV2;
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
 
 typedef void (*TF_RotaryPotiV2PositionHandler)(struct TF_RotaryPotiV2 *device, int16_t position, void *user_data);
 
@@ -37,7 +37,7 @@ typedef void (*TF_RotaryPotiV2PositionHandler)(struct TF_RotaryPotiV2 *device, i
  */
 typedef struct TF_RotaryPotiV2 {
     TF_TfpContext *tfp;
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
     TF_RotaryPotiV2PositionHandler position_handler;
     void *position_user_data;
 
@@ -120,7 +120,7 @@ typedef struct TF_RotaryPotiV2 {
  */
 #define TF_ROTARY_POTI_V2_FUNCTION_GET_IDENTITY 255
 
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
 
 /**
  * \ingroup BrickletRotaryPotiV2
@@ -253,7 +253,7 @@ typedef struct TF_RotaryPotiV2 {
  * Creates the device object \c rotary_poti_v2 with the unique device ID \c uid and adds
  * it to the IPConnection \c ipcon.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_rotary_poti_v2_create(TF_RotaryPotiV2 *rotary_poti_v2, const char *uid, TF_HalContext *hal);
+int tf_rotary_poti_v2_create(TF_RotaryPotiV2 *rotary_poti_v2, const char *uid, TF_HalContext *hal);
 
 /**
  * \ingroup BrickletRotaryPotiV2
@@ -261,7 +261,7 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_rotary_poti_v2_create(TF_RotaryPotiV2 *rotary_po
  * Removes the device object \c rotary_poti_v2 from its IPConnection and destroys it.
  * The device object cannot be used anymore afterwards.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_rotary_poti_v2_destroy(TF_RotaryPotiV2 *rotary_poti_v2);
+int tf_rotary_poti_v2_destroy(TF_RotaryPotiV2 *rotary_poti_v2);
 
 /**
  * \ingroup BrickletRotaryPotiV2
@@ -282,7 +282,7 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_rotary_poti_v2_destroy(TF_RotaryPotiV2 *rotary_p
  * disabled for a setter function then no response is sent and errors are
  * silently ignored, because they cannot be detected.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_rotary_poti_v2_get_response_expected(TF_RotaryPotiV2 *rotary_poti_v2, uint8_t function_id, bool *ret_response_expected);
+int tf_rotary_poti_v2_get_response_expected(TF_RotaryPotiV2 *rotary_poti_v2, uint8_t function_id, bool *ret_response_expected);
 
 /**
  * \ingroup BrickletRotaryPotiV2
@@ -298,7 +298,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_rotary_poti_v2_get_response_expected(TF_RotaryPot
  * setter function then no response is sent and errors are silently ignored,
  * because they cannot be detected.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_rotary_poti_v2_set_response_expected(TF_RotaryPotiV2 *rotary_poti_v2, uint8_t function_id, bool response_expected);
+int tf_rotary_poti_v2_set_response_expected(TF_RotaryPotiV2 *rotary_poti_v2, uint8_t function_id, bool response_expected);
 
 /**
  * \ingroup BrickletRotaryPotiV2
@@ -306,8 +306,8 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_rotary_poti_v2_set_response_expected(TF_RotaryPo
  * Changes the response expected flag for all setter and callback configuration
  * functions of this device at once.
  */
-TF_ATTRIBUTE_NONNULL_ALL void tf_rotary_poti_v2_set_response_expected_all(TF_RotaryPotiV2 *rotary_poti_v2, bool response_expected);
-#ifdef TF_IMPLEMENT_CALLBACKS
+void tf_rotary_poti_v2_set_response_expected_all(TF_RotaryPotiV2 *rotary_poti_v2, bool response_expected);
+#if TF_IMPLEMENT_CALLBACKS != 0
 /**
  * \ingroup BrickletRotaryPotiV2
  *
@@ -321,9 +321,9 @@ TF_ATTRIBUTE_NONNULL_ALL void tf_rotary_poti_v2_set_response_expected_all(TF_Rot
  * 
  * The parameter is the same as {@link tf_rotary_poti_v2_get_position}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_rotary_poti_v2_register_position_callback(TF_RotaryPotiV2 *rotary_poti_v2, TF_RotaryPotiV2PositionHandler handler, void *user_data);
+int tf_rotary_poti_v2_register_position_callback(TF_RotaryPotiV2 *rotary_poti_v2, TF_RotaryPotiV2PositionHandler handler, void *user_data);
 #endif
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
 /**
  * \ingroup BrickletRotaryPotiV2
  *
@@ -331,7 +331,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_rotary_poti_v2_register_position_callback(TF_Rota
  *
  * This function can be used in a non-blocking fashion by calling it with a timeout of 0.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_rotary_poti_v2_callback_tick(TF_RotaryPotiV2 *rotary_poti_v2, uint32_t timeout_us);
+int tf_rotary_poti_v2_callback_tick(TF_RotaryPotiV2 *rotary_poti_v2, uint32_t timeout_us);
 #endif
 
 /**
@@ -345,7 +345,7 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_rotary_poti_v2_callback_tick(TF_RotaryPotiV2 *ro
  * {@link tf_rotary_poti_v2_register_position_callback} callback. You can set the callback configuration
  * with {@link tf_rotary_poti_v2_set_position_callback_configuration}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_rotary_poti_v2_get_position(TF_RotaryPotiV2 *rotary_poti_v2, int16_t *ret_position);
+int tf_rotary_poti_v2_get_position(TF_RotaryPotiV2 *rotary_poti_v2, int16_t *ret_position);
 
 /**
  * \ingroup BrickletRotaryPotiV2
@@ -378,14 +378,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_rotary_poti_v2_get_position(TF_RotaryPotiV2 *rota
  * 
  * If the option is set to 'x' (threshold turned off) the callback is triggered with the fixed period.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_rotary_poti_v2_set_position_callback_configuration(TF_RotaryPotiV2 *rotary_poti_v2, uint32_t period, bool value_has_to_change, char option, int16_t min, int16_t max);
+int tf_rotary_poti_v2_set_position_callback_configuration(TF_RotaryPotiV2 *rotary_poti_v2, uint32_t period, bool value_has_to_change, char option, int16_t min, int16_t max);
 
 /**
  * \ingroup BrickletRotaryPotiV2
  *
  * Returns the callback configuration as set by {@link tf_rotary_poti_v2_set_position_callback_configuration}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_rotary_poti_v2_get_position_callback_configuration(TF_RotaryPotiV2 *rotary_poti_v2, uint32_t *ret_period, bool *ret_value_has_to_change, char *ret_option, int16_t *ret_min, int16_t *ret_max);
+int tf_rotary_poti_v2_get_position_callback_configuration(TF_RotaryPotiV2 *rotary_poti_v2, uint32_t *ret_period, bool *ret_value_has_to_change, char *ret_option, int16_t *ret_min, int16_t *ret_max);
 
 /**
  * \ingroup BrickletRotaryPotiV2
@@ -402,7 +402,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_rotary_poti_v2_get_position_callback_configuratio
  * The errors counts are for errors that occur on the Bricklet side. All
  * Bricks have a similar function that returns the errors on the Brick side.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_rotary_poti_v2_get_spitfp_error_count(TF_RotaryPotiV2 *rotary_poti_v2, uint32_t *ret_error_count_ack_checksum, uint32_t *ret_error_count_message_checksum, uint32_t *ret_error_count_frame, uint32_t *ret_error_count_overflow);
+int tf_rotary_poti_v2_get_spitfp_error_count(TF_RotaryPotiV2 *rotary_poti_v2, uint32_t *ret_error_count_ack_checksum, uint32_t *ret_error_count_message_checksum, uint32_t *ret_error_count_frame, uint32_t *ret_error_count_overflow);
 
 /**
  * \ingroup BrickletRotaryPotiV2
@@ -417,14 +417,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_rotary_poti_v2_get_spitfp_error_count(TF_RotaryPo
  * This function is used by Brick Viewer during flashing. It should not be
  * necessary to call it in a normal user program.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_rotary_poti_v2_set_bootloader_mode(TF_RotaryPotiV2 *rotary_poti_v2, uint8_t mode, uint8_t *ret_status);
+int tf_rotary_poti_v2_set_bootloader_mode(TF_RotaryPotiV2 *rotary_poti_v2, uint8_t mode, uint8_t *ret_status);
 
 /**
  * \ingroup BrickletRotaryPotiV2
  *
  * Returns the current bootloader mode, see {@link tf_rotary_poti_v2_set_bootloader_mode}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_rotary_poti_v2_get_bootloader_mode(TF_RotaryPotiV2 *rotary_poti_v2, uint8_t *ret_mode);
+int tf_rotary_poti_v2_get_bootloader_mode(TF_RotaryPotiV2 *rotary_poti_v2, uint8_t *ret_mode);
 
 /**
  * \ingroup BrickletRotaryPotiV2
@@ -436,7 +436,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_rotary_poti_v2_get_bootloader_mode(TF_RotaryPotiV
  * This function is used by Brick Viewer during flashing. It should not be
  * necessary to call it in a normal user program.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_rotary_poti_v2_set_write_firmware_pointer(TF_RotaryPotiV2 *rotary_poti_v2, uint32_t pointer);
+int tf_rotary_poti_v2_set_write_firmware_pointer(TF_RotaryPotiV2 *rotary_poti_v2, uint32_t pointer);
 
 /**
  * \ingroup BrickletRotaryPotiV2
@@ -450,7 +450,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_rotary_poti_v2_set_write_firmware_pointer(TF_Rota
  * This function is used by Brick Viewer during flashing. It should not be
  * necessary to call it in a normal user program.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_rotary_poti_v2_write_firmware(TF_RotaryPotiV2 *rotary_poti_v2, uint8_t data[64], uint8_t *ret_status);
+int tf_rotary_poti_v2_write_firmware(TF_RotaryPotiV2 *rotary_poti_v2, const uint8_t data[64], uint8_t *ret_status);
 
 /**
  * \ingroup BrickletRotaryPotiV2
@@ -463,14 +463,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_rotary_poti_v2_write_firmware(TF_RotaryPotiV2 *ro
  * 
  * If the Bricklet is in bootloader mode, the LED is will show heartbeat by default.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_rotary_poti_v2_set_status_led_config(TF_RotaryPotiV2 *rotary_poti_v2, uint8_t config);
+int tf_rotary_poti_v2_set_status_led_config(TF_RotaryPotiV2 *rotary_poti_v2, uint8_t config);
 
 /**
  * \ingroup BrickletRotaryPotiV2
  *
  * Returns the configuration as set by {@link tf_rotary_poti_v2_set_status_led_config}
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_rotary_poti_v2_get_status_led_config(TF_RotaryPotiV2 *rotary_poti_v2, uint8_t *ret_config);
+int tf_rotary_poti_v2_get_status_led_config(TF_RotaryPotiV2 *rotary_poti_v2, uint8_t *ret_config);
 
 /**
  * \ingroup BrickletRotaryPotiV2
@@ -482,7 +482,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_rotary_poti_v2_get_status_led_config(TF_RotaryPot
  * accuracy. Practically it is only useful as an indicator for
  * temperature changes.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_rotary_poti_v2_get_chip_temperature(TF_RotaryPotiV2 *rotary_poti_v2, int16_t *ret_temperature);
+int tf_rotary_poti_v2_get_chip_temperature(TF_RotaryPotiV2 *rotary_poti_v2, int16_t *ret_temperature);
 
 /**
  * \ingroup BrickletRotaryPotiV2
@@ -494,7 +494,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_rotary_poti_v2_get_chip_temperature(TF_RotaryPoti
  * calling functions on the existing ones will result in
  * undefined behavior!
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_rotary_poti_v2_reset(TF_RotaryPotiV2 *rotary_poti_v2);
+int tf_rotary_poti_v2_reset(TF_RotaryPotiV2 *rotary_poti_v2);
 
 /**
  * \ingroup BrickletRotaryPotiV2
@@ -505,7 +505,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_rotary_poti_v2_reset(TF_RotaryPotiV2 *rotary_poti
  * 
  * We recommend that you use Brick Viewer to change the UID.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_rotary_poti_v2_write_uid(TF_RotaryPotiV2 *rotary_poti_v2, uint32_t uid);
+int tf_rotary_poti_v2_write_uid(TF_RotaryPotiV2 *rotary_poti_v2, uint32_t uid);
 
 /**
  * \ingroup BrickletRotaryPotiV2
@@ -513,7 +513,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_rotary_poti_v2_write_uid(TF_RotaryPotiV2 *rotary_
  * Returns the current UID as an integer. Encode as
  * Base58 to get the usual string version.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_rotary_poti_v2_read_uid(TF_RotaryPotiV2 *rotary_poti_v2, uint32_t *ret_uid);
+int tf_rotary_poti_v2_read_uid(TF_RotaryPotiV2 *rotary_poti_v2, uint32_t *ret_uid);
 
 /**
  * \ingroup BrickletRotaryPotiV2
@@ -529,7 +529,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_rotary_poti_v2_read_uid(TF_RotaryPotiV2 *rotary_p
  * The device identifier numbers can be found :ref:`here <device_identifier>`.
  * |device_identifier_constant|
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_rotary_poti_v2_get_identity(TF_RotaryPotiV2 *rotary_poti_v2, char ret_uid[8], char ret_connected_uid[8], char *ret_position, uint8_t ret_hardware_version[3], uint8_t ret_firmware_version[3], uint16_t *ret_device_identifier);
+int tf_rotary_poti_v2_get_identity(TF_RotaryPotiV2 *rotary_poti_v2, char ret_uid[8], char ret_connected_uid[8], char *ret_position, uint8_t ret_hardware_version[3], uint8_t ret_firmware_version[3], uint16_t *ret_device_identifier);
 
 #ifdef __cplusplus
 }

@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-10-04.      *
+ * This file was automatically generated on 2021-11-12.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -25,7 +25,7 @@ extern "C" {
  */
 
 struct TF_ServoV2;
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
 
 typedef void (*TF_ServoV2PositionReachedHandler)(struct TF_ServoV2 *device, uint16_t servo_channel, int16_t position, void *user_data);
 
@@ -37,7 +37,7 @@ typedef void (*TF_ServoV2PositionReachedHandler)(struct TF_ServoV2 *device, uint
  */
 typedef struct TF_ServoV2 {
     TF_TfpContext *tfp;
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
     TF_ServoV2PositionReachedHandler position_reached_handler;
     void *position_reached_user_data;
 
@@ -235,7 +235,7 @@ typedef struct TF_ServoV2 {
  */
 #define TF_SERVO_V2_FUNCTION_GET_IDENTITY 255
 
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
 
 /**
  * \ingroup BrickletServoV2
@@ -343,7 +343,7 @@ typedef struct TF_ServoV2 {
  * Creates the device object \c servo_v2 with the unique device ID \c uid and adds
  * it to the IPConnection \c ipcon.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_servo_v2_create(TF_ServoV2 *servo_v2, const char *uid, TF_HalContext *hal);
+int tf_servo_v2_create(TF_ServoV2 *servo_v2, const char *uid, TF_HalContext *hal);
 
 /**
  * \ingroup BrickletServoV2
@@ -351,7 +351,7 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_servo_v2_create(TF_ServoV2 *servo_v2, const char
  * Removes the device object \c servo_v2 from its IPConnection and destroys it.
  * The device object cannot be used anymore afterwards.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_servo_v2_destroy(TF_ServoV2 *servo_v2);
+int tf_servo_v2_destroy(TF_ServoV2 *servo_v2);
 
 /**
  * \ingroup BrickletServoV2
@@ -372,7 +372,7 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_servo_v2_destroy(TF_ServoV2 *servo_v2);
  * disabled for a setter function then no response is sent and errors are
  * silently ignored, because they cannot be detected.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_servo_v2_get_response_expected(TF_ServoV2 *servo_v2, uint8_t function_id, bool *ret_response_expected);
+int tf_servo_v2_get_response_expected(TF_ServoV2 *servo_v2, uint8_t function_id, bool *ret_response_expected);
 
 /**
  * \ingroup BrickletServoV2
@@ -388,7 +388,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_servo_v2_get_response_expected(TF_ServoV2 *servo_
  * setter function then no response is sent and errors are silently ignored,
  * because they cannot be detected.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_servo_v2_set_response_expected(TF_ServoV2 *servo_v2, uint8_t function_id, bool response_expected);
+int tf_servo_v2_set_response_expected(TF_ServoV2 *servo_v2, uint8_t function_id, bool response_expected);
 
 /**
  * \ingroup BrickletServoV2
@@ -396,8 +396,8 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_servo_v2_set_response_expected(TF_ServoV2 *servo
  * Changes the response expected flag for all setter and callback configuration
  * functions of this device at once.
  */
-TF_ATTRIBUTE_NONNULL_ALL void tf_servo_v2_set_response_expected_all(TF_ServoV2 *servo_v2, bool response_expected);
-#ifdef TF_IMPLEMENT_CALLBACKS
+void tf_servo_v2_set_response_expected_all(TF_ServoV2 *servo_v2, bool response_expected);
+#if TF_IMPLEMENT_CALLBACKS != 0
 /**
  * \ingroup BrickletServoV2
  *
@@ -419,9 +419,9 @@ TF_ATTRIBUTE_NONNULL_ALL void tf_servo_v2_set_response_expected_all(TF_ServoV2 *
  *  maximum velocity of the servo. Otherwise the servo will lag behind the
  *  control value and the callback will be triggered too early.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_servo_v2_register_position_reached_callback(TF_ServoV2 *servo_v2, TF_ServoV2PositionReachedHandler handler, void *user_data);
+int tf_servo_v2_register_position_reached_callback(TF_ServoV2 *servo_v2, TF_ServoV2PositionReachedHandler handler, void *user_data);
 #endif
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
 /**
  * \ingroup BrickletServoV2
  *
@@ -429,7 +429,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_servo_v2_register_position_reached_callback(TF_Se
  *
  * This function can be used in a non-blocking fashion by calling it with a timeout of 0.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_servo_v2_callback_tick(TF_ServoV2 *servo_v2, uint32_t timeout_us);
+int tf_servo_v2_callback_tick(TF_ServoV2 *servo_v2, uint32_t timeout_us);
 #endif
 
 /**
@@ -448,7 +448,7 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_servo_v2_callback_tick(TF_ServoV2 *servo_v2, uin
  * Please note that the position and the velocity is a snapshot of the
  * current position and velocity of the servo in motion.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_servo_v2_get_status(TF_ServoV2 *servo_v2, bool ret_enabled[10], int16_t ret_current_position[10], int16_t ret_current_velocity[10], uint16_t ret_current[10], uint16_t *ret_input_voltage);
+int tf_servo_v2_get_status(TF_ServoV2 *servo_v2, bool ret_enabled[10], int16_t ret_current_position[10], int16_t ret_current_velocity[10], uint16_t ret_current[10], uint16_t *ret_input_voltage);
 
 /**
  * \ingroup BrickletServoV2
@@ -456,14 +456,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_servo_v2_get_status(TF_ServoV2 *servo_v2, bool re
  * Enables a servo channel (0 to 9). If a servo is enabled, the configured position,
  * velocity, acceleration, etc. are applied immediately.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_servo_v2_set_enable(TF_ServoV2 *servo_v2, uint16_t servo_channel, bool enable);
+int tf_servo_v2_set_enable(TF_ServoV2 *servo_v2, uint16_t servo_channel, bool enable);
 
 /**
  * \ingroup BrickletServoV2
  *
  * Returns *true* if the specified servo channel is enabled, *false* otherwise.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_servo_v2_get_enabled(TF_ServoV2 *servo_v2, uint16_t servo_channel, bool *ret_enable);
+int tf_servo_v2_get_enabled(TF_ServoV2 *servo_v2, uint16_t servo_channel, bool *ret_enable);
 
 /**
  * \ingroup BrickletServoV2
@@ -477,14 +477,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_servo_v2_get_enabled(TF_ServoV2 *servo_v2, uint16
  * similar with the Servo Brick, you can also define lengths or speeds with
  * {@link tf_servo_v2_set_degree}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_servo_v2_set_position(TF_ServoV2 *servo_v2, uint16_t servo_channel, int16_t position);
+int tf_servo_v2_set_position(TF_ServoV2 *servo_v2, uint16_t servo_channel, int16_t position);
 
 /**
  * \ingroup BrickletServoV2
  *
  * Returns the position of the specified servo channel as set by {@link tf_servo_v2_set_position}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_servo_v2_get_position(TF_ServoV2 *servo_v2, uint16_t servo_channel, int16_t *ret_position);
+int tf_servo_v2_get_position(TF_ServoV2 *servo_v2, uint16_t servo_channel, int16_t *ret_position);
 
 /**
  * \ingroup BrickletServoV2
@@ -493,7 +493,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_servo_v2_get_position(TF_ServoV2 *servo_v2, uint1
  * value of {@link tf_servo_v2_set_position} if the servo is currently approaching a
  * position goal.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_servo_v2_get_current_position(TF_ServoV2 *servo_v2, uint16_t servo_channel, int16_t *ret_position);
+int tf_servo_v2_get_current_position(TF_ServoV2 *servo_v2, uint16_t servo_channel, int16_t *ret_position);
 
 /**
  * \ingroup BrickletServoV2
@@ -502,7 +502,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_servo_v2_get_current_position(TF_ServoV2 *servo_v
  * velocity specified by {@link tf_servo_v2_set_motion_configuration}. if the servo is
  * currently approaching a velocity goal.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_servo_v2_get_current_velocity(TF_ServoV2 *servo_v2, uint16_t servo_channel, uint16_t *ret_velocity);
+int tf_servo_v2_get_current_velocity(TF_ServoV2 *servo_v2, uint16_t servo_channel, uint16_t *ret_velocity);
 
 /**
  * \ingroup BrickletServoV2
@@ -515,14 +515,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_servo_v2_get_current_velocity(TF_ServoV2 *servo_v
  * With an acc-/deceleration of 0 °/100s² the velocity will be set immediately
  * (no acc-/deceleration).
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_servo_v2_set_motion_configuration(TF_ServoV2 *servo_v2, uint16_t servo_channel, uint32_t velocity, uint32_t acceleration, uint32_t deceleration);
+int tf_servo_v2_set_motion_configuration(TF_ServoV2 *servo_v2, uint16_t servo_channel, uint32_t velocity, uint32_t acceleration, uint32_t deceleration);
 
 /**
  * \ingroup BrickletServoV2
  *
  * Returns the motion configuration as set by {@link tf_servo_v2_set_motion_configuration}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_servo_v2_get_motion_configuration(TF_ServoV2 *servo_v2, uint16_t servo_channel, uint32_t *ret_velocity, uint32_t *ret_acceleration, uint32_t *ret_deceleration);
+int tf_servo_v2_get_motion_configuration(TF_ServoV2 *servo_v2, uint16_t servo_channel, uint32_t *ret_velocity, uint32_t *ret_acceleration, uint32_t *ret_deceleration);
 
 /**
  * \ingroup BrickletServoV2
@@ -545,7 +545,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_servo_v2_get_motion_configuration(TF_ServoV2 *ser
  * The default values are 1000µs (1ms) and 2000µs (2ms) for minimum and
  * maximum pulse width.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_servo_v2_set_pulse_width(TF_ServoV2 *servo_v2, uint16_t servo_channel, uint32_t min, uint32_t max);
+int tf_servo_v2_set_pulse_width(TF_ServoV2 *servo_v2, uint16_t servo_channel, uint32_t min, uint32_t max);
 
 /**
  * \ingroup BrickletServoV2
@@ -553,7 +553,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_servo_v2_set_pulse_width(TF_ServoV2 *servo_v2, ui
  * Returns the minimum and maximum pulse width for the specified servo channel as set by
  * {@link tf_servo_v2_set_pulse_width}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_servo_v2_get_pulse_width(TF_ServoV2 *servo_v2, uint16_t servo_channel, uint32_t *ret_min, uint32_t *ret_max);
+int tf_servo_v2_get_pulse_width(TF_ServoV2 *servo_v2, uint16_t servo_channel, uint32_t *ret_min, uint32_t *ret_max);
 
 /**
  * \ingroup BrickletServoV2
@@ -589,7 +589,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_servo_v2_get_pulse_width(TF_ServoV2 *servo_v2, ui
  * 
  * The default values are -9000 and 9000 for the minimum and maximum degree.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_servo_v2_set_degree(TF_ServoV2 *servo_v2, uint16_t servo_channel, int16_t min, int16_t max);
+int tf_servo_v2_set_degree(TF_ServoV2 *servo_v2, uint16_t servo_channel, int16_t min, int16_t max);
 
 /**
  * \ingroup BrickletServoV2
@@ -597,7 +597,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_servo_v2_set_degree(TF_ServoV2 *servo_v2, uint16_
  * Returns the minimum and maximum degree for the specified servo channel as set by
  * {@link tf_servo_v2_set_degree}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_servo_v2_get_degree(TF_ServoV2 *servo_v2, uint16_t servo_channel, int16_t *ret_min, int16_t *ret_max);
+int tf_servo_v2_get_degree(TF_ServoV2 *servo_v2, uint16_t servo_channel, int16_t *ret_min, int16_t *ret_max);
 
 /**
  * \ingroup BrickletServoV2
@@ -618,28 +618,28 @@ TF_ATTRIBUTE_NONNULL(1) int tf_servo_v2_get_degree(TF_ServoV2 *servo_v2, uint16_
  * 
  * The default value is 19.5ms (19500µs).
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_servo_v2_set_period(TF_ServoV2 *servo_v2, uint16_t servo_channel, uint32_t period);
+int tf_servo_v2_set_period(TF_ServoV2 *servo_v2, uint16_t servo_channel, uint32_t period);
 
 /**
  * \ingroup BrickletServoV2
  *
  * Returns the period for the specified servo channel as set by {@link tf_servo_v2_set_period}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_servo_v2_get_period(TF_ServoV2 *servo_v2, uint16_t servo_channel, uint32_t *ret_period);
+int tf_servo_v2_get_period(TF_ServoV2 *servo_v2, uint16_t servo_channel, uint32_t *ret_period);
 
 /**
  * \ingroup BrickletServoV2
  *
  * Returns the current consumption of the specified servo channel in mA.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_servo_v2_get_servo_current(TF_ServoV2 *servo_v2, uint16_t servo_channel, uint16_t *ret_current);
+int tf_servo_v2_get_servo_current(TF_ServoV2 *servo_v2, uint16_t servo_channel, uint16_t *ret_current);
 
 /**
  * \ingroup BrickletServoV2
  *
  * Sets the averaging duration of the current measurement for the specified servo channel in ms.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_servo_v2_set_servo_current_configuration(TF_ServoV2 *servo_v2, uint16_t servo_channel, uint8_t averaging_duration);
+int tf_servo_v2_set_servo_current_configuration(TF_ServoV2 *servo_v2, uint16_t servo_channel, uint8_t averaging_duration);
 
 /**
  * \ingroup BrickletServoV2
@@ -647,28 +647,28 @@ TF_ATTRIBUTE_NONNULL(1) int tf_servo_v2_set_servo_current_configuration(TF_Servo
  * Returns the servo current configuration for the specified servo channel as set
  * by {@link tf_servo_v2_set_servo_current_configuration}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_servo_v2_get_servo_current_configuration(TF_ServoV2 *servo_v2, uint16_t servo_channel, uint8_t *ret_averaging_duration);
+int tf_servo_v2_get_servo_current_configuration(TF_ServoV2 *servo_v2, uint16_t servo_channel, uint8_t *ret_averaging_duration);
 
 /**
  * \ingroup BrickletServoV2
  *
  * Sets the averaging duration of the input voltage measurement for the specified servo channel in ms.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_servo_v2_set_input_voltage_configuration(TF_ServoV2 *servo_v2, uint8_t averaging_duration);
+int tf_servo_v2_set_input_voltage_configuration(TF_ServoV2 *servo_v2, uint8_t averaging_duration);
 
 /**
  * \ingroup BrickletServoV2
  *
  * Returns the input voltage configuration as set by {@link tf_servo_v2_set_input_voltage_configuration}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_servo_v2_get_input_voltage_configuration(TF_ServoV2 *servo_v2, uint8_t *ret_averaging_duration);
+int tf_servo_v2_get_input_voltage_configuration(TF_ServoV2 *servo_v2, uint8_t *ret_averaging_duration);
 
 /**
  * \ingroup BrickletServoV2
  *
  * Returns the current consumption of all servos together in mA.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_servo_v2_get_overall_current(TF_ServoV2 *servo_v2, uint16_t *ret_current);
+int tf_servo_v2_get_overall_current(TF_ServoV2 *servo_v2, uint16_t *ret_current);
 
 /**
  * \ingroup BrickletServoV2
@@ -676,7 +676,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_servo_v2_get_overall_current(TF_ServoV2 *servo_v2
  * Returns the input voltage in mV. The input voltage is
  * given via the black power input connector on the Servo Brick.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_servo_v2_get_input_voltage(TF_ServoV2 *servo_v2, uint16_t *ret_voltage);
+int tf_servo_v2_get_input_voltage(TF_ServoV2 *servo_v2, uint16_t *ret_voltage);
 
 /**
  * \ingroup BrickletServoV2
@@ -685,21 +685,21 @@ TF_ATTRIBUTE_NONNULL(1) int tf_servo_v2_get_input_voltage(TF_ServoV2 *servo_v2, 
  * 
  * Note: On delivery the Servo Bricklet 2.0 is already calibrated.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_servo_v2_set_current_calibration(TF_ServoV2 *servo_v2, int16_t offset[10]);
+int tf_servo_v2_set_current_calibration(TF_ServoV2 *servo_v2, const int16_t offset[10]);
 
 /**
  * \ingroup BrickletServoV2
  *
  * Returns the current calibration as set by {@link tf_servo_v2_set_current_calibration}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_servo_v2_get_current_calibration(TF_ServoV2 *servo_v2, int16_t ret_offset[10]);
+int tf_servo_v2_get_current_calibration(TF_ServoV2 *servo_v2, int16_t ret_offset[10]);
 
 /**
  * \ingroup BrickletServoV2
  *
  * Enable/Disable {@link tf_servo_v2_register_position_reached_callback} callback.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_servo_v2_set_position_reached_callback_configuration(TF_ServoV2 *servo_v2, uint16_t servo_channel, bool enabled);
+int tf_servo_v2_set_position_reached_callback_configuration(TF_ServoV2 *servo_v2, uint16_t servo_channel, bool enabled);
 
 /**
  * \ingroup BrickletServoV2
@@ -707,7 +707,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_servo_v2_set_position_reached_callback_configurat
  * Returns the callback configuration as set by
  * {@link tf_servo_v2_set_position_reached_callback_configuration}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_servo_v2_get_position_reached_callback_configuration(TF_ServoV2 *servo_v2, uint16_t servo_channel, bool *ret_enabled);
+int tf_servo_v2_get_position_reached_callback_configuration(TF_ServoV2 *servo_v2, uint16_t servo_channel, bool *ret_enabled);
 
 /**
  * \ingroup BrickletServoV2
@@ -724,7 +724,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_servo_v2_get_position_reached_callback_configurat
  * The errors counts are for errors that occur on the Bricklet side. All
  * Bricks have a similar function that returns the errors on the Brick side.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_servo_v2_get_spitfp_error_count(TF_ServoV2 *servo_v2, uint32_t *ret_error_count_ack_checksum, uint32_t *ret_error_count_message_checksum, uint32_t *ret_error_count_frame, uint32_t *ret_error_count_overflow);
+int tf_servo_v2_get_spitfp_error_count(TF_ServoV2 *servo_v2, uint32_t *ret_error_count_ack_checksum, uint32_t *ret_error_count_message_checksum, uint32_t *ret_error_count_frame, uint32_t *ret_error_count_overflow);
 
 /**
  * \ingroup BrickletServoV2
@@ -739,14 +739,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_servo_v2_get_spitfp_error_count(TF_ServoV2 *servo
  * This function is used by Brick Viewer during flashing. It should not be
  * necessary to call it in a normal user program.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_servo_v2_set_bootloader_mode(TF_ServoV2 *servo_v2, uint8_t mode, uint8_t *ret_status);
+int tf_servo_v2_set_bootloader_mode(TF_ServoV2 *servo_v2, uint8_t mode, uint8_t *ret_status);
 
 /**
  * \ingroup BrickletServoV2
  *
  * Returns the current bootloader mode, see {@link tf_servo_v2_set_bootloader_mode}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_servo_v2_get_bootloader_mode(TF_ServoV2 *servo_v2, uint8_t *ret_mode);
+int tf_servo_v2_get_bootloader_mode(TF_ServoV2 *servo_v2, uint8_t *ret_mode);
 
 /**
  * \ingroup BrickletServoV2
@@ -758,7 +758,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_servo_v2_get_bootloader_mode(TF_ServoV2 *servo_v2
  * This function is used by Brick Viewer during flashing. It should not be
  * necessary to call it in a normal user program.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_servo_v2_set_write_firmware_pointer(TF_ServoV2 *servo_v2, uint32_t pointer);
+int tf_servo_v2_set_write_firmware_pointer(TF_ServoV2 *servo_v2, uint32_t pointer);
 
 /**
  * \ingroup BrickletServoV2
@@ -772,7 +772,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_servo_v2_set_write_firmware_pointer(TF_ServoV2 *s
  * This function is used by Brick Viewer during flashing. It should not be
  * necessary to call it in a normal user program.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_servo_v2_write_firmware(TF_ServoV2 *servo_v2, uint8_t data[64], uint8_t *ret_status);
+int tf_servo_v2_write_firmware(TF_ServoV2 *servo_v2, const uint8_t data[64], uint8_t *ret_status);
 
 /**
  * \ingroup BrickletServoV2
@@ -785,14 +785,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_servo_v2_write_firmware(TF_ServoV2 *servo_v2, uin
  * 
  * If the Bricklet is in bootloader mode, the LED is will show heartbeat by default.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_servo_v2_set_status_led_config(TF_ServoV2 *servo_v2, uint8_t config);
+int tf_servo_v2_set_status_led_config(TF_ServoV2 *servo_v2, uint8_t config);
 
 /**
  * \ingroup BrickletServoV2
  *
  * Returns the configuration as set by {@link tf_servo_v2_set_status_led_config}
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_servo_v2_get_status_led_config(TF_ServoV2 *servo_v2, uint8_t *ret_config);
+int tf_servo_v2_get_status_led_config(TF_ServoV2 *servo_v2, uint8_t *ret_config);
 
 /**
  * \ingroup BrickletServoV2
@@ -804,7 +804,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_servo_v2_get_status_led_config(TF_ServoV2 *servo_
  * accuracy. Practically it is only useful as an indicator for
  * temperature changes.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_servo_v2_get_chip_temperature(TF_ServoV2 *servo_v2, int16_t *ret_temperature);
+int tf_servo_v2_get_chip_temperature(TF_ServoV2 *servo_v2, int16_t *ret_temperature);
 
 /**
  * \ingroup BrickletServoV2
@@ -816,7 +816,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_servo_v2_get_chip_temperature(TF_ServoV2 *servo_v
  * calling functions on the existing ones will result in
  * undefined behavior!
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_servo_v2_reset(TF_ServoV2 *servo_v2);
+int tf_servo_v2_reset(TF_ServoV2 *servo_v2);
 
 /**
  * \ingroup BrickletServoV2
@@ -827,7 +827,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_servo_v2_reset(TF_ServoV2 *servo_v2);
  * 
  * We recommend that you use Brick Viewer to change the UID.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_servo_v2_write_uid(TF_ServoV2 *servo_v2, uint32_t uid);
+int tf_servo_v2_write_uid(TF_ServoV2 *servo_v2, uint32_t uid);
 
 /**
  * \ingroup BrickletServoV2
@@ -835,7 +835,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_servo_v2_write_uid(TF_ServoV2 *servo_v2, uint32_t
  * Returns the current UID as an integer. Encode as
  * Base58 to get the usual string version.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_servo_v2_read_uid(TF_ServoV2 *servo_v2, uint32_t *ret_uid);
+int tf_servo_v2_read_uid(TF_ServoV2 *servo_v2, uint32_t *ret_uid);
 
 /**
  * \ingroup BrickletServoV2
@@ -851,7 +851,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_servo_v2_read_uid(TF_ServoV2 *servo_v2, uint32_t 
  * The device identifier numbers can be found :ref:`here <device_identifier>`.
  * |device_identifier_constant|
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_servo_v2_get_identity(TF_ServoV2 *servo_v2, char ret_uid[8], char ret_connected_uid[8], char *ret_position, uint8_t ret_hardware_version[3], uint8_t ret_firmware_version[3], uint16_t *ret_device_identifier);
+int tf_servo_v2_get_identity(TF_ServoV2 *servo_v2, char ret_uid[8], char ret_connected_uid[8], char *ret_position, uint8_t ret_hardware_version[3], uint8_t ret_firmware_version[3], uint16_t *ret_device_identifier);
 
 #ifdef __cplusplus
 }

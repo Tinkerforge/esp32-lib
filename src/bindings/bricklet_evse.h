@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-10-15.      *
+ * This file was automatically generated on 2021-11-08.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -525,7 +525,7 @@ typedef struct TF_EVSE {
  * Creates the device object \c evse with the unique device ID \c uid and adds
  * it to the IPConnection \c ipcon.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_evse_create(TF_EVSE *evse, const char *uid, TF_HalContext *hal);
+int tf_evse_create(TF_EVSE *evse, const char *uid, TF_HalContext *hal);
 
 /**
  * \ingroup BrickletEVSE
@@ -533,7 +533,7 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_evse_create(TF_EVSE *evse, const char *uid, TF_H
  * Removes the device object \c evse from its IPConnection and destroys it.
  * The device object cannot be used anymore afterwards.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_evse_destroy(TF_EVSE *evse);
+int tf_evse_destroy(TF_EVSE *evse);
 
 /**
  * \ingroup BrickletEVSE
@@ -554,7 +554,7 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_evse_destroy(TF_EVSE *evse);
  * disabled for a setter function then no response is sent and errors are
  * silently ignored, because they cannot be detected.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_evse_get_response_expected(TF_EVSE *evse, uint8_t function_id, bool *ret_response_expected);
+int tf_evse_get_response_expected(TF_EVSE *evse, uint8_t function_id, bool *ret_response_expected);
 
 /**
  * \ingroup BrickletEVSE
@@ -570,7 +570,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_evse_get_response_expected(TF_EVSE *evse, uint8_t
  * setter function then no response is sent and errors are silently ignored,
  * because they cannot be detected.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_evse_set_response_expected(TF_EVSE *evse, uint8_t function_id, bool response_expected);
+int tf_evse_set_response_expected(TF_EVSE *evse, uint8_t function_id, bool response_expected);
 
 /**
  * \ingroup BrickletEVSE
@@ -578,7 +578,7 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_evse_set_response_expected(TF_EVSE *evse, uint8_
  * Changes the response expected flag for all setter and callback configuration
  * functions of this device at once.
  */
-TF_ATTRIBUTE_NONNULL_ALL void tf_evse_set_response_expected_all(TF_EVSE *evse, bool response_expected);
+void tf_evse_set_response_expected_all(TF_EVSE *evse, bool response_expected);
 
 
 #ifdef TF_IMPLEMENT_CALLBACKS
@@ -589,7 +589,7 @@ TF_ATTRIBUTE_NONNULL_ALL void tf_evse_set_response_expected_all(TF_EVSE *evse, b
  *
  * This function can be used in a non-blocking fashion by calling it with a timeout of 0.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_evse_callback_tick(TF_EVSE *evse, uint32_t timeout_us);
+int tf_evse_callback_tick(TF_EVSE *evse, uint32_t timeout_us);
 #endif
 
 /**
@@ -599,28 +599,28 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_evse_callback_tick(TF_EVSE *evse, uint32_t timeo
  * 
  * .. versionadded:: 2.0.5$nbsp;(Plugin)
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_evse_get_state(TF_EVSE *evse, uint8_t *ret_iec61851_state, uint8_t *ret_vehicle_state, uint8_t *ret_contactor_state, uint8_t *ret_contactor_error, uint8_t *ret_charge_release, uint16_t *ret_allowed_charging_current, uint8_t *ret_error_state, uint8_t *ret_lock_state, uint32_t *ret_time_since_state_change, uint32_t *ret_uptime);
+int tf_evse_get_state(TF_EVSE *evse, uint8_t *ret_iec61851_state, uint8_t *ret_vehicle_state, uint8_t *ret_contactor_state, uint8_t *ret_contactor_error, uint8_t *ret_charge_release, uint16_t *ret_allowed_charging_current, uint8_t *ret_error_state, uint8_t *ret_lock_state, uint32_t *ret_time_since_state_change, uint32_t *ret_uptime);
 
 /**
  * \ingroup BrickletEVSE
  *
  * TODO
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_evse_get_hardware_configuration(TF_EVSE *evse, uint8_t *ret_jumper_configuration, bool *ret_has_lock_switch);
+int tf_evse_get_hardware_configuration(TF_EVSE *evse, uint8_t *ret_jumper_configuration, bool *ret_has_lock_switch);
 
 /**
  * \ingroup BrickletEVSE
  *
  * TODO
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_evse_get_low_level_state(TF_EVSE *evse, bool *ret_low_level_mode_enabled, uint8_t *ret_led_state, uint16_t *ret_cp_pwm_duty_cycle, uint16_t ret_adc_values[2], int16_t ret_voltages[3], uint32_t ret_resistances[2], bool ret_gpio[5], uint8_t *ret_hardware_version, uint32_t *ret_charging_time);
+int tf_evse_get_low_level_state(TF_EVSE *evse, bool *ret_low_level_mode_enabled, uint8_t *ret_led_state, uint16_t *ret_cp_pwm_duty_cycle, uint16_t ret_adc_values[2], int16_t ret_voltages[3], uint32_t ret_resistances[2], bool ret_gpio[5], uint8_t *ret_hardware_version, uint32_t *ret_charging_time);
 
 /**
  * \ingroup BrickletEVSE
  *
  * TODO
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_evse_set_max_charging_current(TF_EVSE *evse, uint16_t max_current);
+int tf_evse_set_max_charging_current(TF_EVSE *evse, uint16_t max_current);
 
 /**
  * \ingroup BrickletEVSE
@@ -633,51 +633,42 @@ TF_ATTRIBUTE_NONNULL(1) int tf_evse_set_max_charging_current(TF_EVSE *evse, uint
  * 
  * .. versionadded:: 2.0.6$nbsp;(Plugin)
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_evse_get_max_charging_current(TF_EVSE *evse, uint16_t *ret_max_current_configured, uint16_t *ret_max_current_incoming_cable, uint16_t *ret_max_current_outgoing_cable, uint16_t *ret_max_current_managed);
+int tf_evse_get_max_charging_current(TF_EVSE *evse, uint16_t *ret_max_current_configured, uint16_t *ret_max_current_incoming_cable, uint16_t *ret_max_current_outgoing_cable, uint16_t *ret_max_current_managed);
 
 /**
  * \ingroup BrickletEVSE
  *
  * TODO
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_evse_calibrate(TF_EVSE *evse, uint8_t state, uint32_t password, int32_t value, bool *ret_success);
+int tf_evse_calibrate(TF_EVSE *evse, uint8_t state, uint32_t password, int32_t value, bool *ret_success);
 
 /**
  * \ingroup BrickletEVSE
  *
  * TODO
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_evse_start_charging(TF_EVSE *evse);
+int tf_evse_start_charging(TF_EVSE *evse);
 
 /**
  * \ingroup BrickletEVSE
  *
  * TODO
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_evse_stop_charging(TF_EVSE *evse);
+int tf_evse_stop_charging(TF_EVSE *evse);
 
 /**
  * \ingroup BrickletEVSE
  *
  * TODO
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_evse_set_charging_autostart(TF_EVSE *evse, bool autostart);
+int tf_evse_set_charging_autostart(TF_EVSE *evse, bool autostart);
 
 /**
  * \ingroup BrickletEVSE
  *
  * TODO
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_evse_get_charging_autostart(TF_EVSE *evse, bool *ret_autostart);
-
-/**
- * \ingroup BrickletEVSE
- *
- * TODO
- * 
- * .. versionadded:: 2.0.6$nbsp;(Plugin)
- */
-TF_ATTRIBUTE_NONNULL(1) int tf_evse_get_managed(TF_EVSE *evse, bool *ret_managed);
+int tf_evse_get_charging_autostart(TF_EVSE *evse, bool *ret_autostart);
 
 /**
  * \ingroup BrickletEVSE
@@ -686,7 +677,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_evse_get_managed(TF_EVSE *evse, bool *ret_managed
  * 
  * .. versionadded:: 2.0.6$nbsp;(Plugin)
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_evse_set_managed(TF_EVSE *evse, bool managed, uint32_t password);
+int tf_evse_get_managed(TF_EVSE *evse, bool *ret_managed);
 
 /**
  * \ingroup BrickletEVSE
@@ -695,70 +686,79 @@ TF_ATTRIBUTE_NONNULL(1) int tf_evse_set_managed(TF_EVSE *evse, bool managed, uin
  * 
  * .. versionadded:: 2.0.6$nbsp;(Plugin)
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_evse_set_managed_current(TF_EVSE *evse, uint16_t current);
+int tf_evse_set_managed(TF_EVSE *evse, bool managed, uint32_t password);
+
+/**
+ * \ingroup BrickletEVSE
+ *
+ * TODO
+ * 
+ * .. versionadded:: 2.0.6$nbsp;(Plugin)
+ */
+int tf_evse_set_managed_current(TF_EVSE *evse, uint16_t current);
 
 /**
  * \ingroup BrickletEVSE
  *
  * TODO
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_evse_get_user_calibration(TF_EVSE *evse, bool *ret_user_calibration_active, int16_t *ret_voltage_diff, int16_t *ret_voltage_mul, int16_t *ret_voltage_div, int16_t *ret_resistance_2700, int16_t ret_resistance_880[14]);
+int tf_evse_get_user_calibration(TF_EVSE *evse, bool *ret_user_calibration_active, int16_t *ret_voltage_diff, int16_t *ret_voltage_mul, int16_t *ret_voltage_div, int16_t *ret_resistance_2700, int16_t ret_resistance_880[14]);
 
 /**
  * \ingroup BrickletEVSE
  *
  * TODO
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_evse_set_user_calibration(TF_EVSE *evse, uint32_t password, bool user_calibration_active, int16_t voltage_diff, int16_t voltage_mul, int16_t voltage_div, int16_t resistance_2700, int16_t resistance_880[14]);
+int tf_evse_set_user_calibration(TF_EVSE *evse, uint32_t password, bool user_calibration_active, int16_t voltage_diff, int16_t voltage_mul, int16_t voltage_div, int16_t resistance_2700, const int16_t resistance_880[14]);
 
 /**
  * \ingroup BrickletEVSE
  *
  * TODO
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_evse_get_data_storage(TF_EVSE *evse, uint8_t page, uint8_t ret_data[63]);
+int tf_evse_get_data_storage(TF_EVSE *evse, uint8_t page, uint8_t ret_data[63]);
 
 /**
  * \ingroup BrickletEVSE
  *
  * TODO
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_evse_set_data_storage(TF_EVSE *evse, uint8_t page, uint8_t data[63]);
+int tf_evse_set_data_storage(TF_EVSE *evse, uint8_t page, const uint8_t data[63]);
 
 /**
  * \ingroup BrickletEVSE
  *
  * TODO
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_evse_get_indicator_led(TF_EVSE *evse, int16_t *ret_indication, uint16_t *ret_duration);
+int tf_evse_get_indicator_led(TF_EVSE *evse, int16_t *ret_indication, uint16_t *ret_duration);
 
 /**
  * \ingroup BrickletEVSE
  *
  * TODO
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_evse_set_indicator_led(TF_EVSE *evse, int16_t indication, uint16_t duration, uint8_t *ret_status);
+int tf_evse_set_indicator_led(TF_EVSE *evse, int16_t indication, uint16_t duration, uint8_t *ret_status);
 
 /**
  * \ingroup BrickletEVSE
  *
  * TODO
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_evse_get_button_state(TF_EVSE *evse, uint32_t *ret_button_press_time, uint32_t *ret_button_release_time, bool *ret_button_pressed);
+int tf_evse_get_button_state(TF_EVSE *evse, uint32_t *ret_button_press_time, uint32_t *ret_button_release_time, bool *ret_button_pressed);
 
 /**
  * \ingroup BrickletEVSE
  *
  * TODO
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_evse_get_all_data_1(TF_EVSE *evse, uint8_t *ret_iec61851_state, uint8_t *ret_vehicle_state, uint8_t *ret_contactor_state, uint8_t *ret_contactor_error, uint8_t *ret_charge_release, uint16_t *ret_allowed_charging_current, uint8_t *ret_error_state, uint8_t *ret_lock_state, uint32_t *ret_time_since_state_change, uint32_t *ret_uptime, uint8_t *ret_jumper_configuration, bool *ret_has_lock_switch, bool *ret_low_level_mode_enabled, uint8_t *ret_led_state, uint16_t *ret_cp_pwm_duty_cycle, uint16_t ret_adc_values[2], int16_t ret_voltages[3], uint32_t ret_resistances[2], bool ret_gpio[5], uint8_t *ret_hardware_version, uint32_t *ret_charging_time, uint16_t *ret_max_current_configured, uint16_t *ret_max_current_incoming_cable, uint16_t *ret_max_current_outgoing_cable, uint16_t *ret_max_current_managed, bool *ret_autostart, bool *ret_managed);
+int tf_evse_get_all_data_1(TF_EVSE *evse, uint8_t *ret_iec61851_state, uint8_t *ret_vehicle_state, uint8_t *ret_contactor_state, uint8_t *ret_contactor_error, uint8_t *ret_charge_release, uint16_t *ret_allowed_charging_current, uint8_t *ret_error_state, uint8_t *ret_lock_state, uint32_t *ret_time_since_state_change, uint32_t *ret_uptime, uint8_t *ret_jumper_configuration, bool *ret_has_lock_switch, bool *ret_low_level_mode_enabled, uint8_t *ret_led_state, uint16_t *ret_cp_pwm_duty_cycle, uint16_t ret_adc_values[2], int16_t ret_voltages[3], uint32_t ret_resistances[2], bool ret_gpio[5], uint8_t *ret_hardware_version, uint32_t *ret_charging_time, uint16_t *ret_max_current_configured, uint16_t *ret_max_current_incoming_cable, uint16_t *ret_max_current_outgoing_cable, uint16_t *ret_max_current_managed, bool *ret_autostart, bool *ret_managed);
 
 /**
  * \ingroup BrickletEVSE
  *
  * TODO
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_evse_get_all_data_2(TF_EVSE *evse, bool *ret_user_calibration_active, int16_t *ret_voltage_diff, int16_t *ret_voltage_mul, int16_t *ret_voltage_div, int16_t *ret_resistance_2700, int16_t ret_resistance_880[14], int16_t *ret_indication, uint16_t *ret_duration, uint32_t *ret_button_press_time, uint32_t *ret_button_release_time, bool *ret_button_pressed);
+int tf_evse_get_all_data_2(TF_EVSE *evse, bool *ret_user_calibration_active, int16_t *ret_voltage_diff, int16_t *ret_voltage_mul, int16_t *ret_voltage_div, int16_t *ret_resistance_2700, int16_t ret_resistance_880[14], int16_t *ret_indication, uint16_t *ret_duration, uint32_t *ret_button_press_time, uint32_t *ret_button_release_time, bool *ret_button_pressed);
 
 /**
  * \ingroup BrickletEVSE
@@ -775,7 +775,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_evse_get_all_data_2(TF_EVSE *evse, bool *ret_user
  * The errors counts are for errors that occur on the Bricklet side. All
  * Bricks have a similar function that returns the errors on the Brick side.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_evse_get_spitfp_error_count(TF_EVSE *evse, uint32_t *ret_error_count_ack_checksum, uint32_t *ret_error_count_message_checksum, uint32_t *ret_error_count_frame, uint32_t *ret_error_count_overflow);
+int tf_evse_get_spitfp_error_count(TF_EVSE *evse, uint32_t *ret_error_count_ack_checksum, uint32_t *ret_error_count_message_checksum, uint32_t *ret_error_count_frame, uint32_t *ret_error_count_overflow);
 
 /**
  * \ingroup BrickletEVSE
@@ -790,14 +790,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_evse_get_spitfp_error_count(TF_EVSE *evse, uint32
  * This function is used by Brick Viewer during flashing. It should not be
  * necessary to call it in a normal user program.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_evse_set_bootloader_mode(TF_EVSE *evse, uint8_t mode, uint8_t *ret_status);
+int tf_evse_set_bootloader_mode(TF_EVSE *evse, uint8_t mode, uint8_t *ret_status);
 
 /**
  * \ingroup BrickletEVSE
  *
  * Returns the current bootloader mode, see {@link tf_evse_set_bootloader_mode}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_evse_get_bootloader_mode(TF_EVSE *evse, uint8_t *ret_mode);
+int tf_evse_get_bootloader_mode(TF_EVSE *evse, uint8_t *ret_mode);
 
 /**
  * \ingroup BrickletEVSE
@@ -809,7 +809,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_evse_get_bootloader_mode(TF_EVSE *evse, uint8_t *
  * This function is used by Brick Viewer during flashing. It should not be
  * necessary to call it in a normal user program.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_evse_set_write_firmware_pointer(TF_EVSE *evse, uint32_t pointer);
+int tf_evse_set_write_firmware_pointer(TF_EVSE *evse, uint32_t pointer);
 
 /**
  * \ingroup BrickletEVSE
@@ -823,7 +823,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_evse_set_write_firmware_pointer(TF_EVSE *evse, ui
  * This function is used by Brick Viewer during flashing. It should not be
  * necessary to call it in a normal user program.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_evse_write_firmware(TF_EVSE *evse, uint8_t data[64], uint8_t *ret_status);
+int tf_evse_write_firmware(TF_EVSE *evse, const uint8_t data[64], uint8_t *ret_status);
 
 /**
  * \ingroup BrickletEVSE
@@ -836,14 +836,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_evse_write_firmware(TF_EVSE *evse, uint8_t data[6
  * 
  * If the Bricklet is in bootloader mode, the LED is will show heartbeat by default.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_evse_set_status_led_config(TF_EVSE *evse, uint8_t config);
+int tf_evse_set_status_led_config(TF_EVSE *evse, uint8_t config);
 
 /**
  * \ingroup BrickletEVSE
  *
  * Returns the configuration as set by {@link tf_evse_set_status_led_config}
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_evse_get_status_led_config(TF_EVSE *evse, uint8_t *ret_config);
+int tf_evse_get_status_led_config(TF_EVSE *evse, uint8_t *ret_config);
 
 /**
  * \ingroup BrickletEVSE
@@ -855,7 +855,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_evse_get_status_led_config(TF_EVSE *evse, uint8_t
  * accuracy. Practically it is only useful as an indicator for
  * temperature changes.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_evse_get_chip_temperature(TF_EVSE *evse, int16_t *ret_temperature);
+int tf_evse_get_chip_temperature(TF_EVSE *evse, int16_t *ret_temperature);
 
 /**
  * \ingroup BrickletEVSE
@@ -867,7 +867,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_evse_get_chip_temperature(TF_EVSE *evse, int16_t 
  * calling functions on the existing ones will result in
  * undefined behavior!
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_evse_reset(TF_EVSE *evse);
+int tf_evse_reset(TF_EVSE *evse);
 
 /**
  * \ingroup BrickletEVSE
@@ -878,7 +878,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_evse_reset(TF_EVSE *evse);
  * 
  * We recommend that you use Brick Viewer to change the UID.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_evse_write_uid(TF_EVSE *evse, uint32_t uid);
+int tf_evse_write_uid(TF_EVSE *evse, uint32_t uid);
 
 /**
  * \ingroup BrickletEVSE
@@ -886,7 +886,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_evse_write_uid(TF_EVSE *evse, uint32_t uid);
  * Returns the current UID as an integer. Encode as
  * Base58 to get the usual string version.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_evse_read_uid(TF_EVSE *evse, uint32_t *ret_uid);
+int tf_evse_read_uid(TF_EVSE *evse, uint32_t *ret_uid);
 
 /**
  * \ingroup BrickletEVSE
@@ -902,7 +902,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_evse_read_uid(TF_EVSE *evse, uint32_t *ret_uid);
  * The device identifier numbers can be found :ref:`here <device_identifier>`.
  * |device_identifier_constant|
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_evse_get_identity(TF_EVSE *evse, char ret_uid[8], char ret_connected_uid[8], char *ret_position, uint8_t ret_hardware_version[3], uint8_t ret_firmware_version[3], uint16_t *ret_device_identifier);
+int tf_evse_get_identity(TF_EVSE *evse, char ret_uid[8], char ret_connected_uid[8], char *ret_position, uint8_t ret_hardware_version[3], uint8_t ret_firmware_version[3], uint16_t *ret_device_identifier);
 
 #ifdef __cplusplus
 }

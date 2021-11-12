@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-10-04.      *
+ * This file was automatically generated on 2021-11-12.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -40,13 +40,12 @@ int tf_analog_out_v3_create(TF_AnalogOutV3 *analog_out_v3, const char *uid, TF_H
     }
 
     uint8_t port_id;
-    int inventory_index;
+    uint8_t inventory_index;
     rc = tf_hal_get_port_id(hal, numeric_uid, &port_id, &inventory_index);
     if (rc < 0) {
         return rc;
     }
 
-    //rc = tf_tfp_init(analog_out_v3->tfp, numeric_uid, TF_ANALOG_OUT_V3_DEVICE_IDENTIFIER, hal, port_id, inventory_index, tf_analog_out_v3_callback_handler);
     rc = tf_hal_get_tfp(hal, &analog_out_v3->tfp, TF_ANALOG_OUT_V3_DEVICE_IDENTIFIER, inventory_index);
     if (rc != TF_E_OK) {
         return rc;
@@ -149,7 +148,7 @@ int tf_analog_out_v3_set_output_voltage(TF_AnalogOutV3 *analog_out_v3, uint16_t 
     if (analog_out_v3 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(analog_out_v3->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)analog_out_v3->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -161,7 +160,7 @@ int tf_analog_out_v3_set_output_voltage(TF_AnalogOutV3 *analog_out_v3, uint16_t 
 
     voltage = tf_leconvert_uint16_to(voltage); memcpy(buf + 0, &voltage, 2);
 
-    uint32_t deadline = tf_hal_current_time_us(analog_out_v3->tfp->hal) + tf_hal_get_common(analog_out_v3->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)analog_out_v3->tfp->hal) + tf_hal_get_common((TF_HalContext*)analog_out_v3->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(analog_out_v3->tfp, response_expected, deadline, &error_code);
@@ -184,14 +183,14 @@ int tf_analog_out_v3_get_output_voltage(TF_AnalogOutV3 *analog_out_v3, uint16_t 
     if (analog_out_v3 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(analog_out_v3->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)analog_out_v3->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
     bool response_expected = true;
     tf_tfp_prepare_send(analog_out_v3->tfp, TF_ANALOG_OUT_V3_FUNCTION_GET_OUTPUT_VOLTAGE, 0, 2, response_expected);
 
-    uint32_t deadline = tf_hal_current_time_us(analog_out_v3->tfp->hal) + tf_hal_get_common(analog_out_v3->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)analog_out_v3->tfp->hal) + tf_hal_get_common((TF_HalContext*)analog_out_v3->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(analog_out_v3->tfp, response_expected, deadline, &error_code);
@@ -219,14 +218,14 @@ int tf_analog_out_v3_get_input_voltage(TF_AnalogOutV3 *analog_out_v3, uint16_t *
     if (analog_out_v3 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(analog_out_v3->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)analog_out_v3->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
     bool response_expected = true;
     tf_tfp_prepare_send(analog_out_v3->tfp, TF_ANALOG_OUT_V3_FUNCTION_GET_INPUT_VOLTAGE, 0, 2, response_expected);
 
-    uint32_t deadline = tf_hal_current_time_us(analog_out_v3->tfp->hal) + tf_hal_get_common(analog_out_v3->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)analog_out_v3->tfp->hal) + tf_hal_get_common((TF_HalContext*)analog_out_v3->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(analog_out_v3->tfp, response_expected, deadline, &error_code);
@@ -254,14 +253,14 @@ int tf_analog_out_v3_get_spitfp_error_count(TF_AnalogOutV3 *analog_out_v3, uint3
     if (analog_out_v3 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(analog_out_v3->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)analog_out_v3->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
     bool response_expected = true;
     tf_tfp_prepare_send(analog_out_v3->tfp, TF_ANALOG_OUT_V3_FUNCTION_GET_SPITFP_ERROR_COUNT, 0, 16, response_expected);
 
-    uint32_t deadline = tf_hal_current_time_us(analog_out_v3->tfp->hal) + tf_hal_get_common(analog_out_v3->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)analog_out_v3->tfp->hal) + tf_hal_get_common((TF_HalContext*)analog_out_v3->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(analog_out_v3->tfp, response_expected, deadline, &error_code);
@@ -292,7 +291,7 @@ int tf_analog_out_v3_set_bootloader_mode(TF_AnalogOutV3 *analog_out_v3, uint8_t 
     if (analog_out_v3 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(analog_out_v3->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)analog_out_v3->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -303,7 +302,7 @@ int tf_analog_out_v3_set_bootloader_mode(TF_AnalogOutV3 *analog_out_v3, uint8_t 
 
     buf[0] = (uint8_t)mode;
 
-    uint32_t deadline = tf_hal_current_time_us(analog_out_v3->tfp->hal) + tf_hal_get_common(analog_out_v3->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)analog_out_v3->tfp->hal) + tf_hal_get_common((TF_HalContext*)analog_out_v3->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(analog_out_v3->tfp, response_expected, deadline, &error_code);
@@ -331,14 +330,14 @@ int tf_analog_out_v3_get_bootloader_mode(TF_AnalogOutV3 *analog_out_v3, uint8_t 
     if (analog_out_v3 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(analog_out_v3->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)analog_out_v3->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
     bool response_expected = true;
     tf_tfp_prepare_send(analog_out_v3->tfp, TF_ANALOG_OUT_V3_FUNCTION_GET_BOOTLOADER_MODE, 0, 1, response_expected);
 
-    uint32_t deadline = tf_hal_current_time_us(analog_out_v3->tfp->hal) + tf_hal_get_common(analog_out_v3->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)analog_out_v3->tfp->hal) + tf_hal_get_common((TF_HalContext*)analog_out_v3->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(analog_out_v3->tfp, response_expected, deadline, &error_code);
@@ -366,7 +365,7 @@ int tf_analog_out_v3_set_write_firmware_pointer(TF_AnalogOutV3 *analog_out_v3, u
     if (analog_out_v3 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(analog_out_v3->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)analog_out_v3->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -378,7 +377,7 @@ int tf_analog_out_v3_set_write_firmware_pointer(TF_AnalogOutV3 *analog_out_v3, u
 
     pointer = tf_leconvert_uint32_to(pointer); memcpy(buf + 0, &pointer, 4);
 
-    uint32_t deadline = tf_hal_current_time_us(analog_out_v3->tfp->hal) + tf_hal_get_common(analog_out_v3->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)analog_out_v3->tfp->hal) + tf_hal_get_common((TF_HalContext*)analog_out_v3->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(analog_out_v3->tfp, response_expected, deadline, &error_code);
@@ -397,11 +396,11 @@ int tf_analog_out_v3_set_write_firmware_pointer(TF_AnalogOutV3 *analog_out_v3, u
     return tf_tfp_get_error(error_code);
 }
 
-int tf_analog_out_v3_write_firmware(TF_AnalogOutV3 *analog_out_v3, uint8_t data[64], uint8_t *ret_status) {
+int tf_analog_out_v3_write_firmware(TF_AnalogOutV3 *analog_out_v3, const uint8_t data[64], uint8_t *ret_status) {
     if (analog_out_v3 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(analog_out_v3->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)analog_out_v3->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -412,7 +411,7 @@ int tf_analog_out_v3_write_firmware(TF_AnalogOutV3 *analog_out_v3, uint8_t data[
 
     memcpy(buf + 0, data, 64);
 
-    uint32_t deadline = tf_hal_current_time_us(analog_out_v3->tfp->hal) + tf_hal_get_common(analog_out_v3->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)analog_out_v3->tfp->hal) + tf_hal_get_common((TF_HalContext*)analog_out_v3->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(analog_out_v3->tfp, response_expected, deadline, &error_code);
@@ -440,7 +439,7 @@ int tf_analog_out_v3_set_status_led_config(TF_AnalogOutV3 *analog_out_v3, uint8_
     if (analog_out_v3 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(analog_out_v3->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)analog_out_v3->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -452,7 +451,7 @@ int tf_analog_out_v3_set_status_led_config(TF_AnalogOutV3 *analog_out_v3, uint8_
 
     buf[0] = (uint8_t)config;
 
-    uint32_t deadline = tf_hal_current_time_us(analog_out_v3->tfp->hal) + tf_hal_get_common(analog_out_v3->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)analog_out_v3->tfp->hal) + tf_hal_get_common((TF_HalContext*)analog_out_v3->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(analog_out_v3->tfp, response_expected, deadline, &error_code);
@@ -475,14 +474,14 @@ int tf_analog_out_v3_get_status_led_config(TF_AnalogOutV3 *analog_out_v3, uint8_
     if (analog_out_v3 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(analog_out_v3->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)analog_out_v3->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
     bool response_expected = true;
     tf_tfp_prepare_send(analog_out_v3->tfp, TF_ANALOG_OUT_V3_FUNCTION_GET_STATUS_LED_CONFIG, 0, 1, response_expected);
 
-    uint32_t deadline = tf_hal_current_time_us(analog_out_v3->tfp->hal) + tf_hal_get_common(analog_out_v3->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)analog_out_v3->tfp->hal) + tf_hal_get_common((TF_HalContext*)analog_out_v3->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(analog_out_v3->tfp, response_expected, deadline, &error_code);
@@ -510,14 +509,14 @@ int tf_analog_out_v3_get_chip_temperature(TF_AnalogOutV3 *analog_out_v3, int16_t
     if (analog_out_v3 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(analog_out_v3->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)analog_out_v3->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
     bool response_expected = true;
     tf_tfp_prepare_send(analog_out_v3->tfp, TF_ANALOG_OUT_V3_FUNCTION_GET_CHIP_TEMPERATURE, 0, 2, response_expected);
 
-    uint32_t deadline = tf_hal_current_time_us(analog_out_v3->tfp->hal) + tf_hal_get_common(analog_out_v3->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)analog_out_v3->tfp->hal) + tf_hal_get_common((TF_HalContext*)analog_out_v3->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(analog_out_v3->tfp, response_expected, deadline, &error_code);
@@ -545,7 +544,7 @@ int tf_analog_out_v3_reset(TF_AnalogOutV3 *analog_out_v3) {
     if (analog_out_v3 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(analog_out_v3->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)analog_out_v3->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -553,7 +552,7 @@ int tf_analog_out_v3_reset(TF_AnalogOutV3 *analog_out_v3) {
     tf_analog_out_v3_get_response_expected(analog_out_v3, TF_ANALOG_OUT_V3_FUNCTION_RESET, &response_expected);
     tf_tfp_prepare_send(analog_out_v3->tfp, TF_ANALOG_OUT_V3_FUNCTION_RESET, 0, 0, response_expected);
 
-    uint32_t deadline = tf_hal_current_time_us(analog_out_v3->tfp->hal) + tf_hal_get_common(analog_out_v3->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)analog_out_v3->tfp->hal) + tf_hal_get_common((TF_HalContext*)analog_out_v3->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(analog_out_v3->tfp, response_expected, deadline, &error_code);
@@ -576,7 +575,7 @@ int tf_analog_out_v3_write_uid(TF_AnalogOutV3 *analog_out_v3, uint32_t uid) {
     if (analog_out_v3 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(analog_out_v3->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)analog_out_v3->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -588,7 +587,7 @@ int tf_analog_out_v3_write_uid(TF_AnalogOutV3 *analog_out_v3, uint32_t uid) {
 
     uid = tf_leconvert_uint32_to(uid); memcpy(buf + 0, &uid, 4);
 
-    uint32_t deadline = tf_hal_current_time_us(analog_out_v3->tfp->hal) + tf_hal_get_common(analog_out_v3->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)analog_out_v3->tfp->hal) + tf_hal_get_common((TF_HalContext*)analog_out_v3->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(analog_out_v3->tfp, response_expected, deadline, &error_code);
@@ -611,14 +610,14 @@ int tf_analog_out_v3_read_uid(TF_AnalogOutV3 *analog_out_v3, uint32_t *ret_uid) 
     if (analog_out_v3 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(analog_out_v3->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)analog_out_v3->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
     bool response_expected = true;
     tf_tfp_prepare_send(analog_out_v3->tfp, TF_ANALOG_OUT_V3_FUNCTION_READ_UID, 0, 4, response_expected);
 
-    uint32_t deadline = tf_hal_current_time_us(analog_out_v3->tfp->hal) + tf_hal_get_common(analog_out_v3->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)analog_out_v3->tfp->hal) + tf_hal_get_common((TF_HalContext*)analog_out_v3->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(analog_out_v3->tfp, response_expected, deadline, &error_code);
@@ -646,7 +645,7 @@ int tf_analog_out_v3_get_identity(TF_AnalogOutV3 *analog_out_v3, char ret_uid[8]
     if (analog_out_v3 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(analog_out_v3->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)analog_out_v3->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -654,7 +653,7 @@ int tf_analog_out_v3_get_identity(TF_AnalogOutV3 *analog_out_v3, char ret_uid[8]
     tf_tfp_prepare_send(analog_out_v3->tfp, TF_ANALOG_OUT_V3_FUNCTION_GET_IDENTITY, 0, 25, response_expected);
 
     size_t i;
-    uint32_t deadline = tf_hal_current_time_us(analog_out_v3->tfp->hal) + tf_hal_get_common(analog_out_v3->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)analog_out_v3->tfp->hal) + tf_hal_get_common((TF_HalContext*)analog_out_v3->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(analog_out_v3->tfp, response_expected, deadline, &error_code);
@@ -675,7 +674,7 @@ int tf_analog_out_v3_get_identity(TF_AnalogOutV3 *analog_out_v3, char ret_uid[8]
         if (ret_firmware_version != NULL) { for (i = 0; i < 3; ++i) ret_firmware_version[i] = tf_packetbuffer_read_uint8_t(&analog_out_v3->tfp->spitfp->recv_buf);} else { tf_packetbuffer_remove(&analog_out_v3->tfp->spitfp->recv_buf, 3); }
         if (ret_device_identifier != NULL) { *ret_device_identifier = tf_packetbuffer_read_uint16_t(&analog_out_v3->tfp->spitfp->recv_buf); } else { tf_packetbuffer_remove(&analog_out_v3->tfp->spitfp->recv_buf, 2); }
         if (tmp_connected_uid[0] == 0 && ret_position != NULL) {
-            *ret_position = tf_hal_get_port_name(analog_out_v3->tfp->hal, analog_out_v3->tfp->spitfp->port_id);
+            *ret_position = tf_hal_get_port_name((TF_HalContext*)analog_out_v3->tfp->hal, analog_out_v3->tfp->spitfp->port_id);
         }
         if (ret_connected_uid != NULL) {
             memcpy(ret_connected_uid, tmp_connected_uid, 8);
@@ -695,7 +694,7 @@ int tf_analog_out_v3_callback_tick(TF_AnalogOutV3 *analog_out_v3, uint32_t timeo
     if (analog_out_v3 == NULL)
         return TF_E_NULL;
 
-    return tf_tfp_callback_tick(analog_out_v3->tfp, tf_hal_current_time_us(analog_out_v3->tfp->hal) + timeout_us);
+    return tf_tfp_callback_tick(analog_out_v3->tfp, tf_hal_current_time_us((TF_HalContext*)analog_out_v3->tfp->hal) + timeout_us);
 }
 
 #ifdef __cplusplus

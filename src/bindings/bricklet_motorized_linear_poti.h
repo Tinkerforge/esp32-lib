@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-10-04.      *
+ * This file was automatically generated on 2021-11-12.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -25,7 +25,7 @@ extern "C" {
  */
 
 struct TF_MotorizedLinearPoti;
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
 
 typedef void (*TF_MotorizedLinearPotiPositionHandler)(struct TF_MotorizedLinearPoti *device, uint16_t position, void *user_data);
 typedef void (*TF_MotorizedLinearPotiPositionReachedHandler)(struct TF_MotorizedLinearPoti *device, uint16_t position, void *user_data);
@@ -38,7 +38,7 @@ typedef void (*TF_MotorizedLinearPotiPositionReachedHandler)(struct TF_Motorized
  */
 typedef struct TF_MotorizedLinearPoti {
     TF_TfpContext *tfp;
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
     TF_MotorizedLinearPotiPositionHandler position_handler;
     void *position_user_data;
 
@@ -149,7 +149,7 @@ typedef struct TF_MotorizedLinearPoti {
  */
 #define TF_MOTORIZED_LINEAR_POTI_FUNCTION_GET_IDENTITY 255
 
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
 
 /**
  * \ingroup BrickletMotorizedLinearPoti
@@ -297,7 +297,7 @@ typedef struct TF_MotorizedLinearPoti {
  * Creates the device object \c motorized_linear_poti with the unique device ID \c uid and adds
  * it to the IPConnection \c ipcon.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_motorized_linear_poti_create(TF_MotorizedLinearPoti *motorized_linear_poti, const char *uid, TF_HalContext *hal);
+int tf_motorized_linear_poti_create(TF_MotorizedLinearPoti *motorized_linear_poti, const char *uid, TF_HalContext *hal);
 
 /**
  * \ingroup BrickletMotorizedLinearPoti
@@ -305,7 +305,7 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_motorized_linear_poti_create(TF_MotorizedLinearP
  * Removes the device object \c motorized_linear_poti from its IPConnection and destroys it.
  * The device object cannot be used anymore afterwards.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_motorized_linear_poti_destroy(TF_MotorizedLinearPoti *motorized_linear_poti);
+int tf_motorized_linear_poti_destroy(TF_MotorizedLinearPoti *motorized_linear_poti);
 
 /**
  * \ingroup BrickletMotorizedLinearPoti
@@ -326,7 +326,7 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_motorized_linear_poti_destroy(TF_MotorizedLinear
  * disabled for a setter function then no response is sent and errors are
  * silently ignored, because they cannot be detected.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_motorized_linear_poti_get_response_expected(TF_MotorizedLinearPoti *motorized_linear_poti, uint8_t function_id, bool *ret_response_expected);
+int tf_motorized_linear_poti_get_response_expected(TF_MotorizedLinearPoti *motorized_linear_poti, uint8_t function_id, bool *ret_response_expected);
 
 /**
  * \ingroup BrickletMotorizedLinearPoti
@@ -342,7 +342,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_motorized_linear_poti_get_response_expected(TF_Mo
  * setter function then no response is sent and errors are silently ignored,
  * because they cannot be detected.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_motorized_linear_poti_set_response_expected(TF_MotorizedLinearPoti *motorized_linear_poti, uint8_t function_id, bool response_expected);
+int tf_motorized_linear_poti_set_response_expected(TF_MotorizedLinearPoti *motorized_linear_poti, uint8_t function_id, bool response_expected);
 
 /**
  * \ingroup BrickletMotorizedLinearPoti
@@ -350,8 +350,8 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_motorized_linear_poti_set_response_expected(TF_M
  * Changes the response expected flag for all setter and callback configuration
  * functions of this device at once.
  */
-TF_ATTRIBUTE_NONNULL_ALL void tf_motorized_linear_poti_set_response_expected_all(TF_MotorizedLinearPoti *motorized_linear_poti, bool response_expected);
-#ifdef TF_IMPLEMENT_CALLBACKS
+void tf_motorized_linear_poti_set_response_expected_all(TF_MotorizedLinearPoti *motorized_linear_poti, bool response_expected);
+#if TF_IMPLEMENT_CALLBACKS != 0
 /**
  * \ingroup BrickletMotorizedLinearPoti
  *
@@ -365,7 +365,7 @@ TF_ATTRIBUTE_NONNULL_ALL void tf_motorized_linear_poti_set_response_expected_all
  * 
  * The parameter is the same as {@link tf_motorized_linear_poti_get_position}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_motorized_linear_poti_register_position_callback(TF_MotorizedLinearPoti *motorized_linear_poti, TF_MotorizedLinearPotiPositionHandler handler, void *user_data);
+int tf_motorized_linear_poti_register_position_callback(TF_MotorizedLinearPoti *motorized_linear_poti, TF_MotorizedLinearPotiPositionHandler handler, void *user_data);
 
 
 /**
@@ -381,9 +381,9 @@ TF_ATTRIBUTE_NONNULL(1) int tf_motorized_linear_poti_register_position_callback(
  * 
  * The parameter is the current position.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_motorized_linear_poti_register_position_reached_callback(TF_MotorizedLinearPoti *motorized_linear_poti, TF_MotorizedLinearPotiPositionReachedHandler handler, void *user_data);
+int tf_motorized_linear_poti_register_position_reached_callback(TF_MotorizedLinearPoti *motorized_linear_poti, TF_MotorizedLinearPotiPositionReachedHandler handler, void *user_data);
 #endif
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
 /**
  * \ingroup BrickletMotorizedLinearPoti
  *
@@ -391,7 +391,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_motorized_linear_poti_register_position_reached_c
  *
  * This function can be used in a non-blocking fashion by calling it with a timeout of 0.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_motorized_linear_poti_callback_tick(TF_MotorizedLinearPoti *motorized_linear_poti, uint32_t timeout_us);
+int tf_motorized_linear_poti_callback_tick(TF_MotorizedLinearPoti *motorized_linear_poti, uint32_t timeout_us);
 #endif
 
 /**
@@ -405,7 +405,7 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_motorized_linear_poti_callback_tick(TF_Motorized
  * {@link tf_motorized_linear_poti_register_position_callback} callback. You can set the callback configuration
  * with {@link tf_motorized_linear_poti_set_position_callback_configuration}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_motorized_linear_poti_get_position(TF_MotorizedLinearPoti *motorized_linear_poti, uint16_t *ret_position);
+int tf_motorized_linear_poti_get_position(TF_MotorizedLinearPoti *motorized_linear_poti, uint16_t *ret_position);
 
 /**
  * \ingroup BrickletMotorizedLinearPoti
@@ -438,14 +438,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_motorized_linear_poti_get_position(TF_MotorizedLi
  * 
  * If the option is set to 'x' (threshold turned off) the callback is triggered with the fixed period.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_motorized_linear_poti_set_position_callback_configuration(TF_MotorizedLinearPoti *motorized_linear_poti, uint32_t period, bool value_has_to_change, char option, uint16_t min, uint16_t max);
+int tf_motorized_linear_poti_set_position_callback_configuration(TF_MotorizedLinearPoti *motorized_linear_poti, uint32_t period, bool value_has_to_change, char option, uint16_t min, uint16_t max);
 
 /**
  * \ingroup BrickletMotorizedLinearPoti
  *
  * Returns the callback configuration as set by {@link tf_motorized_linear_poti_set_position_callback_configuration}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_motorized_linear_poti_get_position_callback_configuration(TF_MotorizedLinearPoti *motorized_linear_poti, uint32_t *ret_period, bool *ret_value_has_to_change, char *ret_option, uint16_t *ret_min, uint16_t *ret_max);
+int tf_motorized_linear_poti_get_position_callback_configuration(TF_MotorizedLinearPoti *motorized_linear_poti, uint32_t *ret_period, bool *ret_value_has_to_change, char *ret_option, uint16_t *ret_min, uint16_t *ret_max);
 
 /**
  * \ingroup BrickletMotorizedLinearPoti
@@ -464,7 +464,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_motorized_linear_poti_get_position_callback_confi
  * If the hold position parameter is set to false, the potentiometer can be changed
  * again by the user as soon as the set point was reached once.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_motorized_linear_poti_set_motor_position(TF_MotorizedLinearPoti *motorized_linear_poti, uint16_t position, uint8_t drive_mode, bool hold_position);
+int tf_motorized_linear_poti_set_motor_position(TF_MotorizedLinearPoti *motorized_linear_poti, uint16_t position, uint8_t drive_mode, bool hold_position);
 
 /**
  * \ingroup BrickletMotorizedLinearPoti
@@ -476,7 +476,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_motorized_linear_poti_set_motor_position(TF_Motor
  * The position reached parameter is true if the position has been reached at one point.
  * The position may have been changed again in the meantime by the user.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_motorized_linear_poti_get_motor_position(TF_MotorizedLinearPoti *motorized_linear_poti, uint16_t *ret_position, uint8_t *ret_drive_mode, bool *ret_hold_position, bool *ret_position_reached);
+int tf_motorized_linear_poti_get_motor_position(TF_MotorizedLinearPoti *motorized_linear_poti, uint16_t *ret_position, uint8_t *ret_drive_mode, bool *ret_hold_position, bool *ret_position_reached);
 
 /**
  * \ingroup BrickletMotorizedLinearPoti
@@ -489,14 +489,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_motorized_linear_poti_get_motor_position(TF_Motor
  * The Motorized Linear Poti Bricklet is already factory-calibrated during
  * testing at Tinkerforge.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_motorized_linear_poti_calibrate(TF_MotorizedLinearPoti *motorized_linear_poti);
+int tf_motorized_linear_poti_calibrate(TF_MotorizedLinearPoti *motorized_linear_poti);
 
 /**
  * \ingroup BrickletMotorizedLinearPoti
  *
  * Enables/Disables {@link tf_motorized_linear_poti_register_position_reached_callback} callback.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_motorized_linear_poti_set_position_reached_callback_configuration(TF_MotorizedLinearPoti *motorized_linear_poti, bool enabled);
+int tf_motorized_linear_poti_set_position_reached_callback_configuration(TF_MotorizedLinearPoti *motorized_linear_poti, bool enabled);
 
 /**
  * \ingroup BrickletMotorizedLinearPoti
@@ -504,7 +504,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_motorized_linear_poti_set_position_reached_callba
  * Returns the {@link tf_motorized_linear_poti_register_position_reached_callback} callback configuration
  * as set by {@link tf_motorized_linear_poti_set_position_reached_callback_configuration}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_motorized_linear_poti_get_position_reached_callback_configuration(TF_MotorizedLinearPoti *motorized_linear_poti, bool *ret_enabled);
+int tf_motorized_linear_poti_get_position_reached_callback_configuration(TF_MotorizedLinearPoti *motorized_linear_poti, bool *ret_enabled);
 
 /**
  * \ingroup BrickletMotorizedLinearPoti
@@ -521,7 +521,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_motorized_linear_poti_get_position_reached_callba
  * The errors counts are for errors that occur on the Bricklet side. All
  * Bricks have a similar function that returns the errors on the Brick side.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_motorized_linear_poti_get_spitfp_error_count(TF_MotorizedLinearPoti *motorized_linear_poti, uint32_t *ret_error_count_ack_checksum, uint32_t *ret_error_count_message_checksum, uint32_t *ret_error_count_frame, uint32_t *ret_error_count_overflow);
+int tf_motorized_linear_poti_get_spitfp_error_count(TF_MotorizedLinearPoti *motorized_linear_poti, uint32_t *ret_error_count_ack_checksum, uint32_t *ret_error_count_message_checksum, uint32_t *ret_error_count_frame, uint32_t *ret_error_count_overflow);
 
 /**
  * \ingroup BrickletMotorizedLinearPoti
@@ -536,14 +536,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_motorized_linear_poti_get_spitfp_error_count(TF_M
  * This function is used by Brick Viewer during flashing. It should not be
  * necessary to call it in a normal user program.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_motorized_linear_poti_set_bootloader_mode(TF_MotorizedLinearPoti *motorized_linear_poti, uint8_t mode, uint8_t *ret_status);
+int tf_motorized_linear_poti_set_bootloader_mode(TF_MotorizedLinearPoti *motorized_linear_poti, uint8_t mode, uint8_t *ret_status);
 
 /**
  * \ingroup BrickletMotorizedLinearPoti
  *
  * Returns the current bootloader mode, see {@link tf_motorized_linear_poti_set_bootloader_mode}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_motorized_linear_poti_get_bootloader_mode(TF_MotorizedLinearPoti *motorized_linear_poti, uint8_t *ret_mode);
+int tf_motorized_linear_poti_get_bootloader_mode(TF_MotorizedLinearPoti *motorized_linear_poti, uint8_t *ret_mode);
 
 /**
  * \ingroup BrickletMotorizedLinearPoti
@@ -555,7 +555,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_motorized_linear_poti_get_bootloader_mode(TF_Moto
  * This function is used by Brick Viewer during flashing. It should not be
  * necessary to call it in a normal user program.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_motorized_linear_poti_set_write_firmware_pointer(TF_MotorizedLinearPoti *motorized_linear_poti, uint32_t pointer);
+int tf_motorized_linear_poti_set_write_firmware_pointer(TF_MotorizedLinearPoti *motorized_linear_poti, uint32_t pointer);
 
 /**
  * \ingroup BrickletMotorizedLinearPoti
@@ -569,7 +569,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_motorized_linear_poti_set_write_firmware_pointer(
  * This function is used by Brick Viewer during flashing. It should not be
  * necessary to call it in a normal user program.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_motorized_linear_poti_write_firmware(TF_MotorizedLinearPoti *motorized_linear_poti, uint8_t data[64], uint8_t *ret_status);
+int tf_motorized_linear_poti_write_firmware(TF_MotorizedLinearPoti *motorized_linear_poti, const uint8_t data[64], uint8_t *ret_status);
 
 /**
  * \ingroup BrickletMotorizedLinearPoti
@@ -582,14 +582,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_motorized_linear_poti_write_firmware(TF_Motorized
  * 
  * If the Bricklet is in bootloader mode, the LED is will show heartbeat by default.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_motorized_linear_poti_set_status_led_config(TF_MotorizedLinearPoti *motorized_linear_poti, uint8_t config);
+int tf_motorized_linear_poti_set_status_led_config(TF_MotorizedLinearPoti *motorized_linear_poti, uint8_t config);
 
 /**
  * \ingroup BrickletMotorizedLinearPoti
  *
  * Returns the configuration as set by {@link tf_motorized_linear_poti_set_status_led_config}
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_motorized_linear_poti_get_status_led_config(TF_MotorizedLinearPoti *motorized_linear_poti, uint8_t *ret_config);
+int tf_motorized_linear_poti_get_status_led_config(TF_MotorizedLinearPoti *motorized_linear_poti, uint8_t *ret_config);
 
 /**
  * \ingroup BrickletMotorizedLinearPoti
@@ -601,7 +601,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_motorized_linear_poti_get_status_led_config(TF_Mo
  * accuracy. Practically it is only useful as an indicator for
  * temperature changes.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_motorized_linear_poti_get_chip_temperature(TF_MotorizedLinearPoti *motorized_linear_poti, int16_t *ret_temperature);
+int tf_motorized_linear_poti_get_chip_temperature(TF_MotorizedLinearPoti *motorized_linear_poti, int16_t *ret_temperature);
 
 /**
  * \ingroup BrickletMotorizedLinearPoti
@@ -613,7 +613,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_motorized_linear_poti_get_chip_temperature(TF_Mot
  * calling functions on the existing ones will result in
  * undefined behavior!
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_motorized_linear_poti_reset(TF_MotorizedLinearPoti *motorized_linear_poti);
+int tf_motorized_linear_poti_reset(TF_MotorizedLinearPoti *motorized_linear_poti);
 
 /**
  * \ingroup BrickletMotorizedLinearPoti
@@ -624,7 +624,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_motorized_linear_poti_reset(TF_MotorizedLinearPot
  * 
  * We recommend that you use Brick Viewer to change the UID.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_motorized_linear_poti_write_uid(TF_MotorizedLinearPoti *motorized_linear_poti, uint32_t uid);
+int tf_motorized_linear_poti_write_uid(TF_MotorizedLinearPoti *motorized_linear_poti, uint32_t uid);
 
 /**
  * \ingroup BrickletMotorizedLinearPoti
@@ -632,7 +632,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_motorized_linear_poti_write_uid(TF_MotorizedLinea
  * Returns the current UID as an integer. Encode as
  * Base58 to get the usual string version.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_motorized_linear_poti_read_uid(TF_MotorizedLinearPoti *motorized_linear_poti, uint32_t *ret_uid);
+int tf_motorized_linear_poti_read_uid(TF_MotorizedLinearPoti *motorized_linear_poti, uint32_t *ret_uid);
 
 /**
  * \ingroup BrickletMotorizedLinearPoti
@@ -648,7 +648,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_motorized_linear_poti_read_uid(TF_MotorizedLinear
  * The device identifier numbers can be found :ref:`here <device_identifier>`.
  * |device_identifier_constant|
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_motorized_linear_poti_get_identity(TF_MotorizedLinearPoti *motorized_linear_poti, char ret_uid[8], char ret_connected_uid[8], char *ret_position, uint8_t ret_hardware_version[3], uint8_t ret_firmware_version[3], uint16_t *ret_device_identifier);
+int tf_motorized_linear_poti_get_identity(TF_MotorizedLinearPoti *motorized_linear_poti, char ret_uid[8], char ret_connected_uid[8], char *ret_position, uint8_t ret_hardware_version[3], uint8_t ret_firmware_version[3], uint16_t *ret_device_identifier);
 
 #ifdef __cplusplus
 }

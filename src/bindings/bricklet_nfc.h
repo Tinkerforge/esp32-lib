@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-10-04.      *
+ * This file was automatically generated on 2021-11-12.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -25,7 +25,7 @@ extern "C" {
  */
 
 struct TF_NFC;
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
 
 typedef void (*TF_NFCReaderStateChangedHandler)(struct TF_NFC *device, uint8_t state, bool idle, void *user_data);
 typedef void (*TF_NFCCardemuStateChangedHandler)(struct TF_NFC *device, uint8_t state, bool idle, void *user_data);
@@ -39,7 +39,7 @@ typedef void (*TF_NFCP2PStateChangedHandler)(struct TF_NFC *device, uint8_t stat
  */
 typedef struct TF_NFC {
     TF_TfpContext *tfp;
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
     TF_NFCReaderStateChangedHandler reader_state_changed_handler;
     void *reader_state_changed_user_data;
 
@@ -243,7 +243,7 @@ typedef struct TF_NFC {
  */
 #define TF_NFC_FUNCTION_GET_IDENTITY 255
 
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
 
 /**
  * \ingroup BrickletNFC
@@ -681,7 +681,7 @@ typedef struct TF_NFC {
  * Creates the device object \c nfc with the unique device ID \c uid and adds
  * it to the IPConnection \c ipcon.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_nfc_create(TF_NFC *nfc, const char *uid, TF_HalContext *hal);
+int tf_nfc_create(TF_NFC *nfc, const char *uid, TF_HalContext *hal);
 
 /**
  * \ingroup BrickletNFC
@@ -689,7 +689,7 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_nfc_create(TF_NFC *nfc, const char *uid, TF_HalC
  * Removes the device object \c nfc from its IPConnection and destroys it.
  * The device object cannot be used anymore afterwards.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_nfc_destroy(TF_NFC *nfc);
+int tf_nfc_destroy(TF_NFC *nfc);
 
 /**
  * \ingroup BrickletNFC
@@ -710,7 +710,7 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_nfc_destroy(TF_NFC *nfc);
  * disabled for a setter function then no response is sent and errors are
  * silently ignored, because they cannot be detected.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_nfc_get_response_expected(TF_NFC *nfc, uint8_t function_id, bool *ret_response_expected);
+int tf_nfc_get_response_expected(TF_NFC *nfc, uint8_t function_id, bool *ret_response_expected);
 
 /**
  * \ingroup BrickletNFC
@@ -726,7 +726,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_nfc_get_response_expected(TF_NFC *nfc, uint8_t fu
  * setter function then no response is sent and errors are silently ignored,
  * because they cannot be detected.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_nfc_set_response_expected(TF_NFC *nfc, uint8_t function_id, bool response_expected);
+int tf_nfc_set_response_expected(TF_NFC *nfc, uint8_t function_id, bool response_expected);
 
 /**
  * \ingroup BrickletNFC
@@ -734,8 +734,8 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_nfc_set_response_expected(TF_NFC *nfc, uint8_t f
  * Changes the response expected flag for all setter and callback configuration
  * functions of this device at once.
  */
-TF_ATTRIBUTE_NONNULL_ALL void tf_nfc_set_response_expected_all(TF_NFC *nfc, bool response_expected);
-#ifdef TF_IMPLEMENT_CALLBACKS
+void tf_nfc_set_response_expected_all(TF_NFC *nfc, bool response_expected);
+#if TF_IMPLEMENT_CALLBACKS != 0
 /**
  * \ingroup BrickletNFC
  *
@@ -747,7 +747,7 @@ TF_ATTRIBUTE_NONNULL_ALL void tf_nfc_set_response_expected_all(TF_NFC *nfc, bool
  * This callback is called if the reader state of the NFC Bricklet changes.
  * See {@link tf_nfc_reader_get_state} for more information about the possible states.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_nfc_register_reader_state_changed_callback(TF_NFC *nfc, TF_NFCReaderStateChangedHandler handler, void *user_data);
+int tf_nfc_register_reader_state_changed_callback(TF_NFC *nfc, TF_NFCReaderStateChangedHandler handler, void *user_data);
 
 
 /**
@@ -761,7 +761,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_nfc_register_reader_state_changed_callback(TF_NFC
  * This callback is called if the cardemu state of the NFC Bricklet changes.
  * See {@link tf_nfc_cardemu_get_state} for more information about the possible states.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_nfc_register_cardemu_state_changed_callback(TF_NFC *nfc, TF_NFCCardemuStateChangedHandler handler, void *user_data);
+int tf_nfc_register_cardemu_state_changed_callback(TF_NFC *nfc, TF_NFCCardemuStateChangedHandler handler, void *user_data);
 
 
 /**
@@ -775,9 +775,9 @@ TF_ATTRIBUTE_NONNULL(1) int tf_nfc_register_cardemu_state_changed_callback(TF_NF
  * This callback is called if the P2P state of the NFC Bricklet changes.
  * See {@link tf_nfc_p2p_get_state} for more information about the possible states.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_nfc_register_p2p_state_changed_callback(TF_NFC *nfc, TF_NFCP2PStateChangedHandler handler, void *user_data);
+int tf_nfc_register_p2p_state_changed_callback(TF_NFC *nfc, TF_NFCP2PStateChangedHandler handler, void *user_data);
 #endif
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
 /**
  * \ingroup BrickletNFC
  *
@@ -785,7 +785,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_nfc_register_p2p_state_changed_callback(TF_NFC *n
  *
  * This function can be used in a non-blocking fashion by calling it with a timeout of 0.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_nfc_callback_tick(TF_NFC *nfc, uint32_t timeout_us);
+int tf_nfc_callback_tick(TF_NFC *nfc, uint32_t timeout_us);
 #endif
 
 /**
@@ -802,14 +802,14 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_nfc_callback_tick(TF_NFC *nfc, uint32_t timeout_
  * Therefore, you can only use functions corresponding to the current mode. For
  * example, in Reader mode you can only use Reader functions.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_nfc_set_mode(TF_NFC *nfc, uint8_t mode);
+int tf_nfc_set_mode(TF_NFC *nfc, uint8_t mode);
 
 /**
  * \ingroup BrickletNFC
  *
  * Returns the mode as set by {@link tf_nfc_set_mode}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_nfc_get_mode(TF_NFC *nfc, uint8_t *ret_mode);
+int tf_nfc_get_mode(TF_NFC *nfc, uint8_t *ret_mode);
 
 /**
  * \ingroup BrickletNFC
@@ -832,7 +832,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_nfc_get_mode(TF_NFC *nfc, uint8_t *ret_mode);
  * In case of any *ReaderError* state the selection is lost and you have to
  * start again by calling {@link tf_nfc_reader_request_tag_id}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_nfc_reader_request_tag_id(TF_NFC *nfc);
+int tf_nfc_reader_request_tag_id(TF_NFC *nfc);
 
 /**
  * \ingroup BrickletNFC
@@ -848,7 +848,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_nfc_reader_request_tag_id(TF_NFC *nfc);
  *    {@link tf_nfc_register_reader_state_changed_callback} callback)
  * 3. Call {@link tf_nfc_reader_get_tag_id}
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_nfc_reader_get_tag_id_low_level(TF_NFC *nfc, uint8_t *ret_tag_type, uint8_t *ret_tag_id_length, uint8_t ret_tag_id_data[32]);
+int tf_nfc_reader_get_tag_id_low_level(TF_NFC *nfc, uint8_t *ret_tag_type, uint8_t *ret_tag_id_length, uint8_t ret_tag_id_data[32]);
 
 /**
  * \ingroup BrickletNFC
@@ -870,7 +870,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_nfc_reader_get_tag_id_low_level(TF_NFC *nfc, uint
  * 
  * The same approach is used analogously for the other API functions.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_nfc_reader_get_state(TF_NFC *nfc, uint8_t *ret_state, bool *ret_idle);
+int tf_nfc_reader_get_state(TF_NFC *nfc, uint8_t *ret_state, bool *ret_idle);
 
 /**
  * \ingroup BrickletNFC
@@ -890,7 +890,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_nfc_reader_get_state(TF_NFC *nfc, uint8_t *ret_st
  * 5. Wait for state to change to *ReaderWriteNDEFReady* (see {@link tf_nfc_reader_get_state}
  *    or {@link tf_nfc_register_reader_state_changed_callback} callback)
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_nfc_reader_write_ndef_low_level(TF_NFC *nfc, uint16_t ndef_length, uint16_t ndef_chunk_offset, uint8_t ndef_chunk_data[60]);
+int tf_nfc_reader_write_ndef_low_level(TF_NFC *nfc, uint16_t ndef_length, uint16_t ndef_chunk_offset, const uint8_t ndef_chunk_data[60]);
 
 /**
  * \ingroup BrickletNFC
@@ -911,7 +911,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_nfc_reader_write_ndef_low_level(TF_NFC *nfc, uint
  *    or {@link tf_nfc_register_reader_state_changed_callback} callback)
  * 6. Call {@link tf_nfc_reader_read_ndef} to retrieve the NDEF message from the buffer
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_nfc_reader_request_ndef(TF_NFC *nfc);
+int tf_nfc_reader_request_ndef(TF_NFC *nfc);
 
 /**
  * \ingroup BrickletNFC
@@ -919,7 +919,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_nfc_reader_request_ndef(TF_NFC *nfc);
  * Returns the NDEF data from an internal buffer. To fill the buffer
  * with a NDEF message you have to call {@link tf_nfc_reader_request_ndef} beforehand.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_nfc_reader_read_ndef_low_level(TF_NFC *nfc, uint16_t *ret_ndef_length, uint16_t *ret_ndef_chunk_offset, uint8_t ret_ndef_chunk_data[60]);
+int tf_nfc_reader_read_ndef_low_level(TF_NFC *nfc, uint16_t *ret_ndef_length, uint16_t *ret_ndef_chunk_offset, uint8_t ret_ndef_chunk_data[60]);
 
 /**
  * \ingroup BrickletNFC
@@ -945,7 +945,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_nfc_reader_read_ndef_low_level(TF_NFC *nfc, uint1
  * 
  * The authentication will always work for one whole sector (4 pages).
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_nfc_reader_authenticate_mifare_classic_page(TF_NFC *nfc, uint16_t page, uint8_t key_number, uint8_t key[6]);
+int tf_nfc_reader_authenticate_mifare_classic_page(TF_NFC *nfc, uint16_t page, uint8_t key_number, const uint8_t key[6]);
 
 /**
  * \ingroup BrickletNFC
@@ -978,7 +978,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_nfc_reader_authenticate_mifare_classic_page(TF_NF
  * 
  * Choose CC by setting page to 3 or NDEF by setting page to 4.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_nfc_reader_write_page_low_level(TF_NFC *nfc, uint16_t page, uint16_t data_length, uint16_t data_chunk_offset, uint8_t data_chunk_data[58]);
+int tf_nfc_reader_write_page_low_level(TF_NFC *nfc, uint16_t page, uint16_t data_length, uint16_t data_chunk_offset, const uint8_t data_chunk_data[58]);
 
 /**
  * \ingroup BrickletNFC
@@ -1014,7 +1014,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_nfc_reader_write_page_low_level(TF_NFC *nfc, uint
  * 
  * Choose CC by setting page to 3 or NDEF by setting page to 4.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_nfc_reader_request_page(TF_NFC *nfc, uint16_t page, uint16_t length);
+int tf_nfc_reader_request_page(TF_NFC *nfc, uint16_t page, uint16_t length);
 
 /**
  * \ingroup BrickletNFC
@@ -1022,7 +1022,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_nfc_reader_request_page(TF_NFC *nfc, uint16_t pag
  * Returns the page data from an internal buffer. To fill the buffer
  * with specific pages you have to call {@link tf_nfc_reader_request_page} beforehand.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_nfc_reader_read_page_low_level(TF_NFC *nfc, uint16_t *ret_data_length, uint16_t *ret_data_chunk_offset, uint8_t ret_data_chunk_data[60]);
+int tf_nfc_reader_read_page_low_level(TF_NFC *nfc, uint16_t *ret_data_length, uint16_t *ret_data_chunk_offset, uint8_t ret_data_chunk_data[60]);
 
 /**
  * \ingroup BrickletNFC
@@ -1044,7 +1044,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_nfc_reader_read_page_low_level(TF_NFC *nfc, uint1
  * 
  * The same approach is used analogously for the other API functions.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_nfc_cardemu_get_state(TF_NFC *nfc, uint8_t *ret_state, bool *ret_idle);
+int tf_nfc_cardemu_get_state(TF_NFC *nfc, uint8_t *ret_state, bool *ret_idle);
 
 /**
  * \ingroup BrickletNFC
@@ -1060,7 +1060,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_nfc_cardemu_get_state(TF_NFC *nfc, uint8_t *ret_s
  * If the cardemu state changes to *CardemuDiscoveryReady* you can start the NDEF message
  * transfer with {@link tf_nfc_cardemu_write_ndef} and {@link tf_nfc_cardemu_start_transfer}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_nfc_cardemu_start_discovery(TF_NFC *nfc);
+int tf_nfc_cardemu_start_discovery(TF_NFC *nfc);
 
 /**
  * \ingroup BrickletNFC
@@ -1073,7 +1073,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_nfc_cardemu_start_discovery(TF_NFC *nfc);
  * will not be overwritten until you call this function again or change the
  * mode.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_nfc_cardemu_write_ndef_low_level(TF_NFC *nfc, uint16_t ndef_length, uint16_t ndef_chunk_offset, uint8_t ndef_chunk_data[60]);
+int tf_nfc_cardemu_write_ndef_low_level(TF_NFC *nfc, uint16_t ndef_length, uint16_t ndef_chunk_offset, const uint8_t ndef_chunk_data[60]);
 
 /**
  * \ingroup BrickletNFC
@@ -1087,7 +1087,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_nfc_cardemu_write_ndef_low_level(TF_NFC *nfc, uin
  * change to *CardemuTransferNDEFReady* if the transfer was successful or
  * *CardemuTransferNDEFError* if it wasn't.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_nfc_cardemu_start_transfer(TF_NFC *nfc, uint8_t transfer);
+int tf_nfc_cardemu_start_transfer(TF_NFC *nfc, uint8_t transfer);
 
 /**
  * \ingroup BrickletNFC
@@ -1109,7 +1109,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_nfc_cardemu_start_transfer(TF_NFC *nfc, uint8_t t
  * 
  * The same approach is used analogously for the other API functions.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_nfc_p2p_get_state(TF_NFC *nfc, uint8_t *ret_state, bool *ret_idle);
+int tf_nfc_p2p_get_state(TF_NFC *nfc, uint8_t *ret_state, bool *ret_idle);
 
 /**
  * \ingroup BrickletNFC
@@ -1125,7 +1125,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_nfc_p2p_get_state(TF_NFC *nfc, uint8_t *ret_state
  * If the P2P state changes to *P2PDiscoveryReady* you can start the NDEF message
  * transfer with {@link tf_nfc_p2p_start_transfer}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_nfc_p2p_start_discovery(TF_NFC *nfc);
+int tf_nfc_p2p_start_discovery(TF_NFC *nfc);
 
 /**
  * \ingroup BrickletNFC
@@ -1138,7 +1138,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_nfc_p2p_start_discovery(TF_NFC *nfc);
  * will not be overwritten until you call this function again, change the
  * mode or use P2P to read an NDEF messages.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_nfc_p2p_write_ndef_low_level(TF_NFC *nfc, uint16_t ndef_length, uint16_t ndef_chunk_offset, uint8_t ndef_chunk_data[60]);
+int tf_nfc_p2p_write_ndef_low_level(TF_NFC *nfc, uint16_t ndef_length, uint16_t ndef_chunk_offset, const uint8_t ndef_chunk_data[60]);
 
 /**
  * \ingroup BrickletNFC
@@ -1156,7 +1156,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_nfc_p2p_write_ndef_low_level(TF_NFC *nfc, uint16_
  * you can now use {@link tf_nfc_p2p_read_ndef} to read the NDEF message that was written
  * by the NFC peer.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_nfc_p2p_start_transfer(TF_NFC *nfc, uint8_t transfer);
+int tf_nfc_p2p_start_transfer(TF_NFC *nfc, uint8_t transfer);
 
 /**
  * \ingroup BrickletNFC
@@ -1166,7 +1166,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_nfc_p2p_start_transfer(TF_NFC *nfc, uint8_t trans
  * The NDEF message is ready if you called {@link tf_nfc_p2p_start_transfer} with a
  * read transfer and the P2P state changed to *P2PTransferNDEFReady*.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_nfc_p2p_read_ndef_low_level(TF_NFC *nfc, uint16_t *ret_ndef_length, uint16_t *ret_ndef_chunk_offset, uint8_t ret_ndef_chunk_data[60]);
+int tf_nfc_p2p_read_ndef_low_level(TF_NFC *nfc, uint16_t *ret_ndef_length, uint16_t *ret_ndef_chunk_offset, uint8_t ret_ndef_chunk_data[60]);
 
 /**
  * \ingroup BrickletNFC
@@ -1178,14 +1178,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_nfc_p2p_read_ndef_low_level(TF_NFC *nfc, uint16_t
  * 
  * If the Bricklet is in bootloader mode, the LED is off.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_nfc_set_detection_led_config(TF_NFC *nfc, uint8_t config);
+int tf_nfc_set_detection_led_config(TF_NFC *nfc, uint8_t config);
 
 /**
  * \ingroup BrickletNFC
  *
  * Returns the configuration as set by {@link tf_nfc_set_detection_led_config}
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_nfc_get_detection_led_config(TF_NFC *nfc, uint8_t *ret_config);
+int tf_nfc_get_detection_led_config(TF_NFC *nfc, uint8_t *ret_config);
 
 /**
  * \ingroup BrickletNFC
@@ -1210,7 +1210,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_nfc_get_detection_led_config(TF_NFC *nfc, uint8_t
  * 
  * .. versionadded:: 2.0.1$nbsp;(Plugin)
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_nfc_set_maximum_timeout(TF_NFC *nfc, uint16_t timeout);
+int tf_nfc_set_maximum_timeout(TF_NFC *nfc, uint16_t timeout);
 
 /**
  * \ingroup BrickletNFC
@@ -1219,14 +1219,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_nfc_set_maximum_timeout(TF_NFC *nfc, uint16_t tim
  * 
  * .. versionadded:: 2.0.1$nbsp;(Plugin)
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_nfc_get_maximum_timeout(TF_NFC *nfc, uint16_t *ret_timeout);
+int tf_nfc_get_maximum_timeout(TF_NFC *nfc, uint16_t *ret_timeout);
 
 /**
  * \ingroup BrickletNFC
  *
  * .. versionadded:: 2.0.6$nbsp;(Plugin)
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_nfc_simple_get_tag_id_low_level(TF_NFC *nfc, uint8_t index, uint8_t *ret_tag_type, uint8_t *ret_tag_id_length, uint8_t ret_tag_id_data[10], uint32_t *ret_last_seen);
+int tf_nfc_simple_get_tag_id_low_level(TF_NFC *nfc, uint8_t index, uint8_t *ret_tag_type, uint8_t *ret_tag_id_length, uint8_t ret_tag_id_data[10], uint32_t *ret_last_seen);
 
 /**
  * \ingroup BrickletNFC
@@ -1243,7 +1243,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_nfc_simple_get_tag_id_low_level(TF_NFC *nfc, uint
  * The errors counts are for errors that occur on the Bricklet side. All
  * Bricks have a similar function that returns the errors on the Brick side.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_nfc_get_spitfp_error_count(TF_NFC *nfc, uint32_t *ret_error_count_ack_checksum, uint32_t *ret_error_count_message_checksum, uint32_t *ret_error_count_frame, uint32_t *ret_error_count_overflow);
+int tf_nfc_get_spitfp_error_count(TF_NFC *nfc, uint32_t *ret_error_count_ack_checksum, uint32_t *ret_error_count_message_checksum, uint32_t *ret_error_count_frame, uint32_t *ret_error_count_overflow);
 
 /**
  * \ingroup BrickletNFC
@@ -1258,14 +1258,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_nfc_get_spitfp_error_count(TF_NFC *nfc, uint32_t 
  * This function is used by Brick Viewer during flashing. It should not be
  * necessary to call it in a normal user program.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_nfc_set_bootloader_mode(TF_NFC *nfc, uint8_t mode, uint8_t *ret_status);
+int tf_nfc_set_bootloader_mode(TF_NFC *nfc, uint8_t mode, uint8_t *ret_status);
 
 /**
  * \ingroup BrickletNFC
  *
  * Returns the current bootloader mode, see {@link tf_nfc_set_bootloader_mode}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_nfc_get_bootloader_mode(TF_NFC *nfc, uint8_t *ret_mode);
+int tf_nfc_get_bootloader_mode(TF_NFC *nfc, uint8_t *ret_mode);
 
 /**
  * \ingroup BrickletNFC
@@ -1277,7 +1277,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_nfc_get_bootloader_mode(TF_NFC *nfc, uint8_t *ret
  * This function is used by Brick Viewer during flashing. It should not be
  * necessary to call it in a normal user program.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_nfc_set_write_firmware_pointer(TF_NFC *nfc, uint32_t pointer);
+int tf_nfc_set_write_firmware_pointer(TF_NFC *nfc, uint32_t pointer);
 
 /**
  * \ingroup BrickletNFC
@@ -1291,7 +1291,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_nfc_set_write_firmware_pointer(TF_NFC *nfc, uint3
  * This function is used by Brick Viewer during flashing. It should not be
  * necessary to call it in a normal user program.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_nfc_write_firmware(TF_NFC *nfc, uint8_t data[64], uint8_t *ret_status);
+int tf_nfc_write_firmware(TF_NFC *nfc, const uint8_t data[64], uint8_t *ret_status);
 
 /**
  * \ingroup BrickletNFC
@@ -1304,14 +1304,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_nfc_write_firmware(TF_NFC *nfc, uint8_t data[64],
  * 
  * If the Bricklet is in bootloader mode, the LED is will show heartbeat by default.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_nfc_set_status_led_config(TF_NFC *nfc, uint8_t config);
+int tf_nfc_set_status_led_config(TF_NFC *nfc, uint8_t config);
 
 /**
  * \ingroup BrickletNFC
  *
  * Returns the configuration as set by {@link tf_nfc_set_status_led_config}
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_nfc_get_status_led_config(TF_NFC *nfc, uint8_t *ret_config);
+int tf_nfc_get_status_led_config(TF_NFC *nfc, uint8_t *ret_config);
 
 /**
  * \ingroup BrickletNFC
@@ -1323,7 +1323,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_nfc_get_status_led_config(TF_NFC *nfc, uint8_t *r
  * accuracy. Practically it is only useful as an indicator for
  * temperature changes.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_nfc_get_chip_temperature(TF_NFC *nfc, int16_t *ret_temperature);
+int tf_nfc_get_chip_temperature(TF_NFC *nfc, int16_t *ret_temperature);
 
 /**
  * \ingroup BrickletNFC
@@ -1335,7 +1335,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_nfc_get_chip_temperature(TF_NFC *nfc, int16_t *re
  * calling functions on the existing ones will result in
  * undefined behavior!
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_nfc_reset(TF_NFC *nfc);
+int tf_nfc_reset(TF_NFC *nfc);
 
 /**
  * \ingroup BrickletNFC
@@ -1346,7 +1346,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_nfc_reset(TF_NFC *nfc);
  * 
  * We recommend that you use Brick Viewer to change the UID.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_nfc_write_uid(TF_NFC *nfc, uint32_t uid);
+int tf_nfc_write_uid(TF_NFC *nfc, uint32_t uid);
 
 /**
  * \ingroup BrickletNFC
@@ -1354,7 +1354,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_nfc_write_uid(TF_NFC *nfc, uint32_t uid);
  * Returns the current UID as an integer. Encode as
  * Base58 to get the usual string version.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_nfc_read_uid(TF_NFC *nfc, uint32_t *ret_uid);
+int tf_nfc_read_uid(TF_NFC *nfc, uint32_t *ret_uid);
 
 /**
  * \ingroup BrickletNFC
@@ -1370,7 +1370,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_nfc_read_uid(TF_NFC *nfc, uint32_t *ret_uid);
  * The device identifier numbers can be found :ref:`here <device_identifier>`.
  * |device_identifier_constant|
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_nfc_get_identity(TF_NFC *nfc, char ret_uid[8], char ret_connected_uid[8], char *ret_position, uint8_t ret_hardware_version[3], uint8_t ret_firmware_version[3], uint16_t *ret_device_identifier);
+int tf_nfc_get_identity(TF_NFC *nfc, char ret_uid[8], char ret_connected_uid[8], char *ret_position, uint8_t ret_hardware_version[3], uint8_t ret_firmware_version[3], uint16_t *ret_device_identifier);
 
 /**
  * \ingroup BrickletNFC
@@ -1386,7 +1386,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_nfc_get_identity(TF_NFC *nfc, char ret_uid[8], ch
  *    {@link tf_nfc_register_reader_state_changed_callback} callback)
  * 3. Call {@link tf_nfc_reader_get_tag_id}
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_nfc_reader_get_tag_id(TF_NFC *nfc, uint8_t *ret_tag_type, uint8_t *ret_tag_id, uint8_t *ret_tag_id_length);
+int tf_nfc_reader_get_tag_id(TF_NFC *nfc, uint8_t *ret_tag_type, uint8_t *ret_tag_id, uint8_t *ret_tag_id_length);
 
 /**
  * \ingroup BrickletNFC
@@ -1406,7 +1406,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_nfc_reader_get_tag_id(TF_NFC *nfc, uint8_t *ret_t
  * 5. Wait for state to change to *ReaderWriteNDEFReady* (see {@link tf_nfc_reader_get_state}
  *    or {@link tf_nfc_register_reader_state_changed_callback} callback)
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_nfc_reader_write_ndef(TF_NFC *nfc, uint8_t *ndef, uint16_t ndef_length);
+int tf_nfc_reader_write_ndef(TF_NFC *nfc, const uint8_t *ndef, uint16_t ndef_length);
 
 /**
  * \ingroup BrickletNFC
@@ -1414,7 +1414,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_nfc_reader_write_ndef(TF_NFC *nfc, uint8_t *ndef,
  * Returns the NDEF data from an internal buffer. To fill the buffer
  * with a NDEF message you have to call {@link tf_nfc_reader_request_ndef} beforehand.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_nfc_reader_read_ndef(TF_NFC *nfc, uint8_t *ret_ndef, uint16_t *ret_ndef_length);
+int tf_nfc_reader_read_ndef(TF_NFC *nfc, uint8_t *ret_ndef, uint16_t *ret_ndef_length);
 
 /**
  * \ingroup BrickletNFC
@@ -1447,7 +1447,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_nfc_reader_read_ndef(TF_NFC *nfc, uint8_t *ret_nd
  * 
  * Choose CC by setting page to 3 or NDEF by setting page to 4.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_nfc_reader_write_page(TF_NFC *nfc, uint16_t page, uint8_t *data, uint16_t data_length);
+int tf_nfc_reader_write_page(TF_NFC *nfc, uint16_t page, const uint8_t *data, uint16_t data_length);
 
 /**
  * \ingroup BrickletNFC
@@ -1455,7 +1455,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_nfc_reader_write_page(TF_NFC *nfc, uint16_t page,
  * Returns the page data from an internal buffer. To fill the buffer
  * with specific pages you have to call {@link tf_nfc_reader_request_page} beforehand.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_nfc_reader_read_page(TF_NFC *nfc, uint8_t *ret_data, uint16_t *ret_data_length);
+int tf_nfc_reader_read_page(TF_NFC *nfc, uint8_t *ret_data, uint16_t *ret_data_length);
 
 /**
  * \ingroup BrickletNFC
@@ -1468,7 +1468,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_nfc_reader_read_page(TF_NFC *nfc, uint8_t *ret_da
  * will not be overwritten until you call this function again or change the
  * mode.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_nfc_cardemu_write_ndef(TF_NFC *nfc, uint8_t *ndef, uint16_t ndef_length);
+int tf_nfc_cardemu_write_ndef(TF_NFC *nfc, const uint8_t *ndef, uint16_t ndef_length);
 
 /**
  * \ingroup BrickletNFC
@@ -1481,7 +1481,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_nfc_cardemu_write_ndef(TF_NFC *nfc, uint8_t *ndef
  * will not be overwritten until you call this function again, change the
  * mode or use P2P to read an NDEF messages.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_nfc_p2p_write_ndef(TF_NFC *nfc, uint8_t *ndef, uint16_t ndef_length);
+int tf_nfc_p2p_write_ndef(TF_NFC *nfc, const uint8_t *ndef, uint16_t ndef_length);
 
 /**
  * \ingroup BrickletNFC
@@ -1491,14 +1491,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_nfc_p2p_write_ndef(TF_NFC *nfc, uint8_t *ndef, ui
  * The NDEF message is ready if you called {@link tf_nfc_p2p_start_transfer} with a
  * read transfer and the P2P state changed to *P2PTransferNDEFReady*.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_nfc_p2p_read_ndef(TF_NFC *nfc, uint8_t *ret_ndef, uint16_t *ret_ndef_length);
+int tf_nfc_p2p_read_ndef(TF_NFC *nfc, uint8_t *ret_ndef, uint16_t *ret_ndef_length);
 
 /**
  * \ingroup BrickletNFC
  *
  * .. versionadded:: 2.0.6$nbsp;(Plugin)
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_nfc_simple_get_tag_id(TF_NFC *nfc, uint8_t index, uint8_t *ret_tag_type, uint8_t *ret_tag_id, uint8_t *ret_tag_id_length, uint32_t *ret_last_seen);
+int tf_nfc_simple_get_tag_id(TF_NFC *nfc, uint8_t index, uint8_t *ret_tag_type, uint8_t *ret_tag_id, uint8_t *ret_tag_id_length, uint32_t *ret_last_seen);
 
 #ifdef __cplusplus
 }

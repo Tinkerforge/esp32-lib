@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-10-04.      *
+ * This file was automatically generated on 2021-11-12.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -21,7 +21,7 @@ extern "C" {
 #endif
 
 
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
 static bool tf_e_paper_296x128_callback_handler(void *dev, uint8_t fid, TF_Packetbuffer *payload) {
     TF_EPaper296x128 *e_paper_296x128 = (TF_EPaper296x128 *) dev;
     (void)payload;
@@ -35,7 +35,7 @@ static bool tf_e_paper_296x128_callback_handler(void *dev, uint8_t fid, TF_Packe
                 return false;
 
             uint8_t draw_status = tf_packetbuffer_read_uint8_t(payload);
-            TF_HalCommon *common = tf_hal_get_common(e_paper_296x128->tfp->hal);
+            TF_HalCommon *common = tf_hal_get_common((TF_HalContext*)e_paper_296x128->tfp->hal);
             common->locked = true;
             fn(e_paper_296x128, draw_status, user_data);
             common->locked = false;
@@ -65,13 +65,12 @@ int tf_e_paper_296x128_create(TF_EPaper296x128 *e_paper_296x128, const char *uid
     }
 
     uint8_t port_id;
-    int inventory_index;
+    uint8_t inventory_index;
     rc = tf_hal_get_port_id(hal, numeric_uid, &port_id, &inventory_index);
     if (rc < 0) {
         return rc;
     }
 
-    //rc = tf_tfp_init(e_paper_296x128->tfp, numeric_uid, TF_E_PAPER_296X128_DEVICE_IDENTIFIER, hal, port_id, inventory_index, tf_e_paper_296x128_callback_handler);
     rc = tf_hal_get_tfp(hal, &e_paper_296x128->tfp, TF_E_PAPER_296X128_DEVICE_IDENTIFIER, inventory_index);
     if (rc != TF_E_OK) {
         return rc;
@@ -274,7 +273,7 @@ int tf_e_paper_296x128_draw(TF_EPaper296x128 *e_paper_296x128) {
     if (e_paper_296x128 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(e_paper_296x128->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)e_paper_296x128->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -282,7 +281,7 @@ int tf_e_paper_296x128_draw(TF_EPaper296x128 *e_paper_296x128) {
     tf_e_paper_296x128_get_response_expected(e_paper_296x128, TF_E_PAPER_296X128_FUNCTION_DRAW, &response_expected);
     tf_tfp_prepare_send(e_paper_296x128->tfp, TF_E_PAPER_296X128_FUNCTION_DRAW, 0, 0, response_expected);
 
-    uint32_t deadline = tf_hal_current_time_us(e_paper_296x128->tfp->hal) + tf_hal_get_common(e_paper_296x128->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)e_paper_296x128->tfp->hal) + tf_hal_get_common((TF_HalContext*)e_paper_296x128->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(e_paper_296x128->tfp, response_expected, deadline, &error_code);
@@ -305,14 +304,14 @@ int tf_e_paper_296x128_get_draw_status(TF_EPaper296x128 *e_paper_296x128, uint8_
     if (e_paper_296x128 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(e_paper_296x128->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)e_paper_296x128->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
     bool response_expected = true;
     tf_tfp_prepare_send(e_paper_296x128->tfp, TF_E_PAPER_296X128_FUNCTION_GET_DRAW_STATUS, 0, 1, response_expected);
 
-    uint32_t deadline = tf_hal_current_time_us(e_paper_296x128->tfp->hal) + tf_hal_get_common(e_paper_296x128->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)e_paper_296x128->tfp->hal) + tf_hal_get_common((TF_HalContext*)e_paper_296x128->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(e_paper_296x128->tfp, response_expected, deadline, &error_code);
@@ -336,11 +335,11 @@ int tf_e_paper_296x128_get_draw_status(TF_EPaper296x128 *e_paper_296x128, uint8_
     return tf_tfp_get_error(error_code);
 }
 
-int tf_e_paper_296x128_write_black_white_low_level(TF_EPaper296x128 *e_paper_296x128, uint16_t x_start, uint8_t y_start, uint16_t x_end, uint8_t y_end, uint16_t pixels_length, uint16_t pixels_chunk_offset, bool pixels_chunk_data[432]) {
+int tf_e_paper_296x128_write_black_white_low_level(TF_EPaper296x128 *e_paper_296x128, uint16_t x_start, uint8_t y_start, uint16_t x_end, uint8_t y_end, uint16_t pixels_length, uint16_t pixels_chunk_offset, const bool pixels_chunk_data[432]) {
     if (e_paper_296x128 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(e_paper_296x128->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)e_paper_296x128->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -359,7 +358,7 @@ int tf_e_paper_296x128_write_black_white_low_level(TF_EPaper296x128 *e_paper_296
     pixels_chunk_offset = tf_leconvert_uint16_to(pixels_chunk_offset); memcpy(buf + 8, &pixels_chunk_offset, 2);
     memset(buf + 10, 0, 54); for (i = 0; i < 432; ++i) buf[10 + (i / 8)] |= (pixels_chunk_data[i] ? 1 : 0) << (i % 8);
 
-    uint32_t deadline = tf_hal_current_time_us(e_paper_296x128->tfp->hal) + tf_hal_get_common(e_paper_296x128->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)e_paper_296x128->tfp->hal) + tf_hal_get_common((TF_HalContext*)e_paper_296x128->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(e_paper_296x128->tfp, response_expected, deadline, &error_code);
@@ -382,7 +381,7 @@ int tf_e_paper_296x128_read_black_white_low_level(TF_EPaper296x128 *e_paper_296x
     if (e_paper_296x128 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(e_paper_296x128->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)e_paper_296x128->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -396,7 +395,7 @@ int tf_e_paper_296x128_read_black_white_low_level(TF_EPaper296x128 *e_paper_296x
     x_end = tf_leconvert_uint16_to(x_end); memcpy(buf + 3, &x_end, 2);
     buf[5] = (uint8_t)y_end;
 
-    uint32_t deadline = tf_hal_current_time_us(e_paper_296x128->tfp->hal) + tf_hal_get_common(e_paper_296x128->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)e_paper_296x128->tfp->hal) + tf_hal_get_common((TF_HalContext*)e_paper_296x128->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(e_paper_296x128->tfp, response_expected, deadline, &error_code);
@@ -422,11 +421,11 @@ int tf_e_paper_296x128_read_black_white_low_level(TF_EPaper296x128 *e_paper_296x
     return tf_tfp_get_error(error_code);
 }
 
-int tf_e_paper_296x128_write_color_low_level(TF_EPaper296x128 *e_paper_296x128, uint16_t x_start, uint8_t y_start, uint16_t x_end, uint8_t y_end, uint16_t pixels_length, uint16_t pixels_chunk_offset, bool pixels_chunk_data[432]) {
+int tf_e_paper_296x128_write_color_low_level(TF_EPaper296x128 *e_paper_296x128, uint16_t x_start, uint8_t y_start, uint16_t x_end, uint8_t y_end, uint16_t pixels_length, uint16_t pixels_chunk_offset, const bool pixels_chunk_data[432]) {
     if (e_paper_296x128 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(e_paper_296x128->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)e_paper_296x128->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -445,7 +444,7 @@ int tf_e_paper_296x128_write_color_low_level(TF_EPaper296x128 *e_paper_296x128, 
     pixels_chunk_offset = tf_leconvert_uint16_to(pixels_chunk_offset); memcpy(buf + 8, &pixels_chunk_offset, 2);
     memset(buf + 10, 0, 54); for (i = 0; i < 432; ++i) buf[10 + (i / 8)] |= (pixels_chunk_data[i] ? 1 : 0) << (i % 8);
 
-    uint32_t deadline = tf_hal_current_time_us(e_paper_296x128->tfp->hal) + tf_hal_get_common(e_paper_296x128->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)e_paper_296x128->tfp->hal) + tf_hal_get_common((TF_HalContext*)e_paper_296x128->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(e_paper_296x128->tfp, response_expected, deadline, &error_code);
@@ -468,7 +467,7 @@ int tf_e_paper_296x128_read_color_low_level(TF_EPaper296x128 *e_paper_296x128, u
     if (e_paper_296x128 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(e_paper_296x128->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)e_paper_296x128->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -482,7 +481,7 @@ int tf_e_paper_296x128_read_color_low_level(TF_EPaper296x128 *e_paper_296x128, u
     x_end = tf_leconvert_uint16_to(x_end); memcpy(buf + 3, &x_end, 2);
     buf[5] = (uint8_t)y_end;
 
-    uint32_t deadline = tf_hal_current_time_us(e_paper_296x128->tfp->hal) + tf_hal_get_common(e_paper_296x128->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)e_paper_296x128->tfp->hal) + tf_hal_get_common((TF_HalContext*)e_paper_296x128->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(e_paper_296x128->tfp, response_expected, deadline, &error_code);
@@ -512,7 +511,7 @@ int tf_e_paper_296x128_fill_display(TF_EPaper296x128 *e_paper_296x128, uint8_t c
     if (e_paper_296x128 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(e_paper_296x128->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)e_paper_296x128->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -524,7 +523,7 @@ int tf_e_paper_296x128_fill_display(TF_EPaper296x128 *e_paper_296x128, uint8_t c
 
     buf[0] = (uint8_t)color;
 
-    uint32_t deadline = tf_hal_current_time_us(e_paper_296x128->tfp->hal) + tf_hal_get_common(e_paper_296x128->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)e_paper_296x128->tfp->hal) + tf_hal_get_common((TF_HalContext*)e_paper_296x128->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(e_paper_296x128->tfp, response_expected, deadline, &error_code);
@@ -543,11 +542,11 @@ int tf_e_paper_296x128_fill_display(TF_EPaper296x128 *e_paper_296x128, uint8_t c
     return tf_tfp_get_error(error_code);
 }
 
-int tf_e_paper_296x128_draw_text(TF_EPaper296x128 *e_paper_296x128, uint16_t position_x, uint8_t position_y, uint8_t font, uint8_t color, uint8_t orientation, const char text[50]) {
+int tf_e_paper_296x128_draw_text(TF_EPaper296x128 *e_paper_296x128, uint16_t position_x, uint8_t position_y, uint8_t font, uint8_t color, uint8_t orientation, const char *text) {
     if (e_paper_296x128 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(e_paper_296x128->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)e_paper_296x128->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -562,10 +561,10 @@ int tf_e_paper_296x128_draw_text(TF_EPaper296x128 *e_paper_296x128, uint16_t pos
     buf[3] = (uint8_t)font;
     buf[4] = (uint8_t)color;
     buf[5] = (uint8_t)orientation;
-    memcpy(buf + 6, text, 50);
+    strncpy((char *)(buf + 6), text, 50);
 
 
-    uint32_t deadline = tf_hal_current_time_us(e_paper_296x128->tfp->hal) + tf_hal_get_common(e_paper_296x128->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)e_paper_296x128->tfp->hal) + tf_hal_get_common((TF_HalContext*)e_paper_296x128->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(e_paper_296x128->tfp, response_expected, deadline, &error_code);
@@ -588,7 +587,7 @@ int tf_e_paper_296x128_draw_line(TF_EPaper296x128 *e_paper_296x128, uint16_t pos
     if (e_paper_296x128 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(e_paper_296x128->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)e_paper_296x128->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -604,7 +603,7 @@ int tf_e_paper_296x128_draw_line(TF_EPaper296x128 *e_paper_296x128, uint16_t pos
     buf[5] = (uint8_t)position_y_end;
     buf[6] = (uint8_t)color;
 
-    uint32_t deadline = tf_hal_current_time_us(e_paper_296x128->tfp->hal) + tf_hal_get_common(e_paper_296x128->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)e_paper_296x128->tfp->hal) + tf_hal_get_common((TF_HalContext*)e_paper_296x128->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(e_paper_296x128->tfp, response_expected, deadline, &error_code);
@@ -627,7 +626,7 @@ int tf_e_paper_296x128_draw_box(TF_EPaper296x128 *e_paper_296x128, uint16_t posi
     if (e_paper_296x128 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(e_paper_296x128->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)e_paper_296x128->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -644,7 +643,7 @@ int tf_e_paper_296x128_draw_box(TF_EPaper296x128 *e_paper_296x128, uint16_t posi
     buf[6] = fill ? 1 : 0;
     buf[7] = (uint8_t)color;
 
-    uint32_t deadline = tf_hal_current_time_us(e_paper_296x128->tfp->hal) + tf_hal_get_common(e_paper_296x128->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)e_paper_296x128->tfp->hal) + tf_hal_get_common((TF_HalContext*)e_paper_296x128->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(e_paper_296x128->tfp, response_expected, deadline, &error_code);
@@ -667,7 +666,7 @@ int tf_e_paper_296x128_set_update_mode(TF_EPaper296x128 *e_paper_296x128, uint8_
     if (e_paper_296x128 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(e_paper_296x128->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)e_paper_296x128->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -679,7 +678,7 @@ int tf_e_paper_296x128_set_update_mode(TF_EPaper296x128 *e_paper_296x128, uint8_
 
     buf[0] = (uint8_t)update_mode;
 
-    uint32_t deadline = tf_hal_current_time_us(e_paper_296x128->tfp->hal) + tf_hal_get_common(e_paper_296x128->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)e_paper_296x128->tfp->hal) + tf_hal_get_common((TF_HalContext*)e_paper_296x128->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(e_paper_296x128->tfp, response_expected, deadline, &error_code);
@@ -702,14 +701,14 @@ int tf_e_paper_296x128_get_update_mode(TF_EPaper296x128 *e_paper_296x128, uint8_
     if (e_paper_296x128 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(e_paper_296x128->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)e_paper_296x128->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
     bool response_expected = true;
     tf_tfp_prepare_send(e_paper_296x128->tfp, TF_E_PAPER_296X128_FUNCTION_GET_UPDATE_MODE, 0, 1, response_expected);
 
-    uint32_t deadline = tf_hal_current_time_us(e_paper_296x128->tfp->hal) + tf_hal_get_common(e_paper_296x128->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)e_paper_296x128->tfp->hal) + tf_hal_get_common((TF_HalContext*)e_paper_296x128->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(e_paper_296x128->tfp, response_expected, deadline, &error_code);
@@ -737,7 +736,7 @@ int tf_e_paper_296x128_set_display_type(TF_EPaper296x128 *e_paper_296x128, uint8
     if (e_paper_296x128 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(e_paper_296x128->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)e_paper_296x128->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -749,7 +748,7 @@ int tf_e_paper_296x128_set_display_type(TF_EPaper296x128 *e_paper_296x128, uint8
 
     buf[0] = (uint8_t)display_type;
 
-    uint32_t deadline = tf_hal_current_time_us(e_paper_296x128->tfp->hal) + tf_hal_get_common(e_paper_296x128->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)e_paper_296x128->tfp->hal) + tf_hal_get_common((TF_HalContext*)e_paper_296x128->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(e_paper_296x128->tfp, response_expected, deadline, &error_code);
@@ -772,14 +771,14 @@ int tf_e_paper_296x128_get_display_type(TF_EPaper296x128 *e_paper_296x128, uint8
     if (e_paper_296x128 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(e_paper_296x128->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)e_paper_296x128->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
     bool response_expected = true;
     tf_tfp_prepare_send(e_paper_296x128->tfp, TF_E_PAPER_296X128_FUNCTION_GET_DISPLAY_TYPE, 0, 1, response_expected);
 
-    uint32_t deadline = tf_hal_current_time_us(e_paper_296x128->tfp->hal) + tf_hal_get_common(e_paper_296x128->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)e_paper_296x128->tfp->hal) + tf_hal_get_common((TF_HalContext*)e_paper_296x128->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(e_paper_296x128->tfp, response_expected, deadline, &error_code);
@@ -807,7 +806,7 @@ int tf_e_paper_296x128_set_display_driver(TF_EPaper296x128 *e_paper_296x128, uin
     if (e_paper_296x128 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(e_paper_296x128->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)e_paper_296x128->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -819,7 +818,7 @@ int tf_e_paper_296x128_set_display_driver(TF_EPaper296x128 *e_paper_296x128, uin
 
     buf[0] = (uint8_t)display_driver;
 
-    uint32_t deadline = tf_hal_current_time_us(e_paper_296x128->tfp->hal) + tf_hal_get_common(e_paper_296x128->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)e_paper_296x128->tfp->hal) + tf_hal_get_common((TF_HalContext*)e_paper_296x128->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(e_paper_296x128->tfp, response_expected, deadline, &error_code);
@@ -842,14 +841,14 @@ int tf_e_paper_296x128_get_display_driver(TF_EPaper296x128 *e_paper_296x128, uin
     if (e_paper_296x128 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(e_paper_296x128->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)e_paper_296x128->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
     bool response_expected = true;
     tf_tfp_prepare_send(e_paper_296x128->tfp, TF_E_PAPER_296X128_FUNCTION_GET_DISPLAY_DRIVER, 0, 1, response_expected);
 
-    uint32_t deadline = tf_hal_current_time_us(e_paper_296x128->tfp->hal) + tf_hal_get_common(e_paper_296x128->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)e_paper_296x128->tfp->hal) + tf_hal_get_common((TF_HalContext*)e_paper_296x128->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(e_paper_296x128->tfp, response_expected, deadline, &error_code);
@@ -877,14 +876,14 @@ int tf_e_paper_296x128_get_spitfp_error_count(TF_EPaper296x128 *e_paper_296x128,
     if (e_paper_296x128 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(e_paper_296x128->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)e_paper_296x128->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
     bool response_expected = true;
     tf_tfp_prepare_send(e_paper_296x128->tfp, TF_E_PAPER_296X128_FUNCTION_GET_SPITFP_ERROR_COUNT, 0, 16, response_expected);
 
-    uint32_t deadline = tf_hal_current_time_us(e_paper_296x128->tfp->hal) + tf_hal_get_common(e_paper_296x128->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)e_paper_296x128->tfp->hal) + tf_hal_get_common((TF_HalContext*)e_paper_296x128->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(e_paper_296x128->tfp, response_expected, deadline, &error_code);
@@ -915,7 +914,7 @@ int tf_e_paper_296x128_set_bootloader_mode(TF_EPaper296x128 *e_paper_296x128, ui
     if (e_paper_296x128 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(e_paper_296x128->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)e_paper_296x128->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -926,7 +925,7 @@ int tf_e_paper_296x128_set_bootloader_mode(TF_EPaper296x128 *e_paper_296x128, ui
 
     buf[0] = (uint8_t)mode;
 
-    uint32_t deadline = tf_hal_current_time_us(e_paper_296x128->tfp->hal) + tf_hal_get_common(e_paper_296x128->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)e_paper_296x128->tfp->hal) + tf_hal_get_common((TF_HalContext*)e_paper_296x128->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(e_paper_296x128->tfp, response_expected, deadline, &error_code);
@@ -954,14 +953,14 @@ int tf_e_paper_296x128_get_bootloader_mode(TF_EPaper296x128 *e_paper_296x128, ui
     if (e_paper_296x128 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(e_paper_296x128->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)e_paper_296x128->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
     bool response_expected = true;
     tf_tfp_prepare_send(e_paper_296x128->tfp, TF_E_PAPER_296X128_FUNCTION_GET_BOOTLOADER_MODE, 0, 1, response_expected);
 
-    uint32_t deadline = tf_hal_current_time_us(e_paper_296x128->tfp->hal) + tf_hal_get_common(e_paper_296x128->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)e_paper_296x128->tfp->hal) + tf_hal_get_common((TF_HalContext*)e_paper_296x128->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(e_paper_296x128->tfp, response_expected, deadline, &error_code);
@@ -989,7 +988,7 @@ int tf_e_paper_296x128_set_write_firmware_pointer(TF_EPaper296x128 *e_paper_296x
     if (e_paper_296x128 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(e_paper_296x128->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)e_paper_296x128->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -1001,7 +1000,7 @@ int tf_e_paper_296x128_set_write_firmware_pointer(TF_EPaper296x128 *e_paper_296x
 
     pointer = tf_leconvert_uint32_to(pointer); memcpy(buf + 0, &pointer, 4);
 
-    uint32_t deadline = tf_hal_current_time_us(e_paper_296x128->tfp->hal) + tf_hal_get_common(e_paper_296x128->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)e_paper_296x128->tfp->hal) + tf_hal_get_common((TF_HalContext*)e_paper_296x128->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(e_paper_296x128->tfp, response_expected, deadline, &error_code);
@@ -1020,11 +1019,11 @@ int tf_e_paper_296x128_set_write_firmware_pointer(TF_EPaper296x128 *e_paper_296x
     return tf_tfp_get_error(error_code);
 }
 
-int tf_e_paper_296x128_write_firmware(TF_EPaper296x128 *e_paper_296x128, uint8_t data[64], uint8_t *ret_status) {
+int tf_e_paper_296x128_write_firmware(TF_EPaper296x128 *e_paper_296x128, const uint8_t data[64], uint8_t *ret_status) {
     if (e_paper_296x128 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(e_paper_296x128->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)e_paper_296x128->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -1035,7 +1034,7 @@ int tf_e_paper_296x128_write_firmware(TF_EPaper296x128 *e_paper_296x128, uint8_t
 
     memcpy(buf + 0, data, 64);
 
-    uint32_t deadline = tf_hal_current_time_us(e_paper_296x128->tfp->hal) + tf_hal_get_common(e_paper_296x128->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)e_paper_296x128->tfp->hal) + tf_hal_get_common((TF_HalContext*)e_paper_296x128->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(e_paper_296x128->tfp, response_expected, deadline, &error_code);
@@ -1063,7 +1062,7 @@ int tf_e_paper_296x128_set_status_led_config(TF_EPaper296x128 *e_paper_296x128, 
     if (e_paper_296x128 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(e_paper_296x128->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)e_paper_296x128->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -1075,7 +1074,7 @@ int tf_e_paper_296x128_set_status_led_config(TF_EPaper296x128 *e_paper_296x128, 
 
     buf[0] = (uint8_t)config;
 
-    uint32_t deadline = tf_hal_current_time_us(e_paper_296x128->tfp->hal) + tf_hal_get_common(e_paper_296x128->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)e_paper_296x128->tfp->hal) + tf_hal_get_common((TF_HalContext*)e_paper_296x128->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(e_paper_296x128->tfp, response_expected, deadline, &error_code);
@@ -1098,14 +1097,14 @@ int tf_e_paper_296x128_get_status_led_config(TF_EPaper296x128 *e_paper_296x128, 
     if (e_paper_296x128 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(e_paper_296x128->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)e_paper_296x128->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
     bool response_expected = true;
     tf_tfp_prepare_send(e_paper_296x128->tfp, TF_E_PAPER_296X128_FUNCTION_GET_STATUS_LED_CONFIG, 0, 1, response_expected);
 
-    uint32_t deadline = tf_hal_current_time_us(e_paper_296x128->tfp->hal) + tf_hal_get_common(e_paper_296x128->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)e_paper_296x128->tfp->hal) + tf_hal_get_common((TF_HalContext*)e_paper_296x128->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(e_paper_296x128->tfp, response_expected, deadline, &error_code);
@@ -1133,14 +1132,14 @@ int tf_e_paper_296x128_get_chip_temperature(TF_EPaper296x128 *e_paper_296x128, i
     if (e_paper_296x128 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(e_paper_296x128->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)e_paper_296x128->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
     bool response_expected = true;
     tf_tfp_prepare_send(e_paper_296x128->tfp, TF_E_PAPER_296X128_FUNCTION_GET_CHIP_TEMPERATURE, 0, 2, response_expected);
 
-    uint32_t deadline = tf_hal_current_time_us(e_paper_296x128->tfp->hal) + tf_hal_get_common(e_paper_296x128->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)e_paper_296x128->tfp->hal) + tf_hal_get_common((TF_HalContext*)e_paper_296x128->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(e_paper_296x128->tfp, response_expected, deadline, &error_code);
@@ -1168,7 +1167,7 @@ int tf_e_paper_296x128_reset(TF_EPaper296x128 *e_paper_296x128) {
     if (e_paper_296x128 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(e_paper_296x128->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)e_paper_296x128->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -1176,7 +1175,7 @@ int tf_e_paper_296x128_reset(TF_EPaper296x128 *e_paper_296x128) {
     tf_e_paper_296x128_get_response_expected(e_paper_296x128, TF_E_PAPER_296X128_FUNCTION_RESET, &response_expected);
     tf_tfp_prepare_send(e_paper_296x128->tfp, TF_E_PAPER_296X128_FUNCTION_RESET, 0, 0, response_expected);
 
-    uint32_t deadline = tf_hal_current_time_us(e_paper_296x128->tfp->hal) + tf_hal_get_common(e_paper_296x128->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)e_paper_296x128->tfp->hal) + tf_hal_get_common((TF_HalContext*)e_paper_296x128->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(e_paper_296x128->tfp, response_expected, deadline, &error_code);
@@ -1199,7 +1198,7 @@ int tf_e_paper_296x128_write_uid(TF_EPaper296x128 *e_paper_296x128, uint32_t uid
     if (e_paper_296x128 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(e_paper_296x128->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)e_paper_296x128->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -1211,7 +1210,7 @@ int tf_e_paper_296x128_write_uid(TF_EPaper296x128 *e_paper_296x128, uint32_t uid
 
     uid = tf_leconvert_uint32_to(uid); memcpy(buf + 0, &uid, 4);
 
-    uint32_t deadline = tf_hal_current_time_us(e_paper_296x128->tfp->hal) + tf_hal_get_common(e_paper_296x128->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)e_paper_296x128->tfp->hal) + tf_hal_get_common((TF_HalContext*)e_paper_296x128->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(e_paper_296x128->tfp, response_expected, deadline, &error_code);
@@ -1234,14 +1233,14 @@ int tf_e_paper_296x128_read_uid(TF_EPaper296x128 *e_paper_296x128, uint32_t *ret
     if (e_paper_296x128 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(e_paper_296x128->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)e_paper_296x128->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
     bool response_expected = true;
     tf_tfp_prepare_send(e_paper_296x128->tfp, TF_E_PAPER_296X128_FUNCTION_READ_UID, 0, 4, response_expected);
 
-    uint32_t deadline = tf_hal_current_time_us(e_paper_296x128->tfp->hal) + tf_hal_get_common(e_paper_296x128->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)e_paper_296x128->tfp->hal) + tf_hal_get_common((TF_HalContext*)e_paper_296x128->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(e_paper_296x128->tfp, response_expected, deadline, &error_code);
@@ -1269,7 +1268,7 @@ int tf_e_paper_296x128_get_identity(TF_EPaper296x128 *e_paper_296x128, char ret_
     if (e_paper_296x128 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(e_paper_296x128->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)e_paper_296x128->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -1277,7 +1276,7 @@ int tf_e_paper_296x128_get_identity(TF_EPaper296x128 *e_paper_296x128, char ret_
     tf_tfp_prepare_send(e_paper_296x128->tfp, TF_E_PAPER_296X128_FUNCTION_GET_IDENTITY, 0, 25, response_expected);
 
     size_t i;
-    uint32_t deadline = tf_hal_current_time_us(e_paper_296x128->tfp->hal) + tf_hal_get_common(e_paper_296x128->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)e_paper_296x128->tfp->hal) + tf_hal_get_common((TF_HalContext*)e_paper_296x128->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(e_paper_296x128->tfp, response_expected, deadline, &error_code);
@@ -1298,7 +1297,7 @@ int tf_e_paper_296x128_get_identity(TF_EPaper296x128 *e_paper_296x128, char ret_
         if (ret_firmware_version != NULL) { for (i = 0; i < 3; ++i) ret_firmware_version[i] = tf_packetbuffer_read_uint8_t(&e_paper_296x128->tfp->spitfp->recv_buf);} else { tf_packetbuffer_remove(&e_paper_296x128->tfp->spitfp->recv_buf, 3); }
         if (ret_device_identifier != NULL) { *ret_device_identifier = tf_packetbuffer_read_uint16_t(&e_paper_296x128->tfp->spitfp->recv_buf); } else { tf_packetbuffer_remove(&e_paper_296x128->tfp->spitfp->recv_buf, 2); }
         if (tmp_connected_uid[0] == 0 && ret_position != NULL) {
-            *ret_position = tf_hal_get_port_name(e_paper_296x128->tfp->hal, e_paper_296x128->tfp->spitfp->port_id);
+            *ret_position = tf_hal_get_port_name((TF_HalContext*)e_paper_296x128->tfp->hal, e_paper_296x128->tfp->spitfp->port_id);
         }
         if (ret_connected_uid != NULL) {
             memcpy(ret_connected_uid, tmp_connected_uid, 8);
@@ -1313,7 +1312,7 @@ int tf_e_paper_296x128_get_identity(TF_EPaper296x128 *e_paper_296x128, char ret_
     return tf_tfp_get_error(error_code);
 }
 
-int tf_e_paper_296x128_write_black_white(TF_EPaper296x128 *e_paper_296x128, uint16_t x_start, uint8_t y_start, uint16_t x_end, uint8_t y_end, bool *pixels, uint16_t pixels_length) {
+int tf_e_paper_296x128_write_black_white(TF_EPaper296x128 *e_paper_296x128, uint16_t x_start, uint8_t y_start, uint16_t x_end, uint8_t y_end, const bool *pixels, uint16_t pixels_length) {
     if (e_paper_296x128 == NULL)
         return TF_E_NULL;
 
@@ -1357,61 +1356,73 @@ int tf_e_paper_296x128_read_black_white(TF_EPaper296x128 *e_paper_296x128, uint1
         return TF_E_NULL;
 
     int ret = TF_E_OK;
+    uint16_t max_pixels_length = 0;
     uint16_t pixels_length = 0;
     uint16_t pixels_chunk_offset = 0;
     bool pixels_chunk_data[464];
     bool pixels_out_of_sync;
     uint16_t pixels_chunk_length = 0;
 
-    *ret_pixels_length = 0;
-
     ret = tf_e_paper_296x128_read_black_white_low_level(e_paper_296x128, x_start, y_start, x_end, y_end, &pixels_length, &pixels_chunk_offset, pixels_chunk_data);
 
     if (ret != TF_E_OK) {
+        if (ret_pixels_length != NULL) {
+            *ret_pixels_length = pixels_length;
+        }
         return ret;
     }
 
     pixels_out_of_sync = pixels_chunk_offset != 0;
 
     if (!pixels_out_of_sync) {
-        pixels_chunk_length = pixels_length - pixels_chunk_offset;
+        pixels_chunk_length = max_pixels_length - pixels_chunk_offset;
 
         if (pixels_chunk_length > 464) {
             pixels_chunk_length = 464;
         }
 
-        memcpy(ret_pixels, pixels_chunk_data, sizeof(bool) * pixels_chunk_length);
-        *ret_pixels_length = pixels_chunk_length;
+        if (ret_pixels != NULL) {
+            memcpy(ret_pixels, pixels_chunk_data, sizeof(bool) * pixels_chunk_length);
+        }
 
-        while (*ret_pixels_length < pixels_length) {
+        pixels_length = pixels_chunk_length;
+
+        while (pixels_length < max_pixels_length) {
             ret = tf_e_paper_296x128_read_black_white_low_level(e_paper_296x128, x_start, y_start, x_end, y_end, &pixels_length, &pixels_chunk_offset, pixels_chunk_data);
 
             if (ret != TF_E_OK) {
+                if (ret_pixels_length != NULL) {
+                    *ret_pixels_length = pixels_length;
+                }
                 return ret;
             }
 
-            pixels_out_of_sync = pixels_chunk_offset != *ret_pixels_length;
+            pixels_out_of_sync = pixels_chunk_offset != pixels_length;
 
             if (pixels_out_of_sync) {
                 break;
             }
 
-            pixels_chunk_length = pixels_length - pixels_chunk_offset;
+            pixels_chunk_length = max_pixels_length - pixels_chunk_offset;
 
             if (pixels_chunk_length > 464) {
                 pixels_chunk_length = 464;
             }
 
-            memcpy(&ret_pixels[*ret_pixels_length], pixels_chunk_data, sizeof(bool) * pixels_chunk_length);
-            *ret_pixels_length += pixels_chunk_length;
+            if (ret_pixels != NULL) {
+                memcpy(&ret_pixels[pixels_length], pixels_chunk_data, sizeof(bool) * pixels_chunk_length);
+            }
+            pixels_length += pixels_chunk_length;
         }
     }
 
     if (pixels_out_of_sync) {
-        *ret_pixels_length = 0; // return empty array
+        if (ret_pixels_length != NULL) {
+            *ret_pixels_length = 0; // return empty array
+        }
 
         // discard remaining stream to bring it back in-sync
-        while (pixels_chunk_offset + 464 < pixels_length) {
+        while (pixels_chunk_offset + 464 < max_pixels_length) {
             ret = tf_e_paper_296x128_read_black_white_low_level(e_paper_296x128, x_start, y_start, x_end, y_end, &pixels_length, &pixels_chunk_offset, pixels_chunk_data);
 
             if (ret != TF_E_OK) {
@@ -1425,7 +1436,7 @@ int tf_e_paper_296x128_read_black_white(TF_EPaper296x128 *e_paper_296x128, uint1
     return ret;
 }
 
-int tf_e_paper_296x128_write_color(TF_EPaper296x128 *e_paper_296x128, uint16_t x_start, uint8_t y_start, uint16_t x_end, uint8_t y_end, bool *pixels, uint16_t pixels_length) {
+int tf_e_paper_296x128_write_color(TF_EPaper296x128 *e_paper_296x128, uint16_t x_start, uint8_t y_start, uint16_t x_end, uint8_t y_end, const bool *pixels, uint16_t pixels_length) {
     if (e_paper_296x128 == NULL)
         return TF_E_NULL;
 
@@ -1469,61 +1480,73 @@ int tf_e_paper_296x128_read_color(TF_EPaper296x128 *e_paper_296x128, uint16_t x_
         return TF_E_NULL;
 
     int ret = TF_E_OK;
+    uint16_t max_pixels_length = 0;
     uint16_t pixels_length = 0;
     uint16_t pixels_chunk_offset = 0;
     bool pixels_chunk_data[464];
     bool pixels_out_of_sync;
     uint16_t pixels_chunk_length = 0;
 
-    *ret_pixels_length = 0;
-
     ret = tf_e_paper_296x128_read_color_low_level(e_paper_296x128, x_start, y_start, x_end, y_end, &pixels_length, &pixels_chunk_offset, pixels_chunk_data);
 
     if (ret != TF_E_OK) {
+        if (ret_pixels_length != NULL) {
+            *ret_pixels_length = pixels_length;
+        }
         return ret;
     }
 
     pixels_out_of_sync = pixels_chunk_offset != 0;
 
     if (!pixels_out_of_sync) {
-        pixels_chunk_length = pixels_length - pixels_chunk_offset;
+        pixels_chunk_length = max_pixels_length - pixels_chunk_offset;
 
         if (pixels_chunk_length > 464) {
             pixels_chunk_length = 464;
         }
 
-        memcpy(ret_pixels, pixels_chunk_data, sizeof(bool) * pixels_chunk_length);
-        *ret_pixels_length = pixels_chunk_length;
+        if (ret_pixels != NULL) {
+            memcpy(ret_pixels, pixels_chunk_data, sizeof(bool) * pixels_chunk_length);
+        }
 
-        while (*ret_pixels_length < pixels_length) {
+        pixels_length = pixels_chunk_length;
+
+        while (pixels_length < max_pixels_length) {
             ret = tf_e_paper_296x128_read_color_low_level(e_paper_296x128, x_start, y_start, x_end, y_end, &pixels_length, &pixels_chunk_offset, pixels_chunk_data);
 
             if (ret != TF_E_OK) {
+                if (ret_pixels_length != NULL) {
+                    *ret_pixels_length = pixels_length;
+                }
                 return ret;
             }
 
-            pixels_out_of_sync = pixels_chunk_offset != *ret_pixels_length;
+            pixels_out_of_sync = pixels_chunk_offset != pixels_length;
 
             if (pixels_out_of_sync) {
                 break;
             }
 
-            pixels_chunk_length = pixels_length - pixels_chunk_offset;
+            pixels_chunk_length = max_pixels_length - pixels_chunk_offset;
 
             if (pixels_chunk_length > 464) {
                 pixels_chunk_length = 464;
             }
 
-            memcpy(&ret_pixels[*ret_pixels_length], pixels_chunk_data, sizeof(bool) * pixels_chunk_length);
-            *ret_pixels_length += pixels_chunk_length;
+            if (ret_pixels != NULL) {
+                memcpy(&ret_pixels[pixels_length], pixels_chunk_data, sizeof(bool) * pixels_chunk_length);
+            }
+            pixels_length += pixels_chunk_length;
         }
     }
 
     if (pixels_out_of_sync) {
-        *ret_pixels_length = 0; // return empty array
+        if (ret_pixels_length != NULL) {
+            *ret_pixels_length = 0; // return empty array
+        }
 
         // discard remaining stream to bring it back in-sync
-        while (pixels_chunk_offset + 464 < pixels_length) {
+        while (pixels_chunk_offset + 464 < max_pixels_length) {
             ret = tf_e_paper_296x128_read_color_low_level(e_paper_296x128, x_start, y_start, x_end, y_end, &pixels_length, &pixels_chunk_offset, pixels_chunk_data);
 
             if (ret != TF_E_OK) {
@@ -1536,7 +1559,7 @@ int tf_e_paper_296x128_read_color(TF_EPaper296x128 *e_paper_296x128, uint16_t x_
 
     return ret;
 }
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
 int tf_e_paper_296x128_register_draw_status_callback(TF_EPaper296x128 *e_paper_296x128, TF_EPaper296x128DrawStatusHandler handler, void *user_data) {
     if (e_paper_296x128 == NULL)
         return TF_E_NULL;
@@ -1556,7 +1579,7 @@ int tf_e_paper_296x128_callback_tick(TF_EPaper296x128 *e_paper_296x128, uint32_t
     if (e_paper_296x128 == NULL)
         return TF_E_NULL;
 
-    return tf_tfp_callback_tick(e_paper_296x128->tfp, tf_hal_current_time_us(e_paper_296x128->tfp->hal) + timeout_us);
+    return tf_tfp_callback_tick(e_paper_296x128->tfp, tf_hal_current_time_us((TF_HalContext*)e_paper_296x128->tfp->hal) + timeout_us);
 }
 
 #ifdef __cplusplus

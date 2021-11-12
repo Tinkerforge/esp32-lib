@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-10-04.      *
+ * This file was automatically generated on 2021-11-12.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -25,7 +25,7 @@ extern "C" {
  */
 
 struct TF_SolidStateRelayV2;
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
 
 typedef void (*TF_SolidStateRelayV2MonoflopDoneHandler)(struct TF_SolidStateRelayV2 *device, bool state, void *user_data);
 
@@ -37,7 +37,7 @@ typedef void (*TF_SolidStateRelayV2MonoflopDoneHandler)(struct TF_SolidStateRela
  */
 typedef struct TF_SolidStateRelayV2 {
     TF_TfpContext *tfp;
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
     TF_SolidStateRelayV2MonoflopDoneHandler monoflop_done_handler;
     void *monoflop_done_user_data;
 
@@ -125,7 +125,7 @@ typedef struct TF_SolidStateRelayV2 {
  */
 #define TF_SOLID_STATE_RELAY_V2_FUNCTION_GET_IDENTITY 255
 
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
 
 /**
  * \ingroup BrickletSolidStateRelayV2
@@ -233,7 +233,7 @@ typedef struct TF_SolidStateRelayV2 {
  * Creates the device object \c solid_state_relay_v2 with the unique device ID \c uid and adds
  * it to the IPConnection \c ipcon.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_solid_state_relay_v2_create(TF_SolidStateRelayV2 *solid_state_relay_v2, const char *uid, TF_HalContext *hal);
+int tf_solid_state_relay_v2_create(TF_SolidStateRelayV2 *solid_state_relay_v2, const char *uid, TF_HalContext *hal);
 
 /**
  * \ingroup BrickletSolidStateRelayV2
@@ -241,7 +241,7 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_solid_state_relay_v2_create(TF_SolidStateRelayV2
  * Removes the device object \c solid_state_relay_v2 from its IPConnection and destroys it.
  * The device object cannot be used anymore afterwards.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_solid_state_relay_v2_destroy(TF_SolidStateRelayV2 *solid_state_relay_v2);
+int tf_solid_state_relay_v2_destroy(TF_SolidStateRelayV2 *solid_state_relay_v2);
 
 /**
  * \ingroup BrickletSolidStateRelayV2
@@ -262,7 +262,7 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_solid_state_relay_v2_destroy(TF_SolidStateRelayV
  * disabled for a setter function then no response is sent and errors are
  * silently ignored, because they cannot be detected.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_solid_state_relay_v2_get_response_expected(TF_SolidStateRelayV2 *solid_state_relay_v2, uint8_t function_id, bool *ret_response_expected);
+int tf_solid_state_relay_v2_get_response_expected(TF_SolidStateRelayV2 *solid_state_relay_v2, uint8_t function_id, bool *ret_response_expected);
 
 /**
  * \ingroup BrickletSolidStateRelayV2
@@ -278,7 +278,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_solid_state_relay_v2_get_response_expected(TF_Sol
  * setter function then no response is sent and errors are silently ignored,
  * because they cannot be detected.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_solid_state_relay_v2_set_response_expected(TF_SolidStateRelayV2 *solid_state_relay_v2, uint8_t function_id, bool response_expected);
+int tf_solid_state_relay_v2_set_response_expected(TF_SolidStateRelayV2 *solid_state_relay_v2, uint8_t function_id, bool response_expected);
 
 /**
  * \ingroup BrickletSolidStateRelayV2
@@ -286,8 +286,8 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_solid_state_relay_v2_set_response_expected(TF_So
  * Changes the response expected flag for all setter and callback configuration
  * functions of this device at once.
  */
-TF_ATTRIBUTE_NONNULL_ALL void tf_solid_state_relay_v2_set_response_expected_all(TF_SolidStateRelayV2 *solid_state_relay_v2, bool response_expected);
-#ifdef TF_IMPLEMENT_CALLBACKS
+void tf_solid_state_relay_v2_set_response_expected_all(TF_SolidStateRelayV2 *solid_state_relay_v2, bool response_expected);
+#if TF_IMPLEMENT_CALLBACKS != 0
 /**
  * \ingroup BrickletSolidStateRelayV2
  *
@@ -300,9 +300,9 @@ TF_ATTRIBUTE_NONNULL_ALL void tf_solid_state_relay_v2_set_response_expected_all(
  * The parameter is the current state of the relay
  * (the state after the monoflop).
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_solid_state_relay_v2_register_monoflop_done_callback(TF_SolidStateRelayV2 *solid_state_relay_v2, TF_SolidStateRelayV2MonoflopDoneHandler handler, void *user_data);
+int tf_solid_state_relay_v2_register_monoflop_done_callback(TF_SolidStateRelayV2 *solid_state_relay_v2, TF_SolidStateRelayV2MonoflopDoneHandler handler, void *user_data);
 #endif
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
 /**
  * \ingroup BrickletSolidStateRelayV2
  *
@@ -310,7 +310,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_solid_state_relay_v2_register_monoflop_done_callb
  *
  * This function can be used in a non-blocking fashion by calling it with a timeout of 0.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_solid_state_relay_v2_callback_tick(TF_SolidStateRelayV2 *solid_state_relay_v2, uint32_t timeout_us);
+int tf_solid_state_relay_v2_callback_tick(TF_SolidStateRelayV2 *solid_state_relay_v2, uint32_t timeout_us);
 #endif
 
 /**
@@ -320,14 +320,14 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_solid_state_relay_v2_callback_tick(TF_SolidState
  * 
  * A running monoflop timer will be aborted if this function is called.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_solid_state_relay_v2_set_state(TF_SolidStateRelayV2 *solid_state_relay_v2, bool state);
+int tf_solid_state_relay_v2_set_state(TF_SolidStateRelayV2 *solid_state_relay_v2, bool state);
 
 /**
  * \ingroup BrickletSolidStateRelayV2
  *
  * Returns the state of the relay, *true* means on and *false* means off.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_solid_state_relay_v2_get_state(TF_SolidStateRelayV2 *solid_state_relay_v2, bool *ret_state);
+int tf_solid_state_relay_v2_get_state(TF_SolidStateRelayV2 *solid_state_relay_v2, bool *ret_state);
 
 /**
  * \ingroup BrickletSolidStateRelayV2
@@ -345,7 +345,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_solid_state_relay_v2_get_state(TF_SolidStateRelay
  * of two seconds. The relay will be on all the time. If now the RS485
  * connection is lost, the relay will turn off in at most two seconds.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_solid_state_relay_v2_set_monoflop(TF_SolidStateRelayV2 *solid_state_relay_v2, bool state, uint32_t time);
+int tf_solid_state_relay_v2_set_monoflop(TF_SolidStateRelayV2 *solid_state_relay_v2, bool state, uint32_t time);
 
 /**
  * \ingroup BrickletSolidStateRelayV2
@@ -356,7 +356,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_solid_state_relay_v2_set_monoflop(TF_SolidStateRe
  * If the timer is not running currently, the remaining time will be returned
  * as 0.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_solid_state_relay_v2_get_monoflop(TF_SolidStateRelayV2 *solid_state_relay_v2, bool *ret_state, uint32_t *ret_time, uint32_t *ret_time_remaining);
+int tf_solid_state_relay_v2_get_monoflop(TF_SolidStateRelayV2 *solid_state_relay_v2, bool *ret_state, uint32_t *ret_time, uint32_t *ret_time_remaining);
 
 /**
  * \ingroup BrickletSolidStateRelayV2
@@ -373,7 +373,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_solid_state_relay_v2_get_monoflop(TF_SolidStateRe
  * The errors counts are for errors that occur on the Bricklet side. All
  * Bricks have a similar function that returns the errors on the Brick side.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_solid_state_relay_v2_get_spitfp_error_count(TF_SolidStateRelayV2 *solid_state_relay_v2, uint32_t *ret_error_count_ack_checksum, uint32_t *ret_error_count_message_checksum, uint32_t *ret_error_count_frame, uint32_t *ret_error_count_overflow);
+int tf_solid_state_relay_v2_get_spitfp_error_count(TF_SolidStateRelayV2 *solid_state_relay_v2, uint32_t *ret_error_count_ack_checksum, uint32_t *ret_error_count_message_checksum, uint32_t *ret_error_count_frame, uint32_t *ret_error_count_overflow);
 
 /**
  * \ingroup BrickletSolidStateRelayV2
@@ -388,14 +388,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_solid_state_relay_v2_get_spitfp_error_count(TF_So
  * This function is used by Brick Viewer during flashing. It should not be
  * necessary to call it in a normal user program.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_solid_state_relay_v2_set_bootloader_mode(TF_SolidStateRelayV2 *solid_state_relay_v2, uint8_t mode, uint8_t *ret_status);
+int tf_solid_state_relay_v2_set_bootloader_mode(TF_SolidStateRelayV2 *solid_state_relay_v2, uint8_t mode, uint8_t *ret_status);
 
 /**
  * \ingroup BrickletSolidStateRelayV2
  *
  * Returns the current bootloader mode, see {@link tf_solid_state_relay_v2_set_bootloader_mode}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_solid_state_relay_v2_get_bootloader_mode(TF_SolidStateRelayV2 *solid_state_relay_v2, uint8_t *ret_mode);
+int tf_solid_state_relay_v2_get_bootloader_mode(TF_SolidStateRelayV2 *solid_state_relay_v2, uint8_t *ret_mode);
 
 /**
  * \ingroup BrickletSolidStateRelayV2
@@ -407,7 +407,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_solid_state_relay_v2_get_bootloader_mode(TF_Solid
  * This function is used by Brick Viewer during flashing. It should not be
  * necessary to call it in a normal user program.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_solid_state_relay_v2_set_write_firmware_pointer(TF_SolidStateRelayV2 *solid_state_relay_v2, uint32_t pointer);
+int tf_solid_state_relay_v2_set_write_firmware_pointer(TF_SolidStateRelayV2 *solid_state_relay_v2, uint32_t pointer);
 
 /**
  * \ingroup BrickletSolidStateRelayV2
@@ -421,7 +421,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_solid_state_relay_v2_set_write_firmware_pointer(T
  * This function is used by Brick Viewer during flashing. It should not be
  * necessary to call it in a normal user program.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_solid_state_relay_v2_write_firmware(TF_SolidStateRelayV2 *solid_state_relay_v2, uint8_t data[64], uint8_t *ret_status);
+int tf_solid_state_relay_v2_write_firmware(TF_SolidStateRelayV2 *solid_state_relay_v2, const uint8_t data[64], uint8_t *ret_status);
 
 /**
  * \ingroup BrickletSolidStateRelayV2
@@ -434,14 +434,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_solid_state_relay_v2_write_firmware(TF_SolidState
  * 
  * If the Bricklet is in bootloader mode, the LED is will show heartbeat by default.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_solid_state_relay_v2_set_status_led_config(TF_SolidStateRelayV2 *solid_state_relay_v2, uint8_t config);
+int tf_solid_state_relay_v2_set_status_led_config(TF_SolidStateRelayV2 *solid_state_relay_v2, uint8_t config);
 
 /**
  * \ingroup BrickletSolidStateRelayV2
  *
  * Returns the configuration as set by {@link tf_solid_state_relay_v2_set_status_led_config}
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_solid_state_relay_v2_get_status_led_config(TF_SolidStateRelayV2 *solid_state_relay_v2, uint8_t *ret_config);
+int tf_solid_state_relay_v2_get_status_led_config(TF_SolidStateRelayV2 *solid_state_relay_v2, uint8_t *ret_config);
 
 /**
  * \ingroup BrickletSolidStateRelayV2
@@ -453,7 +453,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_solid_state_relay_v2_get_status_led_config(TF_Sol
  * accuracy. Practically it is only useful as an indicator for
  * temperature changes.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_solid_state_relay_v2_get_chip_temperature(TF_SolidStateRelayV2 *solid_state_relay_v2, int16_t *ret_temperature);
+int tf_solid_state_relay_v2_get_chip_temperature(TF_SolidStateRelayV2 *solid_state_relay_v2, int16_t *ret_temperature);
 
 /**
  * \ingroup BrickletSolidStateRelayV2
@@ -465,7 +465,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_solid_state_relay_v2_get_chip_temperature(TF_Soli
  * calling functions on the existing ones will result in
  * undefined behavior!
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_solid_state_relay_v2_reset(TF_SolidStateRelayV2 *solid_state_relay_v2);
+int tf_solid_state_relay_v2_reset(TF_SolidStateRelayV2 *solid_state_relay_v2);
 
 /**
  * \ingroup BrickletSolidStateRelayV2
@@ -476,7 +476,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_solid_state_relay_v2_reset(TF_SolidStateRelayV2 *
  * 
  * We recommend that you use Brick Viewer to change the UID.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_solid_state_relay_v2_write_uid(TF_SolidStateRelayV2 *solid_state_relay_v2, uint32_t uid);
+int tf_solid_state_relay_v2_write_uid(TF_SolidStateRelayV2 *solid_state_relay_v2, uint32_t uid);
 
 /**
  * \ingroup BrickletSolidStateRelayV2
@@ -484,7 +484,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_solid_state_relay_v2_write_uid(TF_SolidStateRelay
  * Returns the current UID as an integer. Encode as
  * Base58 to get the usual string version.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_solid_state_relay_v2_read_uid(TF_SolidStateRelayV2 *solid_state_relay_v2, uint32_t *ret_uid);
+int tf_solid_state_relay_v2_read_uid(TF_SolidStateRelayV2 *solid_state_relay_v2, uint32_t *ret_uid);
 
 /**
  * \ingroup BrickletSolidStateRelayV2
@@ -500,7 +500,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_solid_state_relay_v2_read_uid(TF_SolidStateRelayV
  * The device identifier numbers can be found :ref:`here <device_identifier>`.
  * |device_identifier_constant|
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_solid_state_relay_v2_get_identity(TF_SolidStateRelayV2 *solid_state_relay_v2, char ret_uid[8], char ret_connected_uid[8], char *ret_position, uint8_t ret_hardware_version[3], uint8_t ret_firmware_version[3], uint16_t *ret_device_identifier);
+int tf_solid_state_relay_v2_get_identity(TF_SolidStateRelayV2 *solid_state_relay_v2, char ret_uid[8], char ret_connected_uid[8], char *ret_position, uint8_t ret_hardware_version[3], uint8_t ret_firmware_version[3], uint16_t *ret_device_identifier);
 
 #ifdef __cplusplus
 }

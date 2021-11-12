@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-10-04.      *
+ * This file was automatically generated on 2021-11-12.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -25,7 +25,7 @@ extern "C" {
  */
 
 struct TF_ParticulateMatter;
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
 
 typedef void (*TF_ParticulateMatterPMConcentrationHandler)(struct TF_ParticulateMatter *device, uint16_t pm10, uint16_t pm25, uint16_t pm100, void *user_data);
 typedef void (*TF_ParticulateMatterPMCountHandler)(struct TF_ParticulateMatter *device, uint16_t greater03um, uint16_t greater05um, uint16_t greater10um, uint16_t greater25um, uint16_t greater50um, uint16_t greater100um, void *user_data);
@@ -38,7 +38,7 @@ typedef void (*TF_ParticulateMatterPMCountHandler)(struct TF_ParticulateMatter *
  */
 typedef struct TF_ParticulateMatter {
     TF_TfpContext *tfp;
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
     TF_ParticulateMatterPMConcentrationHandler pm_concentration_handler;
     void *pm_concentration_user_data;
 
@@ -154,7 +154,7 @@ typedef struct TF_ParticulateMatter {
  */
 #define TF_PARTICULATE_MATTER_FUNCTION_GET_IDENTITY 255
 
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
 
 /**
  * \ingroup BrickletParticulateMatter
@@ -267,7 +267,7 @@ typedef struct TF_ParticulateMatter {
  * Creates the device object \c particulate_matter with the unique device ID \c uid and adds
  * it to the IPConnection \c ipcon.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_particulate_matter_create(TF_ParticulateMatter *particulate_matter, const char *uid, TF_HalContext *hal);
+int tf_particulate_matter_create(TF_ParticulateMatter *particulate_matter, const char *uid, TF_HalContext *hal);
 
 /**
  * \ingroup BrickletParticulateMatter
@@ -275,7 +275,7 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_particulate_matter_create(TF_ParticulateMatter *
  * Removes the device object \c particulate_matter from its IPConnection and destroys it.
  * The device object cannot be used anymore afterwards.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_particulate_matter_destroy(TF_ParticulateMatter *particulate_matter);
+int tf_particulate_matter_destroy(TF_ParticulateMatter *particulate_matter);
 
 /**
  * \ingroup BrickletParticulateMatter
@@ -296,7 +296,7 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_particulate_matter_destroy(TF_ParticulateMatter 
  * disabled for a setter function then no response is sent and errors are
  * silently ignored, because they cannot be detected.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_particulate_matter_get_response_expected(TF_ParticulateMatter *particulate_matter, uint8_t function_id, bool *ret_response_expected);
+int tf_particulate_matter_get_response_expected(TF_ParticulateMatter *particulate_matter, uint8_t function_id, bool *ret_response_expected);
 
 /**
  * \ingroup BrickletParticulateMatter
@@ -312,7 +312,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_particulate_matter_get_response_expected(TF_Parti
  * setter function then no response is sent and errors are silently ignored,
  * because they cannot be detected.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_particulate_matter_set_response_expected(TF_ParticulateMatter *particulate_matter, uint8_t function_id, bool response_expected);
+int tf_particulate_matter_set_response_expected(TF_ParticulateMatter *particulate_matter, uint8_t function_id, bool response_expected);
 
 /**
  * \ingroup BrickletParticulateMatter
@@ -320,8 +320,8 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_particulate_matter_set_response_expected(TF_Part
  * Changes the response expected flag for all setter and callback configuration
  * functions of this device at once.
  */
-TF_ATTRIBUTE_NONNULL_ALL void tf_particulate_matter_set_response_expected_all(TF_ParticulateMatter *particulate_matter, bool response_expected);
-#ifdef TF_IMPLEMENT_CALLBACKS
+void tf_particulate_matter_set_response_expected_all(TF_ParticulateMatter *particulate_matter, bool response_expected);
+#if TF_IMPLEMENT_CALLBACKS != 0
 /**
  * \ingroup BrickletParticulateMatter
  *
@@ -335,7 +335,7 @@ TF_ATTRIBUTE_NONNULL_ALL void tf_particulate_matter_set_response_expected_all(TF
  * 
  * The parameters are the same as {@link tf_particulate_matter_get_pm_concentration}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_particulate_matter_register_pm_concentration_callback(TF_ParticulateMatter *particulate_matter, TF_ParticulateMatterPMConcentrationHandler handler, void *user_data);
+int tf_particulate_matter_register_pm_concentration_callback(TF_ParticulateMatter *particulate_matter, TF_ParticulateMatterPMConcentrationHandler handler, void *user_data);
 
 
 /**
@@ -351,9 +351,9 @@ TF_ATTRIBUTE_NONNULL(1) int tf_particulate_matter_register_pm_concentration_call
  * 
  * The parameters are the same as {@link tf_particulate_matter_get_pm_count}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_particulate_matter_register_pm_count_callback(TF_ParticulateMatter *particulate_matter, TF_ParticulateMatterPMCountHandler handler, void *user_data);
+int tf_particulate_matter_register_pm_count_callback(TF_ParticulateMatter *particulate_matter, TF_ParticulateMatterPMCountHandler handler, void *user_data);
 #endif
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
 /**
  * \ingroup BrickletParticulateMatter
  *
@@ -361,7 +361,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_particulate_matter_register_pm_count_callback(TF_
  *
  * This function can be used in a non-blocking fashion by calling it with a timeout of 0.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_particulate_matter_callback_tick(TF_ParticulateMatter *particulate_matter, uint32_t timeout_us);
+int tf_particulate_matter_callback_tick(TF_ParticulateMatter *particulate_matter, uint32_t timeout_us);
 #endif
 
 /**
@@ -380,7 +380,7 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_particulate_matter_callback_tick(TF_ParticulateM
  * {@link tf_particulate_matter_register_pm_concentration_callback} callback. You can set the callback configuration
  * with {@link tf_particulate_matter_set_pm_concentration_callback_configuration}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_particulate_matter_get_pm_concentration(TF_ParticulateMatter *particulate_matter, uint16_t *ret_pm10, uint16_t *ret_pm25, uint16_t *ret_pm100);
+int tf_particulate_matter_get_pm_concentration(TF_ParticulateMatter *particulate_matter, uint16_t *ret_pm10, uint16_t *ret_pm25, uint16_t *ret_pm100);
 
 /**
  * \ingroup BrickletParticulateMatter
@@ -402,7 +402,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_particulate_matter_get_pm_concentration(TF_Partic
  * {@link tf_particulate_matter_register_pm_count_callback} callback. You can set the callback configuration
  * with {@link tf_particulate_matter_set_pm_count_callback_configuration}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_particulate_matter_get_pm_count(TF_ParticulateMatter *particulate_matter, uint16_t *ret_greater03um, uint16_t *ret_greater05um, uint16_t *ret_greater10um, uint16_t *ret_greater25um, uint16_t *ret_greater50um, uint16_t *ret_greater100um);
+int tf_particulate_matter_get_pm_count(TF_ParticulateMatter *particulate_matter, uint16_t *ret_greater03um, uint16_t *ret_greater05um, uint16_t *ret_greater10um, uint16_t *ret_greater25um, uint16_t *ret_greater50um, uint16_t *ret_greater100um);
 
 /**
  * \ingroup BrickletParticulateMatter
@@ -416,14 +416,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_particulate_matter_get_pm_count(TF_ParticulateMat
  * an interval with a long idle time (e.g. hourly) you should turn the
  * laser diode off between the measurements.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_particulate_matter_set_enable(TF_ParticulateMatter *particulate_matter, bool enable);
+int tf_particulate_matter_set_enable(TF_ParticulateMatter *particulate_matter, bool enable);
 
 /**
  * \ingroup BrickletParticulateMatter
  *
  * Returns the state of the sensor as set by {@link tf_particulate_matter_set_enable}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_particulate_matter_get_enable(TF_ParticulateMatter *particulate_matter, bool *ret_enable);
+int tf_particulate_matter_get_enable(TF_ParticulateMatter *particulate_matter, bool *ret_enable);
 
 /**
  * \ingroup BrickletParticulateMatter
@@ -435,7 +435,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_particulate_matter_get_enable(TF_ParticulateMatte
  * * the number of framing and checksum errors that occurred in the communication
  *   with the sensor.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_particulate_matter_get_sensor_info(TF_ParticulateMatter *particulate_matter, uint8_t *ret_sensor_version, uint8_t *ret_last_error_code, uint8_t *ret_framing_error_count, uint8_t *ret_checksum_error_count);
+int tf_particulate_matter_get_sensor_info(TF_ParticulateMatter *particulate_matter, uint8_t *ret_sensor_version, uint8_t *ret_last_error_code, uint8_t *ret_framing_error_count, uint8_t *ret_checksum_error_count);
 
 /**
  * \ingroup BrickletParticulateMatter
@@ -450,7 +450,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_particulate_matter_get_sensor_info(TF_Particulate
  * If it is set to false, the callback is continuously triggered with the period,
  * independent of the value.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_particulate_matter_set_pm_concentration_callback_configuration(TF_ParticulateMatter *particulate_matter, uint32_t period, bool value_has_to_change);
+int tf_particulate_matter_set_pm_concentration_callback_configuration(TF_ParticulateMatter *particulate_matter, uint32_t period, bool value_has_to_change);
 
 /**
  * \ingroup BrickletParticulateMatter
@@ -458,7 +458,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_particulate_matter_set_pm_concentration_callback_
  * Returns the callback configuration as set by
  * {@link tf_particulate_matter_set_pm_concentration_callback_configuration}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_particulate_matter_get_pm_concentration_callback_configuration(TF_ParticulateMatter *particulate_matter, uint32_t *ret_period, bool *ret_value_has_to_change);
+int tf_particulate_matter_get_pm_concentration_callback_configuration(TF_ParticulateMatter *particulate_matter, uint32_t *ret_period, bool *ret_value_has_to_change);
 
 /**
  * \ingroup BrickletParticulateMatter
@@ -473,7 +473,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_particulate_matter_get_pm_concentration_callback_
  * If it is set to false, the callback is continuously triggered with the period,
  * independent of the value.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_particulate_matter_set_pm_count_callback_configuration(TF_ParticulateMatter *particulate_matter, uint32_t period, bool value_has_to_change);
+int tf_particulate_matter_set_pm_count_callback_configuration(TF_ParticulateMatter *particulate_matter, uint32_t period, bool value_has_to_change);
 
 /**
  * \ingroup BrickletParticulateMatter
@@ -481,7 +481,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_particulate_matter_set_pm_count_callback_configur
  * Returns the callback configuration as set by
  * {@link tf_particulate_matter_set_pm_count_callback_configuration}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_particulate_matter_get_pm_count_callback_configuration(TF_ParticulateMatter *particulate_matter, uint32_t *ret_period, bool *ret_value_has_to_change);
+int tf_particulate_matter_get_pm_count_callback_configuration(TF_ParticulateMatter *particulate_matter, uint32_t *ret_period, bool *ret_value_has_to_change);
 
 /**
  * \ingroup BrickletParticulateMatter
@@ -498,7 +498,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_particulate_matter_get_pm_count_callback_configur
  * The errors counts are for errors that occur on the Bricklet side. All
  * Bricks have a similar function that returns the errors on the Brick side.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_particulate_matter_get_spitfp_error_count(TF_ParticulateMatter *particulate_matter, uint32_t *ret_error_count_ack_checksum, uint32_t *ret_error_count_message_checksum, uint32_t *ret_error_count_frame, uint32_t *ret_error_count_overflow);
+int tf_particulate_matter_get_spitfp_error_count(TF_ParticulateMatter *particulate_matter, uint32_t *ret_error_count_ack_checksum, uint32_t *ret_error_count_message_checksum, uint32_t *ret_error_count_frame, uint32_t *ret_error_count_overflow);
 
 /**
  * \ingroup BrickletParticulateMatter
@@ -513,14 +513,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_particulate_matter_get_spitfp_error_count(TF_Part
  * This function is used by Brick Viewer during flashing. It should not be
  * necessary to call it in a normal user program.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_particulate_matter_set_bootloader_mode(TF_ParticulateMatter *particulate_matter, uint8_t mode, uint8_t *ret_status);
+int tf_particulate_matter_set_bootloader_mode(TF_ParticulateMatter *particulate_matter, uint8_t mode, uint8_t *ret_status);
 
 /**
  * \ingroup BrickletParticulateMatter
  *
  * Returns the current bootloader mode, see {@link tf_particulate_matter_set_bootloader_mode}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_particulate_matter_get_bootloader_mode(TF_ParticulateMatter *particulate_matter, uint8_t *ret_mode);
+int tf_particulate_matter_get_bootloader_mode(TF_ParticulateMatter *particulate_matter, uint8_t *ret_mode);
 
 /**
  * \ingroup BrickletParticulateMatter
@@ -532,7 +532,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_particulate_matter_get_bootloader_mode(TF_Particu
  * This function is used by Brick Viewer during flashing. It should not be
  * necessary to call it in a normal user program.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_particulate_matter_set_write_firmware_pointer(TF_ParticulateMatter *particulate_matter, uint32_t pointer);
+int tf_particulate_matter_set_write_firmware_pointer(TF_ParticulateMatter *particulate_matter, uint32_t pointer);
 
 /**
  * \ingroup BrickletParticulateMatter
@@ -546,7 +546,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_particulate_matter_set_write_firmware_pointer(TF_
  * This function is used by Brick Viewer during flashing. It should not be
  * necessary to call it in a normal user program.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_particulate_matter_write_firmware(TF_ParticulateMatter *particulate_matter, uint8_t data[64], uint8_t *ret_status);
+int tf_particulate_matter_write_firmware(TF_ParticulateMatter *particulate_matter, const uint8_t data[64], uint8_t *ret_status);
 
 /**
  * \ingroup BrickletParticulateMatter
@@ -559,14 +559,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_particulate_matter_write_firmware(TF_ParticulateM
  * 
  * If the Bricklet is in bootloader mode, the LED is will show heartbeat by default.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_particulate_matter_set_status_led_config(TF_ParticulateMatter *particulate_matter, uint8_t config);
+int tf_particulate_matter_set_status_led_config(TF_ParticulateMatter *particulate_matter, uint8_t config);
 
 /**
  * \ingroup BrickletParticulateMatter
  *
  * Returns the configuration as set by {@link tf_particulate_matter_set_status_led_config}
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_particulate_matter_get_status_led_config(TF_ParticulateMatter *particulate_matter, uint8_t *ret_config);
+int tf_particulate_matter_get_status_led_config(TF_ParticulateMatter *particulate_matter, uint8_t *ret_config);
 
 /**
  * \ingroup BrickletParticulateMatter
@@ -578,7 +578,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_particulate_matter_get_status_led_config(TF_Parti
  * accuracy. Practically it is only useful as an indicator for
  * temperature changes.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_particulate_matter_get_chip_temperature(TF_ParticulateMatter *particulate_matter, int16_t *ret_temperature);
+int tf_particulate_matter_get_chip_temperature(TF_ParticulateMatter *particulate_matter, int16_t *ret_temperature);
 
 /**
  * \ingroup BrickletParticulateMatter
@@ -590,7 +590,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_particulate_matter_get_chip_temperature(TF_Partic
  * calling functions on the existing ones will result in
  * undefined behavior!
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_particulate_matter_reset(TF_ParticulateMatter *particulate_matter);
+int tf_particulate_matter_reset(TF_ParticulateMatter *particulate_matter);
 
 /**
  * \ingroup BrickletParticulateMatter
@@ -601,7 +601,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_particulate_matter_reset(TF_ParticulateMatter *pa
  * 
  * We recommend that you use Brick Viewer to change the UID.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_particulate_matter_write_uid(TF_ParticulateMatter *particulate_matter, uint32_t uid);
+int tf_particulate_matter_write_uid(TF_ParticulateMatter *particulate_matter, uint32_t uid);
 
 /**
  * \ingroup BrickletParticulateMatter
@@ -609,7 +609,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_particulate_matter_write_uid(TF_ParticulateMatter
  * Returns the current UID as an integer. Encode as
  * Base58 to get the usual string version.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_particulate_matter_read_uid(TF_ParticulateMatter *particulate_matter, uint32_t *ret_uid);
+int tf_particulate_matter_read_uid(TF_ParticulateMatter *particulate_matter, uint32_t *ret_uid);
 
 /**
  * \ingroup BrickletParticulateMatter
@@ -625,7 +625,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_particulate_matter_read_uid(TF_ParticulateMatter 
  * The device identifier numbers can be found :ref:`here <device_identifier>`.
  * |device_identifier_constant|
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_particulate_matter_get_identity(TF_ParticulateMatter *particulate_matter, char ret_uid[8], char ret_connected_uid[8], char *ret_position, uint8_t ret_hardware_version[3], uint8_t ret_firmware_version[3], uint16_t *ret_device_identifier);
+int tf_particulate_matter_get_identity(TF_ParticulateMatter *particulate_matter, char ret_uid[8], char ret_connected_uid[8], char *ret_position, uint8_t ret_hardware_version[3], uint8_t ret_firmware_version[3], uint16_t *ret_device_identifier);
 
 #ifdef __cplusplus
 }

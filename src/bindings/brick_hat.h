@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-10-04.      *
+ * This file was automatically generated on 2021-11-12.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -25,7 +25,7 @@ extern "C" {
  */
 
 struct TF_HAT;
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
 
 typedef void (*TF_HATVoltagesHandler)(struct TF_HAT *device, uint16_t voltage_usb, uint16_t voltage_dc, void *user_data);
 
@@ -37,7 +37,7 @@ typedef void (*TF_HATVoltagesHandler)(struct TF_HAT *device, uint16_t voltage_us
  */
 typedef struct TF_HAT {
     TF_TfpContext *tfp;
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
     TF_HATVoltagesHandler voltages_handler;
     void *voltages_user_data;
 
@@ -150,7 +150,7 @@ typedef struct TF_HAT {
  */
 #define TF_HAT_FUNCTION_GET_IDENTITY 255
 
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
 
 /**
  * \ingroup BrickHAT
@@ -268,7 +268,7 @@ typedef struct TF_HAT {
  * Creates the device object \c hat with the unique device ID \c uid and adds
  * it to the IPConnection \c ipcon.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_hat_create(TF_HAT *hat, const char *uid, TF_HalContext *hal);
+int tf_hat_create(TF_HAT *hat, const char *uid, TF_HalContext *hal);
 
 /**
  * \ingroup BrickHAT
@@ -276,7 +276,7 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_hat_create(TF_HAT *hat, const char *uid, TF_HalC
  * Removes the device object \c hat from its IPConnection and destroys it.
  * The device object cannot be used anymore afterwards.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_hat_destroy(TF_HAT *hat);
+int tf_hat_destroy(TF_HAT *hat);
 
 /**
  * \ingroup BrickHAT
@@ -297,7 +297,7 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_hat_destroy(TF_HAT *hat);
  * disabled for a setter function then no response is sent and errors are
  * silently ignored, because they cannot be detected.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_hat_get_response_expected(TF_HAT *hat, uint8_t function_id, bool *ret_response_expected);
+int tf_hat_get_response_expected(TF_HAT *hat, uint8_t function_id, bool *ret_response_expected);
 
 /**
  * \ingroup BrickHAT
@@ -313,7 +313,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_hat_get_response_expected(TF_HAT *hat, uint8_t fu
  * setter function then no response is sent and errors are silently ignored,
  * because they cannot be detected.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_hat_set_response_expected(TF_HAT *hat, uint8_t function_id, bool response_expected);
+int tf_hat_set_response_expected(TF_HAT *hat, uint8_t function_id, bool response_expected);
 
 /**
  * \ingroup BrickHAT
@@ -321,8 +321,8 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_hat_set_response_expected(TF_HAT *hat, uint8_t f
  * Changes the response expected flag for all setter and callback configuration
  * functions of this device at once.
  */
-TF_ATTRIBUTE_NONNULL_ALL void tf_hat_set_response_expected_all(TF_HAT *hat, bool response_expected);
-#ifdef TF_IMPLEMENT_CALLBACKS
+void tf_hat_set_response_expected_all(TF_HAT *hat, bool response_expected);
+#if TF_IMPLEMENT_CALLBACKS != 0
 /**
  * \ingroup BrickHAT
  *
@@ -338,9 +338,9 @@ TF_ATTRIBUTE_NONNULL_ALL void tf_hat_set_response_expected_all(TF_HAT *hat, bool
  * 
  * .. versionadded:: 2.0.1$nbsp;(Firmware)
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_hat_register_voltages_callback(TF_HAT *hat, TF_HATVoltagesHandler handler, void *user_data);
+int tf_hat_register_voltages_callback(TF_HAT *hat, TF_HATVoltagesHandler handler, void *user_data);
 #endif
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
 /**
  * \ingroup BrickHAT
  *
@@ -348,7 +348,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_hat_register_voltages_callback(TF_HAT *hat, TF_HA
  *
  * This function can be used in a non-blocking fashion by calling it with a timeout of 0.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_hat_callback_tick(TF_HAT *hat, uint32_t timeout_us);
+int tf_hat_callback_tick(TF_HAT *hat, uint32_t timeout_us);
 #endif
 
 /**
@@ -377,28 +377,28 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_hat_callback_tick(TF_HAT *hat, uint32_t timeout_
  * (10, 2, true, false, false). If the RPi crashes or gets stuck
  * the HAT will reset the RPi after 10 seconds.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_hat_set_sleep_mode(TF_HAT *hat, uint32_t power_off_delay, uint32_t power_off_duration, bool raspberry_pi_off, bool bricklets_off, bool enable_sleep_indicator);
+int tf_hat_set_sleep_mode(TF_HAT *hat, uint32_t power_off_delay, uint32_t power_off_duration, bool raspberry_pi_off, bool bricklets_off, bool enable_sleep_indicator);
 
 /**
  * \ingroup BrickHAT
  *
  * Returns the sleep mode settings as set by {@link tf_hat_set_sleep_mode}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_hat_get_sleep_mode(TF_HAT *hat, uint32_t *ret_power_off_delay, uint32_t *ret_power_off_duration, bool *ret_raspberry_pi_off, bool *ret_bricklets_off, bool *ret_enable_sleep_indicator);
+int tf_hat_get_sleep_mode(TF_HAT *hat, uint32_t *ret_power_off_delay, uint32_t *ret_power_off_duration, bool *ret_raspberry_pi_off, bool *ret_bricklets_off, bool *ret_enable_sleep_indicator);
 
 /**
  * \ingroup BrickHAT
  *
  * Set to true/false to turn the power supply of the connected Bricklets on/off.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_hat_set_bricklet_power(TF_HAT *hat, bool bricklet_power);
+int tf_hat_set_bricklet_power(TF_HAT *hat, bool bricklet_power);
 
 /**
  * \ingroup BrickHAT
  *
  * Returns the power status of the connected Bricklets as set by {@link tf_hat_set_bricklet_power}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_hat_get_bricklet_power(TF_HAT *hat, bool *ret_bricklet_power);
+int tf_hat_get_bricklet_power(TF_HAT *hat, bool *ret_bricklet_power);
 
 /**
  * \ingroup BrickHAT
@@ -418,7 +418,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_hat_get_bricklet_power(TF_HAT *hat, bool *ret_bri
  *   disconnect the DC input (or if the DC input voltage falls below the
  *   USB voltage).
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_hat_get_voltages(TF_HAT *hat, uint16_t *ret_voltage_usb, uint16_t *ret_voltage_dc);
+int tf_hat_get_voltages(TF_HAT *hat, uint16_t *ret_voltage_usb, uint16_t *ret_voltage_dc);
 
 /**
  * \ingroup BrickHAT
@@ -435,7 +435,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_hat_get_voltages(TF_HAT *hat, uint16_t *ret_volta
  * 
  * .. versionadded:: 2.0.1$nbsp;(Firmware)
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_hat_set_voltages_callback_configuration(TF_HAT *hat, uint32_t period, bool value_has_to_change);
+int tf_hat_set_voltages_callback_configuration(TF_HAT *hat, uint32_t period, bool value_has_to_change);
 
 /**
  * \ingroup BrickHAT
@@ -445,7 +445,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_hat_set_voltages_callback_configuration(TF_HAT *h
  * 
  * .. versionadded:: 2.0.1$nbsp;(Firmware)
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_hat_get_voltages_callback_configuration(TF_HAT *hat, uint32_t *ret_period, bool *ret_value_has_to_change);
+int tf_hat_get_voltages_callback_configuration(TF_HAT *hat, uint32_t *ret_period, bool *ret_value_has_to_change);
 
 /**
  * \ingroup BrickHAT
@@ -460,7 +460,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_hat_get_voltages_callback_configuration(TF_HAT *h
  * 
  * .. versionadded:: 2.0.3$nbsp;(Firmware)
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_hat_set_rtc_driver(TF_HAT *hat, uint8_t rtc_driver);
+int tf_hat_set_rtc_driver(TF_HAT *hat, uint8_t rtc_driver);
 
 /**
  * \ingroup BrickHAT
@@ -469,7 +469,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_hat_set_rtc_driver(TF_HAT *hat, uint8_t rtc_drive
  * 
  * .. versionadded:: 2.0.3$nbsp;(Firmware)
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_hat_get_rtc_driver(TF_HAT *hat, uint8_t *ret_rtc_driver);
+int tf_hat_get_rtc_driver(TF_HAT *hat, uint8_t *ret_rtc_driver);
 
 /**
  * \ingroup BrickHAT
@@ -486,7 +486,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_hat_get_rtc_driver(TF_HAT *hat, uint8_t *ret_rtc_
  * The errors counts are for errors that occur on the Bricklet side. All
  * Bricks have a similar function that returns the errors on the Brick side.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_hat_get_spitfp_error_count(TF_HAT *hat, uint32_t *ret_error_count_ack_checksum, uint32_t *ret_error_count_message_checksum, uint32_t *ret_error_count_frame, uint32_t *ret_error_count_overflow);
+int tf_hat_get_spitfp_error_count(TF_HAT *hat, uint32_t *ret_error_count_ack_checksum, uint32_t *ret_error_count_message_checksum, uint32_t *ret_error_count_frame, uint32_t *ret_error_count_overflow);
 
 /**
  * \ingroup BrickHAT
@@ -501,14 +501,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_hat_get_spitfp_error_count(TF_HAT *hat, uint32_t 
  * This function is used by Brick Viewer during flashing. It should not be
  * necessary to call it in a normal user program.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_hat_set_bootloader_mode(TF_HAT *hat, uint8_t mode, uint8_t *ret_status);
+int tf_hat_set_bootloader_mode(TF_HAT *hat, uint8_t mode, uint8_t *ret_status);
 
 /**
  * \ingroup BrickHAT
  *
  * Returns the current bootloader mode, see {@link tf_hat_set_bootloader_mode}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_hat_get_bootloader_mode(TF_HAT *hat, uint8_t *ret_mode);
+int tf_hat_get_bootloader_mode(TF_HAT *hat, uint8_t *ret_mode);
 
 /**
  * \ingroup BrickHAT
@@ -520,7 +520,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_hat_get_bootloader_mode(TF_HAT *hat, uint8_t *ret
  * This function is used by Brick Viewer during flashing. It should not be
  * necessary to call it in a normal user program.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_hat_set_write_firmware_pointer(TF_HAT *hat, uint32_t pointer);
+int tf_hat_set_write_firmware_pointer(TF_HAT *hat, uint32_t pointer);
 
 /**
  * \ingroup BrickHAT
@@ -534,7 +534,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_hat_set_write_firmware_pointer(TF_HAT *hat, uint3
  * This function is used by Brick Viewer during flashing. It should not be
  * necessary to call it in a normal user program.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_hat_write_firmware(TF_HAT *hat, uint8_t data[64], uint8_t *ret_status);
+int tf_hat_write_firmware(TF_HAT *hat, const uint8_t data[64], uint8_t *ret_status);
 
 /**
  * \ingroup BrickHAT
@@ -547,14 +547,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_hat_write_firmware(TF_HAT *hat, uint8_t data[64],
  * 
  * If the Bricklet is in bootloader mode, the LED is will show heartbeat by default.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_hat_set_status_led_config(TF_HAT *hat, uint8_t config);
+int tf_hat_set_status_led_config(TF_HAT *hat, uint8_t config);
 
 /**
  * \ingroup BrickHAT
  *
  * Returns the configuration as set by {@link tf_hat_set_status_led_config}
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_hat_get_status_led_config(TF_HAT *hat, uint8_t *ret_config);
+int tf_hat_get_status_led_config(TF_HAT *hat, uint8_t *ret_config);
 
 /**
  * \ingroup BrickHAT
@@ -566,7 +566,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_hat_get_status_led_config(TF_HAT *hat, uint8_t *r
  * accuracy. Practically it is only useful as an indicator for
  * temperature changes.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_hat_get_chip_temperature(TF_HAT *hat, int16_t *ret_temperature);
+int tf_hat_get_chip_temperature(TF_HAT *hat, int16_t *ret_temperature);
 
 /**
  * \ingroup BrickHAT
@@ -578,7 +578,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_hat_get_chip_temperature(TF_HAT *hat, int16_t *re
  * calling functions on the existing ones will result in
  * undefined behavior!
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_hat_reset(TF_HAT *hat);
+int tf_hat_reset(TF_HAT *hat);
 
 /**
  * \ingroup BrickHAT
@@ -589,7 +589,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_hat_reset(TF_HAT *hat);
  * 
  * We recommend that you use Brick Viewer to change the UID.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_hat_write_uid(TF_HAT *hat, uint32_t uid);
+int tf_hat_write_uid(TF_HAT *hat, uint32_t uid);
 
 /**
  * \ingroup BrickHAT
@@ -597,7 +597,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_hat_write_uid(TF_HAT *hat, uint32_t uid);
  * Returns the current UID as an integer. Encode as
  * Base58 to get the usual string version.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_hat_read_uid(TF_HAT *hat, uint32_t *ret_uid);
+int tf_hat_read_uid(TF_HAT *hat, uint32_t *ret_uid);
 
 /**
  * \ingroup BrickHAT
@@ -612,7 +612,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_hat_read_uid(TF_HAT *hat, uint32_t *ret_uid);
  * The device identifier numbers can be found :ref:`here <device_identifier>`.
  * |device_identifier_constant|
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_hat_get_identity(TF_HAT *hat, char ret_uid[8], char ret_connected_uid[8], char *ret_position, uint8_t ret_hardware_version[3], uint8_t ret_firmware_version[3], uint16_t *ret_device_identifier);
+int tf_hat_get_identity(TF_HAT *hat, char ret_uid[8], char ret_connected_uid[8], char *ret_position, uint8_t ret_hardware_version[3], uint8_t ret_firmware_version[3], uint16_t *ret_device_identifier);
 
 #ifdef __cplusplus
 }

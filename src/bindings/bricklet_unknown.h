@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-10-04.      *
+ * This file was automatically generated on 2021-11-12.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -25,7 +25,7 @@ extern "C" {
  */
 
 struct TF_Unknown;
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
 
 typedef void (*TF_UnknownEnumerateHandler)(struct TF_Unknown *device, char uid[8], char connected_uid[8], char position, uint8_t hardware_version[3], uint8_t firmware_version[3], uint16_t device_identifier, uint8_t enumeration_type, void *user_data);
 
@@ -37,7 +37,7 @@ typedef void (*TF_UnknownEnumerateHandler)(struct TF_Unknown *device, char uid[8
  */
 typedef struct TF_Unknown {
     TF_TfpContext *tfp;
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
     TF_UnknownEnumerateHandler enumerate_handler;
     void *enumerate_user_data;
 
@@ -115,7 +115,7 @@ typedef struct TF_Unknown {
  */
 #define TF_UNKNOWN_FUNCTION_GET_IDENTITY 255
 
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
 
 /**
  * \ingroup BrickletUnknown
@@ -238,7 +238,7 @@ typedef struct TF_Unknown {
  * Creates the device object \c unknown with the unique device ID \c uid and adds
  * it to the IPConnection \c ipcon.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_unknown_create(TF_Unknown *unknown, const char *uid, TF_HalContext *hal, uint8_t port_id, int inventory_index);
+int tf_unknown_create(TF_Unknown *unknown, const char *uid, TF_HalContext *hal, uint8_t port_id, uint8_t inventory_index);
 
 /**
  * \ingroup BrickletUnknown
@@ -246,7 +246,7 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_unknown_create(TF_Unknown *unknown, const char *
  * Removes the device object \c unknown from its IPConnection and destroys it.
  * The device object cannot be used anymore afterwards.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_unknown_destroy(TF_Unknown *unknown);
+int tf_unknown_destroy(TF_Unknown *unknown);
 
 /**
  * \ingroup BrickletUnknown
@@ -267,7 +267,7 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_unknown_destroy(TF_Unknown *unknown);
  * disabled for a setter function then no response is sent and errors are
  * silently ignored, because they cannot be detected.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_unknown_get_response_expected(TF_Unknown *unknown, uint8_t function_id, bool *ret_response_expected);
+int tf_unknown_get_response_expected(TF_Unknown *unknown, uint8_t function_id, bool *ret_response_expected);
 
 /**
  * \ingroup BrickletUnknown
@@ -283,7 +283,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_unknown_get_response_expected(TF_Unknown *unknown
  * setter function then no response is sent and errors are silently ignored,
  * because they cannot be detected.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_unknown_set_response_expected(TF_Unknown *unknown, uint8_t function_id, bool response_expected);
+int tf_unknown_set_response_expected(TF_Unknown *unknown, uint8_t function_id, bool response_expected);
 
 /**
  * \ingroup BrickletUnknown
@@ -291,8 +291,8 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_unknown_set_response_expected(TF_Unknown *unknow
  * Changes the response expected flag for all setter and callback configuration
  * functions of this device at once.
  */
-TF_ATTRIBUTE_NONNULL_ALL void tf_unknown_set_response_expected_all(TF_Unknown *unknown, bool response_expected);
-#ifdef TF_IMPLEMENT_CALLBACKS
+void tf_unknown_set_response_expected_all(TF_Unknown *unknown, bool response_expected);
+#if TF_IMPLEMENT_CALLBACKS != 0
 /**
  * \ingroup BrickletUnknown
  *
@@ -331,7 +331,7 @@ TF_ATTRIBUTE_NONNULL_ALL void tf_unknown_set_response_expected_all(TF_Unknown *u
  *  It should be possible to implement plug-and-play functionality with this
  *  (as is done in Brick Viewer).
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_unknown_register_enumerate_callback(TF_Unknown *unknown, TF_UnknownEnumerateHandler handler, void *user_data);
+int tf_unknown_register_enumerate_callback(TF_Unknown *unknown, TF_UnknownEnumerateHandler handler, void *user_data);
 #endif
 /**
  * \ingroup BrickletUnknown
@@ -340,7 +340,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_unknown_register_enumerate_callback(TF_Unknown *u
  *
  * This function can be used in a non-blocking fashion by calling it with a timeout of 0.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_unknown_callback_tick(TF_Unknown *unknown, uint32_t timeout_us);
+int tf_unknown_callback_tick(TF_Unknown *unknown, uint32_t timeout_us);
 
 /**
  * \ingroup BrickletUnknown
@@ -357,7 +357,7 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_unknown_callback_tick(TF_Unknown *unknown, uint3
  * The errors counts are for errors that occur on the Bricklet side. All
  * Bricks have a similar function that returns the errors on the Brick side.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_unknown_get_spitfp_error_count(TF_Unknown *unknown, uint32_t *ret_error_count_ack_checksum, uint32_t *ret_error_count_message_checksum, uint32_t *ret_error_count_frame, uint32_t *ret_error_count_overflow);
+int tf_unknown_get_spitfp_error_count(TF_Unknown *unknown, uint32_t *ret_error_count_ack_checksum, uint32_t *ret_error_count_message_checksum, uint32_t *ret_error_count_frame, uint32_t *ret_error_count_overflow);
 
 /**
  * \ingroup BrickletUnknown
@@ -372,14 +372,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_unknown_get_spitfp_error_count(TF_Unknown *unknow
  * This function is used by Brick Viewer during flashing. It should not be
  * necessary to call it in a normal user program.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_unknown_set_bootloader_mode(TF_Unknown *unknown, uint8_t mode, uint8_t *ret_status);
+int tf_unknown_set_bootloader_mode(TF_Unknown *unknown, uint8_t mode, uint8_t *ret_status);
 
 /**
  * \ingroup BrickletUnknown
  *
  * Returns the current bootloader mode, see {@link tf_unknown_set_bootloader_mode}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_unknown_get_bootloader_mode(TF_Unknown *unknown, uint8_t *ret_mode);
+int tf_unknown_get_bootloader_mode(TF_Unknown *unknown, uint8_t *ret_mode);
 
 /**
  * \ingroup BrickletUnknown
@@ -391,7 +391,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_unknown_get_bootloader_mode(TF_Unknown *unknown, 
  * This function is used by Brick Viewer during flashing. It should not be
  * necessary to call it in a normal user program.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_unknown_set_write_firmware_pointer(TF_Unknown *unknown, uint32_t pointer);
+int tf_unknown_set_write_firmware_pointer(TF_Unknown *unknown, uint32_t pointer);
 
 /**
  * \ingroup BrickletUnknown
@@ -405,7 +405,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_unknown_set_write_firmware_pointer(TF_Unknown *un
  * This function is used by Brick Viewer during flashing. It should not be
  * necessary to call it in a normal user program.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_unknown_write_firmware(TF_Unknown *unknown, uint8_t data[64], uint8_t *ret_status);
+int tf_unknown_write_firmware(TF_Unknown *unknown, const uint8_t data[64], uint8_t *ret_status);
 
 /**
  * \ingroup BrickletUnknown
@@ -418,14 +418,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_unknown_write_firmware(TF_Unknown *unknown, uint8
  * 
  * If the Bricklet is in bootloader mode, the LED is will show heartbeat by default.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_unknown_set_status_led_config(TF_Unknown *unknown, uint8_t config);
+int tf_unknown_set_status_led_config(TF_Unknown *unknown, uint8_t config);
 
 /**
  * \ingroup BrickletUnknown
  *
  * Returns the configuration as set by {@link tf_unknown_set_status_led_config}
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_unknown_get_status_led_config(TF_Unknown *unknown, uint8_t *ret_config);
+int tf_unknown_get_status_led_config(TF_Unknown *unknown, uint8_t *ret_config);
 
 /**
  * \ingroup BrickletUnknown
@@ -437,7 +437,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_unknown_get_status_led_config(TF_Unknown *unknown
  * accuracy. Practically it is only useful as an indicator for
  * temperature changes.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_unknown_get_chip_temperature(TF_Unknown *unknown, int16_t *ret_temperature);
+int tf_unknown_get_chip_temperature(TF_Unknown *unknown, int16_t *ret_temperature);
 
 /**
  * \ingroup BrickletUnknown
@@ -449,7 +449,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_unknown_get_chip_temperature(TF_Unknown *unknown,
  * calling functions on the existing ones will result in
  * undefined behavior!
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_unknown_reset(TF_Unknown *unknown);
+int tf_unknown_reset(TF_Unknown *unknown);
 
 /**
  * \ingroup BrickletUnknown
@@ -460,7 +460,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_unknown_reset(TF_Unknown *unknown);
  * 
  * We recommend that you use Brick Viewer to change the UID.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_unknown_write_uid(TF_Unknown *unknown, uint32_t uid);
+int tf_unknown_write_uid(TF_Unknown *unknown, uint32_t uid);
 
 /**
  * \ingroup BrickletUnknown
@@ -468,7 +468,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_unknown_write_uid(TF_Unknown *unknown, uint32_t u
  * Returns the current UID as an integer. Encode as
  * Base58 to get the usual string version.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_unknown_read_uid(TF_Unknown *unknown, uint32_t *ret_uid);
+int tf_unknown_read_uid(TF_Unknown *unknown, uint32_t *ret_uid);
 
 /**
  * \ingroup BrickletUnknown
@@ -477,14 +477,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_unknown_read_uid(TF_Unknown *unknown, uint32_t *r
  * It is used to trigger the initial enumeration of CoMCU-Bricklets.
  * See {@link tf_unknown_register_enumerate_callback} callback.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_unknown_comcu_enumerate(TF_Unknown *unknown);
+int tf_unknown_comcu_enumerate(TF_Unknown *unknown);
 
 /**
  * \ingroup BrickletUnknown
  *
  * Broadcasts an enumerate request. All devices will respond with an {@link tf_unknown_register_enumerate_callback} callback.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_unknown_enumerate(TF_Unknown *unknown);
+int tf_unknown_enumerate(TF_Unknown *unknown);
 
 /**
  * \ingroup BrickletUnknown
@@ -500,7 +500,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_unknown_enumerate(TF_Unknown *unknown);
  * The device identifier numbers can be found :ref:`here <device_identifier>`.
  * |device_identifier_constant|
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_unknown_get_identity(TF_Unknown *unknown, char ret_uid[8], char ret_connected_uid[8], char *ret_position, uint8_t ret_hardware_version[3], uint8_t ret_firmware_version[3], uint16_t *ret_device_identifier);
+int tf_unknown_get_identity(TF_Unknown *unknown, char ret_uid[8], char ret_connected_uid[8], char *ret_position, uint8_t ret_hardware_version[3], uint8_t ret_firmware_version[3], uint16_t *ret_device_identifier);
 
 #ifdef __cplusplus
 }

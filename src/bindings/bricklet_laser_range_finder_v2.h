@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-10-04.      *
+ * This file was automatically generated on 2021-11-12.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -25,7 +25,7 @@ extern "C" {
  */
 
 struct TF_LaserRangeFinderV2;
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
 
 typedef void (*TF_LaserRangeFinderV2DistanceHandler)(struct TF_LaserRangeFinderV2 *device, int16_t distance, void *user_data);
 typedef void (*TF_LaserRangeFinderV2VelocityHandler)(struct TF_LaserRangeFinderV2 *device, int16_t velocity, void *user_data);
@@ -38,7 +38,7 @@ typedef void (*TF_LaserRangeFinderV2VelocityHandler)(struct TF_LaserRangeFinderV
  */
 typedef struct TF_LaserRangeFinderV2 {
     TF_TfpContext *tfp;
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
     TF_LaserRangeFinderV2DistanceHandler distance_handler;
     void *distance_user_data;
 
@@ -189,7 +189,7 @@ typedef struct TF_LaserRangeFinderV2 {
  */
 #define TF_LASER_RANGE_FINDER_V2_FUNCTION_GET_IDENTITY 255
 
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
 
 /**
  * \ingroup BrickletLaserRangeFinderV2
@@ -347,7 +347,7 @@ typedef struct TF_LaserRangeFinderV2 {
  * Creates the device object \c laser_range_finder_v2 with the unique device ID \c uid and adds
  * it to the IPConnection \c ipcon.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_laser_range_finder_v2_create(TF_LaserRangeFinderV2 *laser_range_finder_v2, const char *uid, TF_HalContext *hal);
+int tf_laser_range_finder_v2_create(TF_LaserRangeFinderV2 *laser_range_finder_v2, const char *uid, TF_HalContext *hal);
 
 /**
  * \ingroup BrickletLaserRangeFinderV2
@@ -355,7 +355,7 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_laser_range_finder_v2_create(TF_LaserRangeFinder
  * Removes the device object \c laser_range_finder_v2 from its IPConnection and destroys it.
  * The device object cannot be used anymore afterwards.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_laser_range_finder_v2_destroy(TF_LaserRangeFinderV2 *laser_range_finder_v2);
+int tf_laser_range_finder_v2_destroy(TF_LaserRangeFinderV2 *laser_range_finder_v2);
 
 /**
  * \ingroup BrickletLaserRangeFinderV2
@@ -376,7 +376,7 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_laser_range_finder_v2_destroy(TF_LaserRangeFinde
  * disabled for a setter function then no response is sent and errors are
  * silently ignored, because they cannot be detected.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_laser_range_finder_v2_get_response_expected(TF_LaserRangeFinderV2 *laser_range_finder_v2, uint8_t function_id, bool *ret_response_expected);
+int tf_laser_range_finder_v2_get_response_expected(TF_LaserRangeFinderV2 *laser_range_finder_v2, uint8_t function_id, bool *ret_response_expected);
 
 /**
  * \ingroup BrickletLaserRangeFinderV2
@@ -392,7 +392,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_laser_range_finder_v2_get_response_expected(TF_La
  * setter function then no response is sent and errors are silently ignored,
  * because they cannot be detected.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_laser_range_finder_v2_set_response_expected(TF_LaserRangeFinderV2 *laser_range_finder_v2, uint8_t function_id, bool response_expected);
+int tf_laser_range_finder_v2_set_response_expected(TF_LaserRangeFinderV2 *laser_range_finder_v2, uint8_t function_id, bool response_expected);
 
 /**
  * \ingroup BrickletLaserRangeFinderV2
@@ -400,8 +400,8 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_laser_range_finder_v2_set_response_expected(TF_L
  * Changes the response expected flag for all setter and callback configuration
  * functions of this device at once.
  */
-TF_ATTRIBUTE_NONNULL_ALL void tf_laser_range_finder_v2_set_response_expected_all(TF_LaserRangeFinderV2 *laser_range_finder_v2, bool response_expected);
-#ifdef TF_IMPLEMENT_CALLBACKS
+void tf_laser_range_finder_v2_set_response_expected_all(TF_LaserRangeFinderV2 *laser_range_finder_v2, bool response_expected);
+#if TF_IMPLEMENT_CALLBACKS != 0
 /**
  * \ingroup BrickletLaserRangeFinderV2
  *
@@ -415,7 +415,7 @@ TF_ATTRIBUTE_NONNULL_ALL void tf_laser_range_finder_v2_set_response_expected_all
  * 
  * The parameter is the same as {@link tf_laser_range_finder_v2_get_distance}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_laser_range_finder_v2_register_distance_callback(TF_LaserRangeFinderV2 *laser_range_finder_v2, TF_LaserRangeFinderV2DistanceHandler handler, void *user_data);
+int tf_laser_range_finder_v2_register_distance_callback(TF_LaserRangeFinderV2 *laser_range_finder_v2, TF_LaserRangeFinderV2DistanceHandler handler, void *user_data);
 
 
 /**
@@ -431,9 +431,9 @@ TF_ATTRIBUTE_NONNULL(1) int tf_laser_range_finder_v2_register_distance_callback(
  * 
  * The parameter is the same as {@link tf_laser_range_finder_v2_get_velocity}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_laser_range_finder_v2_register_velocity_callback(TF_LaserRangeFinderV2 *laser_range_finder_v2, TF_LaserRangeFinderV2VelocityHandler handler, void *user_data);
+int tf_laser_range_finder_v2_register_velocity_callback(TF_LaserRangeFinderV2 *laser_range_finder_v2, TF_LaserRangeFinderV2VelocityHandler handler, void *user_data);
 #endif
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
 /**
  * \ingroup BrickletLaserRangeFinderV2
  *
@@ -441,7 +441,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_laser_range_finder_v2_register_velocity_callback(
  *
  * This function can be used in a non-blocking fashion by calling it with a timeout of 0.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_laser_range_finder_v2_callback_tick(TF_LaserRangeFinderV2 *laser_range_finder_v2, uint32_t timeout_us);
+int tf_laser_range_finder_v2_callback_tick(TF_LaserRangeFinderV2 *laser_range_finder_v2, uint32_t timeout_us);
 #endif
 
 /**
@@ -456,7 +456,7 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_laser_range_finder_v2_callback_tick(TF_LaserRang
  * {@link tf_laser_range_finder_v2_register_distance_callback} callback. You can set the callback configuration
  * with {@link tf_laser_range_finder_v2_set_distance_callback_configuration}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_laser_range_finder_v2_get_distance(TF_LaserRangeFinderV2 *laser_range_finder_v2, int16_t *ret_distance);
+int tf_laser_range_finder_v2_get_distance(TF_LaserRangeFinderV2 *laser_range_finder_v2, int16_t *ret_distance);
 
 /**
  * \ingroup BrickletLaserRangeFinderV2
@@ -489,14 +489,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_laser_range_finder_v2_get_distance(TF_LaserRangeF
  * 
  * If the option is set to 'x' (threshold turned off) the callback is triggered with the fixed period.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_laser_range_finder_v2_set_distance_callback_configuration(TF_LaserRangeFinderV2 *laser_range_finder_v2, uint32_t period, bool value_has_to_change, char option, int16_t min, int16_t max);
+int tf_laser_range_finder_v2_set_distance_callback_configuration(TF_LaserRangeFinderV2 *laser_range_finder_v2, uint32_t period, bool value_has_to_change, char option, int16_t min, int16_t max);
 
 /**
  * \ingroup BrickletLaserRangeFinderV2
  *
  * Returns the callback configuration as set by {@link tf_laser_range_finder_v2_set_distance_callback_configuration}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_laser_range_finder_v2_get_distance_callback_configuration(TF_LaserRangeFinderV2 *laser_range_finder_v2, uint32_t *ret_period, bool *ret_value_has_to_change, char *ret_option, int16_t *ret_min, int16_t *ret_max);
+int tf_laser_range_finder_v2_get_distance_callback_configuration(TF_LaserRangeFinderV2 *laser_range_finder_v2, uint32_t *ret_period, bool *ret_value_has_to_change, char *ret_option, int16_t *ret_min, int16_t *ret_max);
 
 /**
  * \ingroup BrickletLaserRangeFinderV2
@@ -513,7 +513,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_laser_range_finder_v2_get_distance_callback_confi
  * {@link tf_laser_range_finder_v2_register_velocity_callback} callback. You can set the callback configuration
  * with {@link tf_laser_range_finder_v2_set_velocity_callback_configuration}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_laser_range_finder_v2_get_velocity(TF_LaserRangeFinderV2 *laser_range_finder_v2, int16_t *ret_velocity);
+int tf_laser_range_finder_v2_get_velocity(TF_LaserRangeFinderV2 *laser_range_finder_v2, int16_t *ret_velocity);
 
 /**
  * \ingroup BrickletLaserRangeFinderV2
@@ -546,14 +546,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_laser_range_finder_v2_get_velocity(TF_LaserRangeF
  * 
  * If the option is set to 'x' (threshold turned off) the callback is triggered with the fixed period.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_laser_range_finder_v2_set_velocity_callback_configuration(TF_LaserRangeFinderV2 *laser_range_finder_v2, uint32_t period, bool value_has_to_change, char option, int16_t min, int16_t max);
+int tf_laser_range_finder_v2_set_velocity_callback_configuration(TF_LaserRangeFinderV2 *laser_range_finder_v2, uint32_t period, bool value_has_to_change, char option, int16_t min, int16_t max);
 
 /**
  * \ingroup BrickletLaserRangeFinderV2
  *
  * Returns the callback configuration as set by {@link tf_laser_range_finder_v2_set_velocity_callback_configuration}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_laser_range_finder_v2_get_velocity_callback_configuration(TF_LaserRangeFinderV2 *laser_range_finder_v2, uint32_t *ret_period, bool *ret_value_has_to_change, char *ret_option, int16_t *ret_min, int16_t *ret_max);
+int tf_laser_range_finder_v2_get_velocity_callback_configuration(TF_LaserRangeFinderV2 *laser_range_finder_v2, uint32_t *ret_period, bool *ret_value_has_to_change, char *ret_option, int16_t *ret_min, int16_t *ret_max);
 
 /**
  * \ingroup BrickletLaserRangeFinderV2
@@ -563,14 +563,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_laser_range_finder_v2_get_velocity_callback_confi
  * We recommend that you wait 250ms after enabling the laser before
  * the first call of {@link tf_laser_range_finder_v2_get_distance} to ensure stable measurements.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_laser_range_finder_v2_set_enable(TF_LaserRangeFinderV2 *laser_range_finder_v2, bool enable);
+int tf_laser_range_finder_v2_set_enable(TF_LaserRangeFinderV2 *laser_range_finder_v2, bool enable);
 
 /**
  * \ingroup BrickletLaserRangeFinderV2
  *
  * Returns the value as set by {@link tf_laser_range_finder_v2_set_enable}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_laser_range_finder_v2_get_enable(TF_LaserRangeFinderV2 *laser_range_finder_v2, bool *ret_enable);
+int tf_laser_range_finder_v2_get_enable(TF_LaserRangeFinderV2 *laser_range_finder_v2, bool *ret_enable);
 
 /**
  * \ingroup BrickletLaserRangeFinderV2
@@ -603,14 +603,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_laser_range_finder_v2_get_enable(TF_LaserRangeFin
  * The default values for Acquisition Count, Enable Quick Termination, Threshold Value and
  * Measurement Frequency are 128, false, 0 and 0.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_laser_range_finder_v2_set_configuration(TF_LaserRangeFinderV2 *laser_range_finder_v2, uint8_t acquisition_count, bool enable_quick_termination, uint8_t threshold_value, uint16_t measurement_frequency);
+int tf_laser_range_finder_v2_set_configuration(TF_LaserRangeFinderV2 *laser_range_finder_v2, uint8_t acquisition_count, bool enable_quick_termination, uint8_t threshold_value, uint16_t measurement_frequency);
 
 /**
  * \ingroup BrickletLaserRangeFinderV2
  *
  * Returns the configuration as set by {@link tf_laser_range_finder_v2_set_configuration}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_laser_range_finder_v2_get_configuration(TF_LaserRangeFinderV2 *laser_range_finder_v2, uint8_t *ret_acquisition_count, bool *ret_enable_quick_termination, uint8_t *ret_threshold_value, uint16_t *ret_measurement_frequency);
+int tf_laser_range_finder_v2_get_configuration(TF_LaserRangeFinderV2 *laser_range_finder_v2, uint8_t *ret_acquisition_count, bool *ret_enable_quick_termination, uint8_t *ret_threshold_value, uint16_t *ret_measurement_frequency);
 
 /**
  * \ingroup BrickletLaserRangeFinderV2
@@ -621,14 +621,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_laser_range_finder_v2_get_configuration(TF_LaserR
  * Setting the length to 0 will turn the averaging completely off. With less
  * averaging, there is more noise on the data.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_laser_range_finder_v2_set_moving_average(TF_LaserRangeFinderV2 *laser_range_finder_v2, uint8_t distance_average_length, uint8_t velocity_average_length);
+int tf_laser_range_finder_v2_set_moving_average(TF_LaserRangeFinderV2 *laser_range_finder_v2, uint8_t distance_average_length, uint8_t velocity_average_length);
 
 /**
  * \ingroup BrickletLaserRangeFinderV2
  *
  * Returns the length moving average as set by {@link tf_laser_range_finder_v2_set_moving_average}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_laser_range_finder_v2_get_moving_average(TF_LaserRangeFinderV2 *laser_range_finder_v2, uint8_t *ret_distance_average_length, uint8_t *ret_velocity_average_length);
+int tf_laser_range_finder_v2_get_moving_average(TF_LaserRangeFinderV2 *laser_range_finder_v2, uint8_t *ret_distance_average_length, uint8_t *ret_velocity_average_length);
 
 /**
  * \ingroup BrickletLaserRangeFinderV2
@@ -643,14 +643,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_laser_range_finder_v2_get_moving_average(TF_Laser
  * Calculate the offset by measuring the distance to a known distance
  * and set it again.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_laser_range_finder_v2_set_offset_calibration(TF_LaserRangeFinderV2 *laser_range_finder_v2, int16_t offset);
+int tf_laser_range_finder_v2_set_offset_calibration(TF_LaserRangeFinderV2 *laser_range_finder_v2, int16_t offset);
 
 /**
  * \ingroup BrickletLaserRangeFinderV2
  *
  * Returns the offset value as set by {@link tf_laser_range_finder_v2_set_offset_calibration}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_laser_range_finder_v2_get_offset_calibration(TF_LaserRangeFinderV2 *laser_range_finder_v2, int16_t *ret_offset);
+int tf_laser_range_finder_v2_get_offset_calibration(TF_LaserRangeFinderV2 *laser_range_finder_v2, int16_t *ret_offset);
 
 /**
  * \ingroup BrickletLaserRangeFinderV2
@@ -658,14 +658,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_laser_range_finder_v2_get_offset_calibration(TF_L
  * Configures the distance LED to be either turned off, turned on, blink in
  * heartbeat mode or show the distance (brighter = object is nearer).
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_laser_range_finder_v2_set_distance_led_config(TF_LaserRangeFinderV2 *laser_range_finder_v2, uint8_t config);
+int tf_laser_range_finder_v2_set_distance_led_config(TF_LaserRangeFinderV2 *laser_range_finder_v2, uint8_t config);
 
 /**
  * \ingroup BrickletLaserRangeFinderV2
  *
  * Returns the LED configuration as set by {@link tf_laser_range_finder_v2_set_distance_led_config}
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_laser_range_finder_v2_get_distance_led_config(TF_LaserRangeFinderV2 *laser_range_finder_v2, uint8_t *ret_config);
+int tf_laser_range_finder_v2_get_distance_led_config(TF_LaserRangeFinderV2 *laser_range_finder_v2, uint8_t *ret_config);
 
 /**
  * \ingroup BrickletLaserRangeFinderV2
@@ -682,7 +682,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_laser_range_finder_v2_get_distance_led_config(TF_
  * The errors counts are for errors that occur on the Bricklet side. All
  * Bricks have a similar function that returns the errors on the Brick side.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_laser_range_finder_v2_get_spitfp_error_count(TF_LaserRangeFinderV2 *laser_range_finder_v2, uint32_t *ret_error_count_ack_checksum, uint32_t *ret_error_count_message_checksum, uint32_t *ret_error_count_frame, uint32_t *ret_error_count_overflow);
+int tf_laser_range_finder_v2_get_spitfp_error_count(TF_LaserRangeFinderV2 *laser_range_finder_v2, uint32_t *ret_error_count_ack_checksum, uint32_t *ret_error_count_message_checksum, uint32_t *ret_error_count_frame, uint32_t *ret_error_count_overflow);
 
 /**
  * \ingroup BrickletLaserRangeFinderV2
@@ -697,14 +697,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_laser_range_finder_v2_get_spitfp_error_count(TF_L
  * This function is used by Brick Viewer during flashing. It should not be
  * necessary to call it in a normal user program.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_laser_range_finder_v2_set_bootloader_mode(TF_LaserRangeFinderV2 *laser_range_finder_v2, uint8_t mode, uint8_t *ret_status);
+int tf_laser_range_finder_v2_set_bootloader_mode(TF_LaserRangeFinderV2 *laser_range_finder_v2, uint8_t mode, uint8_t *ret_status);
 
 /**
  * \ingroup BrickletLaserRangeFinderV2
  *
  * Returns the current bootloader mode, see {@link tf_laser_range_finder_v2_set_bootloader_mode}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_laser_range_finder_v2_get_bootloader_mode(TF_LaserRangeFinderV2 *laser_range_finder_v2, uint8_t *ret_mode);
+int tf_laser_range_finder_v2_get_bootloader_mode(TF_LaserRangeFinderV2 *laser_range_finder_v2, uint8_t *ret_mode);
 
 /**
  * \ingroup BrickletLaserRangeFinderV2
@@ -716,7 +716,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_laser_range_finder_v2_get_bootloader_mode(TF_Lase
  * This function is used by Brick Viewer during flashing. It should not be
  * necessary to call it in a normal user program.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_laser_range_finder_v2_set_write_firmware_pointer(TF_LaserRangeFinderV2 *laser_range_finder_v2, uint32_t pointer);
+int tf_laser_range_finder_v2_set_write_firmware_pointer(TF_LaserRangeFinderV2 *laser_range_finder_v2, uint32_t pointer);
 
 /**
  * \ingroup BrickletLaserRangeFinderV2
@@ -730,7 +730,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_laser_range_finder_v2_set_write_firmware_pointer(
  * This function is used by Brick Viewer during flashing. It should not be
  * necessary to call it in a normal user program.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_laser_range_finder_v2_write_firmware(TF_LaserRangeFinderV2 *laser_range_finder_v2, uint8_t data[64], uint8_t *ret_status);
+int tf_laser_range_finder_v2_write_firmware(TF_LaserRangeFinderV2 *laser_range_finder_v2, const uint8_t data[64], uint8_t *ret_status);
 
 /**
  * \ingroup BrickletLaserRangeFinderV2
@@ -743,14 +743,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_laser_range_finder_v2_write_firmware(TF_LaserRang
  * 
  * If the Bricklet is in bootloader mode, the LED is will show heartbeat by default.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_laser_range_finder_v2_set_status_led_config(TF_LaserRangeFinderV2 *laser_range_finder_v2, uint8_t config);
+int tf_laser_range_finder_v2_set_status_led_config(TF_LaserRangeFinderV2 *laser_range_finder_v2, uint8_t config);
 
 /**
  * \ingroup BrickletLaserRangeFinderV2
  *
  * Returns the configuration as set by {@link tf_laser_range_finder_v2_set_status_led_config}
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_laser_range_finder_v2_get_status_led_config(TF_LaserRangeFinderV2 *laser_range_finder_v2, uint8_t *ret_config);
+int tf_laser_range_finder_v2_get_status_led_config(TF_LaserRangeFinderV2 *laser_range_finder_v2, uint8_t *ret_config);
 
 /**
  * \ingroup BrickletLaserRangeFinderV2
@@ -762,7 +762,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_laser_range_finder_v2_get_status_led_config(TF_La
  * accuracy. Practically it is only useful as an indicator for
  * temperature changes.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_laser_range_finder_v2_get_chip_temperature(TF_LaserRangeFinderV2 *laser_range_finder_v2, int16_t *ret_temperature);
+int tf_laser_range_finder_v2_get_chip_temperature(TF_LaserRangeFinderV2 *laser_range_finder_v2, int16_t *ret_temperature);
 
 /**
  * \ingroup BrickletLaserRangeFinderV2
@@ -774,7 +774,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_laser_range_finder_v2_get_chip_temperature(TF_Las
  * calling functions on the existing ones will result in
  * undefined behavior!
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_laser_range_finder_v2_reset(TF_LaserRangeFinderV2 *laser_range_finder_v2);
+int tf_laser_range_finder_v2_reset(TF_LaserRangeFinderV2 *laser_range_finder_v2);
 
 /**
  * \ingroup BrickletLaserRangeFinderV2
@@ -785,7 +785,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_laser_range_finder_v2_reset(TF_LaserRangeFinderV2
  * 
  * We recommend that you use Brick Viewer to change the UID.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_laser_range_finder_v2_write_uid(TF_LaserRangeFinderV2 *laser_range_finder_v2, uint32_t uid);
+int tf_laser_range_finder_v2_write_uid(TF_LaserRangeFinderV2 *laser_range_finder_v2, uint32_t uid);
 
 /**
  * \ingroup BrickletLaserRangeFinderV2
@@ -793,7 +793,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_laser_range_finder_v2_write_uid(TF_LaserRangeFind
  * Returns the current UID as an integer. Encode as
  * Base58 to get the usual string version.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_laser_range_finder_v2_read_uid(TF_LaserRangeFinderV2 *laser_range_finder_v2, uint32_t *ret_uid);
+int tf_laser_range_finder_v2_read_uid(TF_LaserRangeFinderV2 *laser_range_finder_v2, uint32_t *ret_uid);
 
 /**
  * \ingroup BrickletLaserRangeFinderV2
@@ -809,7 +809,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_laser_range_finder_v2_read_uid(TF_LaserRangeFinde
  * The device identifier numbers can be found :ref:`here <device_identifier>`.
  * |device_identifier_constant|
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_laser_range_finder_v2_get_identity(TF_LaserRangeFinderV2 *laser_range_finder_v2, char ret_uid[8], char ret_connected_uid[8], char *ret_position, uint8_t ret_hardware_version[3], uint8_t ret_firmware_version[3], uint16_t *ret_device_identifier);
+int tf_laser_range_finder_v2_get_identity(TF_LaserRangeFinderV2 *laser_range_finder_v2, char ret_uid[8], char ret_connected_uid[8], char *ret_position, uint8_t ret_hardware_version[3], uint8_t ret_firmware_version[3], uint16_t *ret_device_identifier);
 
 #ifdef __cplusplus
 }

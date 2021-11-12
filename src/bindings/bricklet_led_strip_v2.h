@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-10-04.      *
+ * This file was automatically generated on 2021-11-12.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -25,7 +25,7 @@ extern "C" {
  */
 
 struct TF_LEDStripV2;
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
 
 typedef void (*TF_LEDStripV2FrameStartedHandler)(struct TF_LEDStripV2 *device, uint16_t length, void *user_data);
 
@@ -37,7 +37,7 @@ typedef void (*TF_LEDStripV2FrameStartedHandler)(struct TF_LEDStripV2 *device, u
  */
 typedef struct TF_LEDStripV2 {
     TF_TfpContext *tfp;
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
     TF_LEDStripV2FrameStartedHandler frame_started_handler;
     void *frame_started_user_data;
 
@@ -170,7 +170,7 @@ typedef struct TF_LEDStripV2 {
  */
 #define TF_LED_STRIP_V2_FUNCTION_GET_IDENTITY 255
 
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
 
 /**
  * \ingroup BrickletLEDStripV2
@@ -453,7 +453,7 @@ typedef struct TF_LEDStripV2 {
  * Creates the device object \c led_strip_v2 with the unique device ID \c uid and adds
  * it to the IPConnection \c ipcon.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_led_strip_v2_create(TF_LEDStripV2 *led_strip_v2, const char *uid, TF_HalContext *hal);
+int tf_led_strip_v2_create(TF_LEDStripV2 *led_strip_v2, const char *uid, TF_HalContext *hal);
 
 /**
  * \ingroup BrickletLEDStripV2
@@ -461,7 +461,7 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_led_strip_v2_create(TF_LEDStripV2 *led_strip_v2,
  * Removes the device object \c led_strip_v2 from its IPConnection and destroys it.
  * The device object cannot be used anymore afterwards.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_led_strip_v2_destroy(TF_LEDStripV2 *led_strip_v2);
+int tf_led_strip_v2_destroy(TF_LEDStripV2 *led_strip_v2);
 
 /**
  * \ingroup BrickletLEDStripV2
@@ -482,7 +482,7 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_led_strip_v2_destroy(TF_LEDStripV2 *led_strip_v2
  * disabled for a setter function then no response is sent and errors are
  * silently ignored, because they cannot be detected.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_led_strip_v2_get_response_expected(TF_LEDStripV2 *led_strip_v2, uint8_t function_id, bool *ret_response_expected);
+int tf_led_strip_v2_get_response_expected(TF_LEDStripV2 *led_strip_v2, uint8_t function_id, bool *ret_response_expected);
 
 /**
  * \ingroup BrickletLEDStripV2
@@ -498,7 +498,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_led_strip_v2_get_response_expected(TF_LEDStripV2 
  * setter function then no response is sent and errors are silently ignored,
  * because they cannot be detected.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_led_strip_v2_set_response_expected(TF_LEDStripV2 *led_strip_v2, uint8_t function_id, bool response_expected);
+int tf_led_strip_v2_set_response_expected(TF_LEDStripV2 *led_strip_v2, uint8_t function_id, bool response_expected);
 
 /**
  * \ingroup BrickletLEDStripV2
@@ -506,8 +506,8 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_led_strip_v2_set_response_expected(TF_LEDStripV2
  * Changes the response expected flag for all setter and callback configuration
  * functions of this device at once.
  */
-TF_ATTRIBUTE_NONNULL_ALL void tf_led_strip_v2_set_response_expected_all(TF_LEDStripV2 *led_strip_v2, bool response_expected);
-#ifdef TF_IMPLEMENT_CALLBACKS
+void tf_led_strip_v2_set_response_expected_all(TF_LEDStripV2 *led_strip_v2, bool response_expected);
+#if TF_IMPLEMENT_CALLBACKS != 0
 /**
  * \ingroup BrickletLEDStripV2
  *
@@ -524,9 +524,9 @@ TF_ATTRIBUTE_NONNULL_ALL void tf_led_strip_v2_set_response_expected_all(TF_LEDSt
  * 
  * For an explanation of the general approach see {@link tf_led_strip_v2_set_led_values}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_led_strip_v2_register_frame_started_callback(TF_LEDStripV2 *led_strip_v2, TF_LEDStripV2FrameStartedHandler handler, void *user_data);
+int tf_led_strip_v2_register_frame_started_callback(TF_LEDStripV2 *led_strip_v2, TF_LEDStripV2FrameStartedHandler handler, void *user_data);
 #endif
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
 /**
  * \ingroup BrickletLEDStripV2
  *
@@ -534,7 +534,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_led_strip_v2_register_frame_started_callback(TF_L
  *
  * This function can be used in a non-blocking fashion by calling it with a timeout of 0.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_led_strip_v2_callback_tick(TF_LEDStripV2 *led_strip_v2, uint32_t timeout_us);
+int tf_led_strip_v2_callback_tick(TF_LEDStripV2 *led_strip_v2, uint32_t timeout_us);
 #endif
 
 /**
@@ -566,7 +566,7 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_led_strip_v2_callback_tick(TF_LEDStripV2 *led_st
  * 
  * This approach ensures that you can change the LED colors with a fixed frame rate.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_led_strip_v2_set_led_values_low_level(TF_LEDStripV2 *led_strip_v2, uint16_t index, uint16_t value_length, uint16_t value_chunk_offset, uint8_t value_chunk_data[58]);
+int tf_led_strip_v2_set_led_values_low_level(TF_LEDStripV2 *led_strip_v2, uint16_t index, uint16_t value_length, uint16_t value_chunk_offset, const uint8_t value_chunk_data[58]);
 
 /**
  * \ingroup BrickletLEDStripV2
@@ -579,7 +579,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_led_strip_v2_set_led_values_low_level(TF_LEDStrip
  * sequence RGBWRGBWRGBW...
  * (assuming you start at an index divisible by 3 (RGB) or 4 (RGBW)).
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_led_strip_v2_get_led_values_low_level(TF_LEDStripV2 *led_strip_v2, uint16_t index, uint16_t length, uint16_t *ret_value_length, uint16_t *ret_value_chunk_offset, uint8_t ret_value_chunk_data[60]);
+int tf_led_strip_v2_get_led_values_low_level(TF_LEDStripV2 *led_strip_v2, uint16_t index, uint16_t length, uint16_t *ret_value_length, uint16_t *ret_value_chunk_offset, uint8_t ret_value_chunk_data[60]);
 
 /**
  * \ingroup BrickletLEDStripV2
@@ -593,21 +593,21 @@ TF_ATTRIBUTE_NONNULL(1) int tf_led_strip_v2_get_led_values_low_level(TF_LEDStrip
  * 
  * Default value: 100ms (10 frames per second).
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_led_strip_v2_set_frame_duration(TF_LEDStripV2 *led_strip_v2, uint16_t duration);
+int tf_led_strip_v2_set_frame_duration(TF_LEDStripV2 *led_strip_v2, uint16_t duration);
 
 /**
  * \ingroup BrickletLEDStripV2
  *
  * Returns the frame duration as set by {@link tf_led_strip_v2_set_frame_duration}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_led_strip_v2_get_frame_duration(TF_LEDStripV2 *led_strip_v2, uint16_t *ret_duration);
+int tf_led_strip_v2_get_frame_duration(TF_LEDStripV2 *led_strip_v2, uint16_t *ret_duration);
 
 /**
  * \ingroup BrickletLEDStripV2
  *
  * Returns the current supply voltage of the LEDs.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_led_strip_v2_get_supply_voltage(TF_LEDStripV2 *led_strip_v2, uint16_t *ret_voltage);
+int tf_led_strip_v2_get_supply_voltage(TF_LEDStripV2 *led_strip_v2, uint16_t *ret_voltage);
 
 /**
  * \ingroup BrickletLEDStripV2
@@ -625,14 +625,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_led_strip_v2_get_supply_voltage(TF_LEDStripV2 *le
  * With a decreasing frequency your maximum frames per second will decrease
  * too.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_led_strip_v2_set_clock_frequency(TF_LEDStripV2 *led_strip_v2, uint32_t frequency);
+int tf_led_strip_v2_set_clock_frequency(TF_LEDStripV2 *led_strip_v2, uint32_t frequency);
 
 /**
  * \ingroup BrickletLEDStripV2
  *
  * Returns the currently used clock frequency as set by {@link tf_led_strip_v2_set_clock_frequency}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_led_strip_v2_get_clock_frequency(TF_LEDStripV2 *led_strip_v2, uint32_t *ret_frequency);
+int tf_led_strip_v2_get_clock_frequency(TF_LEDStripV2 *led_strip_v2, uint32_t *ret_frequency);
 
 /**
  * \ingroup BrickletLEDStripV2
@@ -647,14 +647,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_led_strip_v2_get_clock_frequency(TF_LEDStripV2 *l
  * * LPD8806 and
  * * APA102 / DotStar.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_led_strip_v2_set_chip_type(TF_LEDStripV2 *led_strip_v2, uint16_t chip);
+int tf_led_strip_v2_set_chip_type(TF_LEDStripV2 *led_strip_v2, uint16_t chip);
 
 /**
  * \ingroup BrickletLEDStripV2
  *
  * Returns the currently used chip type as set by {@link tf_led_strip_v2_set_chip_type}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_led_strip_v2_get_chip_type(TF_LEDStripV2 *led_strip_v2, uint16_t *ret_chip);
+int tf_led_strip_v2_get_chip_type(TF_LEDStripV2 *led_strip_v2, uint16_t *ret_chip);
 
 /**
  * \ingroup BrickletLEDStripV2
@@ -675,21 +675,21 @@ TF_ATTRIBUTE_NONNULL(1) int tf_led_strip_v2_get_chip_type(TF_LEDStripV2 *led_str
  * channel, therefore one of the Wxyz channel mappings should be used. Then
  * the W channel controls the brightness.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_led_strip_v2_set_channel_mapping(TF_LEDStripV2 *led_strip_v2, uint8_t mapping);
+int tf_led_strip_v2_set_channel_mapping(TF_LEDStripV2 *led_strip_v2, uint8_t mapping);
 
 /**
  * \ingroup BrickletLEDStripV2
  *
  * Returns the currently used channel mapping as set by {@link tf_led_strip_v2_set_channel_mapping}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_led_strip_v2_get_channel_mapping(TF_LEDStripV2 *led_strip_v2, uint8_t *ret_mapping);
+int tf_led_strip_v2_get_channel_mapping(TF_LEDStripV2 *led_strip_v2, uint8_t *ret_mapping);
 
 /**
  * \ingroup BrickletLEDStripV2
  *
  * Enables/disables the {@link tf_led_strip_v2_register_frame_started_callback} callback.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_led_strip_v2_set_frame_started_callback_configuration(TF_LEDStripV2 *led_strip_v2, bool enable);
+int tf_led_strip_v2_set_frame_started_callback_configuration(TF_LEDStripV2 *led_strip_v2, bool enable);
 
 /**
  * \ingroup BrickletLEDStripV2
@@ -697,7 +697,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_led_strip_v2_set_frame_started_callback_configura
  * Returns the configuration as set by
  * {@link tf_led_strip_v2_set_frame_started_callback_configuration}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_led_strip_v2_get_frame_started_callback_configuration(TF_LEDStripV2 *led_strip_v2, bool *ret_enable);
+int tf_led_strip_v2_get_frame_started_callback_configuration(TF_LEDStripV2 *led_strip_v2, bool *ret_enable);
 
 /**
  * \ingroup BrickletLEDStripV2
@@ -714,7 +714,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_led_strip_v2_get_frame_started_callback_configura
  * The errors counts are for errors that occur on the Bricklet side. All
  * Bricks have a similar function that returns the errors on the Brick side.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_led_strip_v2_get_spitfp_error_count(TF_LEDStripV2 *led_strip_v2, uint32_t *ret_error_count_ack_checksum, uint32_t *ret_error_count_message_checksum, uint32_t *ret_error_count_frame, uint32_t *ret_error_count_overflow);
+int tf_led_strip_v2_get_spitfp_error_count(TF_LEDStripV2 *led_strip_v2, uint32_t *ret_error_count_ack_checksum, uint32_t *ret_error_count_message_checksum, uint32_t *ret_error_count_frame, uint32_t *ret_error_count_overflow);
 
 /**
  * \ingroup BrickletLEDStripV2
@@ -729,14 +729,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_led_strip_v2_get_spitfp_error_count(TF_LEDStripV2
  * This function is used by Brick Viewer during flashing. It should not be
  * necessary to call it in a normal user program.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_led_strip_v2_set_bootloader_mode(TF_LEDStripV2 *led_strip_v2, uint8_t mode, uint8_t *ret_status);
+int tf_led_strip_v2_set_bootloader_mode(TF_LEDStripV2 *led_strip_v2, uint8_t mode, uint8_t *ret_status);
 
 /**
  * \ingroup BrickletLEDStripV2
  *
  * Returns the current bootloader mode, see {@link tf_led_strip_v2_set_bootloader_mode}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_led_strip_v2_get_bootloader_mode(TF_LEDStripV2 *led_strip_v2, uint8_t *ret_mode);
+int tf_led_strip_v2_get_bootloader_mode(TF_LEDStripV2 *led_strip_v2, uint8_t *ret_mode);
 
 /**
  * \ingroup BrickletLEDStripV2
@@ -748,7 +748,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_led_strip_v2_get_bootloader_mode(TF_LEDStripV2 *l
  * This function is used by Brick Viewer during flashing. It should not be
  * necessary to call it in a normal user program.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_led_strip_v2_set_write_firmware_pointer(TF_LEDStripV2 *led_strip_v2, uint32_t pointer);
+int tf_led_strip_v2_set_write_firmware_pointer(TF_LEDStripV2 *led_strip_v2, uint32_t pointer);
 
 /**
  * \ingroup BrickletLEDStripV2
@@ -762,7 +762,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_led_strip_v2_set_write_firmware_pointer(TF_LEDStr
  * This function is used by Brick Viewer during flashing. It should not be
  * necessary to call it in a normal user program.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_led_strip_v2_write_firmware(TF_LEDStripV2 *led_strip_v2, uint8_t data[64], uint8_t *ret_status);
+int tf_led_strip_v2_write_firmware(TF_LEDStripV2 *led_strip_v2, const uint8_t data[64], uint8_t *ret_status);
 
 /**
  * \ingroup BrickletLEDStripV2
@@ -775,14 +775,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_led_strip_v2_write_firmware(TF_LEDStripV2 *led_st
  * 
  * If the Bricklet is in bootloader mode, the LED is will show heartbeat by default.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_led_strip_v2_set_status_led_config(TF_LEDStripV2 *led_strip_v2, uint8_t config);
+int tf_led_strip_v2_set_status_led_config(TF_LEDStripV2 *led_strip_v2, uint8_t config);
 
 /**
  * \ingroup BrickletLEDStripV2
  *
  * Returns the configuration as set by {@link tf_led_strip_v2_set_status_led_config}
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_led_strip_v2_get_status_led_config(TF_LEDStripV2 *led_strip_v2, uint8_t *ret_config);
+int tf_led_strip_v2_get_status_led_config(TF_LEDStripV2 *led_strip_v2, uint8_t *ret_config);
 
 /**
  * \ingroup BrickletLEDStripV2
@@ -794,7 +794,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_led_strip_v2_get_status_led_config(TF_LEDStripV2 
  * accuracy. Practically it is only useful as an indicator for
  * temperature changes.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_led_strip_v2_get_chip_temperature(TF_LEDStripV2 *led_strip_v2, int16_t *ret_temperature);
+int tf_led_strip_v2_get_chip_temperature(TF_LEDStripV2 *led_strip_v2, int16_t *ret_temperature);
 
 /**
  * \ingroup BrickletLEDStripV2
@@ -806,7 +806,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_led_strip_v2_get_chip_temperature(TF_LEDStripV2 *
  * calling functions on the existing ones will result in
  * undefined behavior!
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_led_strip_v2_reset(TF_LEDStripV2 *led_strip_v2);
+int tf_led_strip_v2_reset(TF_LEDStripV2 *led_strip_v2);
 
 /**
  * \ingroup BrickletLEDStripV2
@@ -817,7 +817,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_led_strip_v2_reset(TF_LEDStripV2 *led_strip_v2);
  * 
  * We recommend that you use Brick Viewer to change the UID.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_led_strip_v2_write_uid(TF_LEDStripV2 *led_strip_v2, uint32_t uid);
+int tf_led_strip_v2_write_uid(TF_LEDStripV2 *led_strip_v2, uint32_t uid);
 
 /**
  * \ingroup BrickletLEDStripV2
@@ -825,7 +825,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_led_strip_v2_write_uid(TF_LEDStripV2 *led_strip_v
  * Returns the current UID as an integer. Encode as
  * Base58 to get the usual string version.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_led_strip_v2_read_uid(TF_LEDStripV2 *led_strip_v2, uint32_t *ret_uid);
+int tf_led_strip_v2_read_uid(TF_LEDStripV2 *led_strip_v2, uint32_t *ret_uid);
 
 /**
  * \ingroup BrickletLEDStripV2
@@ -841,7 +841,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_led_strip_v2_read_uid(TF_LEDStripV2 *led_strip_v2
  * The device identifier numbers can be found :ref:`here <device_identifier>`.
  * |device_identifier_constant|
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_led_strip_v2_get_identity(TF_LEDStripV2 *led_strip_v2, char ret_uid[8], char ret_connected_uid[8], char *ret_position, uint8_t ret_hardware_version[3], uint8_t ret_firmware_version[3], uint16_t *ret_device_identifier);
+int tf_led_strip_v2_get_identity(TF_LEDStripV2 *led_strip_v2, char ret_uid[8], char ret_connected_uid[8], char *ret_position, uint8_t ret_hardware_version[3], uint8_t ret_firmware_version[3], uint16_t *ret_device_identifier);
 
 /**
  * \ingroup BrickletLEDStripV2
@@ -872,7 +872,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_led_strip_v2_get_identity(TF_LEDStripV2 *led_stri
  * 
  * This approach ensures that you can change the LED colors with a fixed frame rate.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_led_strip_v2_set_led_values(TF_LEDStripV2 *led_strip_v2, uint16_t index, uint8_t *value, uint16_t value_length);
+int tf_led_strip_v2_set_led_values(TF_LEDStripV2 *led_strip_v2, uint16_t index, const uint8_t *value, uint16_t value_length);
 
 /**
  * \ingroup BrickletLEDStripV2
@@ -885,7 +885,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_led_strip_v2_set_led_values(TF_LEDStripV2 *led_st
  * sequence RGBWRGBWRGBW...
  * (assuming you start at an index divisible by 3 (RGB) or 4 (RGBW)).
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_led_strip_v2_get_led_values(TF_LEDStripV2 *led_strip_v2, uint16_t index, uint16_t length, uint8_t *ret_value, uint16_t *ret_value_length);
+int tf_led_strip_v2_get_led_values(TF_LEDStripV2 *led_strip_v2, uint16_t index, uint16_t length, uint8_t *ret_value, uint16_t *ret_value_length);
 
 #ifdef __cplusplus
 }

@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-10-04.      *
+ * This file was automatically generated on 2021-11-12.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -25,7 +25,7 @@ extern "C" {
  */
 
 struct TF_RealTimeClockV2;
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
 
 typedef void (*TF_RealTimeClockV2DateTimeHandler)(struct TF_RealTimeClockV2 *device, uint16_t year, uint8_t month, uint8_t day, uint8_t hour, uint8_t minute, uint8_t second, uint8_t centisecond, uint8_t weekday, int64_t timestamp, void *user_data);
 typedef void (*TF_RealTimeClockV2AlarmHandler)(struct TF_RealTimeClockV2 *device, uint16_t year, uint8_t month, uint8_t day, uint8_t hour, uint8_t minute, uint8_t second, uint8_t centisecond, uint8_t weekday, int64_t timestamp, void *user_data);
@@ -38,7 +38,7 @@ typedef void (*TF_RealTimeClockV2AlarmHandler)(struct TF_RealTimeClockV2 *device
  */
 typedef struct TF_RealTimeClockV2 {
     TF_TfpContext *tfp;
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
     TF_RealTimeClockV2DateTimeHandler date_time_handler;
     void *date_time_user_data;
 
@@ -154,7 +154,7 @@ typedef struct TF_RealTimeClockV2 {
  */
 #define TF_REAL_TIME_CLOCK_V2_FUNCTION_GET_IDENTITY 255
 
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
 
 /**
  * \ingroup BrickletRealTimeClockV2
@@ -312,7 +312,7 @@ typedef struct TF_RealTimeClockV2 {
  * Creates the device object \c real_time_clock_v2 with the unique device ID \c uid and adds
  * it to the IPConnection \c ipcon.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_real_time_clock_v2_create(TF_RealTimeClockV2 *real_time_clock_v2, const char *uid, TF_HalContext *hal);
+int tf_real_time_clock_v2_create(TF_RealTimeClockV2 *real_time_clock_v2, const char *uid, TF_HalContext *hal);
 
 /**
  * \ingroup BrickletRealTimeClockV2
@@ -320,7 +320,7 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_real_time_clock_v2_create(TF_RealTimeClockV2 *re
  * Removes the device object \c real_time_clock_v2 from its IPConnection and destroys it.
  * The device object cannot be used anymore afterwards.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_real_time_clock_v2_destroy(TF_RealTimeClockV2 *real_time_clock_v2);
+int tf_real_time_clock_v2_destroy(TF_RealTimeClockV2 *real_time_clock_v2);
 
 /**
  * \ingroup BrickletRealTimeClockV2
@@ -341,7 +341,7 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_real_time_clock_v2_destroy(TF_RealTimeClockV2 *r
  * disabled for a setter function then no response is sent and errors are
  * silently ignored, because they cannot be detected.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_real_time_clock_v2_get_response_expected(TF_RealTimeClockV2 *real_time_clock_v2, uint8_t function_id, bool *ret_response_expected);
+int tf_real_time_clock_v2_get_response_expected(TF_RealTimeClockV2 *real_time_clock_v2, uint8_t function_id, bool *ret_response_expected);
 
 /**
  * \ingroup BrickletRealTimeClockV2
@@ -357,7 +357,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_real_time_clock_v2_get_response_expected(TF_RealT
  * setter function then no response is sent and errors are silently ignored,
  * because they cannot be detected.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_real_time_clock_v2_set_response_expected(TF_RealTimeClockV2 *real_time_clock_v2, uint8_t function_id, bool response_expected);
+int tf_real_time_clock_v2_set_response_expected(TF_RealTimeClockV2 *real_time_clock_v2, uint8_t function_id, bool response_expected);
 
 /**
  * \ingroup BrickletRealTimeClockV2
@@ -365,8 +365,8 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_real_time_clock_v2_set_response_expected(TF_Real
  * Changes the response expected flag for all setter and callback configuration
  * functions of this device at once.
  */
-TF_ATTRIBUTE_NONNULL_ALL void tf_real_time_clock_v2_set_response_expected_all(TF_RealTimeClockV2 *real_time_clock_v2, bool response_expected);
-#ifdef TF_IMPLEMENT_CALLBACKS
+void tf_real_time_clock_v2_set_response_expected_all(TF_RealTimeClockV2 *real_time_clock_v2, bool response_expected);
+#if TF_IMPLEMENT_CALLBACKS != 0
 /**
  * \ingroup BrickletRealTimeClockV2
  *
@@ -379,7 +379,7 @@ TF_ATTRIBUTE_NONNULL_ALL void tf_real_time_clock_v2_set_response_expected_all(TF
  * {@link tf_real_time_clock_v2_set_date_time_callback_configuration}. The parameters are the
  * same as for {@link tf_real_time_clock_v2_get_date_time}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_real_time_clock_v2_register_date_time_callback(TF_RealTimeClockV2 *real_time_clock_v2, TF_RealTimeClockV2DateTimeHandler handler, void *user_data);
+int tf_real_time_clock_v2_register_date_time_callback(TF_RealTimeClockV2 *real_time_clock_v2, TF_RealTimeClockV2DateTimeHandler handler, void *user_data);
 
 
 /**
@@ -394,9 +394,9 @@ TF_ATTRIBUTE_NONNULL(1) int tf_real_time_clock_v2_register_date_time_callback(TF
  * configured alarm (see {@link tf_real_time_clock_v2_set_alarm}). The parameters are the same
  * as for {@link tf_real_time_clock_v2_get_date_time}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_real_time_clock_v2_register_alarm_callback(TF_RealTimeClockV2 *real_time_clock_v2, TF_RealTimeClockV2AlarmHandler handler, void *user_data);
+int tf_real_time_clock_v2_register_alarm_callback(TF_RealTimeClockV2 *real_time_clock_v2, TF_RealTimeClockV2AlarmHandler handler, void *user_data);
 #endif
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
 /**
  * \ingroup BrickletRealTimeClockV2
  *
@@ -404,7 +404,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_real_time_clock_v2_register_alarm_callback(TF_Rea
  *
  * This function can be used in a non-blocking fashion by calling it with a timeout of 0.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_real_time_clock_v2_callback_tick(TF_RealTimeClockV2 *real_time_clock_v2, uint32_t timeout_us);
+int tf_real_time_clock_v2_callback_tick(TF_RealTimeClockV2 *real_time_clock_v2, uint32_t timeout_us);
 #endif
 
 /**
@@ -419,7 +419,7 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_real_time_clock_v2_callback_tick(TF_RealTimeCloc
  * accordingly. But leap seconds, time zones and daylight saving time are not
  * handled.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_real_time_clock_v2_set_date_time(TF_RealTimeClockV2 *real_time_clock_v2, uint16_t year, uint8_t month, uint8_t day, uint8_t hour, uint8_t minute, uint8_t second, uint8_t centisecond, uint8_t weekday);
+int tf_real_time_clock_v2_set_date_time(TF_RealTimeClockV2 *real_time_clock_v2, uint16_t year, uint8_t month, uint8_t day, uint8_t hour, uint8_t minute, uint8_t second, uint8_t centisecond, uint8_t weekday);
 
 /**
  * \ingroup BrickletRealTimeClockV2
@@ -430,7 +430,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_real_time_clock_v2_set_date_time(TF_RealTimeClock
  * The timestamp represents the current date and the the current time of the
  * real-time clock converted to milliseconds and is an offset to 2000-01-01 00:00:00.0000.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_real_time_clock_v2_get_date_time(TF_RealTimeClockV2 *real_time_clock_v2, uint16_t *ret_year, uint8_t *ret_month, uint8_t *ret_day, uint8_t *ret_hour, uint8_t *ret_minute, uint8_t *ret_second, uint8_t *ret_centisecond, uint8_t *ret_weekday, int64_t *ret_timestamp);
+int tf_real_time_clock_v2_get_date_time(TF_RealTimeClockV2 *real_time_clock_v2, uint16_t *ret_year, uint8_t *ret_month, uint8_t *ret_day, uint8_t *ret_hour, uint8_t *ret_minute, uint8_t *ret_second, uint8_t *ret_centisecond, uint8_t *ret_weekday, int64_t *ret_timestamp);
 
 /**
  * \ingroup BrickletRealTimeClockV2
@@ -439,7 +439,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_real_time_clock_v2_get_date_time(TF_RealTimeClock
  * milliseconds. The timestamp has an effective resolution of hundredths of a
  * second and is an offset to 2000-01-01 00:00:00.0000.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_real_time_clock_v2_get_timestamp(TF_RealTimeClockV2 *real_time_clock_v2, int64_t *ret_timestamp);
+int tf_real_time_clock_v2_get_timestamp(TF_RealTimeClockV2 *real_time_clock_v2, int64_t *ret_timestamp);
 
 /**
  * \ingroup BrickletRealTimeClockV2
@@ -470,14 +470,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_real_time_clock_v2_get_timestamp(TF_RealTimeClock
  * The offset is saved in the EEPROM of the Bricklet and only needs to be
  * configured once.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_real_time_clock_v2_set_offset(TF_RealTimeClockV2 *real_time_clock_v2, int8_t offset);
+int tf_real_time_clock_v2_set_offset(TF_RealTimeClockV2 *real_time_clock_v2, int8_t offset);
 
 /**
  * \ingroup BrickletRealTimeClockV2
  *
  * Returns the offset as set by {@link tf_real_time_clock_v2_set_offset}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_real_time_clock_v2_get_offset(TF_RealTimeClockV2 *real_time_clock_v2, int8_t *ret_offset);
+int tf_real_time_clock_v2_get_offset(TF_RealTimeClockV2 *real_time_clock_v2, int8_t *ret_offset);
 
 /**
  * \ingroup BrickletRealTimeClockV2
@@ -485,14 +485,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_real_time_clock_v2_get_offset(TF_RealTimeClockV2 
  * Sets the period with which the {@link tf_real_time_clock_v2_register_date_time_callback} callback is triggered
  * periodically. A value of 0 turns the callback off.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_real_time_clock_v2_set_date_time_callback_configuration(TF_RealTimeClockV2 *real_time_clock_v2, uint32_t period);
+int tf_real_time_clock_v2_set_date_time_callback_configuration(TF_RealTimeClockV2 *real_time_clock_v2, uint32_t period);
 
 /**
  * \ingroup BrickletRealTimeClockV2
  *
  * Returns the period as set by {@link tf_real_time_clock_v2_set_date_time_callback_configuration}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_real_time_clock_v2_get_date_time_callback_configuration(TF_RealTimeClockV2 *real_time_clock_v2, uint32_t *ret_period);
+int tf_real_time_clock_v2_get_date_time_callback_configuration(TF_RealTimeClockV2 *real_time_clock_v2, uint32_t *ret_period);
 
 /**
  * \ingroup BrickletRealTimeClockV2
@@ -522,14 +522,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_real_time_clock_v2_get_date_time_callback_configu
  * example, configuring the alarm as (-1, -1, 7, 30, -1, -1, 300) results in an
  * alarm that triggers every day at 7:30 AM and is then repeated every 5 minutes.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_real_time_clock_v2_set_alarm(TF_RealTimeClockV2 *real_time_clock_v2, int8_t month, int8_t day, int8_t hour, int8_t minute, int8_t second, int8_t weekday, int32_t interval);
+int tf_real_time_clock_v2_set_alarm(TF_RealTimeClockV2 *real_time_clock_v2, int8_t month, int8_t day, int8_t hour, int8_t minute, int8_t second, int8_t weekday, int32_t interval);
 
 /**
  * \ingroup BrickletRealTimeClockV2
  *
  * Returns the alarm configuration as set by {@link tf_real_time_clock_v2_set_alarm}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_real_time_clock_v2_get_alarm(TF_RealTimeClockV2 *real_time_clock_v2, int8_t *ret_month, int8_t *ret_day, int8_t *ret_hour, int8_t *ret_minute, int8_t *ret_second, int8_t *ret_weekday, int32_t *ret_interval);
+int tf_real_time_clock_v2_get_alarm(TF_RealTimeClockV2 *real_time_clock_v2, int8_t *ret_month, int8_t *ret_day, int8_t *ret_hour, int8_t *ret_minute, int8_t *ret_second, int8_t *ret_weekday, int32_t *ret_interval);
 
 /**
  * \ingroup BrickletRealTimeClockV2
@@ -546,7 +546,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_real_time_clock_v2_get_alarm(TF_RealTimeClockV2 *
  * The errors counts are for errors that occur on the Bricklet side. All
  * Bricks have a similar function that returns the errors on the Brick side.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_real_time_clock_v2_get_spitfp_error_count(TF_RealTimeClockV2 *real_time_clock_v2, uint32_t *ret_error_count_ack_checksum, uint32_t *ret_error_count_message_checksum, uint32_t *ret_error_count_frame, uint32_t *ret_error_count_overflow);
+int tf_real_time_clock_v2_get_spitfp_error_count(TF_RealTimeClockV2 *real_time_clock_v2, uint32_t *ret_error_count_ack_checksum, uint32_t *ret_error_count_message_checksum, uint32_t *ret_error_count_frame, uint32_t *ret_error_count_overflow);
 
 /**
  * \ingroup BrickletRealTimeClockV2
@@ -561,14 +561,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_real_time_clock_v2_get_spitfp_error_count(TF_Real
  * This function is used by Brick Viewer during flashing. It should not be
  * necessary to call it in a normal user program.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_real_time_clock_v2_set_bootloader_mode(TF_RealTimeClockV2 *real_time_clock_v2, uint8_t mode, uint8_t *ret_status);
+int tf_real_time_clock_v2_set_bootloader_mode(TF_RealTimeClockV2 *real_time_clock_v2, uint8_t mode, uint8_t *ret_status);
 
 /**
  * \ingroup BrickletRealTimeClockV2
  *
  * Returns the current bootloader mode, see {@link tf_real_time_clock_v2_set_bootloader_mode}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_real_time_clock_v2_get_bootloader_mode(TF_RealTimeClockV2 *real_time_clock_v2, uint8_t *ret_mode);
+int tf_real_time_clock_v2_get_bootloader_mode(TF_RealTimeClockV2 *real_time_clock_v2, uint8_t *ret_mode);
 
 /**
  * \ingroup BrickletRealTimeClockV2
@@ -580,7 +580,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_real_time_clock_v2_get_bootloader_mode(TF_RealTim
  * This function is used by Brick Viewer during flashing. It should not be
  * necessary to call it in a normal user program.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_real_time_clock_v2_set_write_firmware_pointer(TF_RealTimeClockV2 *real_time_clock_v2, uint32_t pointer);
+int tf_real_time_clock_v2_set_write_firmware_pointer(TF_RealTimeClockV2 *real_time_clock_v2, uint32_t pointer);
 
 /**
  * \ingroup BrickletRealTimeClockV2
@@ -594,7 +594,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_real_time_clock_v2_set_write_firmware_pointer(TF_
  * This function is used by Brick Viewer during flashing. It should not be
  * necessary to call it in a normal user program.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_real_time_clock_v2_write_firmware(TF_RealTimeClockV2 *real_time_clock_v2, uint8_t data[64], uint8_t *ret_status);
+int tf_real_time_clock_v2_write_firmware(TF_RealTimeClockV2 *real_time_clock_v2, const uint8_t data[64], uint8_t *ret_status);
 
 /**
  * \ingroup BrickletRealTimeClockV2
@@ -607,14 +607,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_real_time_clock_v2_write_firmware(TF_RealTimeCloc
  * 
  * If the Bricklet is in bootloader mode, the LED is will show heartbeat by default.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_real_time_clock_v2_set_status_led_config(TF_RealTimeClockV2 *real_time_clock_v2, uint8_t config);
+int tf_real_time_clock_v2_set_status_led_config(TF_RealTimeClockV2 *real_time_clock_v2, uint8_t config);
 
 /**
  * \ingroup BrickletRealTimeClockV2
  *
  * Returns the configuration as set by {@link tf_real_time_clock_v2_set_status_led_config}
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_real_time_clock_v2_get_status_led_config(TF_RealTimeClockV2 *real_time_clock_v2, uint8_t *ret_config);
+int tf_real_time_clock_v2_get_status_led_config(TF_RealTimeClockV2 *real_time_clock_v2, uint8_t *ret_config);
 
 /**
  * \ingroup BrickletRealTimeClockV2
@@ -626,7 +626,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_real_time_clock_v2_get_status_led_config(TF_RealT
  * accuracy. Practically it is only useful as an indicator for
  * temperature changes.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_real_time_clock_v2_get_chip_temperature(TF_RealTimeClockV2 *real_time_clock_v2, int16_t *ret_temperature);
+int tf_real_time_clock_v2_get_chip_temperature(TF_RealTimeClockV2 *real_time_clock_v2, int16_t *ret_temperature);
 
 /**
  * \ingroup BrickletRealTimeClockV2
@@ -638,7 +638,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_real_time_clock_v2_get_chip_temperature(TF_RealTi
  * calling functions on the existing ones will result in
  * undefined behavior!
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_real_time_clock_v2_reset(TF_RealTimeClockV2 *real_time_clock_v2);
+int tf_real_time_clock_v2_reset(TF_RealTimeClockV2 *real_time_clock_v2);
 
 /**
  * \ingroup BrickletRealTimeClockV2
@@ -649,7 +649,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_real_time_clock_v2_reset(TF_RealTimeClockV2 *real
  * 
  * We recommend that you use Brick Viewer to change the UID.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_real_time_clock_v2_write_uid(TF_RealTimeClockV2 *real_time_clock_v2, uint32_t uid);
+int tf_real_time_clock_v2_write_uid(TF_RealTimeClockV2 *real_time_clock_v2, uint32_t uid);
 
 /**
  * \ingroup BrickletRealTimeClockV2
@@ -657,7 +657,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_real_time_clock_v2_write_uid(TF_RealTimeClockV2 *
  * Returns the current UID as an integer. Encode as
  * Base58 to get the usual string version.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_real_time_clock_v2_read_uid(TF_RealTimeClockV2 *real_time_clock_v2, uint32_t *ret_uid);
+int tf_real_time_clock_v2_read_uid(TF_RealTimeClockV2 *real_time_clock_v2, uint32_t *ret_uid);
 
 /**
  * \ingroup BrickletRealTimeClockV2
@@ -673,7 +673,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_real_time_clock_v2_read_uid(TF_RealTimeClockV2 *r
  * The device identifier numbers can be found :ref:`here <device_identifier>`.
  * |device_identifier_constant|
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_real_time_clock_v2_get_identity(TF_RealTimeClockV2 *real_time_clock_v2, char ret_uid[8], char ret_connected_uid[8], char *ret_position, uint8_t ret_hardware_version[3], uint8_t ret_firmware_version[3], uint16_t *ret_device_identifier);
+int tf_real_time_clock_v2_get_identity(TF_RealTimeClockV2 *real_time_clock_v2, char ret_uid[8], char ret_connected_uid[8], char *ret_position, uint8_t ret_hardware_version[3], uint8_t ret_firmware_version[3], uint16_t *ret_device_identifier);
 
 #ifdef __cplusplus
 }

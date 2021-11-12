@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-10-04.      *
+ * This file was automatically generated on 2021-11-12.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -21,7 +21,7 @@ extern "C" {
 #endif
 
 
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
 static bool tf_xmc1400_breakout_callback_handler(void *dev, uint8_t fid, TF_Packetbuffer *payload) {
     TF_XMC1400Breakout *xmc1400_breakout = (TF_XMC1400Breakout *) dev;
     (void)payload;
@@ -35,7 +35,7 @@ static bool tf_xmc1400_breakout_callback_handler(void *dev, uint8_t fid, TF_Pack
                 return false;
             size_t i;
             uint16_t values[8]; for (i = 0; i < 8; ++i) values[i] = tf_packetbuffer_read_uint16_t(payload);
-            TF_HalCommon *common = tf_hal_get_common(xmc1400_breakout->tfp->hal);
+            TF_HalCommon *common = tf_hal_get_common((TF_HalContext*)xmc1400_breakout->tfp->hal);
             common->locked = true;
             fn(xmc1400_breakout, values, user_data);
             common->locked = false;
@@ -49,7 +49,7 @@ static bool tf_xmc1400_breakout_callback_handler(void *dev, uint8_t fid, TF_Pack
                 return false;
 
             uint32_t count = tf_packetbuffer_read_uint32_t(payload);
-            TF_HalCommon *common = tf_hal_get_common(xmc1400_breakout->tfp->hal);
+            TF_HalCommon *common = tf_hal_get_common((TF_HalContext*)xmc1400_breakout->tfp->hal);
             common->locked = true;
             fn(xmc1400_breakout, count, user_data);
             common->locked = false;
@@ -79,13 +79,12 @@ int tf_xmc1400_breakout_create(TF_XMC1400Breakout *xmc1400_breakout, const char 
     }
 
     uint8_t port_id;
-    int inventory_index;
+    uint8_t inventory_index;
     rc = tf_hal_get_port_id(hal, numeric_uid, &port_id, &inventory_index);
     if (rc < 0) {
         return rc;
     }
 
-    //rc = tf_tfp_init(xmc1400_breakout->tfp, numeric_uid, TF_XMC1400_BREAKOUT_DEVICE_IDENTIFIER, hal, port_id, inventory_index, tf_xmc1400_breakout_callback_handler);
     rc = tf_hal_get_tfp(hal, &xmc1400_breakout->tfp, TF_XMC1400_BREAKOUT_DEVICE_IDENTIFIER, inventory_index);
     if (rc != TF_E_OK) {
         return rc;
@@ -221,7 +220,7 @@ int tf_xmc1400_breakout_set_gpio_config(TF_XMC1400Breakout *xmc1400_breakout, ui
     if (xmc1400_breakout == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(xmc1400_breakout->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)xmc1400_breakout->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -237,7 +236,7 @@ int tf_xmc1400_breakout_set_gpio_config(TF_XMC1400Breakout *xmc1400_breakout, ui
     buf[3] = (uint8_t)input_hysteresis;
     buf[4] = output_level ? 1 : 0;
 
-    uint32_t deadline = tf_hal_current_time_us(xmc1400_breakout->tfp->hal) + tf_hal_get_common(xmc1400_breakout->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)xmc1400_breakout->tfp->hal) + tf_hal_get_common((TF_HalContext*)xmc1400_breakout->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(xmc1400_breakout->tfp, response_expected, deadline, &error_code);
@@ -260,7 +259,7 @@ int tf_xmc1400_breakout_get_gpio_input(TF_XMC1400Breakout *xmc1400_breakout, uin
     if (xmc1400_breakout == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(xmc1400_breakout->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)xmc1400_breakout->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -272,7 +271,7 @@ int tf_xmc1400_breakout_get_gpio_input(TF_XMC1400Breakout *xmc1400_breakout, uin
     buf[0] = (uint8_t)port;
     buf[1] = (uint8_t)pin;
 
-    uint32_t deadline = tf_hal_current_time_us(xmc1400_breakout->tfp->hal) + tf_hal_get_common(xmc1400_breakout->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)xmc1400_breakout->tfp->hal) + tf_hal_get_common((TF_HalContext*)xmc1400_breakout->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(xmc1400_breakout->tfp, response_expected, deadline, &error_code);
@@ -300,7 +299,7 @@ int tf_xmc1400_breakout_set_adc_channel_config(TF_XMC1400Breakout *xmc1400_break
     if (xmc1400_breakout == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(xmc1400_breakout->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)xmc1400_breakout->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -313,7 +312,7 @@ int tf_xmc1400_breakout_set_adc_channel_config(TF_XMC1400Breakout *xmc1400_break
     buf[0] = (uint8_t)channel;
     buf[1] = enable ? 1 : 0;
 
-    uint32_t deadline = tf_hal_current_time_us(xmc1400_breakout->tfp->hal) + tf_hal_get_common(xmc1400_breakout->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)xmc1400_breakout->tfp->hal) + tf_hal_get_common((TF_HalContext*)xmc1400_breakout->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(xmc1400_breakout->tfp, response_expected, deadline, &error_code);
@@ -336,7 +335,7 @@ int tf_xmc1400_breakout_get_adc_channel_config(TF_XMC1400Breakout *xmc1400_break
     if (xmc1400_breakout == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(xmc1400_breakout->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)xmc1400_breakout->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -347,7 +346,7 @@ int tf_xmc1400_breakout_get_adc_channel_config(TF_XMC1400Breakout *xmc1400_break
 
     buf[0] = (uint8_t)channel;
 
-    uint32_t deadline = tf_hal_current_time_us(xmc1400_breakout->tfp->hal) + tf_hal_get_common(xmc1400_breakout->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)xmc1400_breakout->tfp->hal) + tf_hal_get_common((TF_HalContext*)xmc1400_breakout->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(xmc1400_breakout->tfp, response_expected, deadline, &error_code);
@@ -375,7 +374,7 @@ int tf_xmc1400_breakout_get_adc_channel_value(TF_XMC1400Breakout *xmc1400_breako
     if (xmc1400_breakout == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(xmc1400_breakout->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)xmc1400_breakout->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -386,7 +385,7 @@ int tf_xmc1400_breakout_get_adc_channel_value(TF_XMC1400Breakout *xmc1400_breako
 
     buf[0] = (uint8_t)channel;
 
-    uint32_t deadline = tf_hal_current_time_us(xmc1400_breakout->tfp->hal) + tf_hal_get_common(xmc1400_breakout->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)xmc1400_breakout->tfp->hal) + tf_hal_get_common((TF_HalContext*)xmc1400_breakout->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(xmc1400_breakout->tfp, response_expected, deadline, &error_code);
@@ -414,7 +413,7 @@ int tf_xmc1400_breakout_get_adc_values(TF_XMC1400Breakout *xmc1400_breakout, uin
     if (xmc1400_breakout == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(xmc1400_breakout->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)xmc1400_breakout->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -422,7 +421,7 @@ int tf_xmc1400_breakout_get_adc_values(TF_XMC1400Breakout *xmc1400_breakout, uin
     tf_tfp_prepare_send(xmc1400_breakout->tfp, TF_XMC1400_BREAKOUT_FUNCTION_GET_ADC_VALUES, 0, 16, response_expected);
 
     size_t i;
-    uint32_t deadline = tf_hal_current_time_us(xmc1400_breakout->tfp->hal) + tf_hal_get_common(xmc1400_breakout->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)xmc1400_breakout->tfp->hal) + tf_hal_get_common((TF_HalContext*)xmc1400_breakout->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(xmc1400_breakout->tfp, response_expected, deadline, &error_code);
@@ -450,7 +449,7 @@ int tf_xmc1400_breakout_set_adc_values_callback_configuration(TF_XMC1400Breakout
     if (xmc1400_breakout == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(xmc1400_breakout->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)xmc1400_breakout->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -463,7 +462,7 @@ int tf_xmc1400_breakout_set_adc_values_callback_configuration(TF_XMC1400Breakout
     period = tf_leconvert_uint32_to(period); memcpy(buf + 0, &period, 4);
     buf[4] = value_has_to_change ? 1 : 0;
 
-    uint32_t deadline = tf_hal_current_time_us(xmc1400_breakout->tfp->hal) + tf_hal_get_common(xmc1400_breakout->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)xmc1400_breakout->tfp->hal) + tf_hal_get_common((TF_HalContext*)xmc1400_breakout->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(xmc1400_breakout->tfp, response_expected, deadline, &error_code);
@@ -486,14 +485,14 @@ int tf_xmc1400_breakout_get_adc_values_callback_configuration(TF_XMC1400Breakout
     if (xmc1400_breakout == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(xmc1400_breakout->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)xmc1400_breakout->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
     bool response_expected = true;
     tf_tfp_prepare_send(xmc1400_breakout->tfp, TF_XMC1400_BREAKOUT_FUNCTION_GET_ADC_VALUES_CALLBACK_CONFIGURATION, 0, 5, response_expected);
 
-    uint32_t deadline = tf_hal_current_time_us(xmc1400_breakout->tfp->hal) + tf_hal_get_common(xmc1400_breakout->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)xmc1400_breakout->tfp->hal) + tf_hal_get_common((TF_HalContext*)xmc1400_breakout->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(xmc1400_breakout->tfp, response_expected, deadline, &error_code);
@@ -522,14 +521,14 @@ int tf_xmc1400_breakout_get_count(TF_XMC1400Breakout *xmc1400_breakout, uint32_t
     if (xmc1400_breakout == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(xmc1400_breakout->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)xmc1400_breakout->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
     bool response_expected = true;
     tf_tfp_prepare_send(xmc1400_breakout->tfp, TF_XMC1400_BREAKOUT_FUNCTION_GET_COUNT, 0, 4, response_expected);
 
-    uint32_t deadline = tf_hal_current_time_us(xmc1400_breakout->tfp->hal) + tf_hal_get_common(xmc1400_breakout->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)xmc1400_breakout->tfp->hal) + tf_hal_get_common((TF_HalContext*)xmc1400_breakout->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(xmc1400_breakout->tfp, response_expected, deadline, &error_code);
@@ -557,7 +556,7 @@ int tf_xmc1400_breakout_set_count_callback_configuration(TF_XMC1400Breakout *xmc
     if (xmc1400_breakout == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(xmc1400_breakout->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)xmc1400_breakout->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -573,7 +572,7 @@ int tf_xmc1400_breakout_set_count_callback_configuration(TF_XMC1400Breakout *xmc
     min = tf_leconvert_uint32_to(min); memcpy(buf + 6, &min, 4);
     max = tf_leconvert_uint32_to(max); memcpy(buf + 10, &max, 4);
 
-    uint32_t deadline = tf_hal_current_time_us(xmc1400_breakout->tfp->hal) + tf_hal_get_common(xmc1400_breakout->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)xmc1400_breakout->tfp->hal) + tf_hal_get_common((TF_HalContext*)xmc1400_breakout->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(xmc1400_breakout->tfp, response_expected, deadline, &error_code);
@@ -596,14 +595,14 @@ int tf_xmc1400_breakout_get_count_callback_configuration(TF_XMC1400Breakout *xmc
     if (xmc1400_breakout == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(xmc1400_breakout->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)xmc1400_breakout->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
     bool response_expected = true;
     tf_tfp_prepare_send(xmc1400_breakout->tfp, TF_XMC1400_BREAKOUT_FUNCTION_GET_COUNT_CALLBACK_CONFIGURATION, 0, 14, response_expected);
 
-    uint32_t deadline = tf_hal_current_time_us(xmc1400_breakout->tfp->hal) + tf_hal_get_common(xmc1400_breakout->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)xmc1400_breakout->tfp->hal) + tf_hal_get_common((TF_HalContext*)xmc1400_breakout->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(xmc1400_breakout->tfp, response_expected, deadline, &error_code);
@@ -635,14 +634,14 @@ int tf_xmc1400_breakout_get_spitfp_error_count(TF_XMC1400Breakout *xmc1400_break
     if (xmc1400_breakout == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(xmc1400_breakout->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)xmc1400_breakout->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
     bool response_expected = true;
     tf_tfp_prepare_send(xmc1400_breakout->tfp, TF_XMC1400_BREAKOUT_FUNCTION_GET_SPITFP_ERROR_COUNT, 0, 16, response_expected);
 
-    uint32_t deadline = tf_hal_current_time_us(xmc1400_breakout->tfp->hal) + tf_hal_get_common(xmc1400_breakout->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)xmc1400_breakout->tfp->hal) + tf_hal_get_common((TF_HalContext*)xmc1400_breakout->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(xmc1400_breakout->tfp, response_expected, deadline, &error_code);
@@ -673,7 +672,7 @@ int tf_xmc1400_breakout_set_bootloader_mode(TF_XMC1400Breakout *xmc1400_breakout
     if (xmc1400_breakout == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(xmc1400_breakout->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)xmc1400_breakout->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -684,7 +683,7 @@ int tf_xmc1400_breakout_set_bootloader_mode(TF_XMC1400Breakout *xmc1400_breakout
 
     buf[0] = (uint8_t)mode;
 
-    uint32_t deadline = tf_hal_current_time_us(xmc1400_breakout->tfp->hal) + tf_hal_get_common(xmc1400_breakout->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)xmc1400_breakout->tfp->hal) + tf_hal_get_common((TF_HalContext*)xmc1400_breakout->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(xmc1400_breakout->tfp, response_expected, deadline, &error_code);
@@ -712,14 +711,14 @@ int tf_xmc1400_breakout_get_bootloader_mode(TF_XMC1400Breakout *xmc1400_breakout
     if (xmc1400_breakout == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(xmc1400_breakout->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)xmc1400_breakout->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
     bool response_expected = true;
     tf_tfp_prepare_send(xmc1400_breakout->tfp, TF_XMC1400_BREAKOUT_FUNCTION_GET_BOOTLOADER_MODE, 0, 1, response_expected);
 
-    uint32_t deadline = tf_hal_current_time_us(xmc1400_breakout->tfp->hal) + tf_hal_get_common(xmc1400_breakout->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)xmc1400_breakout->tfp->hal) + tf_hal_get_common((TF_HalContext*)xmc1400_breakout->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(xmc1400_breakout->tfp, response_expected, deadline, &error_code);
@@ -747,7 +746,7 @@ int tf_xmc1400_breakout_set_write_firmware_pointer(TF_XMC1400Breakout *xmc1400_b
     if (xmc1400_breakout == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(xmc1400_breakout->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)xmc1400_breakout->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -759,7 +758,7 @@ int tf_xmc1400_breakout_set_write_firmware_pointer(TF_XMC1400Breakout *xmc1400_b
 
     pointer = tf_leconvert_uint32_to(pointer); memcpy(buf + 0, &pointer, 4);
 
-    uint32_t deadline = tf_hal_current_time_us(xmc1400_breakout->tfp->hal) + tf_hal_get_common(xmc1400_breakout->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)xmc1400_breakout->tfp->hal) + tf_hal_get_common((TF_HalContext*)xmc1400_breakout->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(xmc1400_breakout->tfp, response_expected, deadline, &error_code);
@@ -778,11 +777,11 @@ int tf_xmc1400_breakout_set_write_firmware_pointer(TF_XMC1400Breakout *xmc1400_b
     return tf_tfp_get_error(error_code);
 }
 
-int tf_xmc1400_breakout_write_firmware(TF_XMC1400Breakout *xmc1400_breakout, uint8_t data[64], uint8_t *ret_status) {
+int tf_xmc1400_breakout_write_firmware(TF_XMC1400Breakout *xmc1400_breakout, const uint8_t data[64], uint8_t *ret_status) {
     if (xmc1400_breakout == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(xmc1400_breakout->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)xmc1400_breakout->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -793,7 +792,7 @@ int tf_xmc1400_breakout_write_firmware(TF_XMC1400Breakout *xmc1400_breakout, uin
 
     memcpy(buf + 0, data, 64);
 
-    uint32_t deadline = tf_hal_current_time_us(xmc1400_breakout->tfp->hal) + tf_hal_get_common(xmc1400_breakout->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)xmc1400_breakout->tfp->hal) + tf_hal_get_common((TF_HalContext*)xmc1400_breakout->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(xmc1400_breakout->tfp, response_expected, deadline, &error_code);
@@ -821,7 +820,7 @@ int tf_xmc1400_breakout_set_status_led_config(TF_XMC1400Breakout *xmc1400_breako
     if (xmc1400_breakout == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(xmc1400_breakout->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)xmc1400_breakout->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -833,7 +832,7 @@ int tf_xmc1400_breakout_set_status_led_config(TF_XMC1400Breakout *xmc1400_breako
 
     buf[0] = (uint8_t)config;
 
-    uint32_t deadline = tf_hal_current_time_us(xmc1400_breakout->tfp->hal) + tf_hal_get_common(xmc1400_breakout->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)xmc1400_breakout->tfp->hal) + tf_hal_get_common((TF_HalContext*)xmc1400_breakout->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(xmc1400_breakout->tfp, response_expected, deadline, &error_code);
@@ -856,14 +855,14 @@ int tf_xmc1400_breakout_get_status_led_config(TF_XMC1400Breakout *xmc1400_breako
     if (xmc1400_breakout == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(xmc1400_breakout->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)xmc1400_breakout->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
     bool response_expected = true;
     tf_tfp_prepare_send(xmc1400_breakout->tfp, TF_XMC1400_BREAKOUT_FUNCTION_GET_STATUS_LED_CONFIG, 0, 1, response_expected);
 
-    uint32_t deadline = tf_hal_current_time_us(xmc1400_breakout->tfp->hal) + tf_hal_get_common(xmc1400_breakout->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)xmc1400_breakout->tfp->hal) + tf_hal_get_common((TF_HalContext*)xmc1400_breakout->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(xmc1400_breakout->tfp, response_expected, deadline, &error_code);
@@ -891,14 +890,14 @@ int tf_xmc1400_breakout_get_chip_temperature(TF_XMC1400Breakout *xmc1400_breakou
     if (xmc1400_breakout == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(xmc1400_breakout->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)xmc1400_breakout->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
     bool response_expected = true;
     tf_tfp_prepare_send(xmc1400_breakout->tfp, TF_XMC1400_BREAKOUT_FUNCTION_GET_CHIP_TEMPERATURE, 0, 2, response_expected);
 
-    uint32_t deadline = tf_hal_current_time_us(xmc1400_breakout->tfp->hal) + tf_hal_get_common(xmc1400_breakout->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)xmc1400_breakout->tfp->hal) + tf_hal_get_common((TF_HalContext*)xmc1400_breakout->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(xmc1400_breakout->tfp, response_expected, deadline, &error_code);
@@ -926,7 +925,7 @@ int tf_xmc1400_breakout_reset(TF_XMC1400Breakout *xmc1400_breakout) {
     if (xmc1400_breakout == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(xmc1400_breakout->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)xmc1400_breakout->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -934,7 +933,7 @@ int tf_xmc1400_breakout_reset(TF_XMC1400Breakout *xmc1400_breakout) {
     tf_xmc1400_breakout_get_response_expected(xmc1400_breakout, TF_XMC1400_BREAKOUT_FUNCTION_RESET, &response_expected);
     tf_tfp_prepare_send(xmc1400_breakout->tfp, TF_XMC1400_BREAKOUT_FUNCTION_RESET, 0, 0, response_expected);
 
-    uint32_t deadline = tf_hal_current_time_us(xmc1400_breakout->tfp->hal) + tf_hal_get_common(xmc1400_breakout->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)xmc1400_breakout->tfp->hal) + tf_hal_get_common((TF_HalContext*)xmc1400_breakout->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(xmc1400_breakout->tfp, response_expected, deadline, &error_code);
@@ -957,7 +956,7 @@ int tf_xmc1400_breakout_write_uid(TF_XMC1400Breakout *xmc1400_breakout, uint32_t
     if (xmc1400_breakout == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(xmc1400_breakout->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)xmc1400_breakout->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -969,7 +968,7 @@ int tf_xmc1400_breakout_write_uid(TF_XMC1400Breakout *xmc1400_breakout, uint32_t
 
     uid = tf_leconvert_uint32_to(uid); memcpy(buf + 0, &uid, 4);
 
-    uint32_t deadline = tf_hal_current_time_us(xmc1400_breakout->tfp->hal) + tf_hal_get_common(xmc1400_breakout->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)xmc1400_breakout->tfp->hal) + tf_hal_get_common((TF_HalContext*)xmc1400_breakout->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(xmc1400_breakout->tfp, response_expected, deadline, &error_code);
@@ -992,14 +991,14 @@ int tf_xmc1400_breakout_read_uid(TF_XMC1400Breakout *xmc1400_breakout, uint32_t 
     if (xmc1400_breakout == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(xmc1400_breakout->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)xmc1400_breakout->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
     bool response_expected = true;
     tf_tfp_prepare_send(xmc1400_breakout->tfp, TF_XMC1400_BREAKOUT_FUNCTION_READ_UID, 0, 4, response_expected);
 
-    uint32_t deadline = tf_hal_current_time_us(xmc1400_breakout->tfp->hal) + tf_hal_get_common(xmc1400_breakout->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)xmc1400_breakout->tfp->hal) + tf_hal_get_common((TF_HalContext*)xmc1400_breakout->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(xmc1400_breakout->tfp, response_expected, deadline, &error_code);
@@ -1027,7 +1026,7 @@ int tf_xmc1400_breakout_get_identity(TF_XMC1400Breakout *xmc1400_breakout, char 
     if (xmc1400_breakout == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(xmc1400_breakout->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)xmc1400_breakout->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -1035,7 +1034,7 @@ int tf_xmc1400_breakout_get_identity(TF_XMC1400Breakout *xmc1400_breakout, char 
     tf_tfp_prepare_send(xmc1400_breakout->tfp, TF_XMC1400_BREAKOUT_FUNCTION_GET_IDENTITY, 0, 25, response_expected);
 
     size_t i;
-    uint32_t deadline = tf_hal_current_time_us(xmc1400_breakout->tfp->hal) + tf_hal_get_common(xmc1400_breakout->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)xmc1400_breakout->tfp->hal) + tf_hal_get_common((TF_HalContext*)xmc1400_breakout->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(xmc1400_breakout->tfp, response_expected, deadline, &error_code);
@@ -1056,7 +1055,7 @@ int tf_xmc1400_breakout_get_identity(TF_XMC1400Breakout *xmc1400_breakout, char 
         if (ret_firmware_version != NULL) { for (i = 0; i < 3; ++i) ret_firmware_version[i] = tf_packetbuffer_read_uint8_t(&xmc1400_breakout->tfp->spitfp->recv_buf);} else { tf_packetbuffer_remove(&xmc1400_breakout->tfp->spitfp->recv_buf, 3); }
         if (ret_device_identifier != NULL) { *ret_device_identifier = tf_packetbuffer_read_uint16_t(&xmc1400_breakout->tfp->spitfp->recv_buf); } else { tf_packetbuffer_remove(&xmc1400_breakout->tfp->spitfp->recv_buf, 2); }
         if (tmp_connected_uid[0] == 0 && ret_position != NULL) {
-            *ret_position = tf_hal_get_port_name(xmc1400_breakout->tfp->hal, xmc1400_breakout->tfp->spitfp->port_id);
+            *ret_position = tf_hal_get_port_name((TF_HalContext*)xmc1400_breakout->tfp->hal, xmc1400_breakout->tfp->spitfp->port_id);
         }
         if (ret_connected_uid != NULL) {
             memcpy(ret_connected_uid, tmp_connected_uid, 8);
@@ -1070,7 +1069,7 @@ int tf_xmc1400_breakout_get_identity(TF_XMC1400Breakout *xmc1400_breakout, char 
 
     return tf_tfp_get_error(error_code);
 }
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
 int tf_xmc1400_breakout_register_adc_values_callback(TF_XMC1400Breakout *xmc1400_breakout, TF_XMC1400BreakoutADCValuesHandler handler, void *user_data) {
     if (xmc1400_breakout == NULL)
         return TF_E_NULL;
@@ -1106,7 +1105,7 @@ int tf_xmc1400_breakout_callback_tick(TF_XMC1400Breakout *xmc1400_breakout, uint
     if (xmc1400_breakout == NULL)
         return TF_E_NULL;
 
-    return tf_tfp_callback_tick(xmc1400_breakout->tfp, tf_hal_current_time_us(xmc1400_breakout->tfp->hal) + timeout_us);
+    return tf_tfp_callback_tick(xmc1400_breakout->tfp, tf_hal_current_time_us((TF_HalContext*)xmc1400_breakout->tfp->hal) + timeout_us);
 }
 
 #ifdef __cplusplus

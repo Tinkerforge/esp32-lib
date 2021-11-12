@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-10-04.      *
+ * This file was automatically generated on 2021-11-12.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -25,7 +25,7 @@ extern "C" {
  */
 
 struct TF_RS485;
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
 
 typedef void (*TF_RS485ReadLowLevelHandler)(struct TF_RS485 *device, uint16_t message_length, uint16_t message_chunk_offset, char message_chunk_data[60], void *user_data);
 typedef void (*TF_RS485ErrorCountHandler)(struct TF_RS485 *device, uint32_t overrun_error_count, uint32_t parity_error_count, void *user_data);
@@ -55,7 +55,7 @@ typedef void (*TF_RS485FrameReadableHandler)(struct TF_RS485 *device, uint16_t f
  */
 typedef struct TF_RS485 {
     TF_TfpContext *tfp;
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
     TF_RS485ReadLowLevelHandler read_low_level_handler;
     void *read_low_level_user_data;
 
@@ -387,7 +387,7 @@ typedef struct TF_RS485 {
  */
 #define TF_RS485_FUNCTION_GET_IDENTITY 255
 
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
 
 /**
  * \ingroup BrickletRS485
@@ -750,7 +750,7 @@ typedef struct TF_RS485 {
  * Creates the device object \c rs485 with the unique device ID \c uid and adds
  * it to the IPConnection \c ipcon.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_rs485_create(TF_RS485 *rs485, const char *uid, TF_HalContext *hal);
+int tf_rs485_create(TF_RS485 *rs485, const char *uid, TF_HalContext *hal);
 
 /**
  * \ingroup BrickletRS485
@@ -758,7 +758,7 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_rs485_create(TF_RS485 *rs485, const char *uid, T
  * Removes the device object \c rs485 from its IPConnection and destroys it.
  * The device object cannot be used anymore afterwards.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_rs485_destroy(TF_RS485 *rs485);
+int tf_rs485_destroy(TF_RS485 *rs485);
 
 /**
  * \ingroup BrickletRS485
@@ -779,7 +779,7 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_rs485_destroy(TF_RS485 *rs485);
  * disabled for a setter function then no response is sent and errors are
  * silently ignored, because they cannot be detected.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_rs485_get_response_expected(TF_RS485 *rs485, uint8_t function_id, bool *ret_response_expected);
+int tf_rs485_get_response_expected(TF_RS485 *rs485, uint8_t function_id, bool *ret_response_expected);
 
 /**
  * \ingroup BrickletRS485
@@ -795,7 +795,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_rs485_get_response_expected(TF_RS485 *rs485, uint
  * setter function then no response is sent and errors are silently ignored,
  * because they cannot be detected.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_rs485_set_response_expected(TF_RS485 *rs485, uint8_t function_id, bool response_expected);
+int tf_rs485_set_response_expected(TF_RS485 *rs485, uint8_t function_id, bool response_expected);
 
 /**
  * \ingroup BrickletRS485
@@ -803,8 +803,8 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_rs485_set_response_expected(TF_RS485 *rs485, uin
  * Changes the response expected flag for all setter and callback configuration
  * functions of this device at once.
  */
-TF_ATTRIBUTE_NONNULL_ALL void tf_rs485_set_response_expected_all(TF_RS485 *rs485, bool response_expected);
-#ifdef TF_IMPLEMENT_CALLBACKS
+void tf_rs485_set_response_expected_all(TF_RS485 *rs485, bool response_expected);
+#if TF_IMPLEMENT_CALLBACKS != 0
 /**
  * \ingroup BrickletRS485
  *
@@ -817,7 +817,7 @@ TF_ATTRIBUTE_NONNULL_ALL void tf_rs485_set_response_expected_all(TF_RS485 *rs485
  * 
  * To enable this callback, use {@link tf_rs485_enable_read_callback}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_rs485_register_read_low_level_callback(TF_RS485 *rs485, TF_RS485ReadLowLevelHandler handler, void *user_data);
+int tf_rs485_register_read_low_level_callback(TF_RS485 *rs485, TF_RS485ReadLowLevelHandler handler, void *user_data);
 
 
 /**
@@ -831,7 +831,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_rs485_register_read_low_level_callback(TF_RS485 *
  * This callback is called if a new error occurs. It returns
  * the current overrun and parity error count.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_rs485_register_error_count_callback(TF_RS485 *rs485, TF_RS485ErrorCountHandler handler, void *user_data);
+int tf_rs485_register_error_count_callback(TF_RS485 *rs485, TF_RS485ErrorCountHandler handler, void *user_data);
 
 
 /**
@@ -850,7 +850,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_rs485_register_error_count_callback(TF_RS485 *rs4
  * 
  * To send a response of this request use {@link tf_rs485_modbus_slave_answer_read_coils_request}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_rs485_register_modbus_slave_read_coils_request_callback(TF_RS485 *rs485, TF_RS485ModbusSlaveReadCoilsRequestHandler handler, void *user_data);
+int tf_rs485_register_modbus_slave_read_coils_request_callback(TF_RS485 *rs485, TF_RS485ModbusSlaveReadCoilsRequestHandler handler, void *user_data);
 
 
 /**
@@ -875,7 +875,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_rs485_register_modbus_slave_read_coils_request_ca
  * request within the master request timeout period as set by
  * {@link tf_rs485_set_modbus_configuration}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_rs485_register_modbus_master_read_coils_response_low_level_callback(TF_RS485 *rs485, TF_RS485ModbusMasterReadCoilsResponseLowLevelHandler handler, void *user_data);
+int tf_rs485_register_modbus_master_read_coils_response_low_level_callback(TF_RS485 *rs485, TF_RS485ModbusMasterReadCoilsResponseLowLevelHandler handler, void *user_data);
 
 
 /**
@@ -894,7 +894,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_rs485_register_modbus_master_read_coils_response_
  * 
  * To send a response of this request use {@link tf_rs485_modbus_slave_answer_read_holding_registers_request}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_rs485_register_modbus_slave_read_holding_registers_request_callback(TF_RS485 *rs485, TF_RS485ModbusSlaveReadHoldingRegistersRequestHandler handler, void *user_data);
+int tf_rs485_register_modbus_slave_read_holding_registers_request_callback(TF_RS485 *rs485, TF_RS485ModbusSlaveReadHoldingRegistersRequestHandler handler, void *user_data);
 
 
 /**
@@ -919,7 +919,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_rs485_register_modbus_slave_read_holding_register
  * request within the master request timeout period as set by
  * {@link tf_rs485_set_modbus_configuration}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_rs485_register_modbus_master_read_holding_registers_response_low_level_callback(TF_RS485 *rs485, TF_RS485ModbusMasterReadHoldingRegistersResponseLowLevelHandler handler, void *user_data);
+int tf_rs485_register_modbus_master_read_holding_registers_response_low_level_callback(TF_RS485 *rs485, TF_RS485ModbusMasterReadHoldingRegistersResponseLowLevelHandler handler, void *user_data);
 
 
 /**
@@ -938,7 +938,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_rs485_register_modbus_master_read_holding_registe
  * 
  * To send a response of this request use {@link tf_rs485_modbus_slave_answer_write_single_coil_request}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_rs485_register_modbus_slave_write_single_coil_request_callback(TF_RS485 *rs485, TF_RS485ModbusSlaveWriteSingleCoilRequestHandler handler, void *user_data);
+int tf_rs485_register_modbus_slave_write_single_coil_request_callback(TF_RS485 *rs485, TF_RS485ModbusSlaveWriteSingleCoilRequestHandler handler, void *user_data);
 
 
 /**
@@ -962,7 +962,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_rs485_register_modbus_slave_write_single_coil_req
  * any valid response of the request within the master request timeout period as set
  * by {@link tf_rs485_set_modbus_configuration}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_rs485_register_modbus_master_write_single_coil_response_callback(TF_RS485 *rs485, TF_RS485ModbusMasterWriteSingleCoilResponseHandler handler, void *user_data);
+int tf_rs485_register_modbus_master_write_single_coil_response_callback(TF_RS485 *rs485, TF_RS485ModbusMasterWriteSingleCoilResponseHandler handler, void *user_data);
 
 
 /**
@@ -981,7 +981,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_rs485_register_modbus_master_write_single_coil_re
  * 
  * To send a response of this request use {@link tf_rs485_modbus_slave_answer_write_single_register_request}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_rs485_register_modbus_slave_write_single_register_request_callback(TF_RS485 *rs485, TF_RS485ModbusSlaveWriteSingleRegisterRequestHandler handler, void *user_data);
+int tf_rs485_register_modbus_slave_write_single_register_request_callback(TF_RS485 *rs485, TF_RS485ModbusSlaveWriteSingleRegisterRequestHandler handler, void *user_data);
 
 
 /**
@@ -1005,7 +1005,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_rs485_register_modbus_slave_write_single_register
  * master did not receive any valid response of the request within the master request
  * timeout period as set by {@link tf_rs485_set_modbus_configuration}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_rs485_register_modbus_master_write_single_register_response_callback(TF_RS485 *rs485, TF_RS485ModbusMasterWriteSingleRegisterResponseHandler handler, void *user_data);
+int tf_rs485_register_modbus_master_write_single_register_response_callback(TF_RS485 *rs485, TF_RS485ModbusMasterWriteSingleRegisterResponseHandler handler, void *user_data);
 
 
 /**
@@ -1024,7 +1024,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_rs485_register_modbus_master_write_single_registe
  * 
  * To send a response of this request use {@link tf_rs485_modbus_slave_answer_write_multiple_coils_request}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_rs485_register_modbus_slave_write_multiple_coils_request_low_level_callback(TF_RS485 *rs485, TF_RS485ModbusSlaveWriteMultipleCoilsRequestLowLevelHandler handler, void *user_data);
+int tf_rs485_register_modbus_slave_write_multiple_coils_request_low_level_callback(TF_RS485 *rs485, TF_RS485ModbusSlaveWriteMultipleCoilsRequestLowLevelHandler handler, void *user_data);
 
 
 /**
@@ -1048,7 +1048,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_rs485_register_modbus_slave_write_multiple_coils_
  * master did not receive any valid response of the request within the master request
  * timeout period as set by {@link tf_rs485_set_modbus_configuration}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_rs485_register_modbus_master_write_multiple_coils_response_callback(TF_RS485 *rs485, TF_RS485ModbusMasterWriteMultipleCoilsResponseHandler handler, void *user_data);
+int tf_rs485_register_modbus_master_write_multiple_coils_response_callback(TF_RS485 *rs485, TF_RS485ModbusMasterWriteMultipleCoilsResponseHandler handler, void *user_data);
 
 
 /**
@@ -1067,7 +1067,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_rs485_register_modbus_master_write_multiple_coils
  * 
  * To send a response of this request use {@link tf_rs485_modbus_slave_answer_write_multiple_registers_request}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_rs485_register_modbus_slave_write_multiple_registers_request_low_level_callback(TF_RS485 *rs485, TF_RS485ModbusSlaveWriteMultipleRegistersRequestLowLevelHandler handler, void *user_data);
+int tf_rs485_register_modbus_slave_write_multiple_registers_request_low_level_callback(TF_RS485 *rs485, TF_RS485ModbusSlaveWriteMultipleRegistersRequestLowLevelHandler handler, void *user_data);
 
 
 /**
@@ -1091,7 +1091,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_rs485_register_modbus_slave_write_multiple_regist
  * that the master did not receive any valid response of the request within the master
  * request timeout period as set by {@link tf_rs485_set_modbus_configuration}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_rs485_register_modbus_master_write_multiple_registers_response_callback(TF_RS485 *rs485, TF_RS485ModbusMasterWriteMultipleRegistersResponseHandler handler, void *user_data);
+int tf_rs485_register_modbus_master_write_multiple_registers_response_callback(TF_RS485 *rs485, TF_RS485ModbusMasterWriteMultipleRegistersResponseHandler handler, void *user_data);
 
 
 /**
@@ -1110,7 +1110,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_rs485_register_modbus_master_write_multiple_regis
  * 
  * To send a response of this request use {@link tf_rs485_modbus_slave_answer_read_discrete_inputs_request}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_rs485_register_modbus_slave_read_discrete_inputs_request_callback(TF_RS485 *rs485, TF_RS485ModbusSlaveReadDiscreteInputsRequestHandler handler, void *user_data);
+int tf_rs485_register_modbus_slave_read_discrete_inputs_request_callback(TF_RS485 *rs485, TF_RS485ModbusSlaveReadDiscreteInputsRequestHandler handler, void *user_data);
 
 
 /**
@@ -1135,7 +1135,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_rs485_register_modbus_slave_read_discrete_inputs_
  * request within the master request timeout period as set by
  * {@link tf_rs485_set_modbus_configuration}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_rs485_register_modbus_master_read_discrete_inputs_response_low_level_callback(TF_RS485 *rs485, TF_RS485ModbusMasterReadDiscreteInputsResponseLowLevelHandler handler, void *user_data);
+int tf_rs485_register_modbus_master_read_discrete_inputs_response_low_level_callback(TF_RS485 *rs485, TF_RS485ModbusMasterReadDiscreteInputsResponseLowLevelHandler handler, void *user_data);
 
 
 /**
@@ -1154,7 +1154,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_rs485_register_modbus_master_read_discrete_inputs
  * 
  * To send a response of this request use {@link tf_rs485_modbus_slave_answer_read_input_registers_request}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_rs485_register_modbus_slave_read_input_registers_request_callback(TF_RS485 *rs485, TF_RS485ModbusSlaveReadInputRegistersRequestHandler handler, void *user_data);
+int tf_rs485_register_modbus_slave_read_input_registers_request_callback(TF_RS485 *rs485, TF_RS485ModbusSlaveReadInputRegistersRequestHandler handler, void *user_data);
 
 
 /**
@@ -1179,7 +1179,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_rs485_register_modbus_slave_read_input_registers_
  * request within the master request timeout period as set by
  * {@link tf_rs485_set_modbus_configuration}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_rs485_register_modbus_master_read_input_registers_response_low_level_callback(TF_RS485 *rs485, TF_RS485ModbusMasterReadInputRegistersResponseLowLevelHandler handler, void *user_data);
+int tf_rs485_register_modbus_master_read_input_registers_response_low_level_callback(TF_RS485 *rs485, TF_RS485ModbusMasterReadInputRegistersResponseLowLevelHandler handler, void *user_data);
 
 
 /**
@@ -1197,9 +1197,9 @@ TF_ATTRIBUTE_NONNULL(1) int tf_rs485_register_modbus_master_read_input_registers
  * 
  * .. versionadded:: 2.0.5$nbsp;(Plugin)
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_rs485_register_frame_readable_callback(TF_RS485 *rs485, TF_RS485FrameReadableHandler handler, void *user_data);
+int tf_rs485_register_frame_readable_callback(TF_RS485 *rs485, TF_RS485FrameReadableHandler handler, void *user_data);
 #endif
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
 /**
  * \ingroup BrickletRS485
  *
@@ -1207,7 +1207,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_rs485_register_frame_readable_callback(TF_RS485 *
  *
  * This function can be used in a non-blocking fashion by calling it with a timeout of 0.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_rs485_callback_tick(TF_RS485 *rs485, uint32_t timeout_us);
+int tf_rs485_callback_tick(TF_RS485 *rs485, uint32_t timeout_us);
 #endif
 
 /**
@@ -1221,7 +1221,7 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_rs485_callback_tick(TF_RS485 *rs485, uint32_t ti
  * See {@link tf_rs485_set_rs485_configuration} for configuration possibilities
  * regarding baudrate, parity and so on.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_rs485_write_low_level(TF_RS485 *rs485, uint16_t message_length, uint16_t message_chunk_offset, char message_chunk_data[60], uint8_t *ret_message_chunk_written);
+int tf_rs485_write_low_level(TF_RS485 *rs485, uint16_t message_length, uint16_t message_chunk_offset, const char message_chunk_data[60], uint8_t *ret_message_chunk_written);
 
 /**
  * \ingroup BrickletRS485
@@ -1233,7 +1233,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_rs485_write_low_level(TF_RS485 *rs485, uint16_t m
  * data only when the read callback is disabled.
  * See {@link tf_rs485_enable_read_callback} and {@link tf_rs485_register_read_callback} callback.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_rs485_read_low_level(TF_RS485 *rs485, uint16_t length, uint16_t *ret_message_length, uint16_t *ret_message_chunk_offset, char ret_message_chunk_data[60]);
+int tf_rs485_read_low_level(TF_RS485 *rs485, uint16_t length, uint16_t *ret_message_length, uint16_t *ret_message_chunk_offset, char ret_message_chunk_data[60]);
 
 /**
  * \ingroup BrickletRS485
@@ -1242,7 +1242,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_rs485_read_low_level(TF_RS485 *rs485, uint16_t le
  * 
  * By default the callback is disabled.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_rs485_enable_read_callback(TF_RS485 *rs485);
+int tf_rs485_enable_read_callback(TF_RS485 *rs485);
 
 /**
  * \ingroup BrickletRS485
@@ -1251,7 +1251,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_rs485_enable_read_callback(TF_RS485 *rs485);
  * 
  * By default the callback is disabled.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_rs485_disable_read_callback(TF_RS485 *rs485);
+int tf_rs485_disable_read_callback(TF_RS485 *rs485);
 
 /**
  * \ingroup BrickletRS485
@@ -1259,21 +1259,21 @@ TF_ATTRIBUTE_NONNULL(1) int tf_rs485_disable_read_callback(TF_RS485 *rs485);
  * Returns *true* if the {@link tf_rs485_register_read_callback} callback is enabled,
  * *false* otherwise.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_rs485_is_read_callback_enabled(TF_RS485 *rs485, bool *ret_enabled);
+int tf_rs485_is_read_callback_enabled(TF_RS485 *rs485, bool *ret_enabled);
 
 /**
  * \ingroup BrickletRS485
  *
  * Sets the configuration for the RS485 communication.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_rs485_set_rs485_configuration(TF_RS485 *rs485, uint32_t baudrate, uint8_t parity, uint8_t stopbits, uint8_t wordlength, uint8_t duplex);
+int tf_rs485_set_rs485_configuration(TF_RS485 *rs485, uint32_t baudrate, uint8_t parity, uint8_t stopbits, uint8_t wordlength, uint8_t duplex);
 
 /**
  * \ingroup BrickletRS485
  *
  * Returns the configuration as set by {@link tf_rs485_set_rs485_configuration}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_rs485_get_rs485_configuration(TF_RS485 *rs485, uint32_t *ret_baudrate, uint8_t *ret_parity, uint8_t *ret_stopbits, uint8_t *ret_wordlength, uint8_t *ret_duplex);
+int tf_rs485_get_rs485_configuration(TF_RS485 *rs485, uint32_t *ret_baudrate, uint8_t *ret_parity, uint8_t *ret_stopbits, uint8_t *ret_wordlength, uint8_t *ret_duplex);
 
 /**
  * \ingroup BrickletRS485
@@ -1283,14 +1283,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_rs485_get_rs485_configuration(TF_RS485 *rs485, ui
  * * Slave Address: Address to be used as the Modbus slave address in Modbus slave mode. Valid Modbus slave address range is 1 to 247.
  * * Master Request Timeout: Specifies how long the master should wait for a response from a slave when in Modbus master mode.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_rs485_set_modbus_configuration(TF_RS485 *rs485, uint8_t slave_address, uint32_t master_request_timeout);
+int tf_rs485_set_modbus_configuration(TF_RS485 *rs485, uint8_t slave_address, uint32_t master_request_timeout);
 
 /**
  * \ingroup BrickletRS485
  *
  * Returns the configuration as set by {@link tf_rs485_set_modbus_configuration}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_rs485_get_modbus_configuration(TF_RS485 *rs485, uint8_t *ret_slave_address, uint32_t *ret_master_request_timeout);
+int tf_rs485_get_modbus_configuration(TF_RS485 *rs485, uint8_t *ret_slave_address, uint32_t *ret_master_request_timeout);
 
 /**
  * \ingroup BrickletRS485
@@ -1301,14 +1301,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_rs485_get_modbus_configuration(TF_RS485 *rs485, u
  * * Modbus Master RTU and
  * * Modbus Slave RTU.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_rs485_set_mode(TF_RS485 *rs485, uint8_t mode);
+int tf_rs485_set_mode(TF_RS485 *rs485, uint8_t mode);
 
 /**
  * \ingroup BrickletRS485
  *
  * Returns the configuration as set by {@link tf_rs485_set_mode}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_rs485_get_mode(TF_RS485 *rs485, uint8_t *ret_mode);
+int tf_rs485_get_mode(TF_RS485 *rs485, uint8_t *ret_mode);
 
 /**
  * \ingroup BrickletRS485
@@ -1320,14 +1320,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_rs485_get_mode(TF_RS485 *rs485, uint8_t *ret_mode
  * 
  * If the Bricklet is in bootloader mode, the LED is off.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_rs485_set_communication_led_config(TF_RS485 *rs485, uint8_t config);
+int tf_rs485_set_communication_led_config(TF_RS485 *rs485, uint8_t config);
 
 /**
  * \ingroup BrickletRS485
  *
  * Returns the configuration as set by {@link tf_rs485_set_communication_led_config}
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_rs485_get_communication_led_config(TF_RS485 *rs485, uint8_t *ret_config);
+int tf_rs485_get_communication_led_config(TF_RS485 *rs485, uint8_t *ret_config);
 
 /**
  * \ingroup BrickletRS485
@@ -1342,14 +1342,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_rs485_get_communication_led_config(TF_RS485 *rs48
  * 
  * If the Bricklet is in bootloader mode, the LED is off.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_rs485_set_error_led_config(TF_RS485 *rs485, uint8_t config);
+int tf_rs485_set_error_led_config(TF_RS485 *rs485, uint8_t config);
 
 /**
  * \ingroup BrickletRS485
  *
  * Returns the configuration as set by {@link tf_rs485_set_error_led_config}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_rs485_get_error_led_config(TF_RS485 *rs485, uint8_t *ret_config);
+int tf_rs485_get_error_led_config(TF_RS485 *rs485, uint8_t *ret_config);
 
 /**
  * \ingroup BrickletRS485
@@ -1365,14 +1365,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_rs485_get_error_led_config(TF_RS485 *rs485, uint8
  * received through RS485 but could not yet be send to the
  * user, either by {@link tf_rs485_read} or through {@link tf_rs485_register_read_callback} callback.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_rs485_set_buffer_config(TF_RS485 *rs485, uint16_t send_buffer_size, uint16_t receive_buffer_size);
+int tf_rs485_set_buffer_config(TF_RS485 *rs485, uint16_t send_buffer_size, uint16_t receive_buffer_size);
 
 /**
  * \ingroup BrickletRS485
  *
  * Returns the buffer configuration as set by {@link tf_rs485_set_buffer_config}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_rs485_get_buffer_config(TF_RS485 *rs485, uint16_t *ret_send_buffer_size, uint16_t *ret_receive_buffer_size);
+int tf_rs485_get_buffer_config(TF_RS485 *rs485, uint16_t *ret_send_buffer_size, uint16_t *ret_receive_buffer_size);
 
 /**
  * \ingroup BrickletRS485
@@ -1381,7 +1381,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_rs485_get_buffer_config(TF_RS485 *rs485, uint16_t
  * 
  * See {@link tf_rs485_set_buffer_config} for buffer size configuration.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_rs485_get_buffer_status(TF_RS485 *rs485, uint16_t *ret_send_buffer_used, uint16_t *ret_receive_buffer_used);
+int tf_rs485_get_buffer_status(TF_RS485 *rs485, uint16_t *ret_send_buffer_used, uint16_t *ret_receive_buffer_used);
 
 /**
  * \ingroup BrickletRS485
@@ -1390,7 +1390,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_rs485_get_buffer_status(TF_RS485 *rs485, uint16_t
  * 
  * By default the callback is disabled.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_rs485_enable_error_count_callback(TF_RS485 *rs485);
+int tf_rs485_enable_error_count_callback(TF_RS485 *rs485);
 
 /**
  * \ingroup BrickletRS485
@@ -1399,7 +1399,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_rs485_enable_error_count_callback(TF_RS485 *rs485
  * 
  * By default the callback is disabled.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_rs485_disable_error_count_callback(TF_RS485 *rs485);
+int tf_rs485_disable_error_count_callback(TF_RS485 *rs485);
 
 /**
  * \ingroup BrickletRS485
@@ -1407,14 +1407,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_rs485_disable_error_count_callback(TF_RS485 *rs48
  * Returns *true* if the {@link tf_rs485_register_error_count_callback} callback is enabled,
  * *false* otherwise.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_rs485_is_error_count_callback_enabled(TF_RS485 *rs485, bool *ret_enabled);
+int tf_rs485_is_error_count_callback_enabled(TF_RS485 *rs485, bool *ret_enabled);
 
 /**
  * \ingroup BrickletRS485
  *
  * Returns the current number of overrun and parity errors.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_rs485_get_error_count(TF_RS485 *rs485, uint32_t *ret_overrun_error_count, uint32_t *ret_parity_error_count);
+int tf_rs485_get_error_count(TF_RS485 *rs485, uint32_t *ret_overrun_error_count, uint32_t *ret_parity_error_count);
 
 /**
  * \ingroup BrickletRS485
@@ -1429,7 +1429,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_rs485_get_error_count(TF_RS485 *rs485, uint32_t *
  * * Illegal Data Value Error Count: Number of errors due to invalid data value. This corresponds to Modbus exception code 3.
  * * Slave Device Failure Error Count: Number of errors occurred on the slave device which were unrecoverable. This corresponds to Modbus exception code 4.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_rs485_get_modbus_common_error_count(TF_RS485 *rs485, uint32_t *ret_timeout_error_count, uint32_t *ret_checksum_error_count, uint32_t *ret_frame_too_big_error_count, uint32_t *ret_illegal_function_error_count, uint32_t *ret_illegal_data_address_error_count, uint32_t *ret_illegal_data_value_error_count, uint32_t *ret_slave_device_failure_error_count);
+int tf_rs485_get_modbus_common_error_count(TF_RS485 *rs485, uint32_t *ret_timeout_error_count, uint32_t *ret_checksum_error_count, uint32_t *ret_frame_too_big_error_count, uint32_t *ret_illegal_function_error_count, uint32_t *ret_illegal_data_address_error_count, uint32_t *ret_illegal_data_value_error_count, uint32_t *ret_slave_device_failure_error_count);
 
 /**
  * \ingroup BrickletRS485
@@ -1440,7 +1440,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_rs485_get_modbus_common_error_count(TF_RS485 *rs4
  * * Request ID: Request ID of the request received by the slave.
  * * Exception Code: Modbus exception code to report to the Modbus master.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_rs485_modbus_slave_report_exception(TF_RS485 *rs485, uint8_t request_id, int8_t exception_code);
+int tf_rs485_modbus_slave_report_exception(TF_RS485 *rs485, uint8_t request_id, int8_t exception_code);
 
 /**
  * \ingroup BrickletRS485
@@ -1454,7 +1454,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_rs485_modbus_slave_report_exception(TF_RS485 *rs4
  * This function must be called from the {@link tf_rs485_register_modbus_slave_read_coils_request_callback} callback
  * with the Request ID as provided by the argument of the callback.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_rs485_modbus_slave_answer_read_coils_request_low_level(TF_RS485 *rs485, uint8_t request_id, uint16_t coils_length, uint16_t coils_chunk_offset, bool coils_chunk_data[472]);
+int tf_rs485_modbus_slave_answer_read_coils_request_low_level(TF_RS485 *rs485, uint8_t request_id, uint16_t coils_length, uint16_t coils_chunk_offset, const bool coils_chunk_data[472]);
 
 /**
  * \ingroup BrickletRS485
@@ -1475,7 +1475,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_rs485_modbus_slave_answer_read_coils_request_low_
  * matched with the Request ID returned from this function to verify that the callback
  * is indeed for a particular request.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_rs485_modbus_master_read_coils(TF_RS485 *rs485, uint8_t slave_address, uint32_t starting_address, uint16_t count, uint8_t *ret_request_id);
+int tf_rs485_modbus_master_read_coils(TF_RS485 *rs485, uint8_t slave_address, uint32_t starting_address, uint16_t count, uint8_t *ret_request_id);
 
 /**
  * \ingroup BrickletRS485
@@ -1489,7 +1489,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_rs485_modbus_master_read_coils(TF_RS485 *rs485, u
  * This function must be called from the {@link tf_rs485_register_modbus_slave_read_holding_registers_request_callback}
  * callback with the Request ID as provided by the argument of the callback.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_rs485_modbus_slave_answer_read_holding_registers_request_low_level(TF_RS485 *rs485, uint8_t request_id, uint16_t holding_registers_length, uint16_t holding_registers_chunk_offset, uint16_t holding_registers_chunk_data[29]);
+int tf_rs485_modbus_slave_answer_read_holding_registers_request_low_level(TF_RS485 *rs485, uint8_t request_id, uint16_t holding_registers_length, uint16_t holding_registers_chunk_offset, const uint16_t holding_registers_chunk_data[29]);
 
 /**
  * \ingroup BrickletRS485
@@ -1510,7 +1510,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_rs485_modbus_slave_answer_read_holding_registers_
  * with the Request ID returned from this function to verify that the callback is indeed for a
  * particular request.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_rs485_modbus_master_read_holding_registers(TF_RS485 *rs485, uint8_t slave_address, uint32_t starting_address, uint16_t count, uint8_t *ret_request_id);
+int tf_rs485_modbus_master_read_holding_registers(TF_RS485 *rs485, uint8_t slave_address, uint32_t starting_address, uint16_t count, uint8_t *ret_request_id);
 
 /**
  * \ingroup BrickletRS485
@@ -1523,7 +1523,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_rs485_modbus_master_read_holding_registers(TF_RS4
  * This function must be called from the {@link tf_rs485_register_modbus_slave_write_single_coil_request_callback}
  * callback with the Request ID as provided by the arguments of the callback.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_rs485_modbus_slave_answer_write_single_coil_request(TF_RS485 *rs485, uint8_t request_id);
+int tf_rs485_modbus_slave_answer_write_single_coil_request(TF_RS485 *rs485, uint8_t request_id);
 
 /**
  * \ingroup BrickletRS485
@@ -1544,7 +1544,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_rs485_modbus_slave_answer_write_single_coil_reque
  * with the Request ID returned from this function to verify that the callback is indeed for a
  * particular request.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_rs485_modbus_master_write_single_coil(TF_RS485 *rs485, uint8_t slave_address, uint32_t coil_address, bool coil_value, uint8_t *ret_request_id);
+int tf_rs485_modbus_master_write_single_coil(TF_RS485 *rs485, uint8_t slave_address, uint32_t coil_address, bool coil_value, uint8_t *ret_request_id);
 
 /**
  * \ingroup BrickletRS485
@@ -1558,7 +1558,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_rs485_modbus_master_write_single_coil(TF_RS485 *r
  * callback with the Request ID, Register Address and Register Value as provided by
  * the arguments of the callback.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_rs485_modbus_slave_answer_write_single_register_request(TF_RS485 *rs485, uint8_t request_id);
+int tf_rs485_modbus_slave_answer_write_single_register_request(TF_RS485 *rs485, uint8_t request_id);
 
 /**
  * \ingroup BrickletRS485
@@ -1579,7 +1579,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_rs485_modbus_slave_answer_write_single_register_r
  * with the Request ID returned from this function to verify that the callback is indeed for a
  * particular request.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_rs485_modbus_master_write_single_register(TF_RS485 *rs485, uint8_t slave_address, uint32_t register_address, uint16_t register_value, uint8_t *ret_request_id);
+int tf_rs485_modbus_master_write_single_register(TF_RS485 *rs485, uint8_t slave_address, uint32_t register_address, uint16_t register_value, uint8_t *ret_request_id);
 
 /**
  * \ingroup BrickletRS485
@@ -1592,7 +1592,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_rs485_modbus_master_write_single_register(TF_RS48
  * This function must be called from the {@link tf_rs485_register_modbus_slave_write_multiple_coils_request_callback}
  * callback with the Request ID of the callback.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_rs485_modbus_slave_answer_write_multiple_coils_request(TF_RS485 *rs485, uint8_t request_id);
+int tf_rs485_modbus_slave_answer_write_multiple_coils_request(TF_RS485 *rs485, uint8_t request_id);
 
 /**
  * \ingroup BrickletRS485
@@ -1612,7 +1612,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_rs485_modbus_slave_answer_write_multiple_coils_re
  * with the Request ID returned from this function to verify that the callback is indeed for a
  * particular request.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_rs485_modbus_master_write_multiple_coils_low_level(TF_RS485 *rs485, uint8_t slave_address, uint32_t starting_address, uint16_t coils_length, uint16_t coils_chunk_offset, bool coils_chunk_data[440], uint8_t *ret_request_id);
+int tf_rs485_modbus_master_write_multiple_coils_low_level(TF_RS485 *rs485, uint8_t slave_address, uint32_t starting_address, uint16_t coils_length, uint16_t coils_chunk_offset, const bool coils_chunk_data[440], uint8_t *ret_request_id);
 
 /**
  * \ingroup BrickletRS485
@@ -1625,7 +1625,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_rs485_modbus_master_write_multiple_coils_low_leve
  * This function must be called from the {@link tf_rs485_register_modbus_slave_write_multiple_registers_request_callback}
  * callback with the Request ID of the callback.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_rs485_modbus_slave_answer_write_multiple_registers_request(TF_RS485 *rs485, uint8_t request_id);
+int tf_rs485_modbus_slave_answer_write_multiple_registers_request(TF_RS485 *rs485, uint8_t request_id);
 
 /**
  * \ingroup BrickletRS485
@@ -1645,7 +1645,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_rs485_modbus_slave_answer_write_multiple_register
  * with the Request ID returned from this function to verify that the callback is indeed for a
  * particular request.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_rs485_modbus_master_write_multiple_registers_low_level(TF_RS485 *rs485, uint8_t slave_address, uint32_t starting_address, uint16_t registers_length, uint16_t registers_chunk_offset, uint16_t registers_chunk_data[27], uint8_t *ret_request_id);
+int tf_rs485_modbus_master_write_multiple_registers_low_level(TF_RS485 *rs485, uint8_t slave_address, uint32_t starting_address, uint16_t registers_length, uint16_t registers_chunk_offset, const uint16_t registers_chunk_data[27], uint8_t *ret_request_id);
 
 /**
  * \ingroup BrickletRS485
@@ -1659,7 +1659,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_rs485_modbus_master_write_multiple_registers_low_
  * This function must be called from the {@link tf_rs485_register_modbus_slave_read_discrete_inputs_request_callback}
  * callback with the Request ID as provided by the argument of the callback.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_rs485_modbus_slave_answer_read_discrete_inputs_request_low_level(TF_RS485 *rs485, uint8_t request_id, uint16_t discrete_inputs_length, uint16_t discrete_inputs_chunk_offset, bool discrete_inputs_chunk_data[472]);
+int tf_rs485_modbus_slave_answer_read_discrete_inputs_request_low_level(TF_RS485 *rs485, uint8_t request_id, uint16_t discrete_inputs_length, uint16_t discrete_inputs_chunk_offset, const bool discrete_inputs_chunk_data[472]);
 
 /**
  * \ingroup BrickletRS485
@@ -1680,7 +1680,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_rs485_modbus_slave_answer_read_discrete_inputs_re
  * with the Request ID returned from this function to verify that the callback is indeed for a
  * particular request.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_rs485_modbus_master_read_discrete_inputs(TF_RS485 *rs485, uint8_t slave_address, uint32_t starting_address, uint16_t count, uint8_t *ret_request_id);
+int tf_rs485_modbus_master_read_discrete_inputs(TF_RS485 *rs485, uint8_t slave_address, uint32_t starting_address, uint16_t count, uint8_t *ret_request_id);
 
 /**
  * \ingroup BrickletRS485
@@ -1694,7 +1694,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_rs485_modbus_master_read_discrete_inputs(TF_RS485
  * This function must be called from the {@link tf_rs485_register_modbus_slave_read_input_registers_request_callback} callback
  * with the Request ID as provided by the argument of the callback.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_rs485_modbus_slave_answer_read_input_registers_request_low_level(TF_RS485 *rs485, uint8_t request_id, uint16_t input_registers_length, uint16_t input_registers_chunk_offset, uint16_t input_registers_chunk_data[29]);
+int tf_rs485_modbus_slave_answer_read_input_registers_request_low_level(TF_RS485 *rs485, uint8_t request_id, uint16_t input_registers_length, uint16_t input_registers_chunk_offset, const uint16_t input_registers_chunk_data[29]);
 
 /**
  * \ingroup BrickletRS485
@@ -1715,7 +1715,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_rs485_modbus_slave_answer_read_input_registers_re
  * with the Request ID returned from this function to verify that the callback is indeed for a
  * particular request.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_rs485_modbus_master_read_input_registers(TF_RS485 *rs485, uint8_t slave_address, uint32_t starting_address, uint16_t count, uint8_t *ret_request_id);
+int tf_rs485_modbus_master_read_input_registers(TF_RS485 *rs485, uint8_t slave_address, uint32_t starting_address, uint16_t count, uint8_t *ret_request_id);
 
 /**
  * \ingroup BrickletRS485
@@ -1727,7 +1727,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_rs485_modbus_master_read_input_registers(TF_RS485
  * 
  * .. versionadded:: 2.0.5$nbsp;(Plugin)
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_rs485_set_frame_readable_callback_configuration(TF_RS485 *rs485, uint16_t frame_size);
+int tf_rs485_set_frame_readable_callback_configuration(TF_RS485 *rs485, uint16_t frame_size);
 
 /**
  * \ingroup BrickletRS485
@@ -1736,7 +1736,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_rs485_set_frame_readable_callback_configuration(T
  * 
  * .. versionadded:: 2.0.5$nbsp;(Plugin)
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_rs485_get_frame_readable_callback_configuration(TF_RS485 *rs485, uint16_t *ret_frame_size);
+int tf_rs485_get_frame_readable_callback_configuration(TF_RS485 *rs485, uint16_t *ret_frame_size);
 
 /**
  * \ingroup BrickletRS485
@@ -1753,7 +1753,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_rs485_get_frame_readable_callback_configuration(T
  * The errors counts are for errors that occur on the Bricklet side. All
  * Bricks have a similar function that returns the errors on the Brick side.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_rs485_get_spitfp_error_count(TF_RS485 *rs485, uint32_t *ret_error_count_ack_checksum, uint32_t *ret_error_count_message_checksum, uint32_t *ret_error_count_frame, uint32_t *ret_error_count_overflow);
+int tf_rs485_get_spitfp_error_count(TF_RS485 *rs485, uint32_t *ret_error_count_ack_checksum, uint32_t *ret_error_count_message_checksum, uint32_t *ret_error_count_frame, uint32_t *ret_error_count_overflow);
 
 /**
  * \ingroup BrickletRS485
@@ -1768,14 +1768,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_rs485_get_spitfp_error_count(TF_RS485 *rs485, uin
  * This function is used by Brick Viewer during flashing. It should not be
  * necessary to call it in a normal user program.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_rs485_set_bootloader_mode(TF_RS485 *rs485, uint8_t mode, uint8_t *ret_status);
+int tf_rs485_set_bootloader_mode(TF_RS485 *rs485, uint8_t mode, uint8_t *ret_status);
 
 /**
  * \ingroup BrickletRS485
  *
  * Returns the current bootloader mode, see {@link tf_rs485_set_bootloader_mode}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_rs485_get_bootloader_mode(TF_RS485 *rs485, uint8_t *ret_mode);
+int tf_rs485_get_bootloader_mode(TF_RS485 *rs485, uint8_t *ret_mode);
 
 /**
  * \ingroup BrickletRS485
@@ -1787,7 +1787,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_rs485_get_bootloader_mode(TF_RS485 *rs485, uint8_
  * This function is used by Brick Viewer during flashing. It should not be
  * necessary to call it in a normal user program.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_rs485_set_write_firmware_pointer(TF_RS485 *rs485, uint32_t pointer);
+int tf_rs485_set_write_firmware_pointer(TF_RS485 *rs485, uint32_t pointer);
 
 /**
  * \ingroup BrickletRS485
@@ -1801,7 +1801,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_rs485_set_write_firmware_pointer(TF_RS485 *rs485,
  * This function is used by Brick Viewer during flashing. It should not be
  * necessary to call it in a normal user program.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_rs485_write_firmware(TF_RS485 *rs485, uint8_t data[64], uint8_t *ret_status);
+int tf_rs485_write_firmware(TF_RS485 *rs485, const uint8_t data[64], uint8_t *ret_status);
 
 /**
  * \ingroup BrickletRS485
@@ -1814,14 +1814,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_rs485_write_firmware(TF_RS485 *rs485, uint8_t dat
  * 
  * If the Bricklet is in bootloader mode, the LED is will show heartbeat by default.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_rs485_set_status_led_config(TF_RS485 *rs485, uint8_t config);
+int tf_rs485_set_status_led_config(TF_RS485 *rs485, uint8_t config);
 
 /**
  * \ingroup BrickletRS485
  *
  * Returns the configuration as set by {@link tf_rs485_set_status_led_config}
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_rs485_get_status_led_config(TF_RS485 *rs485, uint8_t *ret_config);
+int tf_rs485_get_status_led_config(TF_RS485 *rs485, uint8_t *ret_config);
 
 /**
  * \ingroup BrickletRS485
@@ -1833,7 +1833,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_rs485_get_status_led_config(TF_RS485 *rs485, uint
  * accuracy. Practically it is only useful as an indicator for
  * temperature changes.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_rs485_get_chip_temperature(TF_RS485 *rs485, int16_t *ret_temperature);
+int tf_rs485_get_chip_temperature(TF_RS485 *rs485, int16_t *ret_temperature);
 
 /**
  * \ingroup BrickletRS485
@@ -1845,7 +1845,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_rs485_get_chip_temperature(TF_RS485 *rs485, int16
  * calling functions on the existing ones will result in
  * undefined behavior!
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_rs485_reset(TF_RS485 *rs485);
+int tf_rs485_reset(TF_RS485 *rs485);
 
 /**
  * \ingroup BrickletRS485
@@ -1856,7 +1856,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_rs485_reset(TF_RS485 *rs485);
  * 
  * We recommend that you use Brick Viewer to change the UID.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_rs485_write_uid(TF_RS485 *rs485, uint32_t uid);
+int tf_rs485_write_uid(TF_RS485 *rs485, uint32_t uid);
 
 /**
  * \ingroup BrickletRS485
@@ -1864,7 +1864,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_rs485_write_uid(TF_RS485 *rs485, uint32_t uid);
  * Returns the current UID as an integer. Encode as
  * Base58 to get the usual string version.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_rs485_read_uid(TF_RS485 *rs485, uint32_t *ret_uid);
+int tf_rs485_read_uid(TF_RS485 *rs485, uint32_t *ret_uid);
 
 /**
  * \ingroup BrickletRS485
@@ -1880,7 +1880,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_rs485_read_uid(TF_RS485 *rs485, uint32_t *ret_uid
  * The device identifier numbers can be found :ref:`here <device_identifier>`.
  * |device_identifier_constant|
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_rs485_get_identity(TF_RS485 *rs485, char ret_uid[8], char ret_connected_uid[8], char *ret_position, uint8_t ret_hardware_version[3], uint8_t ret_firmware_version[3], uint16_t *ret_device_identifier);
+int tf_rs485_get_identity(TF_RS485 *rs485, char ret_uid[8], char ret_connected_uid[8], char *ret_position, uint8_t ret_hardware_version[3], uint8_t ret_firmware_version[3], uint16_t *ret_device_identifier);
 
 /**
  * \ingroup BrickletRS485
@@ -1893,7 +1893,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_rs485_get_identity(TF_RS485 *rs485, char ret_uid[
  * See {@link tf_rs485_set_rs485_configuration} for configuration possibilities
  * regarding baudrate, parity and so on.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_rs485_write(TF_RS485 *rs485, const char *message, uint16_t message_length, uint16_t *ret_message_written);
+int tf_rs485_write(TF_RS485 *rs485, const char *message, uint16_t message_length, uint16_t *ret_message_written);
 
 /**
  * \ingroup BrickletRS485
@@ -1905,7 +1905,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_rs485_write(TF_RS485 *rs485, const char *message,
  * data only when the read callback is disabled.
  * See {@link tf_rs485_enable_read_callback} and {@link tf_rs485_register_read_callback} callback.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_rs485_read(TF_RS485 *rs485, uint16_t length, char *ret_message, uint16_t *ret_message_length);
+int tf_rs485_read(TF_RS485 *rs485, uint16_t length, char *ret_message, uint16_t *ret_message_length);
 
 /**
  * \ingroup BrickletRS485
@@ -1919,7 +1919,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_rs485_read(TF_RS485 *rs485, uint16_t length, char
  * This function must be called from the {@link tf_rs485_register_modbus_slave_read_coils_request_callback} callback
  * with the Request ID as provided by the argument of the callback.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_rs485_modbus_slave_answer_read_coils_request(TF_RS485 *rs485, uint8_t request_id, bool *coils, uint16_t coils_length);
+int tf_rs485_modbus_slave_answer_read_coils_request(TF_RS485 *rs485, uint8_t request_id, const bool *coils, uint16_t coils_length);
 
 /**
  * \ingroup BrickletRS485
@@ -1933,7 +1933,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_rs485_modbus_slave_answer_read_coils_request(TF_R
  * This function must be called from the {@link tf_rs485_register_modbus_slave_read_holding_registers_request_callback}
  * callback with the Request ID as provided by the argument of the callback.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_rs485_modbus_slave_answer_read_holding_registers_request(TF_RS485 *rs485, uint8_t request_id, uint16_t *holding_registers, uint16_t holding_registers_length);
+int tf_rs485_modbus_slave_answer_read_holding_registers_request(TF_RS485 *rs485, uint8_t request_id, const uint16_t *holding_registers, uint16_t holding_registers_length);
 
 /**
  * \ingroup BrickletRS485
@@ -1953,7 +1953,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_rs485_modbus_slave_answer_read_holding_registers_
  * with the Request ID returned from this function to verify that the callback is indeed for a
  * particular request.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_rs485_modbus_master_write_multiple_coils(TF_RS485 *rs485, uint8_t slave_address, uint32_t starting_address, bool *coils, uint16_t coils_length, uint8_t *ret_request_id);
+int tf_rs485_modbus_master_write_multiple_coils(TF_RS485 *rs485, uint8_t slave_address, uint32_t starting_address, const bool *coils, uint16_t coils_length, uint8_t *ret_request_id);
 
 /**
  * \ingroup BrickletRS485
@@ -1973,7 +1973,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_rs485_modbus_master_write_multiple_coils(TF_RS485
  * with the Request ID returned from this function to verify that the callback is indeed for a
  * particular request.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_rs485_modbus_master_write_multiple_registers(TF_RS485 *rs485, uint8_t slave_address, uint32_t starting_address, uint16_t *registers, uint16_t registers_length, uint8_t *ret_request_id);
+int tf_rs485_modbus_master_write_multiple_registers(TF_RS485 *rs485, uint8_t slave_address, uint32_t starting_address, const uint16_t *registers, uint16_t registers_length, uint8_t *ret_request_id);
 
 /**
  * \ingroup BrickletRS485
@@ -1987,7 +1987,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_rs485_modbus_master_write_multiple_registers(TF_R
  * This function must be called from the {@link tf_rs485_register_modbus_slave_read_discrete_inputs_request_callback}
  * callback with the Request ID as provided by the argument of the callback.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_rs485_modbus_slave_answer_read_discrete_inputs_request(TF_RS485 *rs485, uint8_t request_id, bool *discrete_inputs, uint16_t discrete_inputs_length);
+int tf_rs485_modbus_slave_answer_read_discrete_inputs_request(TF_RS485 *rs485, uint8_t request_id, const bool *discrete_inputs, uint16_t discrete_inputs_length);
 
 /**
  * \ingroup BrickletRS485
@@ -2001,7 +2001,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_rs485_modbus_slave_answer_read_discrete_inputs_re
  * This function must be called from the {@link tf_rs485_register_modbus_slave_read_input_registers_request_callback} callback
  * with the Request ID as provided by the argument of the callback.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_rs485_modbus_slave_answer_read_input_registers_request(TF_RS485 *rs485, uint8_t request_id, uint16_t *input_registers, uint16_t input_registers_length);
+int tf_rs485_modbus_slave_answer_read_input_registers_request(TF_RS485 *rs485, uint8_t request_id, const uint16_t *input_registers, uint16_t input_registers_length);
 
 #ifdef __cplusplus
 }

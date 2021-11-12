@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-10-04.      *
+ * This file was automatically generated on 2021-11-12.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -21,7 +21,7 @@ extern "C" {
 #endif
 
 
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
 static bool tf_distance_ir_v2_callback_handler(void *dev, uint8_t fid, TF_Packetbuffer *payload) {
     TF_DistanceIRV2 *distance_ir_v2 = (TF_DistanceIRV2 *) dev;
     (void)payload;
@@ -35,7 +35,7 @@ static bool tf_distance_ir_v2_callback_handler(void *dev, uint8_t fid, TF_Packet
                 return false;
 
             uint16_t distance = tf_packetbuffer_read_uint16_t(payload);
-            TF_HalCommon *common = tf_hal_get_common(distance_ir_v2->tfp->hal);
+            TF_HalCommon *common = tf_hal_get_common((TF_HalContext*)distance_ir_v2->tfp->hal);
             common->locked = true;
             fn(distance_ir_v2, distance, user_data);
             common->locked = false;
@@ -49,7 +49,7 @@ static bool tf_distance_ir_v2_callback_handler(void *dev, uint8_t fid, TF_Packet
                 return false;
 
             uint32_t analog_value = tf_packetbuffer_read_uint32_t(payload);
-            TF_HalCommon *common = tf_hal_get_common(distance_ir_v2->tfp->hal);
+            TF_HalCommon *common = tf_hal_get_common((TF_HalContext*)distance_ir_v2->tfp->hal);
             common->locked = true;
             fn(distance_ir_v2, analog_value, user_data);
             common->locked = false;
@@ -79,13 +79,12 @@ int tf_distance_ir_v2_create(TF_DistanceIRV2 *distance_ir_v2, const char *uid, T
     }
 
     uint8_t port_id;
-    int inventory_index;
+    uint8_t inventory_index;
     rc = tf_hal_get_port_id(hal, numeric_uid, &port_id, &inventory_index);
     if (rc < 0) {
         return rc;
     }
 
-    //rc = tf_tfp_init(distance_ir_v2->tfp, numeric_uid, TF_DISTANCE_IR_V2_DEVICE_IDENTIFIER, hal, port_id, inventory_index, tf_distance_ir_v2_callback_handler);
     rc = tf_hal_get_tfp(hal, &distance_ir_v2->tfp, TF_DISTANCE_IR_V2_DEVICE_IDENTIFIER, inventory_index);
     if (rc != TF_E_OK) {
         return rc;
@@ -233,14 +232,14 @@ int tf_distance_ir_v2_get_distance(TF_DistanceIRV2 *distance_ir_v2, uint16_t *re
     if (distance_ir_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(distance_ir_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)distance_ir_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
     bool response_expected = true;
     tf_tfp_prepare_send(distance_ir_v2->tfp, TF_DISTANCE_IR_V2_FUNCTION_GET_DISTANCE, 0, 2, response_expected);
 
-    uint32_t deadline = tf_hal_current_time_us(distance_ir_v2->tfp->hal) + tf_hal_get_common(distance_ir_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)distance_ir_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)distance_ir_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(distance_ir_v2->tfp, response_expected, deadline, &error_code);
@@ -268,7 +267,7 @@ int tf_distance_ir_v2_set_distance_callback_configuration(TF_DistanceIRV2 *dista
     if (distance_ir_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(distance_ir_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)distance_ir_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -284,7 +283,7 @@ int tf_distance_ir_v2_set_distance_callback_configuration(TF_DistanceIRV2 *dista
     min = tf_leconvert_uint16_to(min); memcpy(buf + 6, &min, 2);
     max = tf_leconvert_uint16_to(max); memcpy(buf + 8, &max, 2);
 
-    uint32_t deadline = tf_hal_current_time_us(distance_ir_v2->tfp->hal) + tf_hal_get_common(distance_ir_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)distance_ir_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)distance_ir_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(distance_ir_v2->tfp, response_expected, deadline, &error_code);
@@ -307,14 +306,14 @@ int tf_distance_ir_v2_get_distance_callback_configuration(TF_DistanceIRV2 *dista
     if (distance_ir_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(distance_ir_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)distance_ir_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
     bool response_expected = true;
     tf_tfp_prepare_send(distance_ir_v2->tfp, TF_DISTANCE_IR_V2_FUNCTION_GET_DISTANCE_CALLBACK_CONFIGURATION, 0, 10, response_expected);
 
-    uint32_t deadline = tf_hal_current_time_us(distance_ir_v2->tfp->hal) + tf_hal_get_common(distance_ir_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)distance_ir_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)distance_ir_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(distance_ir_v2->tfp, response_expected, deadline, &error_code);
@@ -346,14 +345,14 @@ int tf_distance_ir_v2_get_analog_value(TF_DistanceIRV2 *distance_ir_v2, uint32_t
     if (distance_ir_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(distance_ir_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)distance_ir_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
     bool response_expected = true;
     tf_tfp_prepare_send(distance_ir_v2->tfp, TF_DISTANCE_IR_V2_FUNCTION_GET_ANALOG_VALUE, 0, 4, response_expected);
 
-    uint32_t deadline = tf_hal_current_time_us(distance_ir_v2->tfp->hal) + tf_hal_get_common(distance_ir_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)distance_ir_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)distance_ir_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(distance_ir_v2->tfp, response_expected, deadline, &error_code);
@@ -381,7 +380,7 @@ int tf_distance_ir_v2_set_analog_value_callback_configuration(TF_DistanceIRV2 *d
     if (distance_ir_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(distance_ir_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)distance_ir_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -397,7 +396,7 @@ int tf_distance_ir_v2_set_analog_value_callback_configuration(TF_DistanceIRV2 *d
     min = tf_leconvert_uint32_to(min); memcpy(buf + 6, &min, 4);
     max = tf_leconvert_uint32_to(max); memcpy(buf + 10, &max, 4);
 
-    uint32_t deadline = tf_hal_current_time_us(distance_ir_v2->tfp->hal) + tf_hal_get_common(distance_ir_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)distance_ir_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)distance_ir_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(distance_ir_v2->tfp, response_expected, deadline, &error_code);
@@ -420,14 +419,14 @@ int tf_distance_ir_v2_get_analog_value_callback_configuration(TF_DistanceIRV2 *d
     if (distance_ir_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(distance_ir_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)distance_ir_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
     bool response_expected = true;
     tf_tfp_prepare_send(distance_ir_v2->tfp, TF_DISTANCE_IR_V2_FUNCTION_GET_ANALOG_VALUE_CALLBACK_CONFIGURATION, 0, 14, response_expected);
 
-    uint32_t deadline = tf_hal_current_time_us(distance_ir_v2->tfp->hal) + tf_hal_get_common(distance_ir_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)distance_ir_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)distance_ir_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(distance_ir_v2->tfp, response_expected, deadline, &error_code);
@@ -459,7 +458,7 @@ int tf_distance_ir_v2_set_moving_average_configuration(TF_DistanceIRV2 *distance
     if (distance_ir_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(distance_ir_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)distance_ir_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -471,7 +470,7 @@ int tf_distance_ir_v2_set_moving_average_configuration(TF_DistanceIRV2 *distance
 
     moving_average_length = tf_leconvert_uint16_to(moving_average_length); memcpy(buf + 0, &moving_average_length, 2);
 
-    uint32_t deadline = tf_hal_current_time_us(distance_ir_v2->tfp->hal) + tf_hal_get_common(distance_ir_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)distance_ir_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)distance_ir_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(distance_ir_v2->tfp, response_expected, deadline, &error_code);
@@ -494,14 +493,14 @@ int tf_distance_ir_v2_get_moving_average_configuration(TF_DistanceIRV2 *distance
     if (distance_ir_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(distance_ir_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)distance_ir_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
     bool response_expected = true;
     tf_tfp_prepare_send(distance_ir_v2->tfp, TF_DISTANCE_IR_V2_FUNCTION_GET_MOVING_AVERAGE_CONFIGURATION, 0, 2, response_expected);
 
-    uint32_t deadline = tf_hal_current_time_us(distance_ir_v2->tfp->hal) + tf_hal_get_common(distance_ir_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)distance_ir_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)distance_ir_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(distance_ir_v2->tfp, response_expected, deadline, &error_code);
@@ -529,7 +528,7 @@ int tf_distance_ir_v2_set_distance_led_config(TF_DistanceIRV2 *distance_ir_v2, u
     if (distance_ir_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(distance_ir_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)distance_ir_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -541,7 +540,7 @@ int tf_distance_ir_v2_set_distance_led_config(TF_DistanceIRV2 *distance_ir_v2, u
 
     buf[0] = (uint8_t)config;
 
-    uint32_t deadline = tf_hal_current_time_us(distance_ir_v2->tfp->hal) + tf_hal_get_common(distance_ir_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)distance_ir_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)distance_ir_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(distance_ir_v2->tfp, response_expected, deadline, &error_code);
@@ -564,14 +563,14 @@ int tf_distance_ir_v2_get_distance_led_config(TF_DistanceIRV2 *distance_ir_v2, u
     if (distance_ir_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(distance_ir_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)distance_ir_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
     bool response_expected = true;
     tf_tfp_prepare_send(distance_ir_v2->tfp, TF_DISTANCE_IR_V2_FUNCTION_GET_DISTANCE_LED_CONFIG, 0, 1, response_expected);
 
-    uint32_t deadline = tf_hal_current_time_us(distance_ir_v2->tfp->hal) + tf_hal_get_common(distance_ir_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)distance_ir_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)distance_ir_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(distance_ir_v2->tfp, response_expected, deadline, &error_code);
@@ -599,7 +598,7 @@ int tf_distance_ir_v2_set_sensor_type(TF_DistanceIRV2 *distance_ir_v2, uint8_t s
     if (distance_ir_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(distance_ir_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)distance_ir_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -611,7 +610,7 @@ int tf_distance_ir_v2_set_sensor_type(TF_DistanceIRV2 *distance_ir_v2, uint8_t s
 
     buf[0] = (uint8_t)sensor;
 
-    uint32_t deadline = tf_hal_current_time_us(distance_ir_v2->tfp->hal) + tf_hal_get_common(distance_ir_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)distance_ir_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)distance_ir_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(distance_ir_v2->tfp, response_expected, deadline, &error_code);
@@ -634,14 +633,14 @@ int tf_distance_ir_v2_get_sensor_type(TF_DistanceIRV2 *distance_ir_v2, uint8_t *
     if (distance_ir_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(distance_ir_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)distance_ir_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
     bool response_expected = true;
     tf_tfp_prepare_send(distance_ir_v2->tfp, TF_DISTANCE_IR_V2_FUNCTION_GET_SENSOR_TYPE, 0, 1, response_expected);
 
-    uint32_t deadline = tf_hal_current_time_us(distance_ir_v2->tfp->hal) + tf_hal_get_common(distance_ir_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)distance_ir_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)distance_ir_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(distance_ir_v2->tfp, response_expected, deadline, &error_code);
@@ -669,14 +668,14 @@ int tf_distance_ir_v2_get_spitfp_error_count(TF_DistanceIRV2 *distance_ir_v2, ui
     if (distance_ir_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(distance_ir_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)distance_ir_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
     bool response_expected = true;
     tf_tfp_prepare_send(distance_ir_v2->tfp, TF_DISTANCE_IR_V2_FUNCTION_GET_SPITFP_ERROR_COUNT, 0, 16, response_expected);
 
-    uint32_t deadline = tf_hal_current_time_us(distance_ir_v2->tfp->hal) + tf_hal_get_common(distance_ir_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)distance_ir_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)distance_ir_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(distance_ir_v2->tfp, response_expected, deadline, &error_code);
@@ -707,7 +706,7 @@ int tf_distance_ir_v2_set_bootloader_mode(TF_DistanceIRV2 *distance_ir_v2, uint8
     if (distance_ir_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(distance_ir_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)distance_ir_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -718,7 +717,7 @@ int tf_distance_ir_v2_set_bootloader_mode(TF_DistanceIRV2 *distance_ir_v2, uint8
 
     buf[0] = (uint8_t)mode;
 
-    uint32_t deadline = tf_hal_current_time_us(distance_ir_v2->tfp->hal) + tf_hal_get_common(distance_ir_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)distance_ir_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)distance_ir_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(distance_ir_v2->tfp, response_expected, deadline, &error_code);
@@ -746,14 +745,14 @@ int tf_distance_ir_v2_get_bootloader_mode(TF_DistanceIRV2 *distance_ir_v2, uint8
     if (distance_ir_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(distance_ir_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)distance_ir_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
     bool response_expected = true;
     tf_tfp_prepare_send(distance_ir_v2->tfp, TF_DISTANCE_IR_V2_FUNCTION_GET_BOOTLOADER_MODE, 0, 1, response_expected);
 
-    uint32_t deadline = tf_hal_current_time_us(distance_ir_v2->tfp->hal) + tf_hal_get_common(distance_ir_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)distance_ir_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)distance_ir_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(distance_ir_v2->tfp, response_expected, deadline, &error_code);
@@ -781,7 +780,7 @@ int tf_distance_ir_v2_set_write_firmware_pointer(TF_DistanceIRV2 *distance_ir_v2
     if (distance_ir_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(distance_ir_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)distance_ir_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -793,7 +792,7 @@ int tf_distance_ir_v2_set_write_firmware_pointer(TF_DistanceIRV2 *distance_ir_v2
 
     pointer = tf_leconvert_uint32_to(pointer); memcpy(buf + 0, &pointer, 4);
 
-    uint32_t deadline = tf_hal_current_time_us(distance_ir_v2->tfp->hal) + tf_hal_get_common(distance_ir_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)distance_ir_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)distance_ir_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(distance_ir_v2->tfp, response_expected, deadline, &error_code);
@@ -812,11 +811,11 @@ int tf_distance_ir_v2_set_write_firmware_pointer(TF_DistanceIRV2 *distance_ir_v2
     return tf_tfp_get_error(error_code);
 }
 
-int tf_distance_ir_v2_write_firmware(TF_DistanceIRV2 *distance_ir_v2, uint8_t data[64], uint8_t *ret_status) {
+int tf_distance_ir_v2_write_firmware(TF_DistanceIRV2 *distance_ir_v2, const uint8_t data[64], uint8_t *ret_status) {
     if (distance_ir_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(distance_ir_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)distance_ir_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -827,7 +826,7 @@ int tf_distance_ir_v2_write_firmware(TF_DistanceIRV2 *distance_ir_v2, uint8_t da
 
     memcpy(buf + 0, data, 64);
 
-    uint32_t deadline = tf_hal_current_time_us(distance_ir_v2->tfp->hal) + tf_hal_get_common(distance_ir_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)distance_ir_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)distance_ir_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(distance_ir_v2->tfp, response_expected, deadline, &error_code);
@@ -855,7 +854,7 @@ int tf_distance_ir_v2_set_status_led_config(TF_DistanceIRV2 *distance_ir_v2, uin
     if (distance_ir_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(distance_ir_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)distance_ir_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -867,7 +866,7 @@ int tf_distance_ir_v2_set_status_led_config(TF_DistanceIRV2 *distance_ir_v2, uin
 
     buf[0] = (uint8_t)config;
 
-    uint32_t deadline = tf_hal_current_time_us(distance_ir_v2->tfp->hal) + tf_hal_get_common(distance_ir_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)distance_ir_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)distance_ir_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(distance_ir_v2->tfp, response_expected, deadline, &error_code);
@@ -890,14 +889,14 @@ int tf_distance_ir_v2_get_status_led_config(TF_DistanceIRV2 *distance_ir_v2, uin
     if (distance_ir_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(distance_ir_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)distance_ir_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
     bool response_expected = true;
     tf_tfp_prepare_send(distance_ir_v2->tfp, TF_DISTANCE_IR_V2_FUNCTION_GET_STATUS_LED_CONFIG, 0, 1, response_expected);
 
-    uint32_t deadline = tf_hal_current_time_us(distance_ir_v2->tfp->hal) + tf_hal_get_common(distance_ir_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)distance_ir_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)distance_ir_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(distance_ir_v2->tfp, response_expected, deadline, &error_code);
@@ -925,14 +924,14 @@ int tf_distance_ir_v2_get_chip_temperature(TF_DistanceIRV2 *distance_ir_v2, int1
     if (distance_ir_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(distance_ir_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)distance_ir_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
     bool response_expected = true;
     tf_tfp_prepare_send(distance_ir_v2->tfp, TF_DISTANCE_IR_V2_FUNCTION_GET_CHIP_TEMPERATURE, 0, 2, response_expected);
 
-    uint32_t deadline = tf_hal_current_time_us(distance_ir_v2->tfp->hal) + tf_hal_get_common(distance_ir_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)distance_ir_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)distance_ir_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(distance_ir_v2->tfp, response_expected, deadline, &error_code);
@@ -960,7 +959,7 @@ int tf_distance_ir_v2_reset(TF_DistanceIRV2 *distance_ir_v2) {
     if (distance_ir_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(distance_ir_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)distance_ir_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -968,7 +967,7 @@ int tf_distance_ir_v2_reset(TF_DistanceIRV2 *distance_ir_v2) {
     tf_distance_ir_v2_get_response_expected(distance_ir_v2, TF_DISTANCE_IR_V2_FUNCTION_RESET, &response_expected);
     tf_tfp_prepare_send(distance_ir_v2->tfp, TF_DISTANCE_IR_V2_FUNCTION_RESET, 0, 0, response_expected);
 
-    uint32_t deadline = tf_hal_current_time_us(distance_ir_v2->tfp->hal) + tf_hal_get_common(distance_ir_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)distance_ir_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)distance_ir_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(distance_ir_v2->tfp, response_expected, deadline, &error_code);
@@ -991,7 +990,7 @@ int tf_distance_ir_v2_write_uid(TF_DistanceIRV2 *distance_ir_v2, uint32_t uid) {
     if (distance_ir_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(distance_ir_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)distance_ir_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -1003,7 +1002,7 @@ int tf_distance_ir_v2_write_uid(TF_DistanceIRV2 *distance_ir_v2, uint32_t uid) {
 
     uid = tf_leconvert_uint32_to(uid); memcpy(buf + 0, &uid, 4);
 
-    uint32_t deadline = tf_hal_current_time_us(distance_ir_v2->tfp->hal) + tf_hal_get_common(distance_ir_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)distance_ir_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)distance_ir_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(distance_ir_v2->tfp, response_expected, deadline, &error_code);
@@ -1026,14 +1025,14 @@ int tf_distance_ir_v2_read_uid(TF_DistanceIRV2 *distance_ir_v2, uint32_t *ret_ui
     if (distance_ir_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(distance_ir_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)distance_ir_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
     bool response_expected = true;
     tf_tfp_prepare_send(distance_ir_v2->tfp, TF_DISTANCE_IR_V2_FUNCTION_READ_UID, 0, 4, response_expected);
 
-    uint32_t deadline = tf_hal_current_time_us(distance_ir_v2->tfp->hal) + tf_hal_get_common(distance_ir_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)distance_ir_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)distance_ir_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(distance_ir_v2->tfp, response_expected, deadline, &error_code);
@@ -1061,7 +1060,7 @@ int tf_distance_ir_v2_get_identity(TF_DistanceIRV2 *distance_ir_v2, char ret_uid
     if (distance_ir_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(distance_ir_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)distance_ir_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -1069,7 +1068,7 @@ int tf_distance_ir_v2_get_identity(TF_DistanceIRV2 *distance_ir_v2, char ret_uid
     tf_tfp_prepare_send(distance_ir_v2->tfp, TF_DISTANCE_IR_V2_FUNCTION_GET_IDENTITY, 0, 25, response_expected);
 
     size_t i;
-    uint32_t deadline = tf_hal_current_time_us(distance_ir_v2->tfp->hal) + tf_hal_get_common(distance_ir_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)distance_ir_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)distance_ir_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(distance_ir_v2->tfp, response_expected, deadline, &error_code);
@@ -1090,7 +1089,7 @@ int tf_distance_ir_v2_get_identity(TF_DistanceIRV2 *distance_ir_v2, char ret_uid
         if (ret_firmware_version != NULL) { for (i = 0; i < 3; ++i) ret_firmware_version[i] = tf_packetbuffer_read_uint8_t(&distance_ir_v2->tfp->spitfp->recv_buf);} else { tf_packetbuffer_remove(&distance_ir_v2->tfp->spitfp->recv_buf, 3); }
         if (ret_device_identifier != NULL) { *ret_device_identifier = tf_packetbuffer_read_uint16_t(&distance_ir_v2->tfp->spitfp->recv_buf); } else { tf_packetbuffer_remove(&distance_ir_v2->tfp->spitfp->recv_buf, 2); }
         if (tmp_connected_uid[0] == 0 && ret_position != NULL) {
-            *ret_position = tf_hal_get_port_name(distance_ir_v2->tfp->hal, distance_ir_v2->tfp->spitfp->port_id);
+            *ret_position = tf_hal_get_port_name((TF_HalContext*)distance_ir_v2->tfp->hal, distance_ir_v2->tfp->spitfp->port_id);
         }
         if (ret_connected_uid != NULL) {
             memcpy(ret_connected_uid, tmp_connected_uid, 8);
@@ -1104,7 +1103,7 @@ int tf_distance_ir_v2_get_identity(TF_DistanceIRV2 *distance_ir_v2, char ret_uid
 
     return tf_tfp_get_error(error_code);
 }
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
 int tf_distance_ir_v2_register_distance_callback(TF_DistanceIRV2 *distance_ir_v2, TF_DistanceIRV2DistanceHandler handler, void *user_data) {
     if (distance_ir_v2 == NULL)
         return TF_E_NULL;
@@ -1140,7 +1139,7 @@ int tf_distance_ir_v2_callback_tick(TF_DistanceIRV2 *distance_ir_v2, uint32_t ti
     if (distance_ir_v2 == NULL)
         return TF_E_NULL;
 
-    return tf_tfp_callback_tick(distance_ir_v2->tfp, tf_hal_current_time_us(distance_ir_v2->tfp->hal) + timeout_us);
+    return tf_tfp_callback_tick(distance_ir_v2->tfp, tf_hal_current_time_us((TF_HalContext*)distance_ir_v2->tfp->hal) + timeout_us);
 }
 
 #ifdef __cplusplus

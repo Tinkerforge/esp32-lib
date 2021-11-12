@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-10-04.      *
+ * This file was automatically generated on 2021-11-12.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -25,7 +25,7 @@ extern "C" {
  */
 
 struct TF_SegmentDisplay4x7V2;
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
 
 typedef void (*TF_SegmentDisplay4x7V2CounterFinishedHandler)(struct TF_SegmentDisplay4x7V2 *device, void *user_data);
 
@@ -37,7 +37,7 @@ typedef void (*TF_SegmentDisplay4x7V2CounterFinishedHandler)(struct TF_SegmentDi
  */
 typedef struct TF_SegmentDisplay4x7V2 {
     TF_TfpContext *tfp;
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
     TF_SegmentDisplay4x7V2CounterFinishedHandler counter_finished_handler;
     void *counter_finished_user_data;
 
@@ -150,7 +150,7 @@ typedef struct TF_SegmentDisplay4x7V2 {
  */
 #define TF_SEGMENT_DISPLAY_4X7_V2_FUNCTION_GET_IDENTITY 255
 
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
 
 /**
  * \ingroup BrickletSegmentDisplay4x7V2
@@ -258,7 +258,7 @@ typedef struct TF_SegmentDisplay4x7V2 {
  * Creates the device object \c segment_display_4x7_v2 with the unique device ID \c uid and adds
  * it to the IPConnection \c ipcon.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_segment_display_4x7_v2_create(TF_SegmentDisplay4x7V2 *segment_display_4x7_v2, const char *uid, TF_HalContext *hal);
+int tf_segment_display_4x7_v2_create(TF_SegmentDisplay4x7V2 *segment_display_4x7_v2, const char *uid, TF_HalContext *hal);
 
 /**
  * \ingroup BrickletSegmentDisplay4x7V2
@@ -266,7 +266,7 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_segment_display_4x7_v2_create(TF_SegmentDisplay4
  * Removes the device object \c segment_display_4x7_v2 from its IPConnection and destroys it.
  * The device object cannot be used anymore afterwards.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_segment_display_4x7_v2_destroy(TF_SegmentDisplay4x7V2 *segment_display_4x7_v2);
+int tf_segment_display_4x7_v2_destroy(TF_SegmentDisplay4x7V2 *segment_display_4x7_v2);
 
 /**
  * \ingroup BrickletSegmentDisplay4x7V2
@@ -287,7 +287,7 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_segment_display_4x7_v2_destroy(TF_SegmentDisplay
  * disabled for a setter function then no response is sent and errors are
  * silently ignored, because they cannot be detected.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_segment_display_4x7_v2_get_response_expected(TF_SegmentDisplay4x7V2 *segment_display_4x7_v2, uint8_t function_id, bool *ret_response_expected);
+int tf_segment_display_4x7_v2_get_response_expected(TF_SegmentDisplay4x7V2 *segment_display_4x7_v2, uint8_t function_id, bool *ret_response_expected);
 
 /**
  * \ingroup BrickletSegmentDisplay4x7V2
@@ -303,7 +303,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_segment_display_4x7_v2_get_response_expected(TF_S
  * setter function then no response is sent and errors are silently ignored,
  * because they cannot be detected.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_segment_display_4x7_v2_set_response_expected(TF_SegmentDisplay4x7V2 *segment_display_4x7_v2, uint8_t function_id, bool response_expected);
+int tf_segment_display_4x7_v2_set_response_expected(TF_SegmentDisplay4x7V2 *segment_display_4x7_v2, uint8_t function_id, bool response_expected);
 
 /**
  * \ingroup BrickletSegmentDisplay4x7V2
@@ -311,8 +311,8 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_segment_display_4x7_v2_set_response_expected(TF_
  * Changes the response expected flag for all setter and callback configuration
  * functions of this device at once.
  */
-TF_ATTRIBUTE_NONNULL_ALL void tf_segment_display_4x7_v2_set_response_expected_all(TF_SegmentDisplay4x7V2 *segment_display_4x7_v2, bool response_expected);
-#ifdef TF_IMPLEMENT_CALLBACKS
+void tf_segment_display_4x7_v2_set_response_expected_all(TF_SegmentDisplay4x7V2 *segment_display_4x7_v2, bool response_expected);
+#if TF_IMPLEMENT_CALLBACKS != 0
 /**
  * \ingroup BrickletSegmentDisplay4x7V2
  *
@@ -324,9 +324,9 @@ TF_ATTRIBUTE_NONNULL_ALL void tf_segment_display_4x7_v2_set_response_expected_al
  * This callback is triggered when the counter (see {@link tf_segment_display_4x7_v2_start_counter}) is
  * finished.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_segment_display_4x7_v2_register_counter_finished_callback(TF_SegmentDisplay4x7V2 *segment_display_4x7_v2, TF_SegmentDisplay4x7V2CounterFinishedHandler handler, void *user_data);
+int tf_segment_display_4x7_v2_register_counter_finished_callback(TF_SegmentDisplay4x7V2 *segment_display_4x7_v2, TF_SegmentDisplay4x7V2CounterFinishedHandler handler, void *user_data);
 #endif
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
 /**
  * \ingroup BrickletSegmentDisplay4x7V2
  *
@@ -334,7 +334,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_segment_display_4x7_v2_register_counter_finished_
  *
  * This function can be used in a non-blocking fashion by calling it with a timeout of 0.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_segment_display_4x7_v2_callback_tick(TF_SegmentDisplay4x7V2 *segment_display_4x7_v2, uint32_t timeout_us);
+int tf_segment_display_4x7_v2_callback_tick(TF_SegmentDisplay4x7V2 *segment_display_4x7_v2, uint32_t timeout_us);
 #endif
 
 /**
@@ -351,28 +351,28 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_segment_display_4x7_v2_callback_tick(TF_SegmentD
  *    :alt: Indices of segments
  *    :align: center
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_segment_display_4x7_v2_set_segments(TF_SegmentDisplay4x7V2 *segment_display_4x7_v2, bool digit0[8], bool digit1[8], bool digit2[8], bool digit3[8], bool colon[2], bool tick);
+int tf_segment_display_4x7_v2_set_segments(TF_SegmentDisplay4x7V2 *segment_display_4x7_v2, const bool digit0[8], const bool digit1[8], const bool digit2[8], const bool digit3[8], const bool colon[2], bool tick);
 
 /**
  * \ingroup BrickletSegmentDisplay4x7V2
  *
  * Returns the segment data as set by {@link tf_segment_display_4x7_v2_set_segments}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_segment_display_4x7_v2_get_segments(TF_SegmentDisplay4x7V2 *segment_display_4x7_v2, bool ret_digit0[8], bool ret_digit1[8], bool ret_digit2[8], bool ret_digit3[8], bool ret_colon[2], bool *ret_tick);
+int tf_segment_display_4x7_v2_get_segments(TF_SegmentDisplay4x7V2 *segment_display_4x7_v2, bool ret_digit0[8], bool ret_digit1[8], bool ret_digit2[8], bool ret_digit3[8], bool ret_colon[2], bool *ret_tick);
 
 /**
  * \ingroup BrickletSegmentDisplay4x7V2
  *
  * The brightness can be set between 0 (dark) and 7 (bright).
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_segment_display_4x7_v2_set_brightness(TF_SegmentDisplay4x7V2 *segment_display_4x7_v2, uint8_t brightness);
+int tf_segment_display_4x7_v2_set_brightness(TF_SegmentDisplay4x7V2 *segment_display_4x7_v2, uint8_t brightness);
 
 /**
  * \ingroup BrickletSegmentDisplay4x7V2
  *
  * Returns the brightness as set by {@link tf_segment_display_4x7_v2_set_brightness}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_segment_display_4x7_v2_get_brightness(TF_SegmentDisplay4x7V2 *segment_display_4x7_v2, uint8_t *ret_brightness);
+int tf_segment_display_4x7_v2_get_brightness(TF_SegmentDisplay4x7V2 *segment_display_4x7_v2, uint8_t *ret_brightness);
 
 /**
  * \ingroup BrickletSegmentDisplay4x7V2
@@ -391,7 +391,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_segment_display_4x7_v2_get_brightness(TF_SegmentD
  * 
  * Example: A call with [-2, -1, 4, 2] will result in a display of "- 42".
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_segment_display_4x7_v2_set_numeric_value(TF_SegmentDisplay4x7V2 *segment_display_4x7_v2, int8_t value[4]);
+int tf_segment_display_4x7_v2_set_numeric_value(TF_SegmentDisplay4x7V2 *segment_display_4x7_v2, const int8_t value[4]);
 
 /**
  * \ingroup BrickletSegmentDisplay4x7V2
@@ -405,14 +405,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_segment_display_4x7_v2_set_numeric_value(TF_Segme
  *    :alt: Indices of selected segments
  *    :align: center
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_segment_display_4x7_v2_set_selected_segment(TF_SegmentDisplay4x7V2 *segment_display_4x7_v2, uint8_t segment, bool value);
+int tf_segment_display_4x7_v2_set_selected_segment(TF_SegmentDisplay4x7V2 *segment_display_4x7_v2, uint8_t segment, bool value);
 
 /**
  * \ingroup BrickletSegmentDisplay4x7V2
  *
  * Returns the value of a single segment.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_segment_display_4x7_v2_get_selected_segment(TF_SegmentDisplay4x7V2 *segment_display_4x7_v2, uint8_t segment, bool *ret_value);
+int tf_segment_display_4x7_v2_get_selected_segment(TF_SegmentDisplay4x7V2 *segment_display_4x7_v2, uint8_t segment, bool *ret_value);
 
 /**
  * \ingroup BrickletSegmentDisplay4x7V2
@@ -430,7 +430,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_segment_display_4x7_v2_get_selected_segment(TF_Se
  * You can stop the counter at every time by calling {@link tf_segment_display_4x7_v2_set_segments}
  * or {@link tf_segment_display_4x7_v2_set_numeric_value}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_segment_display_4x7_v2_start_counter(TF_SegmentDisplay4x7V2 *segment_display_4x7_v2, int16_t value_from, int16_t value_to, int16_t increment, uint32_t length);
+int tf_segment_display_4x7_v2_start_counter(TF_SegmentDisplay4x7V2 *segment_display_4x7_v2, int16_t value_from, int16_t value_to, int16_t increment, uint32_t length);
 
 /**
  * \ingroup BrickletSegmentDisplay4x7V2
@@ -439,7 +439,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_segment_display_4x7_v2_start_counter(TF_SegmentDi
  * 
  * If there is no counter running a 0 will be returned.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_segment_display_4x7_v2_get_counter_value(TF_SegmentDisplay4x7V2 *segment_display_4x7_v2, uint16_t *ret_value);
+int tf_segment_display_4x7_v2_get_counter_value(TF_SegmentDisplay4x7V2 *segment_display_4x7_v2, uint16_t *ret_value);
 
 /**
  * \ingroup BrickletSegmentDisplay4x7V2
@@ -456,7 +456,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_segment_display_4x7_v2_get_counter_value(TF_Segme
  * The errors counts are for errors that occur on the Bricklet side. All
  * Bricks have a similar function that returns the errors on the Brick side.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_segment_display_4x7_v2_get_spitfp_error_count(TF_SegmentDisplay4x7V2 *segment_display_4x7_v2, uint32_t *ret_error_count_ack_checksum, uint32_t *ret_error_count_message_checksum, uint32_t *ret_error_count_frame, uint32_t *ret_error_count_overflow);
+int tf_segment_display_4x7_v2_get_spitfp_error_count(TF_SegmentDisplay4x7V2 *segment_display_4x7_v2, uint32_t *ret_error_count_ack_checksum, uint32_t *ret_error_count_message_checksum, uint32_t *ret_error_count_frame, uint32_t *ret_error_count_overflow);
 
 /**
  * \ingroup BrickletSegmentDisplay4x7V2
@@ -471,14 +471,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_segment_display_4x7_v2_get_spitfp_error_count(TF_
  * This function is used by Brick Viewer during flashing. It should not be
  * necessary to call it in a normal user program.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_segment_display_4x7_v2_set_bootloader_mode(TF_SegmentDisplay4x7V2 *segment_display_4x7_v2, uint8_t mode, uint8_t *ret_status);
+int tf_segment_display_4x7_v2_set_bootloader_mode(TF_SegmentDisplay4x7V2 *segment_display_4x7_v2, uint8_t mode, uint8_t *ret_status);
 
 /**
  * \ingroup BrickletSegmentDisplay4x7V2
  *
  * Returns the current bootloader mode, see {@link tf_segment_display_4x7_v2_set_bootloader_mode}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_segment_display_4x7_v2_get_bootloader_mode(TF_SegmentDisplay4x7V2 *segment_display_4x7_v2, uint8_t *ret_mode);
+int tf_segment_display_4x7_v2_get_bootloader_mode(TF_SegmentDisplay4x7V2 *segment_display_4x7_v2, uint8_t *ret_mode);
 
 /**
  * \ingroup BrickletSegmentDisplay4x7V2
@@ -490,7 +490,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_segment_display_4x7_v2_get_bootloader_mode(TF_Seg
  * This function is used by Brick Viewer during flashing. It should not be
  * necessary to call it in a normal user program.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_segment_display_4x7_v2_set_write_firmware_pointer(TF_SegmentDisplay4x7V2 *segment_display_4x7_v2, uint32_t pointer);
+int tf_segment_display_4x7_v2_set_write_firmware_pointer(TF_SegmentDisplay4x7V2 *segment_display_4x7_v2, uint32_t pointer);
 
 /**
  * \ingroup BrickletSegmentDisplay4x7V2
@@ -504,7 +504,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_segment_display_4x7_v2_set_write_firmware_pointer
  * This function is used by Brick Viewer during flashing. It should not be
  * necessary to call it in a normal user program.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_segment_display_4x7_v2_write_firmware(TF_SegmentDisplay4x7V2 *segment_display_4x7_v2, uint8_t data[64], uint8_t *ret_status);
+int tf_segment_display_4x7_v2_write_firmware(TF_SegmentDisplay4x7V2 *segment_display_4x7_v2, const uint8_t data[64], uint8_t *ret_status);
 
 /**
  * \ingroup BrickletSegmentDisplay4x7V2
@@ -517,14 +517,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_segment_display_4x7_v2_write_firmware(TF_SegmentD
  * 
  * If the Bricklet is in bootloader mode, the LED is will show heartbeat by default.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_segment_display_4x7_v2_set_status_led_config(TF_SegmentDisplay4x7V2 *segment_display_4x7_v2, uint8_t config);
+int tf_segment_display_4x7_v2_set_status_led_config(TF_SegmentDisplay4x7V2 *segment_display_4x7_v2, uint8_t config);
 
 /**
  * \ingroup BrickletSegmentDisplay4x7V2
  *
  * Returns the configuration as set by {@link tf_segment_display_4x7_v2_set_status_led_config}
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_segment_display_4x7_v2_get_status_led_config(TF_SegmentDisplay4x7V2 *segment_display_4x7_v2, uint8_t *ret_config);
+int tf_segment_display_4x7_v2_get_status_led_config(TF_SegmentDisplay4x7V2 *segment_display_4x7_v2, uint8_t *ret_config);
 
 /**
  * \ingroup BrickletSegmentDisplay4x7V2
@@ -536,7 +536,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_segment_display_4x7_v2_get_status_led_config(TF_S
  * accuracy. Practically it is only useful as an indicator for
  * temperature changes.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_segment_display_4x7_v2_get_chip_temperature(TF_SegmentDisplay4x7V2 *segment_display_4x7_v2, int16_t *ret_temperature);
+int tf_segment_display_4x7_v2_get_chip_temperature(TF_SegmentDisplay4x7V2 *segment_display_4x7_v2, int16_t *ret_temperature);
 
 /**
  * \ingroup BrickletSegmentDisplay4x7V2
@@ -548,7 +548,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_segment_display_4x7_v2_get_chip_temperature(TF_Se
  * calling functions on the existing ones will result in
  * undefined behavior!
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_segment_display_4x7_v2_reset(TF_SegmentDisplay4x7V2 *segment_display_4x7_v2);
+int tf_segment_display_4x7_v2_reset(TF_SegmentDisplay4x7V2 *segment_display_4x7_v2);
 
 /**
  * \ingroup BrickletSegmentDisplay4x7V2
@@ -559,7 +559,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_segment_display_4x7_v2_reset(TF_SegmentDisplay4x7
  * 
  * We recommend that you use Brick Viewer to change the UID.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_segment_display_4x7_v2_write_uid(TF_SegmentDisplay4x7V2 *segment_display_4x7_v2, uint32_t uid);
+int tf_segment_display_4x7_v2_write_uid(TF_SegmentDisplay4x7V2 *segment_display_4x7_v2, uint32_t uid);
 
 /**
  * \ingroup BrickletSegmentDisplay4x7V2
@@ -567,7 +567,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_segment_display_4x7_v2_write_uid(TF_SegmentDispla
  * Returns the current UID as an integer. Encode as
  * Base58 to get the usual string version.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_segment_display_4x7_v2_read_uid(TF_SegmentDisplay4x7V2 *segment_display_4x7_v2, uint32_t *ret_uid);
+int tf_segment_display_4x7_v2_read_uid(TF_SegmentDisplay4x7V2 *segment_display_4x7_v2, uint32_t *ret_uid);
 
 /**
  * \ingroup BrickletSegmentDisplay4x7V2
@@ -583,7 +583,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_segment_display_4x7_v2_read_uid(TF_SegmentDisplay
  * The device identifier numbers can be found :ref:`here <device_identifier>`.
  * |device_identifier_constant|
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_segment_display_4x7_v2_get_identity(TF_SegmentDisplay4x7V2 *segment_display_4x7_v2, char ret_uid[8], char ret_connected_uid[8], char *ret_position, uint8_t ret_hardware_version[3], uint8_t ret_firmware_version[3], uint16_t *ret_device_identifier);
+int tf_segment_display_4x7_v2_get_identity(TF_SegmentDisplay4x7V2 *segment_display_4x7_v2, char ret_uid[8], char ret_connected_uid[8], char *ret_position, uint8_t ret_hardware_version[3], uint8_t ret_firmware_version[3], uint16_t *ret_device_identifier);
 
 #ifdef __cplusplus
 }

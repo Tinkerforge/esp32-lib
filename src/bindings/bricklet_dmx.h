@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-10-04.      *
+ * This file was automatically generated on 2021-11-12.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -25,7 +25,7 @@ extern "C" {
  */
 
 struct TF_DMX;
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
 
 typedef void (*TF_DMXFrameStartedHandler)(struct TF_DMX *device, void *user_data);
 typedef void (*TF_DMXFrameAvailableHandler)(struct TF_DMX *device, uint32_t frame_number, void *user_data);
@@ -40,7 +40,7 @@ typedef void (*TF_DMXFrameErrorCountHandler)(struct TF_DMX *device, uint32_t ove
  */
 typedef struct TF_DMX {
     TF_TfpContext *tfp;
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
     TF_DMXFrameStartedHandler frame_started_handler;
     void *frame_started_user_data;
 
@@ -182,7 +182,7 @@ typedef struct TF_DMX {
  */
 #define TF_DMX_FUNCTION_GET_IDENTITY 255
 
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
 
 /**
  * \ingroup BrickletDMX
@@ -355,7 +355,7 @@ typedef struct TF_DMX {
  * Creates the device object \c dmx with the unique device ID \c uid and adds
  * it to the IPConnection \c ipcon.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_dmx_create(TF_DMX *dmx, const char *uid, TF_HalContext *hal);
+int tf_dmx_create(TF_DMX *dmx, const char *uid, TF_HalContext *hal);
 
 /**
  * \ingroup BrickletDMX
@@ -363,7 +363,7 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_dmx_create(TF_DMX *dmx, const char *uid, TF_HalC
  * Removes the device object \c dmx from its IPConnection and destroys it.
  * The device object cannot be used anymore afterwards.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_dmx_destroy(TF_DMX *dmx);
+int tf_dmx_destroy(TF_DMX *dmx);
 
 /**
  * \ingroup BrickletDMX
@@ -384,7 +384,7 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_dmx_destroy(TF_DMX *dmx);
  * disabled for a setter function then no response is sent and errors are
  * silently ignored, because they cannot be detected.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_dmx_get_response_expected(TF_DMX *dmx, uint8_t function_id, bool *ret_response_expected);
+int tf_dmx_get_response_expected(TF_DMX *dmx, uint8_t function_id, bool *ret_response_expected);
 
 /**
  * \ingroup BrickletDMX
@@ -400,7 +400,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_dmx_get_response_expected(TF_DMX *dmx, uint8_t fu
  * setter function then no response is sent and errors are silently ignored,
  * because they cannot be detected.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_dmx_set_response_expected(TF_DMX *dmx, uint8_t function_id, bool response_expected);
+int tf_dmx_set_response_expected(TF_DMX *dmx, uint8_t function_id, bool response_expected);
 
 /**
  * \ingroup BrickletDMX
@@ -408,8 +408,8 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_dmx_set_response_expected(TF_DMX *dmx, uint8_t f
  * Changes the response expected flag for all setter and callback configuration
  * functions of this device at once.
  */
-TF_ATTRIBUTE_NONNULL_ALL void tf_dmx_set_response_expected_all(TF_DMX *dmx, bool response_expected);
-#ifdef TF_IMPLEMENT_CALLBACKS
+void tf_dmx_set_response_expected_all(TF_DMX *dmx, bool response_expected);
+#if TF_IMPLEMENT_CALLBACKS != 0
 /**
  * \ingroup BrickletDMX
  *
@@ -428,7 +428,7 @@ TF_ATTRIBUTE_NONNULL_ALL void tf_dmx_set_response_expected_all(TF_DMX *dmx, bool
  * 
  * This callback can only be triggered in master mode.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_dmx_register_frame_started_callback(TF_DMX *dmx, TF_DMXFrameStartedHandler handler, void *user_data);
+int tf_dmx_register_frame_started_callback(TF_DMX *dmx, TF_DMXFrameStartedHandler handler, void *user_data);
 
 
 /**
@@ -449,7 +449,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_dmx_register_frame_started_callback(TF_DMX *dmx, 
  * 
  * This callback can only be triggered in slave mode.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_dmx_register_frame_available_callback(TF_DMX *dmx, TF_DMXFrameAvailableHandler handler, void *user_data);
+int tf_dmx_register_frame_available_callback(TF_DMX *dmx, TF_DMXFrameAvailableHandler handler, void *user_data);
 
 
 /**
@@ -470,7 +470,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_dmx_register_frame_available_callback(TF_DMX *dmx
  * 
  * This callback can only be triggered in slave mode.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_dmx_register_frame_low_level_callback(TF_DMX *dmx, TF_DMXFrameLowLevelHandler handler, void *user_data);
+int tf_dmx_register_frame_low_level_callback(TF_DMX *dmx, TF_DMXFrameLowLevelHandler handler, void *user_data);
 
 
 /**
@@ -484,9 +484,9 @@ TF_ATTRIBUTE_NONNULL(1) int tf_dmx_register_frame_low_level_callback(TF_DMX *dmx
  * This callback is called if a new error occurs. It returns
  * the current overrun and framing error count.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_dmx_register_frame_error_count_callback(TF_DMX *dmx, TF_DMXFrameErrorCountHandler handler, void *user_data);
+int tf_dmx_register_frame_error_count_callback(TF_DMX *dmx, TF_DMXFrameErrorCountHandler handler, void *user_data);
 #endif
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
 /**
  * \ingroup BrickletDMX
  *
@@ -494,7 +494,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_dmx_register_frame_error_count_callback(TF_DMX *d
  *
  * This function can be used in a non-blocking fashion by calling it with a timeout of 0.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_dmx_callback_tick(TF_DMX *dmx, uint32_t timeout_us);
+int tf_dmx_callback_tick(TF_DMX *dmx, uint32_t timeout_us);
 #endif
 
 /**
@@ -504,14 +504,14 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_dmx_callback_tick(TF_DMX *dmx, uint32_t timeout_
  * 
  * Calling this function sets frame number to 0.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_dmx_set_dmx_mode(TF_DMX *dmx, uint8_t dmx_mode);
+int tf_dmx_set_dmx_mode(TF_DMX *dmx, uint8_t dmx_mode);
 
 /**
  * \ingroup BrickletDMX
  *
  * Returns the DMX mode, as set by {@link tf_dmx_set_dmx_mode}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_dmx_get_dmx_mode(TF_DMX *dmx, uint8_t *ret_dmx_mode);
+int tf_dmx_get_dmx_mode(TF_DMX *dmx, uint8_t *ret_dmx_mode);
 
 /**
  * \ingroup BrickletDMX
@@ -537,7 +537,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_dmx_get_dmx_mode(TF_DMX *dmx, uint8_t *ret_dmx_mo
  * 
  * This function can only be called in master mode.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_dmx_write_frame_low_level(TF_DMX *dmx, uint16_t frame_length, uint16_t frame_chunk_offset, uint8_t frame_chunk_data[60]);
+int tf_dmx_write_frame_low_level(TF_DMX *dmx, uint16_t frame_length, uint16_t frame_chunk_offset, const uint8_t frame_chunk_data[60]);
 
 /**
  * \ingroup BrickletDMX
@@ -562,7 +562,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_dmx_write_frame_low_level(TF_DMX *dmx, uint16_t f
  * 
  * This function can only be called in slave mode.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_dmx_read_frame_low_level(TF_DMX *dmx, uint16_t *ret_frame_length, uint16_t *ret_frame_chunk_offset, uint8_t ret_frame_chunk_data[56], uint32_t *ret_frame_number);
+int tf_dmx_read_frame_low_level(TF_DMX *dmx, uint16_t *ret_frame_length, uint16_t *ret_frame_chunk_offset, uint8_t ret_frame_chunk_data[56], uint32_t *ret_frame_number);
 
 /**
  * \ingroup BrickletDMX
@@ -577,21 +577,21 @@ TF_ATTRIBUTE_NONNULL(1) int tf_dmx_read_frame_low_level(TF_DMX *dmx, uint16_t *r
  * 
  * This setting is only used in master mode.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_dmx_set_frame_duration(TF_DMX *dmx, uint16_t frame_duration);
+int tf_dmx_set_frame_duration(TF_DMX *dmx, uint16_t frame_duration);
 
 /**
  * \ingroup BrickletDMX
  *
  * Returns the frame duration as set by {@link tf_dmx_set_frame_duration}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_dmx_get_frame_duration(TF_DMX *dmx, uint16_t *ret_frame_duration);
+int tf_dmx_get_frame_duration(TF_DMX *dmx, uint16_t *ret_frame_duration);
 
 /**
  * \ingroup BrickletDMX
  *
  * Returns the current number of overrun and framing errors.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_dmx_get_frame_error_count(TF_DMX *dmx, uint32_t *ret_overrun_error_count, uint32_t *ret_framing_error_count);
+int tf_dmx_get_frame_error_count(TF_DMX *dmx, uint32_t *ret_overrun_error_count, uint32_t *ret_framing_error_count);
 
 /**
  * \ingroup BrickletDMX
@@ -603,14 +603,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_dmx_get_frame_error_count(TF_DMX *dmx, uint32_t *
  * 
  * If the Bricklet is in bootloader mode, the LED is off.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_dmx_set_communication_led_config(TF_DMX *dmx, uint8_t config);
+int tf_dmx_set_communication_led_config(TF_DMX *dmx, uint8_t config);
 
 /**
  * \ingroup BrickletDMX
  *
  * Returns the configuration as set by {@link tf_dmx_set_communication_led_config}
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_dmx_get_communication_led_config(TF_DMX *dmx, uint8_t *ret_config);
+int tf_dmx_get_communication_led_config(TF_DMX *dmx, uint8_t *ret_config);
 
 /**
  * \ingroup BrickletDMX
@@ -625,14 +625,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_dmx_get_communication_led_config(TF_DMX *dmx, uin
  * 
  * If the Bricklet is in bootloader mode, the LED is off.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_dmx_set_error_led_config(TF_DMX *dmx, uint8_t config);
+int tf_dmx_set_error_led_config(TF_DMX *dmx, uint8_t config);
 
 /**
  * \ingroup BrickletDMX
  *
  * Returns the configuration as set by {@link tf_dmx_set_error_led_config}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_dmx_get_error_led_config(TF_DMX *dmx, uint8_t *ret_config);
+int tf_dmx_get_error_led_config(TF_DMX *dmx, uint8_t *ret_config);
 
 /**
  * \ingroup BrickletDMX
@@ -645,14 +645,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_dmx_get_error_led_config(TF_DMX *dmx, uint8_t *re
  * the cb:`Frame Available` callback at the same time. It becomes redundant in
  * this case.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_dmx_set_frame_callback_config(TF_DMX *dmx, bool frame_started_callback_enabled, bool frame_available_callback_enabled, bool frame_callback_enabled, bool frame_error_count_callback_enabled);
+int tf_dmx_set_frame_callback_config(TF_DMX *dmx, bool frame_started_callback_enabled, bool frame_available_callback_enabled, bool frame_callback_enabled, bool frame_error_count_callback_enabled);
 
 /**
  * \ingroup BrickletDMX
  *
  * Returns the frame callback config as set by {@link tf_dmx_set_frame_callback_config}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_dmx_get_frame_callback_config(TF_DMX *dmx, bool *ret_frame_started_callback_enabled, bool *ret_frame_available_callback_enabled, bool *ret_frame_callback_enabled, bool *ret_frame_error_count_callback_enabled);
+int tf_dmx_get_frame_callback_config(TF_DMX *dmx, bool *ret_frame_started_callback_enabled, bool *ret_frame_available_callback_enabled, bool *ret_frame_callback_enabled, bool *ret_frame_error_count_callback_enabled);
 
 /**
  * \ingroup BrickletDMX
@@ -669,7 +669,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_dmx_get_frame_callback_config(TF_DMX *dmx, bool *
  * The errors counts are for errors that occur on the Bricklet side. All
  * Bricks have a similar function that returns the errors on the Brick side.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_dmx_get_spitfp_error_count(TF_DMX *dmx, uint32_t *ret_error_count_ack_checksum, uint32_t *ret_error_count_message_checksum, uint32_t *ret_error_count_frame, uint32_t *ret_error_count_overflow);
+int tf_dmx_get_spitfp_error_count(TF_DMX *dmx, uint32_t *ret_error_count_ack_checksum, uint32_t *ret_error_count_message_checksum, uint32_t *ret_error_count_frame, uint32_t *ret_error_count_overflow);
 
 /**
  * \ingroup BrickletDMX
@@ -684,14 +684,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_dmx_get_spitfp_error_count(TF_DMX *dmx, uint32_t 
  * This function is used by Brick Viewer during flashing. It should not be
  * necessary to call it in a normal user program.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_dmx_set_bootloader_mode(TF_DMX *dmx, uint8_t mode, uint8_t *ret_status);
+int tf_dmx_set_bootloader_mode(TF_DMX *dmx, uint8_t mode, uint8_t *ret_status);
 
 /**
  * \ingroup BrickletDMX
  *
  * Returns the current bootloader mode, see {@link tf_dmx_set_bootloader_mode}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_dmx_get_bootloader_mode(TF_DMX *dmx, uint8_t *ret_mode);
+int tf_dmx_get_bootloader_mode(TF_DMX *dmx, uint8_t *ret_mode);
 
 /**
  * \ingroup BrickletDMX
@@ -703,7 +703,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_dmx_get_bootloader_mode(TF_DMX *dmx, uint8_t *ret
  * This function is used by Brick Viewer during flashing. It should not be
  * necessary to call it in a normal user program.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_dmx_set_write_firmware_pointer(TF_DMX *dmx, uint32_t pointer);
+int tf_dmx_set_write_firmware_pointer(TF_DMX *dmx, uint32_t pointer);
 
 /**
  * \ingroup BrickletDMX
@@ -717,7 +717,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_dmx_set_write_firmware_pointer(TF_DMX *dmx, uint3
  * This function is used by Brick Viewer during flashing. It should not be
  * necessary to call it in a normal user program.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_dmx_write_firmware(TF_DMX *dmx, uint8_t data[64], uint8_t *ret_status);
+int tf_dmx_write_firmware(TF_DMX *dmx, const uint8_t data[64], uint8_t *ret_status);
 
 /**
  * \ingroup BrickletDMX
@@ -730,14 +730,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_dmx_write_firmware(TF_DMX *dmx, uint8_t data[64],
  * 
  * If the Bricklet is in bootloader mode, the LED is will show heartbeat by default.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_dmx_set_status_led_config(TF_DMX *dmx, uint8_t config);
+int tf_dmx_set_status_led_config(TF_DMX *dmx, uint8_t config);
 
 /**
  * \ingroup BrickletDMX
  *
  * Returns the configuration as set by {@link tf_dmx_set_status_led_config}
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_dmx_get_status_led_config(TF_DMX *dmx, uint8_t *ret_config);
+int tf_dmx_get_status_led_config(TF_DMX *dmx, uint8_t *ret_config);
 
 /**
  * \ingroup BrickletDMX
@@ -749,7 +749,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_dmx_get_status_led_config(TF_DMX *dmx, uint8_t *r
  * accuracy. Practically it is only useful as an indicator for
  * temperature changes.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_dmx_get_chip_temperature(TF_DMX *dmx, int16_t *ret_temperature);
+int tf_dmx_get_chip_temperature(TF_DMX *dmx, int16_t *ret_temperature);
 
 /**
  * \ingroup BrickletDMX
@@ -761,7 +761,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_dmx_get_chip_temperature(TF_DMX *dmx, int16_t *re
  * calling functions on the existing ones will result in
  * undefined behavior!
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_dmx_reset(TF_DMX *dmx);
+int tf_dmx_reset(TF_DMX *dmx);
 
 /**
  * \ingroup BrickletDMX
@@ -772,7 +772,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_dmx_reset(TF_DMX *dmx);
  * 
  * We recommend that you use Brick Viewer to change the UID.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_dmx_write_uid(TF_DMX *dmx, uint32_t uid);
+int tf_dmx_write_uid(TF_DMX *dmx, uint32_t uid);
 
 /**
  * \ingroup BrickletDMX
@@ -780,7 +780,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_dmx_write_uid(TF_DMX *dmx, uint32_t uid);
  * Returns the current UID as an integer. Encode as
  * Base58 to get the usual string version.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_dmx_read_uid(TF_DMX *dmx, uint32_t *ret_uid);
+int tf_dmx_read_uid(TF_DMX *dmx, uint32_t *ret_uid);
 
 /**
  * \ingroup BrickletDMX
@@ -796,7 +796,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_dmx_read_uid(TF_DMX *dmx, uint32_t *ret_uid);
  * The device identifier numbers can be found :ref:`here <device_identifier>`.
  * |device_identifier_constant|
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_dmx_get_identity(TF_DMX *dmx, char ret_uid[8], char ret_connected_uid[8], char *ret_position, uint8_t ret_hardware_version[3], uint8_t ret_firmware_version[3], uint16_t *ret_device_identifier);
+int tf_dmx_get_identity(TF_DMX *dmx, char ret_uid[8], char ret_connected_uid[8], char *ret_position, uint8_t ret_hardware_version[3], uint8_t ret_firmware_version[3], uint16_t *ret_device_identifier);
 
 /**
  * \ingroup BrickletDMX
@@ -822,7 +822,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_dmx_get_identity(TF_DMX *dmx, char ret_uid[8], ch
  * 
  * This function can only be called in master mode.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_dmx_write_frame(TF_DMX *dmx, uint8_t *frame, uint16_t frame_length);
+int tf_dmx_write_frame(TF_DMX *dmx, const uint8_t *frame, uint16_t frame_length);
 
 /**
  * \ingroup BrickletDMX
@@ -847,7 +847,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_dmx_write_frame(TF_DMX *dmx, uint8_t *frame, uint
  * 
  * This function can only be called in slave mode.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_dmx_read_frame(TF_DMX *dmx, uint8_t *ret_frame, uint16_t *ret_frame_length, uint32_t *ret_frame_number);
+int tf_dmx_read_frame(TF_DMX *dmx, uint8_t *ret_frame, uint16_t *ret_frame_length, uint32_t *ret_frame_number);
 
 #ifdef __cplusplus
 }

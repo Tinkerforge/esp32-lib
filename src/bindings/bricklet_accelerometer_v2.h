@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-10-04.      *
+ * This file was automatically generated on 2021-11-12.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -25,7 +25,7 @@ extern "C" {
  */
 
 struct TF_AccelerometerV2;
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
 
 typedef void (*TF_AccelerometerV2AccelerationHandler)(struct TF_AccelerometerV2 *device, int32_t x, int32_t y, int32_t z, void *user_data);
 typedef void (*TF_AccelerometerV2ContinuousAcceleration16BitHandler)(struct TF_AccelerometerV2 *device, int16_t acceleration[30], void *user_data);
@@ -39,7 +39,7 @@ typedef void (*TF_AccelerometerV2ContinuousAcceleration8BitHandler)(struct TF_Ac
  */
 typedef struct TF_AccelerometerV2 {
     TF_TfpContext *tfp;
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
     TF_AccelerometerV2AccelerationHandler acceleration_handler;
     void *acceleration_user_data;
 
@@ -168,7 +168,7 @@ typedef struct TF_AccelerometerV2 {
  */
 #define TF_ACCELEROMETER_V2_FUNCTION_GET_IDENTITY 255
 
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
 
 /**
  * \ingroup BrickletAccelerometerV2
@@ -426,7 +426,7 @@ typedef struct TF_AccelerometerV2 {
  * Creates the device object \c accelerometer_v2 with the unique device ID \c uid and adds
  * it to the IPConnection \c ipcon.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_accelerometer_v2_create(TF_AccelerometerV2 *accelerometer_v2, const char *uid, TF_HalContext *hal);
+int tf_accelerometer_v2_create(TF_AccelerometerV2 *accelerometer_v2, const char *uid, TF_HalContext *hal);
 
 /**
  * \ingroup BrickletAccelerometerV2
@@ -434,7 +434,7 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_accelerometer_v2_create(TF_AccelerometerV2 *acce
  * Removes the device object \c accelerometer_v2 from its IPConnection and destroys it.
  * The device object cannot be used anymore afterwards.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_accelerometer_v2_destroy(TF_AccelerometerV2 *accelerometer_v2);
+int tf_accelerometer_v2_destroy(TF_AccelerometerV2 *accelerometer_v2);
 
 /**
  * \ingroup BrickletAccelerometerV2
@@ -455,7 +455,7 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_accelerometer_v2_destroy(TF_AccelerometerV2 *acc
  * disabled for a setter function then no response is sent and errors are
  * silently ignored, because they cannot be detected.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_accelerometer_v2_get_response_expected(TF_AccelerometerV2 *accelerometer_v2, uint8_t function_id, bool *ret_response_expected);
+int tf_accelerometer_v2_get_response_expected(TF_AccelerometerV2 *accelerometer_v2, uint8_t function_id, bool *ret_response_expected);
 
 /**
  * \ingroup BrickletAccelerometerV2
@@ -471,7 +471,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_accelerometer_v2_get_response_expected(TF_Acceler
  * setter function then no response is sent and errors are silently ignored,
  * because they cannot be detected.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_accelerometer_v2_set_response_expected(TF_AccelerometerV2 *accelerometer_v2, uint8_t function_id, bool response_expected);
+int tf_accelerometer_v2_set_response_expected(TF_AccelerometerV2 *accelerometer_v2, uint8_t function_id, bool response_expected);
 
 /**
  * \ingroup BrickletAccelerometerV2
@@ -479,8 +479,8 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_accelerometer_v2_set_response_expected(TF_Accele
  * Changes the response expected flag for all setter and callback configuration
  * functions of this device at once.
  */
-TF_ATTRIBUTE_NONNULL_ALL void tf_accelerometer_v2_set_response_expected_all(TF_AccelerometerV2 *accelerometer_v2, bool response_expected);
-#ifdef TF_IMPLEMENT_CALLBACKS
+void tf_accelerometer_v2_set_response_expected_all(TF_AccelerometerV2 *accelerometer_v2, bool response_expected);
+#if TF_IMPLEMENT_CALLBACKS != 0
 /**
  * \ingroup BrickletAccelerometerV2
  *
@@ -494,7 +494,7 @@ TF_ATTRIBUTE_NONNULL_ALL void tf_accelerometer_v2_set_response_expected_all(TF_A
  * 
  * The parameters are the same as {@link tf_accelerometer_v2_get_acceleration}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_accelerometer_v2_register_acceleration_callback(TF_AccelerometerV2 *accelerometer_v2, TF_AccelerometerV2AccelerationHandler handler, void *user_data);
+int tf_accelerometer_v2_register_acceleration_callback(TF_AccelerometerV2 *accelerometer_v2, TF_AccelerometerV2AccelerationHandler handler, void *user_data);
 
 
 /**
@@ -530,7 +530,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_accelerometer_v2_register_acceleration_callback(T
  * * x, z enabled: "x, z, ..." 15x repeated
  * * y enabled: "y, ..." 30x repeated
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_accelerometer_v2_register_continuous_acceleration_16_bit_callback(TF_AccelerometerV2 *accelerometer_v2, TF_AccelerometerV2ContinuousAcceleration16BitHandler handler, void *user_data);
+int tf_accelerometer_v2_register_continuous_acceleration_16_bit_callback(TF_AccelerometerV2 *accelerometer_v2, TF_AccelerometerV2ContinuousAcceleration16BitHandler handler, void *user_data);
 
 
 /**
@@ -566,9 +566,9 @@ TF_ATTRIBUTE_NONNULL(1) int tf_accelerometer_v2_register_continuous_acceleration
  * * x, z enabled: "x, z, ..." 30x repeated
  * * y enabled: "y, ..." 60x repeated
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_accelerometer_v2_register_continuous_acceleration_8_bit_callback(TF_AccelerometerV2 *accelerometer_v2, TF_AccelerometerV2ContinuousAcceleration8BitHandler handler, void *user_data);
+int tf_accelerometer_v2_register_continuous_acceleration_8_bit_callback(TF_AccelerometerV2 *accelerometer_v2, TF_AccelerometerV2ContinuousAcceleration8BitHandler handler, void *user_data);
 #endif
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
 /**
  * \ingroup BrickletAccelerometerV2
  *
@@ -576,7 +576,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_accelerometer_v2_register_continuous_acceleration
  *
  * This function can be used in a non-blocking fashion by calling it with a timeout of 0.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_accelerometer_v2_callback_tick(TF_AccelerometerV2 *accelerometer_v2, uint32_t timeout_us);
+int tf_accelerometer_v2_callback_tick(TF_AccelerometerV2 *accelerometer_v2, uint32_t timeout_us);
 #endif
 
 /**
@@ -590,7 +590,7 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_accelerometer_v2_callback_tick(TF_AccelerometerV
  * to use the {@link tf_accelerometer_v2_register_acceleration_callback} callback and set the period with
  * {@link tf_accelerometer_v2_set_acceleration_callback_configuration}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_accelerometer_v2_get_acceleration(TF_AccelerometerV2 *accelerometer_v2, int32_t *ret_x, int32_t *ret_y, int32_t *ret_z);
+int tf_accelerometer_v2_get_acceleration(TF_AccelerometerV2 *accelerometer_v2, int32_t *ret_x, int32_t *ret_y, int32_t *ret_z);
 
 /**
  * \ingroup BrickletAccelerometerV2
@@ -604,14 +604,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_accelerometer_v2_get_acceleration(TF_Acceleromete
  * Decreasing data rate or full scale range will also decrease the noise on
  * the data.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_accelerometer_v2_set_configuration(TF_AccelerometerV2 *accelerometer_v2, uint8_t data_rate, uint8_t full_scale);
+int tf_accelerometer_v2_set_configuration(TF_AccelerometerV2 *accelerometer_v2, uint8_t data_rate, uint8_t full_scale);
 
 /**
  * \ingroup BrickletAccelerometerV2
  *
  * Returns the configuration as set by {@link tf_accelerometer_v2_set_configuration}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_accelerometer_v2_get_configuration(TF_AccelerometerV2 *accelerometer_v2, uint8_t *ret_data_rate, uint8_t *ret_full_scale);
+int tf_accelerometer_v2_get_configuration(TF_AccelerometerV2 *accelerometer_v2, uint8_t *ret_data_rate, uint8_t *ret_full_scale);
 
 /**
  * \ingroup BrickletAccelerometerV2
@@ -629,7 +629,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_accelerometer_v2_get_configuration(TF_Acceleromet
  * If this callback is enabled, the {@link tf_accelerometer_v2_register_continuous_acceleration_16_bit_callback} callback
  * and {@link tf_accelerometer_v2_register_continuous_acceleration_8_bit_callback} callback will automatically be disabled.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_accelerometer_v2_set_acceleration_callback_configuration(TF_AccelerometerV2 *accelerometer_v2, uint32_t period, bool value_has_to_change);
+int tf_accelerometer_v2_set_acceleration_callback_configuration(TF_AccelerometerV2 *accelerometer_v2, uint32_t period, bool value_has_to_change);
 
 /**
  * \ingroup BrickletAccelerometerV2
@@ -637,7 +637,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_accelerometer_v2_set_acceleration_callback_config
  * Returns the callback configuration as set by
  * {@link tf_accelerometer_v2_set_acceleration_callback_configuration}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_accelerometer_v2_get_acceleration_callback_configuration(TF_AccelerometerV2 *accelerometer_v2, uint32_t *ret_period, bool *ret_value_has_to_change);
+int tf_accelerometer_v2_get_acceleration_callback_configuration(TF_AccelerometerV2 *accelerometer_v2, uint32_t *ret_period, bool *ret_value_has_to_change);
 
 /**
  * \ingroup BrickletAccelerometerV2
@@ -645,14 +645,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_accelerometer_v2_get_acceleration_callback_config
  * Configures the info LED (marked as "Force" on the Bricklet) to be either turned off,
  * turned on, or blink in heartbeat mode.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_accelerometer_v2_set_info_led_config(TF_AccelerometerV2 *accelerometer_v2, uint8_t config);
+int tf_accelerometer_v2_set_info_led_config(TF_AccelerometerV2 *accelerometer_v2, uint8_t config);
 
 /**
  * \ingroup BrickletAccelerometerV2
  *
  * Returns the LED configuration as set by {@link tf_accelerometer_v2_set_info_led_config}
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_accelerometer_v2_get_info_led_config(TF_AccelerometerV2 *accelerometer_v2, uint8_t *ret_config);
+int tf_accelerometer_v2_get_info_led_config(TF_AccelerometerV2 *accelerometer_v2, uint8_t *ret_config);
 
 /**
  * \ingroup BrickletAccelerometerV2
@@ -703,7 +703,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_accelerometer_v2_get_info_led_config(TF_Accelerom
  *  "3", "20000Hz", "10000Hz"
  * \endverbatim
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_accelerometer_v2_set_continuous_acceleration_configuration(TF_AccelerometerV2 *accelerometer_v2, bool enable_x, bool enable_y, bool enable_z, uint8_t resolution);
+int tf_accelerometer_v2_set_continuous_acceleration_configuration(TF_AccelerometerV2 *accelerometer_v2, bool enable_x, bool enable_y, bool enable_z, uint8_t resolution);
 
 /**
  * \ingroup BrickletAccelerometerV2
@@ -711,7 +711,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_accelerometer_v2_set_continuous_acceleration_conf
  * Returns the continuous acceleration configuration as set by
  * {@link tf_accelerometer_v2_set_continuous_acceleration_configuration}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_accelerometer_v2_get_continuous_acceleration_configuration(TF_AccelerometerV2 *accelerometer_v2, bool *ret_enable_x, bool *ret_enable_y, bool *ret_enable_z, uint8_t *ret_resolution);
+int tf_accelerometer_v2_get_continuous_acceleration_configuration(TF_AccelerometerV2 *accelerometer_v2, bool *ret_enable_x, bool *ret_enable_y, bool *ret_enable_z, uint8_t *ret_resolution);
 
 /**
  * \ingroup BrickletAccelerometerV2
@@ -729,7 +729,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_accelerometer_v2_get_continuous_acceleration_conf
  * 
  * .. versionadded:: 2.0.2$nbsp;(Plugin)
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_accelerometer_v2_set_filter_configuration(TF_AccelerometerV2 *accelerometer_v2, uint8_t iir_bypass, uint8_t low_pass_filter);
+int tf_accelerometer_v2_set_filter_configuration(TF_AccelerometerV2 *accelerometer_v2, uint8_t iir_bypass, uint8_t low_pass_filter);
 
 /**
  * \ingroup BrickletAccelerometerV2
@@ -738,7 +738,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_accelerometer_v2_set_filter_configuration(TF_Acce
  * 
  * .. versionadded:: 2.0.2$nbsp;(Plugin)
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_accelerometer_v2_get_filter_configuration(TF_AccelerometerV2 *accelerometer_v2, uint8_t *ret_iir_bypass, uint8_t *ret_low_pass_filter);
+int tf_accelerometer_v2_get_filter_configuration(TF_AccelerometerV2 *accelerometer_v2, uint8_t *ret_iir_bypass, uint8_t *ret_low_pass_filter);
 
 /**
  * \ingroup BrickletAccelerometerV2
@@ -755,7 +755,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_accelerometer_v2_get_filter_configuration(TF_Acce
  * The errors counts are for errors that occur on the Bricklet side. All
  * Bricks have a similar function that returns the errors on the Brick side.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_accelerometer_v2_get_spitfp_error_count(TF_AccelerometerV2 *accelerometer_v2, uint32_t *ret_error_count_ack_checksum, uint32_t *ret_error_count_message_checksum, uint32_t *ret_error_count_frame, uint32_t *ret_error_count_overflow);
+int tf_accelerometer_v2_get_spitfp_error_count(TF_AccelerometerV2 *accelerometer_v2, uint32_t *ret_error_count_ack_checksum, uint32_t *ret_error_count_message_checksum, uint32_t *ret_error_count_frame, uint32_t *ret_error_count_overflow);
 
 /**
  * \ingroup BrickletAccelerometerV2
@@ -770,14 +770,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_accelerometer_v2_get_spitfp_error_count(TF_Accele
  * This function is used by Brick Viewer during flashing. It should not be
  * necessary to call it in a normal user program.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_accelerometer_v2_set_bootloader_mode(TF_AccelerometerV2 *accelerometer_v2, uint8_t mode, uint8_t *ret_status);
+int tf_accelerometer_v2_set_bootloader_mode(TF_AccelerometerV2 *accelerometer_v2, uint8_t mode, uint8_t *ret_status);
 
 /**
  * \ingroup BrickletAccelerometerV2
  *
  * Returns the current bootloader mode, see {@link tf_accelerometer_v2_set_bootloader_mode}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_accelerometer_v2_get_bootloader_mode(TF_AccelerometerV2 *accelerometer_v2, uint8_t *ret_mode);
+int tf_accelerometer_v2_get_bootloader_mode(TF_AccelerometerV2 *accelerometer_v2, uint8_t *ret_mode);
 
 /**
  * \ingroup BrickletAccelerometerV2
@@ -789,7 +789,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_accelerometer_v2_get_bootloader_mode(TF_Accelerom
  * This function is used by Brick Viewer during flashing. It should not be
  * necessary to call it in a normal user program.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_accelerometer_v2_set_write_firmware_pointer(TF_AccelerometerV2 *accelerometer_v2, uint32_t pointer);
+int tf_accelerometer_v2_set_write_firmware_pointer(TF_AccelerometerV2 *accelerometer_v2, uint32_t pointer);
 
 /**
  * \ingroup BrickletAccelerometerV2
@@ -803,7 +803,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_accelerometer_v2_set_write_firmware_pointer(TF_Ac
  * This function is used by Brick Viewer during flashing. It should not be
  * necessary to call it in a normal user program.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_accelerometer_v2_write_firmware(TF_AccelerometerV2 *accelerometer_v2, uint8_t data[64], uint8_t *ret_status);
+int tf_accelerometer_v2_write_firmware(TF_AccelerometerV2 *accelerometer_v2, const uint8_t data[64], uint8_t *ret_status);
 
 /**
  * \ingroup BrickletAccelerometerV2
@@ -816,14 +816,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_accelerometer_v2_write_firmware(TF_AccelerometerV
  * 
  * If the Bricklet is in bootloader mode, the LED is will show heartbeat by default.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_accelerometer_v2_set_status_led_config(TF_AccelerometerV2 *accelerometer_v2, uint8_t config);
+int tf_accelerometer_v2_set_status_led_config(TF_AccelerometerV2 *accelerometer_v2, uint8_t config);
 
 /**
  * \ingroup BrickletAccelerometerV2
  *
  * Returns the configuration as set by {@link tf_accelerometer_v2_set_status_led_config}
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_accelerometer_v2_get_status_led_config(TF_AccelerometerV2 *accelerometer_v2, uint8_t *ret_config);
+int tf_accelerometer_v2_get_status_led_config(TF_AccelerometerV2 *accelerometer_v2, uint8_t *ret_config);
 
 /**
  * \ingroup BrickletAccelerometerV2
@@ -835,7 +835,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_accelerometer_v2_get_status_led_config(TF_Acceler
  * accuracy. Practically it is only useful as an indicator for
  * temperature changes.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_accelerometer_v2_get_chip_temperature(TF_AccelerometerV2 *accelerometer_v2, int16_t *ret_temperature);
+int tf_accelerometer_v2_get_chip_temperature(TF_AccelerometerV2 *accelerometer_v2, int16_t *ret_temperature);
 
 /**
  * \ingroup BrickletAccelerometerV2
@@ -847,7 +847,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_accelerometer_v2_get_chip_temperature(TF_Accelero
  * calling functions on the existing ones will result in
  * undefined behavior!
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_accelerometer_v2_reset(TF_AccelerometerV2 *accelerometer_v2);
+int tf_accelerometer_v2_reset(TF_AccelerometerV2 *accelerometer_v2);
 
 /**
  * \ingroup BrickletAccelerometerV2
@@ -858,7 +858,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_accelerometer_v2_reset(TF_AccelerometerV2 *accele
  * 
  * We recommend that you use Brick Viewer to change the UID.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_accelerometer_v2_write_uid(TF_AccelerometerV2 *accelerometer_v2, uint32_t uid);
+int tf_accelerometer_v2_write_uid(TF_AccelerometerV2 *accelerometer_v2, uint32_t uid);
 
 /**
  * \ingroup BrickletAccelerometerV2
@@ -866,7 +866,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_accelerometer_v2_write_uid(TF_AccelerometerV2 *ac
  * Returns the current UID as an integer. Encode as
  * Base58 to get the usual string version.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_accelerometer_v2_read_uid(TF_AccelerometerV2 *accelerometer_v2, uint32_t *ret_uid);
+int tf_accelerometer_v2_read_uid(TF_AccelerometerV2 *accelerometer_v2, uint32_t *ret_uid);
 
 /**
  * \ingroup BrickletAccelerometerV2
@@ -882,7 +882,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_accelerometer_v2_read_uid(TF_AccelerometerV2 *acc
  * The device identifier numbers can be found :ref:`here <device_identifier>`.
  * |device_identifier_constant|
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_accelerometer_v2_get_identity(TF_AccelerometerV2 *accelerometer_v2, char ret_uid[8], char ret_connected_uid[8], char *ret_position, uint8_t ret_hardware_version[3], uint8_t ret_firmware_version[3], uint16_t *ret_device_identifier);
+int tf_accelerometer_v2_get_identity(TF_AccelerometerV2 *accelerometer_v2, char ret_uid[8], char ret_connected_uid[8], char *ret_position, uint8_t ret_hardware_version[3], uint8_t ret_firmware_version[3], uint16_t *ret_device_identifier);
 
 #ifdef __cplusplus
 }

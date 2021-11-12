@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-10-04.      *
+ * This file was automatically generated on 2021-11-12.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -25,7 +25,7 @@ extern "C" {
  */
 
 struct TF_EnergyMonitor;
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
 
 typedef void (*TF_EnergyMonitorEnergyDataHandler)(struct TF_EnergyMonitor *device, int32_t voltage, int32_t current, int32_t energy, int32_t real_power, int32_t apparent_power, int32_t reactive_power, uint16_t power_factor, uint16_t frequency, void *user_data);
 
@@ -37,7 +37,7 @@ typedef void (*TF_EnergyMonitorEnergyDataHandler)(struct TF_EnergyMonitor *devic
  */
 typedef struct TF_EnergyMonitor {
     TF_TfpContext *tfp;
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
     TF_EnergyMonitorEnergyDataHandler energy_data_handler;
     void *energy_data_user_data;
 
@@ -150,7 +150,7 @@ typedef struct TF_EnergyMonitor {
  */
 #define TF_ENERGY_MONITOR_FUNCTION_GET_IDENTITY 255
 
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
 
 /**
  * \ingroup BrickletEnergyMonitor
@@ -258,7 +258,7 @@ typedef struct TF_EnergyMonitor {
  * Creates the device object \c energy_monitor with the unique device ID \c uid and adds
  * it to the IPConnection \c ipcon.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_energy_monitor_create(TF_EnergyMonitor *energy_monitor, const char *uid, TF_HalContext *hal);
+int tf_energy_monitor_create(TF_EnergyMonitor *energy_monitor, const char *uid, TF_HalContext *hal);
 
 /**
  * \ingroup BrickletEnergyMonitor
@@ -266,7 +266,7 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_energy_monitor_create(TF_EnergyMonitor *energy_m
  * Removes the device object \c energy_monitor from its IPConnection and destroys it.
  * The device object cannot be used anymore afterwards.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_energy_monitor_destroy(TF_EnergyMonitor *energy_monitor);
+int tf_energy_monitor_destroy(TF_EnergyMonitor *energy_monitor);
 
 /**
  * \ingroup BrickletEnergyMonitor
@@ -287,7 +287,7 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_energy_monitor_destroy(TF_EnergyMonitor *energy_
  * disabled for a setter function then no response is sent and errors are
  * silently ignored, because they cannot be detected.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_energy_monitor_get_response_expected(TF_EnergyMonitor *energy_monitor, uint8_t function_id, bool *ret_response_expected);
+int tf_energy_monitor_get_response_expected(TF_EnergyMonitor *energy_monitor, uint8_t function_id, bool *ret_response_expected);
 
 /**
  * \ingroup BrickletEnergyMonitor
@@ -303,7 +303,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_energy_monitor_get_response_expected(TF_EnergyMon
  * setter function then no response is sent and errors are silently ignored,
  * because they cannot be detected.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_energy_monitor_set_response_expected(TF_EnergyMonitor *energy_monitor, uint8_t function_id, bool response_expected);
+int tf_energy_monitor_set_response_expected(TF_EnergyMonitor *energy_monitor, uint8_t function_id, bool response_expected);
 
 /**
  * \ingroup BrickletEnergyMonitor
@@ -311,8 +311,8 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_energy_monitor_set_response_expected(TF_EnergyMo
  * Changes the response expected flag for all setter and callback configuration
  * functions of this device at once.
  */
-TF_ATTRIBUTE_NONNULL_ALL void tf_energy_monitor_set_response_expected_all(TF_EnergyMonitor *energy_monitor, bool response_expected);
-#ifdef TF_IMPLEMENT_CALLBACKS
+void tf_energy_monitor_set_response_expected_all(TF_EnergyMonitor *energy_monitor, bool response_expected);
+#if TF_IMPLEMENT_CALLBACKS != 0
 /**
  * \ingroup BrickletEnergyMonitor
  *
@@ -326,9 +326,9 @@ TF_ATTRIBUTE_NONNULL_ALL void tf_energy_monitor_set_response_expected_all(TF_Ene
  * 
  * The parameters are the same as {@link tf_energy_monitor_get_energy_data}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_energy_monitor_register_energy_data_callback(TF_EnergyMonitor *energy_monitor, TF_EnergyMonitorEnergyDataHandler handler, void *user_data);
+int tf_energy_monitor_register_energy_data_callback(TF_EnergyMonitor *energy_monitor, TF_EnergyMonitorEnergyDataHandler handler, void *user_data);
 #endif
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
 /**
  * \ingroup BrickletEnergyMonitor
  *
@@ -336,7 +336,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_energy_monitor_register_energy_data_callback(TF_E
  *
  * This function can be used in a non-blocking fashion by calling it with a timeout of 0.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_energy_monitor_callback_tick(TF_EnergyMonitor *energy_monitor, uint32_t timeout_us);
+int tf_energy_monitor_callback_tick(TF_EnergyMonitor *energy_monitor, uint32_t timeout_us);
 #endif
 
 /**
@@ -363,14 +363,14 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_energy_monitor_callback_tick(TF_EnergyMonitor *e
  * to calculate the frequency and it will use an integration time of
  * 10 zero-crossings of the current waveform.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_energy_monitor_get_energy_data(TF_EnergyMonitor *energy_monitor, int32_t *ret_voltage, int32_t *ret_current, int32_t *ret_energy, int32_t *ret_real_power, int32_t *ret_apparent_power, int32_t *ret_reactive_power, uint16_t *ret_power_factor, uint16_t *ret_frequency);
+int tf_energy_monitor_get_energy_data(TF_EnergyMonitor *energy_monitor, int32_t *ret_voltage, int32_t *ret_current, int32_t *ret_energy, int32_t *ret_real_power, int32_t *ret_apparent_power, int32_t *ret_reactive_power, uint16_t *ret_power_factor, uint16_t *ret_frequency);
 
 /**
  * \ingroup BrickletEnergyMonitor
  *
  * Sets the energy value (see {@link tf_energy_monitor_get_energy_data}) back to 0Wh.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_energy_monitor_reset_energy(TF_EnergyMonitor *energy_monitor);
+int tf_energy_monitor_reset_energy(TF_EnergyMonitor *energy_monitor);
 
 /**
  * \ingroup BrickletEnergyMonitor
@@ -386,14 +386,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_energy_monitor_reset_energy(TF_EnergyMonitor *ene
  * This data is meant to be used for a non-realtime graphical representation of
  * the voltage and current waveforms.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_energy_monitor_get_waveform_low_level(TF_EnergyMonitor *energy_monitor, uint16_t *ret_waveform_chunk_offset, int16_t ret_waveform_chunk_data[30]);
+int tf_energy_monitor_get_waveform_low_level(TF_EnergyMonitor *energy_monitor, uint16_t *ret_waveform_chunk_offset, int16_t ret_waveform_chunk_data[30]);
 
 /**
  * \ingroup BrickletEnergyMonitor
  *
  * Returns *true* if a voltage/current transformer is connected to the Bricklet.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_energy_monitor_get_transformer_status(TF_EnergyMonitor *energy_monitor, bool *ret_voltage_transformer_connected, bool *ret_current_transformer_connected);
+int tf_energy_monitor_get_transformer_status(TF_EnergyMonitor *energy_monitor, bool *ret_voltage_transformer_connected, bool *ret_current_transformer_connected);
 
 /**
  * \ingroup BrickletEnergyMonitor
@@ -411,14 +411,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_energy_monitor_get_transformer_status(TF_EnergyMo
  * 
  * Set the phase shift to 0. It is for future use and currently not supported by the Bricklet.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_energy_monitor_set_transformer_calibration(TF_EnergyMonitor *energy_monitor, uint16_t voltage_ratio, uint16_t current_ratio, int16_t phase_shift);
+int tf_energy_monitor_set_transformer_calibration(TF_EnergyMonitor *energy_monitor, uint16_t voltage_ratio, uint16_t current_ratio, int16_t phase_shift);
 
 /**
  * \ingroup BrickletEnergyMonitor
  *
  * Returns the transformer calibration as set by {@link tf_energy_monitor_set_transformer_calibration}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_energy_monitor_get_transformer_calibration(TF_EnergyMonitor *energy_monitor, uint16_t *ret_voltage_ratio, uint16_t *ret_current_ratio, int16_t *ret_phase_shift);
+int tf_energy_monitor_get_transformer_calibration(TF_EnergyMonitor *energy_monitor, uint16_t *ret_voltage_ratio, uint16_t *ret_current_ratio, int16_t *ret_phase_shift);
 
 /**
  * \ingroup BrickletEnergyMonitor
@@ -436,7 +436,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_energy_monitor_get_transformer_calibration(TF_Ene
  * 
  * The calibration is saved in non-volatile memory, you only have to set it once.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_energy_monitor_calibrate_offset(TF_EnergyMonitor *energy_monitor);
+int tf_energy_monitor_calibrate_offset(TF_EnergyMonitor *energy_monitor);
 
 /**
  * \ingroup BrickletEnergyMonitor
@@ -451,7 +451,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_energy_monitor_calibrate_offset(TF_EnergyMonitor 
  * If it is set to false, the callback is continuously triggered with the period,
  * independent of the value.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_energy_monitor_set_energy_data_callback_configuration(TF_EnergyMonitor *energy_monitor, uint32_t period, bool value_has_to_change);
+int tf_energy_monitor_set_energy_data_callback_configuration(TF_EnergyMonitor *energy_monitor, uint32_t period, bool value_has_to_change);
 
 /**
  * \ingroup BrickletEnergyMonitor
@@ -459,7 +459,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_energy_monitor_set_energy_data_callback_configura
  * Returns the callback configuration as set by
  * {@link tf_energy_monitor_set_energy_data_callback_configuration}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_energy_monitor_get_energy_data_callback_configuration(TF_EnergyMonitor *energy_monitor, uint32_t *ret_period, bool *ret_value_has_to_change);
+int tf_energy_monitor_get_energy_data_callback_configuration(TF_EnergyMonitor *energy_monitor, uint32_t *ret_period, bool *ret_value_has_to_change);
 
 /**
  * \ingroup BrickletEnergyMonitor
@@ -476,7 +476,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_energy_monitor_get_energy_data_callback_configura
  * The errors counts are for errors that occur on the Bricklet side. All
  * Bricks have a similar function that returns the errors on the Brick side.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_energy_monitor_get_spitfp_error_count(TF_EnergyMonitor *energy_monitor, uint32_t *ret_error_count_ack_checksum, uint32_t *ret_error_count_message_checksum, uint32_t *ret_error_count_frame, uint32_t *ret_error_count_overflow);
+int tf_energy_monitor_get_spitfp_error_count(TF_EnergyMonitor *energy_monitor, uint32_t *ret_error_count_ack_checksum, uint32_t *ret_error_count_message_checksum, uint32_t *ret_error_count_frame, uint32_t *ret_error_count_overflow);
 
 /**
  * \ingroup BrickletEnergyMonitor
@@ -491,14 +491,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_energy_monitor_get_spitfp_error_count(TF_EnergyMo
  * This function is used by Brick Viewer during flashing. It should not be
  * necessary to call it in a normal user program.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_energy_monitor_set_bootloader_mode(TF_EnergyMonitor *energy_monitor, uint8_t mode, uint8_t *ret_status);
+int tf_energy_monitor_set_bootloader_mode(TF_EnergyMonitor *energy_monitor, uint8_t mode, uint8_t *ret_status);
 
 /**
  * \ingroup BrickletEnergyMonitor
  *
  * Returns the current bootloader mode, see {@link tf_energy_monitor_set_bootloader_mode}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_energy_monitor_get_bootloader_mode(TF_EnergyMonitor *energy_monitor, uint8_t *ret_mode);
+int tf_energy_monitor_get_bootloader_mode(TF_EnergyMonitor *energy_monitor, uint8_t *ret_mode);
 
 /**
  * \ingroup BrickletEnergyMonitor
@@ -510,7 +510,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_energy_monitor_get_bootloader_mode(TF_EnergyMonit
  * This function is used by Brick Viewer during flashing. It should not be
  * necessary to call it in a normal user program.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_energy_monitor_set_write_firmware_pointer(TF_EnergyMonitor *energy_monitor, uint32_t pointer);
+int tf_energy_monitor_set_write_firmware_pointer(TF_EnergyMonitor *energy_monitor, uint32_t pointer);
 
 /**
  * \ingroup BrickletEnergyMonitor
@@ -524,7 +524,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_energy_monitor_set_write_firmware_pointer(TF_Ener
  * This function is used by Brick Viewer during flashing. It should not be
  * necessary to call it in a normal user program.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_energy_monitor_write_firmware(TF_EnergyMonitor *energy_monitor, uint8_t data[64], uint8_t *ret_status);
+int tf_energy_monitor_write_firmware(TF_EnergyMonitor *energy_monitor, const uint8_t data[64], uint8_t *ret_status);
 
 /**
  * \ingroup BrickletEnergyMonitor
@@ -537,14 +537,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_energy_monitor_write_firmware(TF_EnergyMonitor *e
  * 
  * If the Bricklet is in bootloader mode, the LED is will show heartbeat by default.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_energy_monitor_set_status_led_config(TF_EnergyMonitor *energy_monitor, uint8_t config);
+int tf_energy_monitor_set_status_led_config(TF_EnergyMonitor *energy_monitor, uint8_t config);
 
 /**
  * \ingroup BrickletEnergyMonitor
  *
  * Returns the configuration as set by {@link tf_energy_monitor_set_status_led_config}
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_energy_monitor_get_status_led_config(TF_EnergyMonitor *energy_monitor, uint8_t *ret_config);
+int tf_energy_monitor_get_status_led_config(TF_EnergyMonitor *energy_monitor, uint8_t *ret_config);
 
 /**
  * \ingroup BrickletEnergyMonitor
@@ -556,7 +556,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_energy_monitor_get_status_led_config(TF_EnergyMon
  * accuracy. Practically it is only useful as an indicator for
  * temperature changes.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_energy_monitor_get_chip_temperature(TF_EnergyMonitor *energy_monitor, int16_t *ret_temperature);
+int tf_energy_monitor_get_chip_temperature(TF_EnergyMonitor *energy_monitor, int16_t *ret_temperature);
 
 /**
  * \ingroup BrickletEnergyMonitor
@@ -568,7 +568,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_energy_monitor_get_chip_temperature(TF_EnergyMoni
  * calling functions on the existing ones will result in
  * undefined behavior!
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_energy_monitor_reset(TF_EnergyMonitor *energy_monitor);
+int tf_energy_monitor_reset(TF_EnergyMonitor *energy_monitor);
 
 /**
  * \ingroup BrickletEnergyMonitor
@@ -579,7 +579,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_energy_monitor_reset(TF_EnergyMonitor *energy_mon
  * 
  * We recommend that you use Brick Viewer to change the UID.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_energy_monitor_write_uid(TF_EnergyMonitor *energy_monitor, uint32_t uid);
+int tf_energy_monitor_write_uid(TF_EnergyMonitor *energy_monitor, uint32_t uid);
 
 /**
  * \ingroup BrickletEnergyMonitor
@@ -587,7 +587,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_energy_monitor_write_uid(TF_EnergyMonitor *energy
  * Returns the current UID as an integer. Encode as
  * Base58 to get the usual string version.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_energy_monitor_read_uid(TF_EnergyMonitor *energy_monitor, uint32_t *ret_uid);
+int tf_energy_monitor_read_uid(TF_EnergyMonitor *energy_monitor, uint32_t *ret_uid);
 
 /**
  * \ingroup BrickletEnergyMonitor
@@ -603,7 +603,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_energy_monitor_read_uid(TF_EnergyMonitor *energy_
  * The device identifier numbers can be found :ref:`here <device_identifier>`.
  * |device_identifier_constant|
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_energy_monitor_get_identity(TF_EnergyMonitor *energy_monitor, char ret_uid[8], char ret_connected_uid[8], char *ret_position, uint8_t ret_hardware_version[3], uint8_t ret_firmware_version[3], uint16_t *ret_device_identifier);
+int tf_energy_monitor_get_identity(TF_EnergyMonitor *energy_monitor, char ret_uid[8], char ret_connected_uid[8], char *ret_position, uint8_t ret_hardware_version[3], uint8_t ret_firmware_version[3], uint16_t *ret_device_identifier);
 
 /**
  * \ingroup BrickletEnergyMonitor
@@ -619,7 +619,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_energy_monitor_get_identity(TF_EnergyMonitor *ene
  * This data is meant to be used for a non-realtime graphical representation of
  * the voltage and current waveforms.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_energy_monitor_get_waveform(TF_EnergyMonitor *energy_monitor, int16_t *ret_waveform, uint16_t *ret_waveform_length);
+int tf_energy_monitor_get_waveform(TF_EnergyMonitor *energy_monitor, int16_t *ret_waveform, uint16_t *ret_waveform_length);
 
 #ifdef __cplusplus
 }

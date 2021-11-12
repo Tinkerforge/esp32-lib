@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-10-04.      *
+ * This file was automatically generated on 2021-11-12.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -25,7 +25,7 @@ extern "C" {
  */
 
 struct TF_GPSV2;
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
 
 typedef void (*TF_GPSV2PulsePerSecondHandler)(struct TF_GPSV2 *device, void *user_data);
 typedef void (*TF_GPSV2CoordinatesHandler)(struct TF_GPSV2 *device, uint32_t latitude, char ns, uint32_t longitude, char ew, void *user_data);
@@ -42,7 +42,7 @@ typedef void (*TF_GPSV2DateTimeHandler)(struct TF_GPSV2 *device, uint32_t date, 
  */
 typedef struct TF_GPSV2 {
     TF_TfpContext *tfp;
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
     TF_GPSV2PulsePerSecondHandler pulse_per_second_handler;
     void *pulse_per_second_user_data;
 
@@ -235,7 +235,7 @@ typedef struct TF_GPSV2 {
  */
 #define TF_GPS_V2_FUNCTION_GET_IDENTITY 255
 
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
 
 /**
  * \ingroup BrickletGPSV2
@@ -453,7 +453,7 @@ typedef struct TF_GPSV2 {
  * Creates the device object \c gps_v2 with the unique device ID \c uid and adds
  * it to the IPConnection \c ipcon.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_gps_v2_create(TF_GPSV2 *gps_v2, const char *uid, TF_HalContext *hal);
+int tf_gps_v2_create(TF_GPSV2 *gps_v2, const char *uid, TF_HalContext *hal);
 
 /**
  * \ingroup BrickletGPSV2
@@ -461,7 +461,7 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_gps_v2_create(TF_GPSV2 *gps_v2, const char *uid,
  * Removes the device object \c gps_v2 from its IPConnection and destroys it.
  * The device object cannot be used anymore afterwards.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_gps_v2_destroy(TF_GPSV2 *gps_v2);
+int tf_gps_v2_destroy(TF_GPSV2 *gps_v2);
 
 /**
  * \ingroup BrickletGPSV2
@@ -482,7 +482,7 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_gps_v2_destroy(TF_GPSV2 *gps_v2);
  * disabled for a setter function then no response is sent and errors are
  * silently ignored, because they cannot be detected.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_gps_v2_get_response_expected(TF_GPSV2 *gps_v2, uint8_t function_id, bool *ret_response_expected);
+int tf_gps_v2_get_response_expected(TF_GPSV2 *gps_v2, uint8_t function_id, bool *ret_response_expected);
 
 /**
  * \ingroup BrickletGPSV2
@@ -498,7 +498,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_gps_v2_get_response_expected(TF_GPSV2 *gps_v2, ui
  * setter function then no response is sent and errors are silently ignored,
  * because they cannot be detected.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_gps_v2_set_response_expected(TF_GPSV2 *gps_v2, uint8_t function_id, bool response_expected);
+int tf_gps_v2_set_response_expected(TF_GPSV2 *gps_v2, uint8_t function_id, bool response_expected);
 
 /**
  * \ingroup BrickletGPSV2
@@ -506,8 +506,8 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_gps_v2_set_response_expected(TF_GPSV2 *gps_v2, u
  * Changes the response expected flag for all setter and callback configuration
  * functions of this device at once.
  */
-TF_ATTRIBUTE_NONNULL_ALL void tf_gps_v2_set_response_expected_all(TF_GPSV2 *gps_v2, bool response_expected);
-#ifdef TF_IMPLEMENT_CALLBACKS
+void tf_gps_v2_set_response_expected_all(TF_GPSV2 *gps_v2, bool response_expected);
+#if TF_IMPLEMENT_CALLBACKS != 0
 /**
  * \ingroup BrickletGPSV2
  *
@@ -524,7 +524,7 @@ TF_ATTRIBUTE_NONNULL_ALL void tf_gps_v2_set_response_expected_all(TF_GPSV2 *gps_
  * long run this will be very precise. For example a count of
  * 3600 pulses will take exactly 1 hour.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_gps_v2_register_pulse_per_second_callback(TF_GPSV2 *gps_v2, TF_GPSV2PulsePerSecondHandler handler, void *user_data);
+int tf_gps_v2_register_pulse_per_second_callback(TF_GPSV2 *gps_v2, TF_GPSV2PulsePerSecondHandler handler, void *user_data);
 
 
 /**
@@ -543,7 +543,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_gps_v2_register_pulse_per_second_callback(TF_GPSV
  * since the last triggering and if there is currently a fix as indicated by
  * {@link tf_gps_v2_get_status}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_gps_v2_register_coordinates_callback(TF_GPSV2 *gps_v2, TF_GPSV2CoordinatesHandler handler, void *user_data);
+int tf_gps_v2_register_coordinates_callback(TF_GPSV2 *gps_v2, TF_GPSV2CoordinatesHandler handler, void *user_data);
 
 
 /**
@@ -561,7 +561,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_gps_v2_register_coordinates_callback(TF_GPSV2 *gp
  * The {@link tf_gps_v2_register_status_callback} callback is only triggered if the status changed since the
  * last triggering.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_gps_v2_register_status_callback(TF_GPSV2 *gps_v2, TF_GPSV2StatusHandler handler, void *user_data);
+int tf_gps_v2_register_status_callback(TF_GPSV2 *gps_v2, TF_GPSV2StatusHandler handler, void *user_data);
 
 
 /**
@@ -580,7 +580,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_gps_v2_register_status_callback(TF_GPSV2 *gps_v2,
  * last triggering and if there is currently a fix as indicated by
  * {@link tf_gps_v2_get_status}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_gps_v2_register_altitude_callback(TF_GPSV2 *gps_v2, TF_GPSV2AltitudeHandler handler, void *user_data);
+int tf_gps_v2_register_altitude_callback(TF_GPSV2 *gps_v2, TF_GPSV2AltitudeHandler handler, void *user_data);
 
 
 /**
@@ -599,7 +599,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_gps_v2_register_altitude_callback(TF_GPSV2 *gps_v
  * last triggering and if there is currently a fix as indicated by
  * {@link tf_gps_v2_get_status}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_gps_v2_register_motion_callback(TF_GPSV2 *gps_v2, TF_GPSV2MotionHandler handler, void *user_data);
+int tf_gps_v2_register_motion_callback(TF_GPSV2 *gps_v2, TF_GPSV2MotionHandler handler, void *user_data);
 
 
 /**
@@ -617,9 +617,9 @@ TF_ATTRIBUTE_NONNULL(1) int tf_gps_v2_register_motion_callback(TF_GPSV2 *gps_v2,
  * The {@link tf_gps_v2_register_date_time_callback} callback is only triggered if the date or time changed
  * since the last triggering.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_gps_v2_register_date_time_callback(TF_GPSV2 *gps_v2, TF_GPSV2DateTimeHandler handler, void *user_data);
+int tf_gps_v2_register_date_time_callback(TF_GPSV2 *gps_v2, TF_GPSV2DateTimeHandler handler, void *user_data);
 #endif
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
 /**
  * \ingroup BrickletGPSV2
  *
@@ -627,7 +627,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_gps_v2_register_date_time_callback(TF_GPSV2 *gps_
  *
  * This function can be used in a non-blocking fashion by calling it with a timeout of 0.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_gps_v2_callback_tick(TF_GPSV2 *gps_v2, uint32_t timeout_us);
+int tf_gps_v2_callback_tick(TF_GPSV2 *gps_v2, uint32_t timeout_us);
 #endif
 
 /**
@@ -642,7 +642,7 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_gps_v2_callback_tick(TF_GPSV2 *gps_v2, uint32_t 
  * This data is only valid if there is currently a fix as indicated by
  * {@link tf_gps_v2_get_status}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_gps_v2_get_coordinates(TF_GPSV2 *gps_v2, uint32_t *ret_latitude, char *ret_ns, uint32_t *ret_longitude, char *ret_ew);
+int tf_gps_v2_get_coordinates(TF_GPSV2 *gps_v2, uint32_t *ret_latitude, char *ret_ns, uint32_t *ret_longitude, char *ret_ew);
 
 /**
  * \ingroup BrickletGPSV2
@@ -653,7 +653,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_gps_v2_get_coordinates(TF_GPSV2 *gps_v2, uint32_t
  * There is also a :ref:`green LED <gps_v2_bricklet_fix_led>` on the Bricklet that
  * indicates the fix status.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_gps_v2_get_status(TF_GPSV2 *gps_v2, bool *ret_has_fix, uint8_t *ret_satellites_view);
+int tf_gps_v2_get_status(TF_GPSV2 *gps_v2, bool *ret_has_fix, uint8_t *ret_satellites_view);
 
 /**
  * \ingroup BrickletGPSV2
@@ -663,7 +663,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_gps_v2_get_status(TF_GPSV2 *gps_v2, bool *ret_has
  * This data is only valid if there is currently a fix as indicated by
  * {@link tf_gps_v2_get_status}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_gps_v2_get_altitude(TF_GPSV2 *gps_v2, int32_t *ret_altitude, int32_t *ret_geoidal_separation);
+int tf_gps_v2_get_altitude(TF_GPSV2 *gps_v2, int32_t *ret_altitude, int32_t *ret_geoidal_separation);
 
 /**
  * \ingroup BrickletGPSV2
@@ -677,7 +677,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_gps_v2_get_altitude(TF_GPSV2 *gps_v2, int32_t *re
  * This data is only valid if there is currently a fix as indicated by
  * {@link tf_gps_v2_get_status}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_gps_v2_get_motion(TF_GPSV2 *gps_v2, uint32_t *ret_course, uint32_t *ret_speed);
+int tf_gps_v2_get_motion(TF_GPSV2 *gps_v2, uint32_t *ret_course, uint32_t *ret_speed);
 
 /**
  * \ingroup BrickletGPSV2
@@ -687,7 +687,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_gps_v2_get_motion(TF_GPSV2 *gps_v2, uint32_t *ret
  * in the format ``hhmmss.sss``. For example, 140713 means
  * 14.07.13 as date and 195923568 means 19:59:23.568 as time.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_gps_v2_get_date_time(TF_GPSV2 *gps_v2, uint32_t *ret_date, uint32_t *ret_time);
+int tf_gps_v2_get_date_time(TF_GPSV2 *gps_v2, uint32_t *ret_date, uint32_t *ret_time);
 
 /**
  * \ingroup BrickletGPSV2
@@ -703,7 +703,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_gps_v2_get_date_time(TF_GPSV2 *gps_v2, uint32_t *
  *  "3", "Factory reset (clear all system/user configurations at restart)"
  * \endverbatim
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_gps_v2_restart(TF_GPSV2 *gps_v2, uint8_t restart_type);
+int tf_gps_v2_restart(TF_GPSV2 *gps_v2, uint8_t restart_type);
 
 /**
  * \ingroup BrickletGPSV2
@@ -723,7 +723,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_gps_v2_restart(TF_GPSV2 *gps_v2, uint8_t restart_
  * the numbers of the satellites that are currently utilized. The number 0 is not
  * a valid satellite number and can be ignored in the list.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_gps_v2_get_satellite_system_status_low_level(TF_GPSV2 *gps_v2, uint8_t satellite_system, uint8_t *ret_satellite_numbers_length, uint8_t ret_satellite_numbers_data[12], uint8_t *ret_fix, uint16_t *ret_pdop, uint16_t *ret_hdop, uint16_t *ret_vdop);
+int tf_gps_v2_get_satellite_system_status_low_level(TF_GPSV2 *gps_v2, uint8_t satellite_system, uint8_t *ret_satellite_numbers_length, uint8_t ret_satellite_numbers_data[12], uint8_t *ret_fix, uint16_t *ret_pdop, uint16_t *ret_hdop, uint16_t *ret_vdop);
 
 /**
  * \ingroup BrickletGPSV2
@@ -736,7 +736,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_gps_v2_get_satellite_system_status_low_level(TF_G
  * 
  * Galileo is not yet supported.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_gps_v2_get_satellite_status(TF_GPSV2 *gps_v2, uint8_t satellite_system, uint8_t satellite_number, int16_t *ret_elevation, int16_t *ret_azimuth, int16_t *ret_snr);
+int tf_gps_v2_get_satellite_status(TF_GPSV2 *gps_v2, uint8_t satellite_system, uint8_t satellite_number, int16_t *ret_elevation, int16_t *ret_azimuth, int16_t *ret_snr);
 
 /**
  * \ingroup BrickletGPSV2
@@ -750,14 +750,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_gps_v2_get_satellite_status(TF_GPSV2 *gps_v2, uin
  * 
  * If the Bricklet is in bootloader mode, the LED is off.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_gps_v2_set_fix_led_config(TF_GPSV2 *gps_v2, uint8_t config);
+int tf_gps_v2_set_fix_led_config(TF_GPSV2 *gps_v2, uint8_t config);
 
 /**
  * \ingroup BrickletGPSV2
  *
  * Returns the configuration as set by {@link tf_gps_v2_set_fix_led_config}
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_gps_v2_get_fix_led_config(TF_GPSV2 *gps_v2, uint8_t *ret_config);
+int tf_gps_v2_get_fix_led_config(TF_GPSV2 *gps_v2, uint8_t *ret_config);
 
 /**
  * \ingroup BrickletGPSV2
@@ -768,14 +768,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_gps_v2_get_fix_led_config(TF_GPSV2 *gps_v2, uint8
  * The {@link tf_gps_v2_register_coordinates_callback} callback is only triggered if the coordinates changed
  * since the last triggering.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_gps_v2_set_coordinates_callback_period(TF_GPSV2 *gps_v2, uint32_t period);
+int tf_gps_v2_set_coordinates_callback_period(TF_GPSV2 *gps_v2, uint32_t period);
 
 /**
  * \ingroup BrickletGPSV2
  *
  * Returns the period as set by {@link tf_gps_v2_set_coordinates_callback_period}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_gps_v2_get_coordinates_callback_period(TF_GPSV2 *gps_v2, uint32_t *ret_period);
+int tf_gps_v2_get_coordinates_callback_period(TF_GPSV2 *gps_v2, uint32_t *ret_period);
 
 /**
  * \ingroup BrickletGPSV2
@@ -786,14 +786,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_gps_v2_get_coordinates_callback_period(TF_GPSV2 *
  * The {@link tf_gps_v2_register_status_callback} callback is only triggered if the status changed since the
  * last triggering.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_gps_v2_set_status_callback_period(TF_GPSV2 *gps_v2, uint32_t period);
+int tf_gps_v2_set_status_callback_period(TF_GPSV2 *gps_v2, uint32_t period);
 
 /**
  * \ingroup BrickletGPSV2
  *
  * Returns the period as set by {@link tf_gps_v2_set_status_callback_period}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_gps_v2_get_status_callback_period(TF_GPSV2 *gps_v2, uint32_t *ret_period);
+int tf_gps_v2_get_status_callback_period(TF_GPSV2 *gps_v2, uint32_t *ret_period);
 
 /**
  * \ingroup BrickletGPSV2
@@ -804,14 +804,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_gps_v2_get_status_callback_period(TF_GPSV2 *gps_v
  * The {@link tf_gps_v2_register_altitude_callback} callback is only triggered if the altitude changed since the
  * last triggering.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_gps_v2_set_altitude_callback_period(TF_GPSV2 *gps_v2, uint32_t period);
+int tf_gps_v2_set_altitude_callback_period(TF_GPSV2 *gps_v2, uint32_t period);
 
 /**
  * \ingroup BrickletGPSV2
  *
  * Returns the period as set by {@link tf_gps_v2_set_altitude_callback_period}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_gps_v2_get_altitude_callback_period(TF_GPSV2 *gps_v2, uint32_t *ret_period);
+int tf_gps_v2_get_altitude_callback_period(TF_GPSV2 *gps_v2, uint32_t *ret_period);
 
 /**
  * \ingroup BrickletGPSV2
@@ -822,14 +822,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_gps_v2_get_altitude_callback_period(TF_GPSV2 *gps
  * The {@link tf_gps_v2_register_motion_callback} callback is only triggered if the motion changed since the
  * last triggering.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_gps_v2_set_motion_callback_period(TF_GPSV2 *gps_v2, uint32_t period);
+int tf_gps_v2_set_motion_callback_period(TF_GPSV2 *gps_v2, uint32_t period);
 
 /**
  * \ingroup BrickletGPSV2
  *
  * Returns the period as set by {@link tf_gps_v2_set_motion_callback_period}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_gps_v2_get_motion_callback_period(TF_GPSV2 *gps_v2, uint32_t *ret_period);
+int tf_gps_v2_get_motion_callback_period(TF_GPSV2 *gps_v2, uint32_t *ret_period);
 
 /**
  * \ingroup BrickletGPSV2
@@ -840,14 +840,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_gps_v2_get_motion_callback_period(TF_GPSV2 *gps_v
  * The {@link tf_gps_v2_register_date_time_callback} callback is only triggered if the date or time changed
  * since the last triggering.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_gps_v2_set_date_time_callback_period(TF_GPSV2 *gps_v2, uint32_t period);
+int tf_gps_v2_set_date_time_callback_period(TF_GPSV2 *gps_v2, uint32_t period);
 
 /**
  * \ingroup BrickletGPSV2
  *
  * Returns the period as set by {@link tf_gps_v2_set_date_time_callback_period}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_gps_v2_get_date_time_callback_period(TF_GPSV2 *gps_v2, uint32_t *ret_period);
+int tf_gps_v2_get_date_time_callback_period(TF_GPSV2 *gps_v2, uint32_t *ret_period);
 
 /**
  * \ingroup BrickletGPSV2
@@ -858,7 +858,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_gps_v2_get_date_time_callback_period(TF_GPSV2 *gp
  * 
  * .. versionadded:: 2.0.2$nbsp;(Plugin)
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_gps_v2_set_sbas_config(TF_GPSV2 *gps_v2, uint8_t sbas_config);
+int tf_gps_v2_set_sbas_config(TF_GPSV2 *gps_v2, uint8_t sbas_config);
 
 /**
  * \ingroup BrickletGPSV2
@@ -867,7 +867,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_gps_v2_set_sbas_config(TF_GPSV2 *gps_v2, uint8_t 
  * 
  * .. versionadded:: 2.0.2$nbsp;(Plugin)
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_gps_v2_get_sbas_config(TF_GPSV2 *gps_v2, uint8_t *ret_sbas_config);
+int tf_gps_v2_get_sbas_config(TF_GPSV2 *gps_v2, uint8_t *ret_sbas_config);
 
 /**
  * \ingroup BrickletGPSV2
@@ -884,7 +884,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_gps_v2_get_sbas_config(TF_GPSV2 *gps_v2, uint8_t 
  * The errors counts are for errors that occur on the Bricklet side. All
  * Bricks have a similar function that returns the errors on the Brick side.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_gps_v2_get_spitfp_error_count(TF_GPSV2 *gps_v2, uint32_t *ret_error_count_ack_checksum, uint32_t *ret_error_count_message_checksum, uint32_t *ret_error_count_frame, uint32_t *ret_error_count_overflow);
+int tf_gps_v2_get_spitfp_error_count(TF_GPSV2 *gps_v2, uint32_t *ret_error_count_ack_checksum, uint32_t *ret_error_count_message_checksum, uint32_t *ret_error_count_frame, uint32_t *ret_error_count_overflow);
 
 /**
  * \ingroup BrickletGPSV2
@@ -899,14 +899,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_gps_v2_get_spitfp_error_count(TF_GPSV2 *gps_v2, u
  * This function is used by Brick Viewer during flashing. It should not be
  * necessary to call it in a normal user program.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_gps_v2_set_bootloader_mode(TF_GPSV2 *gps_v2, uint8_t mode, uint8_t *ret_status);
+int tf_gps_v2_set_bootloader_mode(TF_GPSV2 *gps_v2, uint8_t mode, uint8_t *ret_status);
 
 /**
  * \ingroup BrickletGPSV2
  *
  * Returns the current bootloader mode, see {@link tf_gps_v2_set_bootloader_mode}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_gps_v2_get_bootloader_mode(TF_GPSV2 *gps_v2, uint8_t *ret_mode);
+int tf_gps_v2_get_bootloader_mode(TF_GPSV2 *gps_v2, uint8_t *ret_mode);
 
 /**
  * \ingroup BrickletGPSV2
@@ -918,7 +918,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_gps_v2_get_bootloader_mode(TF_GPSV2 *gps_v2, uint
  * This function is used by Brick Viewer during flashing. It should not be
  * necessary to call it in a normal user program.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_gps_v2_set_write_firmware_pointer(TF_GPSV2 *gps_v2, uint32_t pointer);
+int tf_gps_v2_set_write_firmware_pointer(TF_GPSV2 *gps_v2, uint32_t pointer);
 
 /**
  * \ingroup BrickletGPSV2
@@ -932,7 +932,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_gps_v2_set_write_firmware_pointer(TF_GPSV2 *gps_v
  * This function is used by Brick Viewer during flashing. It should not be
  * necessary to call it in a normal user program.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_gps_v2_write_firmware(TF_GPSV2 *gps_v2, uint8_t data[64], uint8_t *ret_status);
+int tf_gps_v2_write_firmware(TF_GPSV2 *gps_v2, const uint8_t data[64], uint8_t *ret_status);
 
 /**
  * \ingroup BrickletGPSV2
@@ -945,14 +945,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_gps_v2_write_firmware(TF_GPSV2 *gps_v2, uint8_t d
  * 
  * If the Bricklet is in bootloader mode, the LED is will show heartbeat by default.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_gps_v2_set_status_led_config(TF_GPSV2 *gps_v2, uint8_t config);
+int tf_gps_v2_set_status_led_config(TF_GPSV2 *gps_v2, uint8_t config);
 
 /**
  * \ingroup BrickletGPSV2
  *
  * Returns the configuration as set by {@link tf_gps_v2_set_status_led_config}
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_gps_v2_get_status_led_config(TF_GPSV2 *gps_v2, uint8_t *ret_config);
+int tf_gps_v2_get_status_led_config(TF_GPSV2 *gps_v2, uint8_t *ret_config);
 
 /**
  * \ingroup BrickletGPSV2
@@ -964,7 +964,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_gps_v2_get_status_led_config(TF_GPSV2 *gps_v2, ui
  * accuracy. Practically it is only useful as an indicator for
  * temperature changes.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_gps_v2_get_chip_temperature(TF_GPSV2 *gps_v2, int16_t *ret_temperature);
+int tf_gps_v2_get_chip_temperature(TF_GPSV2 *gps_v2, int16_t *ret_temperature);
 
 /**
  * \ingroup BrickletGPSV2
@@ -976,7 +976,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_gps_v2_get_chip_temperature(TF_GPSV2 *gps_v2, int
  * calling functions on the existing ones will result in
  * undefined behavior!
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_gps_v2_reset(TF_GPSV2 *gps_v2);
+int tf_gps_v2_reset(TF_GPSV2 *gps_v2);
 
 /**
  * \ingroup BrickletGPSV2
@@ -987,7 +987,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_gps_v2_reset(TF_GPSV2 *gps_v2);
  * 
  * We recommend that you use Brick Viewer to change the UID.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_gps_v2_write_uid(TF_GPSV2 *gps_v2, uint32_t uid);
+int tf_gps_v2_write_uid(TF_GPSV2 *gps_v2, uint32_t uid);
 
 /**
  * \ingroup BrickletGPSV2
@@ -995,7 +995,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_gps_v2_write_uid(TF_GPSV2 *gps_v2, uint32_t uid);
  * Returns the current UID as an integer. Encode as
  * Base58 to get the usual string version.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_gps_v2_read_uid(TF_GPSV2 *gps_v2, uint32_t *ret_uid);
+int tf_gps_v2_read_uid(TF_GPSV2 *gps_v2, uint32_t *ret_uid);
 
 /**
  * \ingroup BrickletGPSV2
@@ -1011,7 +1011,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_gps_v2_read_uid(TF_GPSV2 *gps_v2, uint32_t *ret_u
  * The device identifier numbers can be found :ref:`here <device_identifier>`.
  * |device_identifier_constant|
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_gps_v2_get_identity(TF_GPSV2 *gps_v2, char ret_uid[8], char ret_connected_uid[8], char *ret_position, uint8_t ret_hardware_version[3], uint8_t ret_firmware_version[3], uint16_t *ret_device_identifier);
+int tf_gps_v2_get_identity(TF_GPSV2 *gps_v2, char ret_uid[8], char ret_connected_uid[8], char *ret_position, uint8_t ret_hardware_version[3], uint8_t ret_firmware_version[3], uint16_t *ret_device_identifier);
 
 /**
  * \ingroup BrickletGPSV2
@@ -1031,7 +1031,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_gps_v2_get_identity(TF_GPSV2 *gps_v2, char ret_ui
  * the numbers of the satellites that are currently utilized. The number 0 is not
  * a valid satellite number and can be ignored in the list.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_gps_v2_get_satellite_system_status(TF_GPSV2 *gps_v2, uint8_t satellite_system, uint8_t *ret_satellite_numbers, uint8_t *ret_satellite_numbers_length, uint8_t *ret_fix, uint16_t *ret_pdop, uint16_t *ret_hdop, uint16_t *ret_vdop);
+int tf_gps_v2_get_satellite_system_status(TF_GPSV2 *gps_v2, uint8_t satellite_system, uint8_t *ret_satellite_numbers, uint8_t *ret_satellite_numbers_length, uint8_t *ret_fix, uint16_t *ret_pdop, uint16_t *ret_hdop, uint16_t *ret_vdop);
 
 #ifdef __cplusplus
 }

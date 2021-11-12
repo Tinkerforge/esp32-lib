@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-10-04.      *
+ * This file was automatically generated on 2021-11-12.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -10,7 +10,7 @@
 
 #include "display_names.h"
 
-#ifdef TF_IMPLEMENT_GET_DEVICE_DISPLAY_NAME
+#if TF_IMPLEMENT_STRERROR != 0
 const char *tf_get_device_display_name(uint16_t device_id) {
     switch(device_id) {
         case  111: return "HAT Brick";

@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-10-04.      *
+ * This file was automatically generated on 2021-11-12.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -25,7 +25,7 @@ extern "C" {
  */
 
 struct TF_MultiTouchV2;
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
 
 typedef void (*TF_MultiTouchV2TouchStateHandler)(struct TF_MultiTouchV2 *device, bool state[13], void *user_data);
 
@@ -37,7 +37,7 @@ typedef void (*TF_MultiTouchV2TouchStateHandler)(struct TF_MultiTouchV2 *device,
  */
 typedef struct TF_MultiTouchV2 {
     TF_TfpContext *tfp;
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
     TF_MultiTouchV2TouchStateHandler touch_state_handler;
     void *touch_state_user_data;
 
@@ -155,7 +155,7 @@ typedef struct TF_MultiTouchV2 {
  */
 #define TF_MULTI_TOUCH_V2_FUNCTION_GET_IDENTITY 255
 
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
 
 /**
  * \ingroup BrickletMultiTouchV2
@@ -283,7 +283,7 @@ typedef struct TF_MultiTouchV2 {
  * Creates the device object \c multi_touch_v2 with the unique device ID \c uid and adds
  * it to the IPConnection \c ipcon.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_multi_touch_v2_create(TF_MultiTouchV2 *multi_touch_v2, const char *uid, TF_HalContext *hal);
+int tf_multi_touch_v2_create(TF_MultiTouchV2 *multi_touch_v2, const char *uid, TF_HalContext *hal);
 
 /**
  * \ingroup BrickletMultiTouchV2
@@ -291,7 +291,7 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_multi_touch_v2_create(TF_MultiTouchV2 *multi_tou
  * Removes the device object \c multi_touch_v2 from its IPConnection and destroys it.
  * The device object cannot be used anymore afterwards.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_multi_touch_v2_destroy(TF_MultiTouchV2 *multi_touch_v2);
+int tf_multi_touch_v2_destroy(TF_MultiTouchV2 *multi_touch_v2);
 
 /**
  * \ingroup BrickletMultiTouchV2
@@ -312,7 +312,7 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_multi_touch_v2_destroy(TF_MultiTouchV2 *multi_to
  * disabled for a setter function then no response is sent and errors are
  * silently ignored, because they cannot be detected.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_multi_touch_v2_get_response_expected(TF_MultiTouchV2 *multi_touch_v2, uint8_t function_id, bool *ret_response_expected);
+int tf_multi_touch_v2_get_response_expected(TF_MultiTouchV2 *multi_touch_v2, uint8_t function_id, bool *ret_response_expected);
 
 /**
  * \ingroup BrickletMultiTouchV2
@@ -328,7 +328,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_multi_touch_v2_get_response_expected(TF_MultiTouc
  * setter function then no response is sent and errors are silently ignored,
  * because they cannot be detected.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_multi_touch_v2_set_response_expected(TF_MultiTouchV2 *multi_touch_v2, uint8_t function_id, bool response_expected);
+int tf_multi_touch_v2_set_response_expected(TF_MultiTouchV2 *multi_touch_v2, uint8_t function_id, bool response_expected);
 
 /**
  * \ingroup BrickletMultiTouchV2
@@ -336,8 +336,8 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_multi_touch_v2_set_response_expected(TF_MultiTou
  * Changes the response expected flag for all setter and callback configuration
  * functions of this device at once.
  */
-TF_ATTRIBUTE_NONNULL_ALL void tf_multi_touch_v2_set_response_expected_all(TF_MultiTouchV2 *multi_touch_v2, bool response_expected);
-#ifdef TF_IMPLEMENT_CALLBACKS
+void tf_multi_touch_v2_set_response_expected_all(TF_MultiTouchV2 *multi_touch_v2, bool response_expected);
+#if TF_IMPLEMENT_CALLBACKS != 0
 /**
  * \ingroup BrickletMultiTouchV2
  *
@@ -352,9 +352,9 @@ TF_ATTRIBUTE_NONNULL_ALL void tf_multi_touch_v2_set_response_expected_all(TF_Mul
  * This callback is triggered every time the touch state changes with
  * a given period (see {@link tf_multi_touch_v2_set_touch_state_callback_configuration})
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_multi_touch_v2_register_touch_state_callback(TF_MultiTouchV2 *multi_touch_v2, TF_MultiTouchV2TouchStateHandler handler, void *user_data);
+int tf_multi_touch_v2_register_touch_state_callback(TF_MultiTouchV2 *multi_touch_v2, TF_MultiTouchV2TouchStateHandler handler, void *user_data);
 #endif
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
 /**
  * \ingroup BrickletMultiTouchV2
  *
@@ -362,7 +362,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_multi_touch_v2_register_touch_state_callback(TF_M
  *
  * This function can be used in a non-blocking fashion by calling it with a timeout of 0.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_multi_touch_v2_callback_tick(TF_MultiTouchV2 *multi_touch_v2, uint32_t timeout_us);
+int tf_multi_touch_v2_callback_tick(TF_MultiTouchV2 *multi_touch_v2, uint32_t timeout_us);
 #endif
 
 /**
@@ -388,7 +388,7 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_multi_touch_v2_callback_tick(TF_MultiTouchV2 *mu
  * {@link tf_multi_touch_v2_register_touch_state_callback} callback. You can set the callback configuration
  * with {@link tf_multi_touch_v2_set_touch_state_callback_configuration}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_multi_touch_v2_get_touch_state(TF_MultiTouchV2 *multi_touch_v2, bool ret_state[13]);
+int tf_multi_touch_v2_get_touch_state(TF_MultiTouchV2 *multi_touch_v2, bool ret_state[13]);
 
 /**
  * \ingroup BrickletMultiTouchV2
@@ -403,7 +403,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_multi_touch_v2_get_touch_state(TF_MultiTouchV2 *m
  * If it is set to false, the callback is continuously triggered with the period,
  * independent of the value.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_multi_touch_v2_set_touch_state_callback_configuration(TF_MultiTouchV2 *multi_touch_v2, uint32_t period, bool value_has_to_change);
+int tf_multi_touch_v2_set_touch_state_callback_configuration(TF_MultiTouchV2 *multi_touch_v2, uint32_t period, bool value_has_to_change);
 
 /**
  * \ingroup BrickletMultiTouchV2
@@ -411,7 +411,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_multi_touch_v2_set_touch_state_callback_configura
  * Returns the callback configuration as set by
  * {@link tf_multi_touch_v2_set_touch_state_callback_configuration}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_multi_touch_v2_get_touch_state_callback_configuration(TF_MultiTouchV2 *multi_touch_v2, uint32_t *ret_period, bool *ret_value_has_to_change);
+int tf_multi_touch_v2_get_touch_state_callback_configuration(TF_MultiTouchV2 *multi_touch_v2, uint32_t *ret_period, bool *ret_value_has_to_change);
 
 /**
  * \ingroup BrickletMultiTouchV2
@@ -419,7 +419,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_multi_touch_v2_get_touch_state_callback_configura
  * Recalibrates the electrodes. Call this function whenever you changed
  * or moved you electrodes.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_multi_touch_v2_recalibrate(TF_MultiTouchV2 *multi_touch_v2);
+int tf_multi_touch_v2_recalibrate(TF_MultiTouchV2 *multi_touch_v2);
 
 /**
  * \ingroup BrickletMultiTouchV2
@@ -437,14 +437,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_multi_touch_v2_recalibrate(TF_MultiTouchV2 *multi
  * 
  * Disabling electrodes will also reduce power consumption.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_multi_touch_v2_set_electrode_config(TF_MultiTouchV2 *multi_touch_v2, bool enabled_electrodes[13]);
+int tf_multi_touch_v2_set_electrode_config(TF_MultiTouchV2 *multi_touch_v2, const bool enabled_electrodes[13]);
 
 /**
  * \ingroup BrickletMultiTouchV2
  *
  * Returns the electrode configuration, as set by {@link tf_multi_touch_v2_set_electrode_config}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_multi_touch_v2_get_electrode_config(TF_MultiTouchV2 *multi_touch_v2, bool ret_enabled_electrodes[13]);
+int tf_multi_touch_v2_get_electrode_config(TF_MultiTouchV2 *multi_touch_v2, bool ret_enabled_electrodes[13]);
 
 /**
  * \ingroup BrickletMultiTouchV2
@@ -459,14 +459,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_multi_touch_v2_get_electrode_config(TF_MultiTouch
  * After a new sensitivity is set, you likely want to call {@link tf_multi_touch_v2_recalibrate}
  * to calibrate the electrodes with the newly defined sensitivity.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_multi_touch_v2_set_electrode_sensitivity(TF_MultiTouchV2 *multi_touch_v2, uint8_t sensitivity);
+int tf_multi_touch_v2_set_electrode_sensitivity(TF_MultiTouchV2 *multi_touch_v2, uint8_t sensitivity);
 
 /**
  * \ingroup BrickletMultiTouchV2
  *
  * Returns the current sensitivity, as set by {@link tf_multi_touch_v2_set_electrode_sensitivity}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_multi_touch_v2_get_electrode_sensitivity(TF_MultiTouchV2 *multi_touch_v2, uint8_t *ret_sensitivity);
+int tf_multi_touch_v2_get_electrode_sensitivity(TF_MultiTouchV2 *multi_touch_v2, uint8_t *ret_sensitivity);
 
 /**
  * \ingroup BrickletMultiTouchV2
@@ -474,14 +474,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_multi_touch_v2_get_electrode_sensitivity(TF_Multi
  * Configures the touch LED to be either turned off, turned on, blink in
  * heartbeat mode or show the touch state (electrode touched = LED on).
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_multi_touch_v2_set_touch_led_config(TF_MultiTouchV2 *multi_touch_v2, uint8_t config);
+int tf_multi_touch_v2_set_touch_led_config(TF_MultiTouchV2 *multi_touch_v2, uint8_t config);
 
 /**
  * \ingroup BrickletMultiTouchV2
  *
  * Returns the LED configuration as set by {@link tf_multi_touch_v2_set_touch_led_config}
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_multi_touch_v2_get_touch_led_config(TF_MultiTouchV2 *multi_touch_v2, uint8_t *ret_config);
+int tf_multi_touch_v2_get_touch_led_config(TF_MultiTouchV2 *multi_touch_v2, uint8_t *ret_config);
 
 /**
  * \ingroup BrickletMultiTouchV2
@@ -498,7 +498,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_multi_touch_v2_get_touch_led_config(TF_MultiTouch
  * The errors counts are for errors that occur on the Bricklet side. All
  * Bricks have a similar function that returns the errors on the Brick side.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_multi_touch_v2_get_spitfp_error_count(TF_MultiTouchV2 *multi_touch_v2, uint32_t *ret_error_count_ack_checksum, uint32_t *ret_error_count_message_checksum, uint32_t *ret_error_count_frame, uint32_t *ret_error_count_overflow);
+int tf_multi_touch_v2_get_spitfp_error_count(TF_MultiTouchV2 *multi_touch_v2, uint32_t *ret_error_count_ack_checksum, uint32_t *ret_error_count_message_checksum, uint32_t *ret_error_count_frame, uint32_t *ret_error_count_overflow);
 
 /**
  * \ingroup BrickletMultiTouchV2
@@ -513,14 +513,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_multi_touch_v2_get_spitfp_error_count(TF_MultiTou
  * This function is used by Brick Viewer during flashing. It should not be
  * necessary to call it in a normal user program.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_multi_touch_v2_set_bootloader_mode(TF_MultiTouchV2 *multi_touch_v2, uint8_t mode, uint8_t *ret_status);
+int tf_multi_touch_v2_set_bootloader_mode(TF_MultiTouchV2 *multi_touch_v2, uint8_t mode, uint8_t *ret_status);
 
 /**
  * \ingroup BrickletMultiTouchV2
  *
  * Returns the current bootloader mode, see {@link tf_multi_touch_v2_set_bootloader_mode}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_multi_touch_v2_get_bootloader_mode(TF_MultiTouchV2 *multi_touch_v2, uint8_t *ret_mode);
+int tf_multi_touch_v2_get_bootloader_mode(TF_MultiTouchV2 *multi_touch_v2, uint8_t *ret_mode);
 
 /**
  * \ingroup BrickletMultiTouchV2
@@ -532,7 +532,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_multi_touch_v2_get_bootloader_mode(TF_MultiTouchV
  * This function is used by Brick Viewer during flashing. It should not be
  * necessary to call it in a normal user program.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_multi_touch_v2_set_write_firmware_pointer(TF_MultiTouchV2 *multi_touch_v2, uint32_t pointer);
+int tf_multi_touch_v2_set_write_firmware_pointer(TF_MultiTouchV2 *multi_touch_v2, uint32_t pointer);
 
 /**
  * \ingroup BrickletMultiTouchV2
@@ -546,7 +546,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_multi_touch_v2_set_write_firmware_pointer(TF_Mult
  * This function is used by Brick Viewer during flashing. It should not be
  * necessary to call it in a normal user program.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_multi_touch_v2_write_firmware(TF_MultiTouchV2 *multi_touch_v2, uint8_t data[64], uint8_t *ret_status);
+int tf_multi_touch_v2_write_firmware(TF_MultiTouchV2 *multi_touch_v2, const uint8_t data[64], uint8_t *ret_status);
 
 /**
  * \ingroup BrickletMultiTouchV2
@@ -559,14 +559,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_multi_touch_v2_write_firmware(TF_MultiTouchV2 *mu
  * 
  * If the Bricklet is in bootloader mode, the LED is will show heartbeat by default.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_multi_touch_v2_set_status_led_config(TF_MultiTouchV2 *multi_touch_v2, uint8_t config);
+int tf_multi_touch_v2_set_status_led_config(TF_MultiTouchV2 *multi_touch_v2, uint8_t config);
 
 /**
  * \ingroup BrickletMultiTouchV2
  *
  * Returns the configuration as set by {@link tf_multi_touch_v2_set_status_led_config}
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_multi_touch_v2_get_status_led_config(TF_MultiTouchV2 *multi_touch_v2, uint8_t *ret_config);
+int tf_multi_touch_v2_get_status_led_config(TF_MultiTouchV2 *multi_touch_v2, uint8_t *ret_config);
 
 /**
  * \ingroup BrickletMultiTouchV2
@@ -578,7 +578,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_multi_touch_v2_get_status_led_config(TF_MultiTouc
  * accuracy. Practically it is only useful as an indicator for
  * temperature changes.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_multi_touch_v2_get_chip_temperature(TF_MultiTouchV2 *multi_touch_v2, int16_t *ret_temperature);
+int tf_multi_touch_v2_get_chip_temperature(TF_MultiTouchV2 *multi_touch_v2, int16_t *ret_temperature);
 
 /**
  * \ingroup BrickletMultiTouchV2
@@ -590,7 +590,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_multi_touch_v2_get_chip_temperature(TF_MultiTouch
  * calling functions on the existing ones will result in
  * undefined behavior!
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_multi_touch_v2_reset(TF_MultiTouchV2 *multi_touch_v2);
+int tf_multi_touch_v2_reset(TF_MultiTouchV2 *multi_touch_v2);
 
 /**
  * \ingroup BrickletMultiTouchV2
@@ -601,7 +601,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_multi_touch_v2_reset(TF_MultiTouchV2 *multi_touch
  * 
  * We recommend that you use Brick Viewer to change the UID.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_multi_touch_v2_write_uid(TF_MultiTouchV2 *multi_touch_v2, uint32_t uid);
+int tf_multi_touch_v2_write_uid(TF_MultiTouchV2 *multi_touch_v2, uint32_t uid);
 
 /**
  * \ingroup BrickletMultiTouchV2
@@ -609,7 +609,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_multi_touch_v2_write_uid(TF_MultiTouchV2 *multi_t
  * Returns the current UID as an integer. Encode as
  * Base58 to get the usual string version.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_multi_touch_v2_read_uid(TF_MultiTouchV2 *multi_touch_v2, uint32_t *ret_uid);
+int tf_multi_touch_v2_read_uid(TF_MultiTouchV2 *multi_touch_v2, uint32_t *ret_uid);
 
 /**
  * \ingroup BrickletMultiTouchV2
@@ -625,7 +625,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_multi_touch_v2_read_uid(TF_MultiTouchV2 *multi_to
  * The device identifier numbers can be found :ref:`here <device_identifier>`.
  * |device_identifier_constant|
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_multi_touch_v2_get_identity(TF_MultiTouchV2 *multi_touch_v2, char ret_uid[8], char ret_connected_uid[8], char *ret_position, uint8_t ret_hardware_version[3], uint8_t ret_firmware_version[3], uint16_t *ret_device_identifier);
+int tf_multi_touch_v2_get_identity(TF_MultiTouchV2 *multi_touch_v2, char ret_uid[8], char ret_connected_uid[8], char *ret_position, uint8_t ret_hardware_version[3], uint8_t ret_firmware_version[3], uint16_t *ret_device_identifier);
 
 #ifdef __cplusplus
 }

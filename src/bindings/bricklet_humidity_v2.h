@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-10-04.      *
+ * This file was automatically generated on 2021-11-12.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -25,7 +25,7 @@ extern "C" {
  */
 
 struct TF_HumidityV2;
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
 
 typedef void (*TF_HumidityV2HumidityHandler)(struct TF_HumidityV2 *device, uint16_t humidity, void *user_data);
 typedef void (*TF_HumidityV2TemperatureHandler)(struct TF_HumidityV2 *device, int16_t temperature, void *user_data);
@@ -38,7 +38,7 @@ typedef void (*TF_HumidityV2TemperatureHandler)(struct TF_HumidityV2 *device, in
  */
 typedef struct TF_HumidityV2 {
     TF_TfpContext *tfp;
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
     TF_HumidityV2HumidityHandler humidity_handler;
     void *humidity_user_data;
 
@@ -169,7 +169,7 @@ typedef struct TF_HumidityV2 {
  */
 #define TF_HUMIDITY_V2_FUNCTION_GET_IDENTITY 255
 
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
 
 /**
  * \ingroup BrickletHumidityV2
@@ -347,7 +347,7 @@ typedef struct TF_HumidityV2 {
  * Creates the device object \c humidity_v2 with the unique device ID \c uid and adds
  * it to the IPConnection \c ipcon.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_humidity_v2_create(TF_HumidityV2 *humidity_v2, const char *uid, TF_HalContext *hal);
+int tf_humidity_v2_create(TF_HumidityV2 *humidity_v2, const char *uid, TF_HalContext *hal);
 
 /**
  * \ingroup BrickletHumidityV2
@@ -355,7 +355,7 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_humidity_v2_create(TF_HumidityV2 *humidity_v2, c
  * Removes the device object \c humidity_v2 from its IPConnection and destroys it.
  * The device object cannot be used anymore afterwards.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_humidity_v2_destroy(TF_HumidityV2 *humidity_v2);
+int tf_humidity_v2_destroy(TF_HumidityV2 *humidity_v2);
 
 /**
  * \ingroup BrickletHumidityV2
@@ -376,7 +376,7 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_humidity_v2_destroy(TF_HumidityV2 *humidity_v2);
  * disabled for a setter function then no response is sent and errors are
  * silently ignored, because they cannot be detected.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_humidity_v2_get_response_expected(TF_HumidityV2 *humidity_v2, uint8_t function_id, bool *ret_response_expected);
+int tf_humidity_v2_get_response_expected(TF_HumidityV2 *humidity_v2, uint8_t function_id, bool *ret_response_expected);
 
 /**
  * \ingroup BrickletHumidityV2
@@ -392,7 +392,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_humidity_v2_get_response_expected(TF_HumidityV2 *
  * setter function then no response is sent and errors are silently ignored,
  * because they cannot be detected.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_humidity_v2_set_response_expected(TF_HumidityV2 *humidity_v2, uint8_t function_id, bool response_expected);
+int tf_humidity_v2_set_response_expected(TF_HumidityV2 *humidity_v2, uint8_t function_id, bool response_expected);
 
 /**
  * \ingroup BrickletHumidityV2
@@ -400,8 +400,8 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_humidity_v2_set_response_expected(TF_HumidityV2 
  * Changes the response expected flag for all setter and callback configuration
  * functions of this device at once.
  */
-TF_ATTRIBUTE_NONNULL_ALL void tf_humidity_v2_set_response_expected_all(TF_HumidityV2 *humidity_v2, bool response_expected);
-#ifdef TF_IMPLEMENT_CALLBACKS
+void tf_humidity_v2_set_response_expected_all(TF_HumidityV2 *humidity_v2, bool response_expected);
+#if TF_IMPLEMENT_CALLBACKS != 0
 /**
  * \ingroup BrickletHumidityV2
  *
@@ -415,7 +415,7 @@ TF_ATTRIBUTE_NONNULL_ALL void tf_humidity_v2_set_response_expected_all(TF_Humidi
  * 
  * The parameter is the same as {@link tf_humidity_v2_get_humidity}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_humidity_v2_register_humidity_callback(TF_HumidityV2 *humidity_v2, TF_HumidityV2HumidityHandler handler, void *user_data);
+int tf_humidity_v2_register_humidity_callback(TF_HumidityV2 *humidity_v2, TF_HumidityV2HumidityHandler handler, void *user_data);
 
 
 /**
@@ -431,9 +431,9 @@ TF_ATTRIBUTE_NONNULL(1) int tf_humidity_v2_register_humidity_callback(TF_Humidit
  * 
  * The parameter is the same as {@link tf_humidity_v2_get_temperature}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_humidity_v2_register_temperature_callback(TF_HumidityV2 *humidity_v2, TF_HumidityV2TemperatureHandler handler, void *user_data);
+int tf_humidity_v2_register_temperature_callback(TF_HumidityV2 *humidity_v2, TF_HumidityV2TemperatureHandler handler, void *user_data);
 #endif
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
 /**
  * \ingroup BrickletHumidityV2
  *
@@ -441,7 +441,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_humidity_v2_register_temperature_callback(TF_Humi
  *
  * This function can be used in a non-blocking fashion by calling it with a timeout of 0.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_humidity_v2_callback_tick(TF_HumidityV2 *humidity_v2, uint32_t timeout_us);
+int tf_humidity_v2_callback_tick(TF_HumidityV2 *humidity_v2, uint32_t timeout_us);
 #endif
 
 /**
@@ -454,7 +454,7 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_humidity_v2_callback_tick(TF_HumidityV2 *humidit
  * {@link tf_humidity_v2_register_humidity_callback} callback. You can set the callback configuration
  * with {@link tf_humidity_v2_set_humidity_callback_configuration}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_humidity_v2_get_humidity(TF_HumidityV2 *humidity_v2, uint16_t *ret_humidity);
+int tf_humidity_v2_get_humidity(TF_HumidityV2 *humidity_v2, uint16_t *ret_humidity);
 
 /**
  * \ingroup BrickletHumidityV2
@@ -487,14 +487,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_humidity_v2_get_humidity(TF_HumidityV2 *humidity_
  * 
  * If the option is set to 'x' (threshold turned off) the callback is triggered with the fixed period.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_humidity_v2_set_humidity_callback_configuration(TF_HumidityV2 *humidity_v2, uint32_t period, bool value_has_to_change, char option, uint16_t min, uint16_t max);
+int tf_humidity_v2_set_humidity_callback_configuration(TF_HumidityV2 *humidity_v2, uint32_t period, bool value_has_to_change, char option, uint16_t min, uint16_t max);
 
 /**
  * \ingroup BrickletHumidityV2
  *
  * Returns the callback configuration as set by {@link tf_humidity_v2_set_humidity_callback_configuration}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_humidity_v2_get_humidity_callback_configuration(TF_HumidityV2 *humidity_v2, uint32_t *ret_period, bool *ret_value_has_to_change, char *ret_option, uint16_t *ret_min, uint16_t *ret_max);
+int tf_humidity_v2_get_humidity_callback_configuration(TF_HumidityV2 *humidity_v2, uint32_t *ret_period, bool *ret_value_has_to_change, char *ret_option, uint16_t *ret_min, uint16_t *ret_max);
 
 /**
  * \ingroup BrickletHumidityV2
@@ -506,7 +506,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_humidity_v2_get_humidity_callback_configuration(T
  * {@link tf_humidity_v2_register_temperature_callback} callback. You can set the callback configuration
  * with {@link tf_humidity_v2_set_temperature_callback_configuration}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_humidity_v2_get_temperature(TF_HumidityV2 *humidity_v2, int16_t *ret_temperature);
+int tf_humidity_v2_get_temperature(TF_HumidityV2 *humidity_v2, int16_t *ret_temperature);
 
 /**
  * \ingroup BrickletHumidityV2
@@ -539,14 +539,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_humidity_v2_get_temperature(TF_HumidityV2 *humidi
  * 
  * If the option is set to 'x' (threshold turned off) the callback is triggered with the fixed period.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_humidity_v2_set_temperature_callback_configuration(TF_HumidityV2 *humidity_v2, uint32_t period, bool value_has_to_change, char option, int16_t min, int16_t max);
+int tf_humidity_v2_set_temperature_callback_configuration(TF_HumidityV2 *humidity_v2, uint32_t period, bool value_has_to_change, char option, int16_t min, int16_t max);
 
 /**
  * \ingroup BrickletHumidityV2
  *
  * Returns the callback configuration as set by {@link tf_humidity_v2_set_temperature_callback_configuration}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_humidity_v2_get_temperature_callback_configuration(TF_HumidityV2 *humidity_v2, uint32_t *ret_period, bool *ret_value_has_to_change, char *ret_option, int16_t *ret_min, int16_t *ret_max);
+int tf_humidity_v2_get_temperature_callback_configuration(TF_HumidityV2 *humidity_v2, uint32_t *ret_period, bool *ret_value_has_to_change, char *ret_option, int16_t *ret_min, int16_t *ret_max);
 
 /**
  * \ingroup BrickletHumidityV2
@@ -554,14 +554,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_humidity_v2_get_temperature_callback_configuratio
  * Enables/disables the heater. The heater can be used to dry the sensor in
  * extremely wet conditions.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_humidity_v2_set_heater_configuration(TF_HumidityV2 *humidity_v2, uint8_t heater_config);
+int tf_humidity_v2_set_heater_configuration(TF_HumidityV2 *humidity_v2, uint8_t heater_config);
 
 /**
  * \ingroup BrickletHumidityV2
  *
  * Returns the heater configuration as set by {@link tf_humidity_v2_set_heater_configuration}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_humidity_v2_get_heater_configuration(TF_HumidityV2 *humidity_v2, uint8_t *ret_heater_config);
+int tf_humidity_v2_get_heater_configuration(TF_HumidityV2 *humidity_v2, uint8_t *ret_heater_config);
 
 /**
  * \ingroup BrickletHumidityV2
@@ -581,14 +581,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_humidity_v2_get_heater_configuration(TF_HumidityV
  * of th IC, changed the default value from 20 samples per second to 1. With 1 sample per second
  * a moving average length of 1000 would result in an averaging window of 1000 seconds!
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_humidity_v2_set_moving_average_configuration(TF_HumidityV2 *humidity_v2, uint16_t moving_average_length_humidity, uint16_t moving_average_length_temperature);
+int tf_humidity_v2_set_moving_average_configuration(TF_HumidityV2 *humidity_v2, uint16_t moving_average_length_humidity, uint16_t moving_average_length_temperature);
 
 /**
  * \ingroup BrickletHumidityV2
  *
  * Returns the moving average configuration as set by {@link tf_humidity_v2_set_moving_average_configuration}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_humidity_v2_get_moving_average_configuration(TF_HumidityV2 *humidity_v2, uint16_t *ret_moving_average_length_humidity, uint16_t *ret_moving_average_length_temperature);
+int tf_humidity_v2_get_moving_average_configuration(TF_HumidityV2 *humidity_v2, uint16_t *ret_moving_average_length_humidity, uint16_t *ret_moving_average_length_temperature);
 
 /**
  * \ingroup BrickletHumidityV2
@@ -605,7 +605,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_humidity_v2_get_moving_average_configuration(TF_H
  * 
  * .. versionadded:: 2.0.3$nbsp;(Plugin)
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_humidity_v2_set_samples_per_second(TF_HumidityV2 *humidity_v2, uint8_t sps);
+int tf_humidity_v2_set_samples_per_second(TF_HumidityV2 *humidity_v2, uint8_t sps);
 
 /**
  * \ingroup BrickletHumidityV2
@@ -614,7 +614,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_humidity_v2_set_samples_per_second(TF_HumidityV2 
  * 
  * .. versionadded:: 2.0.3$nbsp;(Plugin)
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_humidity_v2_get_samples_per_second(TF_HumidityV2 *humidity_v2, uint8_t *ret_sps);
+int tf_humidity_v2_get_samples_per_second(TF_HumidityV2 *humidity_v2, uint8_t *ret_sps);
 
 /**
  * \ingroup BrickletHumidityV2
@@ -631,7 +631,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_humidity_v2_get_samples_per_second(TF_HumidityV2 
  * The errors counts are for errors that occur on the Bricklet side. All
  * Bricks have a similar function that returns the errors on the Brick side.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_humidity_v2_get_spitfp_error_count(TF_HumidityV2 *humidity_v2, uint32_t *ret_error_count_ack_checksum, uint32_t *ret_error_count_message_checksum, uint32_t *ret_error_count_frame, uint32_t *ret_error_count_overflow);
+int tf_humidity_v2_get_spitfp_error_count(TF_HumidityV2 *humidity_v2, uint32_t *ret_error_count_ack_checksum, uint32_t *ret_error_count_message_checksum, uint32_t *ret_error_count_frame, uint32_t *ret_error_count_overflow);
 
 /**
  * \ingroup BrickletHumidityV2
@@ -646,14 +646,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_humidity_v2_get_spitfp_error_count(TF_HumidityV2 
  * This function is used by Brick Viewer during flashing. It should not be
  * necessary to call it in a normal user program.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_humidity_v2_set_bootloader_mode(TF_HumidityV2 *humidity_v2, uint8_t mode, uint8_t *ret_status);
+int tf_humidity_v2_set_bootloader_mode(TF_HumidityV2 *humidity_v2, uint8_t mode, uint8_t *ret_status);
 
 /**
  * \ingroup BrickletHumidityV2
  *
  * Returns the current bootloader mode, see {@link tf_humidity_v2_set_bootloader_mode}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_humidity_v2_get_bootloader_mode(TF_HumidityV2 *humidity_v2, uint8_t *ret_mode);
+int tf_humidity_v2_get_bootloader_mode(TF_HumidityV2 *humidity_v2, uint8_t *ret_mode);
 
 /**
  * \ingroup BrickletHumidityV2
@@ -665,7 +665,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_humidity_v2_get_bootloader_mode(TF_HumidityV2 *hu
  * This function is used by Brick Viewer during flashing. It should not be
  * necessary to call it in a normal user program.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_humidity_v2_set_write_firmware_pointer(TF_HumidityV2 *humidity_v2, uint32_t pointer);
+int tf_humidity_v2_set_write_firmware_pointer(TF_HumidityV2 *humidity_v2, uint32_t pointer);
 
 /**
  * \ingroup BrickletHumidityV2
@@ -679,7 +679,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_humidity_v2_set_write_firmware_pointer(TF_Humidit
  * This function is used by Brick Viewer during flashing. It should not be
  * necessary to call it in a normal user program.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_humidity_v2_write_firmware(TF_HumidityV2 *humidity_v2, uint8_t data[64], uint8_t *ret_status);
+int tf_humidity_v2_write_firmware(TF_HumidityV2 *humidity_v2, const uint8_t data[64], uint8_t *ret_status);
 
 /**
  * \ingroup BrickletHumidityV2
@@ -692,14 +692,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_humidity_v2_write_firmware(TF_HumidityV2 *humidit
  * 
  * If the Bricklet is in bootloader mode, the LED is will show heartbeat by default.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_humidity_v2_set_status_led_config(TF_HumidityV2 *humidity_v2, uint8_t config);
+int tf_humidity_v2_set_status_led_config(TF_HumidityV2 *humidity_v2, uint8_t config);
 
 /**
  * \ingroup BrickletHumidityV2
  *
  * Returns the configuration as set by {@link tf_humidity_v2_set_status_led_config}
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_humidity_v2_get_status_led_config(TF_HumidityV2 *humidity_v2, uint8_t *ret_config);
+int tf_humidity_v2_get_status_led_config(TF_HumidityV2 *humidity_v2, uint8_t *ret_config);
 
 /**
  * \ingroup BrickletHumidityV2
@@ -711,7 +711,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_humidity_v2_get_status_led_config(TF_HumidityV2 *
  * accuracy. Practically it is only useful as an indicator for
  * temperature changes.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_humidity_v2_get_chip_temperature(TF_HumidityV2 *humidity_v2, int16_t *ret_temperature);
+int tf_humidity_v2_get_chip_temperature(TF_HumidityV2 *humidity_v2, int16_t *ret_temperature);
 
 /**
  * \ingroup BrickletHumidityV2
@@ -723,7 +723,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_humidity_v2_get_chip_temperature(TF_HumidityV2 *h
  * calling functions on the existing ones will result in
  * undefined behavior!
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_humidity_v2_reset(TF_HumidityV2 *humidity_v2);
+int tf_humidity_v2_reset(TF_HumidityV2 *humidity_v2);
 
 /**
  * \ingroup BrickletHumidityV2
@@ -734,7 +734,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_humidity_v2_reset(TF_HumidityV2 *humidity_v2);
  * 
  * We recommend that you use Brick Viewer to change the UID.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_humidity_v2_write_uid(TF_HumidityV2 *humidity_v2, uint32_t uid);
+int tf_humidity_v2_write_uid(TF_HumidityV2 *humidity_v2, uint32_t uid);
 
 /**
  * \ingroup BrickletHumidityV2
@@ -742,7 +742,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_humidity_v2_write_uid(TF_HumidityV2 *humidity_v2,
  * Returns the current UID as an integer. Encode as
  * Base58 to get the usual string version.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_humidity_v2_read_uid(TF_HumidityV2 *humidity_v2, uint32_t *ret_uid);
+int tf_humidity_v2_read_uid(TF_HumidityV2 *humidity_v2, uint32_t *ret_uid);
 
 /**
  * \ingroup BrickletHumidityV2
@@ -758,7 +758,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_humidity_v2_read_uid(TF_HumidityV2 *humidity_v2, 
  * The device identifier numbers can be found :ref:`here <device_identifier>`.
  * |device_identifier_constant|
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_humidity_v2_get_identity(TF_HumidityV2 *humidity_v2, char ret_uid[8], char ret_connected_uid[8], char *ret_position, uint8_t ret_hardware_version[3], uint8_t ret_firmware_version[3], uint16_t *ret_device_identifier);
+int tf_humidity_v2_get_identity(TF_HumidityV2 *humidity_v2, char ret_uid[8], char ret_connected_uid[8], char *ret_position, uint8_t ret_hardware_version[3], uint8_t ret_firmware_version[3], uint16_t *ret_device_identifier);
 
 #ifdef __cplusplus
 }

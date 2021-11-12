@@ -18,13 +18,6 @@
 #include "packetbuffer.h"
 #include "tfp_header.h"
 
-#define TFP_HEADER_UID_OFFSET 0
-#define TFP_HEADER_LENGTH_OFFSET 4
-#define TFP_HEADER_FID_OFFSET 5
-#define TFP_HEADER_SEQ_NUM_OFFSET 6
-#define TFP_HEADER_FLAGS_OFFSET 7
-#define TFP_HEADER_LENGTH 8
-
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -51,10 +44,10 @@ typedef struct TF_TfpContext {
 } TF_TfpContext;
 
 
-// Don't declare the init function here. If we depend on TF_HalContext * (even if forward declared) this collides with the
+// Don't declare the create function here. If we depend on TF_HalContext * (even if forward declared) this collides with the
 // required forward declaration in hal_common.h.
 // We just declare the function itself in hal_common.c (the only caller).
-//int tf_tfp_init(TF_TfpContext *tfp, TF_HalContext *hal, uint8_t port_id) TF_ATTRIBUTE_NONNULL_ALL TF_ATTRIBUTE_WARN_UNUSED_RESULT;
+//int tf_tfp_create(TF_TfpContext *tfp, TF_HalContext *hal, uint8_t port_id) TF_ATTRIBUTE_NONNULL_ALL TF_ATTRIBUTE_WARN_UNUSED_RESULT;
 int tf_tfp_destroy(TF_TfpContext *tfp) TF_ATTRIBUTE_NONNULL_ALL TF_ATTRIBUTE_WARN_UNUSED_RESULT;
 
 void tf_tfp_prepare_send(TF_TfpContext *tfp, uint8_t fid, uint8_t payload_size, uint8_t response_size, bool response_expected) TF_ATTRIBUTE_NONNULL_ALL;

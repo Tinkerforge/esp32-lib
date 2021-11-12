@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-10-04.      *
+ * This file was automatically generated on 2021-11-12.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -25,7 +25,7 @@ extern "C" {
  */
 
 struct TF_ThermalImaging;
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
 
 typedef void (*TF_ThermalImagingHighContrastImageLowLevelHandler)(struct TF_ThermalImaging *device, uint16_t image_chunk_offset, uint8_t image_chunk_data[62], void *user_data);
 typedef void (*TF_ThermalImagingTemperatureImageLowLevelHandler)(struct TF_ThermalImaging *device, uint16_t image_chunk_offset, uint16_t image_chunk_data[31], void *user_data);
@@ -38,7 +38,7 @@ typedef void (*TF_ThermalImagingTemperatureImageLowLevelHandler)(struct TF_Therm
  */
 typedef struct TF_ThermalImaging {
     TF_TfpContext *tfp;
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
     TF_ThermalImagingHighContrastImageLowLevelHandler high_contrast_image_low_level_handler;
     void *high_contrast_image_low_level_user_data;
 
@@ -174,7 +174,7 @@ typedef struct TF_ThermalImaging {
  */
 #define TF_THERMAL_IMAGING_FUNCTION_GET_IDENTITY 255
 
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
 
 /**
  * \ingroup BrickletThermalImaging
@@ -337,7 +337,7 @@ typedef struct TF_ThermalImaging {
  * Creates the device object \c thermal_imaging with the unique device ID \c uid and adds
  * it to the IPConnection \c ipcon.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_thermal_imaging_create(TF_ThermalImaging *thermal_imaging, const char *uid, TF_HalContext *hal);
+int tf_thermal_imaging_create(TF_ThermalImaging *thermal_imaging, const char *uid, TF_HalContext *hal);
 
 /**
  * \ingroup BrickletThermalImaging
@@ -345,7 +345,7 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_thermal_imaging_create(TF_ThermalImaging *therma
  * Removes the device object \c thermal_imaging from its IPConnection and destroys it.
  * The device object cannot be used anymore afterwards.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_thermal_imaging_destroy(TF_ThermalImaging *thermal_imaging);
+int tf_thermal_imaging_destroy(TF_ThermalImaging *thermal_imaging);
 
 /**
  * \ingroup BrickletThermalImaging
@@ -366,7 +366,7 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_thermal_imaging_destroy(TF_ThermalImaging *therm
  * disabled for a setter function then no response is sent and errors are
  * silently ignored, because they cannot be detected.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_thermal_imaging_get_response_expected(TF_ThermalImaging *thermal_imaging, uint8_t function_id, bool *ret_response_expected);
+int tf_thermal_imaging_get_response_expected(TF_ThermalImaging *thermal_imaging, uint8_t function_id, bool *ret_response_expected);
 
 /**
  * \ingroup BrickletThermalImaging
@@ -382,7 +382,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_thermal_imaging_get_response_expected(TF_ThermalI
  * setter function then no response is sent and errors are silently ignored,
  * because they cannot be detected.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_thermal_imaging_set_response_expected(TF_ThermalImaging *thermal_imaging, uint8_t function_id, bool response_expected);
+int tf_thermal_imaging_set_response_expected(TF_ThermalImaging *thermal_imaging, uint8_t function_id, bool response_expected);
 
 /**
  * \ingroup BrickletThermalImaging
@@ -390,8 +390,8 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_thermal_imaging_set_response_expected(TF_Thermal
  * Changes the response expected flag for all setter and callback configuration
  * functions of this device at once.
  */
-TF_ATTRIBUTE_NONNULL_ALL void tf_thermal_imaging_set_response_expected_all(TF_ThermalImaging *thermal_imaging, bool response_expected);
-#ifdef TF_IMPLEMENT_CALLBACKS
+void tf_thermal_imaging_set_response_expected_all(TF_ThermalImaging *thermal_imaging, bool response_expected);
+#if TF_IMPLEMENT_CALLBACKS != 0
 /**
  * \ingroup BrickletThermalImaging
  *
@@ -410,7 +410,7 @@ TF_ATTRIBUTE_NONNULL_ALL void tf_thermal_imaging_set_response_expected_all(TF_Th
  * Each 8-bit value represents one gray-scale image pixel that can directly be
  * shown to a user on a display.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_thermal_imaging_register_high_contrast_image_low_level_callback(TF_ThermalImaging *thermal_imaging, TF_ThermalImagingHighContrastImageLowLevelHandler handler, void *user_data);
+int tf_thermal_imaging_register_high_contrast_image_low_level_callback(TF_ThermalImaging *thermal_imaging, TF_ThermalImagingHighContrastImageLowLevelHandler handler, void *user_data);
 
 
 /**
@@ -431,9 +431,9 @@ TF_ATTRIBUTE_NONNULL(1) int tf_thermal_imaging_register_high_contrast_image_low_
  * Each 16-bit value represents one temperature measurement in either
  * Kelvin/10 or Kelvin/100 (depending on the resolution set with {@link tf_thermal_imaging_set_resolution}).
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_thermal_imaging_register_temperature_image_low_level_callback(TF_ThermalImaging *thermal_imaging, TF_ThermalImagingTemperatureImageLowLevelHandler handler, void *user_data);
+int tf_thermal_imaging_register_temperature_image_low_level_callback(TF_ThermalImaging *thermal_imaging, TF_ThermalImagingTemperatureImageLowLevelHandler handler, void *user_data);
 #endif
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
 /**
  * \ingroup BrickletThermalImaging
  *
@@ -441,7 +441,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_thermal_imaging_register_temperature_image_low_le
  *
  * This function can be used in a non-blocking fashion by calling it with a timeout of 0.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_thermal_imaging_callback_tick(TF_ThermalImaging *thermal_imaging, uint32_t timeout_us);
+int tf_thermal_imaging_callback_tick(TF_ThermalImaging *thermal_imaging, uint32_t timeout_us);
 #endif
 
 /**
@@ -462,7 +462,7 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_thermal_imaging_callback_tick(TF_ThermalImaging 
  * Before you can use this function you have to enable it with
  * {@link tf_thermal_imaging_set_image_transfer_config}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_thermal_imaging_get_high_contrast_image_low_level(TF_ThermalImaging *thermal_imaging, uint16_t *ret_image_chunk_offset, uint8_t ret_image_chunk_data[62]);
+int tf_thermal_imaging_get_high_contrast_image_low_level(TF_ThermalImaging *thermal_imaging, uint16_t *ret_image_chunk_offset, uint8_t ret_image_chunk_data[62]);
 
 /**
  * \ingroup BrickletThermalImaging
@@ -481,7 +481,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_thermal_imaging_get_high_contrast_image_low_level
  * Before you can use this function you have to enable it with
  * {@link tf_thermal_imaging_set_image_transfer_config}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_thermal_imaging_get_temperature_image_low_level(TF_ThermalImaging *thermal_imaging, uint16_t *ret_image_chunk_offset, uint16_t ret_image_chunk_data[31]);
+int tf_thermal_imaging_get_temperature_image_low_level(TF_ThermalImaging *thermal_imaging, uint16_t *ret_image_chunk_offset, uint16_t ret_image_chunk_data[31]);
 
 /**
  * \ingroup BrickletThermalImaging
@@ -517,7 +517,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_thermal_imaging_get_temperature_image_low_level(T
  * * Index 0: Shutter lockout (if true shutter is locked out because temperature is outside -10°C to +65°C)
  * * Index 1: Overtemperature shut down imminent (goes true 10 seconds before shutdown)
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_thermal_imaging_get_statistics(TF_ThermalImaging *thermal_imaging, uint16_t ret_spotmeter_statistics[4], uint16_t ret_temperatures[4], uint8_t *ret_resolution, uint8_t *ret_ffc_status, bool ret_temperature_warning[2]);
+int tf_thermal_imaging_get_statistics(TF_ThermalImaging *thermal_imaging, uint16_t ret_spotmeter_statistics[4], uint16_t ret_temperatures[4], uint8_t *ret_resolution, uint8_t *ret_ffc_status, bool ret_temperature_warning[2]);
 
 /**
  * \ingroup BrickletThermalImaging
@@ -530,14 +530,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_thermal_imaging_get_statistics(TF_ThermalImaging 
  * The accuracy is specified for -10°C to 450°C in the
  * first range and -10°C and 140°C in the second range.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_thermal_imaging_set_resolution(TF_ThermalImaging *thermal_imaging, uint8_t resolution);
+int tf_thermal_imaging_set_resolution(TF_ThermalImaging *thermal_imaging, uint8_t resolution);
 
 /**
  * \ingroup BrickletThermalImaging
  *
  * Returns the resolution as set by {@link tf_thermal_imaging_set_resolution}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_thermal_imaging_get_resolution(TF_ThermalImaging *thermal_imaging, uint8_t *ret_resolution);
+int tf_thermal_imaging_get_resolution(TF_ThermalImaging *thermal_imaging, uint8_t *ret_resolution);
 
 /**
  * \ingroup BrickletThermalImaging
@@ -551,14 +551,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_thermal_imaging_get_resolution(TF_ThermalImaging 
  * 
  * The spotmeter statistics can be read out with {@link tf_thermal_imaging_get_statistics}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_thermal_imaging_set_spotmeter_config(TF_ThermalImaging *thermal_imaging, uint8_t region_of_interest[4]);
+int tf_thermal_imaging_set_spotmeter_config(TF_ThermalImaging *thermal_imaging, const uint8_t region_of_interest[4]);
 
 /**
  * \ingroup BrickletThermalImaging
  *
  * Returns the spotmeter config as set by {@link tf_thermal_imaging_set_spotmeter_config}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_thermal_imaging_get_spotmeter_config(TF_ThermalImaging *thermal_imaging, uint8_t ret_region_of_interest[4]);
+int tf_thermal_imaging_get_spotmeter_config(TF_ThermalImaging *thermal_imaging, uint8_t ret_region_of_interest[4]);
 
 /**
  * \ingroup BrickletThermalImaging
@@ -602,14 +602,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_thermal_imaging_get_spotmeter_config(TF_ThermalIm
  * interpreted as an empty bin. Histogram bins with this number of pixels or less will be
  * processed as an empty bin.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_thermal_imaging_set_high_contrast_config(TF_ThermalImaging *thermal_imaging, uint8_t region_of_interest[4], uint16_t dampening_factor, uint16_t clip_limit[2], uint16_t empty_counts);
+int tf_thermal_imaging_set_high_contrast_config(TF_ThermalImaging *thermal_imaging, const uint8_t region_of_interest[4], uint16_t dampening_factor, const uint16_t clip_limit[2], uint16_t empty_counts);
 
 /**
  * \ingroup BrickletThermalImaging
  *
  * Returns the high contrast config as set by {@link tf_thermal_imaging_set_high_contrast_config}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_thermal_imaging_get_high_contrast_config(TF_ThermalImaging *thermal_imaging, uint8_t ret_region_of_interest[4], uint16_t *ret_dampening_factor, uint16_t ret_clip_limit[2], uint16_t *ret_empty_counts);
+int tf_thermal_imaging_get_high_contrast_config(TF_ThermalImaging *thermal_imaging, uint8_t ret_region_of_interest[4], uint16_t *ret_dampening_factor, uint16_t ret_clip_limit[2], uint16_t *ret_empty_counts);
 
 /**
  * \ingroup BrickletThermalImaging
@@ -625,14 +625,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_thermal_imaging_get_high_contrast_config(TF_Therm
  * * Callback High Contrast Image: {@link tf_thermal_imaging_register_high_contrast_image_callback} callback.
  * * Callback Temperature Image: {@link tf_thermal_imaging_register_temperature_image_callback} callback.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_thermal_imaging_set_image_transfer_config(TF_ThermalImaging *thermal_imaging, uint8_t config);
+int tf_thermal_imaging_set_image_transfer_config(TF_ThermalImaging *thermal_imaging, uint8_t config);
 
 /**
  * \ingroup BrickletThermalImaging
  *
  * Returns the image transfer config, as set by {@link tf_thermal_imaging_set_image_transfer_config}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_thermal_imaging_get_image_transfer_config(TF_ThermalImaging *thermal_imaging, uint8_t *ret_config);
+int tf_thermal_imaging_get_image_transfer_config(TF_ThermalImaging *thermal_imaging, uint8_t *ret_config);
 
 /**
  * \ingroup BrickletThermalImaging
@@ -643,7 +643,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_thermal_imaging_get_image_transfer_config(TF_Ther
  * 
  * .. versionadded:: 2.0.5$nbsp;(Plugin)
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_thermal_imaging_set_flux_linear_parameters(TF_ThermalImaging *thermal_imaging, uint16_t scene_emissivity, uint16_t temperature_background, uint16_t tau_window, uint16_t temperatur_window, uint16_t tau_atmosphere, uint16_t temperature_atmosphere, uint16_t reflection_window, uint16_t temperature_reflection);
+int tf_thermal_imaging_set_flux_linear_parameters(TF_ThermalImaging *thermal_imaging, uint16_t scene_emissivity, uint16_t temperature_background, uint16_t tau_window, uint16_t temperatur_window, uint16_t tau_atmosphere, uint16_t temperature_atmosphere, uint16_t reflection_window, uint16_t temperature_reflection);
 
 /**
  * \ingroup BrickletThermalImaging
@@ -652,7 +652,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_thermal_imaging_set_flux_linear_parameters(TF_The
  * 
  * .. versionadded:: 2.0.5$nbsp;(Plugin)
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_thermal_imaging_get_flux_linear_parameters(TF_ThermalImaging *thermal_imaging, uint16_t *ret_scene_emissivity, uint16_t *ret_temperature_background, uint16_t *ret_tau_window, uint16_t *ret_temperatur_window, uint16_t *ret_tau_atmosphere, uint16_t *ret_temperature_atmosphere, uint16_t *ret_reflection_window, uint16_t *ret_temperature_reflection);
+int tf_thermal_imaging_get_flux_linear_parameters(TF_ThermalImaging *thermal_imaging, uint16_t *ret_scene_emissivity, uint16_t *ret_temperature_background, uint16_t *ret_tau_window, uint16_t *ret_temperatur_window, uint16_t *ret_tau_atmosphere, uint16_t *ret_temperature_atmosphere, uint16_t *ret_reflection_window, uint16_t *ret_temperature_reflection);
 
 /**
  * \ingroup BrickletThermalImaging
@@ -669,7 +669,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_thermal_imaging_get_flux_linear_parameters(TF_The
  * The errors counts are for errors that occur on the Bricklet side. All
  * Bricks have a similar function that returns the errors on the Brick side.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_thermal_imaging_get_spitfp_error_count(TF_ThermalImaging *thermal_imaging, uint32_t *ret_error_count_ack_checksum, uint32_t *ret_error_count_message_checksum, uint32_t *ret_error_count_frame, uint32_t *ret_error_count_overflow);
+int tf_thermal_imaging_get_spitfp_error_count(TF_ThermalImaging *thermal_imaging, uint32_t *ret_error_count_ack_checksum, uint32_t *ret_error_count_message_checksum, uint32_t *ret_error_count_frame, uint32_t *ret_error_count_overflow);
 
 /**
  * \ingroup BrickletThermalImaging
@@ -684,14 +684,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_thermal_imaging_get_spitfp_error_count(TF_Thermal
  * This function is used by Brick Viewer during flashing. It should not be
  * necessary to call it in a normal user program.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_thermal_imaging_set_bootloader_mode(TF_ThermalImaging *thermal_imaging, uint8_t mode, uint8_t *ret_status);
+int tf_thermal_imaging_set_bootloader_mode(TF_ThermalImaging *thermal_imaging, uint8_t mode, uint8_t *ret_status);
 
 /**
  * \ingroup BrickletThermalImaging
  *
  * Returns the current bootloader mode, see {@link tf_thermal_imaging_set_bootloader_mode}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_thermal_imaging_get_bootloader_mode(TF_ThermalImaging *thermal_imaging, uint8_t *ret_mode);
+int tf_thermal_imaging_get_bootloader_mode(TF_ThermalImaging *thermal_imaging, uint8_t *ret_mode);
 
 /**
  * \ingroup BrickletThermalImaging
@@ -703,7 +703,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_thermal_imaging_get_bootloader_mode(TF_ThermalIma
  * This function is used by Brick Viewer during flashing. It should not be
  * necessary to call it in a normal user program.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_thermal_imaging_set_write_firmware_pointer(TF_ThermalImaging *thermal_imaging, uint32_t pointer);
+int tf_thermal_imaging_set_write_firmware_pointer(TF_ThermalImaging *thermal_imaging, uint32_t pointer);
 
 /**
  * \ingroup BrickletThermalImaging
@@ -717,7 +717,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_thermal_imaging_set_write_firmware_pointer(TF_The
  * This function is used by Brick Viewer during flashing. It should not be
  * necessary to call it in a normal user program.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_thermal_imaging_write_firmware(TF_ThermalImaging *thermal_imaging, uint8_t data[64], uint8_t *ret_status);
+int tf_thermal_imaging_write_firmware(TF_ThermalImaging *thermal_imaging, const uint8_t data[64], uint8_t *ret_status);
 
 /**
  * \ingroup BrickletThermalImaging
@@ -730,14 +730,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_thermal_imaging_write_firmware(TF_ThermalImaging 
  * 
  * If the Bricklet is in bootloader mode, the LED is will show heartbeat by default.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_thermal_imaging_set_status_led_config(TF_ThermalImaging *thermal_imaging, uint8_t config);
+int tf_thermal_imaging_set_status_led_config(TF_ThermalImaging *thermal_imaging, uint8_t config);
 
 /**
  * \ingroup BrickletThermalImaging
  *
  * Returns the configuration as set by {@link tf_thermal_imaging_set_status_led_config}
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_thermal_imaging_get_status_led_config(TF_ThermalImaging *thermal_imaging, uint8_t *ret_config);
+int tf_thermal_imaging_get_status_led_config(TF_ThermalImaging *thermal_imaging, uint8_t *ret_config);
 
 /**
  * \ingroup BrickletThermalImaging
@@ -749,7 +749,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_thermal_imaging_get_status_led_config(TF_ThermalI
  * accuracy. Practically it is only useful as an indicator for
  * temperature changes.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_thermal_imaging_get_chip_temperature(TF_ThermalImaging *thermal_imaging, int16_t *ret_temperature);
+int tf_thermal_imaging_get_chip_temperature(TF_ThermalImaging *thermal_imaging, int16_t *ret_temperature);
 
 /**
  * \ingroup BrickletThermalImaging
@@ -761,7 +761,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_thermal_imaging_get_chip_temperature(TF_ThermalIm
  * calling functions on the existing ones will result in
  * undefined behavior!
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_thermal_imaging_reset(TF_ThermalImaging *thermal_imaging);
+int tf_thermal_imaging_reset(TF_ThermalImaging *thermal_imaging);
 
 /**
  * \ingroup BrickletThermalImaging
@@ -772,7 +772,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_thermal_imaging_reset(TF_ThermalImaging *thermal_
  * 
  * We recommend that you use Brick Viewer to change the UID.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_thermal_imaging_write_uid(TF_ThermalImaging *thermal_imaging, uint32_t uid);
+int tf_thermal_imaging_write_uid(TF_ThermalImaging *thermal_imaging, uint32_t uid);
 
 /**
  * \ingroup BrickletThermalImaging
@@ -780,7 +780,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_thermal_imaging_write_uid(TF_ThermalImaging *ther
  * Returns the current UID as an integer. Encode as
  * Base58 to get the usual string version.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_thermal_imaging_read_uid(TF_ThermalImaging *thermal_imaging, uint32_t *ret_uid);
+int tf_thermal_imaging_read_uid(TF_ThermalImaging *thermal_imaging, uint32_t *ret_uid);
 
 /**
  * \ingroup BrickletThermalImaging
@@ -796,7 +796,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_thermal_imaging_read_uid(TF_ThermalImaging *therm
  * The device identifier numbers can be found :ref:`here <device_identifier>`.
  * |device_identifier_constant|
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_thermal_imaging_get_identity(TF_ThermalImaging *thermal_imaging, char ret_uid[8], char ret_connected_uid[8], char *ret_position, uint8_t ret_hardware_version[3], uint8_t ret_firmware_version[3], uint16_t *ret_device_identifier);
+int tf_thermal_imaging_get_identity(TF_ThermalImaging *thermal_imaging, char ret_uid[8], char ret_connected_uid[8], char *ret_position, uint8_t ret_hardware_version[3], uint8_t ret_firmware_version[3], uint16_t *ret_device_identifier);
 
 /**
  * \ingroup BrickletThermalImaging
@@ -816,7 +816,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_thermal_imaging_get_identity(TF_ThermalImaging *t
  * Before you can use this function you have to enable it with
  * {@link tf_thermal_imaging_set_image_transfer_config}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_thermal_imaging_get_high_contrast_image(TF_ThermalImaging *thermal_imaging, uint8_t *ret_image, uint16_t *ret_image_length);
+int tf_thermal_imaging_get_high_contrast_image(TF_ThermalImaging *thermal_imaging, uint8_t *ret_image, uint16_t *ret_image_length);
 
 /**
  * \ingroup BrickletThermalImaging
@@ -835,7 +835,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_thermal_imaging_get_high_contrast_image(TF_Therma
  * Before you can use this function you have to enable it with
  * {@link tf_thermal_imaging_set_image_transfer_config}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_thermal_imaging_get_temperature_image(TF_ThermalImaging *thermal_imaging, uint16_t *ret_image, uint16_t *ret_image_length);
+int tf_thermal_imaging_get_temperature_image(TF_ThermalImaging *thermal_imaging, uint16_t *ret_image, uint16_t *ret_image_length);
 
 #ifdef __cplusplus
 }

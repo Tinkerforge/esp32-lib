@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-10-04.      *
+ * This file was automatically generated on 2021-11-12.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -25,7 +25,7 @@ extern "C" {
  */
 
 struct TF_IndustrialDigitalOut4V2;
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
 
 typedef void (*TF_IndustrialDigitalOut4V2MonoflopDoneHandler)(struct TF_IndustrialDigitalOut4V2 *device, uint8_t channel, bool value, void *user_data);
 
@@ -37,7 +37,7 @@ typedef void (*TF_IndustrialDigitalOut4V2MonoflopDoneHandler)(struct TF_Industri
  */
 typedef struct TF_IndustrialDigitalOut4V2 {
     TF_TfpContext *tfp;
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
     TF_IndustrialDigitalOut4V2MonoflopDoneHandler monoflop_done_handler;
     void *monoflop_done_user_data;
 
@@ -150,7 +150,7 @@ typedef struct TF_IndustrialDigitalOut4V2 {
  */
 #define TF_INDUSTRIAL_DIGITAL_OUT_4_V2_FUNCTION_GET_IDENTITY 255
 
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
 
 /**
  * \ingroup BrickletIndustrialDigitalOut4V2
@@ -278,7 +278,7 @@ typedef struct TF_IndustrialDigitalOut4V2 {
  * Creates the device object \c industrial_digital_out_4_v2 with the unique device ID \c uid and adds
  * it to the IPConnection \c ipcon.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_industrial_digital_out_4_v2_create(TF_IndustrialDigitalOut4V2 *industrial_digital_out_4_v2, const char *uid, TF_HalContext *hal);
+int tf_industrial_digital_out_4_v2_create(TF_IndustrialDigitalOut4V2 *industrial_digital_out_4_v2, const char *uid, TF_HalContext *hal);
 
 /**
  * \ingroup BrickletIndustrialDigitalOut4V2
@@ -286,7 +286,7 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_industrial_digital_out_4_v2_create(TF_Industrial
  * Removes the device object \c industrial_digital_out_4_v2 from its IPConnection and destroys it.
  * The device object cannot be used anymore afterwards.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_industrial_digital_out_4_v2_destroy(TF_IndustrialDigitalOut4V2 *industrial_digital_out_4_v2);
+int tf_industrial_digital_out_4_v2_destroy(TF_IndustrialDigitalOut4V2 *industrial_digital_out_4_v2);
 
 /**
  * \ingroup BrickletIndustrialDigitalOut4V2
@@ -307,7 +307,7 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_industrial_digital_out_4_v2_destroy(TF_Industria
  * disabled for a setter function then no response is sent and errors are
  * silently ignored, because they cannot be detected.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_industrial_digital_out_4_v2_get_response_expected(TF_IndustrialDigitalOut4V2 *industrial_digital_out_4_v2, uint8_t function_id, bool *ret_response_expected);
+int tf_industrial_digital_out_4_v2_get_response_expected(TF_IndustrialDigitalOut4V2 *industrial_digital_out_4_v2, uint8_t function_id, bool *ret_response_expected);
 
 /**
  * \ingroup BrickletIndustrialDigitalOut4V2
@@ -323,7 +323,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_industrial_digital_out_4_v2_get_response_expected
  * setter function then no response is sent and errors are silently ignored,
  * because they cannot be detected.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_industrial_digital_out_4_v2_set_response_expected(TF_IndustrialDigitalOut4V2 *industrial_digital_out_4_v2, uint8_t function_id, bool response_expected);
+int tf_industrial_digital_out_4_v2_set_response_expected(TF_IndustrialDigitalOut4V2 *industrial_digital_out_4_v2, uint8_t function_id, bool response_expected);
 
 /**
  * \ingroup BrickletIndustrialDigitalOut4V2
@@ -331,8 +331,8 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_industrial_digital_out_4_v2_set_response_expecte
  * Changes the response expected flag for all setter and callback configuration
  * functions of this device at once.
  */
-TF_ATTRIBUTE_NONNULL_ALL void tf_industrial_digital_out_4_v2_set_response_expected_all(TF_IndustrialDigitalOut4V2 *industrial_digital_out_4_v2, bool response_expected);
-#ifdef TF_IMPLEMENT_CALLBACKS
+void tf_industrial_digital_out_4_v2_set_response_expected_all(TF_IndustrialDigitalOut4V2 *industrial_digital_out_4_v2, bool response_expected);
+#if TF_IMPLEMENT_CALLBACKS != 0
 /**
  * \ingroup BrickletIndustrialDigitalOut4V2
  *
@@ -345,9 +345,9 @@ TF_ATTRIBUTE_NONNULL_ALL void tf_industrial_digital_out_4_v2_set_response_expect
  * parameters contain the channel and the current value of the channel
  * (the value after the monoflop).
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_industrial_digital_out_4_v2_register_monoflop_done_callback(TF_IndustrialDigitalOut4V2 *industrial_digital_out_4_v2, TF_IndustrialDigitalOut4V2MonoflopDoneHandler handler, void *user_data);
+int tf_industrial_digital_out_4_v2_register_monoflop_done_callback(TF_IndustrialDigitalOut4V2 *industrial_digital_out_4_v2, TF_IndustrialDigitalOut4V2MonoflopDoneHandler handler, void *user_data);
 #endif
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
 /**
  * \ingroup BrickletIndustrialDigitalOut4V2
  *
@@ -355,7 +355,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_industrial_digital_out_4_v2_register_monoflop_don
  *
  * This function can be used in a non-blocking fashion by calling it with a timeout of 0.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_industrial_digital_out_4_v2_callback_tick(TF_IndustrialDigitalOut4V2 *industrial_digital_out_4_v2, uint32_t timeout_us);
+int tf_industrial_digital_out_4_v2_callback_tick(TF_IndustrialDigitalOut4V2 *industrial_digital_out_4_v2, uint32_t timeout_us);
 #endif
 
 /**
@@ -371,14 +371,14 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_industrial_digital_out_4_v2_callback_tick(TF_Ind
  * For example: (True, True, False, False) will turn the channels 0-1 high and the
  * channels 2-3 low.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_industrial_digital_out_4_v2_set_value(TF_IndustrialDigitalOut4V2 *industrial_digital_out_4_v2, bool value[4]);
+int tf_industrial_digital_out_4_v2_set_value(TF_IndustrialDigitalOut4V2 *industrial_digital_out_4_v2, const bool value[4]);
 
 /**
  * \ingroup BrickletIndustrialDigitalOut4V2
  *
  * Returns the logic levels that are currently output on the channels.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_industrial_digital_out_4_v2_get_value(TF_IndustrialDigitalOut4V2 *industrial_digital_out_4_v2, bool ret_value[4]);
+int tf_industrial_digital_out_4_v2_get_value(TF_IndustrialDigitalOut4V2 *industrial_digital_out_4_v2, bool ret_value[4]);
 
 /**
  * \ingroup BrickletIndustrialDigitalOut4V2
@@ -388,7 +388,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_industrial_digital_out_4_v2_get_value(TF_Industri
  * A running monoflop timer or PWM for the specified channel will be aborted if this
  * function is called.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_industrial_digital_out_4_v2_set_selected_value(TF_IndustrialDigitalOut4V2 *industrial_digital_out_4_v2, uint8_t channel, bool value);
+int tf_industrial_digital_out_4_v2_set_selected_value(TF_IndustrialDigitalOut4V2 *industrial_digital_out_4_v2, uint8_t channel, bool value);
 
 /**
  * \ingroup BrickletIndustrialDigitalOut4V2
@@ -408,7 +408,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_industrial_digital_out_4_v2_set_selected_value(TF
  * of two seconds. The channel will be *high* all the time. If now the RS485
  * connection is lost, the channel will turn *low* in at most two seconds.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_industrial_digital_out_4_v2_set_monoflop(TF_IndustrialDigitalOut4V2 *industrial_digital_out_4_v2, uint8_t channel, bool value, uint32_t time);
+int tf_industrial_digital_out_4_v2_set_monoflop(TF_IndustrialDigitalOut4V2 *industrial_digital_out_4_v2, uint8_t channel, bool value, uint32_t time);
 
 /**
  * \ingroup BrickletIndustrialDigitalOut4V2
@@ -419,7 +419,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_industrial_digital_out_4_v2_set_monoflop(TF_Indus
  * If the timer is not running currently, the remaining time will be returned
  * as 0.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_industrial_digital_out_4_v2_get_monoflop(TF_IndustrialDigitalOut4V2 *industrial_digital_out_4_v2, uint8_t channel, bool *ret_value, uint32_t *ret_time, uint32_t *ret_time_remaining);
+int tf_industrial_digital_out_4_v2_get_monoflop(TF_IndustrialDigitalOut4V2 *industrial_digital_out_4_v2, uint8_t channel, bool *ret_value, uint32_t *ret_time, uint32_t *ret_time_remaining);
 
 /**
  * \ingroup BrickletIndustrialDigitalOut4V2
@@ -430,14 +430,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_industrial_digital_out_4_v2_get_monoflop(TF_Indus
  * 
  * By default all channel LEDs are configured as "Channel Status".
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_industrial_digital_out_4_v2_set_channel_led_config(TF_IndustrialDigitalOut4V2 *industrial_digital_out_4_v2, uint8_t channel, uint8_t config);
+int tf_industrial_digital_out_4_v2_set_channel_led_config(TF_IndustrialDigitalOut4V2 *industrial_digital_out_4_v2, uint8_t channel, uint8_t config);
 
 /**
  * \ingroup BrickletIndustrialDigitalOut4V2
  *
  * Returns the channel LED configuration as set by {@link tf_industrial_digital_out_4_v2_set_channel_led_config}
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_industrial_digital_out_4_v2_get_channel_led_config(TF_IndustrialDigitalOut4V2 *industrial_digital_out_4_v2, uint8_t channel, uint8_t *ret_config);
+int tf_industrial_digital_out_4_v2_get_channel_led_config(TF_IndustrialDigitalOut4V2 *industrial_digital_out_4_v2, uint8_t channel, uint8_t *ret_config);
 
 /**
  * \ingroup BrickletIndustrialDigitalOut4V2
@@ -454,14 +454,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_industrial_digital_out_4_v2_get_channel_led_confi
  * A running monoflop timer for the given channel will be aborted if this function
  * is called.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_industrial_digital_out_4_v2_set_pwm_configuration(TF_IndustrialDigitalOut4V2 *industrial_digital_out_4_v2, uint8_t channel, uint32_t frequency, uint16_t duty_cycle);
+int tf_industrial_digital_out_4_v2_set_pwm_configuration(TF_IndustrialDigitalOut4V2 *industrial_digital_out_4_v2, uint8_t channel, uint32_t frequency, uint16_t duty_cycle);
 
 /**
  * \ingroup BrickletIndustrialDigitalOut4V2
  *
  * Returns the PWM configuration as set by {@link tf_industrial_digital_out_4_v2_set_pwm_configuration}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_industrial_digital_out_4_v2_get_pwm_configuration(TF_IndustrialDigitalOut4V2 *industrial_digital_out_4_v2, uint8_t channel, uint32_t *ret_frequency, uint16_t *ret_duty_cycle);
+int tf_industrial_digital_out_4_v2_get_pwm_configuration(TF_IndustrialDigitalOut4V2 *industrial_digital_out_4_v2, uint8_t channel, uint32_t *ret_frequency, uint16_t *ret_duty_cycle);
 
 /**
  * \ingroup BrickletIndustrialDigitalOut4V2
@@ -478,7 +478,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_industrial_digital_out_4_v2_get_pwm_configuration
  * The errors counts are for errors that occur on the Bricklet side. All
  * Bricks have a similar function that returns the errors on the Brick side.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_industrial_digital_out_4_v2_get_spitfp_error_count(TF_IndustrialDigitalOut4V2 *industrial_digital_out_4_v2, uint32_t *ret_error_count_ack_checksum, uint32_t *ret_error_count_message_checksum, uint32_t *ret_error_count_frame, uint32_t *ret_error_count_overflow);
+int tf_industrial_digital_out_4_v2_get_spitfp_error_count(TF_IndustrialDigitalOut4V2 *industrial_digital_out_4_v2, uint32_t *ret_error_count_ack_checksum, uint32_t *ret_error_count_message_checksum, uint32_t *ret_error_count_frame, uint32_t *ret_error_count_overflow);
 
 /**
  * \ingroup BrickletIndustrialDigitalOut4V2
@@ -493,14 +493,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_industrial_digital_out_4_v2_get_spitfp_error_coun
  * This function is used by Brick Viewer during flashing. It should not be
  * necessary to call it in a normal user program.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_industrial_digital_out_4_v2_set_bootloader_mode(TF_IndustrialDigitalOut4V2 *industrial_digital_out_4_v2, uint8_t mode, uint8_t *ret_status);
+int tf_industrial_digital_out_4_v2_set_bootloader_mode(TF_IndustrialDigitalOut4V2 *industrial_digital_out_4_v2, uint8_t mode, uint8_t *ret_status);
 
 /**
  * \ingroup BrickletIndustrialDigitalOut4V2
  *
  * Returns the current bootloader mode, see {@link tf_industrial_digital_out_4_v2_set_bootloader_mode}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_industrial_digital_out_4_v2_get_bootloader_mode(TF_IndustrialDigitalOut4V2 *industrial_digital_out_4_v2, uint8_t *ret_mode);
+int tf_industrial_digital_out_4_v2_get_bootloader_mode(TF_IndustrialDigitalOut4V2 *industrial_digital_out_4_v2, uint8_t *ret_mode);
 
 /**
  * \ingroup BrickletIndustrialDigitalOut4V2
@@ -512,7 +512,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_industrial_digital_out_4_v2_get_bootloader_mode(T
  * This function is used by Brick Viewer during flashing. It should not be
  * necessary to call it in a normal user program.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_industrial_digital_out_4_v2_set_write_firmware_pointer(TF_IndustrialDigitalOut4V2 *industrial_digital_out_4_v2, uint32_t pointer);
+int tf_industrial_digital_out_4_v2_set_write_firmware_pointer(TF_IndustrialDigitalOut4V2 *industrial_digital_out_4_v2, uint32_t pointer);
 
 /**
  * \ingroup BrickletIndustrialDigitalOut4V2
@@ -526,7 +526,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_industrial_digital_out_4_v2_set_write_firmware_po
  * This function is used by Brick Viewer during flashing. It should not be
  * necessary to call it in a normal user program.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_industrial_digital_out_4_v2_write_firmware(TF_IndustrialDigitalOut4V2 *industrial_digital_out_4_v2, uint8_t data[64], uint8_t *ret_status);
+int tf_industrial_digital_out_4_v2_write_firmware(TF_IndustrialDigitalOut4V2 *industrial_digital_out_4_v2, const uint8_t data[64], uint8_t *ret_status);
 
 /**
  * \ingroup BrickletIndustrialDigitalOut4V2
@@ -539,14 +539,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_industrial_digital_out_4_v2_write_firmware(TF_Ind
  * 
  * If the Bricklet is in bootloader mode, the LED is will show heartbeat by default.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_industrial_digital_out_4_v2_set_status_led_config(TF_IndustrialDigitalOut4V2 *industrial_digital_out_4_v2, uint8_t config);
+int tf_industrial_digital_out_4_v2_set_status_led_config(TF_IndustrialDigitalOut4V2 *industrial_digital_out_4_v2, uint8_t config);
 
 /**
  * \ingroup BrickletIndustrialDigitalOut4V2
  *
  * Returns the configuration as set by {@link tf_industrial_digital_out_4_v2_set_status_led_config}
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_industrial_digital_out_4_v2_get_status_led_config(TF_IndustrialDigitalOut4V2 *industrial_digital_out_4_v2, uint8_t *ret_config);
+int tf_industrial_digital_out_4_v2_get_status_led_config(TF_IndustrialDigitalOut4V2 *industrial_digital_out_4_v2, uint8_t *ret_config);
 
 /**
  * \ingroup BrickletIndustrialDigitalOut4V2
@@ -558,7 +558,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_industrial_digital_out_4_v2_get_status_led_config
  * accuracy. Practically it is only useful as an indicator for
  * temperature changes.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_industrial_digital_out_4_v2_get_chip_temperature(TF_IndustrialDigitalOut4V2 *industrial_digital_out_4_v2, int16_t *ret_temperature);
+int tf_industrial_digital_out_4_v2_get_chip_temperature(TF_IndustrialDigitalOut4V2 *industrial_digital_out_4_v2, int16_t *ret_temperature);
 
 /**
  * \ingroup BrickletIndustrialDigitalOut4V2
@@ -570,7 +570,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_industrial_digital_out_4_v2_get_chip_temperature(
  * calling functions on the existing ones will result in
  * undefined behavior!
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_industrial_digital_out_4_v2_reset(TF_IndustrialDigitalOut4V2 *industrial_digital_out_4_v2);
+int tf_industrial_digital_out_4_v2_reset(TF_IndustrialDigitalOut4V2 *industrial_digital_out_4_v2);
 
 /**
  * \ingroup BrickletIndustrialDigitalOut4V2
@@ -581,7 +581,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_industrial_digital_out_4_v2_reset(TF_IndustrialDi
  * 
  * We recommend that you use Brick Viewer to change the UID.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_industrial_digital_out_4_v2_write_uid(TF_IndustrialDigitalOut4V2 *industrial_digital_out_4_v2, uint32_t uid);
+int tf_industrial_digital_out_4_v2_write_uid(TF_IndustrialDigitalOut4V2 *industrial_digital_out_4_v2, uint32_t uid);
 
 /**
  * \ingroup BrickletIndustrialDigitalOut4V2
@@ -589,7 +589,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_industrial_digital_out_4_v2_write_uid(TF_Industri
  * Returns the current UID as an integer. Encode as
  * Base58 to get the usual string version.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_industrial_digital_out_4_v2_read_uid(TF_IndustrialDigitalOut4V2 *industrial_digital_out_4_v2, uint32_t *ret_uid);
+int tf_industrial_digital_out_4_v2_read_uid(TF_IndustrialDigitalOut4V2 *industrial_digital_out_4_v2, uint32_t *ret_uid);
 
 /**
  * \ingroup BrickletIndustrialDigitalOut4V2
@@ -605,7 +605,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_industrial_digital_out_4_v2_read_uid(TF_Industria
  * The device identifier numbers can be found :ref:`here <device_identifier>`.
  * |device_identifier_constant|
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_industrial_digital_out_4_v2_get_identity(TF_IndustrialDigitalOut4V2 *industrial_digital_out_4_v2, char ret_uid[8], char ret_connected_uid[8], char *ret_position, uint8_t ret_hardware_version[3], uint8_t ret_firmware_version[3], uint16_t *ret_device_identifier);
+int tf_industrial_digital_out_4_v2_get_identity(TF_IndustrialDigitalOut4V2 *industrial_digital_out_4_v2, char ret_uid[8], char ret_connected_uid[8], char *ret_position, uint8_t ret_hardware_version[3], uint8_t ret_firmware_version[3], uint16_t *ret_device_identifier);
 
 #ifdef __cplusplus
 }

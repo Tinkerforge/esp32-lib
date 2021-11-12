@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-10-04.      *
+ * This file was automatically generated on 2021-11-12.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -25,7 +25,7 @@ extern "C" {
  */
 
 struct TF_RS232V2;
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
 
 typedef void (*TF_RS232V2ReadLowLevelHandler)(struct TF_RS232V2 *device, uint16_t message_length, uint16_t message_chunk_offset, char message_chunk_data[60], void *user_data);
 typedef void (*TF_RS232V2ErrorCountHandler)(struct TF_RS232V2 *device, uint32_t error_count_overrun, uint32_t error_count_parity, void *user_data);
@@ -39,7 +39,7 @@ typedef void (*TF_RS232V2FrameReadableHandler)(struct TF_RS232V2 *device, uint16
  */
 typedef struct TF_RS232V2 {
     TF_TfpContext *tfp;
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
     TF_RS232V2ReadLowLevelHandler read_low_level_handler;
     void *read_low_level_user_data;
 
@@ -178,7 +178,7 @@ typedef struct TF_RS232V2 {
  */
 #define TF_RS232_V2_FUNCTION_GET_IDENTITY 255
 
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
 
 /**
  * \ingroup BrickletRS232V2
@@ -356,7 +356,7 @@ typedef struct TF_RS232V2 {
  * Creates the device object \c rs232_v2 with the unique device ID \c uid and adds
  * it to the IPConnection \c ipcon.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_rs232_v2_create(TF_RS232V2 *rs232_v2, const char *uid, TF_HalContext *hal);
+int tf_rs232_v2_create(TF_RS232V2 *rs232_v2, const char *uid, TF_HalContext *hal);
 
 /**
  * \ingroup BrickletRS232V2
@@ -364,7 +364,7 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_rs232_v2_create(TF_RS232V2 *rs232_v2, const char
  * Removes the device object \c rs232_v2 from its IPConnection and destroys it.
  * The device object cannot be used anymore afterwards.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_rs232_v2_destroy(TF_RS232V2 *rs232_v2);
+int tf_rs232_v2_destroy(TF_RS232V2 *rs232_v2);
 
 /**
  * \ingroup BrickletRS232V2
@@ -385,7 +385,7 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_rs232_v2_destroy(TF_RS232V2 *rs232_v2);
  * disabled for a setter function then no response is sent and errors are
  * silently ignored, because they cannot be detected.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_rs232_v2_get_response_expected(TF_RS232V2 *rs232_v2, uint8_t function_id, bool *ret_response_expected);
+int tf_rs232_v2_get_response_expected(TF_RS232V2 *rs232_v2, uint8_t function_id, bool *ret_response_expected);
 
 /**
  * \ingroup BrickletRS232V2
@@ -401,7 +401,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_rs232_v2_get_response_expected(TF_RS232V2 *rs232_
  * setter function then no response is sent and errors are silently ignored,
  * because they cannot be detected.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_rs232_v2_set_response_expected(TF_RS232V2 *rs232_v2, uint8_t function_id, bool response_expected);
+int tf_rs232_v2_set_response_expected(TF_RS232V2 *rs232_v2, uint8_t function_id, bool response_expected);
 
 /**
  * \ingroup BrickletRS232V2
@@ -409,8 +409,8 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_rs232_v2_set_response_expected(TF_RS232V2 *rs232
  * Changes the response expected flag for all setter and callback configuration
  * functions of this device at once.
  */
-TF_ATTRIBUTE_NONNULL_ALL void tf_rs232_v2_set_response_expected_all(TF_RS232V2 *rs232_v2, bool response_expected);
-#ifdef TF_IMPLEMENT_CALLBACKS
+void tf_rs232_v2_set_response_expected_all(TF_RS232V2 *rs232_v2, bool response_expected);
+#if TF_IMPLEMENT_CALLBACKS != 0
 /**
  * \ingroup BrickletRS232V2
  *
@@ -423,7 +423,7 @@ TF_ATTRIBUTE_NONNULL_ALL void tf_rs232_v2_set_response_expected_all(TF_RS232V2 *
  * 
  * To enable this callback, use {@link tf_rs232_v2_enable_read_callback}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_rs232_v2_register_read_low_level_callback(TF_RS232V2 *rs232_v2, TF_RS232V2ReadLowLevelHandler handler, void *user_data);
+int tf_rs232_v2_register_read_low_level_callback(TF_RS232V2 *rs232_v2, TF_RS232V2ReadLowLevelHandler handler, void *user_data);
 
 
 /**
@@ -437,7 +437,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_rs232_v2_register_read_low_level_callback(TF_RS23
  * This callback is called if a new error occurs. It returns
  * the current overrun and parity error count.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_rs232_v2_register_error_count_callback(TF_RS232V2 *rs232_v2, TF_RS232V2ErrorCountHandler handler, void *user_data);
+int tf_rs232_v2_register_error_count_callback(TF_RS232V2 *rs232_v2, TF_RS232V2ErrorCountHandler handler, void *user_data);
 
 
 /**
@@ -455,9 +455,9 @@ TF_ATTRIBUTE_NONNULL(1) int tf_rs232_v2_register_error_count_callback(TF_RS232V2
  * 
  * .. versionadded:: 2.0.3$nbsp;(Plugin)
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_rs232_v2_register_frame_readable_callback(TF_RS232V2 *rs232_v2, TF_RS232V2FrameReadableHandler handler, void *user_data);
+int tf_rs232_v2_register_frame_readable_callback(TF_RS232V2 *rs232_v2, TF_RS232V2FrameReadableHandler handler, void *user_data);
 #endif
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
 /**
  * \ingroup BrickletRS232V2
  *
@@ -465,7 +465,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_rs232_v2_register_frame_readable_callback(TF_RS23
  *
  * This function can be used in a non-blocking fashion by calling it with a timeout of 0.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_rs232_v2_callback_tick(TF_RS232V2 *rs232_v2, uint32_t timeout_us);
+int tf_rs232_v2_callback_tick(TF_RS232V2 *rs232_v2, uint32_t timeout_us);
 #endif
 
 /**
@@ -479,7 +479,7 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_rs232_v2_callback_tick(TF_RS232V2 *rs232_v2, uin
  * See {@link tf_rs232_v2_set_configuration} for configuration possibilities
  * regarding baud rate, parity and so on.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_rs232_v2_write_low_level(TF_RS232V2 *rs232_v2, uint16_t message_length, uint16_t message_chunk_offset, char message_chunk_data[60], uint8_t *ret_message_chunk_written);
+int tf_rs232_v2_write_low_level(TF_RS232V2 *rs232_v2, uint16_t message_length, uint16_t message_chunk_offset, const char message_chunk_data[60], uint8_t *ret_message_chunk_written);
 
 /**
  * \ingroup BrickletRS232V2
@@ -491,7 +491,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_rs232_v2_write_low_level(TF_RS232V2 *rs232_v2, ui
  * data only when the read callback is disabled.
  * See {@link tf_rs232_v2_enable_read_callback} and {@link tf_rs232_v2_register_read_callback} callback.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_rs232_v2_read_low_level(TF_RS232V2 *rs232_v2, uint16_t length, uint16_t *ret_message_length, uint16_t *ret_message_chunk_offset, char ret_message_chunk_data[60]);
+int tf_rs232_v2_read_low_level(TF_RS232V2 *rs232_v2, uint16_t length, uint16_t *ret_message_length, uint16_t *ret_message_chunk_offset, char ret_message_chunk_data[60]);
 
 /**
  * \ingroup BrickletRS232V2
@@ -500,7 +500,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_rs232_v2_read_low_level(TF_RS232V2 *rs232_v2, uin
  * 
  * By default the callback is disabled.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_rs232_v2_enable_read_callback(TF_RS232V2 *rs232_v2);
+int tf_rs232_v2_enable_read_callback(TF_RS232V2 *rs232_v2);
 
 /**
  * \ingroup BrickletRS232V2
@@ -509,7 +509,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_rs232_v2_enable_read_callback(TF_RS232V2 *rs232_v
  * 
  * By default the callback is disabled.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_rs232_v2_disable_read_callback(TF_RS232V2 *rs232_v2);
+int tf_rs232_v2_disable_read_callback(TF_RS232V2 *rs232_v2);
 
 /**
  * \ingroup BrickletRS232V2
@@ -517,21 +517,21 @@ TF_ATTRIBUTE_NONNULL(1) int tf_rs232_v2_disable_read_callback(TF_RS232V2 *rs232_
  * Returns *true* if the {@link tf_rs232_v2_register_read_callback} callback is enabled,
  * *false* otherwise.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_rs232_v2_is_read_callback_enabled(TF_RS232V2 *rs232_v2, bool *ret_enabled);
+int tf_rs232_v2_is_read_callback_enabled(TF_RS232V2 *rs232_v2, bool *ret_enabled);
 
 /**
  * \ingroup BrickletRS232V2
  *
  * Sets the configuration for the RS232 communication.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_rs232_v2_set_configuration(TF_RS232V2 *rs232_v2, uint32_t baudrate, uint8_t parity, uint8_t stopbits, uint8_t wordlength, uint8_t flowcontrol);
+int tf_rs232_v2_set_configuration(TF_RS232V2 *rs232_v2, uint32_t baudrate, uint8_t parity, uint8_t stopbits, uint8_t wordlength, uint8_t flowcontrol);
 
 /**
  * \ingroup BrickletRS232V2
  *
  * Returns the configuration as set by {@link tf_rs232_v2_set_configuration}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_rs232_v2_get_configuration(TF_RS232V2 *rs232_v2, uint32_t *ret_baudrate, uint8_t *ret_parity, uint8_t *ret_stopbits, uint8_t *ret_wordlength, uint8_t *ret_flowcontrol);
+int tf_rs232_v2_get_configuration(TF_RS232V2 *rs232_v2, uint32_t *ret_baudrate, uint8_t *ret_parity, uint8_t *ret_stopbits, uint8_t *ret_wordlength, uint8_t *ret_flowcontrol);
 
 /**
  * \ingroup BrickletRS232V2
@@ -546,14 +546,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_rs232_v2_get_configuration(TF_RS232V2 *rs232_v2, 
  * received through RS232 but could not yet be send to the
  * user, either by {@link tf_rs232_v2_read} or through {@link tf_rs232_v2_register_read_callback} callback.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_rs232_v2_set_buffer_config(TF_RS232V2 *rs232_v2, uint16_t send_buffer_size, uint16_t receive_buffer_size);
+int tf_rs232_v2_set_buffer_config(TF_RS232V2 *rs232_v2, uint16_t send_buffer_size, uint16_t receive_buffer_size);
 
 /**
  * \ingroup BrickletRS232V2
  *
  * Returns the buffer configuration as set by {@link tf_rs232_v2_set_buffer_config}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_rs232_v2_get_buffer_config(TF_RS232V2 *rs232_v2, uint16_t *ret_send_buffer_size, uint16_t *ret_receive_buffer_size);
+int tf_rs232_v2_get_buffer_config(TF_RS232V2 *rs232_v2, uint16_t *ret_send_buffer_size, uint16_t *ret_receive_buffer_size);
 
 /**
  * \ingroup BrickletRS232V2
@@ -562,14 +562,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_rs232_v2_get_buffer_config(TF_RS232V2 *rs232_v2, 
  * 
  * See {@link tf_rs232_v2_set_buffer_config} for buffer size configuration.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_rs232_v2_get_buffer_status(TF_RS232V2 *rs232_v2, uint16_t *ret_send_buffer_used, uint16_t *ret_receive_buffer_used);
+int tf_rs232_v2_get_buffer_status(TF_RS232V2 *rs232_v2, uint16_t *ret_send_buffer_used, uint16_t *ret_receive_buffer_used);
 
 /**
  * \ingroup BrickletRS232V2
  *
  * Returns the current number of overrun and parity errors.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_rs232_v2_get_error_count(TF_RS232V2 *rs232_v2, uint32_t *ret_error_count_overrun, uint32_t *ret_error_count_parity);
+int tf_rs232_v2_get_error_count(TF_RS232V2 *rs232_v2, uint32_t *ret_error_count_overrun, uint32_t *ret_error_count_parity);
 
 /**
  * \ingroup BrickletRS232V2
@@ -581,7 +581,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_rs232_v2_get_error_count(TF_RS232V2 *rs232_v2, ui
  * 
  * .. versionadded:: 2.0.3$nbsp;(Plugin)
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_rs232_v2_set_frame_readable_callback_configuration(TF_RS232V2 *rs232_v2, uint16_t frame_size);
+int tf_rs232_v2_set_frame_readable_callback_configuration(TF_RS232V2 *rs232_v2, uint16_t frame_size);
 
 /**
  * \ingroup BrickletRS232V2
@@ -590,7 +590,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_rs232_v2_set_frame_readable_callback_configuratio
  * 
  * .. versionadded:: 2.0.3$nbsp;(Plugin)
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_rs232_v2_get_frame_readable_callback_configuration(TF_RS232V2 *rs232_v2, uint16_t *ret_frame_size);
+int tf_rs232_v2_get_frame_readable_callback_configuration(TF_RS232V2 *rs232_v2, uint16_t *ret_frame_size);
 
 /**
  * \ingroup BrickletRS232V2
@@ -607,7 +607,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_rs232_v2_get_frame_readable_callback_configuratio
  * The errors counts are for errors that occur on the Bricklet side. All
  * Bricks have a similar function that returns the errors on the Brick side.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_rs232_v2_get_spitfp_error_count(TF_RS232V2 *rs232_v2, uint32_t *ret_error_count_ack_checksum, uint32_t *ret_error_count_message_checksum, uint32_t *ret_error_count_frame, uint32_t *ret_error_count_overflow);
+int tf_rs232_v2_get_spitfp_error_count(TF_RS232V2 *rs232_v2, uint32_t *ret_error_count_ack_checksum, uint32_t *ret_error_count_message_checksum, uint32_t *ret_error_count_frame, uint32_t *ret_error_count_overflow);
 
 /**
  * \ingroup BrickletRS232V2
@@ -622,14 +622,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_rs232_v2_get_spitfp_error_count(TF_RS232V2 *rs232
  * This function is used by Brick Viewer during flashing. It should not be
  * necessary to call it in a normal user program.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_rs232_v2_set_bootloader_mode(TF_RS232V2 *rs232_v2, uint8_t mode, uint8_t *ret_status);
+int tf_rs232_v2_set_bootloader_mode(TF_RS232V2 *rs232_v2, uint8_t mode, uint8_t *ret_status);
 
 /**
  * \ingroup BrickletRS232V2
  *
  * Returns the current bootloader mode, see {@link tf_rs232_v2_set_bootloader_mode}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_rs232_v2_get_bootloader_mode(TF_RS232V2 *rs232_v2, uint8_t *ret_mode);
+int tf_rs232_v2_get_bootloader_mode(TF_RS232V2 *rs232_v2, uint8_t *ret_mode);
 
 /**
  * \ingroup BrickletRS232V2
@@ -641,7 +641,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_rs232_v2_get_bootloader_mode(TF_RS232V2 *rs232_v2
  * This function is used by Brick Viewer during flashing. It should not be
  * necessary to call it in a normal user program.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_rs232_v2_set_write_firmware_pointer(TF_RS232V2 *rs232_v2, uint32_t pointer);
+int tf_rs232_v2_set_write_firmware_pointer(TF_RS232V2 *rs232_v2, uint32_t pointer);
 
 /**
  * \ingroup BrickletRS232V2
@@ -655,7 +655,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_rs232_v2_set_write_firmware_pointer(TF_RS232V2 *r
  * This function is used by Brick Viewer during flashing. It should not be
  * necessary to call it in a normal user program.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_rs232_v2_write_firmware(TF_RS232V2 *rs232_v2, uint8_t data[64], uint8_t *ret_status);
+int tf_rs232_v2_write_firmware(TF_RS232V2 *rs232_v2, const uint8_t data[64], uint8_t *ret_status);
 
 /**
  * \ingroup BrickletRS232V2
@@ -668,14 +668,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_rs232_v2_write_firmware(TF_RS232V2 *rs232_v2, uin
  * 
  * If the Bricklet is in bootloader mode, the LED is will show heartbeat by default.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_rs232_v2_set_status_led_config(TF_RS232V2 *rs232_v2, uint8_t config);
+int tf_rs232_v2_set_status_led_config(TF_RS232V2 *rs232_v2, uint8_t config);
 
 /**
  * \ingroup BrickletRS232V2
  *
  * Returns the configuration as set by {@link tf_rs232_v2_set_status_led_config}
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_rs232_v2_get_status_led_config(TF_RS232V2 *rs232_v2, uint8_t *ret_config);
+int tf_rs232_v2_get_status_led_config(TF_RS232V2 *rs232_v2, uint8_t *ret_config);
 
 /**
  * \ingroup BrickletRS232V2
@@ -687,7 +687,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_rs232_v2_get_status_led_config(TF_RS232V2 *rs232_
  * accuracy. Practically it is only useful as an indicator for
  * temperature changes.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_rs232_v2_get_chip_temperature(TF_RS232V2 *rs232_v2, int16_t *ret_temperature);
+int tf_rs232_v2_get_chip_temperature(TF_RS232V2 *rs232_v2, int16_t *ret_temperature);
 
 /**
  * \ingroup BrickletRS232V2
@@ -699,7 +699,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_rs232_v2_get_chip_temperature(TF_RS232V2 *rs232_v
  * calling functions on the existing ones will result in
  * undefined behavior!
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_rs232_v2_reset(TF_RS232V2 *rs232_v2);
+int tf_rs232_v2_reset(TF_RS232V2 *rs232_v2);
 
 /**
  * \ingroup BrickletRS232V2
@@ -710,7 +710,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_rs232_v2_reset(TF_RS232V2 *rs232_v2);
  * 
  * We recommend that you use Brick Viewer to change the UID.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_rs232_v2_write_uid(TF_RS232V2 *rs232_v2, uint32_t uid);
+int tf_rs232_v2_write_uid(TF_RS232V2 *rs232_v2, uint32_t uid);
 
 /**
  * \ingroup BrickletRS232V2
@@ -718,7 +718,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_rs232_v2_write_uid(TF_RS232V2 *rs232_v2, uint32_t
  * Returns the current UID as an integer. Encode as
  * Base58 to get the usual string version.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_rs232_v2_read_uid(TF_RS232V2 *rs232_v2, uint32_t *ret_uid);
+int tf_rs232_v2_read_uid(TF_RS232V2 *rs232_v2, uint32_t *ret_uid);
 
 /**
  * \ingroup BrickletRS232V2
@@ -734,7 +734,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_rs232_v2_read_uid(TF_RS232V2 *rs232_v2, uint32_t 
  * The device identifier numbers can be found :ref:`here <device_identifier>`.
  * |device_identifier_constant|
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_rs232_v2_get_identity(TF_RS232V2 *rs232_v2, char ret_uid[8], char ret_connected_uid[8], char *ret_position, uint8_t ret_hardware_version[3], uint8_t ret_firmware_version[3], uint16_t *ret_device_identifier);
+int tf_rs232_v2_get_identity(TF_RS232V2 *rs232_v2, char ret_uid[8], char ret_connected_uid[8], char *ret_position, uint8_t ret_hardware_version[3], uint8_t ret_firmware_version[3], uint16_t *ret_device_identifier);
 
 /**
  * \ingroup BrickletRS232V2
@@ -747,7 +747,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_rs232_v2_get_identity(TF_RS232V2 *rs232_v2, char 
  * See {@link tf_rs232_v2_set_configuration} for configuration possibilities
  * regarding baud rate, parity and so on.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_rs232_v2_write(TF_RS232V2 *rs232_v2, const char *message, uint16_t message_length, uint16_t *ret_message_written);
+int tf_rs232_v2_write(TF_RS232V2 *rs232_v2, const char *message, uint16_t message_length, uint16_t *ret_message_written);
 
 /**
  * \ingroup BrickletRS232V2
@@ -759,7 +759,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_rs232_v2_write(TF_RS232V2 *rs232_v2, const char *
  * data only when the read callback is disabled.
  * See {@link tf_rs232_v2_enable_read_callback} and {@link tf_rs232_v2_register_read_callback} callback.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_rs232_v2_read(TF_RS232V2 *rs232_v2, uint16_t length, char *ret_message, uint16_t *ret_message_length);
+int tf_rs232_v2_read(TF_RS232V2 *rs232_v2, uint16_t length, char *ret_message, uint16_t *ret_message_length);
 
 #ifdef __cplusplus
 }

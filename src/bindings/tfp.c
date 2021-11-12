@@ -22,21 +22,22 @@
 #define TF_TFP_SLEEP_TIME_US 250
 
 static uint8_t tf_tfp_build_header(TF_TfpContext *tfp, uint8_t *header_buf, uint8_t length, uint8_t function_id, bool response_expected) {
-    TF_TfpHeader header = {0};
+    TF_TfpHeader header;
+    memset(&header, 0, sizeof(TF_TfpHeader));
 
-	uint8_t sequence_number = tfp->next_sequence_number & 0x0F;
+    uint8_t sequence_number = tfp->next_sequence_number & 0x0F;
     if (sequence_number == 0) {
         sequence_number = 1;
     }
     tfp->next_sequence_number = sequence_number + 1;
 
-	header.uid = tfp->uid;
+    header.uid = tfp->uid;
     header.length = length;
     header.fid = function_id;
     header.seq_num = sequence_number;
     header.response_expected = response_expected;
 
-    write_packet_header(&header, header_buf);
+    tf_write_packet_header(&header, header_buf);
 
     return sequence_number;
 }
@@ -45,25 +46,26 @@ static bool tf_tfp_dispatch_packet(TF_TfpContext *tfp, TF_TfpHeader *header, TF_
     TF_HalContext *hal = (TF_HalContext *)tfp->hal;
     TF_HalCommon *common = tf_hal_get_common(hal);
 
+#if TF_NET_ENABLE != 0
     if(common->net != NULL) {
         // The network layer expects a complete copy of the TFP packet (i.e. with header),
         // however we've already removed the header. Write it back here.
-        uint8_t net_buf[TF_TFP_MESSAGE_MAX_LENGTH] = {0};
-        write_packet_header(header, net_buf);
+        uint8_t net_buf[TF_TFP_MAX_MESSAGE_LENGTH] = {0};
+        tf_write_packet_header(header, net_buf);
         tf_packetbuffer_peek_offset_n(packet, net_buf + 8, header->length - 8, 0);
 
         // Patch "position" of enumerate and get_identity packets
         // if "connected_uid" is just a null-terminator
         // I.e. the device is attached to us directly
-        if ((header->fid == 253 || header->fid == 255) && net_buf[TF_TFP_MESSAGE_MIN_LENGTH + sizeof(char) * 8] == 0) {
-            net_buf[TF_TFP_MESSAGE_MIN_LENGTH + sizeof(char) * 16] = tf_hal_get_port_name(hal, tfp->spitfp->port_id);
-            net_buf[TF_TFP_MESSAGE_MIN_LENGTH + sizeof(char) * 8] = '0';
-            net_buf[TF_TFP_MESSAGE_MIN_LENGTH + sizeof(char) * 9] = '\0';
+        if ((header->fid == 253 || header->fid == 255) && net_buf[TF_TFP_MIN_MESSAGE_LENGTH + sizeof(char) * 8] == 0) {
+            net_buf[TF_TFP_MIN_MESSAGE_LENGTH + sizeof(char) * 16] = (uint8_t)tf_hal_get_port_name(hal, tfp->spitfp->port_id);
+            net_buf[TF_TFP_MIN_MESSAGE_LENGTH + sizeof(char) * 8] = '0';
+            net_buf[TF_TFP_MIN_MESSAGE_LENGTH + sizeof(char) * 9] = '\0';
         }
 
         tf_net_send_packet(common->net, header, net_buf);
     }
-
+#endif
     // We received a non-callback packet that was not expected from the source TFP context.
     // As all getter and setter calls of the uC bindings (i.e. of other TFP contexts) are blocking,
     // we know immediately that the packet is only for the network layer, or is a late response to
@@ -118,7 +120,7 @@ static bool tf_tfp_filter_received_packet(TF_TfpContext *tfp, bool remove_intere
     }
 
     TF_TfpHeader header;
-    read_packet_header(buf, &header);
+    tf_read_packet_header(buf, &header);
 
     // Compare with <= as behind the tfp packet there has to be the SPITFP checksum
     if(used <= header.length) {
@@ -183,17 +185,13 @@ static bool empty_cb_handler(void *device, uint8_t fid, TF_Packetbuffer *payload
     return false;
 }
 
-int tf_tfp_init(TF_TfpContext *tfp, TF_HalContext *hal, uint8_t port_id) {
+int tf_tfp_create(TF_TfpContext *tfp, TF_HalContext *hal, uint8_t port_id);
+int tf_tfp_create(TF_TfpContext *tfp, TF_HalContext *hal, uint8_t port_id) {
     memset(tfp, 0, sizeof(TF_TfpContext));
     TF_PortCommon *port_common = tf_hal_get_port_common(hal, port_id);
     tfp->spitfp = &port_common->spitfp;
 
-    /*int rc = tf_spitfp_init(tfp->spitfp, hal, port_id);
-    if (rc != TF_E_OK)
-        return rc;*/
-
     tfp->next_sequence_number = 1;
-    //tfp->uid = uid;
     tfp->uid = 0;
     tfp->cb_handler = empty_cb_handler;
     tfp->error_count_frame = 0;
@@ -208,7 +206,7 @@ int tf_tfp_destroy(TF_TfpContext *tfp) {
     TF_HalCommon *common = tf_hal_get_common((TF_HalContext *)tfp->hal);
 
     uint8_t port_id;
-    int inventory_index;
+    uint8_t inventory_index;
     int rc = tf_hal_get_port_id((TF_HalContext *)tfp->hal, tfp->uid, &port_id, &inventory_index);
     if (rc < 0) {
         return rc;
@@ -225,13 +223,13 @@ int tf_tfp_destroy(TF_TfpContext *tfp) {
 void tf_tfp_prepare_send(TF_TfpContext *tfp, uint8_t fid, uint8_t payload_size, uint8_t response_size, bool response_expected) {
     //TODO: theoretically, all bytes should be rewritten when sending a new packet, so this is not necessary.
     uint8_t *buf = tf_spitfp_get_payload_buffer(tfp->spitfp);
-    memset(buf, 0, TF_TFP_MESSAGE_MAX_LENGTH);
+    memset(buf, 0, TF_TFP_MAX_MESSAGE_LENGTH);
 
-    uint8_t tf_tfp_seq_num = tf_tfp_build_header(tfp, buf, payload_size + TF_TFP_MESSAGE_MIN_LENGTH, fid, response_expected);
+    uint8_t tf_tfp_seq_num = tf_tfp_build_header(tfp, buf, payload_size + TF_TFP_MIN_MESSAGE_LENGTH, fid, response_expected);
 
     if (response_expected) {
         tfp->waiting_for_fid = fid;
-        tfp->waiting_for_length = response_size + TF_TFP_MESSAGE_MIN_LENGTH;
+        tfp->waiting_for_length = response_size + TF_TFP_MIN_MESSAGE_LENGTH;
         tfp->waiting_for_sequence_number = tf_tfp_seq_num;
     } else {
         tfp->waiting_for_fid = 0;
@@ -241,12 +239,12 @@ void tf_tfp_prepare_send(TF_TfpContext *tfp, uint8_t fid, uint8_t payload_size, 
 }
 
 uint8_t *tf_tfp_get_payload_buffer(TF_TfpContext *tfp) {
-    return tf_spitfp_get_payload_buffer(tfp->spitfp) + TF_TFP_MESSAGE_MIN_LENGTH;
+    return tf_spitfp_get_payload_buffer(tfp->spitfp) + TF_TFP_MIN_MESSAGE_LENGTH;
 }
 
 void tf_tfp_inject_packet(TF_TfpContext *tfp, TF_TfpHeader *header, uint8_t *packet) {
     uint8_t *buf = tf_spitfp_get_payload_buffer(tfp->spitfp);
-    memset(buf, 0, TF_TFP_MESSAGE_MAX_LENGTH);
+    memset(buf, 0, TF_TFP_MAX_MESSAGE_LENGTH);
 
     memcpy(buf, packet, header->length);
 

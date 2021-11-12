@@ -116,6 +116,7 @@ static bool process_packets(TF_SpiTfpContext *spitfp, uint8_t *bytes_missing) {
             // checksum was wrong, advance one byte
             tf_packetbuffer_remove(buf, 1);
             ++spitfp->error_count_checksum;
+
         }
     }
     return false;
@@ -160,7 +161,7 @@ static int tf_spitfp_receive(TF_SpiTfpContext *spitfp, uint8_t length) {
 }
 
 uint8_t tf_spitfp_build_packet(TF_SpiTfpContext *spitfp, bool retransmission) {
-    uint8_t packet_length = spitfp->send_buf[TF_SPITFP_HEADER_LENGTH + TFP_HEADER_LENGTH_OFFSET] + TF_SPITFP_PROTOCOL_OVERHEAD;
+    uint8_t packet_length = spitfp->send_buf[TF_SPITFP_HEADER_LENGTH + TF_TFP_HEADER_LENGTH_OFFSET] + TF_SPITFP_PROTOCOL_OVERHEAD;
     spitfp->send_buf[0] = packet_length;
 
     uint8_t seq_num;
@@ -292,7 +293,7 @@ static int tf_spitfp_wait_for_ack(TF_SpiTfpContext *spitfp, uint8_t seq_num, uin
 static int tf_spitfp_filter_duplicates(TF_SpiTfpContext *spitfp) {
     if(spitfp->last_sequence_number_given_to_tfp == spitfp->last_sequence_number_seen) {
         uint8_t packet_len = 0;
-        tf_packetbuffer_peek_offset(&spitfp->recv_buf, &packet_len, TFP_HEADER_LENGTH_OFFSET);
+        tf_packetbuffer_peek_offset(&spitfp->recv_buf, &packet_len, TF_TFP_HEADER_LENGTH_OFFSET);
         tf_packetbuffer_remove(&spitfp->recv_buf, packet_len + 1);
         return 0;
     }
@@ -475,7 +476,7 @@ uint8_t *tf_spitfp_get_payload_buffer(TF_SpiTfpContext *spitfp) {
     return spitfp->send_buf + TF_SPITFP_HEADER_LENGTH;
 }
 
-int tf_spitfp_init(TF_SpiTfpContext *spitfp, struct TF_HalContext *hal, uint8_t port_id) {
+int tf_spitfp_create(TF_SpiTfpContext *spitfp, struct TF_HalContext *hal, uint8_t port_id) {
     spitfp->hal = hal;
     spitfp->port_id = port_id;
     spitfp->last_sequence_number_seen = 0;
@@ -488,7 +489,7 @@ int tf_spitfp_init(TF_SpiTfpContext *spitfp, struct TF_HalContext *hal, uint8_t 
     spitfp->error_count_frame = 0;
 
     memset(spitfp->send_buf, 0, sizeof(spitfp->send_buf));
-    tf_packetbuffer_init(&spitfp->recv_buf);
+    tf_packetbuffer_create(&spitfp->recv_buf);
 
     return TF_E_OK;
 }

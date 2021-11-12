@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-10-04.      *
+ * This file was automatically generated on 2021-11-12.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -25,7 +25,7 @@ extern "C" {
  */
 
 struct TF_MotionDetectorV2;
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
 
 typedef void (*TF_MotionDetectorV2MotionDetectedHandler)(struct TF_MotionDetectorV2 *device, void *user_data);
 typedef void (*TF_MotionDetectorV2DetectionCycleEndedHandler)(struct TF_MotionDetectorV2 *device, void *user_data);
@@ -38,7 +38,7 @@ typedef void (*TF_MotionDetectorV2DetectionCycleEndedHandler)(struct TF_MotionDe
  */
 typedef struct TF_MotionDetectorV2 {
     TF_TfpContext *tfp;
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
     TF_MotionDetectorV2MotionDetectedHandler motion_detected_handler;
     void *motion_detected_user_data;
 
@@ -134,7 +134,7 @@ typedef struct TF_MotionDetectorV2 {
  */
 #define TF_MOTION_DETECTOR_V2_FUNCTION_GET_IDENTITY 255
 
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
 
 /**
  * \ingroup BrickletMotionDetectorV2
@@ -257,7 +257,7 @@ typedef struct TF_MotionDetectorV2 {
  * Creates the device object \c motion_detector_v2 with the unique device ID \c uid and adds
  * it to the IPConnection \c ipcon.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_motion_detector_v2_create(TF_MotionDetectorV2 *motion_detector_v2, const char *uid, TF_HalContext *hal);
+int tf_motion_detector_v2_create(TF_MotionDetectorV2 *motion_detector_v2, const char *uid, TF_HalContext *hal);
 
 /**
  * \ingroup BrickletMotionDetectorV2
@@ -265,7 +265,7 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_motion_detector_v2_create(TF_MotionDetectorV2 *m
  * Removes the device object \c motion_detector_v2 from its IPConnection and destroys it.
  * The device object cannot be used anymore afterwards.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_motion_detector_v2_destroy(TF_MotionDetectorV2 *motion_detector_v2);
+int tf_motion_detector_v2_destroy(TF_MotionDetectorV2 *motion_detector_v2);
 
 /**
  * \ingroup BrickletMotionDetectorV2
@@ -286,7 +286,7 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_motion_detector_v2_destroy(TF_MotionDetectorV2 *
  * disabled for a setter function then no response is sent and errors are
  * silently ignored, because they cannot be detected.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_motion_detector_v2_get_response_expected(TF_MotionDetectorV2 *motion_detector_v2, uint8_t function_id, bool *ret_response_expected);
+int tf_motion_detector_v2_get_response_expected(TF_MotionDetectorV2 *motion_detector_v2, uint8_t function_id, bool *ret_response_expected);
 
 /**
  * \ingroup BrickletMotionDetectorV2
@@ -302,7 +302,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_motion_detector_v2_get_response_expected(TF_Motio
  * setter function then no response is sent and errors are silently ignored,
  * because they cannot be detected.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_motion_detector_v2_set_response_expected(TF_MotionDetectorV2 *motion_detector_v2, uint8_t function_id, bool response_expected);
+int tf_motion_detector_v2_set_response_expected(TF_MotionDetectorV2 *motion_detector_v2, uint8_t function_id, bool response_expected);
 
 /**
  * \ingroup BrickletMotionDetectorV2
@@ -310,8 +310,8 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_motion_detector_v2_set_response_expected(TF_Moti
  * Changes the response expected flag for all setter and callback configuration
  * functions of this device at once.
  */
-TF_ATTRIBUTE_NONNULL_ALL void tf_motion_detector_v2_set_response_expected_all(TF_MotionDetectorV2 *motion_detector_v2, bool response_expected);
-#ifdef TF_IMPLEMENT_CALLBACKS
+void tf_motion_detector_v2_set_response_expected_all(TF_MotionDetectorV2 *motion_detector_v2, bool response_expected);
+#if TF_IMPLEMENT_CALLBACKS != 0
 /**
  * \ingroup BrickletMotionDetectorV2
  *
@@ -322,7 +322,7 @@ TF_ATTRIBUTE_NONNULL_ALL void tf_motion_detector_v2_set_response_expected_all(TF
  * 
  * This callback is called after a motion was detected.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_motion_detector_v2_register_motion_detected_callback(TF_MotionDetectorV2 *motion_detector_v2, TF_MotionDetectorV2MotionDetectedHandler handler, void *user_data);
+int tf_motion_detector_v2_register_motion_detected_callback(TF_MotionDetectorV2 *motion_detector_v2, TF_MotionDetectorV2MotionDetectedHandler handler, void *user_data);
 
 
 /**
@@ -337,9 +337,9 @@ TF_ATTRIBUTE_NONNULL(1) int tf_motion_detector_v2_register_motion_detected_callb
  * callback is called, a new motion can be detected again after approximately 2
  * seconds.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_motion_detector_v2_register_detection_cycle_ended_callback(TF_MotionDetectorV2 *motion_detector_v2, TF_MotionDetectorV2DetectionCycleEndedHandler handler, void *user_data);
+int tf_motion_detector_v2_register_detection_cycle_ended_callback(TF_MotionDetectorV2 *motion_detector_v2, TF_MotionDetectorV2DetectionCycleEndedHandler handler, void *user_data);
 #endif
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
 /**
  * \ingroup BrickletMotionDetectorV2
  *
@@ -347,7 +347,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_motion_detector_v2_register_detection_cycle_ended
  *
  * This function can be used in a non-blocking fashion by calling it with a timeout of 0.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_motion_detector_v2_callback_tick(TF_MotionDetectorV2 *motion_detector_v2, uint32_t timeout_us);
+int tf_motion_detector_v2_callback_tick(TF_MotionDetectorV2 *motion_detector_v2, uint32_t timeout_us);
 #endif
 
 /**
@@ -356,7 +356,7 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_motion_detector_v2_callback_tick(TF_MotionDetect
  * Returns 1 if a motion was detected. It returns 1 approx. for 1.8 seconds
  * until the sensor checks for a new movement.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_motion_detector_v2_get_motion_detected(TF_MotionDetectorV2 *motion_detector_v2, uint8_t *ret_motion);
+int tf_motion_detector_v2_get_motion_detected(TF_MotionDetectorV2 *motion_detector_v2, uint8_t *ret_motion);
 
 /**
  * \ingroup BrickletMotionDetectorV2
@@ -370,14 +370,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_motion_detector_v2_get_motion_detected(TF_MotionD
  * 
  * So you will have to find a good sensitivity for your application by trial and error.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_motion_detector_v2_set_sensitivity(TF_MotionDetectorV2 *motion_detector_v2, uint8_t sensitivity);
+int tf_motion_detector_v2_set_sensitivity(TF_MotionDetectorV2 *motion_detector_v2, uint8_t sensitivity);
 
 /**
  * \ingroup BrickletMotionDetectorV2
  *
  * Returns the sensitivity as set by {@link tf_motion_detector_v2_set_sensitivity}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_motion_detector_v2_get_sensitivity(TF_MotionDetectorV2 *motion_detector_v2, uint8_t *ret_sensitivity);
+int tf_motion_detector_v2_get_sensitivity(TF_MotionDetectorV2 *motion_detector_v2, uint8_t *ret_sensitivity);
 
 /**
  * \ingroup BrickletMotionDetectorV2
@@ -387,14 +387,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_motion_detector_v2_get_sensitivity(TF_MotionDetec
  * (0-255). A value of 0 turns the LED off and a value of 255 turns the LED
  * to full brightness.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_motion_detector_v2_set_indicator(TF_MotionDetectorV2 *motion_detector_v2, uint8_t top_left, uint8_t top_right, uint8_t bottom);
+int tf_motion_detector_v2_set_indicator(TF_MotionDetectorV2 *motion_detector_v2, uint8_t top_left, uint8_t top_right, uint8_t bottom);
 
 /**
  * \ingroup BrickletMotionDetectorV2
  *
  * Returns the indicator configuration as set by {@link tf_motion_detector_v2_set_indicator}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_motion_detector_v2_get_indicator(TF_MotionDetectorV2 *motion_detector_v2, uint8_t *ret_top_left, uint8_t *ret_top_right, uint8_t *ret_bottom);
+int tf_motion_detector_v2_get_indicator(TF_MotionDetectorV2 *motion_detector_v2, uint8_t *ret_top_left, uint8_t *ret_top_right, uint8_t *ret_bottom);
 
 /**
  * \ingroup BrickletMotionDetectorV2
@@ -411,7 +411,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_motion_detector_v2_get_indicator(TF_MotionDetecto
  * The errors counts are for errors that occur on the Bricklet side. All
  * Bricks have a similar function that returns the errors on the Brick side.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_motion_detector_v2_get_spitfp_error_count(TF_MotionDetectorV2 *motion_detector_v2, uint32_t *ret_error_count_ack_checksum, uint32_t *ret_error_count_message_checksum, uint32_t *ret_error_count_frame, uint32_t *ret_error_count_overflow);
+int tf_motion_detector_v2_get_spitfp_error_count(TF_MotionDetectorV2 *motion_detector_v2, uint32_t *ret_error_count_ack_checksum, uint32_t *ret_error_count_message_checksum, uint32_t *ret_error_count_frame, uint32_t *ret_error_count_overflow);
 
 /**
  * \ingroup BrickletMotionDetectorV2
@@ -426,14 +426,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_motion_detector_v2_get_spitfp_error_count(TF_Moti
  * This function is used by Brick Viewer during flashing. It should not be
  * necessary to call it in a normal user program.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_motion_detector_v2_set_bootloader_mode(TF_MotionDetectorV2 *motion_detector_v2, uint8_t mode, uint8_t *ret_status);
+int tf_motion_detector_v2_set_bootloader_mode(TF_MotionDetectorV2 *motion_detector_v2, uint8_t mode, uint8_t *ret_status);
 
 /**
  * \ingroup BrickletMotionDetectorV2
  *
  * Returns the current bootloader mode, see {@link tf_motion_detector_v2_set_bootloader_mode}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_motion_detector_v2_get_bootloader_mode(TF_MotionDetectorV2 *motion_detector_v2, uint8_t *ret_mode);
+int tf_motion_detector_v2_get_bootloader_mode(TF_MotionDetectorV2 *motion_detector_v2, uint8_t *ret_mode);
 
 /**
  * \ingroup BrickletMotionDetectorV2
@@ -445,7 +445,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_motion_detector_v2_get_bootloader_mode(TF_MotionD
  * This function is used by Brick Viewer during flashing. It should not be
  * necessary to call it in a normal user program.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_motion_detector_v2_set_write_firmware_pointer(TF_MotionDetectorV2 *motion_detector_v2, uint32_t pointer);
+int tf_motion_detector_v2_set_write_firmware_pointer(TF_MotionDetectorV2 *motion_detector_v2, uint32_t pointer);
 
 /**
  * \ingroup BrickletMotionDetectorV2
@@ -459,7 +459,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_motion_detector_v2_set_write_firmware_pointer(TF_
  * This function is used by Brick Viewer during flashing. It should not be
  * necessary to call it in a normal user program.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_motion_detector_v2_write_firmware(TF_MotionDetectorV2 *motion_detector_v2, uint8_t data[64], uint8_t *ret_status);
+int tf_motion_detector_v2_write_firmware(TF_MotionDetectorV2 *motion_detector_v2, const uint8_t data[64], uint8_t *ret_status);
 
 /**
  * \ingroup BrickletMotionDetectorV2
@@ -472,14 +472,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_motion_detector_v2_write_firmware(TF_MotionDetect
  * 
  * If the Bricklet is in bootloader mode, the LED is will show heartbeat by default.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_motion_detector_v2_set_status_led_config(TF_MotionDetectorV2 *motion_detector_v2, uint8_t config);
+int tf_motion_detector_v2_set_status_led_config(TF_MotionDetectorV2 *motion_detector_v2, uint8_t config);
 
 /**
  * \ingroup BrickletMotionDetectorV2
  *
  * Returns the configuration as set by {@link tf_motion_detector_v2_set_status_led_config}
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_motion_detector_v2_get_status_led_config(TF_MotionDetectorV2 *motion_detector_v2, uint8_t *ret_config);
+int tf_motion_detector_v2_get_status_led_config(TF_MotionDetectorV2 *motion_detector_v2, uint8_t *ret_config);
 
 /**
  * \ingroup BrickletMotionDetectorV2
@@ -491,7 +491,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_motion_detector_v2_get_status_led_config(TF_Motio
  * accuracy. Practically it is only useful as an indicator for
  * temperature changes.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_motion_detector_v2_get_chip_temperature(TF_MotionDetectorV2 *motion_detector_v2, int16_t *ret_temperature);
+int tf_motion_detector_v2_get_chip_temperature(TF_MotionDetectorV2 *motion_detector_v2, int16_t *ret_temperature);
 
 /**
  * \ingroup BrickletMotionDetectorV2
@@ -503,7 +503,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_motion_detector_v2_get_chip_temperature(TF_Motion
  * calling functions on the existing ones will result in
  * undefined behavior!
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_motion_detector_v2_reset(TF_MotionDetectorV2 *motion_detector_v2);
+int tf_motion_detector_v2_reset(TF_MotionDetectorV2 *motion_detector_v2);
 
 /**
  * \ingroup BrickletMotionDetectorV2
@@ -514,7 +514,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_motion_detector_v2_reset(TF_MotionDetectorV2 *mot
  * 
  * We recommend that you use Brick Viewer to change the UID.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_motion_detector_v2_write_uid(TF_MotionDetectorV2 *motion_detector_v2, uint32_t uid);
+int tf_motion_detector_v2_write_uid(TF_MotionDetectorV2 *motion_detector_v2, uint32_t uid);
 
 /**
  * \ingroup BrickletMotionDetectorV2
@@ -522,7 +522,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_motion_detector_v2_write_uid(TF_MotionDetectorV2 
  * Returns the current UID as an integer. Encode as
  * Base58 to get the usual string version.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_motion_detector_v2_read_uid(TF_MotionDetectorV2 *motion_detector_v2, uint32_t *ret_uid);
+int tf_motion_detector_v2_read_uid(TF_MotionDetectorV2 *motion_detector_v2, uint32_t *ret_uid);
 
 /**
  * \ingroup BrickletMotionDetectorV2
@@ -538,7 +538,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_motion_detector_v2_read_uid(TF_MotionDetectorV2 *
  * The device identifier numbers can be found :ref:`here <device_identifier>`.
  * |device_identifier_constant|
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_motion_detector_v2_get_identity(TF_MotionDetectorV2 *motion_detector_v2, char ret_uid[8], char ret_connected_uid[8], char *ret_position, uint8_t ret_hardware_version[3], uint8_t ret_firmware_version[3], uint16_t *ret_device_identifier);
+int tf_motion_detector_v2_get_identity(TF_MotionDetectorV2 *motion_detector_v2, char ret_uid[8], char ret_connected_uid[8], char *ret_position, uint8_t ret_hardware_version[3], uint8_t ret_firmware_version[3], uint16_t *ret_device_identifier);
 
 #ifdef __cplusplus
 }

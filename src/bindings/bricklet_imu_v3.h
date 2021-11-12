@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-10-04.      *
+ * This file was automatically generated on 2021-11-12.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -25,7 +25,7 @@ extern "C" {
  */
 
 struct TF_IMUV3;
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
 
 typedef void (*TF_IMUV3AccelerationHandler)(struct TF_IMUV3 *device, int16_t x, int16_t y, int16_t z, void *user_data);
 typedef void (*TF_IMUV3MagneticFieldHandler)(struct TF_IMUV3 *device, int16_t x, int16_t y, int16_t z, void *user_data);
@@ -45,7 +45,7 @@ typedef void (*TF_IMUV3AllDataHandler)(struct TF_IMUV3 *device, int16_t accelera
  */
 typedef struct TF_IMUV3 {
     TF_TfpContext *tfp;
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
     TF_IMUV3AccelerationHandler acceleration_handler;
     void *acceleration_user_data;
 
@@ -297,7 +297,7 @@ typedef struct TF_IMUV3 {
  */
 #define TF_IMU_V3_FUNCTION_GET_IDENTITY 255
 
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
 
 /**
  * \ingroup BrickletIMUV3
@@ -630,7 +630,7 @@ typedef struct TF_IMUV3 {
  * Creates the device object \c imu_v3 with the unique device ID \c uid and adds
  * it to the IPConnection \c ipcon.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_imu_v3_create(TF_IMUV3 *imu_v3, const char *uid, TF_HalContext *hal);
+int tf_imu_v3_create(TF_IMUV3 *imu_v3, const char *uid, TF_HalContext *hal);
 
 /**
  * \ingroup BrickletIMUV3
@@ -638,7 +638,7 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_imu_v3_create(TF_IMUV3 *imu_v3, const char *uid,
  * Removes the device object \c imu_v3 from its IPConnection and destroys it.
  * The device object cannot be used anymore afterwards.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_imu_v3_destroy(TF_IMUV3 *imu_v3);
+int tf_imu_v3_destroy(TF_IMUV3 *imu_v3);
 
 /**
  * \ingroup BrickletIMUV3
@@ -659,7 +659,7 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_imu_v3_destroy(TF_IMUV3 *imu_v3);
  * disabled for a setter function then no response is sent and errors are
  * silently ignored, because they cannot be detected.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_imu_v3_get_response_expected(TF_IMUV3 *imu_v3, uint8_t function_id, bool *ret_response_expected);
+int tf_imu_v3_get_response_expected(TF_IMUV3 *imu_v3, uint8_t function_id, bool *ret_response_expected);
 
 /**
  * \ingroup BrickletIMUV3
@@ -675,7 +675,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_imu_v3_get_response_expected(TF_IMUV3 *imu_v3, ui
  * setter function then no response is sent and errors are silently ignored,
  * because they cannot be detected.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_imu_v3_set_response_expected(TF_IMUV3 *imu_v3, uint8_t function_id, bool response_expected);
+int tf_imu_v3_set_response_expected(TF_IMUV3 *imu_v3, uint8_t function_id, bool response_expected);
 
 /**
  * \ingroup BrickletIMUV3
@@ -683,8 +683,8 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_imu_v3_set_response_expected(TF_IMUV3 *imu_v3, u
  * Changes the response expected flag for all setter and callback configuration
  * functions of this device at once.
  */
-TF_ATTRIBUTE_NONNULL_ALL void tf_imu_v3_set_response_expected_all(TF_IMUV3 *imu_v3, bool response_expected);
-#ifdef TF_IMPLEMENT_CALLBACKS
+void tf_imu_v3_set_response_expected_all(TF_IMUV3 *imu_v3, bool response_expected);
+#if TF_IMPLEMENT_CALLBACKS != 0
 /**
  * \ingroup BrickletIMUV3
  *
@@ -697,7 +697,7 @@ TF_ATTRIBUTE_NONNULL_ALL void tf_imu_v3_set_response_expected_all(TF_IMUV3 *imu_
  * {@link tf_imu_v3_set_acceleration_callback_configuration}. The parameters are the acceleration
  * for the x, y and z axis.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_imu_v3_register_acceleration_callback(TF_IMUV3 *imu_v3, TF_IMUV3AccelerationHandler handler, void *user_data);
+int tf_imu_v3_register_acceleration_callback(TF_IMUV3 *imu_v3, TF_IMUV3AccelerationHandler handler, void *user_data);
 
 
 /**
@@ -712,7 +712,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_imu_v3_register_acceleration_callback(TF_IMUV3 *i
  * {@link tf_imu_v3_set_magnetic_field_callback_configuration}. The parameters are the magnetic
  * field for the x, y and z axis.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_imu_v3_register_magnetic_field_callback(TF_IMUV3 *imu_v3, TF_IMUV3MagneticFieldHandler handler, void *user_data);
+int tf_imu_v3_register_magnetic_field_callback(TF_IMUV3 *imu_v3, TF_IMUV3MagneticFieldHandler handler, void *user_data);
 
 
 /**
@@ -727,7 +727,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_imu_v3_register_magnetic_field_callback(TF_IMUV3 
  * {@link tf_imu_v3_set_angular_velocity_callback_configuration}. The parameters are the angular
  * velocity for the x, y and z axis.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_imu_v3_register_angular_velocity_callback(TF_IMUV3 *imu_v3, TF_IMUV3AngularVelocityHandler handler, void *user_data);
+int tf_imu_v3_register_angular_velocity_callback(TF_IMUV3 *imu_v3, TF_IMUV3AngularVelocityHandler handler, void *user_data);
 
 
 /**
@@ -741,7 +741,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_imu_v3_register_angular_velocity_callback(TF_IMUV
  * This callback is triggered periodically with the period that is set by
  * {@link tf_imu_v3_set_temperature_callback_configuration}. The parameter is the temperature.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_imu_v3_register_temperature_callback(TF_IMUV3 *imu_v3, TF_IMUV3TemperatureHandler handler, void *user_data);
+int tf_imu_v3_register_temperature_callback(TF_IMUV3 *imu_v3, TF_IMUV3TemperatureHandler handler, void *user_data);
 
 
 /**
@@ -756,7 +756,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_imu_v3_register_temperature_callback(TF_IMUV3 *im
  * {@link tf_imu_v3_set_linear_acceleration_callback_configuration}. The parameters are the
  * linear acceleration for the x, y and z axis.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_imu_v3_register_linear_acceleration_callback(TF_IMUV3 *imu_v3, TF_IMUV3LinearAccelerationHandler handler, void *user_data);
+int tf_imu_v3_register_linear_acceleration_callback(TF_IMUV3 *imu_v3, TF_IMUV3LinearAccelerationHandler handler, void *user_data);
 
 
 /**
@@ -771,7 +771,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_imu_v3_register_linear_acceleration_callback(TF_I
  * {@link tf_imu_v3_set_gravity_vector_callback_configuration}. The parameters gravity vector
  * for the x, y and z axis.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_imu_v3_register_gravity_vector_callback(TF_IMUV3 *imu_v3, TF_IMUV3GravityVectorHandler handler, void *user_data);
+int tf_imu_v3_register_gravity_vector_callback(TF_IMUV3 *imu_v3, TF_IMUV3GravityVectorHandler handler, void *user_data);
 
 
 /**
@@ -787,7 +787,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_imu_v3_register_gravity_vector_callback(TF_IMUV3 
  * (heading (yaw), roll, pitch) of the IMU Brick in Euler angles. See
  * {@link tf_imu_v3_get_orientation} for details.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_imu_v3_register_orientation_callback(TF_IMUV3 *imu_v3, TF_IMUV3OrientationHandler handler, void *user_data);
+int tf_imu_v3_register_orientation_callback(TF_IMUV3 *imu_v3, TF_IMUV3OrientationHandler handler, void *user_data);
 
 
 /**
@@ -803,7 +803,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_imu_v3_register_orientation_callback(TF_IMUV3 *im
  * (w, x, y, z) of the IMU Brick in quaternions. See {@link tf_imu_v3_get_quaternion}
  * for details.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_imu_v3_register_quaternion_callback(TF_IMUV3 *imu_v3, TF_IMUV3QuaternionHandler handler, void *user_data);
+int tf_imu_v3_register_quaternion_callback(TF_IMUV3 *imu_v3, TF_IMUV3QuaternionHandler handler, void *user_data);
 
 
 /**
@@ -818,9 +818,9 @@ TF_ATTRIBUTE_NONNULL(1) int tf_imu_v3_register_quaternion_callback(TF_IMUV3 *imu
  * {@link tf_imu_v3_set_all_data_callback_configuration}. The parameters are as for
  * {@link tf_imu_v3_get_all_data}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_imu_v3_register_all_data_callback(TF_IMUV3 *imu_v3, TF_IMUV3AllDataHandler handler, void *user_data);
+int tf_imu_v3_register_all_data_callback(TF_IMUV3 *imu_v3, TF_IMUV3AllDataHandler handler, void *user_data);
 #endif
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
 /**
  * \ingroup BrickletIMUV3
  *
@@ -828,7 +828,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_imu_v3_register_all_data_callback(TF_IMUV3 *imu_v
  *
  * This function can be used in a non-blocking fashion by calling it with a timeout of 0.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_imu_v3_callback_tick(TF_IMUV3 *imu_v3, uint32_t timeout_us);
+int tf_imu_v3_callback_tick(TF_IMUV3 *imu_v3, uint32_t timeout_us);
 #endif
 
 /**
@@ -842,7 +842,7 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_imu_v3_callback_tick(TF_IMUV3 *imu_v3, uint32_t 
  * to use the {@link tf_imu_v3_register_acceleration_callback} callback and set the period with
  * {@link tf_imu_v3_set_acceleration_callback_configuration}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_imu_v3_get_acceleration(TF_IMUV3 *imu_v3, int16_t *ret_x, int16_t *ret_y, int16_t *ret_z);
+int tf_imu_v3_get_acceleration(TF_IMUV3 *imu_v3, int16_t *ret_x, int16_t *ret_y, int16_t *ret_z);
 
 /**
  * \ingroup BrickletIMUV3
@@ -854,7 +854,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_imu_v3_get_acceleration(TF_IMUV3 *imu_v3, int16_t
  * to use the {@link tf_imu_v3_register_magnetic_field_callback} callback and set the period with
  * {@link tf_imu_v3_set_magnetic_field_callback_configuration}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_imu_v3_get_magnetic_field(TF_IMUV3 *imu_v3, int16_t *ret_x, int16_t *ret_y, int16_t *ret_z);
+int tf_imu_v3_get_magnetic_field(TF_IMUV3 *imu_v3, int16_t *ret_x, int16_t *ret_y, int16_t *ret_z);
 
 /**
  * \ingroup BrickletIMUV3
@@ -867,7 +867,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_imu_v3_get_magnetic_field(TF_IMUV3 *imu_v3, int16
  * to use the {@link tf_imu_v3_register_angular_velocity_callback} acallback nd set the period with
  * {@link tf_imu_v3_set_angular_velocity_callback_configuration}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_imu_v3_get_angular_velocity(TF_IMUV3 *imu_v3, int16_t *ret_x, int16_t *ret_y, int16_t *ret_z);
+int tf_imu_v3_get_angular_velocity(TF_IMUV3 *imu_v3, int16_t *ret_x, int16_t *ret_y, int16_t *ret_z);
 
 /**
  * \ingroup BrickletIMUV3
@@ -876,7 +876,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_imu_v3_get_angular_velocity(TF_IMUV3 *imu_v3, int
  * The temperature is measured in the core of the BNO055 IC, it is not the
  * ambient temperature
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_imu_v3_get_temperature(TF_IMUV3 *imu_v3, int8_t *ret_temperature);
+int tf_imu_v3_get_temperature(TF_IMUV3 *imu_v3, int8_t *ret_temperature);
 
 /**
  * \ingroup BrickletIMUV3
@@ -891,7 +891,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_imu_v3_get_temperature(TF_IMUV3 *imu_v3, int8_t *
  * to use the {@link tf_imu_v3_register_orientation_callback} callback and set the period with
  * {@link tf_imu_v3_set_orientation_callback_configuration}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_imu_v3_get_orientation(TF_IMUV3 *imu_v3, int16_t *ret_heading, int16_t *ret_roll, int16_t *ret_pitch);
+int tf_imu_v3_get_orientation(TF_IMUV3 *imu_v3, int16_t *ret_heading, int16_t *ret_roll, int16_t *ret_pitch);
 
 /**
  * \ingroup BrickletIMUV3
@@ -910,7 +910,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_imu_v3_get_orientation(TF_IMUV3 *imu_v3, int16_t 
  * to use the {@link tf_imu_v3_register_linear_acceleration_callback} callback and set the period with
  * {@link tf_imu_v3_set_linear_acceleration_callback_configuration}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_imu_v3_get_linear_acceleration(TF_IMUV3 *imu_v3, int16_t *ret_x, int16_t *ret_y, int16_t *ret_z);
+int tf_imu_v3_get_linear_acceleration(TF_IMUV3 *imu_v3, int16_t *ret_x, int16_t *ret_y, int16_t *ret_z);
 
 /**
  * \ingroup BrickletIMUV3
@@ -928,7 +928,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_imu_v3_get_linear_acceleration(TF_IMUV3 *imu_v3, 
  * to use the {@link tf_imu_v3_register_gravity_vector_callback} callback and set the period with
  * {@link tf_imu_v3_set_gravity_vector_callback_configuration}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_imu_v3_get_gravity_vector(TF_IMUV3 *imu_v3, int16_t *ret_x, int16_t *ret_y, int16_t *ret_z);
+int tf_imu_v3_get_gravity_vector(TF_IMUV3 *imu_v3, int16_t *ret_x, int16_t *ret_y, int16_t *ret_z);
 
 /**
  * \ingroup BrickletIMUV3
@@ -943,7 +943,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_imu_v3_get_gravity_vector(TF_IMUV3 *imu_v3, int16
  * to use the {@link tf_imu_v3_register_quaternion_callback} callback and set the period with
  * {@link tf_imu_v3_set_quaternion_callback_configuration}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_imu_v3_get_quaternion(TF_IMUV3 *imu_v3, int16_t *ret_w, int16_t *ret_x, int16_t *ret_y, int16_t *ret_z);
+int tf_imu_v3_get_quaternion(TF_IMUV3 *imu_v3, int16_t *ret_w, int16_t *ret_x, int16_t *ret_y, int16_t *ret_z);
 
 /**
  * \ingroup BrickletIMUV3
@@ -979,7 +979,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_imu_v3_get_quaternion(TF_IMUV3 *imu_v3, int16_t *
  * to use the {@link tf_imu_v3_register_all_data_callback} callback and set the period with
  * {@link tf_imu_v3_set_all_data_callback_configuration}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_imu_v3_get_all_data(TF_IMUV3 *imu_v3, int16_t ret_acceleration[3], int16_t ret_magnetic_field[3], int16_t ret_angular_velocity[3], int16_t ret_euler_angle[3], int16_t ret_quaternion[4], int16_t ret_linear_acceleration[3], int16_t ret_gravity_vector[3], int8_t *ret_temperature, uint8_t *ret_calibration_status);
+int tf_imu_v3_get_all_data(TF_IMUV3 *imu_v3, int16_t ret_acceleration[3], int16_t ret_magnetic_field[3], int16_t ret_angular_velocity[3], int16_t ret_euler_angle[3], int16_t ret_quaternion[4], int16_t ret_linear_acceleration[3], int16_t ret_gravity_vector[3], int8_t *ret_temperature, uint8_t *ret_calibration_status);
 
 /**
  * \ingroup BrickletIMUV3
@@ -995,7 +995,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_imu_v3_get_all_data(TF_IMUV3 *imu_v3, int16_t ret
  * This function is used by the calibration window of the Brick Viewer, you
  * should not need to call it in your program.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_imu_v3_save_calibration(TF_IMUV3 *imu_v3, bool *ret_calibration_done);
+int tf_imu_v3_save_calibration(TF_IMUV3 *imu_v3, bool *ret_calibration_done);
 
 /**
  * \ingroup BrickletIMUV3
@@ -1004,14 +1004,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_imu_v3_save_calibration(TF_IMUV3 *imu_v3, bool *r
  * Accelerometer. The Accelerometer Range is user selectable in all fusion modes,
  * all other configurations are auto-controlled in fusion mode.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_imu_v3_set_sensor_configuration(TF_IMUV3 *imu_v3, uint8_t magnetometer_rate, uint8_t gyroscope_range, uint8_t gyroscope_bandwidth, uint8_t accelerometer_range, uint8_t accelerometer_bandwidth);
+int tf_imu_v3_set_sensor_configuration(TF_IMUV3 *imu_v3, uint8_t magnetometer_rate, uint8_t gyroscope_range, uint8_t gyroscope_bandwidth, uint8_t accelerometer_range, uint8_t accelerometer_bandwidth);
 
 /**
  * \ingroup BrickletIMUV3
  *
  * Returns the sensor configuration as set by {@link tf_imu_v3_set_sensor_configuration}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_imu_v3_get_sensor_configuration(TF_IMUV3 *imu_v3, uint8_t *ret_magnetometer_rate, uint8_t *ret_gyroscope_range, uint8_t *ret_gyroscope_bandwidth, uint8_t *ret_accelerometer_range, uint8_t *ret_accelerometer_bandwidth);
+int tf_imu_v3_get_sensor_configuration(TF_IMUV3 *imu_v3, uint8_t *ret_magnetometer_rate, uint8_t *ret_gyroscope_range, uint8_t *ret_gyroscope_bandwidth, uint8_t *ret_accelerometer_range, uint8_t *ret_accelerometer_bandwidth);
 
 /**
  * \ingroup BrickletIMUV3
@@ -1031,14 +1031,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_imu_v3_get_sensor_configuration(TF_IMUV3 *imu_v3,
  * the first time will likely take longer, but small magnetic influences might
  * not affect the automatic calibration as much.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_imu_v3_set_sensor_fusion_mode(TF_IMUV3 *imu_v3, uint8_t mode);
+int tf_imu_v3_set_sensor_fusion_mode(TF_IMUV3 *imu_v3, uint8_t mode);
 
 /**
  * \ingroup BrickletIMUV3
  *
  * Returns the sensor fusion mode as set by {@link tf_imu_v3_set_sensor_fusion_mode}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_imu_v3_get_sensor_fusion_mode(TF_IMUV3 *imu_v3, uint8_t *ret_mode);
+int tf_imu_v3_get_sensor_fusion_mode(TF_IMUV3 *imu_v3, uint8_t *ret_mode);
 
 /**
  * \ingroup BrickletIMUV3
@@ -1053,14 +1053,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_imu_v3_get_sensor_fusion_mode(TF_IMUV3 *imu_v3, u
  * If it is set to false, the callback is continuously triggered with the period,
  * independent of the value.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_imu_v3_set_acceleration_callback_configuration(TF_IMUV3 *imu_v3, uint32_t period, bool value_has_to_change);
+int tf_imu_v3_set_acceleration_callback_configuration(TF_IMUV3 *imu_v3, uint32_t period, bool value_has_to_change);
 
 /**
  * \ingroup BrickletIMUV3
  *
  * Returns the callback configuration as set by {@link tf_imu_v3_set_acceleration_callback_configuration}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_imu_v3_get_acceleration_callback_configuration(TF_IMUV3 *imu_v3, uint32_t *ret_period, bool *ret_value_has_to_change);
+int tf_imu_v3_get_acceleration_callback_configuration(TF_IMUV3 *imu_v3, uint32_t *ret_period, bool *ret_value_has_to_change);
 
 /**
  * \ingroup BrickletIMUV3
@@ -1075,14 +1075,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_imu_v3_get_acceleration_callback_configuration(TF
  * If it is set to false, the callback is continuously triggered with the period,
  * independent of the value.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_imu_v3_set_magnetic_field_callback_configuration(TF_IMUV3 *imu_v3, uint32_t period, bool value_has_to_change);
+int tf_imu_v3_set_magnetic_field_callback_configuration(TF_IMUV3 *imu_v3, uint32_t period, bool value_has_to_change);
 
 /**
  * \ingroup BrickletIMUV3
  *
  * Returns the callback configuration as set by {@link tf_imu_v3_set_magnetic_field_callback_configuration}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_imu_v3_get_magnetic_field_callback_configuration(TF_IMUV3 *imu_v3, uint32_t *ret_period, bool *ret_value_has_to_change);
+int tf_imu_v3_get_magnetic_field_callback_configuration(TF_IMUV3 *imu_v3, uint32_t *ret_period, bool *ret_value_has_to_change);
 
 /**
  * \ingroup BrickletIMUV3
@@ -1097,14 +1097,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_imu_v3_get_magnetic_field_callback_configuration(
  * If it is set to false, the callback is continuously triggered with the period,
  * independent of the value.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_imu_v3_set_angular_velocity_callback_configuration(TF_IMUV3 *imu_v3, uint32_t period, bool value_has_to_change);
+int tf_imu_v3_set_angular_velocity_callback_configuration(TF_IMUV3 *imu_v3, uint32_t period, bool value_has_to_change);
 
 /**
  * \ingroup BrickletIMUV3
  *
  * Returns the callback configuration as set by {@link tf_imu_v3_set_angular_velocity_callback_configuration}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_imu_v3_get_angular_velocity_callback_configuration(TF_IMUV3 *imu_v3, uint32_t *ret_period, bool *ret_value_has_to_change);
+int tf_imu_v3_get_angular_velocity_callback_configuration(TF_IMUV3 *imu_v3, uint32_t *ret_period, bool *ret_value_has_to_change);
 
 /**
  * \ingroup BrickletIMUV3
@@ -1119,14 +1119,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_imu_v3_get_angular_velocity_callback_configuratio
  * If it is set to false, the callback is continuously triggered with the period,
  * independent of the value.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_imu_v3_set_temperature_callback_configuration(TF_IMUV3 *imu_v3, uint32_t period, bool value_has_to_change);
+int tf_imu_v3_set_temperature_callback_configuration(TF_IMUV3 *imu_v3, uint32_t period, bool value_has_to_change);
 
 /**
  * \ingroup BrickletIMUV3
  *
  * Returns the callback configuration as set by {@link tf_imu_v3_set_temperature_callback_configuration}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_imu_v3_get_temperature_callback_configuration(TF_IMUV3 *imu_v3, uint32_t *ret_period, bool *ret_value_has_to_change);
+int tf_imu_v3_get_temperature_callback_configuration(TF_IMUV3 *imu_v3, uint32_t *ret_period, bool *ret_value_has_to_change);
 
 /**
  * \ingroup BrickletIMUV3
@@ -1141,14 +1141,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_imu_v3_get_temperature_callback_configuration(TF_
  * If it is set to false, the callback is continuously triggered with the period,
  * independent of the value.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_imu_v3_set_orientation_callback_configuration(TF_IMUV3 *imu_v3, uint32_t period, bool value_has_to_change);
+int tf_imu_v3_set_orientation_callback_configuration(TF_IMUV3 *imu_v3, uint32_t period, bool value_has_to_change);
 
 /**
  * \ingroup BrickletIMUV3
  *
  * Returns the callback configuration as set by {@link tf_imu_v3_set_orientation_callback_configuration}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_imu_v3_get_orientation_callback_configuration(TF_IMUV3 *imu_v3, uint32_t *ret_period, bool *ret_value_has_to_change);
+int tf_imu_v3_get_orientation_callback_configuration(TF_IMUV3 *imu_v3, uint32_t *ret_period, bool *ret_value_has_to_change);
 
 /**
  * \ingroup BrickletIMUV3
@@ -1163,14 +1163,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_imu_v3_get_orientation_callback_configuration(TF_
  * If it is set to false, the callback is continuously triggered with the period,
  * independent of the value.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_imu_v3_set_linear_acceleration_callback_configuration(TF_IMUV3 *imu_v3, uint32_t period, bool value_has_to_change);
+int tf_imu_v3_set_linear_acceleration_callback_configuration(TF_IMUV3 *imu_v3, uint32_t period, bool value_has_to_change);
 
 /**
  * \ingroup BrickletIMUV3
  *
  * Returns the callback configuration as set by {@link tf_imu_v3_set_linear_acceleration_callback_configuration}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_imu_v3_get_linear_acceleration_callback_configuration(TF_IMUV3 *imu_v3, uint32_t *ret_period, bool *ret_value_has_to_change);
+int tf_imu_v3_get_linear_acceleration_callback_configuration(TF_IMUV3 *imu_v3, uint32_t *ret_period, bool *ret_value_has_to_change);
 
 /**
  * \ingroup BrickletIMUV3
@@ -1185,14 +1185,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_imu_v3_get_linear_acceleration_callback_configura
  * If it is set to false, the callback is continuously triggered with the period,
  * independent of the value.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_imu_v3_set_gravity_vector_callback_configuration(TF_IMUV3 *imu_v3, uint32_t period, bool value_has_to_change);
+int tf_imu_v3_set_gravity_vector_callback_configuration(TF_IMUV3 *imu_v3, uint32_t period, bool value_has_to_change);
 
 /**
  * \ingroup BrickletIMUV3
  *
  * Returns the callback configuration as set by {@link tf_imu_v3_set_gravity_vector_callback_configuration}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_imu_v3_get_gravity_vector_callback_configuration(TF_IMUV3 *imu_v3, uint32_t *ret_period, bool *ret_value_has_to_change);
+int tf_imu_v3_get_gravity_vector_callback_configuration(TF_IMUV3 *imu_v3, uint32_t *ret_period, bool *ret_value_has_to_change);
 
 /**
  * \ingroup BrickletIMUV3
@@ -1207,14 +1207,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_imu_v3_get_gravity_vector_callback_configuration(
  * If it is set to false, the callback is continuously triggered with the period,
  * independent of the value.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_imu_v3_set_quaternion_callback_configuration(TF_IMUV3 *imu_v3, uint32_t period, bool value_has_to_change);
+int tf_imu_v3_set_quaternion_callback_configuration(TF_IMUV3 *imu_v3, uint32_t period, bool value_has_to_change);
 
 /**
  * \ingroup BrickletIMUV3
  *
  * Returns the callback configuration as set by {@link tf_imu_v3_set_quaternion_callback_configuration}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_imu_v3_get_quaternion_callback_configuration(TF_IMUV3 *imu_v3, uint32_t *ret_period, bool *ret_value_has_to_change);
+int tf_imu_v3_get_quaternion_callback_configuration(TF_IMUV3 *imu_v3, uint32_t *ret_period, bool *ret_value_has_to_change);
 
 /**
  * \ingroup BrickletIMUV3
@@ -1229,14 +1229,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_imu_v3_get_quaternion_callback_configuration(TF_I
  * If it is set to false, the callback is continuously triggered with the period,
  * independent of the value.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_imu_v3_set_all_data_callback_configuration(TF_IMUV3 *imu_v3, uint32_t period, bool value_has_to_change);
+int tf_imu_v3_set_all_data_callback_configuration(TF_IMUV3 *imu_v3, uint32_t period, bool value_has_to_change);
 
 /**
  * \ingroup BrickletIMUV3
  *
  * Returns the callback configuration as set by {@link tf_imu_v3_set_all_data_callback_configuration}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_imu_v3_get_all_data_callback_configuration(TF_IMUV3 *imu_v3, uint32_t *ret_period, bool *ret_value_has_to_change);
+int tf_imu_v3_get_all_data_callback_configuration(TF_IMUV3 *imu_v3, uint32_t *ret_period, bool *ret_value_has_to_change);
 
 /**
  * \ingroup BrickletIMUV3
@@ -1253,7 +1253,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_imu_v3_get_all_data_callback_configuration(TF_IMU
  * The errors counts are for errors that occur on the Bricklet side. All
  * Bricks have a similar function that returns the errors on the Brick side.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_imu_v3_get_spitfp_error_count(TF_IMUV3 *imu_v3, uint32_t *ret_error_count_ack_checksum, uint32_t *ret_error_count_message_checksum, uint32_t *ret_error_count_frame, uint32_t *ret_error_count_overflow);
+int tf_imu_v3_get_spitfp_error_count(TF_IMUV3 *imu_v3, uint32_t *ret_error_count_ack_checksum, uint32_t *ret_error_count_message_checksum, uint32_t *ret_error_count_frame, uint32_t *ret_error_count_overflow);
 
 /**
  * \ingroup BrickletIMUV3
@@ -1268,14 +1268,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_imu_v3_get_spitfp_error_count(TF_IMUV3 *imu_v3, u
  * This function is used by Brick Viewer during flashing. It should not be
  * necessary to call it in a normal user program.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_imu_v3_set_bootloader_mode(TF_IMUV3 *imu_v3, uint8_t mode, uint8_t *ret_status);
+int tf_imu_v3_set_bootloader_mode(TF_IMUV3 *imu_v3, uint8_t mode, uint8_t *ret_status);
 
 /**
  * \ingroup BrickletIMUV3
  *
  * Returns the current bootloader mode, see {@link tf_imu_v3_set_bootloader_mode}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_imu_v3_get_bootloader_mode(TF_IMUV3 *imu_v3, uint8_t *ret_mode);
+int tf_imu_v3_get_bootloader_mode(TF_IMUV3 *imu_v3, uint8_t *ret_mode);
 
 /**
  * \ingroup BrickletIMUV3
@@ -1287,7 +1287,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_imu_v3_get_bootloader_mode(TF_IMUV3 *imu_v3, uint
  * This function is used by Brick Viewer during flashing. It should not be
  * necessary to call it in a normal user program.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_imu_v3_set_write_firmware_pointer(TF_IMUV3 *imu_v3, uint32_t pointer);
+int tf_imu_v3_set_write_firmware_pointer(TF_IMUV3 *imu_v3, uint32_t pointer);
 
 /**
  * \ingroup BrickletIMUV3
@@ -1301,7 +1301,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_imu_v3_set_write_firmware_pointer(TF_IMUV3 *imu_v
  * This function is used by Brick Viewer during flashing. It should not be
  * necessary to call it in a normal user program.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_imu_v3_write_firmware(TF_IMUV3 *imu_v3, uint8_t data[64], uint8_t *ret_status);
+int tf_imu_v3_write_firmware(TF_IMUV3 *imu_v3, const uint8_t data[64], uint8_t *ret_status);
 
 /**
  * \ingroup BrickletIMUV3
@@ -1314,14 +1314,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_imu_v3_write_firmware(TF_IMUV3 *imu_v3, uint8_t d
  * 
  * If the Bricklet is in bootloader mode, the LED is will show heartbeat by default.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_imu_v3_set_status_led_config(TF_IMUV3 *imu_v3, uint8_t config);
+int tf_imu_v3_set_status_led_config(TF_IMUV3 *imu_v3, uint8_t config);
 
 /**
  * \ingroup BrickletIMUV3
  *
  * Returns the configuration as set by {@link tf_imu_v3_set_status_led_config}
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_imu_v3_get_status_led_config(TF_IMUV3 *imu_v3, uint8_t *ret_config);
+int tf_imu_v3_get_status_led_config(TF_IMUV3 *imu_v3, uint8_t *ret_config);
 
 /**
  * \ingroup BrickletIMUV3
@@ -1333,7 +1333,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_imu_v3_get_status_led_config(TF_IMUV3 *imu_v3, ui
  * accuracy. Practically it is only useful as an indicator for
  * temperature changes.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_imu_v3_get_chip_temperature(TF_IMUV3 *imu_v3, int16_t *ret_temperature);
+int tf_imu_v3_get_chip_temperature(TF_IMUV3 *imu_v3, int16_t *ret_temperature);
 
 /**
  * \ingroup BrickletIMUV3
@@ -1345,7 +1345,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_imu_v3_get_chip_temperature(TF_IMUV3 *imu_v3, int
  * calling functions on the existing ones will result in
  * undefined behavior!
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_imu_v3_reset(TF_IMUV3 *imu_v3);
+int tf_imu_v3_reset(TF_IMUV3 *imu_v3);
 
 /**
  * \ingroup BrickletIMUV3
@@ -1356,7 +1356,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_imu_v3_reset(TF_IMUV3 *imu_v3);
  * 
  * We recommend that you use Brick Viewer to change the UID.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_imu_v3_write_uid(TF_IMUV3 *imu_v3, uint32_t uid);
+int tf_imu_v3_write_uid(TF_IMUV3 *imu_v3, uint32_t uid);
 
 /**
  * \ingroup BrickletIMUV3
@@ -1364,7 +1364,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_imu_v3_write_uid(TF_IMUV3 *imu_v3, uint32_t uid);
  * Returns the current UID as an integer. Encode as
  * Base58 to get the usual string version.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_imu_v3_read_uid(TF_IMUV3 *imu_v3, uint32_t *ret_uid);
+int tf_imu_v3_read_uid(TF_IMUV3 *imu_v3, uint32_t *ret_uid);
 
 /**
  * \ingroup BrickletIMUV3
@@ -1380,7 +1380,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_imu_v3_read_uid(TF_IMUV3 *imu_v3, uint32_t *ret_u
  * The device identifier numbers can be found :ref:`here <device_identifier>`.
  * |device_identifier_constant|
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_imu_v3_get_identity(TF_IMUV3 *imu_v3, char ret_uid[8], char ret_connected_uid[8], char *ret_position, uint8_t ret_hardware_version[3], uint8_t ret_firmware_version[3], uint16_t *ret_device_identifier);
+int tf_imu_v3_get_identity(TF_IMUV3 *imu_v3, char ret_uid[8], char ret_connected_uid[8], char *ret_position, uint8_t ret_hardware_version[3], uint8_t ret_firmware_version[3], uint16_t *ret_device_identifier);
 
 #ifdef __cplusplus
 }

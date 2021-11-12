@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-10-04.      *
+ * This file was automatically generated on 2021-11-12.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -25,7 +25,7 @@ extern "C" {
  */
 
 struct TF_IndustrialDualRelay;
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
 
 typedef void (*TF_IndustrialDualRelayMonoflopDoneHandler)(struct TF_IndustrialDualRelay *device, uint8_t channel, bool value, void *user_data);
 
@@ -37,7 +37,7 @@ typedef void (*TF_IndustrialDualRelayMonoflopDoneHandler)(struct TF_IndustrialDu
  */
 typedef struct TF_IndustrialDualRelay {
     TF_TfpContext *tfp;
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
     TF_IndustrialDualRelayMonoflopDoneHandler monoflop_done_handler;
     void *monoflop_done_user_data;
 
@@ -130,7 +130,7 @@ typedef struct TF_IndustrialDualRelay {
  */
 #define TF_INDUSTRIAL_DUAL_RELAY_FUNCTION_GET_IDENTITY 255
 
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
 
 /**
  * \ingroup BrickletIndustrialDualRelay
@@ -238,7 +238,7 @@ typedef struct TF_IndustrialDualRelay {
  * Creates the device object \c industrial_dual_relay with the unique device ID \c uid and adds
  * it to the IPConnection \c ipcon.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_industrial_dual_relay_create(TF_IndustrialDualRelay *industrial_dual_relay, const char *uid, TF_HalContext *hal);
+int tf_industrial_dual_relay_create(TF_IndustrialDualRelay *industrial_dual_relay, const char *uid, TF_HalContext *hal);
 
 /**
  * \ingroup BrickletIndustrialDualRelay
@@ -246,7 +246,7 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_industrial_dual_relay_create(TF_IndustrialDualRe
  * Removes the device object \c industrial_dual_relay from its IPConnection and destroys it.
  * The device object cannot be used anymore afterwards.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_industrial_dual_relay_destroy(TF_IndustrialDualRelay *industrial_dual_relay);
+int tf_industrial_dual_relay_destroy(TF_IndustrialDualRelay *industrial_dual_relay);
 
 /**
  * \ingroup BrickletIndustrialDualRelay
@@ -267,7 +267,7 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_industrial_dual_relay_destroy(TF_IndustrialDualR
  * disabled for a setter function then no response is sent and errors are
  * silently ignored, because they cannot be detected.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_industrial_dual_relay_get_response_expected(TF_IndustrialDualRelay *industrial_dual_relay, uint8_t function_id, bool *ret_response_expected);
+int tf_industrial_dual_relay_get_response_expected(TF_IndustrialDualRelay *industrial_dual_relay, uint8_t function_id, bool *ret_response_expected);
 
 /**
  * \ingroup BrickletIndustrialDualRelay
@@ -283,7 +283,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_industrial_dual_relay_get_response_expected(TF_In
  * setter function then no response is sent and errors are silently ignored,
  * because they cannot be detected.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_industrial_dual_relay_set_response_expected(TF_IndustrialDualRelay *industrial_dual_relay, uint8_t function_id, bool response_expected);
+int tf_industrial_dual_relay_set_response_expected(TF_IndustrialDualRelay *industrial_dual_relay, uint8_t function_id, bool response_expected);
 
 /**
  * \ingroup BrickletIndustrialDualRelay
@@ -291,8 +291,8 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_industrial_dual_relay_set_response_expected(TF_I
  * Changes the response expected flag for all setter and callback configuration
  * functions of this device at once.
  */
-TF_ATTRIBUTE_NONNULL_ALL void tf_industrial_dual_relay_set_response_expected_all(TF_IndustrialDualRelay *industrial_dual_relay, bool response_expected);
-#ifdef TF_IMPLEMENT_CALLBACKS
+void tf_industrial_dual_relay_set_response_expected_all(TF_IndustrialDualRelay *industrial_dual_relay, bool response_expected);
+#if TF_IMPLEMENT_CALLBACKS != 0
 /**
  * \ingroup BrickletIndustrialDualRelay
  *
@@ -305,9 +305,9 @@ TF_ATTRIBUTE_NONNULL_ALL void tf_industrial_dual_relay_set_response_expected_all
  * parameters contain the relay and the current state of the relay
  * (the state after the monoflop).
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_industrial_dual_relay_register_monoflop_done_callback(TF_IndustrialDualRelay *industrial_dual_relay, TF_IndustrialDualRelayMonoflopDoneHandler handler, void *user_data);
+int tf_industrial_dual_relay_register_monoflop_done_callback(TF_IndustrialDualRelay *industrial_dual_relay, TF_IndustrialDualRelayMonoflopDoneHandler handler, void *user_data);
 #endif
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
 /**
  * \ingroup BrickletIndustrialDualRelay
  *
@@ -315,7 +315,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_industrial_dual_relay_register_monoflop_done_call
  *
  * This function can be used in a non-blocking fashion by calling it with a timeout of 0.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_industrial_dual_relay_callback_tick(TF_IndustrialDualRelay *industrial_dual_relay, uint32_t timeout_us);
+int tf_industrial_dual_relay_callback_tick(TF_IndustrialDualRelay *industrial_dual_relay, uint32_t timeout_us);
 #endif
 
 /**
@@ -330,14 +330,14 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_industrial_dual_relay_callback_tick(TF_Industria
  * 
  * All running monoflop timers will be aborted if this function is called.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_industrial_dual_relay_set_value(TF_IndustrialDualRelay *industrial_dual_relay, bool channel0, bool channel1);
+int tf_industrial_dual_relay_set_value(TF_IndustrialDualRelay *industrial_dual_relay, bool channel0, bool channel1);
 
 /**
  * \ingroup BrickletIndustrialDualRelay
  *
  * Returns the state of the relays, *true* means on and *false* means off.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_industrial_dual_relay_get_value(TF_IndustrialDualRelay *industrial_dual_relay, bool *ret_channel0, bool *ret_channel1);
+int tf_industrial_dual_relay_get_value(TF_IndustrialDualRelay *industrial_dual_relay, bool *ret_channel0, bool *ret_channel1);
 
 /**
  * \ingroup BrickletIndustrialDualRelay
@@ -356,7 +356,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_industrial_dual_relay_get_value(TF_IndustrialDual
  * of two seconds. The relay will be on all the time. If now the RS485
  * connection is lost, the relay will turn off in at most two seconds.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_industrial_dual_relay_set_monoflop(TF_IndustrialDualRelay *industrial_dual_relay, uint8_t channel, bool value, uint32_t time);
+int tf_industrial_dual_relay_set_monoflop(TF_IndustrialDualRelay *industrial_dual_relay, uint8_t channel, bool value, uint32_t time);
 
 /**
  * \ingroup BrickletIndustrialDualRelay
@@ -367,7 +367,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_industrial_dual_relay_set_monoflop(TF_IndustrialD
  * If the timer is not running currently, the remaining time will be returned
  * as 0.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_industrial_dual_relay_get_monoflop(TF_IndustrialDualRelay *industrial_dual_relay, uint8_t channel, bool *ret_value, uint32_t *ret_time, uint32_t *ret_time_remaining);
+int tf_industrial_dual_relay_get_monoflop(TF_IndustrialDualRelay *industrial_dual_relay, uint8_t channel, bool *ret_value, uint32_t *ret_time, uint32_t *ret_time_remaining);
 
 /**
  * \ingroup BrickletIndustrialDualRelay
@@ -380,7 +380,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_industrial_dual_relay_get_monoflop(TF_IndustrialD
  * 
  * The other relay remains untouched.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_industrial_dual_relay_set_selected_value(TF_IndustrialDualRelay *industrial_dual_relay, uint8_t channel, bool value);
+int tf_industrial_dual_relay_set_selected_value(TF_IndustrialDualRelay *industrial_dual_relay, uint8_t channel, bool value);
 
 /**
  * \ingroup BrickletIndustrialDualRelay
@@ -397,7 +397,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_industrial_dual_relay_set_selected_value(TF_Indus
  * The errors counts are for errors that occur on the Bricklet side. All
  * Bricks have a similar function that returns the errors on the Brick side.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_industrial_dual_relay_get_spitfp_error_count(TF_IndustrialDualRelay *industrial_dual_relay, uint32_t *ret_error_count_ack_checksum, uint32_t *ret_error_count_message_checksum, uint32_t *ret_error_count_frame, uint32_t *ret_error_count_overflow);
+int tf_industrial_dual_relay_get_spitfp_error_count(TF_IndustrialDualRelay *industrial_dual_relay, uint32_t *ret_error_count_ack_checksum, uint32_t *ret_error_count_message_checksum, uint32_t *ret_error_count_frame, uint32_t *ret_error_count_overflow);
 
 /**
  * \ingroup BrickletIndustrialDualRelay
@@ -412,14 +412,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_industrial_dual_relay_get_spitfp_error_count(TF_I
  * This function is used by Brick Viewer during flashing. It should not be
  * necessary to call it in a normal user program.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_industrial_dual_relay_set_bootloader_mode(TF_IndustrialDualRelay *industrial_dual_relay, uint8_t mode, uint8_t *ret_status);
+int tf_industrial_dual_relay_set_bootloader_mode(TF_IndustrialDualRelay *industrial_dual_relay, uint8_t mode, uint8_t *ret_status);
 
 /**
  * \ingroup BrickletIndustrialDualRelay
  *
  * Returns the current bootloader mode, see {@link tf_industrial_dual_relay_set_bootloader_mode}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_industrial_dual_relay_get_bootloader_mode(TF_IndustrialDualRelay *industrial_dual_relay, uint8_t *ret_mode);
+int tf_industrial_dual_relay_get_bootloader_mode(TF_IndustrialDualRelay *industrial_dual_relay, uint8_t *ret_mode);
 
 /**
  * \ingroup BrickletIndustrialDualRelay
@@ -431,7 +431,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_industrial_dual_relay_get_bootloader_mode(TF_Indu
  * This function is used by Brick Viewer during flashing. It should not be
  * necessary to call it in a normal user program.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_industrial_dual_relay_set_write_firmware_pointer(TF_IndustrialDualRelay *industrial_dual_relay, uint32_t pointer);
+int tf_industrial_dual_relay_set_write_firmware_pointer(TF_IndustrialDualRelay *industrial_dual_relay, uint32_t pointer);
 
 /**
  * \ingroup BrickletIndustrialDualRelay
@@ -445,7 +445,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_industrial_dual_relay_set_write_firmware_pointer(
  * This function is used by Brick Viewer during flashing. It should not be
  * necessary to call it in a normal user program.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_industrial_dual_relay_write_firmware(TF_IndustrialDualRelay *industrial_dual_relay, uint8_t data[64], uint8_t *ret_status);
+int tf_industrial_dual_relay_write_firmware(TF_IndustrialDualRelay *industrial_dual_relay, const uint8_t data[64], uint8_t *ret_status);
 
 /**
  * \ingroup BrickletIndustrialDualRelay
@@ -458,14 +458,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_industrial_dual_relay_write_firmware(TF_Industria
  * 
  * If the Bricklet is in bootloader mode, the LED is will show heartbeat by default.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_industrial_dual_relay_set_status_led_config(TF_IndustrialDualRelay *industrial_dual_relay, uint8_t config);
+int tf_industrial_dual_relay_set_status_led_config(TF_IndustrialDualRelay *industrial_dual_relay, uint8_t config);
 
 /**
  * \ingroup BrickletIndustrialDualRelay
  *
  * Returns the configuration as set by {@link tf_industrial_dual_relay_set_status_led_config}
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_industrial_dual_relay_get_status_led_config(TF_IndustrialDualRelay *industrial_dual_relay, uint8_t *ret_config);
+int tf_industrial_dual_relay_get_status_led_config(TF_IndustrialDualRelay *industrial_dual_relay, uint8_t *ret_config);
 
 /**
  * \ingroup BrickletIndustrialDualRelay
@@ -477,7 +477,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_industrial_dual_relay_get_status_led_config(TF_In
  * accuracy. Practically it is only useful as an indicator for
  * temperature changes.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_industrial_dual_relay_get_chip_temperature(TF_IndustrialDualRelay *industrial_dual_relay, int16_t *ret_temperature);
+int tf_industrial_dual_relay_get_chip_temperature(TF_IndustrialDualRelay *industrial_dual_relay, int16_t *ret_temperature);
 
 /**
  * \ingroup BrickletIndustrialDualRelay
@@ -489,7 +489,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_industrial_dual_relay_get_chip_temperature(TF_Ind
  * calling functions on the existing ones will result in
  * undefined behavior!
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_industrial_dual_relay_reset(TF_IndustrialDualRelay *industrial_dual_relay);
+int tf_industrial_dual_relay_reset(TF_IndustrialDualRelay *industrial_dual_relay);
 
 /**
  * \ingroup BrickletIndustrialDualRelay
@@ -500,7 +500,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_industrial_dual_relay_reset(TF_IndustrialDualRela
  * 
  * We recommend that you use Brick Viewer to change the UID.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_industrial_dual_relay_write_uid(TF_IndustrialDualRelay *industrial_dual_relay, uint32_t uid);
+int tf_industrial_dual_relay_write_uid(TF_IndustrialDualRelay *industrial_dual_relay, uint32_t uid);
 
 /**
  * \ingroup BrickletIndustrialDualRelay
@@ -508,7 +508,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_industrial_dual_relay_write_uid(TF_IndustrialDual
  * Returns the current UID as an integer. Encode as
  * Base58 to get the usual string version.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_industrial_dual_relay_read_uid(TF_IndustrialDualRelay *industrial_dual_relay, uint32_t *ret_uid);
+int tf_industrial_dual_relay_read_uid(TF_IndustrialDualRelay *industrial_dual_relay, uint32_t *ret_uid);
 
 /**
  * \ingroup BrickletIndustrialDualRelay
@@ -524,7 +524,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_industrial_dual_relay_read_uid(TF_IndustrialDualR
  * The device identifier numbers can be found :ref:`here <device_identifier>`.
  * |device_identifier_constant|
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_industrial_dual_relay_get_identity(TF_IndustrialDualRelay *industrial_dual_relay, char ret_uid[8], char ret_connected_uid[8], char *ret_position, uint8_t ret_hardware_version[3], uint8_t ret_firmware_version[3], uint16_t *ret_device_identifier);
+int tf_industrial_dual_relay_get_identity(TF_IndustrialDualRelay *industrial_dual_relay, char ret_uid[8], char ret_connected_uid[8], char *ret_position, uint8_t ret_hardware_version[3], uint8_t ret_firmware_version[3], uint16_t *ret_device_identifier);
 
 #ifdef __cplusplus
 }

@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-10-04.      *
+ * This file was automatically generated on 2021-11-12.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -21,7 +21,7 @@ extern "C" {
 #endif
 
 
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
 static bool tf_can_v2_callback_handler(void *dev, uint8_t fid, TF_Packetbuffer *payload) {
     TF_CANV2 *can_v2 = (TF_CANV2 *) dev;
     (void)payload;
@@ -38,7 +38,7 @@ static bool tf_can_v2_callback_handler(void *dev, uint8_t fid, TF_Packetbuffer *
             uint32_t identifier = tf_packetbuffer_read_uint32_t(payload);
             uint8_t data_length = tf_packetbuffer_read_uint8_t(payload);
             uint8_t data_data[15]; for (i = 0; i < 15; ++i) data_data[i] = tf_packetbuffer_read_uint8_t(payload);
-            TF_HalCommon *common = tf_hal_get_common(can_v2->tfp->hal);
+            TF_HalCommon *common = tf_hal_get_common((TF_HalContext*)can_v2->tfp->hal);
             common->locked = true;
             fn(can_v2, frame_type, identifier, data_length, data_data, user_data);
             common->locked = false;
@@ -52,7 +52,7 @@ static bool tf_can_v2_callback_handler(void *dev, uint8_t fid, TF_Packetbuffer *
                 return false;
 
 
-            TF_HalCommon *common = tf_hal_get_common(can_v2->tfp->hal);
+            TF_HalCommon *common = tf_hal_get_common((TF_HalContext*)can_v2->tfp->hal);
             common->locked = true;
             fn(can_v2, user_data);
             common->locked = false;
@@ -66,7 +66,7 @@ static bool tf_can_v2_callback_handler(void *dev, uint8_t fid, TF_Packetbuffer *
                 return false;
 
 
-            TF_HalCommon *common = tf_hal_get_common(can_v2->tfp->hal);
+            TF_HalCommon *common = tf_hal_get_common((TF_HalContext*)can_v2->tfp->hal);
             common->locked = true;
             fn(can_v2, user_data);
             common->locked = false;
@@ -96,13 +96,12 @@ int tf_can_v2_create(TF_CANV2 *can_v2, const char *uid, TF_HalContext *hal) {
     }
 
     uint8_t port_id;
-    int inventory_index;
+    uint8_t inventory_index;
     rc = tf_hal_get_port_id(hal, numeric_uid, &port_id, &inventory_index);
     if (rc < 0) {
         return rc;
     }
 
-    //rc = tf_tfp_init(can_v2->tfp, numeric_uid, TF_CAN_V2_DEVICE_IDENTIFIER, hal, port_id, inventory_index, tf_can_v2_callback_handler);
     rc = tf_hal_get_tfp(hal, &can_v2->tfp, TF_CAN_V2_DEVICE_IDENTIFIER, inventory_index);
     if (rc != TF_E_OK) {
         return rc;
@@ -279,11 +278,11 @@ void tf_can_v2_set_response_expected_all(TF_CANV2 *can_v2, bool response_expecte
     memset(can_v2->response_expected, response_expected ? 0xFF : 0, 2);
 }
 
-int tf_can_v2_write_frame_low_level(TF_CANV2 *can_v2, uint8_t frame_type, uint32_t identifier, uint8_t data_length, uint8_t data_data[15], bool *ret_success) {
+int tf_can_v2_write_frame_low_level(TF_CANV2 *can_v2, uint8_t frame_type, uint32_t identifier, uint8_t data_length, const uint8_t data_data[15], bool *ret_success) {
     if (can_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(can_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)can_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -297,7 +296,7 @@ int tf_can_v2_write_frame_low_level(TF_CANV2 *can_v2, uint8_t frame_type, uint32
     buf[5] = (uint8_t)data_length;
     memcpy(buf + 6, data_data, 15);
 
-    uint32_t deadline = tf_hal_current_time_us(can_v2->tfp->hal) + tf_hal_get_common(can_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)can_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)can_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(can_v2->tfp, response_expected, deadline, &error_code);
@@ -325,7 +324,7 @@ int tf_can_v2_read_frame_low_level(TF_CANV2 *can_v2, bool *ret_success, uint8_t 
     if (can_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(can_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)can_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -333,7 +332,7 @@ int tf_can_v2_read_frame_low_level(TF_CANV2 *can_v2, bool *ret_success, uint8_t 
     tf_tfp_prepare_send(can_v2->tfp, TF_CAN_V2_FUNCTION_READ_FRAME_LOW_LEVEL, 0, 22, response_expected);
 
     size_t i;
-    uint32_t deadline = tf_hal_current_time_us(can_v2->tfp->hal) + tf_hal_get_common(can_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)can_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)can_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(can_v2->tfp, response_expected, deadline, &error_code);
@@ -365,7 +364,7 @@ int tf_can_v2_set_frame_read_callback_configuration(TF_CANV2 *can_v2, bool enabl
     if (can_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(can_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)can_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -377,7 +376,7 @@ int tf_can_v2_set_frame_read_callback_configuration(TF_CANV2 *can_v2, bool enabl
 
     buf[0] = enabled ? 1 : 0;
 
-    uint32_t deadline = tf_hal_current_time_us(can_v2->tfp->hal) + tf_hal_get_common(can_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)can_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)can_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(can_v2->tfp, response_expected, deadline, &error_code);
@@ -400,14 +399,14 @@ int tf_can_v2_get_frame_read_callback_configuration(TF_CANV2 *can_v2, bool *ret_
     if (can_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(can_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)can_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
     bool response_expected = true;
     tf_tfp_prepare_send(can_v2->tfp, TF_CAN_V2_FUNCTION_GET_FRAME_READ_CALLBACK_CONFIGURATION, 0, 1, response_expected);
 
-    uint32_t deadline = tf_hal_current_time_us(can_v2->tfp->hal) + tf_hal_get_common(can_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)can_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)can_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(can_v2->tfp, response_expected, deadline, &error_code);
@@ -435,7 +434,7 @@ int tf_can_v2_set_transceiver_configuration(TF_CANV2 *can_v2, uint32_t baud_rate
     if (can_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(can_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)can_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -449,7 +448,7 @@ int tf_can_v2_set_transceiver_configuration(TF_CANV2 *can_v2, uint32_t baud_rate
     sample_point = tf_leconvert_uint16_to(sample_point); memcpy(buf + 4, &sample_point, 2);
     buf[6] = (uint8_t)transceiver_mode;
 
-    uint32_t deadline = tf_hal_current_time_us(can_v2->tfp->hal) + tf_hal_get_common(can_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)can_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)can_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(can_v2->tfp, response_expected, deadline, &error_code);
@@ -472,14 +471,14 @@ int tf_can_v2_get_transceiver_configuration(TF_CANV2 *can_v2, uint32_t *ret_baud
     if (can_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(can_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)can_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
     bool response_expected = true;
     tf_tfp_prepare_send(can_v2->tfp, TF_CAN_V2_FUNCTION_GET_TRANSCEIVER_CONFIGURATION, 0, 7, response_expected);
 
-    uint32_t deadline = tf_hal_current_time_us(can_v2->tfp->hal) + tf_hal_get_common(can_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)can_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)can_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(can_v2->tfp, response_expected, deadline, &error_code);
@@ -505,11 +504,11 @@ int tf_can_v2_get_transceiver_configuration(TF_CANV2 *can_v2, uint32_t *ret_baud
     return tf_tfp_get_error(error_code);
 }
 
-int tf_can_v2_set_queue_configuration_low_level(TF_CANV2 *can_v2, uint8_t write_buffer_size, int32_t write_buffer_timeout, uint16_t write_backlog_size, uint8_t read_buffer_sizes_length, int8_t read_buffer_sizes_data[32], uint16_t read_backlog_size) {
+int tf_can_v2_set_queue_configuration_low_level(TF_CANV2 *can_v2, uint8_t write_buffer_size, int32_t write_buffer_timeout, uint16_t write_backlog_size, uint8_t read_buffer_sizes_length, const int8_t read_buffer_sizes_data[32], uint16_t read_backlog_size) {
     if (can_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(can_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)can_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -526,7 +525,7 @@ int tf_can_v2_set_queue_configuration_low_level(TF_CANV2 *can_v2, uint8_t write_
     memcpy(buf + 8, read_buffer_sizes_data, 32);
     read_backlog_size = tf_leconvert_uint16_to(read_backlog_size); memcpy(buf + 40, &read_backlog_size, 2);
 
-    uint32_t deadline = tf_hal_current_time_us(can_v2->tfp->hal) + tf_hal_get_common(can_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)can_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)can_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(can_v2->tfp, response_expected, deadline, &error_code);
@@ -549,7 +548,7 @@ int tf_can_v2_get_queue_configuration_low_level(TF_CANV2 *can_v2, uint8_t *ret_w
     if (can_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(can_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)can_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -557,7 +556,7 @@ int tf_can_v2_get_queue_configuration_low_level(TF_CANV2 *can_v2, uint8_t *ret_w
     tf_tfp_prepare_send(can_v2->tfp, TF_CAN_V2_FUNCTION_GET_QUEUE_CONFIGURATION_LOW_LEVEL, 0, 42, response_expected);
 
     size_t i;
-    uint32_t deadline = tf_hal_current_time_us(can_v2->tfp->hal) + tf_hal_get_common(can_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)can_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)can_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(can_v2->tfp, response_expected, deadline, &error_code);
@@ -590,7 +589,7 @@ int tf_can_v2_set_read_filter_configuration(TF_CANV2 *can_v2, uint8_t buffer_ind
     if (can_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(can_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)can_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -605,7 +604,7 @@ int tf_can_v2_set_read_filter_configuration(TF_CANV2 *can_v2, uint8_t buffer_ind
     filter_mask = tf_leconvert_uint32_to(filter_mask); memcpy(buf + 2, &filter_mask, 4);
     filter_identifier = tf_leconvert_uint32_to(filter_identifier); memcpy(buf + 6, &filter_identifier, 4);
 
-    uint32_t deadline = tf_hal_current_time_us(can_v2->tfp->hal) + tf_hal_get_common(can_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)can_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)can_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(can_v2->tfp, response_expected, deadline, &error_code);
@@ -628,7 +627,7 @@ int tf_can_v2_get_read_filter_configuration(TF_CANV2 *can_v2, uint8_t buffer_ind
     if (can_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(can_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)can_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -639,7 +638,7 @@ int tf_can_v2_get_read_filter_configuration(TF_CANV2 *can_v2, uint8_t buffer_ind
 
     buf[0] = (uint8_t)buffer_index;
 
-    uint32_t deadline = tf_hal_current_time_us(can_v2->tfp->hal) + tf_hal_get_common(can_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)can_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)can_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(can_v2->tfp, response_expected, deadline, &error_code);
@@ -669,14 +668,14 @@ int tf_can_v2_get_error_log_low_level(TF_CANV2 *can_v2, uint8_t *ret_transceiver
     if (can_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(can_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)can_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
     bool response_expected = true;
     tf_tfp_prepare_send(can_v2->tfp, TF_CAN_V2_FUNCTION_GET_ERROR_LOG_LOW_LEVEL, 0, 44, response_expected);
 
-    uint32_t deadline = tf_hal_current_time_us(can_v2->tfp->hal) + tf_hal_get_common(can_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)can_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)can_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(can_v2->tfp, response_expected, deadline, &error_code);
@@ -717,7 +716,7 @@ int tf_can_v2_set_communication_led_config(TF_CANV2 *can_v2, uint8_t config) {
     if (can_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(can_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)can_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -729,7 +728,7 @@ int tf_can_v2_set_communication_led_config(TF_CANV2 *can_v2, uint8_t config) {
 
     buf[0] = (uint8_t)config;
 
-    uint32_t deadline = tf_hal_current_time_us(can_v2->tfp->hal) + tf_hal_get_common(can_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)can_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)can_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(can_v2->tfp, response_expected, deadline, &error_code);
@@ -752,14 +751,14 @@ int tf_can_v2_get_communication_led_config(TF_CANV2 *can_v2, uint8_t *ret_config
     if (can_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(can_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)can_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
     bool response_expected = true;
     tf_tfp_prepare_send(can_v2->tfp, TF_CAN_V2_FUNCTION_GET_COMMUNICATION_LED_CONFIG, 0, 1, response_expected);
 
-    uint32_t deadline = tf_hal_current_time_us(can_v2->tfp->hal) + tf_hal_get_common(can_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)can_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)can_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(can_v2->tfp, response_expected, deadline, &error_code);
@@ -787,7 +786,7 @@ int tf_can_v2_set_error_led_config(TF_CANV2 *can_v2, uint8_t config) {
     if (can_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(can_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)can_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -799,7 +798,7 @@ int tf_can_v2_set_error_led_config(TF_CANV2 *can_v2, uint8_t config) {
 
     buf[0] = (uint8_t)config;
 
-    uint32_t deadline = tf_hal_current_time_us(can_v2->tfp->hal) + tf_hal_get_common(can_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)can_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)can_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(can_v2->tfp, response_expected, deadline, &error_code);
@@ -822,14 +821,14 @@ int tf_can_v2_get_error_led_config(TF_CANV2 *can_v2, uint8_t *ret_config) {
     if (can_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(can_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)can_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
     bool response_expected = true;
     tf_tfp_prepare_send(can_v2->tfp, TF_CAN_V2_FUNCTION_GET_ERROR_LED_CONFIG, 0, 1, response_expected);
 
-    uint32_t deadline = tf_hal_current_time_us(can_v2->tfp->hal) + tf_hal_get_common(can_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)can_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)can_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(can_v2->tfp, response_expected, deadline, &error_code);
@@ -857,7 +856,7 @@ int tf_can_v2_set_frame_readable_callback_configuration(TF_CANV2 *can_v2, bool e
     if (can_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(can_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)can_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -869,7 +868,7 @@ int tf_can_v2_set_frame_readable_callback_configuration(TF_CANV2 *can_v2, bool e
 
     buf[0] = enabled ? 1 : 0;
 
-    uint32_t deadline = tf_hal_current_time_us(can_v2->tfp->hal) + tf_hal_get_common(can_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)can_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)can_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(can_v2->tfp, response_expected, deadline, &error_code);
@@ -892,14 +891,14 @@ int tf_can_v2_get_frame_readable_callback_configuration(TF_CANV2 *can_v2, bool *
     if (can_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(can_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)can_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
     bool response_expected = true;
     tf_tfp_prepare_send(can_v2->tfp, TF_CAN_V2_FUNCTION_GET_FRAME_READABLE_CALLBACK_CONFIGURATION, 0, 1, response_expected);
 
-    uint32_t deadline = tf_hal_current_time_us(can_v2->tfp->hal) + tf_hal_get_common(can_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)can_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)can_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(can_v2->tfp, response_expected, deadline, &error_code);
@@ -927,7 +926,7 @@ int tf_can_v2_set_error_occurred_callback_configuration(TF_CANV2 *can_v2, bool e
     if (can_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(can_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)can_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -939,7 +938,7 @@ int tf_can_v2_set_error_occurred_callback_configuration(TF_CANV2 *can_v2, bool e
 
     buf[0] = enabled ? 1 : 0;
 
-    uint32_t deadline = tf_hal_current_time_us(can_v2->tfp->hal) + tf_hal_get_common(can_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)can_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)can_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(can_v2->tfp, response_expected, deadline, &error_code);
@@ -962,14 +961,14 @@ int tf_can_v2_get_error_occurred_callback_configuration(TF_CANV2 *can_v2, bool *
     if (can_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(can_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)can_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
     bool response_expected = true;
     tf_tfp_prepare_send(can_v2->tfp, TF_CAN_V2_FUNCTION_GET_ERROR_OCCURRED_CALLBACK_CONFIGURATION, 0, 1, response_expected);
 
-    uint32_t deadline = tf_hal_current_time_us(can_v2->tfp->hal) + tf_hal_get_common(can_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)can_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)can_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(can_v2->tfp, response_expected, deadline, &error_code);
@@ -997,14 +996,14 @@ int tf_can_v2_get_spitfp_error_count(TF_CANV2 *can_v2, uint32_t *ret_error_count
     if (can_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(can_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)can_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
     bool response_expected = true;
     tf_tfp_prepare_send(can_v2->tfp, TF_CAN_V2_FUNCTION_GET_SPITFP_ERROR_COUNT, 0, 16, response_expected);
 
-    uint32_t deadline = tf_hal_current_time_us(can_v2->tfp->hal) + tf_hal_get_common(can_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)can_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)can_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(can_v2->tfp, response_expected, deadline, &error_code);
@@ -1035,7 +1034,7 @@ int tf_can_v2_set_bootloader_mode(TF_CANV2 *can_v2, uint8_t mode, uint8_t *ret_s
     if (can_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(can_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)can_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -1046,7 +1045,7 @@ int tf_can_v2_set_bootloader_mode(TF_CANV2 *can_v2, uint8_t mode, uint8_t *ret_s
 
     buf[0] = (uint8_t)mode;
 
-    uint32_t deadline = tf_hal_current_time_us(can_v2->tfp->hal) + tf_hal_get_common(can_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)can_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)can_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(can_v2->tfp, response_expected, deadline, &error_code);
@@ -1074,14 +1073,14 @@ int tf_can_v2_get_bootloader_mode(TF_CANV2 *can_v2, uint8_t *ret_mode) {
     if (can_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(can_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)can_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
     bool response_expected = true;
     tf_tfp_prepare_send(can_v2->tfp, TF_CAN_V2_FUNCTION_GET_BOOTLOADER_MODE, 0, 1, response_expected);
 
-    uint32_t deadline = tf_hal_current_time_us(can_v2->tfp->hal) + tf_hal_get_common(can_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)can_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)can_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(can_v2->tfp, response_expected, deadline, &error_code);
@@ -1109,7 +1108,7 @@ int tf_can_v2_set_write_firmware_pointer(TF_CANV2 *can_v2, uint32_t pointer) {
     if (can_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(can_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)can_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -1121,7 +1120,7 @@ int tf_can_v2_set_write_firmware_pointer(TF_CANV2 *can_v2, uint32_t pointer) {
 
     pointer = tf_leconvert_uint32_to(pointer); memcpy(buf + 0, &pointer, 4);
 
-    uint32_t deadline = tf_hal_current_time_us(can_v2->tfp->hal) + tf_hal_get_common(can_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)can_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)can_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(can_v2->tfp, response_expected, deadline, &error_code);
@@ -1140,11 +1139,11 @@ int tf_can_v2_set_write_firmware_pointer(TF_CANV2 *can_v2, uint32_t pointer) {
     return tf_tfp_get_error(error_code);
 }
 
-int tf_can_v2_write_firmware(TF_CANV2 *can_v2, uint8_t data[64], uint8_t *ret_status) {
+int tf_can_v2_write_firmware(TF_CANV2 *can_v2, const uint8_t data[64], uint8_t *ret_status) {
     if (can_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(can_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)can_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -1155,7 +1154,7 @@ int tf_can_v2_write_firmware(TF_CANV2 *can_v2, uint8_t data[64], uint8_t *ret_st
 
     memcpy(buf + 0, data, 64);
 
-    uint32_t deadline = tf_hal_current_time_us(can_v2->tfp->hal) + tf_hal_get_common(can_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)can_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)can_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(can_v2->tfp, response_expected, deadline, &error_code);
@@ -1183,7 +1182,7 @@ int tf_can_v2_set_status_led_config(TF_CANV2 *can_v2, uint8_t config) {
     if (can_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(can_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)can_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -1195,7 +1194,7 @@ int tf_can_v2_set_status_led_config(TF_CANV2 *can_v2, uint8_t config) {
 
     buf[0] = (uint8_t)config;
 
-    uint32_t deadline = tf_hal_current_time_us(can_v2->tfp->hal) + tf_hal_get_common(can_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)can_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)can_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(can_v2->tfp, response_expected, deadline, &error_code);
@@ -1218,14 +1217,14 @@ int tf_can_v2_get_status_led_config(TF_CANV2 *can_v2, uint8_t *ret_config) {
     if (can_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(can_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)can_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
     bool response_expected = true;
     tf_tfp_prepare_send(can_v2->tfp, TF_CAN_V2_FUNCTION_GET_STATUS_LED_CONFIG, 0, 1, response_expected);
 
-    uint32_t deadline = tf_hal_current_time_us(can_v2->tfp->hal) + tf_hal_get_common(can_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)can_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)can_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(can_v2->tfp, response_expected, deadline, &error_code);
@@ -1253,14 +1252,14 @@ int tf_can_v2_get_chip_temperature(TF_CANV2 *can_v2, int16_t *ret_temperature) {
     if (can_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(can_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)can_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
     bool response_expected = true;
     tf_tfp_prepare_send(can_v2->tfp, TF_CAN_V2_FUNCTION_GET_CHIP_TEMPERATURE, 0, 2, response_expected);
 
-    uint32_t deadline = tf_hal_current_time_us(can_v2->tfp->hal) + tf_hal_get_common(can_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)can_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)can_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(can_v2->tfp, response_expected, deadline, &error_code);
@@ -1288,7 +1287,7 @@ int tf_can_v2_reset(TF_CANV2 *can_v2) {
     if (can_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(can_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)can_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -1296,7 +1295,7 @@ int tf_can_v2_reset(TF_CANV2 *can_v2) {
     tf_can_v2_get_response_expected(can_v2, TF_CAN_V2_FUNCTION_RESET, &response_expected);
     tf_tfp_prepare_send(can_v2->tfp, TF_CAN_V2_FUNCTION_RESET, 0, 0, response_expected);
 
-    uint32_t deadline = tf_hal_current_time_us(can_v2->tfp->hal) + tf_hal_get_common(can_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)can_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)can_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(can_v2->tfp, response_expected, deadline, &error_code);
@@ -1319,7 +1318,7 @@ int tf_can_v2_write_uid(TF_CANV2 *can_v2, uint32_t uid) {
     if (can_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(can_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)can_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -1331,7 +1330,7 @@ int tf_can_v2_write_uid(TF_CANV2 *can_v2, uint32_t uid) {
 
     uid = tf_leconvert_uint32_to(uid); memcpy(buf + 0, &uid, 4);
 
-    uint32_t deadline = tf_hal_current_time_us(can_v2->tfp->hal) + tf_hal_get_common(can_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)can_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)can_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(can_v2->tfp, response_expected, deadline, &error_code);
@@ -1354,14 +1353,14 @@ int tf_can_v2_read_uid(TF_CANV2 *can_v2, uint32_t *ret_uid) {
     if (can_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(can_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)can_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
     bool response_expected = true;
     tf_tfp_prepare_send(can_v2->tfp, TF_CAN_V2_FUNCTION_READ_UID, 0, 4, response_expected);
 
-    uint32_t deadline = tf_hal_current_time_us(can_v2->tfp->hal) + tf_hal_get_common(can_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)can_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)can_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(can_v2->tfp, response_expected, deadline, &error_code);
@@ -1389,7 +1388,7 @@ int tf_can_v2_get_identity(TF_CANV2 *can_v2, char ret_uid[8], char ret_connected
     if (can_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(can_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)can_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -1397,7 +1396,7 @@ int tf_can_v2_get_identity(TF_CANV2 *can_v2, char ret_uid[8], char ret_connected
     tf_tfp_prepare_send(can_v2->tfp, TF_CAN_V2_FUNCTION_GET_IDENTITY, 0, 25, response_expected);
 
     size_t i;
-    uint32_t deadline = tf_hal_current_time_us(can_v2->tfp->hal) + tf_hal_get_common(can_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)can_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)can_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(can_v2->tfp, response_expected, deadline, &error_code);
@@ -1418,7 +1417,7 @@ int tf_can_v2_get_identity(TF_CANV2 *can_v2, char ret_uid[8], char ret_connected
         if (ret_firmware_version != NULL) { for (i = 0; i < 3; ++i) ret_firmware_version[i] = tf_packetbuffer_read_uint8_t(&can_v2->tfp->spitfp->recv_buf);} else { tf_packetbuffer_remove(&can_v2->tfp->spitfp->recv_buf, 3); }
         if (ret_device_identifier != NULL) { *ret_device_identifier = tf_packetbuffer_read_uint16_t(&can_v2->tfp->spitfp->recv_buf); } else { tf_packetbuffer_remove(&can_v2->tfp->spitfp->recv_buf, 2); }
         if (tmp_connected_uid[0] == 0 && ret_position != NULL) {
-            *ret_position = tf_hal_get_port_name(can_v2->tfp->hal, can_v2->tfp->spitfp->port_id);
+            *ret_position = tf_hal_get_port_name((TF_HalContext*)can_v2->tfp->hal, can_v2->tfp->spitfp->port_id);
         }
         if (ret_connected_uid != NULL) {
             memcpy(ret_connected_uid, tmp_connected_uid, 8);
@@ -1433,7 +1432,7 @@ int tf_can_v2_get_identity(TF_CANV2 *can_v2, char ret_uid[8], char ret_connected
     return tf_tfp_get_error(error_code);
 }
 
-int tf_can_v2_write_frame(TF_CANV2 *can_v2, uint8_t frame_type, uint32_t identifier, uint8_t *data, uint8_t data_length, bool *ret_success) {
+int tf_can_v2_write_frame(TF_CANV2 *can_v2, uint8_t frame_type, uint32_t identifier, const uint8_t *data, uint8_t data_length, bool *ret_success) {
     if (can_v2 == NULL)
         return TF_E_NULL;
 
@@ -1457,7 +1456,9 @@ int tf_can_v2_read_frame(TF_CANV2 *can_v2, bool *ret_success, uint8_t *ret_frame
     uint8_t data_length = 0;
     uint8_t data_data[15];
 
-    *ret_data_length = 0;
+    if (ret_data_length != NULL) {
+        *ret_data_length = 0;
+    }
 
     ret = tf_can_v2_read_frame_low_level(can_v2, ret_success, ret_frame_type, ret_identifier, &data_length, data_data);
 
@@ -1465,15 +1466,20 @@ int tf_can_v2_read_frame(TF_CANV2 *can_v2, bool *ret_success, uint8_t *ret_frame
         return ret;
     }
 
-    memcpy(ret_data, data_data, sizeof(uint8_t) * data_length);
-    memset(&data_data[data_length], 0, sizeof(uint8_t) * (15 - data_length));
+    if (ret_data != NULL) {
+        memcpy(ret_data, data_data, sizeof(uint8_t) * data_length);
+        memset(&ret_data[data_length], 0, sizeof(uint8_t) * (15 - data_length));
+    }
 
-    *ret_data_length = data_length;
+
+    if (ret_data_length != NULL) {
+        *ret_data_length = data_length;
+    }
 
     return ret;
 }
 
-int tf_can_v2_set_queue_configuration(TF_CANV2 *can_v2, uint8_t write_buffer_size, int32_t write_buffer_timeout, uint16_t write_backlog_size, int8_t *read_buffer_sizes, uint8_t read_buffer_sizes_length, uint16_t read_backlog_size) {
+int tf_can_v2_set_queue_configuration(TF_CANV2 *can_v2, uint8_t write_buffer_size, int32_t write_buffer_timeout, uint16_t write_backlog_size, const int8_t *read_buffer_sizes, uint8_t read_buffer_sizes_length, uint16_t read_backlog_size) {
     if (can_v2 == NULL)
         return TF_E_NULL;
 
@@ -1497,7 +1503,9 @@ int tf_can_v2_get_queue_configuration(TF_CANV2 *can_v2, uint8_t *ret_write_buffe
     uint8_t read_buffer_sizes_length = 0;
     int8_t read_buffer_sizes_data[32];
 
-    *ret_read_buffer_sizes_length = 0;
+    if (ret_read_buffer_sizes_length != NULL) {
+        *ret_read_buffer_sizes_length = 0;
+    }
 
     ret = tf_can_v2_get_queue_configuration_low_level(can_v2, ret_write_buffer_size, ret_write_buffer_timeout, ret_write_backlog_size, &read_buffer_sizes_length, read_buffer_sizes_data, ret_read_backlog_size);
 
@@ -1505,10 +1513,15 @@ int tf_can_v2_get_queue_configuration(TF_CANV2 *can_v2, uint8_t *ret_write_buffe
         return ret;
     }
 
-    memcpy(ret_read_buffer_sizes, read_buffer_sizes_data, sizeof(int8_t) * read_buffer_sizes_length);
-    memset(&read_buffer_sizes_data[read_buffer_sizes_length], 0, sizeof(int8_t) * (32 - read_buffer_sizes_length));
+    if (ret_read_buffer_sizes != NULL) {
+        memcpy(ret_read_buffer_sizes, read_buffer_sizes_data, sizeof(int8_t) * read_buffer_sizes_length);
+        memset(&ret_read_buffer_sizes[read_buffer_sizes_length], 0, sizeof(int8_t) * (32 - read_buffer_sizes_length));
+    }
 
-    *ret_read_buffer_sizes_length = read_buffer_sizes_length;
+
+    if (ret_read_buffer_sizes_length != NULL) {
+        *ret_read_buffer_sizes_length = read_buffer_sizes_length;
+    }
 
     return ret;
 }
@@ -1521,7 +1534,9 @@ int tf_can_v2_get_error_log(TF_CANV2 *can_v2, uint8_t *ret_transceiver_state, ui
     uint8_t read_buffer_overflow_error_occurred_length = 0;
     bool read_buffer_overflow_error_occurred_data[32];
 
-    *ret_read_buffer_overflow_error_occurred_length = 0;
+    if (ret_read_buffer_overflow_error_occurred_length != NULL) {
+        *ret_read_buffer_overflow_error_occurred_length = 0;
+    }
 
     ret = tf_can_v2_get_error_log_low_level(can_v2, ret_transceiver_state, ret_transceiver_write_error_level, ret_transceiver_read_error_level, ret_transceiver_stuffing_error_count, ret_transceiver_format_error_count, ret_transceiver_ack_error_count, ret_transceiver_bit1_error_count, ret_transceiver_bit0_error_count, ret_transceiver_crc_error_count, ret_write_buffer_timeout_error_count, ret_read_buffer_overflow_error_count, &read_buffer_overflow_error_occurred_length, read_buffer_overflow_error_occurred_data, ret_read_backlog_overflow_error_count);
 
@@ -1529,14 +1544,19 @@ int tf_can_v2_get_error_log(TF_CANV2 *can_v2, uint8_t *ret_transceiver_state, ui
         return ret;
     }
 
-    memcpy(ret_read_buffer_overflow_error_occurred, read_buffer_overflow_error_occurred_data, sizeof(bool) * read_buffer_overflow_error_occurred_length);
-    memset(&read_buffer_overflow_error_occurred_data[read_buffer_overflow_error_occurred_length], 0, sizeof(bool) * (32 - read_buffer_overflow_error_occurred_length));
+    if (ret_read_buffer_overflow_error_occurred != NULL) {
+        memcpy(ret_read_buffer_overflow_error_occurred, read_buffer_overflow_error_occurred_data, sizeof(bool) * read_buffer_overflow_error_occurred_length);
+        memset(&ret_read_buffer_overflow_error_occurred[read_buffer_overflow_error_occurred_length], 0, sizeof(bool) * (32 - read_buffer_overflow_error_occurred_length));
+    }
 
-    *ret_read_buffer_overflow_error_occurred_length = read_buffer_overflow_error_occurred_length;
+
+    if (ret_read_buffer_overflow_error_occurred_length != NULL) {
+        *ret_read_buffer_overflow_error_occurred_length = read_buffer_overflow_error_occurred_length;
+    }
 
     return ret;
 }
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
 int tf_can_v2_register_frame_read_low_level_callback(TF_CANV2 *can_v2, TF_CANV2FrameReadLowLevelHandler handler, void *user_data) {
     if (can_v2 == NULL)
         return TF_E_NULL;
@@ -1591,7 +1611,7 @@ int tf_can_v2_callback_tick(TF_CANV2 *can_v2, uint32_t timeout_us) {
     if (can_v2 == NULL)
         return TF_E_NULL;
 
-    return tf_tfp_callback_tick(can_v2->tfp, tf_hal_current_time_us(can_v2->tfp->hal) + timeout_us);
+    return tf_tfp_callback_tick(can_v2->tfp, tf_hal_current_time_us((TF_HalContext*)can_v2->tfp->hal) + timeout_us);
 }
 
 #ifdef __cplusplus

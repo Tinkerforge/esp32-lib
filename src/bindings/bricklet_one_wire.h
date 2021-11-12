@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-10-04.      *
+ * This file was automatically generated on 2021-11-12.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -25,7 +25,7 @@ extern "C" {
  */
 
 struct TF_OneWire;
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
 
 
 #endif
@@ -36,7 +36,7 @@ struct TF_OneWire;
  */
 typedef struct TF_OneWire {
     TF_TfpContext *tfp;
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
 
 #endif
     uint8_t response_expected[1];
@@ -137,7 +137,7 @@ typedef struct TF_OneWire {
  */
 #define TF_ONE_WIRE_FUNCTION_GET_IDENTITY 255
 
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
 
 #endif
 
@@ -285,7 +285,7 @@ typedef struct TF_OneWire {
  * Creates the device object \c one_wire with the unique device ID \c uid and adds
  * it to the IPConnection \c ipcon.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_one_wire_create(TF_OneWire *one_wire, const char *uid, TF_HalContext *hal);
+int tf_one_wire_create(TF_OneWire *one_wire, const char *uid, TF_HalContext *hal);
 
 /**
  * \ingroup BrickletOneWire
@@ -293,7 +293,7 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_one_wire_create(TF_OneWire *one_wire, const char
  * Removes the device object \c one_wire from its IPConnection and destroys it.
  * The device object cannot be used anymore afterwards.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_one_wire_destroy(TF_OneWire *one_wire);
+int tf_one_wire_destroy(TF_OneWire *one_wire);
 
 /**
  * \ingroup BrickletOneWire
@@ -314,7 +314,7 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_one_wire_destroy(TF_OneWire *one_wire);
  * disabled for a setter function then no response is sent and errors are
  * silently ignored, because they cannot be detected.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_one_wire_get_response_expected(TF_OneWire *one_wire, uint8_t function_id, bool *ret_response_expected);
+int tf_one_wire_get_response_expected(TF_OneWire *one_wire, uint8_t function_id, bool *ret_response_expected);
 
 /**
  * \ingroup BrickletOneWire
@@ -330,7 +330,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_one_wire_get_response_expected(TF_OneWire *one_wi
  * setter function then no response is sent and errors are silently ignored,
  * because they cannot be detected.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_one_wire_set_response_expected(TF_OneWire *one_wire, uint8_t function_id, bool response_expected);
+int tf_one_wire_set_response_expected(TF_OneWire *one_wire, uint8_t function_id, bool response_expected);
 
 /**
  * \ingroup BrickletOneWire
@@ -338,10 +338,10 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_one_wire_set_response_expected(TF_OneWire *one_w
  * Changes the response expected flag for all setter and callback configuration
  * functions of this device at once.
  */
-TF_ATTRIBUTE_NONNULL_ALL void tf_one_wire_set_response_expected_all(TF_OneWire *one_wire, bool response_expected);
+void tf_one_wire_set_response_expected_all(TF_OneWire *one_wire, bool response_expected);
 
 
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
 /**
  * \ingroup BrickletOneWire
  *
@@ -349,7 +349,7 @@ TF_ATTRIBUTE_NONNULL_ALL void tf_one_wire_set_response_expected_all(TF_OneWire *
  *
  * This function can be used in a non-blocking fashion by calling it with a timeout of 0.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_one_wire_callback_tick(TF_OneWire *one_wire, uint32_t timeout_us);
+int tf_one_wire_callback_tick(TF_OneWire *one_wire, uint32_t timeout_us);
 #endif
 
 /**
@@ -363,28 +363,28 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_one_wire_callback_tick(TF_OneWire *one_wire, uin
  * `SEARCH ROM algorithm <https://www.maximintegrated.com/en/app-notes/index.mvp/id/187>`__,
  * as defined by Maxim.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_one_wire_search_bus_low_level(TF_OneWire *one_wire, uint16_t *ret_identifier_length, uint16_t *ret_identifier_chunk_offset, uint64_t ret_identifier_chunk_data[7], uint8_t *ret_status);
+int tf_one_wire_search_bus_low_level(TF_OneWire *one_wire, uint16_t *ret_identifier_length, uint16_t *ret_identifier_chunk_offset, uint64_t ret_identifier_chunk_data[7], uint8_t *ret_status);
 
 /**
  * \ingroup BrickletOneWire
  *
  * Resets the bus with the 1-Wire reset operation.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_one_wire_reset_bus(TF_OneWire *one_wire, uint8_t *ret_status);
+int tf_one_wire_reset_bus(TF_OneWire *one_wire, uint8_t *ret_status);
 
 /**
  * \ingroup BrickletOneWire
  *
  * Writes a byte of data to the 1-Wire bus.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_one_wire_write(TF_OneWire *one_wire, uint8_t data, uint8_t *ret_status);
+int tf_one_wire_write(TF_OneWire *one_wire, uint8_t data, uint8_t *ret_status);
 
 /**
  * \ingroup BrickletOneWire
  *
  * Reads a byte of data from the 1-Wire bus.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_one_wire_read(TF_OneWire *one_wire, uint8_t *ret_data, uint8_t *ret_status);
+int tf_one_wire_read(TF_OneWire *one_wire, uint8_t *ret_data, uint8_t *ret_status);
 
 /**
  * \ingroup BrickletOneWire
@@ -397,7 +397,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_one_wire_read(TF_OneWire *one_wire, uint8_t *ret_
  * you can set the identifier to 0. In this case the SKIP ROM operation is used to
  * write the command.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_one_wire_write_command(TF_OneWire *one_wire, uint64_t identifier, uint8_t command, uint8_t *ret_status);
+int tf_one_wire_write_command(TF_OneWire *one_wire, uint64_t identifier, uint8_t command, uint8_t *ret_status);
 
 /**
  * \ingroup BrickletOneWire
@@ -409,14 +409,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_one_wire_write_command(TF_OneWire *one_wire, uint
  * 
  * If the Bricklet is in bootloader mode, the LED is off.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_one_wire_set_communication_led_config(TF_OneWire *one_wire, uint8_t config);
+int tf_one_wire_set_communication_led_config(TF_OneWire *one_wire, uint8_t config);
 
 /**
  * \ingroup BrickletOneWire
  *
  * Returns the configuration as set by {@link tf_one_wire_set_communication_led_config}
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_one_wire_get_communication_led_config(TF_OneWire *one_wire, uint8_t *ret_config);
+int tf_one_wire_get_communication_led_config(TF_OneWire *one_wire, uint8_t *ret_config);
 
 /**
  * \ingroup BrickletOneWire
@@ -433,7 +433,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_one_wire_get_communication_led_config(TF_OneWire 
  * The errors counts are for errors that occur on the Bricklet side. All
  * Bricks have a similar function that returns the errors on the Brick side.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_one_wire_get_spitfp_error_count(TF_OneWire *one_wire, uint32_t *ret_error_count_ack_checksum, uint32_t *ret_error_count_message_checksum, uint32_t *ret_error_count_frame, uint32_t *ret_error_count_overflow);
+int tf_one_wire_get_spitfp_error_count(TF_OneWire *one_wire, uint32_t *ret_error_count_ack_checksum, uint32_t *ret_error_count_message_checksum, uint32_t *ret_error_count_frame, uint32_t *ret_error_count_overflow);
 
 /**
  * \ingroup BrickletOneWire
@@ -448,14 +448,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_one_wire_get_spitfp_error_count(TF_OneWire *one_w
  * This function is used by Brick Viewer during flashing. It should not be
  * necessary to call it in a normal user program.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_one_wire_set_bootloader_mode(TF_OneWire *one_wire, uint8_t mode, uint8_t *ret_status);
+int tf_one_wire_set_bootloader_mode(TF_OneWire *one_wire, uint8_t mode, uint8_t *ret_status);
 
 /**
  * \ingroup BrickletOneWire
  *
  * Returns the current bootloader mode, see {@link tf_one_wire_set_bootloader_mode}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_one_wire_get_bootloader_mode(TF_OneWire *one_wire, uint8_t *ret_mode);
+int tf_one_wire_get_bootloader_mode(TF_OneWire *one_wire, uint8_t *ret_mode);
 
 /**
  * \ingroup BrickletOneWire
@@ -467,7 +467,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_one_wire_get_bootloader_mode(TF_OneWire *one_wire
  * This function is used by Brick Viewer during flashing. It should not be
  * necessary to call it in a normal user program.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_one_wire_set_write_firmware_pointer(TF_OneWire *one_wire, uint32_t pointer);
+int tf_one_wire_set_write_firmware_pointer(TF_OneWire *one_wire, uint32_t pointer);
 
 /**
  * \ingroup BrickletOneWire
@@ -481,7 +481,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_one_wire_set_write_firmware_pointer(TF_OneWire *o
  * This function is used by Brick Viewer during flashing. It should not be
  * necessary to call it in a normal user program.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_one_wire_write_firmware(TF_OneWire *one_wire, uint8_t data[64], uint8_t *ret_status);
+int tf_one_wire_write_firmware(TF_OneWire *one_wire, const uint8_t data[64], uint8_t *ret_status);
 
 /**
  * \ingroup BrickletOneWire
@@ -494,14 +494,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_one_wire_write_firmware(TF_OneWire *one_wire, uin
  * 
  * If the Bricklet is in bootloader mode, the LED is will show heartbeat by default.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_one_wire_set_status_led_config(TF_OneWire *one_wire, uint8_t config);
+int tf_one_wire_set_status_led_config(TF_OneWire *one_wire, uint8_t config);
 
 /**
  * \ingroup BrickletOneWire
  *
  * Returns the configuration as set by {@link tf_one_wire_set_status_led_config}
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_one_wire_get_status_led_config(TF_OneWire *one_wire, uint8_t *ret_config);
+int tf_one_wire_get_status_led_config(TF_OneWire *one_wire, uint8_t *ret_config);
 
 /**
  * \ingroup BrickletOneWire
@@ -513,7 +513,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_one_wire_get_status_led_config(TF_OneWire *one_wi
  * accuracy. Practically it is only useful as an indicator for
  * temperature changes.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_one_wire_get_chip_temperature(TF_OneWire *one_wire, int16_t *ret_temperature);
+int tf_one_wire_get_chip_temperature(TF_OneWire *one_wire, int16_t *ret_temperature);
 
 /**
  * \ingroup BrickletOneWire
@@ -525,7 +525,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_one_wire_get_chip_temperature(TF_OneWire *one_wir
  * calling functions on the existing ones will result in
  * undefined behavior!
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_one_wire_reset(TF_OneWire *one_wire);
+int tf_one_wire_reset(TF_OneWire *one_wire);
 
 /**
  * \ingroup BrickletOneWire
@@ -536,7 +536,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_one_wire_reset(TF_OneWire *one_wire);
  * 
  * We recommend that you use Brick Viewer to change the UID.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_one_wire_write_uid(TF_OneWire *one_wire, uint32_t uid);
+int tf_one_wire_write_uid(TF_OneWire *one_wire, uint32_t uid);
 
 /**
  * \ingroup BrickletOneWire
@@ -544,7 +544,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_one_wire_write_uid(TF_OneWire *one_wire, uint32_t
  * Returns the current UID as an integer. Encode as
  * Base58 to get the usual string version.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_one_wire_read_uid(TF_OneWire *one_wire, uint32_t *ret_uid);
+int tf_one_wire_read_uid(TF_OneWire *one_wire, uint32_t *ret_uid);
 
 /**
  * \ingroup BrickletOneWire
@@ -560,7 +560,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_one_wire_read_uid(TF_OneWire *one_wire, uint32_t 
  * The device identifier numbers can be found :ref:`here <device_identifier>`.
  * |device_identifier_constant|
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_one_wire_get_identity(TF_OneWire *one_wire, char ret_uid[8], char ret_connected_uid[8], char *ret_position, uint8_t ret_hardware_version[3], uint8_t ret_firmware_version[3], uint16_t *ret_device_identifier);
+int tf_one_wire_get_identity(TF_OneWire *one_wire, char ret_uid[8], char ret_connected_uid[8], char *ret_position, uint8_t ret_hardware_version[3], uint8_t ret_firmware_version[3], uint16_t *ret_device_identifier);
 
 /**
  * \ingroup BrickletOneWire
@@ -573,7 +573,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_one_wire_get_identity(TF_OneWire *one_wire, char 
  * `SEARCH ROM algorithm <https://www.maximintegrated.com/en/app-notes/index.mvp/id/187>`__,
  * as defined by Maxim.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_one_wire_search_bus(TF_OneWire *one_wire, uint64_t *ret_identifier, uint16_t *ret_identifier_length, uint8_t *ret_status);
+int tf_one_wire_search_bus(TF_OneWire *one_wire, uint64_t *ret_identifier, uint16_t *ret_identifier_length, uint8_t *ret_status);
 
 #ifdef __cplusplus
 }

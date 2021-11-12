@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-10-04.      *
+ * This file was automatically generated on 2021-11-12.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -21,7 +21,7 @@ extern "C" {
 #endif
 
 
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
 static bool tf_co2_v2_callback_handler(void *dev, uint8_t fid, TF_Packetbuffer *payload) {
     TF_CO2V2 *co2_v2 = (TF_CO2V2 *) dev;
     (void)payload;
@@ -37,7 +37,7 @@ static bool tf_co2_v2_callback_handler(void *dev, uint8_t fid, TF_Packetbuffer *
             uint16_t co2_concentration = tf_packetbuffer_read_uint16_t(payload);
             int16_t temperature = tf_packetbuffer_read_int16_t(payload);
             uint16_t humidity = tf_packetbuffer_read_uint16_t(payload);
-            TF_HalCommon *common = tf_hal_get_common(co2_v2->tfp->hal);
+            TF_HalCommon *common = tf_hal_get_common((TF_HalContext*)co2_v2->tfp->hal);
             common->locked = true;
             fn(co2_v2, co2_concentration, temperature, humidity, user_data);
             common->locked = false;
@@ -51,7 +51,7 @@ static bool tf_co2_v2_callback_handler(void *dev, uint8_t fid, TF_Packetbuffer *
                 return false;
 
             uint16_t co2_concentration = tf_packetbuffer_read_uint16_t(payload);
-            TF_HalCommon *common = tf_hal_get_common(co2_v2->tfp->hal);
+            TF_HalCommon *common = tf_hal_get_common((TF_HalContext*)co2_v2->tfp->hal);
             common->locked = true;
             fn(co2_v2, co2_concentration, user_data);
             common->locked = false;
@@ -65,7 +65,7 @@ static bool tf_co2_v2_callback_handler(void *dev, uint8_t fid, TF_Packetbuffer *
                 return false;
 
             int16_t temperature = tf_packetbuffer_read_int16_t(payload);
-            TF_HalCommon *common = tf_hal_get_common(co2_v2->tfp->hal);
+            TF_HalCommon *common = tf_hal_get_common((TF_HalContext*)co2_v2->tfp->hal);
             common->locked = true;
             fn(co2_v2, temperature, user_data);
             common->locked = false;
@@ -79,7 +79,7 @@ static bool tf_co2_v2_callback_handler(void *dev, uint8_t fid, TF_Packetbuffer *
                 return false;
 
             uint16_t humidity = tf_packetbuffer_read_uint16_t(payload);
-            TF_HalCommon *common = tf_hal_get_common(co2_v2->tfp->hal);
+            TF_HalCommon *common = tf_hal_get_common((TF_HalContext*)co2_v2->tfp->hal);
             common->locked = true;
             fn(co2_v2, humidity, user_data);
             common->locked = false;
@@ -109,13 +109,12 @@ int tf_co2_v2_create(TF_CO2V2 *co2_v2, const char *uid, TF_HalContext *hal) {
     }
 
     uint8_t port_id;
-    int inventory_index;
+    uint8_t inventory_index;
     rc = tf_hal_get_port_id(hal, numeric_uid, &port_id, &inventory_index);
     if (rc < 0) {
         return rc;
     }
 
-    //rc = tf_tfp_init(co2_v2->tfp, numeric_uid, TF_CO2_V2_DEVICE_IDENTIFIER, hal, port_id, inventory_index, tf_co2_v2_callback_handler);
     rc = tf_hal_get_tfp(hal, &co2_v2->tfp, TF_CO2_V2_DEVICE_IDENTIFIER, inventory_index);
     if (rc != TF_E_OK) {
         return rc;
@@ -274,14 +273,14 @@ int tf_co2_v2_get_all_values(TF_CO2V2 *co2_v2, uint16_t *ret_co2_concentration, 
     if (co2_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(co2_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)co2_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
     bool response_expected = true;
     tf_tfp_prepare_send(co2_v2->tfp, TF_CO2_V2_FUNCTION_GET_ALL_VALUES, 0, 6, response_expected);
 
-    uint32_t deadline = tf_hal_current_time_us(co2_v2->tfp->hal) + tf_hal_get_common(co2_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)co2_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)co2_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(co2_v2->tfp, response_expected, deadline, &error_code);
@@ -311,7 +310,7 @@ int tf_co2_v2_set_air_pressure(TF_CO2V2 *co2_v2, uint16_t air_pressure) {
     if (co2_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(co2_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)co2_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -323,7 +322,7 @@ int tf_co2_v2_set_air_pressure(TF_CO2V2 *co2_v2, uint16_t air_pressure) {
 
     air_pressure = tf_leconvert_uint16_to(air_pressure); memcpy(buf + 0, &air_pressure, 2);
 
-    uint32_t deadline = tf_hal_current_time_us(co2_v2->tfp->hal) + tf_hal_get_common(co2_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)co2_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)co2_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(co2_v2->tfp, response_expected, deadline, &error_code);
@@ -346,14 +345,14 @@ int tf_co2_v2_get_air_pressure(TF_CO2V2 *co2_v2, uint16_t *ret_air_pressure) {
     if (co2_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(co2_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)co2_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
     bool response_expected = true;
     tf_tfp_prepare_send(co2_v2->tfp, TF_CO2_V2_FUNCTION_GET_AIR_PRESSURE, 0, 2, response_expected);
 
-    uint32_t deadline = tf_hal_current_time_us(co2_v2->tfp->hal) + tf_hal_get_common(co2_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)co2_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)co2_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(co2_v2->tfp, response_expected, deadline, &error_code);
@@ -381,7 +380,7 @@ int tf_co2_v2_set_temperature_offset(TF_CO2V2 *co2_v2, uint16_t offset) {
     if (co2_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(co2_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)co2_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -393,7 +392,7 @@ int tf_co2_v2_set_temperature_offset(TF_CO2V2 *co2_v2, uint16_t offset) {
 
     offset = tf_leconvert_uint16_to(offset); memcpy(buf + 0, &offset, 2);
 
-    uint32_t deadline = tf_hal_current_time_us(co2_v2->tfp->hal) + tf_hal_get_common(co2_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)co2_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)co2_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(co2_v2->tfp, response_expected, deadline, &error_code);
@@ -416,14 +415,14 @@ int tf_co2_v2_get_temperature_offset(TF_CO2V2 *co2_v2, uint16_t *ret_offset) {
     if (co2_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(co2_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)co2_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
     bool response_expected = true;
     tf_tfp_prepare_send(co2_v2->tfp, TF_CO2_V2_FUNCTION_GET_TEMPERATURE_OFFSET, 0, 2, response_expected);
 
-    uint32_t deadline = tf_hal_current_time_us(co2_v2->tfp->hal) + tf_hal_get_common(co2_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)co2_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)co2_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(co2_v2->tfp, response_expected, deadline, &error_code);
@@ -451,7 +450,7 @@ int tf_co2_v2_set_all_values_callback_configuration(TF_CO2V2 *co2_v2, uint32_t p
     if (co2_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(co2_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)co2_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -464,7 +463,7 @@ int tf_co2_v2_set_all_values_callback_configuration(TF_CO2V2 *co2_v2, uint32_t p
     period = tf_leconvert_uint32_to(period); memcpy(buf + 0, &period, 4);
     buf[4] = value_has_to_change ? 1 : 0;
 
-    uint32_t deadline = tf_hal_current_time_us(co2_v2->tfp->hal) + tf_hal_get_common(co2_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)co2_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)co2_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(co2_v2->tfp, response_expected, deadline, &error_code);
@@ -487,14 +486,14 @@ int tf_co2_v2_get_all_values_callback_configuration(TF_CO2V2 *co2_v2, uint32_t *
     if (co2_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(co2_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)co2_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
     bool response_expected = true;
     tf_tfp_prepare_send(co2_v2->tfp, TF_CO2_V2_FUNCTION_GET_ALL_VALUES_CALLBACK_CONFIGURATION, 0, 5, response_expected);
 
-    uint32_t deadline = tf_hal_current_time_us(co2_v2->tfp->hal) + tf_hal_get_common(co2_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)co2_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)co2_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(co2_v2->tfp, response_expected, deadline, &error_code);
@@ -523,14 +522,14 @@ int tf_co2_v2_get_co2_concentration(TF_CO2V2 *co2_v2, uint16_t *ret_co2_concentr
     if (co2_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(co2_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)co2_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
     bool response_expected = true;
     tf_tfp_prepare_send(co2_v2->tfp, TF_CO2_V2_FUNCTION_GET_CO2_CONCENTRATION, 0, 2, response_expected);
 
-    uint32_t deadline = tf_hal_current_time_us(co2_v2->tfp->hal) + tf_hal_get_common(co2_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)co2_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)co2_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(co2_v2->tfp, response_expected, deadline, &error_code);
@@ -558,7 +557,7 @@ int tf_co2_v2_set_co2_concentration_callback_configuration(TF_CO2V2 *co2_v2, uin
     if (co2_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(co2_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)co2_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -574,7 +573,7 @@ int tf_co2_v2_set_co2_concentration_callback_configuration(TF_CO2V2 *co2_v2, uin
     min = tf_leconvert_uint16_to(min); memcpy(buf + 6, &min, 2);
     max = tf_leconvert_uint16_to(max); memcpy(buf + 8, &max, 2);
 
-    uint32_t deadline = tf_hal_current_time_us(co2_v2->tfp->hal) + tf_hal_get_common(co2_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)co2_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)co2_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(co2_v2->tfp, response_expected, deadline, &error_code);
@@ -597,14 +596,14 @@ int tf_co2_v2_get_co2_concentration_callback_configuration(TF_CO2V2 *co2_v2, uin
     if (co2_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(co2_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)co2_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
     bool response_expected = true;
     tf_tfp_prepare_send(co2_v2->tfp, TF_CO2_V2_FUNCTION_GET_CO2_CONCENTRATION_CALLBACK_CONFIGURATION, 0, 10, response_expected);
 
-    uint32_t deadline = tf_hal_current_time_us(co2_v2->tfp->hal) + tf_hal_get_common(co2_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)co2_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)co2_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(co2_v2->tfp, response_expected, deadline, &error_code);
@@ -636,14 +635,14 @@ int tf_co2_v2_get_temperature(TF_CO2V2 *co2_v2, int16_t *ret_temperature) {
     if (co2_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(co2_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)co2_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
     bool response_expected = true;
     tf_tfp_prepare_send(co2_v2->tfp, TF_CO2_V2_FUNCTION_GET_TEMPERATURE, 0, 2, response_expected);
 
-    uint32_t deadline = tf_hal_current_time_us(co2_v2->tfp->hal) + tf_hal_get_common(co2_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)co2_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)co2_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(co2_v2->tfp, response_expected, deadline, &error_code);
@@ -671,7 +670,7 @@ int tf_co2_v2_set_temperature_callback_configuration(TF_CO2V2 *co2_v2, uint32_t 
     if (co2_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(co2_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)co2_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -687,7 +686,7 @@ int tf_co2_v2_set_temperature_callback_configuration(TF_CO2V2 *co2_v2, uint32_t 
     min = tf_leconvert_int16_to(min); memcpy(buf + 6, &min, 2);
     max = tf_leconvert_int16_to(max); memcpy(buf + 8, &max, 2);
 
-    uint32_t deadline = tf_hal_current_time_us(co2_v2->tfp->hal) + tf_hal_get_common(co2_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)co2_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)co2_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(co2_v2->tfp, response_expected, deadline, &error_code);
@@ -710,14 +709,14 @@ int tf_co2_v2_get_temperature_callback_configuration(TF_CO2V2 *co2_v2, uint32_t 
     if (co2_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(co2_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)co2_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
     bool response_expected = true;
     tf_tfp_prepare_send(co2_v2->tfp, TF_CO2_V2_FUNCTION_GET_TEMPERATURE_CALLBACK_CONFIGURATION, 0, 10, response_expected);
 
-    uint32_t deadline = tf_hal_current_time_us(co2_v2->tfp->hal) + tf_hal_get_common(co2_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)co2_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)co2_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(co2_v2->tfp, response_expected, deadline, &error_code);
@@ -749,14 +748,14 @@ int tf_co2_v2_get_humidity(TF_CO2V2 *co2_v2, uint16_t *ret_humidity) {
     if (co2_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(co2_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)co2_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
     bool response_expected = true;
     tf_tfp_prepare_send(co2_v2->tfp, TF_CO2_V2_FUNCTION_GET_HUMIDITY, 0, 2, response_expected);
 
-    uint32_t deadline = tf_hal_current_time_us(co2_v2->tfp->hal) + tf_hal_get_common(co2_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)co2_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)co2_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(co2_v2->tfp, response_expected, deadline, &error_code);
@@ -784,7 +783,7 @@ int tf_co2_v2_set_humidity_callback_configuration(TF_CO2V2 *co2_v2, uint32_t per
     if (co2_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(co2_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)co2_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -800,7 +799,7 @@ int tf_co2_v2_set_humidity_callback_configuration(TF_CO2V2 *co2_v2, uint32_t per
     min = tf_leconvert_uint16_to(min); memcpy(buf + 6, &min, 2);
     max = tf_leconvert_uint16_to(max); memcpy(buf + 8, &max, 2);
 
-    uint32_t deadline = tf_hal_current_time_us(co2_v2->tfp->hal) + tf_hal_get_common(co2_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)co2_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)co2_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(co2_v2->tfp, response_expected, deadline, &error_code);
@@ -823,14 +822,14 @@ int tf_co2_v2_get_humidity_callback_configuration(TF_CO2V2 *co2_v2, uint32_t *re
     if (co2_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(co2_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)co2_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
     bool response_expected = true;
     tf_tfp_prepare_send(co2_v2->tfp, TF_CO2_V2_FUNCTION_GET_HUMIDITY_CALLBACK_CONFIGURATION, 0, 10, response_expected);
 
-    uint32_t deadline = tf_hal_current_time_us(co2_v2->tfp->hal) + tf_hal_get_common(co2_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)co2_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)co2_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(co2_v2->tfp, response_expected, deadline, &error_code);
@@ -862,14 +861,14 @@ int tf_co2_v2_get_spitfp_error_count(TF_CO2V2 *co2_v2, uint32_t *ret_error_count
     if (co2_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(co2_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)co2_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
     bool response_expected = true;
     tf_tfp_prepare_send(co2_v2->tfp, TF_CO2_V2_FUNCTION_GET_SPITFP_ERROR_COUNT, 0, 16, response_expected);
 
-    uint32_t deadline = tf_hal_current_time_us(co2_v2->tfp->hal) + tf_hal_get_common(co2_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)co2_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)co2_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(co2_v2->tfp, response_expected, deadline, &error_code);
@@ -900,7 +899,7 @@ int tf_co2_v2_set_bootloader_mode(TF_CO2V2 *co2_v2, uint8_t mode, uint8_t *ret_s
     if (co2_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(co2_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)co2_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -911,7 +910,7 @@ int tf_co2_v2_set_bootloader_mode(TF_CO2V2 *co2_v2, uint8_t mode, uint8_t *ret_s
 
     buf[0] = (uint8_t)mode;
 
-    uint32_t deadline = tf_hal_current_time_us(co2_v2->tfp->hal) + tf_hal_get_common(co2_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)co2_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)co2_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(co2_v2->tfp, response_expected, deadline, &error_code);
@@ -939,14 +938,14 @@ int tf_co2_v2_get_bootloader_mode(TF_CO2V2 *co2_v2, uint8_t *ret_mode) {
     if (co2_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(co2_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)co2_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
     bool response_expected = true;
     tf_tfp_prepare_send(co2_v2->tfp, TF_CO2_V2_FUNCTION_GET_BOOTLOADER_MODE, 0, 1, response_expected);
 
-    uint32_t deadline = tf_hal_current_time_us(co2_v2->tfp->hal) + tf_hal_get_common(co2_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)co2_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)co2_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(co2_v2->tfp, response_expected, deadline, &error_code);
@@ -974,7 +973,7 @@ int tf_co2_v2_set_write_firmware_pointer(TF_CO2V2 *co2_v2, uint32_t pointer) {
     if (co2_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(co2_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)co2_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -986,7 +985,7 @@ int tf_co2_v2_set_write_firmware_pointer(TF_CO2V2 *co2_v2, uint32_t pointer) {
 
     pointer = tf_leconvert_uint32_to(pointer); memcpy(buf + 0, &pointer, 4);
 
-    uint32_t deadline = tf_hal_current_time_us(co2_v2->tfp->hal) + tf_hal_get_common(co2_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)co2_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)co2_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(co2_v2->tfp, response_expected, deadline, &error_code);
@@ -1005,11 +1004,11 @@ int tf_co2_v2_set_write_firmware_pointer(TF_CO2V2 *co2_v2, uint32_t pointer) {
     return tf_tfp_get_error(error_code);
 }
 
-int tf_co2_v2_write_firmware(TF_CO2V2 *co2_v2, uint8_t data[64], uint8_t *ret_status) {
+int tf_co2_v2_write_firmware(TF_CO2V2 *co2_v2, const uint8_t data[64], uint8_t *ret_status) {
     if (co2_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(co2_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)co2_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -1020,7 +1019,7 @@ int tf_co2_v2_write_firmware(TF_CO2V2 *co2_v2, uint8_t data[64], uint8_t *ret_st
 
     memcpy(buf + 0, data, 64);
 
-    uint32_t deadline = tf_hal_current_time_us(co2_v2->tfp->hal) + tf_hal_get_common(co2_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)co2_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)co2_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(co2_v2->tfp, response_expected, deadline, &error_code);
@@ -1048,7 +1047,7 @@ int tf_co2_v2_set_status_led_config(TF_CO2V2 *co2_v2, uint8_t config) {
     if (co2_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(co2_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)co2_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -1060,7 +1059,7 @@ int tf_co2_v2_set_status_led_config(TF_CO2V2 *co2_v2, uint8_t config) {
 
     buf[0] = (uint8_t)config;
 
-    uint32_t deadline = tf_hal_current_time_us(co2_v2->tfp->hal) + tf_hal_get_common(co2_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)co2_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)co2_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(co2_v2->tfp, response_expected, deadline, &error_code);
@@ -1083,14 +1082,14 @@ int tf_co2_v2_get_status_led_config(TF_CO2V2 *co2_v2, uint8_t *ret_config) {
     if (co2_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(co2_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)co2_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
     bool response_expected = true;
     tf_tfp_prepare_send(co2_v2->tfp, TF_CO2_V2_FUNCTION_GET_STATUS_LED_CONFIG, 0, 1, response_expected);
 
-    uint32_t deadline = tf_hal_current_time_us(co2_v2->tfp->hal) + tf_hal_get_common(co2_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)co2_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)co2_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(co2_v2->tfp, response_expected, deadline, &error_code);
@@ -1118,14 +1117,14 @@ int tf_co2_v2_get_chip_temperature(TF_CO2V2 *co2_v2, int16_t *ret_temperature) {
     if (co2_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(co2_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)co2_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
     bool response_expected = true;
     tf_tfp_prepare_send(co2_v2->tfp, TF_CO2_V2_FUNCTION_GET_CHIP_TEMPERATURE, 0, 2, response_expected);
 
-    uint32_t deadline = tf_hal_current_time_us(co2_v2->tfp->hal) + tf_hal_get_common(co2_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)co2_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)co2_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(co2_v2->tfp, response_expected, deadline, &error_code);
@@ -1153,7 +1152,7 @@ int tf_co2_v2_reset(TF_CO2V2 *co2_v2) {
     if (co2_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(co2_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)co2_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -1161,7 +1160,7 @@ int tf_co2_v2_reset(TF_CO2V2 *co2_v2) {
     tf_co2_v2_get_response_expected(co2_v2, TF_CO2_V2_FUNCTION_RESET, &response_expected);
     tf_tfp_prepare_send(co2_v2->tfp, TF_CO2_V2_FUNCTION_RESET, 0, 0, response_expected);
 
-    uint32_t deadline = tf_hal_current_time_us(co2_v2->tfp->hal) + tf_hal_get_common(co2_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)co2_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)co2_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(co2_v2->tfp, response_expected, deadline, &error_code);
@@ -1184,7 +1183,7 @@ int tf_co2_v2_write_uid(TF_CO2V2 *co2_v2, uint32_t uid) {
     if (co2_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(co2_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)co2_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -1196,7 +1195,7 @@ int tf_co2_v2_write_uid(TF_CO2V2 *co2_v2, uint32_t uid) {
 
     uid = tf_leconvert_uint32_to(uid); memcpy(buf + 0, &uid, 4);
 
-    uint32_t deadline = tf_hal_current_time_us(co2_v2->tfp->hal) + tf_hal_get_common(co2_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)co2_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)co2_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(co2_v2->tfp, response_expected, deadline, &error_code);
@@ -1219,14 +1218,14 @@ int tf_co2_v2_read_uid(TF_CO2V2 *co2_v2, uint32_t *ret_uid) {
     if (co2_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(co2_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)co2_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
     bool response_expected = true;
     tf_tfp_prepare_send(co2_v2->tfp, TF_CO2_V2_FUNCTION_READ_UID, 0, 4, response_expected);
 
-    uint32_t deadline = tf_hal_current_time_us(co2_v2->tfp->hal) + tf_hal_get_common(co2_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)co2_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)co2_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(co2_v2->tfp, response_expected, deadline, &error_code);
@@ -1254,7 +1253,7 @@ int tf_co2_v2_get_identity(TF_CO2V2 *co2_v2, char ret_uid[8], char ret_connected
     if (co2_v2 == NULL)
         return TF_E_NULL;
 
-    if(tf_hal_get_common(co2_v2->tfp->hal)->locked) {
+    if(tf_hal_get_common((TF_HalContext*)co2_v2->tfp->hal)->locked) {
         return TF_E_LOCKED;
     }
 
@@ -1262,7 +1261,7 @@ int tf_co2_v2_get_identity(TF_CO2V2 *co2_v2, char ret_uid[8], char ret_connected
     tf_tfp_prepare_send(co2_v2->tfp, TF_CO2_V2_FUNCTION_GET_IDENTITY, 0, 25, response_expected);
 
     size_t i;
-    uint32_t deadline = tf_hal_current_time_us(co2_v2->tfp->hal) + tf_hal_get_common(co2_v2->tfp->hal)->timeout;
+    uint32_t deadline = tf_hal_current_time_us((TF_HalContext*)co2_v2->tfp->hal) + tf_hal_get_common((TF_HalContext*)co2_v2->tfp->hal)->timeout;
 
     uint8_t error_code = 0;
     int result = tf_tfp_transmit_packet(co2_v2->tfp, response_expected, deadline, &error_code);
@@ -1283,7 +1282,7 @@ int tf_co2_v2_get_identity(TF_CO2V2 *co2_v2, char ret_uid[8], char ret_connected
         if (ret_firmware_version != NULL) { for (i = 0; i < 3; ++i) ret_firmware_version[i] = tf_packetbuffer_read_uint8_t(&co2_v2->tfp->spitfp->recv_buf);} else { tf_packetbuffer_remove(&co2_v2->tfp->spitfp->recv_buf, 3); }
         if (ret_device_identifier != NULL) { *ret_device_identifier = tf_packetbuffer_read_uint16_t(&co2_v2->tfp->spitfp->recv_buf); } else { tf_packetbuffer_remove(&co2_v2->tfp->spitfp->recv_buf, 2); }
         if (tmp_connected_uid[0] == 0 && ret_position != NULL) {
-            *ret_position = tf_hal_get_port_name(co2_v2->tfp->hal, co2_v2->tfp->spitfp->port_id);
+            *ret_position = tf_hal_get_port_name((TF_HalContext*)co2_v2->tfp->hal, co2_v2->tfp->spitfp->port_id);
         }
         if (ret_connected_uid != NULL) {
             memcpy(ret_connected_uid, tmp_connected_uid, 8);
@@ -1297,7 +1296,7 @@ int tf_co2_v2_get_identity(TF_CO2V2 *co2_v2, char ret_uid[8], char ret_connected
 
     return tf_tfp_get_error(error_code);
 }
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
 int tf_co2_v2_register_all_values_callback(TF_CO2V2 *co2_v2, TF_CO2V2AllValuesHandler handler, void *user_data) {
     if (co2_v2 == NULL)
         return TF_E_NULL;
@@ -1373,7 +1372,7 @@ int tf_co2_v2_callback_tick(TF_CO2V2 *co2_v2, uint32_t timeout_us) {
     if (co2_v2 == NULL)
         return TF_E_NULL;
 
-    return tf_tfp_callback_tick(co2_v2->tfp, tf_hal_current_time_us(co2_v2->tfp->hal) + timeout_us);
+    return tf_tfp_callback_tick(co2_v2->tfp, tf_hal_current_time_us((TF_HalContext*)co2_v2->tfp->hal) + timeout_us);
 }
 
 #ifdef __cplusplus

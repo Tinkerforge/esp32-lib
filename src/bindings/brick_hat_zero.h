@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-10-04.      *
+ * This file was automatically generated on 2021-11-12.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -25,7 +25,7 @@ extern "C" {
  */
 
 struct TF_HATZero;
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
 
 typedef void (*TF_HATZeroUSBVoltageHandler)(struct TF_HATZero *device, uint16_t voltage, void *user_data);
 
@@ -37,7 +37,7 @@ typedef void (*TF_HATZeroUSBVoltageHandler)(struct TF_HATZero *device, uint16_t 
  */
 typedef struct TF_HATZero {
     TF_TfpContext *tfp;
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
     TF_HATZeroUSBVoltageHandler usb_voltage_handler;
     void *usb_voltage_user_data;
 
@@ -120,7 +120,7 @@ typedef struct TF_HATZero {
  */
 #define TF_HAT_ZERO_FUNCTION_GET_IDENTITY 255
 
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
 
 /**
  * \ingroup BrickHATZero
@@ -253,7 +253,7 @@ typedef struct TF_HATZero {
  * Creates the device object \c hat_zero with the unique device ID \c uid and adds
  * it to the IPConnection \c ipcon.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_hat_zero_create(TF_HATZero *hat_zero, const char *uid, TF_HalContext *hal);
+int tf_hat_zero_create(TF_HATZero *hat_zero, const char *uid, TF_HalContext *hal);
 
 /**
  * \ingroup BrickHATZero
@@ -261,7 +261,7 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_hat_zero_create(TF_HATZero *hat_zero, const char
  * Removes the device object \c hat_zero from its IPConnection and destroys it.
  * The device object cannot be used anymore afterwards.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_hat_zero_destroy(TF_HATZero *hat_zero);
+int tf_hat_zero_destroy(TF_HATZero *hat_zero);
 
 /**
  * \ingroup BrickHATZero
@@ -282,7 +282,7 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_hat_zero_destroy(TF_HATZero *hat_zero);
  * disabled for a setter function then no response is sent and errors are
  * silently ignored, because they cannot be detected.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_hat_zero_get_response_expected(TF_HATZero *hat_zero, uint8_t function_id, bool *ret_response_expected);
+int tf_hat_zero_get_response_expected(TF_HATZero *hat_zero, uint8_t function_id, bool *ret_response_expected);
 
 /**
  * \ingroup BrickHATZero
@@ -298,7 +298,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_hat_zero_get_response_expected(TF_HATZero *hat_ze
  * setter function then no response is sent and errors are silently ignored,
  * because they cannot be detected.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_hat_zero_set_response_expected(TF_HATZero *hat_zero, uint8_t function_id, bool response_expected);
+int tf_hat_zero_set_response_expected(TF_HATZero *hat_zero, uint8_t function_id, bool response_expected);
 
 /**
  * \ingroup BrickHATZero
@@ -306,8 +306,8 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_hat_zero_set_response_expected(TF_HATZero *hat_z
  * Changes the response expected flag for all setter and callback configuration
  * functions of this device at once.
  */
-TF_ATTRIBUTE_NONNULL_ALL void tf_hat_zero_set_response_expected_all(TF_HATZero *hat_zero, bool response_expected);
-#ifdef TF_IMPLEMENT_CALLBACKS
+void tf_hat_zero_set_response_expected_all(TF_HATZero *hat_zero, bool response_expected);
+#if TF_IMPLEMENT_CALLBACKS != 0
 /**
  * \ingroup BrickHATZero
  *
@@ -323,9 +323,9 @@ TF_ATTRIBUTE_NONNULL_ALL void tf_hat_zero_set_response_expected_all(TF_HATZero *
  * 
  * .. versionadded:: 2.0.1$nbsp;(Firmware)
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_hat_zero_register_usb_voltage_callback(TF_HATZero *hat_zero, TF_HATZeroUSBVoltageHandler handler, void *user_data);
+int tf_hat_zero_register_usb_voltage_callback(TF_HATZero *hat_zero, TF_HATZeroUSBVoltageHandler handler, void *user_data);
 #endif
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
 /**
  * \ingroup BrickHATZero
  *
@@ -333,7 +333,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_hat_zero_register_usb_voltage_callback(TF_HATZero
  *
  * This function can be used in a non-blocking fashion by calling it with a timeout of 0.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_hat_zero_callback_tick(TF_HATZero *hat_zero, uint32_t timeout_us);
+int tf_hat_zero_callback_tick(TF_HATZero *hat_zero, uint32_t timeout_us);
 #endif
 
 /**
@@ -346,7 +346,7 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_hat_zero_callback_tick(TF_HATZero *hat_zero, uin
  * {@link tf_hat_zero_register_usb_voltage_callback} callback. You can set the callback configuration
  * with {@link tf_hat_zero_set_usb_voltage_callback_configuration}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_hat_zero_get_usb_voltage(TF_HATZero *hat_zero, uint16_t *ret_voltage);
+int tf_hat_zero_get_usb_voltage(TF_HATZero *hat_zero, uint16_t *ret_voltage);
 
 /**
  * \ingroup BrickHATZero
@@ -381,7 +381,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_hat_zero_get_usb_voltage(TF_HATZero *hat_zero, ui
  * 
  * .. versionadded:: 2.0.1$nbsp;(Firmware)
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_hat_zero_set_usb_voltage_callback_configuration(TF_HATZero *hat_zero, uint32_t period, bool value_has_to_change, char option, uint16_t min, uint16_t max);
+int tf_hat_zero_set_usb_voltage_callback_configuration(TF_HATZero *hat_zero, uint32_t period, bool value_has_to_change, char option, uint16_t min, uint16_t max);
 
 /**
  * \ingroup BrickHATZero
@@ -390,7 +390,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_hat_zero_set_usb_voltage_callback_configuration(T
  * 
  * .. versionadded:: 2.0.1$nbsp;(Firmware)
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_hat_zero_get_usb_voltage_callback_configuration(TF_HATZero *hat_zero, uint32_t *ret_period, bool *ret_value_has_to_change, char *ret_option, uint16_t *ret_min, uint16_t *ret_max);
+int tf_hat_zero_get_usb_voltage_callback_configuration(TF_HATZero *hat_zero, uint32_t *ret_period, bool *ret_value_has_to_change, char *ret_option, uint16_t *ret_min, uint16_t *ret_max);
 
 /**
  * \ingroup BrickHATZero
@@ -407,7 +407,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_hat_zero_get_usb_voltage_callback_configuration(T
  * The errors counts are for errors that occur on the Bricklet side. All
  * Bricks have a similar function that returns the errors on the Brick side.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_hat_zero_get_spitfp_error_count(TF_HATZero *hat_zero, uint32_t *ret_error_count_ack_checksum, uint32_t *ret_error_count_message_checksum, uint32_t *ret_error_count_frame, uint32_t *ret_error_count_overflow);
+int tf_hat_zero_get_spitfp_error_count(TF_HATZero *hat_zero, uint32_t *ret_error_count_ack_checksum, uint32_t *ret_error_count_message_checksum, uint32_t *ret_error_count_frame, uint32_t *ret_error_count_overflow);
 
 /**
  * \ingroup BrickHATZero
@@ -422,14 +422,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_hat_zero_get_spitfp_error_count(TF_HATZero *hat_z
  * This function is used by Brick Viewer during flashing. It should not be
  * necessary to call it in a normal user program.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_hat_zero_set_bootloader_mode(TF_HATZero *hat_zero, uint8_t mode, uint8_t *ret_status);
+int tf_hat_zero_set_bootloader_mode(TF_HATZero *hat_zero, uint8_t mode, uint8_t *ret_status);
 
 /**
  * \ingroup BrickHATZero
  *
  * Returns the current bootloader mode, see {@link tf_hat_zero_set_bootloader_mode}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_hat_zero_get_bootloader_mode(TF_HATZero *hat_zero, uint8_t *ret_mode);
+int tf_hat_zero_get_bootloader_mode(TF_HATZero *hat_zero, uint8_t *ret_mode);
 
 /**
  * \ingroup BrickHATZero
@@ -441,7 +441,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_hat_zero_get_bootloader_mode(TF_HATZero *hat_zero
  * This function is used by Brick Viewer during flashing. It should not be
  * necessary to call it in a normal user program.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_hat_zero_set_write_firmware_pointer(TF_HATZero *hat_zero, uint32_t pointer);
+int tf_hat_zero_set_write_firmware_pointer(TF_HATZero *hat_zero, uint32_t pointer);
 
 /**
  * \ingroup BrickHATZero
@@ -455,7 +455,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_hat_zero_set_write_firmware_pointer(TF_HATZero *h
  * This function is used by Brick Viewer during flashing. It should not be
  * necessary to call it in a normal user program.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_hat_zero_write_firmware(TF_HATZero *hat_zero, uint8_t data[64], uint8_t *ret_status);
+int tf_hat_zero_write_firmware(TF_HATZero *hat_zero, const uint8_t data[64], uint8_t *ret_status);
 
 /**
  * \ingroup BrickHATZero
@@ -468,14 +468,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_hat_zero_write_firmware(TF_HATZero *hat_zero, uin
  * 
  * If the Bricklet is in bootloader mode, the LED is will show heartbeat by default.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_hat_zero_set_status_led_config(TF_HATZero *hat_zero, uint8_t config);
+int tf_hat_zero_set_status_led_config(TF_HATZero *hat_zero, uint8_t config);
 
 /**
  * \ingroup BrickHATZero
  *
  * Returns the configuration as set by {@link tf_hat_zero_set_status_led_config}
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_hat_zero_get_status_led_config(TF_HATZero *hat_zero, uint8_t *ret_config);
+int tf_hat_zero_get_status_led_config(TF_HATZero *hat_zero, uint8_t *ret_config);
 
 /**
  * \ingroup BrickHATZero
@@ -487,7 +487,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_hat_zero_get_status_led_config(TF_HATZero *hat_ze
  * accuracy. Practically it is only useful as an indicator for
  * temperature changes.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_hat_zero_get_chip_temperature(TF_HATZero *hat_zero, int16_t *ret_temperature);
+int tf_hat_zero_get_chip_temperature(TF_HATZero *hat_zero, int16_t *ret_temperature);
 
 /**
  * \ingroup BrickHATZero
@@ -499,7 +499,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_hat_zero_get_chip_temperature(TF_HATZero *hat_zer
  * calling functions on the existing ones will result in
  * undefined behavior!
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_hat_zero_reset(TF_HATZero *hat_zero);
+int tf_hat_zero_reset(TF_HATZero *hat_zero);
 
 /**
  * \ingroup BrickHATZero
@@ -510,7 +510,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_hat_zero_reset(TF_HATZero *hat_zero);
  * 
  * We recommend that you use Brick Viewer to change the UID.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_hat_zero_write_uid(TF_HATZero *hat_zero, uint32_t uid);
+int tf_hat_zero_write_uid(TF_HATZero *hat_zero, uint32_t uid);
 
 /**
  * \ingroup BrickHATZero
@@ -518,7 +518,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_hat_zero_write_uid(TF_HATZero *hat_zero, uint32_t
  * Returns the current UID as an integer. Encode as
  * Base58 to get the usual string version.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_hat_zero_read_uid(TF_HATZero *hat_zero, uint32_t *ret_uid);
+int tf_hat_zero_read_uid(TF_HATZero *hat_zero, uint32_t *ret_uid);
 
 /**
  * \ingroup BrickHATZero
@@ -533,7 +533,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_hat_zero_read_uid(TF_HATZero *hat_zero, uint32_t 
  * The device identifier numbers can be found :ref:`here <device_identifier>`.
  * |device_identifier_constant|
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_hat_zero_get_identity(TF_HATZero *hat_zero, char ret_uid[8], char ret_connected_uid[8], char *ret_position, uint8_t ret_hardware_version[3], uint8_t ret_firmware_version[3], uint16_t *ret_device_identifier);
+int tf_hat_zero_get_identity(TF_HATZero *hat_zero, char ret_uid[8], char ret_connected_uid[8], char *ret_position, uint8_t ret_hardware_version[3], uint8_t ret_firmware_version[3], uint16_t *ret_device_identifier);
 
 #ifdef __cplusplus
 }

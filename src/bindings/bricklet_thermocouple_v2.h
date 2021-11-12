@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-10-04.      *
+ * This file was automatically generated on 2021-11-12.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -25,7 +25,7 @@ extern "C" {
  */
 
 struct TF_ThermocoupleV2;
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
 
 typedef void (*TF_ThermocoupleV2TemperatureHandler)(struct TF_ThermocoupleV2 *device, int32_t temperature, void *user_data);
 typedef void (*TF_ThermocoupleV2ErrorStateHandler)(struct TF_ThermocoupleV2 *device, bool over_under, bool open_circuit, void *user_data);
@@ -38,7 +38,7 @@ typedef void (*TF_ThermocoupleV2ErrorStateHandler)(struct TF_ThermocoupleV2 *dev
  */
 typedef struct TF_ThermocoupleV2 {
     TF_TfpContext *tfp;
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
     TF_ThermocoupleV2TemperatureHandler temperature_handler;
     void *temperature_user_data;
 
@@ -139,7 +139,7 @@ typedef struct TF_ThermocoupleV2 {
  */
 #define TF_THERMOCOUPLE_V2_FUNCTION_GET_IDENTITY 255
 
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
 
 /**
  * \ingroup BrickletThermocoupleV2
@@ -362,7 +362,7 @@ typedef struct TF_ThermocoupleV2 {
  * Creates the device object \c thermocouple_v2 with the unique device ID \c uid and adds
  * it to the IPConnection \c ipcon.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_thermocouple_v2_create(TF_ThermocoupleV2 *thermocouple_v2, const char *uid, TF_HalContext *hal);
+int tf_thermocouple_v2_create(TF_ThermocoupleV2 *thermocouple_v2, const char *uid, TF_HalContext *hal);
 
 /**
  * \ingroup BrickletThermocoupleV2
@@ -370,7 +370,7 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_thermocouple_v2_create(TF_ThermocoupleV2 *thermo
  * Removes the device object \c thermocouple_v2 from its IPConnection and destroys it.
  * The device object cannot be used anymore afterwards.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_thermocouple_v2_destroy(TF_ThermocoupleV2 *thermocouple_v2);
+int tf_thermocouple_v2_destroy(TF_ThermocoupleV2 *thermocouple_v2);
 
 /**
  * \ingroup BrickletThermocoupleV2
@@ -391,7 +391,7 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_thermocouple_v2_destroy(TF_ThermocoupleV2 *therm
  * disabled for a setter function then no response is sent and errors are
  * silently ignored, because they cannot be detected.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_thermocouple_v2_get_response_expected(TF_ThermocoupleV2 *thermocouple_v2, uint8_t function_id, bool *ret_response_expected);
+int tf_thermocouple_v2_get_response_expected(TF_ThermocoupleV2 *thermocouple_v2, uint8_t function_id, bool *ret_response_expected);
 
 /**
  * \ingroup BrickletThermocoupleV2
@@ -407,7 +407,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_thermocouple_v2_get_response_expected(TF_Thermoco
  * setter function then no response is sent and errors are silently ignored,
  * because they cannot be detected.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_thermocouple_v2_set_response_expected(TF_ThermocoupleV2 *thermocouple_v2, uint8_t function_id, bool response_expected);
+int tf_thermocouple_v2_set_response_expected(TF_ThermocoupleV2 *thermocouple_v2, uint8_t function_id, bool response_expected);
 
 /**
  * \ingroup BrickletThermocoupleV2
@@ -415,8 +415,8 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_thermocouple_v2_set_response_expected(TF_Thermoc
  * Changes the response expected flag for all setter and callback configuration
  * functions of this device at once.
  */
-TF_ATTRIBUTE_NONNULL_ALL void tf_thermocouple_v2_set_response_expected_all(TF_ThermocoupleV2 *thermocouple_v2, bool response_expected);
-#ifdef TF_IMPLEMENT_CALLBACKS
+void tf_thermocouple_v2_set_response_expected_all(TF_ThermocoupleV2 *thermocouple_v2, bool response_expected);
+#if TF_IMPLEMENT_CALLBACKS != 0
 /**
  * \ingroup BrickletThermocoupleV2
  *
@@ -430,7 +430,7 @@ TF_ATTRIBUTE_NONNULL_ALL void tf_thermocouple_v2_set_response_expected_all(TF_Th
  * 
  * The parameter is the same as {@link tf_thermocouple_v2_get_temperature}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_thermocouple_v2_register_temperature_callback(TF_ThermocoupleV2 *thermocouple_v2, TF_ThermocoupleV2TemperatureHandler handler, void *user_data);
+int tf_thermocouple_v2_register_temperature_callback(TF_ThermocoupleV2 *thermocouple_v2, TF_ThermocoupleV2TemperatureHandler handler, void *user_data);
 
 
 /**
@@ -444,9 +444,9 @@ TF_ATTRIBUTE_NONNULL(1) int tf_thermocouple_v2_register_temperature_callback(TF_
  * This Callback is triggered every time the error state changes
  * (see {@link tf_thermocouple_v2_get_error_state}).
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_thermocouple_v2_register_error_state_callback(TF_ThermocoupleV2 *thermocouple_v2, TF_ThermocoupleV2ErrorStateHandler handler, void *user_data);
+int tf_thermocouple_v2_register_error_state_callback(TF_ThermocoupleV2 *thermocouple_v2, TF_ThermocoupleV2ErrorStateHandler handler, void *user_data);
 #endif
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
 /**
  * \ingroup BrickletThermocoupleV2
  *
@@ -454,7 +454,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_thermocouple_v2_register_error_state_callback(TF_
  *
  * This function can be used in a non-blocking fashion by calling it with a timeout of 0.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_thermocouple_v2_callback_tick(TF_ThermocoupleV2 *thermocouple_v2, uint32_t timeout_us);
+int tf_thermocouple_v2_callback_tick(TF_ThermocoupleV2 *thermocouple_v2, uint32_t timeout_us);
 #endif
 
 /**
@@ -472,7 +472,7 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_thermocouple_v2_callback_tick(TF_ThermocoupleV2 
  * {@link tf_thermocouple_v2_register_temperature_callback} callback. You can set the callback configuration
  * with {@link tf_thermocouple_v2_set_temperature_callback_configuration}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_thermocouple_v2_get_temperature(TF_ThermocoupleV2 *thermocouple_v2, int32_t *ret_temperature);
+int tf_thermocouple_v2_get_temperature(TF_ThermocoupleV2 *thermocouple_v2, int32_t *ret_temperature);
 
 /**
  * \ingroup BrickletThermocoupleV2
@@ -505,14 +505,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_thermocouple_v2_get_temperature(TF_ThermocoupleV2
  * 
  * If the option is set to 'x' (threshold turned off) the callback is triggered with the fixed period.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_thermocouple_v2_set_temperature_callback_configuration(TF_ThermocoupleV2 *thermocouple_v2, uint32_t period, bool value_has_to_change, char option, int32_t min, int32_t max);
+int tf_thermocouple_v2_set_temperature_callback_configuration(TF_ThermocoupleV2 *thermocouple_v2, uint32_t period, bool value_has_to_change, char option, int32_t min, int32_t max);
 
 /**
  * \ingroup BrickletThermocoupleV2
  *
  * Returns the callback configuration as set by {@link tf_thermocouple_v2_set_temperature_callback_configuration}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_thermocouple_v2_get_temperature_callback_configuration(TF_ThermocoupleV2 *thermocouple_v2, uint32_t *ret_period, bool *ret_value_has_to_change, char *ret_option, int32_t *ret_min, int32_t *ret_max);
+int tf_thermocouple_v2_get_temperature_callback_configuration(TF_ThermocoupleV2 *thermocouple_v2, uint32_t *ret_period, bool *ret_value_has_to_change, char *ret_option, int32_t *ret_min, int32_t *ret_max);
 
 /**
  * \ingroup BrickletThermocoupleV2
@@ -541,14 +541,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_thermocouple_v2_get_temperature_callback_configur
  * * 60Hz: ``time = 82 + (samples - 1) * 16.67``
  * * 50Hz: ``time = 98 + (samples - 1) * 20``
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_thermocouple_v2_set_configuration(TF_ThermocoupleV2 *thermocouple_v2, uint8_t averaging, uint8_t thermocouple_type, uint8_t filter);
+int tf_thermocouple_v2_set_configuration(TF_ThermocoupleV2 *thermocouple_v2, uint8_t averaging, uint8_t thermocouple_type, uint8_t filter);
 
 /**
  * \ingroup BrickletThermocoupleV2
  *
  * Returns the configuration as set by {@link tf_thermocouple_v2_set_configuration}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_thermocouple_v2_get_configuration(TF_ThermocoupleV2 *thermocouple_v2, uint8_t *ret_averaging, uint8_t *ret_thermocouple_type, uint8_t *ret_filter);
+int tf_thermocouple_v2_get_configuration(TF_ThermocoupleV2 *thermocouple_v2, uint8_t *ret_averaging, uint8_t *ret_thermocouple_type, uint8_t *ret_filter);
 
 /**
  * \ingroup BrickletThermocoupleV2
@@ -565,7 +565,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_thermocouple_v2_get_configuration(TF_Thermocouple
  * You can use the {@link tf_thermocouple_v2_register_error_state_callback} callback to automatically get triggered
  * when the error state changes.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_thermocouple_v2_get_error_state(TF_ThermocoupleV2 *thermocouple_v2, bool *ret_over_under, bool *ret_open_circuit);
+int tf_thermocouple_v2_get_error_state(TF_ThermocoupleV2 *thermocouple_v2, bool *ret_over_under, bool *ret_open_circuit);
 
 /**
  * \ingroup BrickletThermocoupleV2
@@ -582,7 +582,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_thermocouple_v2_get_error_state(TF_ThermocoupleV2
  * The errors counts are for errors that occur on the Bricklet side. All
  * Bricks have a similar function that returns the errors on the Brick side.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_thermocouple_v2_get_spitfp_error_count(TF_ThermocoupleV2 *thermocouple_v2, uint32_t *ret_error_count_ack_checksum, uint32_t *ret_error_count_message_checksum, uint32_t *ret_error_count_frame, uint32_t *ret_error_count_overflow);
+int tf_thermocouple_v2_get_spitfp_error_count(TF_ThermocoupleV2 *thermocouple_v2, uint32_t *ret_error_count_ack_checksum, uint32_t *ret_error_count_message_checksum, uint32_t *ret_error_count_frame, uint32_t *ret_error_count_overflow);
 
 /**
  * \ingroup BrickletThermocoupleV2
@@ -597,14 +597,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_thermocouple_v2_get_spitfp_error_count(TF_Thermoc
  * This function is used by Brick Viewer during flashing. It should not be
  * necessary to call it in a normal user program.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_thermocouple_v2_set_bootloader_mode(TF_ThermocoupleV2 *thermocouple_v2, uint8_t mode, uint8_t *ret_status);
+int tf_thermocouple_v2_set_bootloader_mode(TF_ThermocoupleV2 *thermocouple_v2, uint8_t mode, uint8_t *ret_status);
 
 /**
  * \ingroup BrickletThermocoupleV2
  *
  * Returns the current bootloader mode, see {@link tf_thermocouple_v2_set_bootloader_mode}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_thermocouple_v2_get_bootloader_mode(TF_ThermocoupleV2 *thermocouple_v2, uint8_t *ret_mode);
+int tf_thermocouple_v2_get_bootloader_mode(TF_ThermocoupleV2 *thermocouple_v2, uint8_t *ret_mode);
 
 /**
  * \ingroup BrickletThermocoupleV2
@@ -616,7 +616,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_thermocouple_v2_get_bootloader_mode(TF_Thermocoup
  * This function is used by Brick Viewer during flashing. It should not be
  * necessary to call it in a normal user program.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_thermocouple_v2_set_write_firmware_pointer(TF_ThermocoupleV2 *thermocouple_v2, uint32_t pointer);
+int tf_thermocouple_v2_set_write_firmware_pointer(TF_ThermocoupleV2 *thermocouple_v2, uint32_t pointer);
 
 /**
  * \ingroup BrickletThermocoupleV2
@@ -630,7 +630,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_thermocouple_v2_set_write_firmware_pointer(TF_The
  * This function is used by Brick Viewer during flashing. It should not be
  * necessary to call it in a normal user program.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_thermocouple_v2_write_firmware(TF_ThermocoupleV2 *thermocouple_v2, uint8_t data[64], uint8_t *ret_status);
+int tf_thermocouple_v2_write_firmware(TF_ThermocoupleV2 *thermocouple_v2, const uint8_t data[64], uint8_t *ret_status);
 
 /**
  * \ingroup BrickletThermocoupleV2
@@ -643,14 +643,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_thermocouple_v2_write_firmware(TF_ThermocoupleV2 
  * 
  * If the Bricklet is in bootloader mode, the LED is will show heartbeat by default.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_thermocouple_v2_set_status_led_config(TF_ThermocoupleV2 *thermocouple_v2, uint8_t config);
+int tf_thermocouple_v2_set_status_led_config(TF_ThermocoupleV2 *thermocouple_v2, uint8_t config);
 
 /**
  * \ingroup BrickletThermocoupleV2
  *
  * Returns the configuration as set by {@link tf_thermocouple_v2_set_status_led_config}
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_thermocouple_v2_get_status_led_config(TF_ThermocoupleV2 *thermocouple_v2, uint8_t *ret_config);
+int tf_thermocouple_v2_get_status_led_config(TF_ThermocoupleV2 *thermocouple_v2, uint8_t *ret_config);
 
 /**
  * \ingroup BrickletThermocoupleV2
@@ -662,7 +662,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_thermocouple_v2_get_status_led_config(TF_Thermoco
  * accuracy. Practically it is only useful as an indicator for
  * temperature changes.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_thermocouple_v2_get_chip_temperature(TF_ThermocoupleV2 *thermocouple_v2, int16_t *ret_temperature);
+int tf_thermocouple_v2_get_chip_temperature(TF_ThermocoupleV2 *thermocouple_v2, int16_t *ret_temperature);
 
 /**
  * \ingroup BrickletThermocoupleV2
@@ -674,7 +674,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_thermocouple_v2_get_chip_temperature(TF_Thermocou
  * calling functions on the existing ones will result in
  * undefined behavior!
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_thermocouple_v2_reset(TF_ThermocoupleV2 *thermocouple_v2);
+int tf_thermocouple_v2_reset(TF_ThermocoupleV2 *thermocouple_v2);
 
 /**
  * \ingroup BrickletThermocoupleV2
@@ -685,7 +685,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_thermocouple_v2_reset(TF_ThermocoupleV2 *thermoco
  * 
  * We recommend that you use Brick Viewer to change the UID.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_thermocouple_v2_write_uid(TF_ThermocoupleV2 *thermocouple_v2, uint32_t uid);
+int tf_thermocouple_v2_write_uid(TF_ThermocoupleV2 *thermocouple_v2, uint32_t uid);
 
 /**
  * \ingroup BrickletThermocoupleV2
@@ -693,7 +693,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_thermocouple_v2_write_uid(TF_ThermocoupleV2 *ther
  * Returns the current UID as an integer. Encode as
  * Base58 to get the usual string version.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_thermocouple_v2_read_uid(TF_ThermocoupleV2 *thermocouple_v2, uint32_t *ret_uid);
+int tf_thermocouple_v2_read_uid(TF_ThermocoupleV2 *thermocouple_v2, uint32_t *ret_uid);
 
 /**
  * \ingroup BrickletThermocoupleV2
@@ -709,7 +709,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_thermocouple_v2_read_uid(TF_ThermocoupleV2 *therm
  * The device identifier numbers can be found :ref:`here <device_identifier>`.
  * |device_identifier_constant|
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_thermocouple_v2_get_identity(TF_ThermocoupleV2 *thermocouple_v2, char ret_uid[8], char ret_connected_uid[8], char *ret_position, uint8_t ret_hardware_version[3], uint8_t ret_firmware_version[3], uint16_t *ret_device_identifier);
+int tf_thermocouple_v2_get_identity(TF_ThermocoupleV2 *thermocouple_v2, char ret_uid[8], char ret_connected_uid[8], char *ret_position, uint8_t ret_hardware_version[3], uint8_t ret_firmware_version[3], uint16_t *ret_device_identifier);
 
 #ifdef __cplusplus
 }

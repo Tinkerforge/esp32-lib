@@ -1,5 +1,5 @@
 /* ***********************************************************
- * This file was automatically generated on 2021-10-04.      *
+ * This file was automatically generated on 2021-11-12.      *
  *                                                           *
  * C/C++ for Microcontrollers Bindings Version 2.0.0         *
  *                                                           *
@@ -25,7 +25,7 @@ extern "C" {
  */
 
 struct TF_EPaper296x128;
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
 
 typedef void (*TF_EPaper296x128DrawStatusHandler)(struct TF_EPaper296x128 *device, uint8_t draw_status, void *user_data);
 
@@ -37,7 +37,7 @@ typedef void (*TF_EPaper296x128DrawStatusHandler)(struct TF_EPaper296x128 *devic
  */
 typedef struct TF_EPaper296x128 {
     TF_TfpContext *tfp;
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
     TF_EPaper296x128DrawStatusHandler draw_status_handler;
     void *draw_status_user_data;
 
@@ -185,7 +185,7 @@ typedef struct TF_EPaper296x128 {
  */
 #define TF_E_PAPER_296X128_FUNCTION_GET_IDENTITY 255
 
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
 
 /**
  * \ingroup BrickletEPaper296x128
@@ -423,7 +423,7 @@ typedef struct TF_EPaper296x128 {
  * Creates the device object \c e_paper_296x128 with the unique device ID \c uid and adds
  * it to the IPConnection \c ipcon.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_e_paper_296x128_create(TF_EPaper296x128 *e_paper_296x128, const char *uid, TF_HalContext *hal);
+int tf_e_paper_296x128_create(TF_EPaper296x128 *e_paper_296x128, const char *uid, TF_HalContext *hal);
 
 /**
  * \ingroup BrickletEPaper296x128
@@ -431,7 +431,7 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_e_paper_296x128_create(TF_EPaper296x128 *e_paper
  * Removes the device object \c e_paper_296x128 from its IPConnection and destroys it.
  * The device object cannot be used anymore afterwards.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_e_paper_296x128_destroy(TF_EPaper296x128 *e_paper_296x128);
+int tf_e_paper_296x128_destroy(TF_EPaper296x128 *e_paper_296x128);
 
 /**
  * \ingroup BrickletEPaper296x128
@@ -452,7 +452,7 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_e_paper_296x128_destroy(TF_EPaper296x128 *e_pape
  * disabled for a setter function then no response is sent and errors are
  * silently ignored, because they cannot be detected.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_e_paper_296x128_get_response_expected(TF_EPaper296x128 *e_paper_296x128, uint8_t function_id, bool *ret_response_expected);
+int tf_e_paper_296x128_get_response_expected(TF_EPaper296x128 *e_paper_296x128, uint8_t function_id, bool *ret_response_expected);
 
 /**
  * \ingroup BrickletEPaper296x128
@@ -468,7 +468,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_e_paper_296x128_get_response_expected(TF_EPaper29
  * setter function then no response is sent and errors are silently ignored,
  * because they cannot be detected.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_e_paper_296x128_set_response_expected(TF_EPaper296x128 *e_paper_296x128, uint8_t function_id, bool response_expected);
+int tf_e_paper_296x128_set_response_expected(TF_EPaper296x128 *e_paper_296x128, uint8_t function_id, bool response_expected);
 
 /**
  * \ingroup BrickletEPaper296x128
@@ -476,8 +476,8 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_e_paper_296x128_set_response_expected(TF_EPaper2
  * Changes the response expected flag for all setter and callback configuration
  * functions of this device at once.
  */
-TF_ATTRIBUTE_NONNULL_ALL void tf_e_paper_296x128_set_response_expected_all(TF_EPaper296x128 *e_paper_296x128, bool response_expected);
-#ifdef TF_IMPLEMENT_CALLBACKS
+void tf_e_paper_296x128_set_response_expected_all(TF_EPaper296x128 *e_paper_296x128, bool response_expected);
+#if TF_IMPLEMENT_CALLBACKS != 0
 /**
  * \ingroup BrickletEPaper296x128
  *
@@ -489,9 +489,9 @@ TF_ATTRIBUTE_NONNULL_ALL void tf_e_paper_296x128_set_response_expected_all(TF_EP
  * Callback for the current draw status. Will be called every time the
  * draw status changes (see {@link tf_e_paper_296x128_get_draw_status}).
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_e_paper_296x128_register_draw_status_callback(TF_EPaper296x128 *e_paper_296x128, TF_EPaper296x128DrawStatusHandler handler, void *user_data);
+int tf_e_paper_296x128_register_draw_status_callback(TF_EPaper296x128 *e_paper_296x128, TF_EPaper296x128DrawStatusHandler handler, void *user_data);
 #endif
-#ifdef TF_IMPLEMENT_CALLBACKS
+#if TF_IMPLEMENT_CALLBACKS != 0
 /**
  * \ingroup BrickletEPaper296x128
  *
@@ -499,7 +499,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_e_paper_296x128_register_draw_status_callback(TF_
  *
  * This function can be used in a non-blocking fashion by calling it with a timeout of 0.
  */
-TF_ATTRIBUTE_NONNULL_ALL int tf_e_paper_296x128_callback_tick(TF_EPaper296x128 *e_paper_296x128, uint32_t timeout_us);
+int tf_e_paper_296x128_callback_tick(TF_EPaper296x128 *e_paper_296x128, uint32_t timeout_us);
 #endif
 
 /**
@@ -510,7 +510,7 @@ TF_ATTRIBUTE_NONNULL_ALL int tf_e_paper_296x128_callback_tick(TF_EPaper296x128 *
  * The Bricklet does not have any double-buffering. You should not call
  * this function while writing to the buffer. See {@link tf_e_paper_296x128_get_draw_status}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_e_paper_296x128_draw(TF_EPaper296x128 *e_paper_296x128);
+int tf_e_paper_296x128_draw(TF_EPaper296x128 *e_paper_296x128);
 
 /**
  * \ingroup BrickletEPaper296x128
@@ -525,7 +525,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_e_paper_296x128_draw(TF_EPaper296x128 *e_paper_29
  * either *idle* or *drawing*. You should not write to the buffer while it is being *copied* to the
  * display. There is no double-buffering.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_e_paper_296x128_get_draw_status(TF_EPaper296x128 *e_paper_296x128, uint8_t *ret_draw_status);
+int tf_e_paper_296x128_get_draw_status(TF_EPaper296x128 *e_paper_296x128, uint8_t *ret_draw_status);
 
 /**
  * \ingroup BrickletEPaper296x128
@@ -543,7 +543,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_e_paper_296x128_get_draw_status(TF_EPaper296x128 
  * 
  * Use {@link tf_e_paper_296x128_write_color} to write red or gray pixels.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_e_paper_296x128_write_black_white_low_level(TF_EPaper296x128 *e_paper_296x128, uint16_t x_start, uint8_t y_start, uint16_t x_end, uint8_t y_end, uint16_t pixels_length, uint16_t pixels_chunk_offset, bool pixels_chunk_data[432]);
+int tf_e_paper_296x128_write_black_white_low_level(TF_EPaper296x128 *e_paper_296x128, uint16_t x_start, uint8_t y_start, uint16_t x_end, uint8_t y_end, uint16_t pixels_length, uint16_t pixels_chunk_offset, const bool pixels_chunk_data[432]);
 
 /**
  * \ingroup BrickletEPaper296x128
@@ -557,7 +557,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_e_paper_296x128_write_black_white_low_level(TF_EP
  * It is possible that the data was not drawn to the display yet and after a restart of
  * the Bricklet the buffer will be reset to black, while the display retains its content.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_e_paper_296x128_read_black_white_low_level(TF_EPaper296x128 *e_paper_296x128, uint16_t x_start, uint8_t y_start, uint16_t x_end, uint8_t y_end, uint16_t *ret_pixels_length, uint16_t *ret_pixels_chunk_offset, bool ret_pixels_chunk_data[464]);
+int tf_e_paper_296x128_read_black_white_low_level(TF_EPaper296x128 *e_paper_296x128, uint16_t x_start, uint8_t y_start, uint16_t x_end, uint8_t y_end, uint16_t *ret_pixels_length, uint16_t *ret_pixels_chunk_offset, bool ret_pixels_chunk_data[464]);
 
 /**
  * \ingroup BrickletEPaper296x128
@@ -578,7 +578,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_e_paper_296x128_read_black_white_low_level(TF_EPa
  * 
  * Use {@link tf_e_paper_296x128_write_black_white} to write black/white pixels.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_e_paper_296x128_write_color_low_level(TF_EPaper296x128 *e_paper_296x128, uint16_t x_start, uint8_t y_start, uint16_t x_end, uint8_t y_end, uint16_t pixels_length, uint16_t pixels_chunk_offset, bool pixels_chunk_data[432]);
+int tf_e_paper_296x128_write_color_low_level(TF_EPaper296x128 *e_paper_296x128, uint16_t x_start, uint8_t y_start, uint16_t x_end, uint8_t y_end, uint16_t pixels_length, uint16_t pixels_chunk_offset, const bool pixels_chunk_data[432]);
 
 /**
  * \ingroup BrickletEPaper296x128
@@ -592,7 +592,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_e_paper_296x128_write_color_low_level(TF_EPaper29
  * It is possible that the data was not drawn to the display yet and after a restart of
  * the Bricklet the buffer will be reset to black, while the display retains its content.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_e_paper_296x128_read_color_low_level(TF_EPaper296x128 *e_paper_296x128, uint16_t x_start, uint8_t y_start, uint16_t x_end, uint8_t y_end, uint16_t *ret_pixels_length, uint16_t *ret_pixels_chunk_offset, bool ret_pixels_chunk_data[464]);
+int tf_e_paper_296x128_read_color_low_level(TF_EPaper296x128 *e_paper_296x128, uint16_t x_start, uint8_t y_start, uint16_t x_end, uint8_t y_end, uint16_t *ret_pixels_length, uint16_t *ret_pixels_chunk_offset, bool ret_pixels_chunk_data[464]);
 
 /**
  * \ingroup BrickletEPaper296x128
@@ -602,7 +602,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_e_paper_296x128_read_color_low_level(TF_EPaper296
  * This function writes the pixels into the black/white/red|gray pixel buffer, to draw the buffer
  * to the display use {@link tf_e_paper_296x128_draw}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_e_paper_296x128_fill_display(TF_EPaper296x128 *e_paper_296x128, uint8_t color);
+int tf_e_paper_296x128_fill_display(TF_EPaper296x128 *e_paper_296x128, uint8_t color);
 
 /**
  * \ingroup BrickletEPaper296x128
@@ -615,7 +615,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_e_paper_296x128_fill_display(TF_EPaper296x128 *e_
  * This function writes the pixels into the black/white/red|gray pixel buffer, to draw the buffer
  * to the display use {@link tf_e_paper_296x128_draw}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_e_paper_296x128_draw_text(TF_EPaper296x128 *e_paper_296x128, uint16_t position_x, uint8_t position_y, uint8_t font, uint8_t color, uint8_t orientation, const char text[50]);
+int tf_e_paper_296x128_draw_text(TF_EPaper296x128 *e_paper_296x128, uint16_t position_x, uint8_t position_y, uint8_t font, uint8_t color, uint8_t orientation, const char *text);
 
 /**
  * \ingroup BrickletEPaper296x128
@@ -625,7 +625,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_e_paper_296x128_draw_text(TF_EPaper296x128 *e_pap
  * This function writes the pixels into the black/white/red|gray pixel buffer, to draw the buffer
  * to the display use {@link tf_e_paper_296x128_draw}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_e_paper_296x128_draw_line(TF_EPaper296x128 *e_paper_296x128, uint16_t position_x_start, uint8_t position_y_start, uint16_t position_x_end, uint8_t position_y_end, uint8_t color);
+int tf_e_paper_296x128_draw_line(TF_EPaper296x128 *e_paper_296x128, uint16_t position_x_start, uint8_t position_y_start, uint16_t position_x_end, uint8_t position_y_end, uint8_t color);
 
 /**
  * \ingroup BrickletEPaper296x128
@@ -638,7 +638,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_e_paper_296x128_draw_line(TF_EPaper296x128 *e_pap
  * This function writes the pixels into the black/white/red|gray pixel buffer, to draw the buffer
  * to the display use {@link tf_e_paper_296x128_draw}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_e_paper_296x128_draw_box(TF_EPaper296x128 *e_paper_296x128, uint16_t position_x_start, uint8_t position_y_start, uint16_t position_x_end, uint8_t position_y_end, bool fill, uint8_t color);
+int tf_e_paper_296x128_draw_box(TF_EPaper296x128 *e_paper_296x128, uint16_t position_x_start, uint8_t position_y_start, uint16_t position_x_end, uint8_t position_y_end, bool fill, uint8_t color);
 
 /**
  * \ingroup BrickletEPaper296x128
@@ -678,14 +678,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_e_paper_296x128_draw_box(TF_EPaper296x128 *e_pape
  * three available colors a few times. This will get rid of the ghosting and after that you can
  * go back to the delta mode with flicker-free updates.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_e_paper_296x128_set_update_mode(TF_EPaper296x128 *e_paper_296x128, uint8_t update_mode);
+int tf_e_paper_296x128_set_update_mode(TF_EPaper296x128 *e_paper_296x128, uint8_t update_mode);
 
 /**
  * \ingroup BrickletEPaper296x128
  *
  * Returns the update mode as set by {@link tf_e_paper_296x128_set_update_mode}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_e_paper_296x128_get_update_mode(TF_EPaper296x128 *e_paper_296x128, uint8_t *ret_update_mode);
+int tf_e_paper_296x128_get_update_mode(TF_EPaper296x128 *e_paper_296x128, uint8_t *ret_update_mode);
 
 /**
  * \ingroup BrickletEPaper296x128
@@ -695,7 +695,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_e_paper_296x128_get_update_mode(TF_EPaper296x128 
  * during the flashing and testing phase. The value is saved in
  * non-volatile memory and will stay after a power cycle.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_e_paper_296x128_set_display_type(TF_EPaper296x128 *e_paper_296x128, uint8_t display_type);
+int tf_e_paper_296x128_set_display_type(TF_EPaper296x128 *e_paper_296x128, uint8_t display_type);
 
 /**
  * \ingroup BrickletEPaper296x128
@@ -703,7 +703,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_e_paper_296x128_set_display_type(TF_EPaper296x128
  * Returns the type of the e-paper display. It can either be
  * black/white/red or black/white/gray.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_e_paper_296x128_get_display_type(TF_EPaper296x128 *e_paper_296x128, uint8_t *ret_display_type);
+int tf_e_paper_296x128_get_display_type(TF_EPaper296x128 *e_paper_296x128, uint8_t *ret_display_type);
 
 /**
  * \ingroup BrickletEPaper296x128
@@ -715,7 +715,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_e_paper_296x128_get_display_type(TF_EPaper296x128
  * 
  * .. versionadded:: 2.0.3$nbsp;(Plugin)
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_e_paper_296x128_set_display_driver(TF_EPaper296x128 *e_paper_296x128, uint8_t display_driver);
+int tf_e_paper_296x128_set_display_driver(TF_EPaper296x128 *e_paper_296x128, uint8_t display_driver);
 
 /**
  * \ingroup BrickletEPaper296x128
@@ -724,7 +724,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_e_paper_296x128_set_display_driver(TF_EPaper296x1
  * 
  * .. versionadded:: 2.0.3$nbsp;(Plugin)
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_e_paper_296x128_get_display_driver(TF_EPaper296x128 *e_paper_296x128, uint8_t *ret_display_driver);
+int tf_e_paper_296x128_get_display_driver(TF_EPaper296x128 *e_paper_296x128, uint8_t *ret_display_driver);
 
 /**
  * \ingroup BrickletEPaper296x128
@@ -741,7 +741,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_e_paper_296x128_get_display_driver(TF_EPaper296x1
  * The errors counts are for errors that occur on the Bricklet side. All
  * Bricks have a similar function that returns the errors on the Brick side.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_e_paper_296x128_get_spitfp_error_count(TF_EPaper296x128 *e_paper_296x128, uint32_t *ret_error_count_ack_checksum, uint32_t *ret_error_count_message_checksum, uint32_t *ret_error_count_frame, uint32_t *ret_error_count_overflow);
+int tf_e_paper_296x128_get_spitfp_error_count(TF_EPaper296x128 *e_paper_296x128, uint32_t *ret_error_count_ack_checksum, uint32_t *ret_error_count_message_checksum, uint32_t *ret_error_count_frame, uint32_t *ret_error_count_overflow);
 
 /**
  * \ingroup BrickletEPaper296x128
@@ -756,14 +756,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_e_paper_296x128_get_spitfp_error_count(TF_EPaper2
  * This function is used by Brick Viewer during flashing. It should not be
  * necessary to call it in a normal user program.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_e_paper_296x128_set_bootloader_mode(TF_EPaper296x128 *e_paper_296x128, uint8_t mode, uint8_t *ret_status);
+int tf_e_paper_296x128_set_bootloader_mode(TF_EPaper296x128 *e_paper_296x128, uint8_t mode, uint8_t *ret_status);
 
 /**
  * \ingroup BrickletEPaper296x128
  *
  * Returns the current bootloader mode, see {@link tf_e_paper_296x128_set_bootloader_mode}.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_e_paper_296x128_get_bootloader_mode(TF_EPaper296x128 *e_paper_296x128, uint8_t *ret_mode);
+int tf_e_paper_296x128_get_bootloader_mode(TF_EPaper296x128 *e_paper_296x128, uint8_t *ret_mode);
 
 /**
  * \ingroup BrickletEPaper296x128
@@ -775,7 +775,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_e_paper_296x128_get_bootloader_mode(TF_EPaper296x
  * This function is used by Brick Viewer during flashing. It should not be
  * necessary to call it in a normal user program.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_e_paper_296x128_set_write_firmware_pointer(TF_EPaper296x128 *e_paper_296x128, uint32_t pointer);
+int tf_e_paper_296x128_set_write_firmware_pointer(TF_EPaper296x128 *e_paper_296x128, uint32_t pointer);
 
 /**
  * \ingroup BrickletEPaper296x128
@@ -789,7 +789,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_e_paper_296x128_set_write_firmware_pointer(TF_EPa
  * This function is used by Brick Viewer during flashing. It should not be
  * necessary to call it in a normal user program.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_e_paper_296x128_write_firmware(TF_EPaper296x128 *e_paper_296x128, uint8_t data[64], uint8_t *ret_status);
+int tf_e_paper_296x128_write_firmware(TF_EPaper296x128 *e_paper_296x128, const uint8_t data[64], uint8_t *ret_status);
 
 /**
  * \ingroup BrickletEPaper296x128
@@ -802,14 +802,14 @@ TF_ATTRIBUTE_NONNULL(1) int tf_e_paper_296x128_write_firmware(TF_EPaper296x128 *
  * 
  * If the Bricklet is in bootloader mode, the LED is will show heartbeat by default.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_e_paper_296x128_set_status_led_config(TF_EPaper296x128 *e_paper_296x128, uint8_t config);
+int tf_e_paper_296x128_set_status_led_config(TF_EPaper296x128 *e_paper_296x128, uint8_t config);
 
 /**
  * \ingroup BrickletEPaper296x128
  *
  * Returns the configuration as set by {@link tf_e_paper_296x128_set_status_led_config}
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_e_paper_296x128_get_status_led_config(TF_EPaper296x128 *e_paper_296x128, uint8_t *ret_config);
+int tf_e_paper_296x128_get_status_led_config(TF_EPaper296x128 *e_paper_296x128, uint8_t *ret_config);
 
 /**
  * \ingroup BrickletEPaper296x128
@@ -821,7 +821,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_e_paper_296x128_get_status_led_config(TF_EPaper29
  * accuracy. Practically it is only useful as an indicator for
  * temperature changes.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_e_paper_296x128_get_chip_temperature(TF_EPaper296x128 *e_paper_296x128, int16_t *ret_temperature);
+int tf_e_paper_296x128_get_chip_temperature(TF_EPaper296x128 *e_paper_296x128, int16_t *ret_temperature);
 
 /**
  * \ingroup BrickletEPaper296x128
@@ -833,7 +833,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_e_paper_296x128_get_chip_temperature(TF_EPaper296
  * calling functions on the existing ones will result in
  * undefined behavior!
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_e_paper_296x128_reset(TF_EPaper296x128 *e_paper_296x128);
+int tf_e_paper_296x128_reset(TF_EPaper296x128 *e_paper_296x128);
 
 /**
  * \ingroup BrickletEPaper296x128
@@ -844,7 +844,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_e_paper_296x128_reset(TF_EPaper296x128 *e_paper_2
  * 
  * We recommend that you use Brick Viewer to change the UID.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_e_paper_296x128_write_uid(TF_EPaper296x128 *e_paper_296x128, uint32_t uid);
+int tf_e_paper_296x128_write_uid(TF_EPaper296x128 *e_paper_296x128, uint32_t uid);
 
 /**
  * \ingroup BrickletEPaper296x128
@@ -852,7 +852,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_e_paper_296x128_write_uid(TF_EPaper296x128 *e_pap
  * Returns the current UID as an integer. Encode as
  * Base58 to get the usual string version.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_e_paper_296x128_read_uid(TF_EPaper296x128 *e_paper_296x128, uint32_t *ret_uid);
+int tf_e_paper_296x128_read_uid(TF_EPaper296x128 *e_paper_296x128, uint32_t *ret_uid);
 
 /**
  * \ingroup BrickletEPaper296x128
@@ -868,7 +868,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_e_paper_296x128_read_uid(TF_EPaper296x128 *e_pape
  * The device identifier numbers can be found :ref:`here <device_identifier>`.
  * |device_identifier_constant|
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_e_paper_296x128_get_identity(TF_EPaper296x128 *e_paper_296x128, char ret_uid[8], char ret_connected_uid[8], char *ret_position, uint8_t ret_hardware_version[3], uint8_t ret_firmware_version[3], uint16_t *ret_device_identifier);
+int tf_e_paper_296x128_get_identity(TF_EPaper296x128 *e_paper_296x128, char ret_uid[8], char ret_connected_uid[8], char *ret_position, uint8_t ret_hardware_version[3], uint8_t ret_firmware_version[3], uint16_t *ret_device_identifier);
 
 /**
  * \ingroup BrickletEPaper296x128
@@ -886,7 +886,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_e_paper_296x128_get_identity(TF_EPaper296x128 *e_
  * 
  * Use {@link tf_e_paper_296x128_write_color} to write red or gray pixels.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_e_paper_296x128_write_black_white(TF_EPaper296x128 *e_paper_296x128, uint16_t x_start, uint8_t y_start, uint16_t x_end, uint8_t y_end, bool *pixels, uint16_t pixels_length);
+int tf_e_paper_296x128_write_black_white(TF_EPaper296x128 *e_paper_296x128, uint16_t x_start, uint8_t y_start, uint16_t x_end, uint8_t y_end, const bool *pixels, uint16_t pixels_length);
 
 /**
  * \ingroup BrickletEPaper296x128
@@ -900,7 +900,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_e_paper_296x128_write_black_white(TF_EPaper296x12
  * It is possible that the data was not drawn to the display yet and after a restart of
  * the Bricklet the buffer will be reset to black, while the display retains its content.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_e_paper_296x128_read_black_white(TF_EPaper296x128 *e_paper_296x128, uint16_t x_start, uint8_t y_start, uint16_t x_end, uint8_t y_end, bool *ret_pixels, uint16_t *ret_pixels_length);
+int tf_e_paper_296x128_read_black_white(TF_EPaper296x128 *e_paper_296x128, uint16_t x_start, uint8_t y_start, uint16_t x_end, uint8_t y_end, bool *ret_pixels, uint16_t *ret_pixels_length);
 
 /**
  * \ingroup BrickletEPaper296x128
@@ -921,7 +921,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_e_paper_296x128_read_black_white(TF_EPaper296x128
  * 
  * Use {@link tf_e_paper_296x128_write_black_white} to write black/white pixels.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_e_paper_296x128_write_color(TF_EPaper296x128 *e_paper_296x128, uint16_t x_start, uint8_t y_start, uint16_t x_end, uint8_t y_end, bool *pixels, uint16_t pixels_length);
+int tf_e_paper_296x128_write_color(TF_EPaper296x128 *e_paper_296x128, uint16_t x_start, uint8_t y_start, uint16_t x_end, uint8_t y_end, const bool *pixels, uint16_t pixels_length);
 
 /**
  * \ingroup BrickletEPaper296x128
@@ -935,7 +935,7 @@ TF_ATTRIBUTE_NONNULL(1) int tf_e_paper_296x128_write_color(TF_EPaper296x128 *e_p
  * It is possible that the data was not drawn to the display yet and after a restart of
  * the Bricklet the buffer will be reset to black, while the display retains its content.
  */
-TF_ATTRIBUTE_NONNULL(1) int tf_e_paper_296x128_read_color(TF_EPaper296x128 *e_paper_296x128, uint16_t x_start, uint8_t y_start, uint16_t x_end, uint8_t y_end, bool *ret_pixels, uint16_t *ret_pixels_length);
+int tf_e_paper_296x128_read_color(TF_EPaper296x128 *e_paper_296x128, uint16_t x_start, uint8_t y_start, uint16_t x_end, uint8_t y_end, bool *ret_pixels, uint16_t *ret_pixels_length);
 
 #ifdef __cplusplus
 }
