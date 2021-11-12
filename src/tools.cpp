@@ -36,18 +36,7 @@ extern EventLog logger;
 bool deadline_elapsed(uint32_t deadline_ms) {
     uint32_t now = millis();
 
-    if(now < deadline_ms) {
-        uint32_t diff = deadline_ms - now;
-        if (diff < UINT32_MAX / 2)
-            return false;
-        return true;
-    }
-    else {
-        uint32_t diff = now - deadline_ms;
-        if(diff > UINT32_MAX / 2)
-            return false;
-        return true;
-    }
+    return ((uint32_t)(now - deadline_ms)) < (UINT32_MAX / 2);
 }
 
 bool find_uid_by_did(TF_HalContext *hal, uint16_t device_id, char uid[7]) {
